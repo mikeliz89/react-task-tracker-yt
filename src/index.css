@@ -110,3 +110,9 @@ footer {
   margin-top: 30px;
   text-align: center;
 }
+
+/* Miikan omat */
+.deleteTaskBtn:hover {
+    font-style:bold;
+    color:orange !important;
+}
