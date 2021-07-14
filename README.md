@@ -31,6 +31,11 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+Then you can use production build as local server by installing
+'npm install -g serve'
+and running
+'serve -s build -p 8000'
+
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
