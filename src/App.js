@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Tasks from './components/Tasks';
 import AddTask from './components/AddTask'
@@ -8,27 +8,26 @@ function App() {
 
   //states
   const [showAddTask, setShowAddTask] = useState(false)
+  const [tasks, setTasks] = useState([])
 
-  const [tasks, setTasks] = useState([
-    {
-        id: 1,
-        text: 'Irrota WC:n muovimatto',
-        day: 'Jul 14th at 2:30pm',
-        reminder: false
-    },
-    {
-        id: 2,
-        text: 'Palauta Audi Jonnelle',
-        day: 'Jul 14th at 10:00am',
-        reminder: true
-    },
-    {
-        id: 3,
-        text: 'Laita pyykkiä pyörimään koneeseen',
-        day: 'Jul 13th at 8:01pm',
-        reminder: false
+  //load data
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
     }
-])
+    getTasks()
+  }, [])
+
+  //Fetch Tasks
+  const fetchTasks = async () => {
+
+    //from json-server
+    const res = await fetch('http://localhost:5000/tasks')
+    const data = await res.json()
+
+    return data
+  }
 
   // Toggle Reminder
   const toggleReminder = (id) => {

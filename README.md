@@ -8,6 +8,13 @@ This code project is based on youtube tutorial, url https://www.youtube.com/watc
 
 In the project directory, you can run:
 
+### How to run json-server
+Install with 
+npm install json-server (or globally npm install -g json-server)
+
+Run json-server with
+json-server --watch db.json -p 5000
+
 ### `npm start`
 
 Runs the app in the development mode.\
