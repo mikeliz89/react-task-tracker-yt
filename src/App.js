@@ -100,9 +100,8 @@ function App() {
         <Header title="Miikan Task Tracker" 
         onAdd={() => setShowAddTask(!showAddTask)}
         showAdd={showAddTask}></Header>
-        
         <Routes>
-          <Route path='/' exact element={
+          <Route path='/' element={
             <>
             {showAddTask && <AddTask onAdd={addTask} />}
             {tasks.length > 0 ? (
