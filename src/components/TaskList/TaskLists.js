@@ -1,4 +1,4 @@
-import TaskList from './TaskList'
+import TaskList from '../TaskList/TaskList'
 
 const TaskLists = ({taskLists, onDelete}) => {
     return (

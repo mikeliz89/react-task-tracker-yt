@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react';
 import { useParams, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import Button from './Button';
-import AddTask from './AddTask';
-import Tasks from './Tasks';
+import Button from '../Button';
+import AddTask from '../Task/AddTask';
+import Tasks from '../Task/Tasks';
 
 function TaskListDetails() {
 

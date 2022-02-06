@@ -5,10 +5,11 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import About from './components/About'
 
-import TaskLists from './components/TaskLists';
-import TaskListDetails from './components/TaskListDetails';
-import AddTaskList from './components/AddTaskList';
-import TaskDetails from './components/TaskDetails';
+import TaskLists from './components/TaskList/TaskLists';
+import TaskListDetails from './components/TaskList/TaskListDetails';
+import AddTaskList from './components/TaskList/AddTaskList';
+
+import TaskDetails from './components/Task/TaskDetails';
 
 function App() {
 

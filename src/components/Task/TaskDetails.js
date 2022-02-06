@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { useParams, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import Button from './Button';
+import Button from '../Button';
 
 function TaskDetails() {
 
