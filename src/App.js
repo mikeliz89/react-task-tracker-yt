@@ -3,122 +3,97 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import Tasks from './components/Tasks';
-import AddTask from './components/AddTask'
 import About from './components/About'
+
+import TaskLists from './components/TaskLists';
+import TaskListDetails from './components/TaskListDetails';
+import AddTaskList from './components/AddTaskList';
 import TaskDetails from './components/TaskDetails';
 
 function App() {
 
   //states
-  const [showAddTask, setShowAddTask] = useState(false)
-  const [tasks, setTasks] = useState([])
+  const [showAddTaskList, setShowAddTaskList] = useState(false)
+  const [taskLists, setTaskLists] = useState({"title": "", "id":0, "description": ""})
 
-  const url = 'http://localhost:5000/tasks'
+  const taskListUrl = 'http://localhost:5000/tasklists'
 
   //load data
   useEffect(() => {
-    const getTasks = async () => {
-      const tasksFromServer = await fetchTasks()
-      setTasks(tasksFromServer)
+    const getTaskLists = async () => {
+      const taskListsFromServer = await fetchTaskLists()
+      setTaskLists(taskListsFromServer)
     }
-    getTasks()
+    getTaskLists()
   }, [])
 
-  //Fetch Tasks
-  const fetchTasks = async () => {
-
-    const res = await fetch(url)
+  //Fetch Task Lists
+  const fetchTaskLists = async () => {
+    const res = await fetch(taskListUrl)
     const data = await res.json()
-
     return data
   }
 
-  //Fetch Task
-  const fetchTask = async (id) => {
-
-    const res = await fetch(`${url}/${id}`)
+  //Fetch Task List
+  const fetchTaskList = async (id) => {
+    const res = await fetch(`${taskListUrl}/${id}`)
     const data = await res.json()
-
     return data
   }
 
-  // Add Task
-  const addTask = async (task) => {
+  // Add Task List
+  const addTaskList = async (taskList) => {
 
-    const res = await fetch(url,
+    const res = await fetch(taskListUrl,
     {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
       },
-      body: JSON.stringify(task)
+      body: JSON.stringify(taskList)
     })
 
     const data = await res.json()
 
-    setTasks([...tasks, data])
+    setTaskLists([...taskLists, data])
   }
 
-  // Delete Task
-  const deleteTask = async (id) => {
+  // Delete Task List
+  const deleteTaskList = async (id) => {
 
-    await fetch(`${url}/${id}`,
+    await fetch(`${taskListUrl}/${id}`,
       {
         method: 'DELETE'
       });
 
-    setTasks(tasks.filter((task) => task.id !== id))
-  }
-
-  // Toggle Reminder
-  const toggleReminder = async (id) => {
-
-    const taskToToggle = await fetchTask(id)
-    const updatedTask = {...taskToToggle, reminder: !taskToToggle.reminder}
-
-    const res = await fetch(`${url}/${id}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(updatedTask)
-      })
-
-    const data = await res.json()
-
-    setTasks(
-      tasks.map((task) => 
-        task.id == id ? { ...task, reminder: data.reminder}: task
-      )
-    );
+    setTaskLists(taskLists.filter((taskList) => taskList.id !== id))
   }
 
   return (
     <Router>
       <div className="container">
         <Header title="Miikan Task Tracker" 
-        onAdd={() => setShowAddTask(!showAddTask)}
-        showAdd={showAddTask}></Header>
+        onAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
+        showAdd={showAddTaskList}></Header>
         <Routes>
           <Route path='/' element={
             <>
-            {showAddTask && <AddTask onAdd={addTask} />}
-            {tasks.length > 0 ? (
-            <Tasks 
-            tasks={tasks} 
-            onDelete={deleteTask} 
-            onToggle={toggleReminder} 
+            {/* <pre>{JSON.stringify(taskLists)}</pre> */}
+            {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
+            {taskLists.length > 0 ? (
+            <TaskLists
+            taskLists={taskLists} 
+            onDelete={deleteTaskList} 
               />
             ) : (
-              'No Tasks To Show'
+              'No Task Lists To Show'
             )}
             </>
           }
           />
           <Route path='/about' element={<About />} />
           <Route path='/task/:id' element={<TaskDetails />} />
+          <Route path='/tasklist/:id' element={<TaskListDetails />} />
         </Routes>
         <Footer />
       </div>  
