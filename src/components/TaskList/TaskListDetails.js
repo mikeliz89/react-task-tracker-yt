@@ -4,6 +4,9 @@ import Button from '../Button';
 import AddTask from '../Task/AddTask';
 import Tasks from '../Task/Tasks';
 
+import { db } from '../../firebase-config';
+import { set, ref, onValue } from "firebase/database";
+
 function TaskListDetails() {
 
     const taskUrl = 'http://localhost:5000/tasks'
@@ -22,36 +25,70 @@ function TaskListDetails() {
 
     //load data
     useEffect(() => {
-        //Task list
-        const fetchTaskList = async () => {
-            const res = await fetch(`${taskListUrl}/${params.id}`)
-            const data = await res.json()
+      //https://dev.to/jexperton/how-to-fix-the-react-memory-leak-warning-d4i
+      let cancel = false;
 
-            if(res.status === 404) {
-                navigate('/')
-            }
+      //Task List
+      const getTaskList = async () => {
+        if(cancel) return;
+        //await fetchTaskListFromFirebase()
+        const taskListFromServer = await fetchTaskListFromJsonServer()
+        setTaskList(taskListFromServer)
+        setLoading(false)
+      }
+      getTaskList()
 
-            setTaskList(data)
-            setLoading(false)
+      //Tasks
+      const getTasks = async () => {
+          //await fetchTasksFromFirebase()
+          const tasksFromServer = await fetchTasksFromJsonServer()
+          setTasks(tasksFromServer)
         }
-        fetchTaskList()
+      getTasks()
 
-        //Tasks
-        const getTasks = async () => {
-            const tasksFromServer = await fetchTasks()
-            setTasks(tasksFromServer)
-          }
-        getTasks()
+      return () => { 
+        cancel = true;
+      }
     }, [])
 
-    //Fetch Tasks
-    const fetchTasks = async () => {
-        const res = await fetch(taskUrl)
-        const data = await res.json()
-        return data
+  //Fetch Task List
+  const fetchTaskListFromJsonServer = async () => {
+    const res = await fetch(`${taskListUrl}/${params.id}`)
+    const data = await res.json()
+    if(res.status === 404) {
+        navigate('/')
     }
+    return data
+  }
 
-    //Fetch Task
+  const fetchTaskListFromFirebase = async () => {
+    const dbref = await ref(db, '/tasklists/' + (params.id - 1));
+    onValue(dbref, (snapshot) => {
+      const data = snapshot.val();
+      if(data === null) {
+        navigate('/')
+      }
+      setTaskList(data)
+      setLoading(false);
+    })
+  }
+
+  //Fetch Tasks
+  const fetchTasksFromJsonServer = async () => {
+      const res = await fetch(taskUrl)
+      const data = await res.json()
+      return data
+  }
+
+  const fetchTasksFromFirebase = async () => {
+      const dbref = await ref(db, '/tasks');
+      onValue(dbref, (snapshot) => {
+        const data = snapshot.val();
+        setTasks(data);
+      })
+  }
+
+  //Fetch Task
   const fetchTask = async (id) => {
 
     const res = await fetch(`${taskUrl}/${id}`)
@@ -62,7 +99,7 @@ function TaskListDetails() {
 
   // Add Task
   const addTask = async (task) => {
-
+    //To json server
     const res = await fetch(taskUrl,
     {
       method: 'POST',
@@ -71,46 +108,58 @@ function TaskListDetails() {
       },
       body: JSON.stringify(task)
     })
-
     const data = await res.json()
+    
+    //To firebase
+    //TODO: Rakenna toimivaksi
+    //const dbref = await ref(db, "tasks");
+    //set(dbref, {description:"test", title: "test"});
 
-    setTasks([...tasks, data])
+    setTasks([...tasks, task])
   }
 
   // Delete Task
   const deleteTask = async (id) => {
 
+    //delete from json server
     await fetch(`${taskUrl}/${id}`,
       {
         method: 'DELETE'
       });
 
+    //delete from firebase
+    //TODO: Rakenna
+
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
-    // Toggle Reminder
-    const toggleReminder = async (id) => {
+  // Toggle Reminder
+  const toggleReminder = async (id) => {
 
-        const taskToToggle = await fetchTask(id)
-        const updatedTask = {...taskToToggle, reminder: !taskToToggle.reminder}
+      //to json server
+      const taskToToggle = await fetchTask(id)
+      const updatedTask = {...taskToToggle, reminder: !taskToToggle.reminder}
 
-        const res = await fetch(`${taskUrl}/${id}`,
-            {
-            method: 'PUT',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(updatedTask)
-            })
+      const res = await fetch(`${taskUrl}/${id}`,
+          {
+          method: 'PUT',
+          headers: {
+              'Content-type': 'application/json'
+          },
+          body: JSON.stringify(updatedTask)
+          })
 
-        const data = await res.json()
+      const data = await res.json()
 
-        setTasks(
-            tasks.map((task) => 
-            task.id == id ? { ...task, reminder: data.reminder}: task
-            )
-        );
-    }
+      //to firebase 
+      //TODO: Rakenna
+
+      setTasks(
+          tasks.map((task) => 
+          task.id == id ? { ...task, reminder: data.reminder}: task
+          )
+      );
+  }
 
   return loading ? (
   <h3>Loading...</h3>
@@ -125,7 +174,7 @@ function TaskListDetails() {
               onClick={() => setShowAddTask(!showAddTask)}
                />
       {showAddTask && <AddTask onAddTask={addTask} />}
-            {tasks.length > 0 ? (
+            {tasks != null && tasks.length > 0 ? (
             <Tasks
             tasks={tasks} 
             onDelete={deleteTask}

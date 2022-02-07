@@ -11,6 +11,9 @@ import AddTaskList from './components/TaskList/AddTaskList';
 
 import TaskDetails from './components/Task/TaskDetails';
 
+import { db } from './firebase-config';
+import { ref, onValue } from "firebase/database";
+
 function App() {
 
   //states
@@ -22,29 +25,34 @@ function App() {
   //load data
   useEffect(() => {
     const getTaskLists = async () => {
-      const taskListsFromServer = await fetchTaskLists()
+      //await fetchTaskListsFromFireBase()
+      const taskListsFromServer = await fetchTaskListsFromJsonServer()
       setTaskLists(taskListsFromServer)
     }
     getTaskLists()
   }, [])
 
   //Fetch Task Lists
-  const fetchTaskLists = async () => {
+  const fetchTaskListsFromJsonServer = async () => {
     const res = await fetch(taskListUrl)
     const data = await res.json()
     return data
   }
 
-  //Fetch Task List
-  const fetchTaskList = async (id) => {
-    const res = await fetch(`${taskListUrl}/${id}`)
-    const data = await res.json()
-    return data
+  const fetchTaskListsFromFireBase = async () => {
+    const dbref = await ref(db, '/tasklists');
+    onValue(dbref, (snapshot) => {
+      const data = snapshot.val();
+
+      //todo: jos palautuu null, lisää firebaseen tyhjä taskLists-taulukko?
+      setTaskLists(data)
+    })
   }
 
   // Add Task List
   const addTaskList = async (taskList) => {
 
+    //To json server
     const res = await fetch(taskListUrl,
     {
       method: 'POST',
@@ -56,16 +64,22 @@ function App() {
 
     const data = await res.json()
 
+    //To firebase
+    //TODO: Rakenna
     setTaskLists([...taskLists, data])
   }
 
   // Delete Task List
   const deleteTaskList = async (id) => {
 
+    //From json server
     await fetch(`${taskListUrl}/${id}`,
       {
         method: 'DELETE'
       });
+
+    //From firebase
+    //TODO: Rakenna
 
     setTaskLists(taskLists.filter((taskList) => taskList.id !== id))
   }
@@ -81,7 +95,7 @@ function App() {
             <>
             {/* <pre>{JSON.stringify(taskLists)}</pre> */}
             {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
-            {taskLists.length > 0 ? (
+            {taskLists != null && taskLists.length > 0 ? (
             <TaskLists
             taskLists={taskLists} 
             onDelete={deleteTaskList} 

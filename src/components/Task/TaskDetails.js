@@ -16,20 +16,29 @@ function TaskDetails() {
 
     //load data
     useEffect(() => {
-        const fetchTask = async () => {
+        const getTask = async () => {
+
+            const taskFromServer = await fetchTaskFromJsonServer()
+
+            setTask(taskFromServer)
+            setLoading(false)
+
             const res = await fetch(`${taskUrl}/${params.id}`)
             const data = await res.json()
-
-            if(res.status === 404) {
-                navigate('/')
-            }
-
-            setTask(data)
-            setLoading(false)
         }
 
-        fetchTask()
+        getTask()
     }, [])
+
+    //Fetch Task
+    const fetchTaskFromJsonServer = async () => {
+        const res = await fetch(`${taskUrl}/${params.id}`)
+        const data = await res.json()
+        if(res.status === 404) {
+            navigate('/')
+        }
+        return data
+    }
 
   return loading ? (
   <h3>Loading...</h3>
