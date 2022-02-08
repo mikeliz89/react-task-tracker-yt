@@ -1,27 +1,27 @@
 import {useState, useEffect} from 'react';
-import { useParams, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate /*, useLocation */ } from 'react-router-dom';
 import Button from '../Button';
 import AddTask from '../Task/AddTask';
 import Tasks from '../Task/Tasks';
 
 import { db } from '../../firebase-config';
-import { set, ref, onValue } from "firebase/database";
+import { update, ref, onValue, push, child, remove, get } from "firebase/database";
 
 function TaskListDetails() {
 
-    const taskUrl = 'http://localhost:5000/tasks'
-    const taskListUrl = 'http://localhost:5000/tasklists'
+    //const taskUrl = 'http://localhost:5000/tasks'
+    //const taskListUrl = 'http://localhost:5000/tasklists'
 
     //states
     const [loading, setLoading] = useState(true)
     const [taskList, setTaskList] = useState({})
-    const [error, setError] = useState(null)
+    //const [error, setError] = useState(null)
     const [showAddTask, setShowAddTask] = useState(false)
-    const [tasks, setTasks] = useState([])
+    const [tasks, setTasks] = useState()
 
     const params = useParams();
     const navigate = useNavigate();
-    const { pathname } = useLocation()
+    //const { pathname } = useLocation()
 
     //load data
     useEffect(() => {
@@ -31,18 +31,22 @@ function TaskListDetails() {
       //Task List
       const getTaskList = async () => {
         if(cancel) return;
-        //await fetchTaskListFromFirebase()
+        await fetchTaskListFromFirebase()
+        /*
         const taskListFromServer = await fetchTaskListFromJsonServer()
         setTaskList(taskListFromServer)
         setLoading(false)
+        */
       }
       getTaskList()
 
       //Tasks
       const getTasks = async () => {
-          //await fetchTasksFromFirebase()
+          await fetchTasksFromFirebase()
+          /*
           const tasksFromServer = await fetchTasksFromJsonServer()
           setTasks(tasksFromServer)
+          */
         }
       getTasks()
 
@@ -52,6 +56,7 @@ function TaskListDetails() {
     }, [])
 
   //Fetch Task List
+  /*
   const fetchTaskListFromJsonServer = async () => {
     const res = await fetch(`${taskListUrl}/${params.id}`)
     const data = await res.json()
@@ -60,9 +65,10 @@ function TaskListDetails() {
     }
     return data
   }
+  */
 
   const fetchTaskListFromFirebase = async () => {
-    const dbref = await ref(db, '/tasklists/' + (params.id - 1));
+    const dbref = await ref(db, '/tasklists/' + params.id);
     onValue(dbref, (snapshot) => {
       const data = snapshot.val();
       if(data === null) {
@@ -74,32 +80,39 @@ function TaskListDetails() {
   }
 
   //Fetch Tasks
+  /* 
   const fetchTasksFromJsonServer = async () => {
       const res = await fetch(taskUrl)
       const data = await res.json()
       return data
   }
+  */
 
   const fetchTasksFromFirebase = async () => {
-      const dbref = await ref(db, '/tasks');
+      const dbref = await child(ref(db, '/tasks'), params.id);
       onValue(dbref, (snapshot) => {
-        const data = snapshot.val();
-        setTasks(data);
+        const snap = snapshot.val();
+        const tasks = [];
+        for(let id in snap) {
+          tasks.push({id, ...snap[id]});
+        }
+        setTasks(tasks);
       })
   }
 
   //Fetch Task
-  const fetchTask = async (id) => {
-
+  /*
+  const fetchTaskFromJsonServer = async (id) => {
     const res = await fetch(`${taskUrl}/${id}`)
     const data = await res.json()
-
     return data
   }
+  */
 
   // Add Task
-  const addTask = async (task) => {
+  const addTask = async (taskListID, task) => {
     //To json server
+    /*
     const res = await fetch(taskUrl,
     {
       method: 'POST',
@@ -109,35 +122,37 @@ function TaskListDetails() {
       body: JSON.stringify(task)
     })
     const data = await res.json()
-    
-    //To firebase
-    //TODO: Rakenna toimivaksi
-    //const dbref = await ref(db, "tasks");
-    //set(dbref, {description:"test", title: "test"});
-
     setTasks([...tasks, task])
+    */
+
+    //To firebase
+    const dbref = child(ref(db, '/tasks'), taskListID);
+    push(dbref, task);   
   }
 
   // Delete Task
-  const deleteTask = async (id) => {
+  const deleteTask = async (taskListID, id) => {
 
     //delete from json server
+    /*
     await fetch(`${taskUrl}/${id}`,
       {
         method: 'DELETE'
       });
+    setTasks(tasks.filter((task) => task.id !== id))
+    */
 
     //delete from firebase
-    //TODO: Rakenna
-
-    setTasks(tasks.filter((task) => task.id !== id))
+    const dbref = ref(db, '/tasks/' + taskListID + "/" + id)
+    remove(dbref)
   }
 
   // Toggle Reminder
-  const toggleReminder = async (id) => {
+  const toggleReminder = async (taskListID, id) => {
 
       //to json server
-      const taskToToggle = await fetchTask(id)
+      /*
+      const taskToToggle = await fetchTaskFromJsonServer(id)
       const updatedTask = {...taskToToggle, reminder: !taskToToggle.reminder}
 
       const res = await fetch(`${taskUrl}/${id}`,
@@ -150,15 +165,25 @@ function TaskListDetails() {
           })
 
       const data = await res.json()
-
-      //to firebase 
-      //TODO: Rakenna
-
       setTasks(
           tasks.map((task) => 
           task.id == id ? { ...task, reminder: data.reminder}: task
           )
       );
+      */
+
+      //to firebase
+      const dbref = ref(db, '/tasks/' + taskListID + '/' + id);
+      get(dbref).then((snapshot) => {
+        if (snapshot.exists()) {
+          const updates = {};
+          const oldReminder = snapshot.val()["reminder"];
+          updates['/tasks/' + taskListID + '/' + id + '/reminder'] = !oldReminder;
+          update(ref(db), updates);
+        } else {
+          console.log("No data available");
+        }
+      });
   }
 
   return loading ? (
@@ -173,10 +198,11 @@ function TaskListDetails() {
               text={showAddTask ? 'Close' : 'Add Task'}
               onClick={() => setShowAddTask(!showAddTask)}
                />
-      {showAddTask && <AddTask onAddTask={addTask} />}
+      {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
             {tasks != null && tasks.length > 0 ? (
             <Tasks
-            tasks={tasks} 
+            taskListID={params.id}
+            tasks={tasks}
             onDelete={deleteTask}
             onToggle={toggleReminder}
               />

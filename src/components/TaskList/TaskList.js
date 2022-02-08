@@ -1,6 +1,5 @@
 import { FaTimes} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
 
 const TaskList = ({taskList, onDelete}) => {
 

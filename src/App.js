@@ -12,40 +12,46 @@ import AddTaskList from './components/TaskList/AddTaskList';
 import TaskDetails from './components/Task/TaskDetails';
 
 import { db } from './firebase-config';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, push, child, remove } from "firebase/database";
 
 function App() {
 
   //states
   const [showAddTaskList, setShowAddTaskList] = useState(false)
-  const [taskLists, setTaskLists] = useState({"title": "", "id":0, "description": ""})
+  const [taskLists, setTaskLists] = useState()
 
-  const taskListUrl = 'http://localhost:5000/tasklists'
+  //const taskListUrl = 'http://localhost:5000/tasklists'
 
   //load data
   useEffect(() => {
     const getTaskLists = async () => {
-      //await fetchTaskListsFromFireBase()
+      await fetchTaskListsFromFireBase()
+      /*
       const taskListsFromServer = await fetchTaskListsFromJsonServer()
       setTaskLists(taskListsFromServer)
+      */
     }
     getTaskLists()
   }, [])
 
   //Fetch Task Lists
+  /*
   const fetchTaskListsFromJsonServer = async () => {
     const res = await fetch(taskListUrl)
     const data = await res.json()
     return data
   }
+  */
 
   const fetchTaskListsFromFireBase = async () => {
     const dbref = await ref(db, '/tasklists');
     onValue(dbref, (snapshot) => {
-      const data = snapshot.val();
-
-      //todo: jos palautuu null, lisää firebaseen tyhjä taskLists-taulukko?
-      setTaskLists(data)
+      const snap = snapshot.val();
+      const taskLists = [];
+      for(let id in snap) {
+        taskLists.push({id, ...snap[id]});
+      }
+      setTaskLists(taskLists)
     })
   }
 
@@ -53,6 +59,7 @@ function App() {
   const addTaskList = async (taskList) => {
 
     //To json server
+    /*
     const res = await fetch(taskListUrl,
     {
       method: 'POST',
@@ -61,27 +68,30 @@ function App() {
       },
       body: JSON.stringify(taskList)
     })
-
     const data = await res.json()
+    setTaskLists([...taskLists, data])
+    */
 
     //To firebase
-    //TODO: Rakenna
-    setTaskLists([...taskLists, data])
+    const dbref = ref(db, '/tasklists');
+    push(dbref, taskList);
   }
 
   // Delete Task List
   const deleteTaskList = async (id) => {
 
     //From json server
+    /*
     await fetch(`${taskListUrl}/${id}`,
       {
         method: 'DELETE'
       });
+    setTaskLists(taskLists.filter((taskList) => taskList.id !== id))
+    */
 
     //From firebase
-    //TODO: Rakenna
-
-    setTaskLists(taskLists.filter((taskList) => taskList.id !== id))
+    const dbref = child(ref(db, '/tasklists'), id)
+    remove(dbref)
   }
 
   return (
@@ -93,7 +103,6 @@ function App() {
         <Routes>
           <Route path='/' element={
             <>
-            {/* <pre>{JSON.stringify(taskLists)}</pre> */}
             {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
             {taskLists != null && taskLists.length > 0 ? (
             <TaskLists

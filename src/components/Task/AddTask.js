@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const AddTask = ({onAddTask}) => {
+const AddTask = ({taskListID, onAddTask}) => {
     //states
     const [text, setText] = useState('')
     const [day, setDay] = useState('')
@@ -16,7 +16,7 @@ const AddTask = ({onAddTask}) => {
         }
 
         //call the App.js
-        onAddTask( { text, day, reminder })
+        onAddTask( taskListID, { text, day, reminder })
 
         //clear the form
         setText('')

@@ -3,11 +3,13 @@ import TaskList from '../TaskList/TaskList'
 const TaskLists = ({taskLists, onDelete}) => {
     return (
         <>
-          {taskLists.map((taskList) => (
+          {taskLists 
+            ? taskLists.map((taskList, index) =>
             <TaskList 
             key={taskList.id} 
             taskList={taskList} 
-            onDelete={onDelete} />))}  
+            onDelete={onDelete} />) : ''
+          }
         </>
     )
 }
