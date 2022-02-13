@@ -90,6 +90,12 @@ function App() {
     */
 
     //From firebase
+
+    //delete tasks
+    const dbrefTasks = ref(db, '/tasks/' + id);
+    remove(dbrefTasks);
+
+    //delete task list
     const dbref = child(ref(db, '/tasklists'), id)
     remove(dbref)
   }
