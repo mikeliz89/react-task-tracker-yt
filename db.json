@@ -1,11 +1,17 @@
 {
-  "tasks": [
+  "tasklists": [
     {
-      "id": 1,
-      "text": "Irrota WC:n muovimatto",
-      "day": "Jul 14th at 2:30pm",
-      "reminder": false
+      "title": "Ensimmäinen lista",
+      "description": "Kauppalista 6.2.2022",
+      "id": 1
     },
+    {
+      "title": "Toinen lista",
+      "description": "Kauppalista 5.2.2022",
+      "id": 2
+    }
+  ],
+  "tasks": [
     {
       "id": 2,
       "text": "Palauta Audi Jonnelle",
@@ -17,6 +23,12 @@
       "text": "Laita pyykkiä pyörimään koneeseen",
       "day": "Jul 13th at 8:01pm",
       "reminder": false
+    },
+    {
+      "text": "Uusi taski",
+      "day": "Nyt",
+      "reminder": false,
+      "id": 4
     }
   ]
 }

@@ -1,124 +1,134 @@
 import './App.css';
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import Tasks from './components/Tasks';
-import AddTask from './components/AddTask'
 import About from './components/About'
-import TaskDetails from './components/TaskDetails';
+import Button from './components/Button'
+
+import TaskLists from './components/TaskList/TaskLists';
+import TaskListDetails from './components/TaskList/TaskListDetails';
+import AddTaskList from './components/TaskList/AddTaskList';
+
+import TaskDetails from './components/Task/TaskDetails';
+
+import Recipes from './components/Recipe/Recipes';
+
+import { db } from './firebase-config';
+import { ref, onValue, push, child, remove } from "firebase/database";
 
 function App() {
 
   //states
-  const [showAddTask, setShowAddTask] = useState(false)
-  const [tasks, setTasks] = useState([])
+  const [showAddTaskList, setShowAddTaskList] = useState(false)
+  const [taskLists, setTaskLists] = useState()
 
-  const url = 'http://localhost:5000/tasks'
+  //const taskListUrl = 'http://localhost:5000/tasklists'
 
   //load data
   useEffect(() => {
-    const getTasks = async () => {
-      const tasksFromServer = await fetchTasks()
-      setTasks(tasksFromServer)
+    const getTaskLists = async () => {
+      await fetchTaskListsFromFireBase()
+      /*
+      const taskListsFromServer = await fetchTaskListsFromJsonServer()
+      setTaskLists(taskListsFromServer)
+      */
     }
-    getTasks()
+    getTaskLists()
   }, [])
 
-  //Fetch Tasks
-  const fetchTasks = async () => {
-
-    const res = await fetch(url)
+  //Fetch Task Lists
+  /*
+  const fetchTaskListsFromJsonServer = async () => {
+    const res = await fetch(taskListUrl)
     const data = await res.json()
-
     return data
   }
+  */
 
-  //Fetch Task
-  const fetchTask = async (id) => {
-
-    const res = await fetch(`${url}/${id}`)
-    const data = await res.json()
-
-    return data
+  const fetchTaskListsFromFireBase = async () => {
+    const dbref = await ref(db, '/tasklists');
+    onValue(dbref, (snapshot) => {
+      const snap = snapshot.val();
+      const taskLists = [];
+      for(let id in snap) {
+        taskLists.push({id, ...snap[id]});
+      }
+      setTaskLists(taskLists)
+    })
   }
 
-  // Add Task
-  const addTask = async (task) => {
+  // Add Task List
+  const addTaskList = async (taskList) => {
 
-    const res = await fetch(url,
+    //To json server
+    /*
+    const res = await fetch(taskListUrl,
     {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
       },
-      body: JSON.stringify(task)
+      body: JSON.stringify(taskList)
     })
-
     const data = await res.json()
+    setTaskLists([...taskLists, data])
+    */
 
-    setTasks([...tasks, data])
+    //To firebase
+    const dbref = ref(db, '/tasklists');
+    push(dbref, taskList);
   }
 
-  // Delete Task
-  const deleteTask = async (id) => {
+  // Delete Task List
+  const deleteTaskList = async (id) => {
 
-    await fetch(`${url}/${id}`,
+    //From json server
+    /*
+    await fetch(`${taskListUrl}/${id}`,
       {
         method: 'DELETE'
       });
+    setTaskLists(taskLists.filter((taskList) => taskList.id !== id))
+    */
 
-    setTasks(tasks.filter((task) => task.id !== id))
-  }
+    //From firebase
 
-  // Toggle Reminder
-  const toggleReminder = async (id) => {
+    //delete tasks
+    const dbrefTasks = ref(db, '/tasks/' + id);
+    remove(dbrefTasks);
 
-    const taskToToggle = await fetchTask(id)
-    const updatedTask = {...taskToToggle, reminder: !taskToToggle.reminder}
-
-    const res = await fetch(`${url}/${id}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(updatedTask)
-      })
-
-    const data = await res.json()
-
-    setTasks(
-      tasks.map((task) => 
-        task.id == id ? { ...task, reminder: data.reminder}: task
-      )
-    );
+    //delete task list
+    const dbref = child(ref(db, '/tasklists'), id)
+    remove(dbref)
   }
 
   return (
     <Router>
       <div className="container">
         <Header title="Miikan Task Tracker" 
-        onAdd={() => setShowAddTask(!showAddTask)}
-        showAdd={showAddTask}></Header>
+        onAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
+        showAdd={showAddTaskList}></Header>
         <Routes>
           <Route path='/' element={
             <>
-            {showAddTask && <AddTask onAdd={addTask} />}
-            {tasks.length > 0 ? (
-            <Tasks 
-            tasks={tasks} 
-            onDelete={deleteTask} 
-            onToggle={toggleReminder} 
+            <Link to={`/recipes`}><Button text="Manage Recipes"></Button></Link>
+            {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
+            {taskLists != null && taskLists.length > 0 ? (
+            <TaskLists
+            taskLists={taskLists} 
+            onDelete={deleteTaskList} 
               />
             ) : (
-              'No Tasks To Show'
+              'No Task Lists To Show'
             )}
             </>
           }
           />
+          <Route path='/recipes' element={<Recipes />} />
           <Route path='/about' element={<About />} />
-          <Route path='/task/:id' element={<TaskDetails />} />
+          <Route path='/task/:id/:tasklistid' element={<TaskDetails />} />
+          <Route path='/tasklist/:id' element={<TaskListDetails />} />
         </Routes>
         <Footer />
       </div>  
