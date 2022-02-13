@@ -11,7 +11,7 @@ const TaskList = ({taskList, onDelete}) => {
             {taskList.title} 
             </span>
             <FaTimes className="deleteTaskBtn" style={{color:'red', cursor: 'pointer'}} 
-            onClick={() => onDelete(taskList.id)} />
+            onClick={() => {if(window.confirm('Delete list?')) {onDelete(taskList.id);}}} />
             </h3>
             <p>{taskList.description}</p>
             <p><Link to={`/tasklist/${taskList.id}`}>View Details</Link></p>
