@@ -1,15 +1,18 @@
 import './App.css';
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import About from './components/About'
+import Button from './components/Button'
 
 import TaskLists from './components/TaskList/TaskLists';
 import TaskListDetails from './components/TaskList/TaskListDetails';
 import AddTaskList from './components/TaskList/AddTaskList';
 
 import TaskDetails from './components/Task/TaskDetails';
+
+import Recipes from './components/Recipe/Recipes';
 
 import { db } from './firebase-config';
 import { ref, onValue, push, child, remove } from "firebase/database";
@@ -109,6 +112,7 @@ function App() {
         <Routes>
           <Route path='/' element={
             <>
+            <Link to={`/recipes`}><Button text="Manage Recipes"></Button></Link>
             {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
             {taskLists != null && taskLists.length > 0 ? (
             <TaskLists
@@ -121,6 +125,7 @@ function App() {
             </>
           }
           />
+          <Route path='/recipes' element={<Recipes />} />
           <Route path='/about' element={<About />} />
           <Route path='/task/:id/:tasklistid' element={<TaskDetails />} />
           <Route path='/tasklist/:id' element={<TaskListDetails />} />
