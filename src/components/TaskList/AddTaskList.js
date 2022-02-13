@@ -1,9 +1,34 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { db } from '../../firebase-config';
+import { ref, get } from "firebase/database";
 
-const AddTaskList = ({onAddTaskList}) => {
+const AddTaskList = ({taskListID, onAddTaskList}) => {
     //states
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+
+    useEffect(() => {
+
+        if(taskListID != null) {            
+            //Task List
+            const getTaskList = async () => {
+                await fetchTaskListFromFirebase(taskListID)
+            }
+            getTaskList()
+            }
+      }, []);
+
+    const fetchTaskListFromFirebase = async (taskListID) => {
+
+        const dbref = ref(db, '/tasklists/' + taskListID);
+        get(dbref).then((snapshot) => {
+          if (snapshot.exists()) {
+            var val = snapshot.val();
+            setTitle(val["title"]);
+            setDescription(val["description"]);
+          }
+        });
+    }
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -14,23 +39,31 @@ const AddTaskList = ({onAddTaskList}) => {
             return
         }
 
-        //call the App.js
-        onAddTaskList( { title, description })
+        //call function
+        onAddTaskList({ title, description })
 
-        //clear the form
-        setTitle('')
-        setDescription('')
+        if(taskListID == null) {
+            //clear the form
+            setTitle('')
+            setDescription('')
+        }
     }
 
     return (
         <form className='add-form' onSubmit={onSubmit}>
             <div className='form-control'>
                 <label>Task List</label>
-                <input type='text' placeholder='Add Task List' value={title} onChange={(e) => setTitle(e.target.value)} />
+                <input type='text'
+                    placeholder={ taskListID == null ? 'Add Task List' : 'Edit Task List'} 
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)} />
             </div>
             <div className='form-control'>
                 <label>Description</label>
-                <input type='text' placeholder='Add Description' value={description} onChange={(e) => setDescription(e.target.value)} />
+                <input type='text' 
+                    placeholder={ taskListID == null ? 'Add Description' : 'Edit Description'}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)} />
             </div>
             <input type='submit' value='Save Task List' className='btn btn-block' />
         </form>

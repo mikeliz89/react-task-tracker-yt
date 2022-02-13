@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import { useParams, useNavigate /*, useLocation */ } from 'react-router-dom';
 import Button from '../Button';
 import AddTask from '../Task/AddTask';
+import AddTaskList from '../TaskList/AddTaskList';
 import Tasks from '../Task/Tasks';
 
 import { db } from '../../firebase-config';
@@ -17,6 +18,7 @@ function TaskListDetails() {
     const [taskList, setTaskList] = useState({})
     //const [error, setError] = useState(null)
     const [showAddTask, setShowAddTask] = useState(false)
+    const [showEditTaskList, setShowEditTaskList] = useState(false)
     const [tasks, setTasks] = useState()
 
     const params = useParams();
@@ -186,6 +188,16 @@ function TaskListDetails() {
       });
   }
 
+
+  // Add Task List
+  const addTaskList = async (taskList) => {
+      var taskListID = params.id;
+      //save edited task list to firebase
+      const updates = {};
+      updates[`/tasklists/${taskListID}`] = taskList;
+      update(ref(db), updates);
+  }
+
   return loading ? (
   <h3>Loading...</h3>
   ) : ( 
@@ -193,11 +205,17 @@ function TaskListDetails() {
       {/* <pre>{JSON.stringify(taskList)}</pre> */}
       <h3>{taskList.title}</h3>
       <p>{taskList.description}</p>
-      <Button text='Go Back' onClick={() => navigate(-1) }/>
-      <Button color={showAddTask ? 'red' : 'green'}
-              text={showAddTask ? 'Close' : 'Add Task'}
-              onClick={() => setShowAddTask(!showAddTask)}
-               />
+      <div style={{ display: "flex" }}>
+        <Button text='Go Back' onClick={() => navigate(-1) }/>
+        <Button text={showEditTaskList ? 'Close' : 'Edit'} 
+                color={showEditTaskList ? 'red' : 'orange'} 
+                onClick={() => setShowEditTaskList(!showEditTaskList) }/>
+        <Button color={showAddTask ? 'red' : 'green'}
+                text={showAddTask ? 'Close' : 'Add Task'}
+                onClick={() => setShowAddTask(!showAddTask)}
+                />
+      </div>
+      {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id}  /> }
       {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
             {tasks != null && tasks.length > 0 ? (
             <Tasks
