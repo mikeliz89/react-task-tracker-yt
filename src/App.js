@@ -116,7 +116,7 @@ function App() {
           }
           />
           <Route path='/about' element={<About />} />
-          <Route path='/task/:id' element={<TaskDetails />} />
+          <Route path='/task/:id/:tasklistid' element={<TaskDetails />} />
           <Route path='/tasklist/:id' element={<TaskListDetails />} />
         </Routes>
         <Footer />

@@ -45,7 +45,7 @@ function TaskDetails() {
     */
 
     const fetchTaskFromFirebase = async () => {
-        const dbref = await ref(db, '/tasks/' + params.id);
+        const dbref = await ref(db, '/tasks/' + params.tasklistid + '/' + params.id);
         onValue(dbref, (snapshot) => {
           const data = snapshot.val();
           if(data === null) {

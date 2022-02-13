@@ -9,7 +9,7 @@ const Task = ({taskListID, task, onDelete, onToggle}) => {
             onClick={() => onDelete(taskListID, task.id)} />
             </h3>
             <p>{task.day}</p>
-            <p><Link to={`/task/${task.id}`}>View Details</Link></p>
+            <p><Link to={`/task/${task.id}/${taskListID}`}>View Details</Link></p>
         </div>
     )
 }
