@@ -83,9 +83,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-
 ### Hyödyllisiä Visual Studio Code Extensioneita 
-ES7 React/Redux/GraphQL/React-Native snippets
+- ES7 React/Redux/GraphQL/React-Native snippets
+
+### Firebase deployment
+firebase login (once at the start of the project)
+Continuous integration deployment
+firebase deploy
 
 ### Firebase authentication
 https://www.youtube.com/watch?v=PKwu15ldZ7k 
