@@ -88,6 +88,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### Firebase realtime database
 Create .env.local file and add these two variables (without [ ] characters)
+
 REACT_APP_FIREBASE_API_KEY="[ApiKeyHere]"
 REACT_APP_FIREBASE_PROJECT_ID="[ProjectIdHere]"
 
