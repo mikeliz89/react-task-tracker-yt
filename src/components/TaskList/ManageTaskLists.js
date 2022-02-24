@@ -97,7 +97,7 @@ export default function ManageTaskLists() {
 
     return (
         <div>
-          <h3>Manage Task Lists</h3>
+          <h3 className="page-title">Manage Task Lists</h3>
           <Button text='Go Back' onClick={() => navigate(-1) }/>
           <TaskListButton onAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
           showAdd={showAddTaskList}></TaskListButton>

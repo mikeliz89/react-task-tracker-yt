@@ -1,9 +1,10 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import About from './components/About'
-import BigButton from './components/BigButton'
+import Dashboard from './components/Dashboard'
+import Login from './components/Login'
 import ManageTaskLists from './components/TaskList/ManageTaskLists';
 import TaskListDetails from './components/TaskList/TaskListDetails';
 import TaskDetails from './components/Task/TaskDetails';
@@ -16,31 +17,14 @@ import { AuthProvider } from "./contexts/AuthContext"
 function App() {
 
   return (
-    <AuthProvider>
+    <div className="container">
       <Router>
-        <div className="container">
-          {/* <Signup /> */}
+          <AuthProvider>
           <Header title="Lifesaver" />
           <Routes>
-            <Route path='/' element={
-              <>
-              <Link to={`/managerecipes`}><BigButton textcolor="white" color="#b37401" text="Manage Recipes" /></Link>
-              <Link to={`/managetasklists`}><BigButton color="green" text="Manage Task Lists" /></Link>
-{/*               <Link to={'/'}><BigButton text="button" /></Link>
-              <Link to={'/'}><BigButton text="button" /></Link>
-              <Link to={'/'}><BigButton text="button" /></Link>
-              <Link to={'/'}><BigButton text="button" /></Link>
-              <Link to={'/'}><BigButton text="button" /></Link>
-              <Link to={'/'}><BigButton text="button" /></Link>
-              <Link to={'/'}><BigButton text="button" /></Link>
-              <Link to={'/'}><BigButton text="button" /></Link>
-              <Link to={'/'}><BigButton text="button" /></Link>
-              <Link to={'/'}><BigButton text="button" /></Link>
-              <Link to={'/'}><BigButton text="button" /></Link>
-              <Link to={'/'}><BigButton text="button" /></Link> */}
-              </>
-            }
-            />
+            <Route exact path='/' element={<Dashboard />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
             <Route path='/managerecipes' element={<ManageRecipes />} />
             <Route path='/managetasklists' element={<ManageTaskLists />} />
             <Route path='/about' element={<About />} />
@@ -48,9 +32,9 @@ function App() {
             <Route path='/tasklist/:id' element={<TaskListDetails />} />
           </Routes>
           <Footer />
-        </div>  
+        </AuthProvider>
       </Router>
-    </AuthProvider>
+    </div>  
     );
 }
 
