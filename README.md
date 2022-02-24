@@ -88,6 +88,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### Firebase deployment
 firebase login (once at the start of the project)
+
 Continuous integration deployment
 firebase deploy
 
