@@ -116,3 +116,16 @@ footer {
     font-style:bold;
     color:orange !important;
 }
+
+.textCenter {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.error {
+  background: rgb(255, 145, 145);
+  color: black;
+  margin: 5px;
+  padding: 10px 20px;
+  border-radius: 5px;
+}

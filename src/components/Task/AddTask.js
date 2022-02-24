@@ -15,7 +15,7 @@ const AddTask = ({taskListID, onAddTask}) => {
             return
         }
 
-        //call the App.js
+        //call the TaskListDetails.js
         onAddTask( taskListID, { text, day, reminder })
 
         //clear the form

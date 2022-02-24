@@ -11,11 +11,13 @@ import TaskListDetails from './components/TaskList/TaskListDetails';
 import AddTaskList from './components/TaskList/AddTaskList';
 
 import TaskDetails from './components/Task/TaskDetails';
-
+import Signup from './components/Signup';
 import Recipes from './components/Recipe/Recipes';
 
 import { db } from './firebase-config';
 import { ref, onValue, push, child, remove } from "firebase/database";
+
+import { AuthProvider } from "./contexts/AuthContext"
 
 function App() {
 
@@ -104,35 +106,38 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="container">
-        <Header title="Miikan Task Tracker" 
-        onAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
-        showAdd={showAddTaskList}></Header>
-        <Routes>
-          <Route path='/' element={
-            <>
-            <Link to={`/recipes`}><Button text="Manage Recipes"></Button></Link>
-            {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
-            {taskLists != null && taskLists.length > 0 ? (
-            <TaskLists
-            taskLists={taskLists} 
-            onDelete={deleteTaskList} 
-              />
-            ) : (
-              'No Task Lists To Show'
-            )}
-            </>
-          }
-          />
-          <Route path='/recipes' element={<Recipes />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/task/:id/:tasklistid' element={<TaskDetails />} />
-          <Route path='/tasklist/:id' element={<TaskListDetails />} />
-        </Routes>
-        <Footer />
-      </div>  
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="container">
+          {/* <Signup /> */}
+          <Header title="Miikan Task Tracker" 
+          onAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
+          showAdd={showAddTaskList}></Header>
+          <Routes>
+            <Route path='/' element={
+              <>
+              <Link to={`/recipes`}><Button text="Manage Recipes"></Button></Link>
+              {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
+              {taskLists != null && taskLists.length > 0 ? (
+              <TaskLists
+              taskLists={taskLists} 
+              onDelete={deleteTaskList} 
+                />
+              ) : (
+                'No Task Lists To Show'
+              )}
+              </>
+            }
+            />
+            <Route path='/recipes' element={<Recipes />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/task/:id/:tasklistid' element={<TaskDetails />} />
+            <Route path='/tasklist/:id' element={<TaskListDetails />} />
+          </Routes>
+          <Footer />
+        </div>  
+      </Router>
+    </AuthProvider>
     );
 }
 
