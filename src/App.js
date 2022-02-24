@@ -9,7 +9,7 @@ import ManageTaskLists from './components/TaskList/ManageTaskLists';
 import TaskListDetails from './components/TaskList/TaskListDetails';
 import TaskDetails from './components/Task/TaskDetails';
 import ManageRecipes from './components/Recipe/ManageRecipes';
-
+import PrivateRoute from "./components/PrivateRoute"
 import Signup from './components/Signup';
 
 import { AuthProvider } from "./contexts/AuthContext"
@@ -22,14 +22,14 @@ function App() {
           <AuthProvider>
           <Header title="Lifesaver" />
           <Routes>
-            <Route exact path='/' element={<Dashboard />} />
+            <Route exact path='/' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path='/managerecipes' element={<ManageRecipes />} />
-            <Route path='/managetasklists' element={<ManageTaskLists />} />
             <Route path='/about' element={<About />} />
-            <Route path='/task/:id/:tasklistid' element={<TaskDetails />} />
-            <Route path='/tasklist/:id' element={<TaskListDetails />} />
+            <Route path='/managerecipes' element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
+            <Route path='/managetasklists' element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
+            <Route path='/task/:id/:tasklistid' element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
+            <Route path='/tasklist/:id' element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
           </Routes>
           <Footer />
         </AuthProvider>
