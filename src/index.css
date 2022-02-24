@@ -76,7 +76,7 @@ body {
 }
 
 .form-control {
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .form-control label {
@@ -117,8 +117,7 @@ footer {
     color:orange !important;
 }
 
-.textCenter {
-  margin-bottom: 30px;
+.text-center {
   text-align: center;
 }
 
@@ -128,4 +127,19 @@ footer {
   margin: 5px;
   padding: 10px 20px;
   border-radius: 5px;
+}
+
+.bigbtn {
+  display:inline-block;
+  width: 48%;
+  height: 120px;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 3px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
 }

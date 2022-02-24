@@ -65,7 +65,7 @@ export default function Signup() {
                 <input disabled={loading} type='submit' value='Sign Up' className='btn btn-block' />
             </form>
 
-            <div className="textCenter">
+            <div className="text-center">
                 Already have an account? Log In    
             </div>
         </>
