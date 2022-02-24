@@ -86,3 +86,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### Hyödyllisiä Visual Studio Code Extensioneita 
 ES7 React/Redux/GraphQL/React-Native snippets
+
+### Firebase authentication
+https://www.youtube.com/watch?v=PKwu15ldZ7k 
