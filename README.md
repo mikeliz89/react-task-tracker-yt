@@ -86,6 +86,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ### Hyödyllisiä Visual Studio Code Extensioneita 
 - ES7 React/Redux/GraphQL/React-Native snippets
 
+### Firebase realtime database
+Create .env.local file and add these two variables (without [ ] characters)
+REACT_APP_FIREBASE_API_KEY="[ApiKeyHere]"
+REACT_APP_FIREBASE_PROJECT_ID="[ProjectIdHere]"
+
 ### Firebase login
 firebase login (once at the start of the project)
 
