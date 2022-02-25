@@ -4,7 +4,7 @@ const About = () => {
     return (
         <div>
             <GoBackButton  />
-            <h4>Version 1.0.0</h4>
+            <h4>Version 1.0.1</h4>
             <h4>Author: Miika Kontio</h4>
         </div>
     )
