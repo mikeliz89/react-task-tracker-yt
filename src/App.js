@@ -13,6 +13,7 @@ import PrivateRoute from "./components/PrivateRoute"
 import Signup from './components/Signup';
 
 import { AuthProvider } from "./contexts/AuthContext"
+import BmiCalculator from './components/BmiCalculator/BmiCalculator';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
             <Route path='/managetasklists' element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
             <Route path='/task/:id/:tasklistid' element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
             <Route path='/tasklist/:id' element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
+            <Route path='/bmicalculator' element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
           </Routes>
           <Footer />
         </AuthProvider>

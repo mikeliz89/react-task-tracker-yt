@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { useParams, /*Navigate,*/ useNavigate/*, useLocation */} from 'react-router-dom';
-import Button from '../Button';
+import GoBackButton from '../GoBackButton';
 
 import { db } from '../../firebase-config';
 import { ref, onValue } from "firebase/database";
@@ -65,7 +65,7 @@ function TaskDetails() {
       <p>Created by: {task.createdBy}</p>
       <p>Day & Time: {task.day}</p>
       <p>Task ready: {task.reminder === true ? 'yes' : 'no' }</p>
-      <Button text='Go Back' onClick={() => navigate(-1) }/>
+      <GoBackButton  />
   </div> 
   );
 };

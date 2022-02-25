@@ -4,15 +4,13 @@ import { ref, onValue, push, child, remove } from "firebase/database";
 import TaskListButton from '../../components/TaskList/TaskListButton';
 import AddTaskList from '../../components/TaskList/AddTaskList';
 import TaskLists from '../../components/TaskList/TaskLists';
-import Button from '../Button'
-import { useNavigate } from 'react-router-dom';
+import GoBackButton from '../GoBackButton'
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 
 export default function ManageTaskLists() {
 
   const { currentUser } = useAuth();
-  const navigate = useNavigate();
 
   //states
   const [showAddTaskList, setShowAddTaskList] = useState(false)
@@ -103,7 +101,7 @@ export default function ManageTaskLists() {
     return (
         <div>
           <h3 className="page-title">Manage Task Lists</h3>
-          <Button text='Go Back' onClick={() => navigate(-1) }/>
+          <GoBackButton  />
           <TaskListButton onShowAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
           showAdd={showAddTaskList}></TaskListButton>
             {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
