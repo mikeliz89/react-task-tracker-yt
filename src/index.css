@@ -24,7 +24,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0;
+}
+
+.headerbox {
+  margin-bottom: 10px;
+  border-bottom: 3px solid #e0e0e0;
 }
 
 .btn {
@@ -147,4 +151,8 @@ footer {
   text-decoration: none;
   font-size: 15px;
   font-family: inherit;
+}
+
+.loggedin-user {
+  font-size: 0.8em;
 }

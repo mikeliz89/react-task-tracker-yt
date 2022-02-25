@@ -4,9 +4,10 @@ import Button from '../Button';
 import AddTask from '../Task/AddTask';
 import AddTaskList from '../TaskList/AddTaskList';
 import Tasks from '../Task/Tasks';
-
+import { useAuth } from '../../contexts/AuthContext'
 import { db } from '../../firebase-config';
 import { update, ref, onValue, push, child, remove, get } from "firebase/database";
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 
 function TaskListDetails() {
 
@@ -22,7 +23,8 @@ function TaskListDetails() {
     const [tasks, setTasks] = useState()
 
     const params = useParams();
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const { currentUser } = useAuth()
     //const { pathname } = useLocation()
 
     //load data
@@ -128,6 +130,8 @@ function TaskListDetails() {
     */
 
     //To firebase
+    task["created"] = getCurrentDateAsJson()
+    task["createdBy"] = currentUser.email;
     const dbref = child(ref(db, '/tasks'), taskListID);
     push(dbref, task);   
   }
@@ -188,12 +192,12 @@ function TaskListDetails() {
       });
   }
 
-
   // Add Task List
   const addTaskList = async (taskList) => {
       var taskListID = params.id;
       //save edited task list to firebase
       const updates = {};
+      taskList["modified"] = getCurrentDateAsJson()
       updates[`/tasklists/${taskListID}`] = taskList;
       update(ref(db), updates);
   }

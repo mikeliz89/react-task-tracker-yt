@@ -6,9 +6,12 @@ import AddTaskList from '../../components/TaskList/AddTaskList';
 import TaskLists from '../../components/TaskList/TaskLists';
 import Button from '../Button'
 import { useNavigate } from 'react-router-dom';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function ManageTaskLists() {
 
+  const { currentUser } = useAuth();
   const navigate = useNavigate();
 
   //states
@@ -68,6 +71,8 @@ export default function ManageTaskLists() {
     */
 
     //To firebase
+    taskList["created"] = getCurrentDateAsJson();
+    taskList["createdBy"] = currentUser.email;
     const dbref = ref(db, '/tasklists');
     push(dbref, taskList);
   }
@@ -99,7 +104,7 @@ export default function ManageTaskLists() {
         <div>
           <h3 className="page-title">Manage Task Lists</h3>
           <Button text='Go Back' onClick={() => navigate(-1) }/>
-          <TaskListButton onAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
+          <TaskListButton onShowAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
           showAdd={showAddTaskList}></TaskListButton>
             {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
               {taskLists != null && taskLists.length > 0 ? (

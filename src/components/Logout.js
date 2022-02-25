@@ -17,9 +17,9 @@ export default function Logout() {
         await logout()
 
         navigate('/login');
-       } catch(Exception) {
+       } catch(error) {
             setError('Failed to log out')
-            console.log(Exception);
+            console.log(error);
        }
     }
 

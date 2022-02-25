@@ -7,13 +7,13 @@ const Header = ({title}) => {
     const { currentUser } = useAuth()
 
     return (
-        <>
+        <div className="headerbox">
             <header className="header">
                 <h1>{title}</h1>
                 {currentUser && <Logout /> }
             </header>
-            {currentUser && "Email: " + currentUser.email}
-        </>
+            <span className="loggedin-user">{currentUser && "Logged in as: " + currentUser.email}</span>
+        </div>
     )
 }
 

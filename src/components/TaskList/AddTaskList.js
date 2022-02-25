@@ -6,6 +6,8 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
     //states
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    const [created, setCreated] = useState('')
+    const [createdBy, setCreatedBy] = useState('')
 
     useEffect(() => {
 
@@ -18,6 +20,7 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
             }
       }, []);
 
+    //get task list from firebase by taskListID (in EDIT task list)
     const fetchTaskListFromFirebase = async (taskListID) => {
 
         const dbref = ref(db, '/tasklists/' + taskListID);
@@ -26,6 +29,8 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
             var val = snapshot.val();
             setTitle(val["title"]);
             setDescription(val["description"]);
+            setCreated(val["created"]);
+            setCreatedBy(val["createdBy"]);
           }
         });
     }
@@ -38,9 +43,8 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
             alert('Please add a task list')
             return
         }
-
-        //call function
-        onAddTaskList({ title, description })
+       
+        onAddTaskList({ created, createdBy, title, description });
 
         if(taskListID == null) {
             //clear the form

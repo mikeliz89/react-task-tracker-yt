@@ -2,7 +2,7 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import Button from '../Button'
 
-export default function TaskListButton({onAddTaskList, showAdd}) {
+export default function TaskListButton({onShowAddTaskList, showAdd}) {
 
     const location = useLocation()
 
@@ -12,7 +12,7 @@ export default function TaskListButton({onAddTaskList, showAdd}) {
                 <Button 
                     color={showAdd ? 'red' : 'green'}
                     text={showAdd ? 'Close' : 'Add List'} 
-                    onClick={onAddTaskList} />
+                    onClick={onShowAddTaskList} />
                 )
             }
         </>

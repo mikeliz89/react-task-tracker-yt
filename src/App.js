@@ -20,7 +20,7 @@ function App() {
     <div className="container">
       <Router>
           <AuthProvider>
-          <Header title="Lifesaver" />
+          <Header title="Lifesaver App" />
           <Routes>
             <Route exact path='/' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/signup" element={<Signup />} />

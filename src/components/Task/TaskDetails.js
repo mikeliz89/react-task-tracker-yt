@@ -61,8 +61,10 @@ function TaskDetails() {
   ) : ( 
   <div>
       <h3>{task.text}</h3>
-      <p>{task.day}</p>
-      <p>tehtävä valmis: {task.reminder === true ? 'kyllä' : 'ei' }</p>
+      <p>Created: {task.created}</p>
+      <p>Created by: {task.createdBy}</p>
+      <p>Day & Time: {task.day}</p>
+      <p>Task ready: {task.reminder === true ? 'yes' : 'no' }</p>
       <Button text='Go Back' onClick={() => navigate(-1) }/>
   </div> 
   );
