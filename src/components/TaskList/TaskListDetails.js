@@ -9,6 +9,7 @@ import { db } from '../../firebase-config';
 import { update, ref, onValue, push, child, remove, get } from "firebase/database";
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { FaListAlt} from 'react-icons/fa'
+import GoBackButton from '../GoBackButton';
 
 function TaskListDetails() {
 
@@ -73,7 +74,7 @@ function TaskListDetails() {
   */
 
   const fetchTaskListFromFirebase = async () => {
-    const dbref = await ref(db, '/tasklists/' + params.id);
+    const dbref = ref(db, '/tasklists/' + params.id);
     onValue(dbref, (snapshot) => {
       const data = snapshot.val();
       if(data === null) {
@@ -211,7 +212,7 @@ function TaskListDetails() {
       <h3><FaListAlt style={{color:'gray', cursor: 'pointer', marginBottom: '-3px' }} /> {taskList.title}</h3>
       <p>{taskList.description}</p>
       <div style={{ display: "flex" }}>
-        <Button text='Go Back' onClick={() => navigate(-1) }/>
+        <GoBackButton />
         <Button text={showEditTaskList ? 'Close' : 'Edit'} 
                 color={showEditTaskList ? 'red' : 'orange'} 
                 onClick={() => setShowEditTaskList(!showEditTaskList) }/>

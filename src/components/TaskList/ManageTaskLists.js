@@ -40,7 +40,7 @@ export default function ManageTaskLists() {
   */
 
   const fetchTaskListsFromFireBase = async () => {
-    const dbref = await ref(db, '/tasklists');
+    const dbref = ref(db, '/tasklists');
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const taskLists = [];
