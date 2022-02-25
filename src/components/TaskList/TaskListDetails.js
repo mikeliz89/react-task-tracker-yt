@@ -8,6 +8,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import { db } from '../../firebase-config';
 import { update, ref, onValue, push, child, remove, get } from "firebase/database";
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { FaListAlt} from 'react-icons/fa'
 
 function TaskListDetails() {
 
@@ -207,7 +208,7 @@ function TaskListDetails() {
   ) : ( 
       <div>
       {/* <pre>{JSON.stringify(taskList)}</pre> */}
-      <h3>{taskList.title}</h3>
+      <h3><FaListAlt style={{color:'gray', cursor: 'pointer', marginBottom: '-3px' }} /> {taskList.title}</h3>
       <p>{taskList.description}</p>
       <div style={{ display: "flex" }}>
         <Button text='Go Back' onClick={() => navigate(-1) }/>
