@@ -58,5 +58,6 @@
     "bmi_6": "Substantial over weight",
     "bmi_7": "Very overweight",
     "bmi_8": "Sickly overweight",
-    "bmi_ormore": "or more"
+    "bmi_ormore": "or more",
+    "your_bmi_is": "Your BMI is"
 }

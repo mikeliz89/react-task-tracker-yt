@@ -58,5 +58,6 @@
     "bmi_6": "Merkittävä ylipaino",
     "bmi_7": "Vaikea ylipaino",
     "bmi_8": "Sairaalloinen ylipaino",
-    "bmi_ormore": "tai enemmän"
+    "bmi_ormore": "tai enemmän",
+    "your_bmi_is": "Painoindeksisi on"
 }
