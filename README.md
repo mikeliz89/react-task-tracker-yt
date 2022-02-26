@@ -100,3 +100,9 @@ firebase deploy
 
 ### Firebase authentication
 https://www.youtube.com/watch?v=PKwu15ldZ7k 
+
+### React i18next for languagization
+https://www.youtube.com/watch?v=w04LXKlusCQ
+https://react.i18next.com/getting-started
+https://github.com/i18next/i18next-browser-languageDetector
+https://github.com/i18next/i18next-http-backend

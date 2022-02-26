@@ -1,13 +1,16 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, /*Navigate,*/ useNavigate/*, useLocation */} from 'react-router-dom';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
 import { db } from '../../firebase-config';
 import { ref, onValue, update } from "firebase/database";
 import AddTask from './AddTask'
-import {getCurrentDateAsJson} from '../../utils/DateTimeUtils'
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils'
+import { useTranslation } from 'react-i18next';
 
 function TaskDetails() {
+
+    const { t } = useTranslation();
 
     //const taskUrl = 'http://localhost:5000/tasks'
 
@@ -69,19 +72,19 @@ function TaskDetails() {
       }
 
   return loading ? (
-  <h3>Loading...</h3>
+  <h3>{t('loading')}</h3>
   ) : ( 
   <div>
       <h3>{task.text}</h3>
       <GoBackButton  />
-      <Button text={showEditTask ? 'Close' : 'Edit'} 
+      <Button text={showEditTask ? t('button_close') : t('button_edit')} 
                 color={showEditTask ? 'red' : 'orange'} 
                 onClick={() => setShowEditTask(!showEditTask) }/>
       {showEditTask && <AddTask onAddTask={addTask} taskID={params.id} taskListID={params.tasklistid}  /> }
-      <p>Created: {task.created}</p>
-      <p>Created by: {task.createdBy}</p>
-      <p>Day & Time: {task.day}</p>
-      <p>Task ready: {task.reminder === true ? 'yes' : 'no' }</p>
+      <p>{t('created')}: {task.created}</p>
+      <p>{t('created_by')}: {task.createdBy}</p>
+      <p>{t('day_and_time')}: {task.day}</p>
+      <p>{t('set_reminder')}: {task.reminder === true ? t('yes') : t('no') }</p>
   </div> 
   );
 };

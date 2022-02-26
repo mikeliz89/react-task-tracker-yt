@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import { useAuth } from '../contexts/AuthContext'
 import  Logout  from '../components/Logout'
+import { useTranslation } from 'react-i18next';
 
 const Header = ({title}) => {
 
+    const { t } = useTranslation();
     const { currentUser } = useAuth()
 
     return (
@@ -12,7 +14,7 @@ const Header = ({title}) => {
                 <h1>{title}</h1>
                 {currentUser && <Logout /> }
             </header>
-            <span className="loggedin-user">{currentUser && "Logged in as: " + currentUser.email}</span>
+            <span className="loggedin-user">{currentUser && t('header_logged_in_as_text') + currentUser.email}</span>
         </div>
     )
 }

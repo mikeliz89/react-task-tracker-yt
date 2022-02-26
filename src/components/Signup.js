@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next';
 
 export default function Signup() {
+
+    const { t } = useTranslation();
 
     //states
     const [email, setEmail] = useState('')
@@ -18,12 +21,12 @@ export default function Signup() {
 
         //validation
         if(!email || !password || !passwordConfirm) {
-            setError('Please fill all the fields')
+            setError(t('please_fill_all_fields'))
             return
         }
 
         if(password != passwordConfirm) {
-            setError('Passwords do not match!');
+            setError(t('passwords_do_not_match'));
             return
         }
 
@@ -35,7 +38,7 @@ export default function Signup() {
             //navigate to dashboard
             navigate('/');
         } catch(error) {
-            setError('Failed to create an account');
+            setError(t('failed_to_create_account'));
             console.log(error)
         }
 
@@ -50,27 +53,27 @@ export default function Signup() {
     return (
         <>
             <header className="header">
-                <h1>Sign Up</h1>
+                <h1>{t('sign_up')}</h1>
             </header>
             { error && <div className="error">{error}</div> }
             <form className='add-form' onSubmit={onSubmit}>
                 <div className='form-control'>
-                    <label>Email</label>
-                    <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <label>{t('email')}</label>
+                    <input type='email' placeholder={t('email')} value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className='form-control'>
-                    <label>Password</label>
-                    <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <label>{t('password')}</label>
+                    <input type='password' placeholder={t('password')} value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <div className='form-control'>
-                    <label>Password Confirmation</label>
-                    <input type='password' placeholder='Password' value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} />
+                    <label>{t('password_confirmation')}</label>
+                    <input type='password' placeholder={t('password')} value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} />
                 </div>
-                <input disabled={loading} type='submit' value='Sign Up' className='btn btn-block' />
+                <input disabled={loading} type='submit' value={t('sign_up')} className='btn btn-block' />
             </form>
 
             <div className="text-center">
-                Already have an account? <Link to="/login">Log In</Link>   
+                {t('already_have_an_account')} <Link to="/login">{t('log_in')}</Link>   
             </div>
         </>
     )
