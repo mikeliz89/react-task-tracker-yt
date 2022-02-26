@@ -84,7 +84,7 @@ function TaskDetails() {
       <p>{t('created')}: {task.created}</p>
       <p>{t('created_by')}: {task.createdBy}</p>
       <p>{t('day_and_time')}: {task.day}</p>
-      <p>{t('set_reminder')}: {task.reminder === true ? 'yes' : 'no' }</p>
+      <p>{t('set_reminder')}: {task.reminder === true ? t('yes') : t('no') }</p>
   </div> 
   );
 };

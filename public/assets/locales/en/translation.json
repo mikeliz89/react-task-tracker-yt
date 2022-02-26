@@ -59,5 +59,7 @@
     "bmi_7": "Very overweight",
     "bmi_8": "Sickly overweight",
     "bmi_ormore": "or more",
-    "your_bmi_is": "Your BMI is"
+    "your_bmi_is": "Your BMI is",
+    "yes": "Yes",
+    "no": "No"
 }
