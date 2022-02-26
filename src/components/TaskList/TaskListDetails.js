@@ -10,8 +10,11 @@ import { update, ref, onValue, push, child, remove, get } from "firebase/databas
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { FaListAlt} from 'react-icons/fa'
 import GoBackButton from '../GoBackButton';
+import { useTranslation } from 'react-i18next';
 
 function TaskListDetails() {
+
+    const { t } = useTranslation();
 
     //const taskUrl = 'http://localhost:5000/tasks'
     //const taskListUrl = 'http://localhost:5000/tasklists'
@@ -205,7 +208,7 @@ function TaskListDetails() {
   }
 
   return loading ? (
-  <h3>Loading...</h3>
+  <h3>{t('loading')}</h3>
   ) : ( 
       <div>
       {/* <pre>{JSON.stringify(taskList)}</pre> */}
@@ -213,11 +216,11 @@ function TaskListDetails() {
       <p>{taskList.description}</p>
       <div style={{ display: "flex" }}>
         <GoBackButton />
-        <Button text={showEditTaskList ? 'Close' : 'Edit'} 
+        <Button text={showEditTaskList ? t('button_close') : t('button_edit')} 
                 color={showEditTaskList ? 'red' : 'orange'} 
                 onClick={() => setShowEditTaskList(!showEditTaskList) }/>
         <Button color={showAddTask ? 'red' : 'green'}
-                text={showAddTask ? 'Close' : 'Add Task'}
+                text={showAddTask ? t('button_close') : t('button_add_task')}
                 onClick={() => setShowAddTask(!showAddTask)}
                 />
       </div>
@@ -231,7 +234,7 @@ function TaskListDetails() {
             onToggle={toggleReminder}
               />
             ) : (
-              'No Tasks To Show'
+              t('no_tasks_to_show')
             )}
   </div> 
   );

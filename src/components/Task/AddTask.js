@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react'
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
+import { useTranslation } from 'react-i18next';
 
 const AddTask = ({taskID, taskListID, onAddTask}) => {
+    
+    const { t } = useTranslation();
+
     //states
     const [text, setText] = useState('')
     const [day, setDay] = useState('')
@@ -36,7 +40,7 @@ const AddTask = ({taskID, taskListID, onAddTask}) => {
 
         //validation
         if(!text) {
-            alert('Please add a task')
+            alert(t('please_add_task'))
             return
         }
 
@@ -54,21 +58,21 @@ const AddTask = ({taskID, taskListID, onAddTask}) => {
     return (
         <form className='add-form' onSubmit={onSubmit}>
             <div className='form-control'>
-                <label>Task</label>
-                <input type='text' placeholder='Add Task' value={text} onChange={(e) => setText(e.target.value)} />
+                <label>{t('task_name')}</label>
+                <input type='text' placeholder={t('task_name')} value={text} onChange={(e) => setText(e.target.value)} />
             </div>
             <div className='form-control'>
-                <label>Day & Time</label>
-                <input type='text' placeholder='Add Day & Time' value={day} onChange={(e) => setDay(e.target.value)} />
+                <label>{t('day_and_time')}</label>
+                <input type='text' placeholder={t('day_and_time')} value={day} onChange={(e) => setDay(e.target.value)} />
             </div>
             <div className='form-control form-control-check'>
-                <label>Set Reminder</label>
+                <label>{t('set_reminder')}</label>
                 <input type='checkbox'
                 checked={reminder}
                 value={reminder} 
                 onChange={(e) => setReminder(e.currentTarget.checked)} />
             </div>
-            <input type='submit' value='Save Task' className='btn btn-block' />
+            <input type='submit' value={t('button_save_task')} className='btn btn-block' />
         </form>
     )
 }

@@ -7,10 +7,13 @@ import TaskLists from '../../components/TaskList/TaskLists';
 import GoBackButton from '../GoBackButton'
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 export default function ManageTaskLists() {
 
   const { currentUser } = useAuth();
+  
+  const { t } = useTranslation();
 
   //states
   const [showAddTaskList, setShowAddTaskList] = useState(false)
@@ -100,7 +103,7 @@ export default function ManageTaskLists() {
 
     return (
         <div>
-          <h3 className="page-title">Manage Task Lists</h3>
+          <h3 className="page-title">{t('manage_tasklists_title')}</h3>
           <GoBackButton  />
           <TaskListButton onShowAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
           showAdd={showAddTaskList}></TaskListButton>

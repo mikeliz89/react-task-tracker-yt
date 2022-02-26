@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import Button from '../components/Button'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next';
 
 export default function Logout() {
 
     const { logout } = useAuth()
     const navigate = useNavigate()
-
+    const { t } = useTranslation()
     const [error, setError] = useState("")
 
     async function handleLogout() {
@@ -18,7 +19,7 @@ export default function Logout() {
 
         navigate('/login');
        } catch(error) {
-            setError('Failed to log out')
+            setError(t('failed_to_log_out'))
             console.log(error);
        }
     }
@@ -26,7 +27,7 @@ export default function Logout() {
     return (
         <>
           { error && <div class="error">{error}</div> }  
-          <Button onClick={() => handleLogout() } text="Log Out" />
+          <Button onClick={() => handleLogout() } text={t('log_out')} />
         </>
     )
 }
