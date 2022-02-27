@@ -11,6 +11,8 @@ const AddTask = ({taskID, taskListID, onAddTask}) => {
     const [text, setText] = useState('')
     const [day, setDay] = useState('')
     const [reminder, setReminder] = useState(false)
+    const [created, setCreated] = useState('')
+    const [createdBy, setCreatedBy] = useState('')
 
     useEffect(() => {
         if(taskID != null) {
@@ -31,6 +33,8 @@ const AddTask = ({taskID, taskListID, onAddTask}) => {
             setText(val["text"]);
             setDay(val["day"]);
             setReminder(val["reminder"]);
+            setCreated(val["created"]);
+            setCreatedBy(val["createdBy"]);
           }
         });
     }
@@ -45,7 +49,7 @@ const AddTask = ({taskID, taskListID, onAddTask}) => {
         }
 
         //call the TaskListDetails.js
-        onAddTask( taskListID, { text, day, reminder })
+        onAddTask( taskListID, { created, createdBy, text, day, reminder })
 
         //clear the form
         if(taskID == null) {

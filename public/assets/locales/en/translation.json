@@ -31,6 +31,7 @@
     "set_reminder": "Set Reminder",
     "created": "Created",
     "created_by": "Created by",
+    "modified": "Modified",
     "day_and_time": "Day & Time",
     "loading": "Loading...",
     "task_name": "Task",

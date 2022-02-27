@@ -83,6 +83,7 @@ function TaskDetails() {
       {showEditTask && <AddTask onAddTask={addTask} taskID={params.id} taskListID={params.tasklistid}  /> }
       <p>{t('created')}: {task.created}</p>
       <p>{t('created_by')}: {task.createdBy}</p>
+      <p>{t('modified')}: {task.modified}</p>
       <p>{t('day_and_time')}: {task.day}</p>
       <p>{t('set_reminder')}: {task.reminder === true ? t('yes') : t('no') }</p>
   </div> 
