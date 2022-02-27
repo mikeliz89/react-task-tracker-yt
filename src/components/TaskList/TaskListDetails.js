@@ -209,7 +209,6 @@ function TaskListDetails() {
 
   function archiveTaskList(taskList) {
     //1. add this taskList to tasklist-archive
-    taskList["id"] = params.id; //old id to archived tasklist
     const dbref = ref(db, '/tasklist-archive')
     let archiveTaskListID = push(dbref, taskList).key;
 
