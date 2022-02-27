@@ -3,6 +3,7 @@
     "dashboard_recipes_button": "Reseptit",
     "dashboard_tasklists_button": "Tehtävälistat",
     "dashboard_bmi_calculator_button": "Painoindeksilaskuri",
+    "dashboard_exercises_button": "Liikunta",
     "bmi_calculator_title": "Painoindeksilaskuri",
     "header_logged_in_as_text": "Kirjautunut käyttäjä: ",
     "go_back_button" : "Takaisin",
@@ -68,5 +69,7 @@
     "reset_password": "Nollaa salasana",
     "password_reset": "Salasanan nollaus",
     "failed_to_reset_password": "Salasanan nollaus epäonnistui",
-    "check_your_inbox": "Katso sähköpostiisi lähetetty viesti"
+    "check_your_inbox": "Katso sähköpostiisi lähetetty viesti",
+    "manage_exercises_title": "Liikunta",
+    "manage_exercises_coming_soon": "Tulossa pian..."
 }

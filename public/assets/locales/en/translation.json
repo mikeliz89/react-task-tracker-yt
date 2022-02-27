@@ -3,6 +3,7 @@
     "dashboard_recipes_button": "Recipes",
     "dashboard_tasklists_button": "Task Lists",
     "dashboard_bmi_calculator_button": "BMI Calculator",
+    "dashboard_exercises_button": "Exercises",
     "bmi_calculator_title": "BMI Calculator",
     "header_logged_in_as_text": "Logged in as: ",
     "go_back_button" : "Go Back",
@@ -68,5 +69,7 @@
     "reset_password": "Reset Password",
     "password_reset": "Password Reset",
     "failed_to_reset_password": "Failed to reset password",
-    "check_your_inbox": "Check your inbox for further instructions"
+    "check_your_inbox": "Check your inbox for further instructions",
+    "manage_exercises_title": "Exercises",
+    "manage_exercises_coming_soon": "Coming soon..."
 }

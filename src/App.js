@@ -6,23 +6,23 @@ import About from './components/About'
 import Dashboard from './components/Dashboard'
 import Login from './components/Login'
 import ForgotPassword from './components/ForgotPassword'
-import ManageTaskLists from './components/TaskList/ManageTaskLists';
-import TaskListDetails from './components/TaskList/TaskListDetails';
-import TaskDetails from './components/Task/TaskDetails';
-import ManageRecipes from './components/Recipe/ManageRecipes';
+import ManageTaskLists from './components/TaskList/ManageTaskLists'
+import ManageExercises from './components/Exercises/ManageExercises'
+import TaskListDetails from './components/TaskList/TaskListDetails'
+import TaskDetails from './components/Task/TaskDetails'
+import ManageRecipes from './components/Recipe/ManageRecipes'
 import PrivateRoute from "./components/PrivateRoute"
-import Signup from './components/Signup';
-import React from 'react';
+import Signup from './components/Signup'
+import React from 'react'
 import { AuthProvider } from "./contexts/AuthContext"
-import BmiCalculator from './components/BmiCalculator/BmiCalculator';
+import BmiCalculator from './components/BmiCalculator/BmiCalculator'
 import 'flag-icon-css/css/flag-icons.min.css'
 
 //Language
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import LanguageDetector from 'i18next-browser-languagedetector';
-import HttpApi from 'i18next-http-backend';
-
+import i18n from "i18next"
+import { initReactI18next } from "react-i18next"
+import LanguageDetector from 'i18next-browser-languagedetector'
+import HttpApi from 'i18next-http-backend'
 import Dropdown from 'react-bootstrap/Dropdown'
 
 i18n
@@ -93,6 +93,7 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/managerecipes' element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
           <Route path='/managetasklists' element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
+          <Route path='/manageexercises' element={<PrivateRoute><ManageExercises /></PrivateRoute>} />
           <Route path='/task/:id/:tasklistid' element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
           <Route path='/tasklist/:id' element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
           <Route path='/bmicalculator' element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
