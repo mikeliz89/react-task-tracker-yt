@@ -63,5 +63,10 @@
     "bmi_ormore": "tai enemmän",
     "your_bmi_is": "Painoindeksisi on",
     "yes": "Kyllä",
-    "no": "Ei"
+    "no": "Ei",
+    "forgot_password": "Unohditko salasanasi?",
+    "reset_password": "Nollaa salasana",
+    "password_reset": "Salasanan nollaus",
+    "failed_to_reset_password": "Salasanan nollaus epäonnistui",
+    "check_your_inbox": "Katso sähköpostiisi lähetetty viesti"
 }

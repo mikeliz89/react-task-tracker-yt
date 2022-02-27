@@ -138,6 +138,14 @@ footer {
   border-radius: 5px;
 }
 
+.success {
+  background: #00bf00;
+  color: black;
+  margin: 5px;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
 .bigbtn {
   display:inline-block;
   width: 45%;
@@ -155,4 +163,8 @@ footer {
 
 .loggedin-user {
   font-size: 0.8em;
+}
+
+.login-container {
+  padding: 10px 10px;
 }

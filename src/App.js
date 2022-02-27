@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import About from './components/About'
 import Dashboard from './components/Dashboard'
 import Login from './components/Login'
+import ForgotPassword from './components/ForgotPassword'
 import ManageTaskLists from './components/TaskList/ManageTaskLists';
 import TaskListDetails from './components/TaskList/TaskListDetails';
 import TaskDetails from './components/Task/TaskDetails';
@@ -88,6 +89,7 @@ function App() {
           <Route exact path='/' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/about' element={<About />} />
           <Route path='/managerecipes' element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
           <Route path='/managetasklists' element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />

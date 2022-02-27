@@ -63,5 +63,10 @@
     "bmi_ormore": "or more",
     "your_bmi_is": "Your BMI is",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "forgot_password": "Forgot Password?",
+    "reset_password": "Reset Password",
+    "password_reset": "Password Reset",
+    "failed_to_reset_password": "Failed to reset password",
+    "check_your_inbox": "Check your inbox for further instructions"
 }
