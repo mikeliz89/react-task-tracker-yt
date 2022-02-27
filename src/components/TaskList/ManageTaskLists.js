@@ -5,12 +5,15 @@ import TaskListButton from '../../components/TaskList/TaskListButton';
 import AddTaskList from '../../components/TaskList/AddTaskList';
 import TaskLists from '../../components/TaskList/TaskLists';
 import GoBackButton from '../GoBackButton'
+import Button from '../Button'
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 export default function ManageTaskLists() {
 
+  const navigate = useNavigate();
   const { currentUser } = useAuth();
   
   const { t } = useTranslation();
@@ -101,21 +104,29 @@ export default function ManageTaskLists() {
     remove(dbref)
   }
 
-    return (
-        <div>
-          <h3 className="page-title">{t('manage_tasklists_title')}</h3>
-          <GoBackButton  />
-          <TaskListButton onShowAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
-          showAdd={showAddTaskList}></TaskListButton>
-            {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
-              {taskLists != null && taskLists.length > 0 ? (
-              <TaskLists
-              taskLists={taskLists} 
-              onDelete={deleteTaskList} 
-                />
-              ) : (
-                'No Task Lists To Show'
-              )}
-        </div>
-    )
+  function gotoTaskListArchive() {
+    navigate('/tasklistarchive')
+  }
+
+  return (
+    <div>
+      <h3 className="page-title">{t('manage_tasklists_title')}</h3>
+      <GoBackButton  />
+      <TaskListButton 
+        onShowAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
+        showAdd={showAddTaskList}>
+      </TaskListButton>
+      <Button text={t('button_goto_tasklist_archive')} color="#545454" onClick={() => gotoTaskListArchive()} />
+        {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
+        {taskLists != null && taskLists.length > 0 ? (
+          <TaskLists
+          taskLists={taskLists} 
+          onDelete={deleteTaskList} 
+            />
+          ) : (
+            t('no_task_lists_to_show')
+          )
+        }
+    </div>
+  )
 }
