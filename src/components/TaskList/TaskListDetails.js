@@ -247,7 +247,7 @@ function TaskListDetails() {
                 text={showAddTask ? t('button_close') : t('button_add_task')}
                 onClick={() => setShowAddTask(!showAddTask)}
                 />
-        <Button text='Arkistoi' color="#545454" 
+        <Button text={t('archive')} color="#545454" 
                 onClick={() => {if(window.confirm(t('archive_list_confirm_message'))) {archiveTaskList(taskList);}}}
          />
       </div>

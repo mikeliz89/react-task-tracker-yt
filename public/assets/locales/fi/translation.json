@@ -75,5 +75,6 @@
     "manage_exercises_title": "Liikunta",
     "manage_exercises_coming_soon": "Tulossa pian...",
     "button_goto_tasklist_archive": "Katso arkistoa",
-    "manage_tasklists_archive_title": "Arkisto"
+    "manage_tasklists_archive_title": "Arkisto",
+    "archive": "Arkistoi"
 }

@@ -75,5 +75,6 @@
     "manage_exercises_title": "Exercises",
     "manage_exercises_coming_soon": "Coming soon...",
     "button_goto_tasklist_archive": "Archive",
-    "manage_tasklists_archive_title": "Task List Archive"
+    "manage_tasklists_archive_title": "Task List Archive",
+    "archive": "Archive"
 }
