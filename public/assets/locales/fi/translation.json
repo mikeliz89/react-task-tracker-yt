@@ -24,6 +24,7 @@
     "description": "Kuvaus",
     "no_tasks_to_show": "Ei tehtäviä",
     "delete_list_confirm_message": "Poista lista?",
+    "add_description": "Lisää kuvaus",
     "edit_description": "Muokkaa kuvausta",
     "add_task_list": "Listan nimi",
     "edit_task_list": "Muokkaa listan nimeä",

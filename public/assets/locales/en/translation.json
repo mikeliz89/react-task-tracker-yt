@@ -24,6 +24,7 @@
     "description": "Description",
     "no_tasks_to_show": "No Tasks To Show",
     "delete_list_confirm_message": "Delete List?",
+    "add_description": "Add Description",
     "edit_description": "Edit Description",
     "add_task_list": "Add Task List",
     "edit_task_list": "Edit Task List",
