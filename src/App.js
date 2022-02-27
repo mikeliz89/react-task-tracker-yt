@@ -11,16 +11,16 @@ import ManageExercises from './components/Exercises/ManageExercises'
 import TaskListDetails from './components/TaskList/TaskListDetails'
 import TaskDetails from './components/Task/TaskDetails'
 import ManageRecipes from './components/Recipe/ManageRecipes'
-import PrivateRoute from "./components/PrivateRoute"
+import PrivateRoute from './components/PrivateRoute'
 import Signup from './components/Signup'
 import React from 'react'
-import { AuthProvider } from "./contexts/AuthContext"
+import { AuthProvider } from './contexts/AuthContext'
 import BmiCalculator from './components/BmiCalculator/BmiCalculator'
 import 'flag-icon-css/css/flag-icons.min.css'
-
+import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive'
 //Language
-import i18n from "i18next"
-import { initReactI18next } from "react-i18next"
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import HttpApi from 'i18next-http-backend'
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -97,6 +97,7 @@ function App() {
           <Route path='/task/:id/:tasklistid' element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
           <Route path='/tasklist/:id' element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
           <Route path='/bmicalculator' element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
+          <Route path='/tasklistarchive' element={<PrivateRoute><ManageTaskListsArchive /></PrivateRoute>} />
         </Routes>
         <Footer />
       </AuthProvider>

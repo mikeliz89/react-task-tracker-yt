@@ -24,7 +24,9 @@
     "task_list": "Listan nimi",
     "description": "Kuvaus",
     "no_tasks_to_show": "Ei tehtäviä",
+    "no_task_lists_to_show": "Ei listoja",
     "delete_list_confirm_message": "Poista lista?",
+    "archive_list_confirm_message": "Arkistoi lista?",
     "add_description": "Lisää kuvaus",
     "edit_description": "Muokkaa kuvausta",
     "add_task_list": "Listan nimi",
@@ -71,5 +73,8 @@
     "failed_to_reset_password": "Salasanan nollaus epäonnistui",
     "check_your_inbox": "Katso sähköpostiisi lähetetty viesti",
     "manage_exercises_title": "Liikunta",
-    "manage_exercises_coming_soon": "Tulossa pian..."
+    "manage_exercises_coming_soon": "Tulossa pian...",
+    "button_goto_tasklist_archive": "Katso arkistoa",
+    "manage_tasklists_archive_title": "Arkisto",
+    "archive": "Arkistoi"
 }

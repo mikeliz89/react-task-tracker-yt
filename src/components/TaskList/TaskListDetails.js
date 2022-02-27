@@ -207,6 +207,30 @@ function TaskListDetails() {
       update(ref(db), updates);
   }
 
+  function archiveTaskList(taskList) {
+    //1. add this taskList to tasklist-archive
+    const dbref = ref(db, '/tasklist-archive')
+    let archiveTaskListID = push(dbref, taskList).key;
+
+    //2. delete old tasklist and tasks, create new tasklist-archive-tasks
+    const taskListID = params.id;
+    const tasksRef = ref(db,`/tasks/${taskListID}`);
+
+    get(tasksRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        var data = snapshot.val();
+        console.log()
+        let updates = {};
+        updates[`/tasklists/${taskListID}`] = null;
+        updates[`/tasks/${taskListID}`] = null;
+        updates[`/tasklist-archive-tasks/${archiveTaskListID}`] = data;
+        update(ref(db), updates);
+      } else {
+        console.log("No data available");
+      }
+    });
+  }
+
   return loading ? (
   <h3>{t('loading')}</h3>
   ) : ( 
@@ -223,6 +247,9 @@ function TaskListDetails() {
                 text={showAddTask ? t('button_close') : t('button_add_task')}
                 onClick={() => setShowAddTask(!showAddTask)}
                 />
+        <Button text={t('archive')} color="#545454" 
+                onClick={() => {if(window.confirm(t('archive_list_confirm_message'))) {archiveTaskList(taskList);}}}
+         />
       </div>
       {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id}  /> }
       {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}

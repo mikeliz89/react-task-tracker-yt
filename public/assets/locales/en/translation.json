@@ -24,7 +24,9 @@
     "task_list": "Task List",
     "description": "Description",
     "no_tasks_to_show": "No Tasks To Show",
+    "no_task_lists_to_show": "No Task Lists To Show",
     "delete_list_confirm_message": "Delete List?",
+    "archive_list_confirm_message": "Archive List?",
     "add_description": "Add Description",
     "edit_description": "Edit Description",
     "add_task_list": "Add Task List",
@@ -71,5 +73,8 @@
     "failed_to_reset_password": "Failed to reset password",
     "check_your_inbox": "Check your inbox for further instructions",
     "manage_exercises_title": "Exercises",
-    "manage_exercises_coming_soon": "Coming soon..."
+    "manage_exercises_coming_soon": "Coming soon...",
+    "button_goto_tasklist_archive": "Archive",
+    "manage_tasklists_archive_title": "Task List Archive",
+    "archive": "Archive"
 }
