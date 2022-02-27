@@ -5,8 +5,9 @@ import Button from '../Button';
 import { db } from '../../firebase-config';
 import { ref, onValue, update } from "firebase/database";
 import AddTask from './AddTask'
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils'
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils'
 import { useTranslation } from 'react-i18next';
+import i18n from "i18next";
 
 function TaskDetails() {
 
@@ -81,9 +82,9 @@ function TaskDetails() {
                 color={showEditTask ? 'red' : 'orange'} 
                 onClick={() => setShowEditTask(!showEditTask) }/>
       {showEditTask && <AddTask onAddTask={addTask} taskID={params.id} taskListID={params.tasklistid}  /> }
-      <p>{t('created')}: {task.created}</p>
+      <p>{t('created')}: {getJsonAsDateTimeString(task.created, i18n.language)}</p>
       <p>{t('created_by')}: {task.createdBy}</p>
-      <p>{t('modified')}: {task.modified}</p>
+      <p>{t('modified')}: {getJsonAsDateTimeString(task.modified, i18n.language)}</p>
       <p>{t('day_and_time')}: {task.day}</p>
       <p>{t('set_reminder')}: {task.reminder === true ? t('yes') : t('no') }</p>
   </div> 
