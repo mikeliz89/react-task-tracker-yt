@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
 import { useTranslation } from 'react-i18next';
+import { Form } from 'react-bootstrap';
+import Button from '../../components/Button'
 
 const AddTask = ({taskID, taskListID, onAddTask}) => {
     
@@ -60,24 +62,34 @@ const AddTask = ({taskID, taskListID, onAddTask}) => {
     }
 
     return (
-        <form className='add-form' onSubmit={onSubmit}>
-            <div className='form-control'>
-                <label>{t('task_name')}</label>
-                <input type='text' placeholder={t('task_name')} value={text} onChange={(e) => setText(e.target.value)} />
-            </div>
-            <div className='form-control'>
-                <label>{t('day_and_time')}</label>
-                <input type='text' placeholder={t('day_and_time')} value={day} onChange={(e) => setDay(e.target.value)} />
-            </div>
-            <div className='form-control form-control-check'>
-                <label>{t('set_reminder')}</label>
-                <input type='checkbox'
+        <Form onSubmit={onSubmit}>
+            <Form.Group className="mb-3" controlId="addTaskFormTaskName">
+                <Form.Label>{t('task_name')}</Form.Label>
+                <Form.Control 
+                type='text' 
+                placeholder={t('task_name')} 
+                value={text} 
+                onChange={(e) => setText(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="addTaskFormDayAndTime">
+                <Form.Label>{t('day_and_time')}</Form.Label>
+                <Form.Control 
+                type='text' 
+                placeholder={t('day_and_time')} 
+                value={day} 
+                onChange={(e) => setDay(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="addTaskFormReminder">
+                <Form.Check 
+                type='checkbox'
+                controlId="formBasicCheckbox"
+                label={t('set_reminder')}
                 checked={reminder}
                 value={reminder} 
                 onChange={(e) => setReminder(e.currentTarget.checked)} />
-            </div>
-            <input type='submit' value={t('button_save_task')} className='btn btn-block' />
-        </form>
+            </Form.Group>
+            <Button type='submit' text={t('button_save_task')} className='btn btn-block' />
+        </Form>
     )
 }
 

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
+import { Form } from 'react-bootstrap';
+import Button from '../components/Button';
 
 export default function ForgotPassword() {
 
@@ -34,18 +36,16 @@ export default function ForgotPassword() {
 
     return (
         <div className="login-container">
-            <header className="header">
-                <h2>{t('password_reset')}</h2>
-            </header>
+            <h3>{t('password_reset')}</h3>
             { error && <div className="error">{error}</div> }
             { message && <div className="success">{message}</div> }
-            <form className='add-form' onSubmit={onSubmit}>
-                <div className='form-control'>
-                    <label>{t('email')}</label>
-                    <input type='email' placeholder={t('email')} value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <input disabled={loading} type='submit' value={t('reset_password')} className='btn btn-block' />
-            </form>
+            <Form onSubmit={onSubmit}>
+                <Form.Group className="mb-3" controlId="forgotPasswordFormEmail">
+                    <Form.Label>{t('email')}</Form.Label>
+                    <Form.Control type='email' placeholder={t('email')} value={email} onChange={(e) => setEmail(e.target.value)} />
+                </Form.Group>
+                <Button disabled={loading} type='submit' text={t('reset_password')} className='btn btn-block' />
+            </Form>
             <div className="text-center">
                 <Link to="/login">{t('log_in')}</Link>
             </div>

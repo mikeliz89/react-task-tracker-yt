@@ -1,5 +1,6 @@
 {
     "welcome_to_react": "tervetuloa Reactiin",
+    "language": "Kieli",
     "dashboard_recipes_button": "Reseptit",
     "dashboard_tasklists_button": "Tehtävälistat",
     "dashboard_bmi_calculator_button": "Painoindeksilaskuri",
@@ -31,7 +32,7 @@
     "edit_description": "Muokkaa kuvausta",
     "add_task_list": "Listan nimi",
     "edit_task_list": "Muokkaa listan nimeä",
-    "set_reminder": "Tehtävä valmis?",
+    "set_reminder": "Tehtävä valmis",
     "created": "Luotu",
     "created_by": "Luoja",
     "modified": "Muokattu",

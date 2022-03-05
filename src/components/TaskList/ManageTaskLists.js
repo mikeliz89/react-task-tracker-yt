@@ -10,6 +10,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { Row, ButtonGroup } from 'react-bootstrap'
 
 export default function ManageTaskLists() {
 
@@ -111,22 +112,26 @@ export default function ManageTaskLists() {
   return (
     <div>
       <h3 className="page-title">{t('manage_tasklists_title')}</h3>
-      <GoBackButton  />
-      <TaskListButton 
-        onShowAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
-        showAdd={showAddTaskList}>
-      </TaskListButton>
-      <Button text={t('button_goto_tasklist_archive')} color="#545454" onClick={() => gotoTaskListArchive()} />
-        {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
-        {taskLists != null && taskLists.length > 0 ? (
-          <TaskLists
-          taskLists={taskLists} 
-          onDelete={deleteTaskList} 
-            />
-          ) : (
-            t('no_task_lists_to_show')
-          )
-        }
+      <Row>
+        <ButtonGroup>
+          <GoBackButton  />
+          <TaskListButton 
+            onShowAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
+            showAdd={showAddTaskList}>
+          </TaskListButton>
+          <Button text={t('button_goto_tasklist_archive')} color="#545454" onClick={() => gotoTaskListArchive()} />
+        </ButtonGroup>
+      </Row>
+      {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
+      {taskLists != null && taskLists.length > 0 ? (
+        <TaskLists
+        taskLists={taskLists} 
+        onDelete={deleteTaskList} 
+          />
+        ) : (
+          t('no_task_lists_to_show')
+        )
+      }
     </div>
   )
 }

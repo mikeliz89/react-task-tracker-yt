@@ -9,7 +9,7 @@ const ManageRecipes = () => {
     <div>
       <h3 className="page-title">{t('manage_recipes_title')}</h3>
        <GoBackButton  />
-       <p>{t('manage_recipes_coming_soon')}</p>
+       <p class="text-center">{t('manage_recipes_coming_soon')}</p>
     </div>
   )
 }

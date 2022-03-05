@@ -8,6 +8,7 @@ import AddTask from './AddTask'
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils'
 import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
+import {ButtonGroup} from 'react-bootstrap'
 
 function TaskDetails() {
 
@@ -75,12 +76,15 @@ function TaskDetails() {
   return loading ? (
   <h3>{t('loading')}</h3>
   ) : ( 
-  <div>
-      <h3>{task.text}</h3>
-      <GoBackButton  />
-      <Button text={showEditTask ? t('button_close') : t('button_edit')} 
-                color={showEditTask ? 'red' : 'orange'} 
-                onClick={() => setShowEditTask(!showEditTask) }/>
+  <div className={task.reminder === true ? 'task reminder' : ''}>
+      <h4>{task.text}</h4>
+      <ButtonGroup aria-label="Basic example">
+        <GoBackButton />
+        <Button
+          text={showEditTask ? t('button_close') : t('button_edit')} 
+          color={showEditTask ? 'red' : 'orange'} 
+          onClick={() => setShowEditTask(!showEditTask) } />
+      </ButtonGroup>
       {showEditTask && <AddTask onAddTask={addTask} taskID={params.id} taskListID={params.tasklistid}  /> }
       <p>{t('created')}: {getJsonAsDateTimeString(task.created, i18n.language)}</p>
       <p>{t('created_by')}: {task.createdBy}</p>

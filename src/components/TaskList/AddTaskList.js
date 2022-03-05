@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
 import { useTranslation } from 'react-i18next';
+import { Form } from 'react-bootstrap';
+import Button from '../../components/Button'
 
 const AddTaskList = ({taskListID, onAddTaskList}) => {
 
@@ -58,23 +60,23 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
     }
 
     return (
-        <form className='add-form' onSubmit={onSubmit}>
-            <div className='form-control'>
-                <label>{t('task_list')}</label>
-                <input type='text'
+        <Form onSubmit={onSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicTaskListName">
+            <Form.Label>{t('task_list')}</Form.Label>
+                <Form.Control type='text'
                     placeholder={ taskListID == null ? t('add_task_list') : t('edit_task_list')} 
                     value={title}
                     onChange={(e) => setTitle(e.target.value)} />
-            </div>
-            <div className='form-control'>
-                <label>{t('description')}</label>
-                <input type='text' 
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicTaskListDescription">
+            <Form.Label>{t('description')}</Form.Label>
+                <Form.Control type='text' 
                     placeholder={ taskListID == null ? t('add_description') : t('edit_description') }
                     value={description}
                     onChange={(e) => setDescription(e.target.value)} />
-            </div>
-            <input type='submit' value={t('button_save_list')} className='btn btn-block' />
-        </form>
+            </Form.Group>
+            <Button type='submit' text={t('button_save_list')} className='btn btn-primary btn-block' />
+        </Form>
     )
 }
 

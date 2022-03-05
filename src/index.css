@@ -10,6 +10,14 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+label {
+  font-family: 'Poppins', sans-serif;
+}
+
+a {
+  font-family: 'Poppins', sans-serif;
+}
+
 .container {
   max-width: 500px;
   margin: 30px auto;
@@ -29,20 +37,6 @@ body {
 .headerbox {
   margin-bottom: 10px;
   border-bottom: 3px solid #e0e0e0;
-}
-
-.btn {
-  display: inline-block;
-  background: #000;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 15px;
-  font-family: inherit;
 }
 
 .btn:focus {
@@ -80,8 +74,9 @@ h3.page-title {
   justify-content: space-between;
 }
 
-.add-form {
-  margin-bottom: 40px;
+.task p {
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 0.5em;
 }
 
 .form-control {
@@ -92,12 +87,19 @@ h3.page-title {
   display: block;
 }
 
-.form-control input {
-  width: 100%;
-  height: 40px;
-  margin: 5px;
-  padding: 3px 7px;
-  font-size: 17px;
+form {
+  position: relative;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-right: 0;
+  margin-left: 0;
+  color: #212529;
+}
+
+.form-bordered {
+  border: 0.2rem solid #ececec;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .form-control-check {
@@ -112,7 +114,7 @@ h3.page-title {
 
 .form-control-check input {
   flex: 2;
-  height: 20px;
+  height: 30px;
 }
 
 footer {
@@ -124,10 +126,6 @@ footer {
 .deleteTaskBtn:hover {
     font-style:bold;
     color:orange !important;
-}
-
-.text-center {
-  text-align: center;
 }
 
 .error {
@@ -147,9 +145,9 @@ footer {
 }
 
 .bigbtn {
-  display:inline-block;
-  width: 45%;
-  height: 120px;
+  width: 100%;
+  max-width: 220px;
+  height: 200px;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -162,7 +160,7 @@ footer {
 }
 
 .loggedin-user {
-  font-size: 0.8em;
+  font-size: 1.0em;
 }
 
 .login-container {
