@@ -12,7 +12,7 @@ export default function Dashboard() {
         {/* Create New Row For Sets of 4 buttons  */}
         <Row>
             <Col md={3} sm={6} xs={6}>
-                <Link to={`/managerecipes`}><BigButton imageName="recipes.png" textcolor="white" color="#b37401" text={t('dashboard_recipes_button')} /></Link>
+                <Link to={`/managerecipes`}><BigButton imageName="recipes.png" textcolor="black" color="#b37401" text={t('dashboard_recipes_button')} /></Link>
             </Col>
             <Col md={3} sm={6} xs={6}>
                 <Link to={`/managetasklists`}><BigButton color="green" text={t('dashboard_tasklists_button')} /></Link>

@@ -7,7 +7,9 @@ const BigButton = ({color, textcolor, text, onClick, imageName}) => {
         <div style={{ backgroundImage: `url(${background})` }}>
             <button 
             onClick = {onClick}
-            style={ imageName == "" ? { backgroundColor:color, color:textcolor } : {backgroundColor: 'rgba(0, 0, 0, 0)'} }
+            style={ imageName == "" ? 
+            { backgroundColor:color, color:textcolor } : 
+            { backgroundColor: 'rgba(0, 0, 0, 0)', color:textcolor} }
             className='bigbtn'>{text}</button>
         </div>
     )
