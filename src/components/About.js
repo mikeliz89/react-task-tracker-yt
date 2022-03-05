@@ -6,7 +6,7 @@ const About = () => {
     return (
         <div>
             <GoBackButton  />
-            <h4>{t('about_version')} 1.0.1</h4>
+            <h4>{t('about_version')} 2.0.0</h4>
             <p>{t('about_author')} Miika Kontio</p>
         </div>
     )
