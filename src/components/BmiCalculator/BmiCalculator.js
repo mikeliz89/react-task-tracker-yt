@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import GoBackButton from '../GoBackButton'
 import { useTranslation } from 'react-i18next';
+import { Form, Table } from 'react-bootstrap';
+import Button from '../Button';
 
 const BmiCalculator = () => {
 
@@ -25,25 +27,23 @@ const BmiCalculator = () => {
     <div>
         <h3 className="page-title">{t('bmi_calculator_title')}</h3>
         <GoBackButton />
-
-        <form className='add-form' onSubmit={onSubmit}>
-                <div className='form-control'>
-                    <label>{t('height')}</label>
-                    <input type='number' placeholder={t('height')} value={height} onChange={(e) => setHeight(e.target.value)} />
-                </div>
-                <div className='form-control'>
-                    <label>{t('weight')}</label>
-                    <input type='number' placeholder={t('weight')} value={weight} onChange={(e) => setWeight(e.target.value)} />
-                </div>
-                <input type='submit' value={t('calculate_bmi')} className='btn btn-block' />
-            </form>
-
+        <Form onSubmit={onSubmit}>
+            <Form.Group className="mb-3" controlId="addTaskFormTaskName">
+                <Form.Label>{t('height')}</Form.Label>
+                <Form.Control type='number' placeholder={t('height')} value={height} onChange={(e) => setHeight(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="addTaskFormTaskName">
+                <Form.Label>{t('weight')}</Form.Label>
+                <Form.Control type='number' placeholder={t('weight')} value={weight} onChange={(e) => setWeight(e.target.value)} />
+            </Form.Group>
+            <Button type='submit' text={t('calculate_bmi')} className='btn btn-block' />
+        </Form>
         { BMI > 0 &&
-        <div>
+        <div class="alert alert-primary">
          {t('your_bmi_is')} : {BMI}
         </div>
         }
-        <table>
+        <Table>
             <tbody>
             <tr>
                 <td>{t('bmi_1')}</td>
@@ -78,7 +78,7 @@ const BmiCalculator = () => {
                 <td>40,0 {t('bmi_ormore')}</td>
             </tr>
             </tbody>
-        </table>
+        </Table>
     </div>
   )
 }

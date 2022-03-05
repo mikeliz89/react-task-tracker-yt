@@ -11,6 +11,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { FaListAlt} from 'react-icons/fa'
 import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
+import { Row, ButtonGroup } from 'react-bootstrap'
 
 function TaskListDetails() {
 
@@ -236,21 +237,23 @@ function TaskListDetails() {
   ) : ( 
       <div>
       {/* <pre>{JSON.stringify(taskList)}</pre> */}
-      <h3><FaListAlt style={{color:'gray', cursor: 'pointer', marginBottom: '-3px' }} /> {taskList.title}</h3>
+      <h3><FaListAlt style={{color:'gray', cursor: 'pointer', marginBottom: '3px' }} /> {taskList.title}</h3>
       <p>{taskList.description}</p>
-      <div style={{ display: "flex" }}>
-        <GoBackButton />
-        <Button text={showEditTaskList ? t('button_close') : t('button_edit')} 
-                color={showEditTaskList ? 'red' : 'orange'} 
-                onClick={() => setShowEditTaskList(!showEditTaskList) }/>
-        <Button color={showAddTask ? 'red' : 'green'}
-                text={showAddTask ? t('button_close') : t('button_add_task')}
-                onClick={() => setShowAddTask(!showAddTask)}
-                />
-        <Button text={t('archive')} color="#545454" 
-                onClick={() => {if(window.confirm(t('archive_list_confirm_message'))) {archiveTaskList(taskList);}}}
-         />
-      </div>
+      <Row>
+        <ButtonGroup aria-label="Basic example">
+          <GoBackButton />
+          <Button text={showEditTaskList ? t('button_close') : t('button_edit')} 
+                  color={showEditTaskList ? 'red' : 'orange'} 
+                  onClick={() => setShowEditTaskList(!showEditTaskList) }/>
+          <Button color={showAddTask ? 'red' : 'green'}
+                  text={showAddTask ? t('button_close') : t('button_add_task')}
+                  onClick={() => setShowAddTask(!showAddTask)}
+                  />
+          <Button text={t('archive')} color="#545454" showIconArchive={true}
+                  onClick={() => {if(window.confirm(t('archive_list_confirm_message'))) {archiveTaskList(taskList);}}}
+          />
+        </ButtonGroup>
+      </Row>
       {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id}  /> }
       {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
             {tasks != null && tasks.length > 0 ? (

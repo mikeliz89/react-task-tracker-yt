@@ -23,11 +23,14 @@ export default function Logout() {
             console.log(error);
        }
     }
-
     return (
         <>
           { error && <div class="error">{error}</div> }  
-          <Button onClick={() => handleLogout() } text={t('log_out')} />
+          <Button 
+           onClick={() => handleLogout()} 
+           text={t('log_out')}
+           color="gray"
+           className="btn" />
         </>
     )
 }

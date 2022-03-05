@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
+import { Form } from 'react-bootstrap'
+import Button from '../components/Button'
 
 export default function Signup() {
 
@@ -25,7 +27,7 @@ export default function Signup() {
             return
         }
 
-        if(password != passwordConfirm) {
+        if(password !== passwordConfirm) {
             setError(t('passwords_do_not_match'));
             return
         }
@@ -51,30 +53,28 @@ export default function Signup() {
     }
 
     return (
-        <>
-            <header className="header">
-                <h1>{t('sign_up')}</h1>
-            </header>
+        <div className="login-container">
+            <h3>{t('sign_up')}</h3>
             { error && <div className="error">{error}</div> }
-            <form className='add-form' onSubmit={onSubmit}>
-                <div className='form-control'>
-                    <label>{t('email')}</label>
-                    <input type='email' placeholder={t('email')} value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div className='form-control'>
-                    <label>{t('password')}</label>
-                    <input type='password' placeholder={t('password')} value={password} onChange={(e) => setPassword(e.target.value)} />
-                </div>
-                <div className='form-control'>
-                    <label>{t('password_confirmation')}</label>
-                    <input type='password' placeholder={t('password')} value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} />
-                </div>
-                <input disabled={loading} type='submit' value={t('sign_up')} className='btn btn-block' />
-            </form>
+            <Form onSubmit={onSubmit}>
+                <Form.Group className="mb-3" controlId="signupFormEmail">
+                    <Form.Label>{t('email')}</Form.Label>
+                    <Form.Control type='email' placeholder={t('email')} value={email} onChange={(e) => setEmail(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="signupFormPassword">
+                    <Form.Label>{t('password')}</Form.Label>
+                    <Form.Control type='password' placeholder={t('password')} value={password} onChange={(e) => setPassword(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="signupFormPasswordConfirmation">
+                    <Form.Label>{t('password_confirmation')}</Form.Label>
+                    <Form.Control type='password' placeholder={t('password')} value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} />
+                </Form.Group>
+                <Button disabled={loading} type='submit' text={t('sign_up')} className='btn btn-block' />
+            </Form>
 
             <div className="text-center">
                 {t('already_have_an_account')} <Link to="/login">{t('log_in')}</Link>   
             </div>
-        </>
+        </div>
     )
 }
