@@ -83,5 +83,7 @@
     "button_save_recipe": "Tallenna resepti",
     "please_add_recipe": "Ole hyvä ja anna reseptille nimi",
     "edit_recipe_name": "Muokkaa reseptin nimeä",
-    "category": "Kategoria"
+    "category": "Kategoria",
+    "recipe_save_successfull": "Reseptin tallennus onnistui",
+    "recipe_save_exception": "Reseptin tallennus epäonnistui"
 }

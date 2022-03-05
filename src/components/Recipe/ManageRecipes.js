@@ -13,6 +13,8 @@ const ManageRecipes = () => {
 
   //states
   const [showAddRecipe, setShowAddRecipe] = useState(false)
+  const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
 
   const { t } = useTranslation();
 
@@ -20,10 +22,16 @@ const ManageRecipes = () => {
   
   /** Add Recipe */
   const addRecipe = async (recipe) => {
-    recipe["created"] = getCurrentDateAsJson();
-    recipe["createdBy"] = currentUser.email;
-    const dbref = ref(db, '/recipes');
-    push(dbref, recipe);
+
+    try{
+      recipe["created"] = getCurrentDateAsJson();
+      recipe["createdBy"] = currentUser.email;
+      const dbref = ref(db, '/recipes');
+      push(dbref, recipe);
+      setMessage(t('recipe_save_successfull'));
+    } catch(ex) {
+      setError(t('recipe_save_exception'));
+    }
   }
 
   return (
@@ -38,6 +46,8 @@ const ManageRecipes = () => {
           />
         </ButtonGroup>
        </Row>
+       { error && <div className="error">{error}</div> }
+       { message && <div className="success">{message}</div> }
        {showAddRecipe && <AddRecipe onAddRecipe={addRecipe} />}
     </div>
   )

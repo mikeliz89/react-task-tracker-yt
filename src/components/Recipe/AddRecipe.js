@@ -125,31 +125,33 @@ const AddRecipe = ({recipeID, onAddRecipe}) => {
     }
 
     return (
-        <Form onSubmit={onSubmit}>
-            <Form.Group className="mb-3" controlId="addRecipeFormName">
-                <Form.Label>{t('recipe_name')}</Form.Label>
-                <Form.Control type='text'
-                    placeholder={ recipeID == null ? t('recipe_name') : t('edit_recipe_name')} 
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="addRecipeDescription">
-                <Form.Label>{t('description')}</Form.Label>
-                <Form.Control type='text' 
-                    placeholder={ recipeID == null ? t('add_description') : t('edit_description') }
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="addRecipeCategory">
-                <Form.Label>{t('category')}</Form.Label>
-                <Form.Select onChange={(e) => setCategory(e.target.value) }>
-                    {categories.map(({id, name}) => (
-                        <option key={id}>{name}</option>
-                    ))}
-                </Form.Select>
-            </Form.Group>
-            <Button type='submit' text={t('button_save_recipe')} className='btn btn-primary btn-block' />
-        </Form>
+        <>
+            <Form onSubmit={onSubmit}>
+                <Form.Group className="mb-3" controlId="addRecipeFormName">
+                    <Form.Label>{t('recipe_name')}</Form.Label>
+                    <Form.Control type='text'
+                        placeholder={ recipeID == null ? t('recipe_name') : t('edit_recipe_name')} 
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addRecipeDescription">
+                    <Form.Label>{t('description')}</Form.Label>
+                    <Form.Control type='text' 
+                        placeholder={ recipeID == null ? t('add_description') : t('edit_description') }
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addRecipeCategory">
+                    <Form.Label>{t('category')}</Form.Label>
+                    <Form.Select onChange={(e) => setCategory(e.target.value) }>
+                        {categories.map(({id, name}) => (
+                            <option key={id}>{name}</option>
+                        ))}
+                    </Form.Select>
+                </Form.Group>
+                <Button type='submit' text={t('button_save_recipe')} className='btn btn-primary btn-block' />
+            </Form>
+            </>
     )
 }
 

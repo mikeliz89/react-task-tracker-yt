@@ -83,5 +83,7 @@
     "button_save_recipe": "Save Recipe",
     "please_add_recipe": "Please add a recipe",
     "edit_recipe_name": "Edit Recipe Name",
-    "category": "Category"
+    "category": "Category",
+    "recipe_save_successfull": "Recipe was saved",
+    "recipe_save_exception": "Recipe save encountered an error"
 }
