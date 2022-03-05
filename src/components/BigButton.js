@@ -1,17 +1,22 @@
 import PropTypes from 'prop-types'
 
-const BigButton = ({color, textcolor, text, onClick}) => {
+const BigButton = ({color, textcolor, text, onClick, imageName}) => {
+
+    const background = `/images/${imageName}`;
     return (
-        <button 
-        onClick = {onClick}
-        style={{backgroundColor:color, color:textcolor}}
-        className='bigbtn'>{text}</button>
+        <div style={{ backgroundImage: `url(${background})` }}>
+            <button 
+            onClick = {onClick}
+            style={ imageName == "" ? { backgroundColor:color, color:textcolor } : {backgroundColor: 'rgba(0, 0, 0, 0)'} }
+            className='bigbtn'>{text}</button>
+        </div>
     )
 }
 
 BigButton.defaultProps = {
     color: 'steelblue',
-    textcolor: 'white'
+    textcolor: 'white',
+    imageName: ''
 }
 
 BigButton.propTypes = {

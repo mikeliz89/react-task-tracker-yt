@@ -14,7 +14,7 @@ const Header = ({title}) => {
                 <h1>{title}</h1>
                 {currentUser && <Logout /> }
             </header>
-            <span className="loggedin-user">{currentUser && t('header_logged_in_as_text') + currentUser.email}</span>
+            <p className="loggedin-user">{currentUser && t('header_logged_in_as_text') + currentUser.email}</p>
         </div>
     )
 }
