@@ -15,13 +15,13 @@ export default function Dashboard() {
                 <Link to={`/managerecipes`}><BigButton imageName="recipes.png" textcolor="black" color="#b37401" text={t('dashboard_recipes_button')} /></Link>
             </Col>
             <Col md={3} sm={6} xs={6}>
-                <Link to={`/managetasklists`}><BigButton color="green" text={t('dashboard_tasklists_button')} /></Link>
+                <Link to={`/managetasklists`}><BigButton imageName="tasklists.png" textcolor="black" color="green" text={t('dashboard_tasklists_button')} /></Link>
             </Col>
             <Col md={3} sm={6} xs={6}>
-                <Link to={'/bmicalculator'}><BigButton text={t('dashboard_bmi_calculator_button')} /></Link>
+                <Link to={'/bmicalculator'}><BigButton imageName="calculator.png" text={t('dashboard_bmi_calculator_button')} /></Link>
             </Col>
             <Col md={3} sm={6} xs={6}>
-                <Link to={'/manageexercises'}><BigButton color="#ef7c1a" text={t('dashboard_exercises_button')} /></Link>
+                <Link to={'/manageexercises'}><BigButton imageName="exercises.png" textcolor="black" color="#ef7c1a" text={t('dashboard_exercises_button')} /></Link>
             </Col>
         </Row>
 
