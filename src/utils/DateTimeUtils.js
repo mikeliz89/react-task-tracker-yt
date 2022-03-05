@@ -20,8 +20,7 @@ export function getJsonAsDateTimeString(json, language) {
 }
 
 function getTimeString(json, language = "en") {
-     //empty or undefined
-     if(json == "" || json == undefined) {
+    if(isEmptyOrUndefined(json)) {
         return "";
     }
     let myDate = new Date(json);
@@ -33,13 +32,13 @@ function getTimeString(json, language = "en") {
             return `${hour}:${minute}:${second}`;
         case "fi":
             return `klo ${hour}.${minute}.${second}`;
+        default:
+            return "";
     }
-    return "";
 }
 
 function getDateString(json, language = "en") {
-    //empty or undefined
-    if(json == "" || json == undefined) {
+    if(isEmptyOrUndefined(json)) {
         return "";
     }
     let myDate = new Date(json);
@@ -52,16 +51,23 @@ function getDateString(json, language = "en") {
             return `${year}-${month<10?`0${month}`:`${month}`}-${date}`;
         case "fi":
             return `${date}.${month}.${year}`;
+        default: 
+            return "";
     }
-    return "";
 }
 
 function getDateTimeString(json, language = "en") {
-    //empty or undefined
-    if(json == "" || json == undefined) {
+    if(isEmptyOrUndefined(json)) {
         return "";
     }
     let dateStr = getDateString(json, language);
     let timeString = getTimeString(json, language); 
     return `${dateStr} ${timeString}`;
+}
+
+function isEmptyOrUndefined(json) {
+    if(json === "" || json === undefined)
+        return true;
+
+    return false;
 }

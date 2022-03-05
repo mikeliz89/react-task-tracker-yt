@@ -68,7 +68,7 @@ h3.page-title {
   margin-bottom: 10px;
 }
 
-.task h3 {
+.task h4 {
   display: flex;
   align-items: center;
   justify-content: space-between;

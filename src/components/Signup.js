@@ -27,7 +27,7 @@ export default function Signup() {
             return
         }
 
-        if(password != passwordConfirm) {
+        if(password !== passwordConfirm) {
             setError(t('passwords_do_not_match'));
             return
         }
