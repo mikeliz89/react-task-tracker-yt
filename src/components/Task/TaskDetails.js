@@ -53,25 +53,25 @@ function TaskDetails() {
     */
 
     const fetchTaskFromFirebase = async () => {
-        const dbref = ref(db, '/tasks/' + params.tasklistid + '/' + params.id);
-        onValue(dbref, (snapshot) => {
-          const data = snapshot.val();
-          if(data === null) {
-            navigate(-1)
-          }
-          setTask(data)
-          setLoading(false);
-        })
-      }
+      const dbref = ref(db, '/tasks/' + params.tasklistid + '/' + params.id);
+      onValue(dbref, (snapshot) => {
+        const data = snapshot.val();
+        if(data === null) {
+          navigate(-1)
+        }
+        setTask(data)
+        setLoading(false);
+      })
+    }
 
-      const addTask = async (taskListID, task) => {
-        var taskID = params.id;
-        //save edited task to firebase
-        const updates = {};
-        task["modified"] = getCurrentDateAsJson()
-        updates[`/tasks/${taskListID}/${taskID}`] = task;
-        update(ref(db), updates);
-      }
+    const addTask = async (taskListID, task) => {
+      var taskID = params.id;
+      //save edited task to firebase
+      const updates = {};
+      task["modified"] = getCurrentDateAsJson()
+      updates[`/tasks/${taskListID}/${taskID}`] = task;
+      update(ref(db), updates);
+    }
 
   return loading ? (
   <h3>{t('loading')}</h3>

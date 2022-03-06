@@ -85,5 +85,6 @@
     "edit_recipe_name": "Edit Recipe Name",
     "category": "Category",
     "recipe_save_successfull": "Recipe was saved",
-    "recipe_save_exception": "Recipe save encountered an error"
+    "recipe_save_exception": "Recipe save encountered an error",
+    "no_recipes_to_show": "No Recipes To Show"
 }

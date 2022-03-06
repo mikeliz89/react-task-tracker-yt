@@ -85,5 +85,6 @@
     "edit_recipe_name": "Muokkaa reseptin nimeä",
     "category": "Kategoria",
     "recipe_save_successfull": "Reseptin tallennus onnistui",
-    "recipe_save_exception": "Reseptin tallennus epäonnistui"
+    "recipe_save_exception": "Reseptin tallennus epäonnistui",
+    "no_recipes_to_show": "Ei reseptejä"
 }
