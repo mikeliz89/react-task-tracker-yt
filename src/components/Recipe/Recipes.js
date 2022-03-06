@@ -4,7 +4,7 @@ import Recipe from './Recipe'
 const Recipes = ({recipes}) => {
 
     return (
-        <div style={{marginTop:'20px'}}>
+        <div className="page-content">
           {recipes.map((recipe) => (
             <Recipe key={recipe.id} recipe={recipe} />
           ))}  

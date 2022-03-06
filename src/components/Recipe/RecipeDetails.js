@@ -39,10 +39,12 @@ export default function RecipeDetails() {
     <h3>{t('loading')}</h3>
     ) : ( 
     <div>
-        {/* <pre>{JSON.stringify(recipe)}</pre> */}
-        <h4>{recipe.title}</h4>
-        <p>{recipe.description}</p>
         <GoBackButton />
+        <div className="page-content">
+            {/* <pre>{JSON.stringify(recipe)}</pre> */}
+            <h4>{recipe.title}</h4>
+            <p>{recipe.description}</p>
+        </div>
     </div>
     )
 }

@@ -67,16 +67,16 @@ const ManageRecipes = () => {
 
   return (
     <div>
-      <h3 className="page-title">{t('manage_recipes_title')}</h3>
       <Row>
         <ButtonGroup>
-          <GoBackButton  />          
+          <GoBackButton />          
           <RecipeButton 
                 onShowAddRecipe={() => setShowAddRecipe(!showAddRecipe)}
                 showAdd={showAddRecipe} 
           />
         </ButtonGroup>
        </Row>
+       <h3 className="page-title">{t('manage_recipes_title')}</h3>
        { error && <div className="error">{error}</div> }
        { message && <div className="success">{message}</div> }
        {showAddRecipe && <AddRecipe onAddRecipe={addRecipe} />}

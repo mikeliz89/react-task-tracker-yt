@@ -45,8 +45,9 @@ const ManageTaskListsArchive = () => {
 
   return (
     <div>
+      <GoBackButton  />
       <h3 className="page-title">{t('manage_tasklists_archive_title')}</h3>
-       <GoBackButton  />
+      <div className="page-content">
        {taskLists != null && taskLists.length > 0 ? (
           <TaskLists
           taskLists={taskLists}
@@ -58,6 +59,7 @@ const ManageTaskListsArchive = () => {
             </div>
           )
         }
+      </div>
     </div>
   )
 }
