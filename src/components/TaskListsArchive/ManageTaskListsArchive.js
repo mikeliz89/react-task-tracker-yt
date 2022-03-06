@@ -2,7 +2,7 @@ import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
-import { ref, onValue, remove, child } from "firebase/database";
+import { ref, onValue, remove } from "firebase/database";
 import TaskLists from '../../components/TaskList/TaskLists';
 
 const ManageTaskListsArchive = () => {
@@ -45,10 +45,12 @@ const ManageTaskListsArchive = () => {
 
   return (
     <div>
+      <GoBackButton  />
       <h3 className="page-title">{t('manage_tasklists_archive_title')}</h3>
-       <GoBackButton  />
+      <div className="page-content">
        {taskLists != null && taskLists.length > 0 ? (
           <TaskLists
+          archived={true}
           taskLists={taskLists}
           onDelete={deleteTaskList} 
             />
@@ -58,6 +60,7 @@ const ManageTaskListsArchive = () => {
             </div>
           )
         }
+      </div>
     </div>
   )
 }

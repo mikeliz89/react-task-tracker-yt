@@ -237,8 +237,6 @@ function TaskListDetails() {
   ) : ( 
       <div>
       {/* <pre>{JSON.stringify(taskList)}</pre> */}
-      <h3><FaListAlt style={{color:'gray', cursor: 'pointer', marginBottom: '3px' }} /> {taskList.title}</h3>
-      <p>{taskList.description}</p>
       <Row>
         <ButtonGroup aria-label="Basic example">
           <GoBackButton />
@@ -254,8 +252,11 @@ function TaskListDetails() {
           />
         </ButtonGroup>
       </Row>
-      {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id}  /> }
-      {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
+      <h3 className="page-title"><FaListAlt style={{color:'gray', cursor: 'pointer', marginBottom: '3px' }} /> {taskList.title}</h3>
+      {taskList.description}
+        {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id}  /> }
+        {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
+        <div>
             {tasks != null && tasks.length > 0 ? (
             <Tasks
             taskListID={params.id}
@@ -266,6 +267,7 @@ function TaskListDetails() {
             ) : (
               t('no_tasks_to_show')
             )}
+      </div>
   </div> 
   );
 };

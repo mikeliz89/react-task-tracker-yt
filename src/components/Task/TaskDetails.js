@@ -53,31 +53,30 @@ function TaskDetails() {
     */
 
     const fetchTaskFromFirebase = async () => {
-        const dbref = ref(db, '/tasks/' + params.tasklistid + '/' + params.id);
-        onValue(dbref, (snapshot) => {
-          const data = snapshot.val();
-          if(data === null) {
-            navigate(-1)
-          }
-          setTask(data)
-          setLoading(false);
-        })
-      }
+      const dbref = ref(db, '/tasks/' + params.tasklistid + '/' + params.id);
+      onValue(dbref, (snapshot) => {
+        const data = snapshot.val();
+        if(data === null) {
+          navigate(-1)
+        }
+        setTask(data)
+        setLoading(false);
+      })
+    }
 
-      const addTask = async (taskListID, task) => {
-        var taskID = params.id;
-        //save edited task to firebase
-        const updates = {};
-        task["modified"] = getCurrentDateAsJson()
-        updates[`/tasks/${taskListID}/${taskID}`] = task;
-        update(ref(db), updates);
-      }
+    const addTask = async (taskListID, task) => {
+      var taskID = params.id;
+      //save edited task to firebase
+      const updates = {};
+      task["modified"] = getCurrentDateAsJson()
+      updates[`/tasks/${taskListID}/${taskID}`] = task;
+      update(ref(db), updates);
+    }
 
   return loading ? (
   <h3>{t('loading')}</h3>
   ) : ( 
-  <div className={task.reminder === true ? 'task reminder' : ''}>
-      <h4>{task.text}</h4>
+    <div>
       <ButtonGroup aria-label="Basic example">
         <GoBackButton />
         <Button
@@ -85,13 +84,16 @@ function TaskDetails() {
           color={showEditTask ? 'red' : 'orange'} 
           onClick={() => setShowEditTask(!showEditTask) } />
       </ButtonGroup>
-      {showEditTask && <AddTask onAddTask={addTask} taskID={params.id} taskListID={params.tasklistid}  /> }
-      <p>{t('created')}: {getJsonAsDateTimeString(task.created, i18n.language)}</p>
-      <p>{t('created_by')}: {task.createdBy}</p>
-      <p>{t('modified')}: {getJsonAsDateTimeString(task.modified, i18n.language)}</p>
-      <p>{t('day_and_time')}: {task.day}</p>
-      <p>{t('set_reminder')}: {task.reminder === true ? t('yes') : t('no') }</p>
-  </div> 
+      <div className={task.reminder === true ? 'task reminder' : ''}>
+          <h4 className="page-title">{task.text}</h4>
+          {showEditTask && <AddTask onAddTask={addTask} taskID={params.id} taskListID={params.tasklistid}  /> }
+          <p>{t('created')}: {getJsonAsDateTimeString(task.created, i18n.language)}</p>
+          <p>{t('created_by')}: {task.createdBy}</p>
+          <p>{t('modified')}: {getJsonAsDateTimeString(task.modified, i18n.language)}</p>
+          <p>{t('day_and_time')}: {task.day}</p>
+          <p>{t('set_reminder')}: {task.reminder === true ? t('yes') : t('no') }</p>
+      </div> 
+    </div>
   );
 };
 

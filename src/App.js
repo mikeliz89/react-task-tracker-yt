@@ -18,6 +18,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import BmiCalculator from './components/BmiCalculator/BmiCalculator'
 import 'flag-icon-css/css/flag-icons.min.css'
 import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive'
+import ArchivedTaskListDetails from './components/TaskListsArchive/ArchivedTaskListDetails'
 //Language
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
@@ -28,6 +29,7 @@ import cookies from 'js-cookie';
 import Dropdown from 'react-bootstrap/Dropdown'
 import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RecipeDetails from './components/Recipe/RecipeDetails';
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -63,7 +65,7 @@ function App() {
 
   const { t } = useTranslation();
   const currentLanguageCode = cookies.get('i18next') || 'en';
-  const currentLanguage = languages.find(l => l.code == currentLanguageCode);
+  //const currentLanguage = languages.find(l => l.code == currentLanguageCode);
 
   return (
   <Container>
@@ -110,6 +112,8 @@ function App() {
           <Route path='/tasklist/:id' element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
           <Route path='/bmicalculator' element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
           <Route path='/tasklistarchive' element={<PrivateRoute><ManageTaskListsArchive /></PrivateRoute>} />
+          <Route path='/recipe/:id' element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
+          <Route path='/tasklistarchive/:id' element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
         </Routes>
         <Footer />
       </AuthProvider>

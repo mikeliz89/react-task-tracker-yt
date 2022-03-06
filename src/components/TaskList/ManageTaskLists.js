@@ -111,7 +111,6 @@ export default function ManageTaskLists() {
 
   return (
     <div>
-      <h3 className="page-title">{t('manage_tasklists_title')}</h3>
       <Row>
         <ButtonGroup>
           <GoBackButton  />
@@ -122,16 +121,19 @@ export default function ManageTaskLists() {
           <Button text={t('button_goto_tasklist_archive')} color="#545454" onClick={() => gotoTaskListArchive()} />
         </ButtonGroup>
       </Row>
+      <h3 className="page-title">{t('manage_tasklists_title')}</h3>
       {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
-      {taskLists != null && taskLists.length > 0 ? (
-        <TaskLists
-        taskLists={taskLists} 
-        onDelete={deleteTaskList} 
-          />
-        ) : (
-          t('no_task_lists_to_show')
-        )
-      }
+      <div className="page-content">
+        {taskLists != null && taskLists.length > 0 ? (
+          <TaskLists
+          taskLists={taskLists} 
+          onDelete={deleteTaskList} 
+            />
+          ) : (
+            t('no_task_lists_to_show')
+          )
+        }
+      </div>
     </div>
   )
 }

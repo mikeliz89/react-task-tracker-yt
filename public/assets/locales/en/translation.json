@@ -12,7 +12,6 @@
     "about_version" : "Version",
     "about_author" : "Author",
     "log_out" : "Log Out",
-    "manage_recipes_coming_soon" : "Coming soon...",
     "manage_recipes_title": "Recipes",
     "button_close": "Close",
     "button_add_list" : "Add List",
@@ -45,6 +44,7 @@
     "passwords_do_not_match": "Passwords do not match",
     "please_fill_all_fields": "Please fill all fields",
     "please_add_task": "Please add a task",
+    "please_add_tasklist": "Please add a task list",
     "log_in": "Log In",
     "sign_up": "Sign Up",
     "need_an_account": "Need an account?",
@@ -77,5 +77,14 @@
     "manage_exercises_coming_soon": "Coming soon...",
     "button_goto_tasklist_archive": "Archive",
     "manage_tasklists_archive_title": "Task List Archive",
-    "archive": "Archive"
+    "archive": "Archive",
+    "button_add_recipe": "Add Recipe",
+    "recipe_name": "Recipe Name",
+    "button_save_recipe": "Save Recipe",
+    "please_add_recipe": "Please add a recipe",
+    "edit_recipe_name": "Edit Recipe Name",
+    "category": "Category",
+    "recipe_save_successfull": "Recipe was saved",
+    "recipe_save_exception": "Recipe save encountered an error",
+    "no_recipes_to_show": "No Recipes To Show"
 }

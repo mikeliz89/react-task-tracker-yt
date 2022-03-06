@@ -24,7 +24,7 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
             }
             getTaskList()
             }
-      }, []);
+      }, [taskListID]);
 
     //get task list from firebase by taskListID (in EDIT task list)
     const fetchTaskListFromFirebase = async (taskListID) => {
@@ -46,7 +46,7 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
 
         //validation
         if(!title) {
-            alert('Please add a task list')
+            alert(t('please_add_tasklist'));
             return
         }
        
@@ -64,7 +64,7 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
             <Form.Group className="mb-3" controlId="formBasicTaskListName">
             <Form.Label>{t('task_list')}</Form.Label>
                 <Form.Control type='text'
-                    placeholder={ taskListID == null ? t('add_task_list') : t('edit_task_list')} 
+                    placeholder={ taskListID == null ? t('task_list') : t('edit_task_list')} 
                     value={title}
                     onChange={(e) => setTitle(e.target.value)} />
             </Form.Group>

@@ -25,8 +25,8 @@ const BmiCalculator = () => {
 
   return (
     <div>
-        <h3 className="page-title">{t('bmi_calculator_title')}</h3>
         <GoBackButton />
+        <h3 className="page-title">{t('bmi_calculator_title')}</h3>
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="addTaskFormTaskName">
                 <Form.Label>{t('height')}</Form.Label>

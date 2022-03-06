@@ -12,7 +12,6 @@
     "about_version" : "Versio",
     "about_author" : "Tekijä",
     "log_out" : "Kirjaudu ulos",
-    "manage_recipes_coming_soon" : "Tulossa pian...",
     "manage_recipes_title": "Reseptit",
     "button_close": "Sulje",
     "button_add_list" : "Lisää lista",
@@ -45,6 +44,7 @@
     "passwords_do_not_match": "Annetut salasanat eivät täsmää",
     "please_fill_all_fields": "Ole hyvä ja täytä kaikki kentät",
     "please_add_task": "Ole hyvä ja annan tehtävän nimi",
+    "please_add_tasklist": "Ole hyvä ja anna tehtävälistan nimi",
     "log_in": "Kirjaudu",
     "sign_up": "Rekisteröidy",
     "need_an_account": "Ei vielä tunnuksia?",
@@ -77,5 +77,14 @@
     "manage_exercises_coming_soon": "Tulossa pian...",
     "button_goto_tasklist_archive": "Katso arkistoa",
     "manage_tasklists_archive_title": "Arkisto",
-    "archive": "Arkistoi"
+    "archive": "Arkistoi",
+    "button_add_recipe": "Lisää resepti",
+    "recipe_name": "Reseptin nimi",
+    "button_save_recipe": "Tallenna resepti",
+    "please_add_recipe": "Ole hyvä ja anna reseptille nimi",
+    "edit_recipe_name": "Muokkaa reseptin nimeä",
+    "category": "Kategoria",
+    "recipe_save_successfull": "Reseptin tallennus onnistui",
+    "recipe_save_exception": "Reseptin tallennus epäonnistui",
+    "no_recipes_to_show": "Ei reseptejä"
 }
