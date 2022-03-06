@@ -25,12 +25,15 @@ const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 export const auth = getAuth(app);
 
-const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider(process.env.REACT_APP_FIREBASE_SITE_KEY),
+//App check for production
+if(process.env.NODE_ENV === 'production') {
+  const appCheck = initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider(process.env.REACT_APP_FIREBASE_SITE_KEY),
 
-  // Optional argument. If true, the SDK automatically refreshes App Check
-  // tokens as needed.
-  isTokenAutoRefreshEnabled: true
-});
+    // Optional argument. If true, the SDK automatically refreshes App Check
+    // tokens as needed.
+    isTokenAutoRefreshEnabled: true
+  });
+}
 
 //const analytics = getAnalytics(app);
