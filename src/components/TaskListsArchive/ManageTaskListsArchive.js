@@ -50,6 +50,7 @@ const ManageTaskListsArchive = () => {
       <div className="page-content">
        {taskLists != null && taskLists.length > 0 ? (
           <TaskLists
+          archived={true}
           taskLists={taskLists}
           onDelete={deleteTaskList} 
             />

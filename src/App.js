@@ -18,6 +18,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import BmiCalculator from './components/BmiCalculator/BmiCalculator'
 import 'flag-icon-css/css/flag-icons.min.css'
 import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive'
+import ArchivedTaskListDetails from './components/TaskListsArchive/ArchivedTaskListDetails'
 //Language
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
@@ -112,6 +113,7 @@ function App() {
           <Route path='/bmicalculator' element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
           <Route path='/tasklistarchive' element={<PrivateRoute><ManageTaskListsArchive /></PrivateRoute>} />
           <Route path='/recipe/:id' element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
+          <Route path='/tasklistarchive/:id' element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
         </Routes>
         <Footer />
       </AuthProvider>
