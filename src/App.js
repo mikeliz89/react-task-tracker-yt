@@ -63,7 +63,7 @@ function App() {
 
   const { t } = useTranslation();
   const currentLanguageCode = cookies.get('i18next') || 'en';
-  const currentLanguage = languages.find(l => l.code == currentLanguageCode);
+  //const currentLanguage = languages.find(l => l.code == currentLanguageCode);
 
   return (
   <Container>

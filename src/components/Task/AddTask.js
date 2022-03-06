@@ -24,7 +24,7 @@ const AddTask = ({taskID, taskListID, onAddTask}) => {
             }
             getTask()
         }
-      }, []);
+      }, [taskID, taskListID]);
 
     //get task list from firebase by taskListID (in EDIT task list)
     const fetchTaskFromFirebase = async (taskID, taskListID) => {

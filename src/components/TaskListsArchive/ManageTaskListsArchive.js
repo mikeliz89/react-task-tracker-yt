@@ -2,7 +2,7 @@ import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
-import { ref, onValue, remove, child } from "firebase/database";
+import { ref, onValue, remove } from "firebase/database";
 import TaskLists from '../../components/TaskList/TaskLists';
 
 const ManageTaskListsArchive = () => {

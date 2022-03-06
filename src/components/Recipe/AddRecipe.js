@@ -4,7 +4,6 @@ import { ref, get } from "firebase/database";
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import Button from '../Button'
-import { Dropdown } from 'react-bootstrap';
 
 // TODO: Tällä hetkellä vain kovakoodatut ruoka-kategoriat
 const categories =[
@@ -89,7 +88,7 @@ const AddRecipe = ({recipeID, onAddRecipe}) => {
             }
             getRecipe()
             }
-      }, []);
+      }, [recipeID]);
 
     /** get recipe from firebase by recipeID (in EDIT recipe) */
     const fetchRecipeFromFirebase = async (recipeID) => {
