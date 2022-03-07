@@ -87,5 +87,12 @@
     "recipe_save_successfull": "Recipe was saved",
     "recipe_save_exception": "Recipe save encountered an error",
     "no_recipes_to_show": "No Recipes To Show",
-    "tasks_ready_counter": "Tasks ready"
+    "tasks_ready_counter": "Tasks ready",
+    "button_save_incredient": "Save Incredient",
+    "incredient_name": "Incredient Name",
+    "incredient_amount": "Incredient Amount",
+    "button_add_incredient": "Add Incredient",
+    "incredient_unit": "Incredient Unit",
+    "incredient_unit_label": "Unit e.g. L, DL, Tsp, Tblsp, g, Kg, Piece",
+    "no_incredients_to_show": "No Incredients To Show"
 }

@@ -87,5 +87,12 @@
     "recipe_save_successfull": "Reseptin tallennus onnistui",
     "recipe_save_exception": "Reseptin tallennus epäonnistui",
     "no_recipes_to_show": "Ei reseptejä",
-    "tasks_ready_counter": "Tehtäviä valmiina"
+    "tasks_ready_counter": "Tehtäviä valmiina",
+    "button_save_incredient": "Tallenna ainesosa",
+    "incredient_name": "Ainesosan nimi",
+    "incredient_amount": "Määrä",
+    "button_add_incredient": "Lisää ainesosa",
+    "incredient_unit": "Yksikkö",
+    "incredient_unit_label": "Yksikkö esim. L, DL, TL, RL, g, Kg, Kpl",
+    "no_incredients_to_show": "Ei lisättyjä ainesosia"
 }
