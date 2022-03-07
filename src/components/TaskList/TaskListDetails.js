@@ -28,6 +28,9 @@ function TaskListDetails() {
     const [showAddTask, setShowAddTask] = useState(false)
     const [showEditTaskList, setShowEditTaskList] = useState(false)
     const [tasks, setTasks] = useState()
+    //counters
+    const [taskCounter, setTaskCounter] = useState(0)
+    const [taskReadyCounter, setTaskReadyCounter] = useState(0)
 
     const params = useParams();
     const navigate = useNavigate()
@@ -104,10 +107,18 @@ function TaskListDetails() {
       onValue(dbref, (snapshot) => {
         const snap = snapshot.val();
         const tasks = [];
+        let taskCounterTemp = 0;
+        let taskReadyCounterTemp = 0;
         for(let id in snap) {
+          taskCounterTemp++;
+          if(snap[id]["reminder"] === true) {
+            taskReadyCounterTemp++;
+          }
           tasks.push({id, ...snap[id]});
         }
         setTasks(tasks);
+        setTaskCounter(taskCounterTemp);
+        setTaskReadyCounter(taskReadyCounterTemp);
       })
   }
 
@@ -259,7 +270,8 @@ function TaskListDetails() {
       {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
       {t('created')}: {getJsonAsDateTimeString(taskList.created, i18n.language)}<br/>
       {t('created_by')}: {taskList.createdBy}<br/>
-      {t('modified')}: {getJsonAsDateTimeString(taskList.modified, i18n.language)}
+      {t('modified')}: {getJsonAsDateTimeString(taskList.modified, i18n.language)}<br/>
+      {t('tasks_ready_counter')}: {taskReadyCounter}/{taskCounter}
       <div className="page-content">
           {tasks != null && tasks.length > 0 ? (
           <Tasks
