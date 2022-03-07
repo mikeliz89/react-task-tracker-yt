@@ -7,11 +7,12 @@ import Tasks from '../Task/Tasks';
 import { useAuth } from '../../contexts/AuthContext'
 import { db } from '../../firebase-config';
 import { update, ref, onValue, push, child, remove, get } from "firebase/database";
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { FaListAlt} from 'react-icons/fa'
 import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup } from 'react-bootstrap'
+import i18n from "i18next";
 
 function TaskListDetails() {
 
@@ -235,7 +236,7 @@ function TaskListDetails() {
   return loading ? (
   <h3>{t('loading')}</h3>
   ) : ( 
-      <div>
+    <div>
       {/* <pre>{JSON.stringify(taskList)}</pre> */}
       <Row>
         <ButtonGroup aria-label="Basic example">
@@ -253,22 +254,25 @@ function TaskListDetails() {
         </ButtonGroup>
       </Row>
       <h3 className="page-title"><FaListAlt style={{color:'gray', cursor: 'pointer', marginBottom: '3px' }} /> {taskList.title}</h3>
-      {taskList.description}
-        {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id}  /> }
-        {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
-        <div>
-            {tasks != null && tasks.length > 0 ? (
-            <Tasks
-            taskListID={params.id}
-            tasks={tasks}
-            onDelete={deleteTask}
-            onToggle={toggleReminder}
-              />
-            ) : (
-              t('no_tasks_to_show')
-            )}
+      {taskList.description}<br/>
+      {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id}  /> }
+      {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
+      {t('created')}: {getJsonAsDateTimeString(taskList.created, i18n.language)}<br/>
+      {t('created_by')}: {taskList.createdBy}<br/>
+      {t('modified')}: {getJsonAsDateTimeString(taskList.modified, i18n.language)}
+      <div className="page-content">
+          {tasks != null && tasks.length > 0 ? (
+          <Tasks
+          taskListID={params.id}
+          tasks={tasks}
+          onDelete={deleteTask}
+          onToggle={toggleReminder}
+            />
+          ) : (
+            t('no_tasks_to_show')
+          )}
       </div>
-  </div> 
+    </div> 
   );
 };
 

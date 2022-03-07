@@ -19,11 +19,13 @@ a {
 }
 
 .container {
-
-  margin: 30px auto;
+  margin: 10px auto;
   overflow: auto;
   min-height: 300px;
-  padding: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   border-radius: 5px;
 }
 
@@ -93,7 +95,8 @@ h4.page-title {
 
 form {
   position: relative;
-  padding: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   border-radius: 8px;
   margin-right: 0;
   margin-left: 0;
