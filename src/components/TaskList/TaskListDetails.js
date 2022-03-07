@@ -11,7 +11,7 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import { FaListAlt} from 'react-icons/fa'
 import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup } from 'react-bootstrap'
+import { Row, ButtonGroup, Accordion } from 'react-bootstrap'
 import i18n from "i18next";
 
 function TaskListDetails() {
@@ -264,14 +264,23 @@ function TaskListDetails() {
           />
         </ButtonGroup>
       </Row>
-      <h3 className="page-title"><FaListAlt style={{color:'gray', cursor: 'pointer', marginBottom: '3px' }} /> {taskList.title}</h3>
-      {taskList.description}<br/>
+
+      <Accordion defaultActiveKey="0">
+        <Accordion.Item eventKey="0">
+          <Accordion.Header><h3 className="page-title"><FaListAlt style={{color:'gray', cursor: 'pointer', marginBottom: '3px' }} /> {taskList.title}</h3></Accordion.Header>
+          <Accordion.Body>
+          {taskList.description}<br/>
+          {t('created')}: {getJsonAsDateTimeString(taskList.created, i18n.language)}<br/>
+            {t('created_by')}: {taskList.createdBy}<br/>
+            {t('modified')}: {getJsonAsDateTimeString(taskList.modified, i18n.language)}<br/>
+            {t('tasks_ready_counter')}: {taskReadyCounter}/{taskCounter}
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+      
       {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id}  /> }
       {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
-      {t('created')}: {getJsonAsDateTimeString(taskList.created, i18n.language)}<br/>
-      {t('created_by')}: {taskList.createdBy}<br/>
-      {t('modified')}: {getJsonAsDateTimeString(taskList.modified, i18n.language)}<br/>
-      {t('tasks_ready_counter')}: {taskReadyCounter}/{taskCounter}
+      
       <div className="page-content">
           {tasks != null && tasks.length > 0 ? (
           <Tasks
