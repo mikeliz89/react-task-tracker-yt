@@ -46,7 +46,7 @@ function TaskDetails() {
         const res = await fetch(`${taskUrl}/${params.id}`)
         const data = await res.json()
         if(res.status === 404) {
-            navigate('/')
+            navigate(-1)
         }
         return data
     }

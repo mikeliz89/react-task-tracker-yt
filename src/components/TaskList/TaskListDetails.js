@@ -75,7 +75,7 @@ function TaskListDetails() {
     const res = await fetch(`${taskListUrl}/${params.id}`)
     const data = await res.json()
     if(res.status === 404) {
-        navigate('/')
+        navigate('/managetasklists')
     }
     return data
   }
@@ -86,7 +86,7 @@ function TaskListDetails() {
     onValue(dbref, (snapshot) => {
       const data = snapshot.val();
       if(data === null) {
-        navigate('/')
+        navigate('/managetasklists')
       }
       setTaskList(data)
       setLoading(false);
