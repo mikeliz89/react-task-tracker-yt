@@ -34,6 +34,7 @@ export default function RecipeDetails() {
         getIncredients()
     }, [])
 
+    /** Fetch Recipe From Firebase */
     const fetchRecipeFromFirebase = async () => {
         const dbref = ref(db, '/recipes/' + params.id);
         onValue(dbref, (snapshot) => {
@@ -46,6 +47,7 @@ export default function RecipeDetails() {
         })
     }
 
+    /** Fetch Incredients From Firebase */
     const fetchIncredientsFromFirebase = async () => {
         const dbref = await child(ref(db, '/incredients'), params.id);
         onValue(dbref, (snapshot) => {
@@ -58,13 +60,13 @@ export default function RecipeDetails() {
         })
     }
 
-    // Add Task List
+    /** Add Incredient To Firebase */
     const addIncredient = async (recipeID, incredient) => {
         const dbref = child(ref(db, '/incredients'), recipeID);
         push(dbref, incredient);   
     }
 
-    // Delete
+    /** Delete Incredient From Firebase */
     const deleteIncredient = async(recipeID, id) => {
         const dbref = ref(db, '/incredients/' + recipeID + "/" + id)
         remove(dbref)

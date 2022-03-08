@@ -24,7 +24,6 @@ function TaskListDetails() {
     //states
     const [loading, setLoading] = useState(true)
     const [taskList, setTaskList] = useState({})
-    //const [error, setError] = useState(null)
     const [showAddTask, setShowAddTask] = useState(false)
     const [showEditTaskList, setShowEditTaskList] = useState(false)
     const [tasks, setTasks] = useState()
@@ -81,6 +80,7 @@ function TaskListDetails() {
   }
   */
 
+  /** Fetch Task List From Firebase */
   const fetchTaskListFromFirebase = async () => {
     const dbref = ref(db, '/tasklists/' + params.id);
     onValue(dbref, (snapshot) => {
@@ -102,6 +102,7 @@ function TaskListDetails() {
   }
   */
 
+  /** Fetch Tasks From Firebase */
   const fetchTasksFromFirebase = async () => {
       const dbref = await child(ref(db, '/tasks'), params.id);
       onValue(dbref, (snapshot) => {
@@ -131,7 +132,7 @@ function TaskListDetails() {
   }
   */
 
-  // Add Task
+  /** Add Task To FireBase */
   const addTask = async (taskListID, task) => {
     //To json server
     /*
@@ -154,7 +155,7 @@ function TaskListDetails() {
     push(dbref, task);   
   }
 
-  // Delete Task
+  /** Delete Task From Firebase */
   const deleteTask = async (taskListID, id) => {
 
     //delete from json server
@@ -171,7 +172,7 @@ function TaskListDetails() {
     remove(dbref)
   }
 
-  // Toggle Reminder
+  /** Toggle Reminder Of A Task At Firebase */
   const toggleReminder = async (taskListID, id) => {
 
       //to json server
@@ -210,7 +211,7 @@ function TaskListDetails() {
       });
   }
 
-  // Add Task List
+  /** Add Task List To Firebase */
   const addTaskList = async (taskList) => {
       var taskListID = params.id;
       //save edited task list to firebase
@@ -220,6 +221,7 @@ function TaskListDetails() {
       update(ref(db), updates);
   }
 
+  /** Archive Task List At Firebase */
   function archiveTaskList(taskList) {
     //1. add this taskList to tasklist-archive
     const dbref = ref(db, '/tasklist-archive')

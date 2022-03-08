@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, /*Navigate,*/ useNavigate/*, useLocation */} from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
 import { db } from '../../firebase-config';
@@ -8,7 +8,7 @@ import AddTask from './AddTask'
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils'
 import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
-import {ButtonGroup} from 'react-bootstrap'
+import { ButtonGroup } from 'react-bootstrap'
 
 function TaskDetails() {
 
@@ -19,11 +19,9 @@ function TaskDetails() {
     const [showEditTask, setShowEditTask] = useState(false)
     const [loading, setLoading] = useState(true)
     const [task, setTask] = useState({})
-    //const [error, setError] = useState(null)
 
     const params = useParams();
     const navigate = useNavigate();
-    //const { pathname } = useLocation()
 
     //load data
     useEffect(() => {
@@ -52,6 +50,7 @@ function TaskDetails() {
     }
     */
 
+    /** Fetch Task From Firebase */
     const fetchTaskFromFirebase = async () => {
       const dbref = ref(db, '/tasks/' + params.tasklistid + '/' + params.id);
       onValue(dbref, (snapshot) => {
@@ -64,6 +63,7 @@ function TaskDetails() {
       })
     }
 
+    /** Add Task To Firebase */
     const addTask = async (taskListID, task) => {
       var taskID = params.id;
       //save edited task to firebase

@@ -26,7 +26,7 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
             }
       }, [taskListID]);
 
-    //get task list from firebase by taskListID (in EDIT task list)
+    /** Fetch Task List From Firebase By TaskListID (in EDIT Task List) */
     const fetchTaskListFromFirebase = async (taskListID) => {
 
         const dbref = ref(db, '/tasklists/' + taskListID);
@@ -41,6 +41,7 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
         });
     }
 
+    /** Add Task List Form Submit */
     const onSubmit = (e) => {
         e.preventDefault()
 

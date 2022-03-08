@@ -39,6 +39,7 @@ const ManageRecipes = () => {
     }
   }, [])
 
+  /** Fetch Recipes From Firebase */
   const fetchRecipesFromFirebase = async () => {
     const dbref = await ref(db, '/recipes');
     onValue(dbref, (snapshot) => {
@@ -51,7 +52,7 @@ const ManageRecipes = () => {
     })
   }
 
-  /** Add Recipe */
+  /** Add Recipe To Firebase */
   const addRecipe = async (recipe) => {
 
     try{

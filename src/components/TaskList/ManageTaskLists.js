@@ -46,6 +46,7 @@ export default function ManageTaskLists() {
   }
   */
 
+  /* Fetch Task Lists From Firebase */
   const fetchTaskListsFromFireBase = async () => {
     const dbref = ref(db, '/tasklists');
     onValue(dbref, (snapshot) => {
@@ -58,7 +59,7 @@ export default function ManageTaskLists() {
     })
   }
 
-  // Add Task List
+  /** Add Task List To Firebase */
   const addTaskList = async (taskList) => {
 
     //To json server
@@ -82,7 +83,7 @@ export default function ManageTaskLists() {
     push(dbref, taskList);
   }
 
-  // Delete Task List
+  /** Delete Task List From Firebase */
   const deleteTaskList = async (id) => {
 
     //From json server
@@ -105,6 +106,7 @@ export default function ManageTaskLists() {
     remove(dbref)
   }
 
+  /** Navigate To Task List Archive */
   function gotoTaskListArchive() {
     navigate('/tasklistarchive')
   }

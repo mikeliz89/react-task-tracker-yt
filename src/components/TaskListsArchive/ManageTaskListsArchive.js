@@ -19,6 +19,7 @@ const ManageTaskListsArchive = () => {
     getArchivedTaskLists()
     }, [])
 
+  /** Fetch Archived Task Lists From Firebase */
   const fetchTaskListsFromFireBase = async () => {
     const dbref = ref(db, '/tasklist-archive');
     onValue(dbref, (snapshot) => {
@@ -31,7 +32,7 @@ const ManageTaskListsArchive = () => {
     })
   }
 
-  // Delete Task List
+  /** Delete Archived Task List From Firebase */
   const deleteTaskList = async (id) => {
 
     //delete tasks
