@@ -116,5 +116,7 @@
     "category_burger": "Burger",
     "category_indian": "Indian",
     "category_soup": "Soup",
-    "category_other": "Other"
+    "category_other": "Other",
+    "button_weight_history": "See weight history",
+    "weighthistory": "Weigh History"
 }

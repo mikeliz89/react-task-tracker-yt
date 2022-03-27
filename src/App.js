@@ -16,6 +16,7 @@ import Signup from './components/Signup'
 import React from 'react'
 import { AuthProvider } from './contexts/AuthContext'
 import BmiCalculator from './components/BmiCalculator/BmiCalculator'
+import WeightHistory from './components/BmiCalculator/WeightHistory'
 import 'flag-icon-css/css/flag-icons.min.css'
 import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive'
 import ArchivedTaskListDetails from './components/TaskListsArchive/ArchivedTaskListDetails'
@@ -114,6 +115,7 @@ function App() {
           <Route path='/tasklistarchive' element={<PrivateRoute><ManageTaskListsArchive /></PrivateRoute>} />
           <Route path='/recipe/:id' element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
           <Route path='/tasklistarchive/:id' element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
+          <Route path='/weighthistory' element={<PrivateRoute><WeightHistory /></PrivateRoute>} />
         </Routes>
         <Footer />
       </AuthProvider>

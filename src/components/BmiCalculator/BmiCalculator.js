@@ -1,12 +1,20 @@
-import React, {useState} from 'react'
-import GoBackButton from '../GoBackButton'
+import React, { useState } from 'react';
+import GoBackButton from '../GoBackButton';
+import { ButtonGroup, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Form, Table } from 'react-bootstrap';
 import Button from '../Button';
+import { useNavigate } from 'react-router-dom'
+import { db } from '../../firebase-config';
+import { ref, push } from "firebase/database";
+import { useAuth } from '../../contexts/AuthContext';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 
 const BmiCalculator = () => {
 
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { currentUser } = useAuth();
 
   //states
   const [BMI, setBMI] = useState(0)
@@ -21,11 +29,27 @@ const BmiCalculator = () => {
     BMITemp = weight / (heightInMeters * heightInMeters);
     let BMIRounded = Math.round(BMITemp*10)/10;
     setBMI(BMIRounded);
+
+    saveWeightToFirebase(weight)
   }
+
+    /** Save Given Weight To Firebase for this user */
+    const saveWeightToFirebase = async (weight) => {
+        const dbref = ref(db, '/weighthistory/' + currentUser.uid);
+        let currentDateTime = getCurrentDateAsJson();
+        push(dbref, {weight, currentDateTime});
+    }
 
   return (
     <div>
-        <GoBackButton />
+        <Row>
+            <ButtonGroup>
+                <GoBackButton />
+                <Button 
+                  text={t('button_weight_history')}
+                  onClick={() => navigate('/weighthistory')} />
+            </ButtonGroup>
+        </Row>
         <h3 className="page-title">{t('bmi_calculator_title')}</h3>
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="addTaskFormTaskName">
@@ -39,7 +63,7 @@ const BmiCalculator = () => {
             <Button type='submit' text={t('calculate_bmi')} className='btn btn-block' />
         </Form>
         { BMI > 0 &&
-        <div class="alert alert-primary">
+        <div className="alert alert-primary">
          {t('your_bmi_is')} : {BMI}
         </div>
         }

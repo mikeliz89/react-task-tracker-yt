@@ -118,5 +118,7 @@
     "category_burger": "Burger",
     "category_indian": "Intialainen",
     "category_soup": "Keitto",
-    "category_other": "Muu"
+    "category_other": "Muu",
+    "button_weight_history": "Katso painohistoriaasi",
+    "weighthistory": "Painohistoria"
 }

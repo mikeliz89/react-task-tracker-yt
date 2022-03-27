@@ -25,7 +25,7 @@ export default function Logout() {
     }
     return (
         <>
-          { error && <div class="error">{error}</div> }  
+          { error && <div className="error">{error}</div> }  
           <Button 
            onClick={() => handleLogout()} 
            text={t('log_out')}
