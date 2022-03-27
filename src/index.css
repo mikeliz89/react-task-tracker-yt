@@ -193,6 +193,7 @@ form {
 
 .loggedin-user {
   font-size: 1.0em;
+  margin-bottom: 3px;
 }
 
 .login-container {

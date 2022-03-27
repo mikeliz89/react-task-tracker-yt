@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
-import { useAuth } from '../contexts/AuthContext'
-import  Logout  from '../components/Logout'
+import { useAuth } from '../contexts/AuthContext';
+import  Logout  from '../components/Logout';
 import { useTranslation } from 'react-i18next';
+import Language from '../components/Language';
+import MyProfile from '../components/MyProfile/MyProfile';
+import { Row, ButtonGroup } from 'react-bootstrap';
 
 const Header = ({title}) => {
 
@@ -12,9 +15,17 @@ const Header = ({title}) => {
         <div className="headerbox">
             <header className="header">
                 <h1>{title}</h1>
-                {currentUser && <Logout /> }
             </header>
-            <p className="loggedin-user">{currentUser && t('header_logged_in_as_text') + currentUser.email}</p>
+            <p className="loggedin-user">
+                { currentUser && t('header_logged_in_as_text') + currentUser.email }
+            </p>
+            <Row>
+                <ButtonGroup>
+                    <Language />
+                    <MyProfile />
+                    { currentUser && <Logout /> }
+                </ButtonGroup>
+            </Row>
         </div>
     )
 }

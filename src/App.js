@@ -20,14 +20,13 @@ import WeightHistory from './components/BmiCalculator/WeightHistory'
 import 'flag-icon-css/css/flag-icons.min.css'
 import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive'
 import ArchivedTaskListDetails from './components/TaskListsArchive/ArchivedTaskListDetails'
+import ManageMyProfile from './components/MyProfile/ManageMyProfile';
 //Language
 import i18n from 'i18next'
-import { initReactI18next, useTranslation } from 'react-i18next'
+import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import HttpApi from 'i18next-http-backend'
-import cookies from 'js-cookie';
 //Bootstrap
-import Dropdown from 'react-bootstrap/Dropdown'
 import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipeDetails from './components/Recipe/RecipeDetails';
@@ -49,54 +48,10 @@ i18n
     react: { useSuspense: false },
   });
 
-const languages = [
-  {
-    code: 'fi',
-    name: 'Suomi',
-    country_code: 'fi'
-  }, 
-  {
-    code: 'en',
-    name: 'English',
-    country_code: 'gb'
-  }
-]
-
 function App() {
-
-  const { t } = useTranslation();
-  const currentLanguageCode = cookies.get('i18next') || 'fi';
-  //const currentLanguage = languages.find(l => l.code == currentLanguageCode);
 
   return (
   <Container>
-    <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        {t('language')}
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        {languages.map(({code, name, country_code}) => (
-          <Dropdown.Item key={country_code}>
-            <button 
-            className="btn"
-            type="button"
-            id="languageDropDownBtn"
-            onClick={() => i18n.changeLanguage(code)}
-            disabled={code === currentLanguageCode }
-            >
-            <span 
-            className={`flag-icon flag-icon-${country_code}`}
-            style={{ opacity: code === currentLanguageCode, marginRight:'5px' }}
-            >
-            </span>
-            {name}
-          </button>
-          </Dropdown.Item>
-        ))}
-      </Dropdown.Menu>
-    </Dropdown>
-
     <Router>
         <AuthProvider>
         <Header title="Lifesaver App" />
@@ -116,6 +71,7 @@ function App() {
           <Route path='/recipe/:id' element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
           <Route path='/tasklistarchive/:id' element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
           <Route path='/weighthistory' element={<PrivateRoute><WeightHistory /></PrivateRoute>} />
+          <Route path='/managemyprofile' element={<PrivateRoute><ManageMyProfile /></PrivateRoute>} />
         </Routes>
         <Footer />
       </AuthProvider>

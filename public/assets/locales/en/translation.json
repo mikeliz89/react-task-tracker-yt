@@ -118,5 +118,7 @@
     "category_soup": "Soup",
     "category_other": "Other",
     "button_weight_history": "See weight history",
-    "weighthistory": "Weigh History"
+    "weighthistory": "Weigh History",
+    "button_myprofile": "My Profile",
+    "manage_myprofile_title": "My Profile"
 }

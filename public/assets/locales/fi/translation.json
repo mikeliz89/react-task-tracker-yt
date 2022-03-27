@@ -120,5 +120,7 @@
     "category_soup": "Keitto",
     "category_other": "Muu",
     "button_weight_history": "Katso painohistoriaasi",
-    "weighthistory": "Painohistoria"
+    "weighthistory": "Painohistoria",
+    "button_myprofile": "Oma profiili",
+    "manage_myprofile_title": "Oma profiili"
 }

@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
-import { FaArrowLeft, FaArchive } from 'react-icons/fa'
+import { FaArrowLeft, FaArchive, FaSignOutAlt } from 'react-icons/fa'
 
-const Button = ({color, text, onClick, className, showIconArrowLeft, showIconArchive}) => {
+const Button = ({color, text, onClick, className,
+                 showIconArrowLeft, showIconArchive, showIconLogout
+}) => {
     return (
         <button 
         onClick={onClick}
@@ -19,6 +21,12 @@ const Button = ({color, text, onClick, className, showIconArrowLeft, showIconArc
             <FaArchive style={{color: 'white', cursor: 'pointer', marginRight:'5px', marginBottom: '5px' }} />
         </span>
         }
+        {
+        showIconLogout &&
+        <span>
+            <FaSignOutAlt style={{color: 'white', cursor: 'pointer', marginRight:'5px', marginBottom: '5px' }}  />
+        </span>    
+        }
         {text}</button>
     )
 }
@@ -28,7 +36,8 @@ Button.defaultProps = {
     textcolor: 'white',
     className: 'btn',
     showIconArrowLeft: false,
-    showIconArchive: false
+    showIconArchive: false,
+    showIconLogout: false
 }
 
 Button.propTypes = {
@@ -37,6 +46,7 @@ Button.propTypes = {
     className: PropTypes.string,
     showIconArrowLeft: PropTypes.bool,
     showIconArchive: PropTypes.bool,
+    showIconLogout: PropTypes.bool,
     onClick: PropTypes.func
 }
 
