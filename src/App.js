@@ -21,6 +21,7 @@ import 'flag-icon-css/css/flag-icons.min.css'
 import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive'
 import ArchivedTaskListDetails from './components/TaskListsArchive/ArchivedTaskListDetails'
 import ManageMyProfile from './components/MyProfile/ManageMyProfile';
+import Demo from './components/Demo';
 //Language
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
@@ -72,6 +73,7 @@ function App() {
           <Route path='/tasklistarchive/:id' element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
           <Route path='/weighthistory' element={<PrivateRoute><WeightHistory /></PrivateRoute>} />
           <Route path='/managemyprofile' element={<PrivateRoute><ManageMyProfile /></PrivateRoute>} />
+          <Route path='/Demo' element={<PrivateRoute><Demo /></PrivateRoute>} />
         </Routes>
         <Footer />
       </AuthProvider>
