@@ -94,5 +94,6 @@
     "button_add_incredient": "Lisää ainesosa",
     "incredient_unit": "Yksikkö",
     "incredient_unit_label": "Yksikkö esim. L, dl, tl, rkl, g, kg, kpl, nippu, ripaus",
-    "no_incredients_to_show": "Ei lisättyjä ainesosia"
+    "no_incredients_to_show": "Ei lisättyjä ainesosia",
+    "incredients_header": "Ainesosat"
 }

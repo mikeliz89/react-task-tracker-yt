@@ -94,5 +94,6 @@
     "button_add_incredient": "Add Incredient",
     "incredient_unit": "Incredient Unit",
     "incredient_unit_label": "Unit e.g. L, DL, Tsp, Tblsp, g, Kg, Piece",
-    "no_incredients_to_show": "No Incredients To Show"
+    "no_incredients_to_show": "No Incredients To Show",
+    "incredients_header": "Incredients"
 }
