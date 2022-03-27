@@ -112,7 +112,7 @@ export default function StarRating({starCount}) {
 }
 
 StarRating.defaultProps = {
-    starCount: 2.5
+    starCount: 0
 }
 
 StarRating.propTypes = {

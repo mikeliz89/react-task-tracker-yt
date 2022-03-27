@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom'
+import StarRating from '../StarRating';
 
 const Recipe = ({recipe}) => {
     const { t } = useTranslation();
@@ -12,6 +13,7 @@ const Recipe = ({recipe}) => {
              {recipe.category != "" ? (<p> {'#' + recipe.category}</p>): ('') }
             <p>{recipe.description}</p>
             <p><Link to={`/recipe/${recipe.id}`}>{t('view_details')}</Link></p>
+            <StarRating starCount={recipe.stars} />
         </div>
     )
 }
