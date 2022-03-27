@@ -92,8 +92,13 @@
     "incredient_name": "Ainesosan nimi",
     "incredient_amount": "Määrä",
     "button_add_incredient": "Lisää ainesosa",
+    "button_add_workphase": "Lisää työvaihe",
     "incredient_unit": "Yksikkö",
     "incredient_unit_label": "Yksikkö esim. L, dl, tl, rkl, g, kg, kpl, nippu, ripaus",
     "no_incredients_to_show": "Ei lisättyjä ainesosia",
-    "incredients_header": "Ainesosat"
+    "no_workphases_to_show": "Ei lisättyjä työvaiheita",
+    "incredients_header": "Ainesosat",
+    "workphases_header": "Työvaiheet",
+    "workphase_name": "Työvaihe",
+    "button_save_workphase": "Tallenna työvaihe"
 }

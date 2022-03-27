@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+.btn-group .btn:not(:last-child) {
+  border-right: 2px solid rgb(65, 65, 65);
+  margin-right: 1px;
+}

@@ -92,8 +92,11 @@
     "incredient_name": "Incredient Name",
     "incredient_amount": "Incredient Amount",
     "button_add_incredient": "Add Incredient",
+    "button_add_workphase": "Add Work Phase",
     "incredient_unit": "Incredient Unit",
     "incredient_unit_label": "Unit e.g. L, DL, Tsp, Tblsp, g, Kg, Piece",
     "no_incredients_to_show": "No Incredients To Show",
-    "incredients_header": "Incredients"
+    "no_workphases_to_show": "No Work Phases To Show",
+    "incredients_header": "Incredients",
+    "workphases_header": "Work Phases"
 }
