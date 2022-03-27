@@ -100,5 +100,21 @@
     "incredients_header": "Incredients",
     "workphases_header": "Work Phases",
     "workphase_estimated_length": "Estimated length in minutes",
-    "in_minutes" : "minutes"
+    "in_minutes" : "minutes",
+    "set_isCore": "Core recipe",
+    "category_pasta": "Pasta",
+    "category_grill": "Grill",
+    "category_fish": "Fish",
+    "category_chicken": "Chicken",
+    "category_salad": "Salad",
+    "category_risotto": "Risotto",
+    "category_textmex": "Tex mex",
+    "category_potato": "Potato",
+    "category_convenienceFood": "Convenience Food",
+    "category_bread": "Bread",
+    "category_pizza": "Pizza",
+    "category_burger": "Burger",
+    "category_indian": "Indian",
+    "category_soup": "Soup",
+    "category_other": "Other"
 }

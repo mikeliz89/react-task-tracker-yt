@@ -9,78 +9,77 @@ import Button from '../Button'
 const categories =[
     {
        "id":1,
-       "name":"Pasta"
+       "name":"pasta"
     },
     {
        "id":2,
-       "name":"Grill"
+       "name":"grill"
     },
     {
        "id":3,
-       "name":"Fish"
+       "name":"fish"
     },
     {
        "id":4,
-       "name":"Chicken"
+       "name":"chicken"
     },
     {
        "id":5,
-       "name":"Salad"
+       "name":"salad"
     },
     {
        "id":6,
-       "name":"Risotto"
+       "name":"risotto"
     },
     {
        "id":7,
-       "name":"Texmex"
+       "name":"texmex"
     },
     {
        "id":8,
-       "name":"Potato"
+       "name":"potato"
     },
     {
        "id":9,
-       "name":"ConvenienceFood"
+       "name":"convenienceFood"
     },
     {
        "id":10,
-       "name":"Bread"
+       "name":"bread"
     },
     {
        "id":11,
-       "name":"Pizza"
+       "name":"pizza"
     },
     {
        "id":12,
-       "name":"Burger"
+       "name":"burger"
     },
     {
        "id":13,
-       "name":"Indian"
+       "name":"indian"
     },
     {
        "id":14,
-       "name":"Soup"
+       "name":"soup"
     },
     {
        "id": 15,
-       "name":"Other"
+       "name":"other"
     }
  ]
 
 const AddRecipe = ({recipeID, onAddRecipe}) => {
 
-    //states
-    const [category, setCategory] = useState("");
-
     const { t } = useTranslation();
 
     //states
+    const [category, setCategory] = useState("");
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [created, setCreated] = useState('')
     const [createdBy, setCreatedBy] = useState('')
+    const [isCore, setIsCore] = useState(false)
 
     useEffect(() => {
         if(recipeID != null) {            
@@ -88,7 +87,7 @@ const AddRecipe = ({recipeID, onAddRecipe}) => {
                 await fetchRecipeFromFirebase(recipeID)
             }
             getRecipe()
-            }
+         }
       }, [recipeID]);
 
     /** get recipe from firebase by recipeID (in EDIT recipe) */
@@ -102,6 +101,7 @@ const AddRecipe = ({recipeID, onAddRecipe}) => {
             setDescription(val["description"]);
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
+            setIsCore(val["isCore"])
           }
         });
     }
@@ -116,12 +116,13 @@ const AddRecipe = ({recipeID, onAddRecipe}) => {
             return
         }
        
-        onAddRecipe({ created, createdBy, title, description, category });
+        onAddRecipe({ created, createdBy, title, description, category, isCore });
 
         if(recipeID == null) {
             //clear the form
             setTitle('')
             setDescription('')
+            setIsCore(false)
         }
     }
 
@@ -135,20 +136,29 @@ const AddRecipe = ({recipeID, onAddRecipe}) => {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addRecipeDescription">
+                <Form.Group className="mb-3" controlId="addRecipeFormDescription">
                     <Form.Label>{t('description')}</Form.Label>
                     <Form.Control type='text' 
                         placeholder={ recipeID == null ? t('add_description') : t('edit_description') }
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addRecipeCategory">
+                <Form.Group className="mb-3" controlId="addRecipeFormCategory">
                     <Form.Label>{t('category')}</Form.Label>
                     <Form.Select onChange={(e) => setCategory(e.target.value) }>
                         {categories.map(({id, name}) => (
-                            <option key={id}>{name}</option>
+                            <option key={id}>{t(`category_${name}`)}</option>
                         ))}
                     </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="AddRecipeFormIsCore">
+                     <Form.Check 
+                     type='checkbox'
+                     controlId="formBasicCheckbox"
+                     label={t('set_isCore')}
+                     checked={isCore}
+                     value={isCore} 
+                     onChange={(e) => setIsCore(e.currentTarget.checked)} />
                 </Form.Group>
                 <Button type='submit' text={t('button_save_recipe')} className='btn btn-primary btn-block' />
             </Form>

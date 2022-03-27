@@ -102,5 +102,21 @@
     "workphase_name": "Työvaihe",
     "button_save_workphase": "Tallenna työvaihe",
     "workphase_estimated_length": "Arvioitu kesto minuutteina",
-    "in_minutes" : "minuuttia"
+    "in_minutes" : "minuuttia",
+    "set_isCore": "Core-resepti",
+    "category_pasta": "Pasta",
+    "category_grill": "Grilliruoka",
+    "category_fish": "Kala",
+    "category_chicken": "Kana",
+    "category_salad": "Salaatti",
+    "category_risotto": "Risotto",
+    "category_textmex": "Tex mex",
+    "category_potato": "Peruna",
+    "category_convenienceFood": "Eines",
+    "category_bread": "Leipä",
+    "category_pizza": "Pizza",
+    "category_burger": "Burger",
+    "category_indian": "Intialainen",
+    "category_soup": "Keitto",
+    "category_other": "Muu"
 }
