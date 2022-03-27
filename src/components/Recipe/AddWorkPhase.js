@@ -10,6 +10,7 @@ export default function AddWorkPhase({onAddWorkPhase, workPhaseID, recipeID}) {
 
   //states
   const [name, setName] = useState('')
+  const [estimatedLength, setEstimatedLength] = useState(0)
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -20,11 +21,12 @@ export default function AddWorkPhase({onAddWorkPhase, workPhaseID, recipeID}) {
     }
 
     //call the RecipeDetails.js
-    onAddWorkPhase( recipeID, { name })
+    onAddWorkPhase( recipeID, { name, estimatedLength })
 
     //clear the form
     if(workPhaseID == null) {
         setName('')
+        setEstimatedLength(0)
     }
 }
 
@@ -37,6 +39,14 @@ export default function AddWorkPhase({onAddWorkPhase, workPhaseID, recipeID}) {
           placeholder={t('workphase_name')} 
           value={name} 
           onChange={(e) => setName(e.target.value)} />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="addWorkPhaseFormEstimatedLength">
+          <Form.Label>{t('workphase_estimated_length')}</Form.Label>
+          <Form.Control 
+          type='number' 
+          placeholder={t('workphase_estimated_length')} 
+          value={estimatedLength} 
+          onChange={(e) => setEstimatedLength(e.target.value)} />
       </Form.Group>
       <Button type='submit' text={t('button_save_workphase')} className='btn btn-block' />
     </Form>

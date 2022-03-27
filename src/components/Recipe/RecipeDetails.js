@@ -136,7 +136,7 @@ export default function RecipeDetails() {
             onDelete={deleteIncredient}
                 />
             ) : (
-                t('no_incredients_to_show')
+               <p> { t('no_incredients_to_show') } </p>
             )}
 
             {workPhases != null}
@@ -147,7 +147,7 @@ export default function RecipeDetails() {
             onDeleteWorkPhase={deleteWorkPhase}
                 />
             ) : (
-                t('no_workphases_to_show')
+                <p> { t('no_workphases_to_show') } </p>
             )}
         </div>
     </div>

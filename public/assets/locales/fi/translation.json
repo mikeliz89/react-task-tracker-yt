@@ -100,5 +100,7 @@
     "incredients_header": "Ainesosat",
     "workphases_header": "Työvaiheet",
     "workphase_name": "Työvaihe",
-    "button_save_workphase": "Tallenna työvaihe"
+    "button_save_workphase": "Tallenna työvaihe",
+    "workphase_estimated_length": "Arvioitu kesto minuutteina",
+    "in_minutes" : "minuuttia"
 }

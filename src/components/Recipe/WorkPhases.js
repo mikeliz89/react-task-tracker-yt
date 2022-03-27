@@ -13,7 +13,7 @@ export default function WorkPhases({workPhases, recipeID, onDeleteWorkPhase}) {
           ? workPhases.map((workPhase, index) =>
           <div key={workPhase.id}>
             <p>
-            {workPhase.name}
+            {workPhase.name} - {workPhase.estimatedLength} {t('in_minutes')}
                 {  
             <> <FaTimes className="deleteTaskBtn" style={{color:'red', cursor: 'pointer'}} 
                 onClick={() => onDeleteWorkPhase(recipeID, workPhase.id)} />

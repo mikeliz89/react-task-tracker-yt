@@ -98,5 +98,7 @@
     "no_incredients_to_show": "No Incredients To Show",
     "no_workphases_to_show": "No Work Phases To Show",
     "incredients_header": "Incredients",
-    "workphases_header": "Work Phases"
+    "workphases_header": "Work Phases",
+    "workphase_estimated_length": "Estimated length in minutes",
+    "in_minutes" : "minutes"
 }

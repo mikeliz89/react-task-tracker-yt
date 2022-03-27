@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 
+/** Common Start */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -53,6 +55,25 @@ a {
   width: 100%;
 }
 
+h3.page-title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+h4.page-title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+}
+
+/** Common End */
+
+/** Task Start */
+
 .task {
   background: #f4f4f4;
   margin: 5px;
@@ -62,16 +83,6 @@ a {
 
 .task.reminder {
   border-left: 5px solid green;
-}
-
-h3.page-title {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-h4.page-title {
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .task h4 {
@@ -84,6 +95,25 @@ h4.page-title {
   font-family: 'Poppins', sans-serif;
   margin-bottom: 0.5em;
 }
+
+/** Task End */ 
+
+/** Recipe Start */
+
+.recipe {
+  background: #faf1db;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.recipe p {
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 0.5em;
+}
+
+/** Recipe End */ 
+
+/** Form Start */
 
 .form-control {
   margin: 10px 0;
@@ -124,12 +154,10 @@ form {
   height: 30px;
 }
 
-footer {
-  margin-top: 30px;
-  text-align: center;
-}
+/** Form End */
 
-/* Miikan omat */
+/* Custom Start */
+
 .deleteTaskBtn:hover {
     font-style:bold;
     color:orange !important;
@@ -174,3 +202,5 @@ footer {
 .page-content {
   margin-top: 20px;
 }
+
+/* Custom End */
