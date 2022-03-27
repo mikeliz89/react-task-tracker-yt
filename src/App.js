@@ -37,7 +37,7 @@ i18n
   .use(HttpApi)
   .init({
     supportedLngs: ['en', 'fi'],
-    fallbackLng: "en",
+    fallbackLng: "fi",
     detection: { 
       order: ['cookie', 'htmlTag', 'localStorage', 'subdomain'],
       caches: ['cookie'],
@@ -64,7 +64,7 @@ const languages = [
 function App() {
 
   const { t } = useTranslation();
-  const currentLanguageCode = cookies.get('i18next') || 'en';
+  const currentLanguageCode = cookies.get('i18next') || 'fi';
   //const currentLanguage = languages.find(l => l.code == currentLanguageCode);
 
   return (

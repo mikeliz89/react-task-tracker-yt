@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom'
 const Recipe = ({recipe}) => {
     const { t } = useTranslation();
     return (
-        <div>
+        <div className='recipe'>
             <h5>
             {recipe.title}
             </h5>
+             {recipe.category != "" ? (<p> {'#' + recipe.category}</p>): ('') }
             <p>{recipe.description}</p>
             <p><Link to={`/recipe/${recipe.id}`}>{t('view_details')}</Link></p>
         </div>

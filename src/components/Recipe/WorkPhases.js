@@ -2,21 +2,21 @@ import React from 'react'
 import { FaTimes} from 'react-icons/fa'
 import { useTranslation } from 'react-i18next';
 
-export default function Incredients({incredients, recipeID, onDelete}) {
+export default function WorkPhases({workPhases, recipeID, onDeleteWorkPhase}) {
 
   const { t } = useTranslation();
 
   return (
       <>
-        <h4>{ t('incredients_header')}</h4>
-        {incredients 
-          ? incredients.map((incredient, index) =>
-          <div key={incredient.id}>
+        <h4>{ t('workphases_header')}</h4>
+        {workPhases 
+          ? workPhases.map((workPhase, index) =>
+          <div key={workPhase.id}>
             <p>
-            {incredient.name} - {incredient.amount} {incredient.unit}
+            {workPhase.name} - {workPhase.estimatedLength} {t('in_minutes')}
                 {  
             <> <FaTimes className="deleteTaskBtn" style={{color:'red', cursor: 'pointer'}} 
-                onClick={() => onDelete(recipeID, incredient.id)} />
+                onClick={() => onDeleteWorkPhase(recipeID, workPhase.id)} />
             </>
             }
             </p>
