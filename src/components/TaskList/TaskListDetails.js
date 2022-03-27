@@ -225,18 +225,30 @@ function TaskListDetails() {
   function archiveTaskList(taskList) {
     //1. add this taskList to tasklist-archive
     const dbref = ref(db, '/tasklist-archive')
+    taskList["archived"] = getCurrentDateAsJson();
+    taskList["archivedBy"] = currentUser.email;
     let archiveTaskListID = push(dbref, taskList).key;
 
-    //2. delete old tasklist and tasks, create new tasklist-archive-tasks
     const taskListID = params.id;
-    const tasksRef = ref(db,`/tasks/${taskListID}`);
 
+    //2. delete old task lists
+    const taskListRef = ref(db, `/tasklists/${taskListID}`);
+    get(taskListRef).then((snapshot) => {
+      if(snapshot.exists()) {
+        let updates = {};
+        updates[`/tasklists/${taskListID}`] = null;
+        update(ref(db), updates);
+      } else {
+        console.log("No data available for taskLists");
+      }
+    })
+
+    //3. delete old tasks, create new tasklist-archive-tasks
+    const tasksRef = ref(db,`/tasks/${taskListID}`);
     get(tasksRef).then((snapshot) => {
       if (snapshot.exists()) {
         var data = snapshot.val();
-        console.log()
         let updates = {};
-        updates[`/tasklists/${taskListID}`] = null;
         updates[`/tasks/${taskListID}`] = null;
         updates[`/tasklist-archive-tasks/${archiveTaskListID}`] = data;
         update(ref(db), updates);
