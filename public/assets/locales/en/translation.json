@@ -120,5 +120,8 @@
     "button_weight_history": "See weight history",
     "weighthistory": "Weigh History",
     "button_myprofile": "My Profile",
-    "manage_myprofile_title": "My Profile"
+    "manage_myprofile_title": "My Profile",
+    "manage_myprofile_savebutton": "Save",
+    "manage_myprofile_name": "Name",    
+    "manage_myprofile_height": "Height"
 }
