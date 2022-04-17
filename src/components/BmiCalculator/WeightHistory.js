@@ -54,7 +54,7 @@ const WeightHistory = () => {
           ? historyRows.map((row, index) =>
           <div key={row.id}>
             <p>
-            {getJsonAsDateTimeString(row.currentDateTime, i18n.language)} - {row.weight}
+            {getJsonAsDateTimeString(row.currentDateTime, i18n.language)}<br/> - {row.weight} kg, BMI: {row.bmi}
             </p>
         </div>
         ) : '-'

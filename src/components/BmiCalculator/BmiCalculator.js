@@ -48,20 +48,25 @@ const BmiCalculator = () => {
     async function onSubmit(e) {
         e.preventDefault()
 
+        let bmi = calculateBMI();
+        setBMI(bmi);
+
+        saveWeightToFirebase(weight, bmi)
+    }
+
+    const calculateBMI = () => {
         let BMITemp = 0;
         let heightInMeters = height / 100;
         BMITemp = weight / (heightInMeters * heightInMeters);
         let BMIRounded = Math.round(BMITemp*10)/10;
-        setBMI(BMIRounded);
-
-        saveWeightToFirebase(weight)
+        return BMIRounded;
     }
 
-    /** Save Given Weight To Firebase for this user */
-    const saveWeightToFirebase = async (weight) => {
+    /** Save Given Weight and BMI To Firebase for this user */
+    const saveWeightToFirebase = async (weight, bmi) => {
         const dbref = ref(db, '/weighthistory/' + currentUser.uid);
         let currentDateTime = getCurrentDateAsJson();
-        push(dbref, {weight, currentDateTime});
+        push(dbref, {weight, currentDateTime, bmi});
     }
 
     return (
