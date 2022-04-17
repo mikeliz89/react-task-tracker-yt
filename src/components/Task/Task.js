@@ -8,14 +8,14 @@ const Task = ({taskListID, archived, task, onDelete, onToggle}) => {
         <div 
          onDoubleClick={() => archived ? null : onToggle(taskListID, task.id)} 
          className={`task ${task.reminder ? 'reminder' : ''}`}>
-            <h4>
+            <h5>
             - {task.text}
                 { archived ? null : 
             <> <FaTimes className="deleteTaskBtn" style={{color:'red', cursor: 'pointer'}} 
                 onClick={() => onDelete(taskListID, task.id)} />
             </>
             }
-            </h4>
+            </h5>
             <p>{task.day}</p>
             { /* TODO: Rakenna view details arkiston taskin katselulle? */
              archived ? null : 
