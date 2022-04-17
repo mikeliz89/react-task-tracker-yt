@@ -8,7 +8,7 @@ export default function WorkPhases({workPhases, recipeID, onDeleteWorkPhase}) {
 
   return (
       <>
-        <h4>{ t('workphases_header')}</h4>
+        <h5>{ t('workphases_header')}</h5>
         {workPhases 
           ? workPhases.map((workPhase, index) =>
           <div key={workPhase.id}>

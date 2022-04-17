@@ -11,6 +11,8 @@ import { push, child, remove } from "firebase/database";
 import Button from '../../components/Button'
 import Incredients from './Incredients';
 import WorkPhases from './WorkPhases';
+import i18n from "i18next";
+import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils'
 
 export default function RecipeDetails() {
 
@@ -101,8 +103,6 @@ export default function RecipeDetails() {
 
     /** Delete Work Phase From Firebase */
     const deleteWorkPhase = async(recipeID, id) => {
-        console.log(recipeID);
-        console.log(id);
         const dbref = ref(db, '/workphases/' + recipeID + "/" + id);
         remove(dbref);
     }
@@ -126,6 +126,11 @@ export default function RecipeDetails() {
         <div className="page-content">
             {/* <pre>{JSON.stringify(recipe)}</pre> */}
             <p>{recipe.description}</p>
+            <p>
+                {t('created')}: {getJsonAsDateTimeString(recipe.created, i18n.language)}<br/>
+                {t('created_by')}: {recipe.createdBy}<br/>
+                {t('category')}: {recipe.category}
+            </p>
             {showAddIncredient && <AddIncredient onAddIncredient={addIncredient} recipeID={params.id} />}
             {showAddWorkPhase && <AddWorkPhase onAddWorkPhase={addWorkPhase} recipeID={params.id} />}
             {incredients != null}

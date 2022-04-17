@@ -8,7 +8,7 @@ export default function Incredients({incredients, recipeID, onDelete}) {
 
   return (
       <>
-        <h4>{ t('incredients_header')}</h4>
+        <h5>{ t('incredients_header')}</h5>
         {incredients 
           ? incredients.map((incredient, index) =>
           <div key={incredient.id}>
