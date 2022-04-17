@@ -1,10 +1,10 @@
 import GoBackButton from '../GoBackButton';
 import RecipeButton from './RecipeButton';
 import { useTranslation } from 'react-i18next';
-import { ButtonGroup, Row } from 'react-bootstrap';
+import { ButtonGroup, Row, Alert } from 'react-bootstrap';
 import { useState, useEffect } from 'react'
 import { db } from '../../firebase-config';
-import { ref, push, onValue } from "firebase/database";
+import { ref, push, onValue, remove } from "firebase/database";
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 import AddRecipe from './AddRecipe';
@@ -16,6 +16,7 @@ const ManageRecipes = () => {
   const [showAddRecipe, setShowAddRecipe] = useState(false)
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
+  const [showMessage, setShowMessage] = useState(false);
   const [recipes, setRecipes] = useState()
 
   const { t } = useTranslation();
@@ -61,10 +62,17 @@ const ManageRecipes = () => {
       const dbref = ref(db, '/recipes');
       push(dbref, recipe);
       setMessage(t('recipe_save_successfull'));
+      setShowMessage(true);
     } catch(ex) {
       setError(t('recipe_save_exception'));
     }
   }
+
+    /** Delete Recipe From Firebase */
+    const deleteRecipe = async (id) => {
+      const dbref = ref(db, `/recipes/${id}`);
+      remove(dbref)
+    }
 
   return (
     <div>
@@ -79,11 +87,18 @@ const ManageRecipes = () => {
        </Row>
        <h3 className="page-title">{t('manage_recipes_title')}</h3>
        { error && <div className="error">{error}</div> }
-       { message && <div className="success">{message}</div> }
+       { message && 
+       <Alert show={showMessage} variant='success' className="success">
+         {message}
+         <div className='d-flex justify-content-end'>
+          <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
+         </div>
+       </Alert> }
        {showAddRecipe && <AddRecipe onAddRecipe={addRecipe} />}
        {
         recipes != null && recipes.length > 0 ? (
-        <Recipes recipes={recipes} />
+        <Recipes recipes={recipes}
+        onDelete={deleteRecipe} />
         ) : (
           t('no_recipes_to_show')
         )

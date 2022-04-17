@@ -26,6 +26,7 @@
     "no_tasks_to_show": "No Tasks To Show",
     "no_task_lists_to_show": "No Task Lists To Show",
     "delete_list_confirm_message": "Delete List?",
+    "delete_recipe_confirm_message": "Delete Recipe?",
     "archive_list_confirm_message": "Archive List?",
     "add_description": "Add Description",
     "edit_description": "Edit Description",

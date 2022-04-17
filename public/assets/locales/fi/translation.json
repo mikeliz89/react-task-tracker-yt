@@ -26,6 +26,7 @@
     "no_tasks_to_show": "Ei tehtäviä",
     "no_task_lists_to_show": "Ei listoja",
     "delete_list_confirm_message": "Poista lista?",
+    "delete_recipe_confirm_message": "Poista resepti?",
     "archive_list_confirm_message": "Arkistoi lista?",
     "add_description": "Lisää kuvaus",
     "edit_description": "Muokkaa kuvausta",
