@@ -280,7 +280,11 @@ function TaskListDetails() {
 
       <Accordion defaultActiveKey="0">
         <Accordion.Item eventKey="0">
-          <Accordion.Header><h3 className="page-title"><FaListAlt style={{color:'gray', cursor: 'pointer', marginBottom: '3px' }} /> {taskList.title}</h3></Accordion.Header>
+          <Accordion.Header>
+            <h3 className="page-title">
+              <FaListAlt style={{color:'gray', cursor: 'pointer', marginBottom: '3px' }} /> {taskList.title}
+            </h3>
+            </Accordion.Header>
           <Accordion.Body>
           {taskList.description}<br/>
           {t('created')}: {getJsonAsDateTimeString(taskList.created, i18n.language)}<br/>

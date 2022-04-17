@@ -13,6 +13,7 @@ import Incredients from './Incredients';
 import WorkPhases from './WorkPhases';
 import i18n from "i18next";
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils'
+import { FaUtensils} from 'react-icons/fa'
 
 export default function RecipeDetails() {
 
@@ -122,7 +123,9 @@ export default function RecipeDetails() {
                   onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
             </ButtonGroup>
         </Row>
-        <h4 className="page-title">{recipe.title}</h4>
+        <h4 className="page-title">
+            <FaUtensils style={{color:'gray', cursor: 'pointer', marginBottom: '3px' }} /> {recipe.title}
+        </h4>
         <div className="page-content">
             {/* <pre>{JSON.stringify(recipe)}</pre> */}
             <p>{recipe.description}</p>

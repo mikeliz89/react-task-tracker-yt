@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import StarRating from '../StarRating'
-import { FaTimes} from 'react-icons/fa'
+import { FaTimes, FaUtensils} from 'react-icons/fa'
 
 const Recipe = ({recipe, onDelete}) => {
     const { t } = useTranslation();
@@ -10,6 +10,7 @@ const Recipe = ({recipe, onDelete}) => {
         <div className='recipe'>
             <h5>
                 <span>
+                <FaUtensils style={{color:'gray', cursor: 'pointer', marginRight:'5px', marginBottom: '3x' }} />
                 {recipe.title}
                 </span>
                 <FaTimes className="deleteRecipekBtn" style={{color:'red', cursor: 'pointer'}} 
