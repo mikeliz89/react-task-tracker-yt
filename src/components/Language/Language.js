@@ -1,7 +1,8 @@
 import i18n from 'i18next'
-import Dropdown from 'react-bootstrap/Dropdown'
 import { useTranslation } from 'react-i18next'
 import cookies from 'js-cookie';
+import './Language.css';
+import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap'
 
 export default function Language() {
 
@@ -23,11 +24,11 @@ export default function Language() {
 
     return (
     <>   
-        <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                {t('language')}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
+        <DropdownButton 
+            as={ButtonGroup}
+            id="dropdown-basic-languageBtn" 
+            title={t('language')} 
+            variant='success'>
             {languages.map(({code, name, country_code}) => (
                 <Dropdown.Item key={country_code}>
                 <button 
@@ -46,8 +47,7 @@ export default function Language() {
                 </button>
                 </Dropdown.Item>
             ))}
-            </Dropdown.Menu>
-        </Dropdown>
+        </DropdownButton>
     </>
     )
 }

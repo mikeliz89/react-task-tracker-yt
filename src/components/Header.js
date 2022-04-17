@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useAuth } from '../contexts/AuthContext';
 import  Logout  from '../components/Logout';
 import { useTranslation } from 'react-i18next';
-import Language from '../components/Language';
+import Language from '../components/Language/Language';
 import MyProfile from '../components/MyProfile/MyProfile';
 import { Row, ButtonGroup } from 'react-bootstrap';
 
