@@ -2,7 +2,6 @@ import { FaTimes, FaEdit } from 'react-icons/fa'
 import EditIncredient from './EditIncredient';
 import { db } from '../../firebase-config';
 import { update, ref } from "firebase/database";
-
 import { useState } from 'react'
 
 export const Incredient = ({incredient, recipeID, onDelete}) => {
