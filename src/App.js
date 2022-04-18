@@ -1,27 +1,38 @@
+import React from 'react'
 import './App.css';
+import 'flag-icon-css/css/flag-icons.min.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import About from './components/About'
 import Dashboard from './components/Dashboard'
-import Login from './components/Login'
-import ForgotPassword from './components/ForgotPassword'
-import ManageTaskLists from './components/TaskList/ManageTaskLists'
-import ManageExercises from './components/Exercises/ManageExercises'
-import TaskListDetails from './components/TaskList/TaskListDetails'
-import TaskDetails from './components/Task/TaskDetails'
-import ManageRecipes from './components/Recipe/ManageRecipes'
-import PrivateRoute from './components/PrivateRoute'
-import Signup from './components/Signup'
-import React from 'react'
-import { AuthProvider } from './contexts/AuthContext'
-import BmiCalculator from './components/BmiCalculator/BmiCalculator'
-import WeightHistory from './components/BmiCalculator/WeightHistory'
-import 'flag-icon-css/css/flag-icons.min.css'
+//Auth
+import Signup from './components/Auth/Signup'
+import Login from './components/Auth/Login'
+import ForgotPassword from './components/Auth/ForgotPassword'
+//TaskListArchive
 import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive'
 import ArchivedTaskListDetails from './components/TaskListsArchive/ArchivedTaskListDetails'
+//TaskList
+import ManageTaskLists from './components/TaskList/ManageTaskLists'
+import TaskListDetails from './components/TaskList/TaskListDetails'
+//Task
+import TaskDetails from './components/Task/TaskDetails'
+//Exercises
+import ManageExercises from './components/Exercises/ManageExercises'
+//Recipe
+import ManageRecipes from './components/Recipe/ManageRecipes'
+import RecipeDetails from './components/Recipe/RecipeDetails';
+//BMICalculator
+import BmiCalculator from './components/BmiCalculator/BmiCalculator'
+import WeightHistory from './components/BmiCalculator/WeightHistory'
+//MyProfile
 import ManageMyProfile from './components/MyProfile/ManageMyProfile';
+//other components
+import PrivateRoute from './components/PrivateRoute'
 import Demo from './components/Demo';
+//AuthProvider
+import { AuthProvider } from './contexts/AuthContext'
 //Language
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
@@ -30,7 +41,6 @@ import HttpApi from 'i18next-http-backend'
 //Bootstrap
 import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import RecipeDetails from './components/Recipe/RecipeDetails';
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next

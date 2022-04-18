@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../../contexts/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap'
-import Button from '../components/Button'
+import Button from '../../components/Button'
 
 export default function Signup() {
 

@@ -1,34 +1,33 @@
 import { useState } from 'react'
-import { useAuth } from '../contexts/AuthContext'
-import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
-import Button from '../components/Button';
+import Button from '../../components/Button'
 
-export default function Login() {
+export default function ForgotPassword() {
 
     const { t } = useTranslation();
 
     //states
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+    const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(false)
-    const {login} = useAuth()
-    const navigate = useNavigate()
+    const {resetPassword} = useAuth()
 
     async function onSubmit(e) {
         e.preventDefault()
 
         try {
-            //clear the error
+            //clear 
             setError('')
+            setMessage('')
             setLoading(true)
-            await login(email, password);
-            //navigate to dashboard
-            navigate('/');
+            await resetPassword(email);
+            setMessage(t('check_your_inbox'));
         } catch(error) {
-            setError(t('failed_to_log_in'));
+            setError(t('failed_to_reset_password'));
             console.log(error)
         }
 
@@ -37,21 +36,18 @@ export default function Login() {
 
     return (
         <div className="login-container">
-            <h3>{t('log_in')}</h3>
+            <h3>{t('password_reset')}</h3>
             { error && <div className="error">{error}</div> }
+            { message && <div className="success">{message}</div> }
             <Form onSubmit={onSubmit}>
-                <Form.Group className="mb-3" controlId="loginFormEmail">
+                <Form.Group className="mb-3" controlId="forgotPasswordFormEmail">
                     <Form.Label>{t('email')}</Form.Label>
                     <Form.Control type='email' placeholder={t('email')} value={email} onChange={(e) => setEmail(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="loginFormPassword">
-                    <Form.Label>{t('password')}</Form.Label>
-                    <Form.Control type='password' placeholder={t('password')} value={password} onChange={(e) => setPassword(e.target.value)} />
-                </Form.Group>
-                <Button disabled={loading} type='submit' text={t('log_in')} className='btn btn-block' />
+                <Button disabled={loading} type='submit' text={t('reset_password')} className='btn btn-block' />
             </Form>
             <div className="text-center">
-                <Link to="/forgot-password">{t('forgot_password')}</Link>
+                <Link to="/login">{t('log_in')}</Link>
             </div>
             <div className="text-center">
                 {t('need_an_account')} <Link to="/signup">{t('sign_up')}</Link>
