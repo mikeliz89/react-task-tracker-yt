@@ -22,7 +22,7 @@ const Header = ({title}) => {
             <Row>
                 <ButtonGroup>
                     <Language />
-                    <MyProfile />
+                    { currentUser && <MyProfile /> }
                     { currentUser && <Logout /> }
                 </ButtonGroup>
             </Row>
