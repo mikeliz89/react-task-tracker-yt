@@ -96,6 +96,7 @@
     "button_add_workphase": "Lisää työvaihe",
     "incredient_unit": "Yksikkö",
     "incredient_unit_label": "Yksikkö esim. L, dl, tl, rkl, g, kg, kpl, nippu, ripaus",
+    "incredient_save_button_text": "Tallenna",
     "no_incredients_to_show": "Ei lisättyjä ainesosia",
     "no_workphases_to_show": "Ei lisättyjä työvaiheita",
     "incredients_header": "Ainesosat",

@@ -163,7 +163,7 @@ form {
 
 /* Custom Start */
 
-.deleteBtn:hover {
+.editBtn:hover, .deleteBtn:hover {
     font-style:bold;
     color:orange !important;
 }

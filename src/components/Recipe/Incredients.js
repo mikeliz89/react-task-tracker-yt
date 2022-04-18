@@ -1,6 +1,5 @@
-import React from 'react'
-import { FaTimes} from 'react-icons/fa'
 import { useTranslation } from 'react-i18next';
+import { Incredient } from './Incredient';
 
 export default function Incredients({incredients, recipeID, onDelete}) {
 
@@ -12,18 +11,11 @@ export default function Incredients({incredients, recipeID, onDelete}) {
 
         {incredients 
           ? incredients.map((incredient, index) =>
-          <div key={incredient.id} className='recipe'>
-            <div className="inner">
-              <span>
-                {incredient.name} - <b>{incredient.amount} {incredient.unit}</b>
-              </span>
-              {  
-              <> <FaTimes className="deleteBtn" style={{color:'red', cursor: 'pointer'}} 
-                  onClick={() => onDelete(recipeID, incredient.id)} />
-              </>
-              }
-            </div>
-          </div>
+          <Incredient 
+          key={incredient.id} 
+          incredient={incredient}
+          recipeID={recipeID}
+          onDelete={onDelete} />
         ) : ''
         }
       </>
