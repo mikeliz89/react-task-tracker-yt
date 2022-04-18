@@ -127,5 +127,8 @@
     "manage_myprofile_title": "Oma profiili",
     "manage_myprofile_savebutton": "Tallenna",
     "manage_myprofile_name": "Nimi",
-    "manage_myprofile_height": "Pituus"
+    "manage_myprofile_height": "Pituus",
+    "sorting": "Järjestä",
+    "created_date" :"Luontipvm",
+    "name": "Nimi"
 }

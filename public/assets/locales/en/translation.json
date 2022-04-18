@@ -101,6 +101,7 @@
     "no_workphases_to_show": "No Work Phases To Show",
     "incredients_header": "Incredients",
     "workphases_header": "Work Phases",
+    "workphase_name": "Work Phase",
     "workphase_estimated_length": "Estimated length in minutes",
     "in_minutes" : "minutes",
     "set_isCore": "Core recipe",
@@ -125,5 +126,8 @@
     "manage_myprofile_title": "My Profile",
     "manage_myprofile_savebutton": "Save",
     "manage_myprofile_name": "Name",    
-    "manage_myprofile_height": "Height"
+    "manage_myprofile_height": "Height",
+    "sorting": "Sort by",
+    "created_date" :"Created",
+    "name": "Name"
 }

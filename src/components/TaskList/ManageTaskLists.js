@@ -1,16 +1,22 @@
+//React
 import { useState, useEffect } from 'react'
-import { db } from '../../firebase-config';
-import { ref, onValue, push, child, remove } from "firebase/database";
-import TaskListButton from '../../components/TaskList/TaskListButton';
-import AddTaskList from '../../components/TaskList/AddTaskList';
-import TaskLists from '../../components/TaskList/TaskLists';
-import GoBackButton from '../GoBackButton'
-import Button from '../Button'
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Row, ButtonGroup } from 'react-bootstrap'
+//Firebase
+import { db } from '../../firebase-config';
+import { ref, onValue, push, child, remove } from "firebase/database";
+//TaskList components
+import TaskListButton from '../../components/TaskList/TaskListButton';
+import AddTaskList from '../../components/TaskList/AddTaskList';
+import TaskLists from '../../components/TaskList/TaskLists';
+//Buttons
+import GoBackButton from '../GoBackButton'
+import Button from '../Button'
+//Utils
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+//Context
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function ManageTaskLists() {
 
@@ -22,29 +28,17 @@ export default function ManageTaskLists() {
   //states
   const [showAddTaskList, setShowAddTaskList] = useState(false)
   const [taskLists, setTaskLists] = useState()
-
-  //const taskListUrl = 'http://localhost:5000/tasklists'
+  //sort
+  const [sortByDateAsc, setSortByDateAsc] = useState(true)
+  const [sortByNameAsc, setSortByNameAsc] = useState(true)
 
   //load data
   useEffect(() => {
     const getTaskLists = async () => {
       await fetchTaskListsFromFireBase()
-      /*
-      const taskListsFromServer = await fetchTaskListsFromJsonServer()
-      setTaskLists(taskListsFromServer)
-      */
     }
     getTaskLists()
   }, [])
-
-  //Fetch Task Lists
-  /*
-  const fetchTaskListsFromJsonServer = async () => {
-    const res = await fetch(taskListUrl)
-    const data = await res.json()
-    return data
-  }
-  */
 
   /* Fetch Task Lists From Firebase */
   const fetchTaskListsFromFireBase = async () => {
@@ -62,20 +56,6 @@ export default function ManageTaskLists() {
   /** Add Task List To Firebase */
   const addTaskList = async (taskList) => {
 
-    //To json server
-    /*
-    const res = await fetch(taskListUrl,
-    {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(taskList)
-    })
-    const data = await res.json()
-    setTaskLists([...taskLists, data])
-    */
-
     //To firebase
     taskList["created"] = getCurrentDateAsJson();
     taskList["createdBy"] = currentUser.email;
@@ -85,15 +65,6 @@ export default function ManageTaskLists() {
 
   /** Delete Task List From Firebase */
   const deleteTaskList = async (id) => {
-
-    //From json server
-    /*
-    await fetch(`${taskListUrl}/${id}`,
-      {
-        method: 'DELETE'
-      });
-    setTaskLists(taskLists.filter((taskList) => taskList.id !== id))
-    */
 
     //From firebase
 
@@ -111,6 +82,36 @@ export default function ManageTaskLists() {
     navigate('/tasklistarchive')
   }
 
+  const toggleSortDate = (taskLists) => {
+
+    let sortedTaskLists = taskLists.sort((a,b) => new Date(a.created).setHours(0, 0, 0, 0) - new Date(b.created).setHours(0, 0, 0, 0));
+
+    if(sortByDateAsc) {
+      sortedTaskLists = sortedTaskLists.reverse();
+    }
+
+    setTaskLists(sortedTaskLists);
+
+    //Toggle sorting
+    const sortByDate = !sortByDateAsc;
+    setSortByDateAsc(sortByDate);
+  }
+
+  const toggleSortName = (taskLists) => {
+
+    let sortedTaskLists = taskLists.sort((a,b) => a.title.localeCompare(b.title));
+
+    if(sortByNameAsc) {
+      sortedTaskLists = sortedTaskLists.reverse();
+    }
+
+    setTaskLists(sortedTaskLists);
+
+    //Toggle sorting
+    const sortByName = !sortByNameAsc;
+    setSortByNameAsc(sortByName);
+  }
+
   return (
     <div>
       <Row>
@@ -124,6 +125,9 @@ export default function ManageTaskLists() {
         </ButtonGroup>
       </Row>
       <h3 className="page-title">{t('manage_tasklists_title')}</h3>
+      {t('sorting')}: &nbsp;
+      <Button onClick={() => toggleSortDate(taskLists)} text={t('created_date')} />&nbsp;
+      <Button onClick={() => toggleSortName(taskLists)} text={t('name')} />
       {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
       <div className="page-content">
         {taskLists != null && taskLists.length > 0 ? (
