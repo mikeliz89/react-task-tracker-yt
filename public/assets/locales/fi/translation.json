@@ -130,5 +130,6 @@
     "manage_myprofile_height": "Pituus",
     "sorting": "Järjestä",
     "created_date" :"Luontipvm",
-    "name": "Nimi"
+    "name": "Nimi",
+    "task_ready": "Tehtävä valmis"
 }

@@ -27,6 +27,9 @@ function TaskListDetails() {
     const [showAddTask, setShowAddTask] = useState(false)
     const [showEditTaskList, setShowEditTaskList] = useState(false)
     const [tasks, setTasks] = useState()
+    //sorting
+    const [sortByTextAsc, setSortByTextAsc] = useState(true)
+    const [sortByTaskReady, setSortByTaskReady] = useState(true)
     //counters
     const [taskCounter, setTaskCounter] = useState(0)
     const [taskReadyCounter, setTaskReadyCounter] = useState(0)
@@ -258,6 +261,37 @@ function TaskListDetails() {
     });
   }
 
+  
+  const toggleSortText = (tasks) => {
+
+    let sortedTasks = tasks.sort((a,b) => a.text.localeCompare(b.text));
+
+    if(sortByTextAsc) {
+      sortedTasks = sortedTasks.reverse();
+    }
+
+    setTasks(sortedTasks);
+
+    //Toggle sorting
+    const sortByText = !sortByTextAsc;
+    setSortByTextAsc(sortByText);
+  }
+
+  const toggleSortReminder = (tasks) => {
+    
+    let sortedTasks = tasks.sort((a,b) => b.reminder - a.reminder);
+
+    if(sortByTaskReady) {
+      sortedTasks = sortedTasks.reverse();
+    }
+
+    setTasks(sortedTasks);
+
+    //Toggle sorting
+    const _sortByTaskReady = !sortByTaskReady;
+    setSortByTaskReady(_sortByTaskReady);
+  }
+
   return loading ? (
   <h3>{t('loading')}</h3>
   ) : ( 
@@ -300,12 +334,17 @@ function TaskListDetails() {
       
       <div className="page-content">
           {tasks != null && tasks.length > 0 ? (
-          <Tasks
-          taskListID={params.id}
-          tasks={tasks}
-          onDelete={deleteTask}
-          onToggle={toggleReminder}
-            />
+            <>
+              {t('sorting')}: &nbsp;
+              <Button onClick={() => toggleSortText(tasks)} text={t('name')} />&nbsp;
+              <Button onClick={() => toggleSortReminder(tasks)} text={t('task_ready')} />
+              <Tasks
+              taskListID={params.id}
+              tasks={tasks}
+              onDelete={deleteTask}
+              onToggle={toggleReminder}
+              />
+            </>
           ) : (
             t('no_tasks_to_show')
           )}

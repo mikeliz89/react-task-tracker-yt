@@ -129,5 +129,6 @@
     "manage_myprofile_height": "Height",
     "sorting": "Sort by",
     "created_date" :"Created",
-    "name": "Name"
+    "name": "Name",
+    "task_ready": "Task ready"
 }
