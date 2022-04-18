@@ -9,18 +9,21 @@ export default function Incredients({incredients, recipeID, onDelete}) {
   return (
       <>
         <h5>{ t('incredients_header')}</h5>
+
         {incredients 
           ? incredients.map((incredient, index) =>
-          <div key={incredient.id}>
-            <p>
-            {incredient.name} - {incredient.amount} {incredient.unit}
-                {  
-            <> <FaTimes className="deleteTaskBtn" style={{color:'red', cursor: 'pointer'}} 
-                onClick={() => onDelete(recipeID, incredient.id)} />
-            </>
-            }
-            </p>
-        </div>
+          <div key={incredient.id} className='recipe'>
+            <div className="inner">
+              <span>
+                {incredient.name} - <b>{incredient.amount} {incredient.unit}</b>
+              </span>
+              {  
+              <> <FaTimes className="deleteBtn" style={{color:'red', cursor: 'pointer'}} 
+                  onClick={() => onDelete(recipeID, incredient.id)} />
+              </>
+              }
+            </div>
+          </div>
         ) : ''
         }
       </>

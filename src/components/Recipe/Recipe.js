@@ -13,7 +13,7 @@ const Recipe = ({recipe, onDelete}) => {
                 <FaUtensils style={{color:'gray', cursor: 'pointer', marginRight:'5px', marginBottom: '3x' }} />
                 {recipe.title}
                 </span>
-                <FaTimes className="deleteRecipekBtn" style={{color:'red', cursor: 'pointer'}} 
+                <FaTimes className="deleteBtn" style={{color:'red', cursor: 'pointer'}} 
                 onClick={() => {if(window.confirm(t('delete_recipe_confirm_message'))) {onDelete(recipe.id);}}} />
             </h5>
              {recipe.category != "" ? (<p> {'#' + recipe.category}</p>): ('') }

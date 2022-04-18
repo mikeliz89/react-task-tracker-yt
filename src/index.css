@@ -110,6 +110,11 @@ footer {
   font-family: 'Poppins', sans-serif;
   margin-bottom: 0.5em;
 }
+.recipe .inner {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
 
 /** Recipe End */ 
 
@@ -158,7 +163,7 @@ form {
 
 /* Custom Start */
 
-.deleteTaskBtn:hover {
+.deleteBtn:hover {
     font-style:bold;
     color:orange !important;
 }
