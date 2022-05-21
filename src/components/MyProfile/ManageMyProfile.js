@@ -75,7 +75,7 @@ export default function ManageMyProfile() {
                         value={height} 
                         onChange={(e) => setHeight(e.target.value)} />
                 </Form.Group>
-                <Button type='submit' text={t('manage_myprofile_savebutton')} className='btn btn-primary btn-block' />
+                <Button type='submit' text={t('manage_myprofile_savebutton')} className='btn btn-block saveBtn' />
             </Form>
         </div>
     )

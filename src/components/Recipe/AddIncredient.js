@@ -58,7 +58,7 @@ export default function AddIncredient({onAddIncredient, incredientID, recipeID})
           value={unit} 
           onChange={(e) => setUnit(e.target.value)} />
       </Form.Group>
-      <Button type='submit' text={t('button_save_incredient')} className='btn btn-block' />
+      <Button type='submit' text={t('button_save_incredient')} className='btn btn-block saveBtn' />
     </Form>
   )
 }

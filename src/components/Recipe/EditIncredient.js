@@ -1,14 +1,14 @@
 import Button from '../../components/Button'
-import { Form } from 'react-bootstrap';
+import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
 import { useTranslation } from 'react-i18next';
 
-export default function EditIncredient({recipeID, incredientID, onEditIncredient}) {
+export default function EditIncredient({ recipeID, incredientID, onEditIncredient, onCloseEditIncredient }) {
 
     const { t } = useTranslation();
-    
+
     //states
     const [name, setName] = useState('')
     const [amount, setAmount] = useState(0)
@@ -16,51 +16,63 @@ export default function EditIncredient({recipeID, incredientID, onEditIncredient
 
     useEffect(() => {
 
-        if(recipeID != null) {            
+        if (recipeID != null) {
             const getIncredient = async () => {
                 await fetchIncredientFromFirebase(recipeID)
             }
             getIncredient()
-            }
-      }, [recipeID]);
+        }
+    }, [recipeID]);
 
     /** Fetch Incredient From Firebase By RecipeID */
     const fetchIncredientFromFirebase = async (recipeID) => {
         const dbref = ref(db, '/incredients/' + recipeID + "/" + incredientID);
         get(dbref).then((snapshot) => {
-          if (snapshot.exists()) {
-            var val = snapshot.val();
-            setName(val["name"]);
-            setUnit(val["unit"]);
-            setAmount(val["amount"]);
-          }
+            if (snapshot.exists()) {
+                var val = snapshot.val();
+                setName(val["name"]);
+                setUnit(val["unit"]);
+                setAmount(val["amount"]);
+            }
         });
     }
-    
+
     const onSubmit = (e) => {
         e.preventDefault();
-        let incredient = {id:incredientID, name, amount, unit};
+        let incredient = { id: incredientID, name, amount, unit };
         onEditIncredient(incredient);
+    }
+
+    const close = (e) => {
+        onCloseEditIncredient();
     }
 
     return (
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="incredientName">
                 <Form.Control type='text'
+                    placeholder={t('incredient_name')}
                     value={name}
                     onChange={(e) => setName(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="incredientAmount">
                 <Form.Control type='number'
+                    placeholder={t('incredient_amount')}
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="incredientUnit">
                 <Form.Control type='text'
+                    placeholder={t('incredient_unit')}
                     value={unit}
                     onChange={(e) => setUnit(e.target.value)} />
             </Form.Group>
-            <Button type='submit' text={t('incredient_save_button_text')} className='btn btn-block' />
+            <Row>
+                <ButtonGroup>
+                    <Button type='button' text='Sulje' className='btn btn-block' onClick={() => close()} />
+                    <Button type='submit' text={t('incredient_save_button_text')} className='btn btn-block saveBtn' />
+                </ButtonGroup>
+            </Row>
         </Form>
     )
 }

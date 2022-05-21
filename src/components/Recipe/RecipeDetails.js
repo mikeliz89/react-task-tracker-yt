@@ -146,7 +146,6 @@ export default function RecipeDetails() {
             ) : (
                <p> { t('no_incredients_to_show') } </p>
             )}
-
             {workPhases != null}
             {workPhases != null && workPhases.length > 0 ? (
             <WorkPhases

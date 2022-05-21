@@ -40,7 +40,8 @@ export default function WorkPhase({workPhase, recipeID, onDeleteWorkPhase}) {
             <EditWorkPhase 
             workPhaseID={workPhase.id} 
             recipeID={recipeID}
-            onEditWorkPhase={editWorkPhase}/>
+            onEditWorkPhase={editWorkPhase}
+            onCloseEditWorkPhase={() => setEditable(false)}/>
             }
         </div>
     )

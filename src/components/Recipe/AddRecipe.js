@@ -126,24 +126,25 @@ const AddRecipe = ({recipeID, onAddRecipe}) => {
         }
     }
 
+    //todo: Tee checkboxista label clickable
     return (
         <>
             <Form onSubmit={onSubmit}>
-                <Form.Group className="mb-3" controlId="addRecipeFormName">
+                <Form.Group className="mb-3" controlid="addRecipeFormName">
                     <Form.Label>{t('recipe_name')}</Form.Label>
                     <Form.Control type='text'
                         placeholder={ recipeID == null ? t('recipe_name') : t('edit_recipe_name')} 
                         value={title}
                         onChange={(e) => setTitle(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addRecipeFormDescription">
+                <Form.Group className="mb-3" controlid="addRecipeFormDescription">
                     <Form.Label>{t('description')}</Form.Label>
                     <Form.Control type='text' 
                         placeholder={ recipeID == null ? t('add_description') : t('edit_description') }
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addRecipeFormCategory">
+                <Form.Group className="mb-3" controlid="addRecipeFormCategory">
                     <Form.Label>{t('category')}</Form.Label>
                     <Form.Select onChange={(e) => setCategory(e.target.value) }>
                         {categories.map(({id, name}) => (
@@ -151,16 +152,15 @@ const AddRecipe = ({recipeID, onAddRecipe}) => {
                         ))}
                     </Form.Select>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="AddRecipeFormIsCore">
+                <Form.Group className="mb-3" controlid="AddRecipeFormIsCore">
                      <Form.Check 
                      type='checkbox'
-                     controlId="formBasicCheckbox"
                      label={t('set_isCore')}
                      checked={isCore}
                      value={isCore} 
                      onChange={(e) => setIsCore(e.currentTarget.checked)} />
                 </Form.Group>
-                <Button type='submit' text={t('button_save_recipe')} className='btn btn-primary btn-block' />
+                <Button type='submit' text={t('button_save_recipe')} className='btn btn-block saveBtn' />
             </Form>
             </>
     )

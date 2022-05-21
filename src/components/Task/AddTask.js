@@ -89,7 +89,7 @@ const AddTask = ({taskID, taskListID, onAddTask}) => {
                 value={reminder} 
                 onChange={(e) => setReminder(e.currentTarget.checked)} />
             </Form.Group>
-            <Button type='submit' text={t('button_save_task')} className='btn btn-block' />
+            <Button type='submit' text={t('button_save_task')} className='btn btn-block saveBtn' />
         </Form>
     )
 }

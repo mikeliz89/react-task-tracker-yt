@@ -37,7 +37,8 @@ export const Incredient = ({incredient, recipeID, onDelete}) => {
         <EditIncredient 
          incredientID={incredient.id} 
          recipeID={recipeID}
-         onEditIncredient={editIncredient}/>
+         onEditIncredient={editIncredient}
+         onCloseEditIncredient={() => setEditable(false)}/>
         }
     </div>
     )

@@ -2,12 +2,14 @@ import PropTypes from 'prop-types'
 import { FaArrowLeft, FaArchive, FaSignOutAlt } from 'react-icons/fa'
 
 const Button = ({color, text, onClick, className,
-                 showIconArrowLeft, showIconArchive, showIconLogout
+                 showIconArrowLeft, showIconArchive, showIconLogout, type
 }) => {
     return (
         <button 
+        type={type}
         onClick={onClick}
-        style={{backgroundColor:color, color:'white'}}
+        //jos class saveBtn niin ei styleä
+        style={className.includes('saveBtn') ? {} : {backgroundColor:color, color:'white'}}
         className={className}>
         {
         showIconArrowLeft &&

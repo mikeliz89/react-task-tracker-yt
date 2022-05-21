@@ -76,7 +76,7 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
-            <Button type='submit' text={t('button_save_list')} className='btn btn-primary btn-block' />
+            <Button type='submit' text={t('button_save_list')} className='btn btn-block saveBtn' />
         </Form>
     )
 }
