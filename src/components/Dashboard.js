@@ -15,13 +15,19 @@ export default function Dashboard() {
                     <Link to={`/managerecipes`}><BigButton imageName="recipes.png" textcolor="black" color="#b37401" text={t('dashboard_recipes_button')} /></Link>
                 </Col>
                 <Col md={3} sm={6} xs={6}>
-                    <Link to={`/managetasklists`}><BigButton imageName="tasklists.PNG" textcolor="black" color="green" text={t('dashboard_tasklists_button')} /></Link>
+                    <Link to={`/managetasklists`}><BigButton imageName="tasklists.PNG" textcolor="black" color="#fcba03" text={t('dashboard_tasklists_button')} /></Link>
                 </Col>
                 <Col md={3} sm={6} xs={6}>
                     <Link to={'/bmicalculator'}><BigButton imageName="calculator.PNG" textcolor="black" text={t('dashboard_bmi_calculator_button')} /></Link>
                 </Col>
                 <Col md={3} sm={6} xs={6}>
-                    <Link to={'/manageexercises'}><BigButton imageName="exercises.PNG" textcolor="black" color="#ef7c1a" text={t('dashboard_exercises_button')} /></Link>
+                    <Link to={'/manageexercises'}><BigButton imageName="exercises.PNG" textcolor="black" color="#ef7c1a" text={t('dashboard_exercises_button')} comingsoon /></Link>
+                </Col>
+                <Col md={3} sm={6} xs={6}>
+                    <Link to={'/managedrinks'}><BigButton imageName="cocktail.jpg" textcolor="black" color="#f9a9d5" text={t('dashboard_drinks_button')} comingsoon /></Link>
+                </Col>
+                <Col md={3} sm={6} xs={6}>
+                    <Link to={'/managebackpacking'}><BigButton imageName="backpacking.jpg" textcolor="black" color="#0cb058" text={t('dashboard_backpacking_button')} comingsoon /></Link>
                 </Col>
             </Row>
 

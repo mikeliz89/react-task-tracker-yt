@@ -28,6 +28,10 @@ import BmiCalculator from './components/BmiCalculator/BmiCalculator'
 import WeightHistory from './components/BmiCalculator/WeightHistory'
 //MyProfile
 import ManageMyProfile from './components/MyProfile/ManageMyProfile';
+//Drinks
+import ManageDrinks from './components/Drinks/ManageDrinks'
+//Backpacking
+import ManageBackPacking from './components/BackPacking/ManageBackPacking'
 //other components
 import PrivateRoute from './components/PrivateRoute'
 import Demo from './components/Demo';
@@ -83,6 +87,8 @@ function App() {
             <Route path='/tasklistarchive/:id' element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
             <Route path='/weighthistory' element={<PrivateRoute><WeightHistory /></PrivateRoute>} />
             <Route path='/managemyprofile' element={<PrivateRoute><ManageMyProfile /></PrivateRoute>} />
+            <Route path='/managedrinks' element={<PrivateRoute><ManageDrinks /></PrivateRoute>} />
+            <Route path='/managebackpacking' element={<PrivateRoute><ManageBackPacking /></PrivateRoute>} />
             <Route path='/Demo' element={<PrivateRoute><Demo /></PrivateRoute>} />
           </Routes>
           <Footer />

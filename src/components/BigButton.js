@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor, imageName }) => {
+const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor, imageName, comingsoon }) => {
 
     const background = `/images/${imageName}`;
     return (
@@ -11,7 +11,10 @@ const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor, image
                     { backgroundColor: color, color: textcolor } :
                     { backgroundColor: 'rgba(0, 0, 0, 0)', color: textcolor }}
                 className='bigbtn'>
-                <div style={{ backgroundColor: textBackgroundColor, paddingTop: '5px', paddingBottom: '5px' }}>{text}</div>
+                <div style={{ backgroundColor: textBackgroundColor, paddingTop: '5px', paddingBottom: '5px' }}>
+                    <span style={comingsoon ? {color:'gray'} : {}}>{text}</span>
+                    {comingsoon && <div style={{ color: 'gray' }}>Coming soon!</div>}
+                </div>
             </button>
         </div>
     )
@@ -19,15 +22,18 @@ const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor, image
 
 BigButton.defaultProps = {
     color: 'steelblue',
+    text: '',
     textcolor: 'white',
-    imageName: '',
-    textBackgroundColor: 'rgba(255, 255, 255, 0.5)'
+    textBackgroundColor: 'rgba(255, 255, 255, 0.5)',
+    imageName: ''
 }
 
 BigButton.propTypes = {
+    color: PropTypes.string,
     text: PropTypes.string,
     textcolor: PropTypes.string,
-    color: PropTypes.string,
+    textBackgroundColor: PropTypes.string,
+    imageName: PropTypes.string,
     onClick: PropTypes.func
 }
 
