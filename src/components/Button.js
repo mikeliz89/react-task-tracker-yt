@@ -1,35 +1,35 @@
 import PropTypes from 'prop-types'
 import { FaArrowLeft, FaArchive, FaSignOutAlt } from 'react-icons/fa'
 
-const Button = ({color, text, onClick, className,
-                 showIconArrowLeft, showIconArchive, showIconLogout, type
+const Button = ({ color, text, onClick, className,
+    showIconArrowLeft, showIconArchive, showIconLogout, type
 }) => {
     return (
-        <button 
-        type={type}
-        onClick={onClick}
-        //jos class saveBtn niin ei styleä
-        style={className.includes('saveBtn') ? {} : {backgroundColor:color, color:'white'}}
-        className={className}>
-        {
-        showIconArrowLeft &&
-        <span>
-            <FaArrowLeft style={{color: 'white', cursor: 'pointer', marginRight:'5px', marginBottom: '5px' }} />
-        </span>
-        }
-        {
-        showIconArchive &&
-        <span>
-            <FaArchive style={{color: 'white', cursor: 'pointer', marginRight:'5px', marginBottom: '5px' }} />
-        </span>
-        }
-        {
-        showIconLogout &&
-        <span>
-            <FaSignOutAlt style={{color: 'white', cursor: 'pointer', marginRight:'5px', marginBottom: '5px' }}  />
-        </span>    
-        }
-        {text}</button>
+        <button
+            type={type}
+            onClick={onClick}
+            //jos class saveBtn niin ei styleä
+            style={className.includes('saveBtn') ? {} : { backgroundColor: color, color: 'white' }}
+            className={className}>
+            {
+                showIconArrowLeft &&
+                <span>
+                    <FaArrowLeft style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
+                </span>
+            }
+            {
+                showIconArchive &&
+                <span>
+                    <FaArchive style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
+                </span>
+            }
+            {
+                showIconLogout &&
+                <span>
+                    <FaSignOutAlt style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
+                </span>
+            }
+            {text}</button>
     )
 }
 

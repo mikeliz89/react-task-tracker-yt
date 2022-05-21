@@ -7,9 +7,9 @@ const ManageExercises = () => {
 
   return (
     <div>
-      <GoBackButton  />
+      <GoBackButton />
       <h3 className="page-title">{t('manage_exercises_title')}</h3>
-       <p className="text-center">{t('manage_exercises_coming_soon')}</p>
+      <p className="text-center">{t('manage_exercises_coming_soon')}</p>
     </div>
   )
 }

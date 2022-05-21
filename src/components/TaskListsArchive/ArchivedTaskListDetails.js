@@ -22,45 +22,45 @@ export default function ArchivedTaskListDetails() {
 
     //Tasks
     const getTasks = async () => {
-        if(cancel) { 
-            return;
-        }
-        await fetchTasksFromFirebase()
+      if (cancel) {
+        return;
+      }
+      await fetchTasksFromFirebase()
     }
     getTasks()
 
-    return () => { 
+    return () => {
       cancel = true;
     }
   }, [])
 
-/** Fetch Tasks From Database */
-const fetchTasksFromFirebase = async () => {
+  /** Fetch Tasks From Database */
+  const fetchTasksFromFirebase = async () => {
     const dbref = await child(ref(db, '/tasklist-archive-tasks'), params.id);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const tasks = [];
-      for(let id in snap) {
-        tasks.push({id, ...snap[id]});
+      for (let id in snap) {
+        tasks.push({ id, ...snap[id] });
       }
       setTasks(tasks);
     })
-}
+  }
 
   return (
     <div>
-        <GoBackButton />
-        <div className="page-content">
-            {tasks != null && tasks.length > 0 ? (
-            <Tasks
+      <GoBackButton />
+      <div className="page-content">
+        {tasks != null && tasks.length > 0 ? (
+          <Tasks
             archived={true}
             taskListID={params.id}
             tasks={tasks}
-                />
-            ) : (
-                t('no_tasks_to_show')
-            )}
-        </div>
+          />
+        ) : (
+          t('no_tasks_to_show')
+        )}
+      </div>
     </div>
   )
 }

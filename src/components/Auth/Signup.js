@@ -15,19 +15,19 @@ export default function Signup() {
     const [passwordConfirm, setPasswordConfirm] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const {signup} = useAuth()
+    const { signup } = useAuth()
     const navigate = useNavigate()
 
     async function onSubmit(e) {
         e.preventDefault()
 
         //validation
-        if(!email || !password || !passwordConfirm) {
+        if (!email || !password || !passwordConfirm) {
             setError(t('please_fill_all_fields'))
             return
         }
 
-        if(password !== passwordConfirm) {
+        if (password !== passwordConfirm) {
             setError(t('passwords_do_not_match'));
             return
         }
@@ -39,7 +39,7 @@ export default function Signup() {
             await signup(email, password);
             //navigate to dashboard
             navigate('/');
-        } catch(error) {
+        } catch (error) {
             setError(t('failed_to_create_account'));
             console.log(error)
         }
@@ -55,7 +55,7 @@ export default function Signup() {
     return (
         <div className="login-container">
             <h3>{t('sign_up')}</h3>
-            { error && <div className="error">{error}</div> }
+            {error && <div className="error">{error}</div>}
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="signupFormEmail">
                     <Form.Label>{t('email')}</Form.Label>
@@ -73,7 +73,7 @@ export default function Signup() {
             </Form>
 
             <div className="text-center">
-                {t('already_have_an_account')} <Link to="/login">{t('log_in')}</Link>   
+                {t('already_have_an_account')} <Link to="/login">{t('log_in')}</Link>
             </div>
         </div>
     )

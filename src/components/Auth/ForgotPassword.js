@@ -14,7 +14,7 @@ export default function ForgotPassword() {
     const [error, setError] = useState('')
     const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(false)
-    const {resetPassword} = useAuth()
+    const { resetPassword } = useAuth()
 
     async function onSubmit(e) {
         e.preventDefault()
@@ -26,7 +26,7 @@ export default function ForgotPassword() {
             setLoading(true)
             await resetPassword(email);
             setMessage(t('check_your_inbox'));
-        } catch(error) {
+        } catch (error) {
             setError(t('failed_to_reset_password'));
             console.log(error)
         }
@@ -37,8 +37,8 @@ export default function ForgotPassword() {
     return (
         <div className="login-container">
             <h3>{t('password_reset')}</h3>
-            { error && <div className="error">{error}</div> }
-            { message && <div className="success">{message}</div> }
+            {error && <div className="error">{error}</div>}
+            {message && <div className="success">{message}</div>}
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="forgotPasswordFormEmail">
                     <Form.Label>{t('email')}</Form.Label>

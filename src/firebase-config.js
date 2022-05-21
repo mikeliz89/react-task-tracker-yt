@@ -26,7 +26,7 @@ export const db = getDatabase(app);
 export const auth = getAuth(app);
 
 //App check for production
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   const appCheck = initializeAppCheck(app, {
     provider: new ReCaptchaV3Provider(process.env.REACT_APP_FIREBASE_SITE_KEY),
 

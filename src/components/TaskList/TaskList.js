@@ -1,18 +1,18 @@
-import { FaTimes, FaListAlt} from 'react-icons/fa'
+import { FaTimes, FaListAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 
-const TaskList = ({taskList, archived, onDelete}) => {
+const TaskList = ({ taskList, archived, onDelete }) => {
     const { t } = useTranslation();
     return (
         <div className='task'>
             <h5>
                 <span>
-                <FaListAlt style={{color:'gray', cursor: 'pointer', marginRight:'5px', marginBottom: '3x' }} />
-                {taskList.title} 
+                    <FaListAlt style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                    {taskList.title}
                 </span>
-                <FaTimes className="deleteBtn" style={{color:'red', cursor: 'pointer'}} 
-                onClick={() => {if(window.confirm(t('delete_list_confirm_message'))) {onDelete(taskList.id);}}} />
+                <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer' }}
+                    onClick={() => { if (window.confirm(t('delete_list_confirm_message'))) { onDelete(taskList.id); } }} />
             </h5>
             <p>{taskList.description}</p>
             <p><Link to={archived ? `/tasklistarchive/${taskList.id}` : `/tasklist/${taskList.id}`}>{t('view_details')}</Link></p>

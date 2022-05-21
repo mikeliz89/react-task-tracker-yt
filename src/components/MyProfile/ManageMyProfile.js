@@ -21,7 +21,7 @@ export default function ManageMyProfile() {
     useEffect(() => {
         let isMounted = true;
         const getProfile = async () => {
-            if(isMounted)
+            if (isMounted)
                 await fetchProfileFromFirebase();
         }
         getProfile()
@@ -33,13 +33,13 @@ export default function ManageMyProfile() {
         const dbref = ref(db, '/profiles/' + currentUser.uid);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
-            if(data != null) {
+            if (data != null) {
                 setName(data["name"]);
                 setHeight(data["height"]);
             }
         })
     }
-    
+
     /** Recipe Form Submit */
     const onSubmit = (e) => {
         e.preventDefault()
@@ -47,7 +47,7 @@ export default function ManageMyProfile() {
     }
 
     const saveProfileToFirebase = async () => {
-        let data = { name, height};
+        let data = { name, height };
         //save edited profile to firebase
         const updates = {};
         data["modified"] = getCurrentDateAsJson()
@@ -56,23 +56,23 @@ export default function ManageMyProfile() {
     }
 
     return (
-        <div> 
+        <div>
             <GoBackButton />
             <h3 className="page-title">{t('manage_myprofile_title')}</h3>
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="myProfileFormName">
                     <Form.Label>{t('manage_myprofile_name')}</Form.Label>
                     <Form.Control type='text'
-                        placeholder={ t('manage_myprofile_name')} 
+                        placeholder={t('manage_myprofile_name')}
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addIncredientFormAmount">
                     <Form.Label>{t('manage_myprofile_height')}</Form.Label>
-                    <Form.Control 
-                        type='number' 
-                        placeholder={t('manage_myprofile_height')} 
-                        value={height} 
+                    <Form.Control
+                        type='number'
+                        placeholder={t('manage_myprofile_height')}
+                        value={height}
                         onChange={(e) => setHeight(e.target.value)} />
                 </Form.Group>
                 <Button type='submit' text={t('manage_myprofile_savebutton')} className='btn btn-block saveBtn' />

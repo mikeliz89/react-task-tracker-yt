@@ -22,7 +22,7 @@ export default function ManageTaskLists() {
 
   const navigate = useNavigate();
   const { currentUser } = useAuth();
-  
+
   const { t } = useTranslation();
 
   //states
@@ -46,8 +46,8 @@ export default function ManageTaskLists() {
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const taskLists = [];
-      for(let id in snap) {
-        taskLists.push({id, ...snap[id]});
+      for (let id in snap) {
+        taskLists.push({ id, ...snap[id] });
       }
       setTaskLists(taskLists)
     })
@@ -84,9 +84,9 @@ export default function ManageTaskLists() {
 
   const toggleSortDate = (taskLists) => {
 
-    let sortedTaskLists = taskLists.sort((a,b) => new Date(a.created).setHours(0, 0, 0, 0) - new Date(b.created).setHours(0, 0, 0, 0));
+    let sortedTaskLists = taskLists.sort((a, b) => new Date(a.created).setHours(0, 0, 0, 0) - new Date(b.created).setHours(0, 0, 0, 0));
 
-    if(sortByDateAsc) {
+    if (sortByDateAsc) {
       sortedTaskLists = sortedTaskLists.reverse();
     }
 
@@ -99,9 +99,9 @@ export default function ManageTaskLists() {
 
   const toggleSortName = (taskLists) => {
 
-    let sortedTaskLists = taskLists.sort((a,b) => a.title.localeCompare(b.title));
+    let sortedTaskLists = taskLists.sort((a, b) => a.title.localeCompare(b.title));
 
-    if(sortByNameAsc) {
+    if (sortByNameAsc) {
       sortedTaskLists = sortedTaskLists.reverse();
     }
 
@@ -116,8 +116,8 @@ export default function ManageTaskLists() {
     <div>
       <Row>
         <ButtonGroup>
-          <GoBackButton  />
-          <TaskListButton 
+          <GoBackButton />
+          <TaskListButton
             onShowAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
             showAdd={showAddTaskList}>
           </TaskListButton>
@@ -132,12 +132,12 @@ export default function ManageTaskLists() {
       <div className="page-content">
         {taskLists != null && taskLists.length > 0 ? (
           <TaskLists
-          taskLists={taskLists} 
-          onDelete={deleteTaskList} 
-            />
-          ) : (
-            t('no_task_lists_to_show')
-          )
+            taskLists={taskLists}
+            onDelete={deleteTaskList}
+          />
+        ) : (
+          t('no_task_lists_to_show')
+        )
         }
       </div>
     </div>

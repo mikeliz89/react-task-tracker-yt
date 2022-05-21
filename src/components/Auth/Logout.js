@@ -12,26 +12,26 @@ export default function Logout() {
     const [error, setError] = useState("")
 
     async function handleLogout() {
-       setError('')
+        setError('')
 
-       try {
-        await logout()
+        try {
+            await logout()
 
-        navigate('/login');
-       } catch(error) {
+            navigate('/login');
+        } catch (error) {
             setError(t('failed_to_log_out'))
             console.log(error);
-       }
+        }
     }
     return (
         <>
-          { error && <div className="error">{error}</div> }  
-          <Button 
-           showIconLogout={true}
-           onClick={() => handleLogout()} 
-           text={t('log_out')}
-           color="gray"
-           className="btn" />
+            {error && <div className="error">{error}</div>}
+            <Button
+                showIconLogout={true}
+                onClick={() => handleLogout()}
+                text={t('log_out')}
+                color="gray"
+                className="btn" />
         </>
     )
 }

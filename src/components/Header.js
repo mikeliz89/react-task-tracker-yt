@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useAuth } from '../contexts/AuthContext';
-import  Logout  from '../components/Auth/Logout';
+import Logout from '../components/Auth/Logout';
 import { useTranslation } from 'react-i18next';
 import Language from '../components/Language/Language';
 import MyProfile from '../components/MyProfile/MyProfile';
 import { Row, ButtonGroup } from 'react-bootstrap';
 
-const Header = ({title}) => {
+const Header = ({ title }) => {
 
     const { t } = useTranslation();
     const { currentUser } = useAuth()
@@ -17,13 +17,13 @@ const Header = ({title}) => {
                 <h1>{title}</h1>
             </header>
             <p className="loggedin-user">
-                { currentUser && t('header_logged_in_as_text') + currentUser.email }
+                {currentUser && t('header_logged_in_as_text') + currentUser.email}
             </p>
             <Row>
                 <ButtonGroup>
                     <Language />
-                    { currentUser && <MyProfile /> }
-                    { currentUser && <Logout /> }
+                    {currentUser && <MyProfile />}
+                    {currentUser && <Logout />}
                 </ButtonGroup>
             </Row>
         </div>

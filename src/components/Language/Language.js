@@ -14,7 +14,7 @@ export default function Language() {
             code: 'fi',
             name: 'Suomi',
             country_code: 'fi'
-        }, 
+        },
         {
             code: 'en',
             name: 'English',
@@ -23,31 +23,31 @@ export default function Language() {
     ]
 
     return (
-    <>   
-        <DropdownButton 
-            as={ButtonGroup}
-            id="dropdown-basic-languageBtn" 
-            title={t('language')} 
-            variant='success'>
-            {languages.map(({code, name, country_code}) => (
-                <Dropdown.Item key={country_code}>
-                <button 
-                className="btn"
-                type="button"
-                id="languageDropDownBtn"
-                onClick={() => i18n.changeLanguage(code)}
-                disabled={code === currentLanguageCode }
-                >
-                <span 
-                className={`flag-icon flag-icon-${country_code}`}
-                style={{ opacity: code === currentLanguageCode, marginRight:'5px' }}
-                >
-                </span>
-                {name}
-                </button>
-                </Dropdown.Item>
-            ))}
-        </DropdownButton>
-    </>
+        <>
+            <DropdownButton
+                as={ButtonGroup}
+                id="dropdown-basic-languageBtn"
+                title={t('language')}
+                variant='success'>
+                {languages.map(({ code, name, country_code }) => (
+                    <Dropdown.Item key={country_code}>
+                        <button
+                            className="btn"
+                            type="button"
+                            id="languageDropDownBtn"
+                            onClick={() => i18n.changeLanguage(code)}
+                            disabled={code === currentLanguageCode}
+                        >
+                            <span
+                                className={`flag-icon flag-icon-${country_code}`}
+                                style={{ opacity: code === currentLanguageCode, marginRight: '5px' }}
+                            >
+                            </span>
+                            {name}
+                        </button>
+                    </Dropdown.Item>
+                ))}
+            </DropdownButton>
+        </>
     )
 }

@@ -9,14 +9,14 @@ export default function MyProfile() {
     const location = useLocation();
 
     const navigateTo = () => {
-        if(location.pathname !== '/managemyprofile') {
+        if (location.pathname !== '/managemyprofile') {
             navigate('/managemyprofile');
         }
     }
 
     return (
         <>
-            <Button 
+            <Button
                 text={t('button_myprofile')}
                 onClick={() => navigateTo()} />
         </>

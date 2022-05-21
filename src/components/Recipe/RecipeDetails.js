@@ -13,7 +13,7 @@ import Incredients from './Incredients';
 import WorkPhases from './WorkPhases';
 import i18n from "i18next";
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils'
-import { FaUtensils} from 'react-icons/fa'
+import { FaUtensils } from 'react-icons/fa'
 
 export default function RecipeDetails() {
 
@@ -50,7 +50,7 @@ export default function RecipeDetails() {
         const dbref = ref(db, '/recipes/' + params.id);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
-            if(data === null) {
+            if (data === null) {
                 navigate(-1)
             }
             setRecipe(data)
@@ -62,12 +62,12 @@ export default function RecipeDetails() {
     const fetchIncredientsFromFirebase = async () => {
         const dbref = await child(ref(db, '/incredients'), params.id);
         onValue(dbref, (snapshot) => {
-          const snap = snapshot.val();
-          const incredients = [];
-          for(let id in snap) {
-            incredients.push({id, ...snap[id]});
-          }
-          setIncredients(incredients);
+            const snap = snapshot.val();
+            const incredients = [];
+            for (let id in snap) {
+                incredients.push({ id, ...snap[id] });
+            }
+            setIncredients(incredients);
         })
     }
 
@@ -77,8 +77,8 @@ export default function RecipeDetails() {
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const workphases = [];
-            for(let id in snap) {
-                workphases.push({id, ...snap[id]});
+            for (let id in snap) {
+                workphases.push({ id, ...snap[id] });
             }
             setWorkPhases(workphases);
         })
@@ -87,76 +87,76 @@ export default function RecipeDetails() {
     /** Add Incredient To Firebase */
     const addIncredient = async (recipeID, incredient) => {
         const dbref = child(ref(db, '/incredients'), recipeID);
-        push(dbref, incredient);   
+        push(dbref, incredient);
     }
 
     /** Delete Incredient From Firebase */
-    const deleteIncredient = async(recipeID, id) => {
+    const deleteIncredient = async (recipeID, id) => {
         const dbref = ref(db, '/incredients/' + recipeID + "/" + id)
         remove(dbref)
     }
 
     /** Add Work Phase To Firebase */
-    const addWorkPhase = async(recipeID, workPhase) => {
+    const addWorkPhase = async (recipeID, workPhase) => {
         const dbref = child(ref(db, '/workphases'), recipeID);
         push(dbref, workPhase);
     }
 
     /** Delete Work Phase From Firebase */
-    const deleteWorkPhase = async(recipeID, id) => {
+    const deleteWorkPhase = async (recipeID, id) => {
         const dbref = ref(db, '/workphases/' + recipeID + "/" + id);
         remove(dbref);
     }
 
     return loading ? (
-    <h3>{t('loading')}</h3>
-    ) : ( 
-    <div>
-        <Row>
-            <ButtonGroup>
-                <GoBackButton />
-                <Button color={showAddIncredient ? 'red' : 'green'}
-                  text={showAddIncredient ? t('button_close') : t('button_add_incredient')}
-                  onClick={() => setShowAddIncredient(!showAddIncredient)} />
-                <Button color={showAddWorkPhase ? 'red' : 'green'}
-                  text={showAddWorkPhase ? t('button_close') : t('button_add_workphase')}
-                  onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
-            </ButtonGroup>
-        </Row>
-        <h4 className="page-title">
-            <FaUtensils style={{color:'gray', cursor: 'pointer', marginBottom: '3px' }} /> {recipe.title}
-        </h4>
-        <div className="page-content">
-            {/* <pre>{JSON.stringify(recipe)}</pre> */}
-            <p>{recipe.description}</p>
-            <p>
-                {t('created')}: {getJsonAsDateTimeString(recipe.created, i18n.language)}<br/>
-                {t('created_by')}: {recipe.createdBy}<br/>
-                {t('category')}: {recipe.category}
-            </p>
-            {showAddIncredient && <AddIncredient onAddIncredient={addIncredient} recipeID={params.id} />}
-            {showAddWorkPhase && <AddWorkPhase onAddWorkPhase={addWorkPhase} recipeID={params.id} />}
-            {incredients != null}
-            {incredients != null && incredients.length > 0 ? (
-            <Incredients
-            recipeID={params.id}
-            incredients={incredients}
-            onDelete={deleteIncredient}
-                />
-            ) : (
-               <p> { t('no_incredients_to_show') } </p>
-            )}
-            {workPhases != null}
-            {workPhases != null && workPhases.length > 0 ? (
-            <WorkPhases
-            recipeID={params.id}
-            workPhases={workPhases}
-            onDeleteWorkPhase={deleteWorkPhase}
-                />
-            ) : (
-                <p> { t('no_workphases_to_show') } </p>
-            )}
+        <h3>{t('loading')}</h3>
+    ) : (
+        <div>
+            <Row>
+                <ButtonGroup>
+                    <GoBackButton />
+                    <Button color={showAddIncredient ? 'red' : 'green'}
+                        text={showAddIncredient ? t('button_close') : t('button_add_incredient')}
+                        onClick={() => setShowAddIncredient(!showAddIncredient)} />
+                    <Button color={showAddWorkPhase ? 'red' : 'green'}
+                        text={showAddWorkPhase ? t('button_close') : t('button_add_workphase')}
+                        onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
+                </ButtonGroup>
+            </Row>
+            <h4 className="page-title">
+                <FaUtensils style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} /> {recipe.title}
+            </h4>
+            <div className="page-content">
+                {/* <pre>{JSON.stringify(recipe)}</pre> */}
+                <p>{recipe.description}</p>
+                <p>
+                    {t('created')}: {getJsonAsDateTimeString(recipe.created, i18n.language)}<br />
+                    {t('created_by')}: {recipe.createdBy}<br />
+                    {t('category')}: {recipe.category}
+                </p>
+                {showAddIncredient && <AddIncredient onAddIncredient={addIncredient} recipeID={params.id} />}
+                {showAddWorkPhase && <AddWorkPhase onAddWorkPhase={addWorkPhase} recipeID={params.id} />}
+                {incredients != null}
+                {incredients != null && incredients.length > 0 ? (
+                    <Incredients
+                        recipeID={params.id}
+                        incredients={incredients}
+                        onDelete={deleteIncredient}
+                    />
+                ) : (
+                    <p> {t('no_incredients_to_show')} </p>
+                )}
+                {workPhases != null}
+                {workPhases != null && workPhases.length > 0 ? (
+                    <WorkPhases
+                        recipeID={params.id}
+                        workPhases={workPhases}
+                        onDeleteWorkPhase={deleteWorkPhase}
+                    />
+                ) : (
+                    <p> {t('no_workphases_to_show')} </p>
+                )}
+            </div>
         </div>
-    </div>
     )
 }

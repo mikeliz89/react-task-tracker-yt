@@ -14,7 +14,7 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const {login} = useAuth()
+    const { login } = useAuth()
     const navigate = useNavigate()
 
     async function onSubmit(e) {
@@ -27,7 +27,7 @@ export default function Login() {
             await login(email, password);
             //navigate to dashboard
             navigate('/');
-        } catch(error) {
+        } catch (error) {
             setError(t('failed_to_log_in'));
             console.log(error)
         }
@@ -38,7 +38,7 @@ export default function Login() {
     return (
         <div className="login-container">
             <h3>{t('log_in')}</h3>
-            { error && <div className="error">{error}</div> }
+            {error && <div className="error">{error}</div>}
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="loginFormEmail">
                     <Form.Label>{t('email')}</Form.Label>

@@ -26,7 +26,7 @@ const BmiCalculator = () => {
     useEffect(() => {
         let isMounted = true;
         const getProfile = async () => {
-            if(isMounted)
+            if (isMounted)
                 await fetchProfileFromFirebase();
         }
         getProfile()
@@ -38,13 +38,13 @@ const BmiCalculator = () => {
         const dbref = ref(db, '/profiles/' + currentUser.uid);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
-            if(data != null) {
+            if (data != null) {
                 setProfile(data);
                 setHeight(data["height"]);
             }
         })
     }
-    
+
     async function onSubmit(e) {
         e.preventDefault()
 
@@ -58,7 +58,7 @@ const BmiCalculator = () => {
         let BMITemp = 0;
         let heightInMeters = height / 100;
         BMITemp = weight / (heightInMeters * heightInMeters);
-        let BMIRounded = Math.round(BMITemp*10)/10;
+        let BMIRounded = Math.round(BMITemp * 10) / 10;
         return BMIRounded;
     }
 
@@ -66,7 +66,7 @@ const BmiCalculator = () => {
     const saveWeightToFirebase = async (weight, bmi) => {
         const dbref = ref(db, '/weighthistory/' + currentUser.uid);
         let currentDateTime = getCurrentDateAsJson();
-        push(dbref, {weight, currentDateTime, bmi});
+        push(dbref, { weight, currentDateTime, bmi });
     }
 
     return (
@@ -74,9 +74,9 @@ const BmiCalculator = () => {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Button 
-                    text={t('button_weight_history')}
-                    onClick={() => navigate('/weighthistory')} />
+                    <Button
+                        text={t('button_weight_history')}
+                        onClick={() => navigate('/weighthistory')} />
                 </ButtonGroup>
             </Row>
             <h3 className="page-title">{t('bmi_calculator_title')}</h3>
@@ -91,45 +91,45 @@ const BmiCalculator = () => {
                 </Form.Group>
                 <Button type='submit' text={t('calculate_bmi')} className='btn btn-block' />
             </Form>
-            { BMI > 0 &&
-            <div className="alert alert-primary">
-            {t('your_bmi_is')} : {BMI}
-            </div>
+            {BMI > 0 &&
+                <div className="alert alert-primary">
+                    {t('your_bmi_is')} : {BMI}
+                </div>
             }
             <Table>
                 <tbody>
-                <tr>
-                    <td>{t('bmi_1')}</td>
-                    <td>0 - 14,9</td>
-                </tr>
-                <tr>
-                    <td>{t('bmi_2')}</td>
-                    <td>15 - 17,9</td>
-                </tr>
-                <tr>
-                    <td>{t('bmi_3')}</td>
-                    <td>18 - 18,9</td>
-                </tr>
-                <tr>
-                    <td>{t('bmi_4')}</td>
-                    <td>19 - 24,9</td>
-                </tr>
-                <tr>
-                    <td>{t('bmi_5')}</td>
-                    <td>25,0 - 29,9</td>
-                </tr>
-                <tr>
-                    <td>{t('bmi_6')}</td>
-                    <td>30,0 - 34,9</td>
-                </tr>
-                <tr>
-                    <td>{t('bmi_7')}</td>
-                    <td>35,0 - 39,9</td>
-                </tr>
-                <tr>
-                    <td>{t('bmi_8')}</td>
-                    <td>40,0 {t('bmi_ormore')}</td>
-                </tr>
+                    <tr>
+                        <td>{t('bmi_1')}</td>
+                        <td>0 - 14,9</td>
+                    </tr>
+                    <tr>
+                        <td>{t('bmi_2')}</td>
+                        <td>15 - 17,9</td>
+                    </tr>
+                    <tr>
+                        <td>{t('bmi_3')}</td>
+                        <td>18 - 18,9</td>
+                    </tr>
+                    <tr>
+                        <td>{t('bmi_4')}</td>
+                        <td>19 - 24,9</td>
+                    </tr>
+                    <tr>
+                        <td>{t('bmi_5')}</td>
+                        <td>25,0 - 29,9</td>
+                    </tr>
+                    <tr>
+                        <td>{t('bmi_6')}</td>
+                        <td>30,0 - 34,9</td>
+                    </tr>
+                    <tr>
+                        <td>{t('bmi_7')}</td>
+                        <td>35,0 - 39,9</td>
+                    </tr>
+                    <tr>
+                        <td>{t('bmi_8')}</td>
+                        <td>40,0 {t('bmi_ormore')}</td>
+                    </tr>
                 </tbody>
             </Table>
         </div>

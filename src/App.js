@@ -49,11 +49,11 @@ i18n
   .init({
     supportedLngs: ['en', 'fi'],
     fallbackLng: "fi",
-    detection: { 
+    detection: {
       order: ['cookie', 'htmlTag', 'localStorage', 'subdomain'],
       caches: ['cookie'],
     },
-    backend : {
+    backend: {
       loadPath: '/assets/locales/{{lng}}/translation.json',
     },
     react: { useSuspense: false },
@@ -62,33 +62,33 @@ i18n
 function App() {
 
   return (
-  <Container>
-    <Router>
+    <Container>
+      <Router>
         <AuthProvider>
-        <Header title="Lifesaver App" />
-        <Routes>
-          <Route exact path='/' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path='/forgot-password' element={<ForgotPassword />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/managerecipes' element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
-          <Route path='/managetasklists' element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
-          <Route path='/manageexercises' element={<PrivateRoute><ManageExercises /></PrivateRoute>} />
-          <Route path='/task/:id/:tasklistid' element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
-          <Route path='/tasklist/:id' element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
-          <Route path='/bmicalculator' element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
-          <Route path='/tasklistarchive' element={<PrivateRoute><ManageTaskListsArchive /></PrivateRoute>} />
-          <Route path='/recipe/:id' element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
-          <Route path='/tasklistarchive/:id' element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
-          <Route path='/weighthistory' element={<PrivateRoute><WeightHistory /></PrivateRoute>} />
-          <Route path='/managemyprofile' element={<PrivateRoute><ManageMyProfile /></PrivateRoute>} />
-          <Route path='/Demo' element={<PrivateRoute><Demo /></PrivateRoute>} />
-        </Routes>
-        <Footer />
-      </AuthProvider>
-    </Router>
-  </Container>  
+          <Header title="Lifesaver App" />
+          <Routes>
+            <Route exact path='/' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path='/forgot-password' element={<ForgotPassword />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/managerecipes' element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
+            <Route path='/managetasklists' element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
+            <Route path='/manageexercises' element={<PrivateRoute><ManageExercises /></PrivateRoute>} />
+            <Route path='/task/:id/:tasklistid' element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
+            <Route path='/tasklist/:id' element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
+            <Route path='/bmicalculator' element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
+            <Route path='/tasklistarchive' element={<PrivateRoute><ManageTaskListsArchive /></PrivateRoute>} />
+            <Route path='/recipe/:id' element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
+            <Route path='/tasklistarchive/:id' element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
+            <Route path='/weighthistory' element={<PrivateRoute><WeightHistory /></PrivateRoute>} />
+            <Route path='/managemyprofile' element={<PrivateRoute><ManageMyProfile /></PrivateRoute>} />
+            <Route path='/Demo' element={<PrivateRoute><Demo /></PrivateRoute>} />
+          </Routes>
+          <Footer />
+        </AuthProvider>
+      </Router>
+    </Container>
   );
 }
 

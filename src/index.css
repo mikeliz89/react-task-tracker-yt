@@ -85,7 +85,8 @@ footer {
   border-left: 5px solid green;
 }
 
-.task h5, .recipe h5 {
+.task h5,
+.recipe h5 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -96,7 +97,7 @@ footer {
   margin-bottom: 0.5em;
 }
 
-/** Task End */ 
+/** Task End */
 
 /** Recipe Start */
 
@@ -106,17 +107,19 @@ footer {
   padding: 10px 20px;
   cursor: pointer;
 }
+
 .recipe p {
   font-family: 'Poppins', sans-serif;
   margin-bottom: 0.5em;
 }
+
 .recipe .inner {
   justify-content: space-between;
   align-items: center;
   display: flex;
 }
 
-/** Recipe End */ 
+/** Recipe End */
 
 /** Form Start */
 
@@ -163,14 +166,16 @@ form {
 
 /* Custom Start */
 
-.editBtn:hover, .deleteBtn:hover {
-    font-style:bold;
-    color:orange !important;
+.editBtn:hover,
+.deleteBtn:hover {
+  font-style: bold;
+  color: orange !important;
 }
 
 .btn.btn-block.saveBtn {
   color: white;
-  background-color: green; /* tai btn-success väri #198754 */
+  background-color: green;
+  /* tai btn-success väri #198754 */
 }
 
 .btn.btn-block.saveBtn:hover {

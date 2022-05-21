@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import Button from '../../components/Button'
 
-const AddTaskList = ({taskListID, onAddTaskList}) => {
+const AddTaskList = ({ taskListID, onAddTaskList }) => {
 
     const { t } = useTranslation();
 
@@ -17,27 +17,27 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
 
     useEffect(() => {
 
-        if(taskListID != null) {            
+        if (taskListID != null) {
             //Task List
             const getTaskList = async () => {
                 await fetchTaskListFromFirebase(taskListID)
             }
             getTaskList()
-            }
-      }, [taskListID]);
+        }
+    }, [taskListID]);
 
     /** Fetch Task List From Firebase By TaskListID (in EDIT Task List) */
     const fetchTaskListFromFirebase = async (taskListID) => {
 
         const dbref = ref(db, '/tasklists/' + taskListID);
         get(dbref).then((snapshot) => {
-          if (snapshot.exists()) {
-            var val = snapshot.val();
-            setTitle(val["title"]);
-            setDescription(val["description"]);
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-          }
+            if (snapshot.exists()) {
+                var val = snapshot.val();
+                setTitle(val["title"]);
+                setDescription(val["description"]);
+                setCreated(val["created"]);
+                setCreatedBy(val["createdBy"]);
+            }
         });
     }
 
@@ -46,14 +46,14 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
         e.preventDefault()
 
         //validation
-        if(!title) {
+        if (!title) {
             alert(t('please_add_tasklist'));
             return
         }
-       
+
         onAddTaskList({ created, createdBy, title, description });
 
-        if(taskListID == null) {
+        if (taskListID == null) {
             //clear the form
             setTitle('')
             setDescription('')
@@ -63,16 +63,16 @@ const AddTaskList = ({taskListID, onAddTaskList}) => {
     return (
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="formBasicTaskListName">
-            <Form.Label>{t('task_list')}</Form.Label>
+                <Form.Label>{t('task_list')}</Form.Label>
                 <Form.Control type='text'
-                    placeholder={ taskListID == null ? t('task_list') : t('edit_task_list')} 
+                    placeholder={taskListID == null ? t('task_list') : t('edit_task_list')}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicTaskListDescription">
-            <Form.Label>{t('description')}</Form.Label>
-                <Form.Control type='text' 
-                    placeholder={ taskListID == null ? t('add_description') : t('edit_description') }
+                <Form.Label>{t('description')}</Form.Label>
+                <Form.Control type='text'
+                    placeholder={taskListID == null ? t('add_description') : t('edit_description')}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>

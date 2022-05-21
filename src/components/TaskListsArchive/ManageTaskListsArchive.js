@@ -14,21 +14,21 @@ const ManageTaskListsArchive = () => {
   //load data
   useEffect(() => {
     const getArchivedTaskLists = async () => {
-        await fetchTaskListsFromFireBase()
+      await fetchTaskListsFromFireBase()
     }
     getArchivedTaskLists()
-    }, [])
+  }, [])
 
   /** Fetch Archived Task Lists From Firebase */
   const fetchTaskListsFromFireBase = async () => {
     const dbref = ref(db, '/tasklist-archive');
     onValue(dbref, (snapshot) => {
-        const snap = snapshot.val();
-        const taskLists = [];
-        for(let id in snap) {
-          taskLists.push({id, ...snap[id]});
-        }
-        setTaskLists(taskLists)
+      const snap = snapshot.val();
+      const taskLists = [];
+      for (let id in snap) {
+        taskLists.push({ id, ...snap[id] });
+      }
+      setTaskLists(taskLists)
     })
   }
 
@@ -46,20 +46,20 @@ const ManageTaskListsArchive = () => {
 
   return (
     <div>
-      <GoBackButton  />
+      <GoBackButton />
       <h3 className="page-title">{t('manage_tasklists_archive_title')}</h3>
       <div className="page-content">
-       {taskLists != null && taskLists.length > 0 ? (
+        {taskLists != null && taskLists.length > 0 ? (
           <TaskLists
-          archived={true}
-          taskLists={taskLists}
-          onDelete={deleteTaskList} 
-            />
-          ) : (
-            <div>
-                {t('no_task_lists_to_show')}
-            </div>
-          )
+            archived={true}
+            taskLists={taskLists}
+            onDelete={deleteTaskList}
+          />
+        ) : (
+          <div>
+            {t('no_task_lists_to_show')}
+          </div>
+        )
         }
       </div>
     </div>
