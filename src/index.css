@@ -79,6 +79,8 @@ footer {
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
+  /* 2.6.2022 lisätty borderit */
+  border: 1px solid #e3e3e3;
 }
 
 .task.reminder {
@@ -106,6 +108,8 @@ footer {
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
+   /* 2.6.2022 lisätty borderit */
+  border: 1px solid #e3e3e3;
 }
 
 .recipe p {
