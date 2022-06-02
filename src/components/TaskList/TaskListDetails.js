@@ -11,7 +11,7 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import { FaListAlt } from 'react-icons/fa'
 import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Accordion } from 'react-bootstrap'
+import { Row, ButtonGroup, Accordion, Table } from 'react-bootstrap'
 import i18n from "i18next";
 
 function TaskListDetails() {
@@ -312,7 +312,7 @@ function TaskListDetails() {
         </ButtonGroup>
       </Row>
 
-      <Accordion defaultActiveKey="0">
+      <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>
             <h3 className="page-title">
@@ -320,11 +320,27 @@ function TaskListDetails() {
             </h3>
           </Accordion.Header>
           <Accordion.Body>
-            {taskList.description}<br />
-            {t('created')}: {getJsonAsDateTimeString(taskList.created, i18n.language)}<br />
-            {t('created_by')}: {taskList.createdBy}<br />
-            {t('modified')}: {getJsonAsDateTimeString(taskList.modified, i18n.language)}<br />
-            {t('tasks_ready_counter')}: {taskReadyCounter}/{taskCounter}
+            {t('description')}: {taskList.description}<br />
+            <Table striped bordered hover>
+              <tbody>
+                <tr>
+                  <td>{t('created')}</td>
+                  <td>{getJsonAsDateTimeString(taskList.created, i18n.language)}</td>
+                </tr>
+                <tr>
+                  <td>{t('created_by')}</td>
+                  <td>{taskList.createdBy}</td>
+                </tr>
+                <tr>
+                  <td>{t('modified')}</td>
+                  <td>{getJsonAsDateTimeString(taskList.modified, i18n.language)}</td>
+                </tr>
+                <tr>
+                  <td>{t('tasks_ready_counter')}</td>
+                  <td>{taskReadyCounter}/{taskCounter}</td>
+                </tr>
+              </tbody>
+            </Table>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
