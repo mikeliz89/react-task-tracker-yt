@@ -224,3 +224,14 @@ form {
 }
 
 /* Custom End */
+
+/* React-Bootstrap changes Start */
+
+.accordion-header .accordion-button {
+  padding: 0rem 1rem;
+}
+.accordion-item .accordion-body {
+  padding: 0.5em 1rem 0rem 1rem;
+}
+/* React-Bootstrap changes End */
+
