@@ -3,7 +3,7 @@ import { Incredient } from './Incredient';
 
 export default function Incredients({ incredients, recipeID, onDelete }) {
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
   return (
     <>

@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function MyProfile() {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('myprofile', { keyPrefix: 'myprofile' });
     const navigate = useNavigate();
     const location = useLocation();
 

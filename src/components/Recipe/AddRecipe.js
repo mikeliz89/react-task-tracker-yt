@@ -71,7 +71,7 @@ const categories = [
 
 const AddRecipe = ({ recipeID, onAddRecipe }) => {
 
-   const { t } = useTranslation();
+   const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
    //states
    const [category, setCategory] = useState("");

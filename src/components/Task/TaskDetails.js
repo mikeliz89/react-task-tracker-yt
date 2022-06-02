@@ -12,7 +12,7 @@ import { ButtonGroup } from 'react-bootstrap'
 
 function TaskDetails() {
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
   //const taskUrl = 'http://localhost:5000/tasks'
 

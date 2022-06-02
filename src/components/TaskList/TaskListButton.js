@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 export default function TaskListButton({ onShowAddTaskList, showAdd }) {
 
     const location = useLocation();
-    const { t } = useTranslation();
+    const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
     return (
         <>

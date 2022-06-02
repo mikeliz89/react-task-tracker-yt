@@ -10,7 +10,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 
 export default function ManageMyProfile() {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('myprofile', {keyPrefix: 'myprofile'});
     const { currentUser } = useAuth();
 
     //states
@@ -58,24 +58,24 @@ export default function ManageMyProfile() {
     return (
         <div>
             <GoBackButton />
-            <h3 className="page-title">{t('manage_myprofile_title')}</h3>
+            <h3 className="page-title">{t('title')}</h3>
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="myProfileFormName">
-                    <Form.Label>{t('manage_myprofile_name')}</Form.Label>
+                    <Form.Label>{t('name')}</Form.Label>
                     <Form.Control type='text'
-                        placeholder={t('manage_myprofile_name')}
+                        placeholder={t('name')}
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addIncredientFormAmount">
-                    <Form.Label>{t('manage_myprofile_height')}</Form.Label>
+                    <Form.Label>{t('height')}</Form.Label>
                     <Form.Control
                         type='number'
-                        placeholder={t('manage_myprofile_height')}
+                        placeholder={t('height')}
                         value={height}
                         onChange={(e) => setHeight(e.target.value)} />
                 </Form.Group>
-                <Button type='submit' text={t('manage_myprofile_savebutton')} className='btn btn-block saveBtn' />
+                <Button type='submit' text={t('savebutton')} className='btn btn-block saveBtn' />
             </Form>
         </div>
     )

@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 
 const Task = ({ taskListID, archived, task, onDelete, onToggle }) => {
-    const { t } = useTranslation();
+
+    const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
+
     return (
         <div
             onDoubleClick={() => archived ? null : onToggle(taskListID, task.id)}

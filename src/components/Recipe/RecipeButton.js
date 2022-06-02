@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 export default function RecipeButton({ onShowAddRecipe, showAdd }) {
 
     const location = useLocation();
-    const { t } = useTranslation();
+    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
     return (
         <>

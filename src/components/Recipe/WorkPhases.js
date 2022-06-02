@@ -3,7 +3,7 @@ import WorkPhase from './WorkPhase';
 
 export default function WorkPhases({ workPhases, recipeID, onDeleteWorkPhase }) {
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
   return (
     <>

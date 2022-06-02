@@ -16,7 +16,7 @@ import i18n from "i18next";
 
 function TaskListDetails() {
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
   //const taskUrl = 'http://localhost:5000/tasks'
   //const taskListUrl = 'http://localhost:5000/tasklists'

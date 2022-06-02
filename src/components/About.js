@@ -2,7 +2,9 @@ import GoBackButton from './GoBackButton';
 import { useTranslation } from 'react-i18next';
 
 const About = () => {
-    const { t } = useTranslation();
+
+    const { t } = useTranslation('about', { keyPrefix: 'about' });
+
     return (
         <div>
             <GoBackButton />

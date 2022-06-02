@@ -5,7 +5,9 @@ import StarRating from '../StarRating'
 import { FaTimes, FaUtensils } from 'react-icons/fa'
 
 const Recipe = ({ recipe, onDelete }) => {
-    const { t } = useTranslation();
+
+    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+    
     return (
         <div className='recipe'>
             <h5>

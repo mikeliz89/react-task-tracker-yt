@@ -7,7 +7,7 @@ import Button from '../../components/Button'
 
 export default function Login() {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('auth', { keyPrefix: 'auth' });
 
     //states
     const [email, setEmail] = useState('')

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function EditWorkPhase({ recipeID, workPhaseID, onEditWorkPhase, onCloseEditWorkPhase }) {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
     //states
     const [estimatedLength, setEstimatedLength] = useState(0)

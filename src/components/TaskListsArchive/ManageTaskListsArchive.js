@@ -7,7 +7,7 @@ import TaskLists from '../../components/TaskList/TaskLists';
 
 const ManageTaskListsArchive = () => {
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
   const [taskLists, setTaskLists] = useState();
 

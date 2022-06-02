@@ -12,7 +12,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 
 const BmiCalculator = () => {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('bmicalculator', {keyPrefix:'bmicalculator'});
     const navigate = useNavigate();
     const { currentUser } = useAuth();
 
@@ -79,7 +79,7 @@ const BmiCalculator = () => {
                         onClick={() => navigate('/weighthistory')} />
                 </ButtonGroup>
             </Row>
-            <h3 className="page-title">{t('bmi_calculator_title')}</h3>
+            <h3 className="page-title">{t('title')}</h3>
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addTaskFormTaskName">
                     <Form.Label>{t('height')}</Form.Label>

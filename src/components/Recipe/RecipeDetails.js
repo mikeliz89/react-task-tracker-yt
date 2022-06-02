@@ -25,7 +25,7 @@ export default function RecipeDetails() {
     const [incredients, setIncredients] = useState()
     const [workPhases, setWorkPhases] = useState()
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
     const params = useParams();
     const navigate = useNavigate();
 

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function EditIncredient({ recipeID, incredientID, onEditIncredient, onCloseEditIncredient }) {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
     //states
     const [name, setName] = useState('')

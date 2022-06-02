@@ -9,7 +9,7 @@ import i18n from "i18next";
 
 const WeightHistory = () => {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('bmicalculator', {keyPrefix:'bmicalculator'});
     const { currentUser } = useAuth();
 
     //states

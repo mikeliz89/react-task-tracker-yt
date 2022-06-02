@@ -14,7 +14,7 @@ export default function ArchivedTaskListDetails() {
 
   const [tasks, setTasks] = useState()
 
-  const { t } = useTranslation()
+  const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
   //load data
   useEffect(() => {

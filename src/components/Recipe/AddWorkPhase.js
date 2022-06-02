@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, recipeID }) {
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
   //states
   const [name, setName] = useState('')

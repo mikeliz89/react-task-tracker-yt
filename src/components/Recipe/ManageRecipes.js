@@ -19,7 +19,7 @@ const ManageRecipes = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [recipes, setRecipes] = useState()
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
   const { currentUser } = useAuth();
 

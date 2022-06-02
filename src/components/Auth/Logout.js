@@ -8,7 +8,7 @@ export default function Logout() {
 
     const { logout } = useAuth()
     const navigate = useNavigate()
-    const { t } = useTranslation()
+    const { t } = useTranslation('auth', { keyPrefix: 'auth' });
     const [error, setError] = useState("")
 
     async function handleLogout() {

@@ -7,7 +7,7 @@ import { update, ref } from "firebase/database";
 
 export default function WorkPhase({ workPhase, recipeID, onDeleteWorkPhase }) {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
     //states
     const [editable, setEditable] = useState(false);

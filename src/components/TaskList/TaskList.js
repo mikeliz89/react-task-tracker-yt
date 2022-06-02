@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 
 const TaskList = ({ taskList, archived, onDelete }) => {
-    const { t } = useTranslation();
+    const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
     return (
         <div className='task'>
             <h5>

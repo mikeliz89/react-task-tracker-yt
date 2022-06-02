@@ -7,7 +7,7 @@ import Button from '../../components/Button'
 
 const AddTask = ({ taskID, taskListID, onAddTask }) => {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
     //states
     const [text, setText] = useState('')
