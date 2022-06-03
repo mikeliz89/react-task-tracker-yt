@@ -11,7 +11,7 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import { FaListAlt } from 'react-icons/fa'
 import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Accordion, Table } from 'react-bootstrap'
+import { Row, ButtonGroup, Accordion, Table, Form } from 'react-bootstrap'
 import i18n from "i18next";
 
 function TaskListDetails() {
@@ -27,6 +27,8 @@ function TaskListDetails() {
   const [showAddTask, setShowAddTask] = useState(false)
   const [showEditTaskList, setShowEditTaskList] = useState(false)
   const [tasks, setTasks] = useState()
+  const [originalTasks, setOriginalTasks] = useState()
+  const [searchString, setSearchString] = useState('');
   //sorting
   const [sortByTextAsc, setSortByTextAsc] = useState(true)
   const [sortByTaskReady, setSortByTaskReady] = useState(true)
@@ -70,6 +72,11 @@ function TaskListDetails() {
       cancel = true;
     }
   }, [])
+
+  /* kuuntele searchStringin muutoksia, jos niitä tulee, filtteröi */
+  useEffect(() => {
+    filterTasks();
+  }, [searchString]);
 
   //Fetch Task List
   /*
@@ -121,6 +128,7 @@ function TaskListDetails() {
         tasks.push({ id, ...snap[id] });
       }
       setTasks(tasks);
+      setOriginalTasks(tasks);
       setTaskCounter(taskCounterTemp);
       setTaskReadyCounter(taskReadyCounterTemp);
     })
@@ -292,6 +300,15 @@ function TaskListDetails() {
     setSortByTaskReady(_sortByTaskReady);
   }
 
+  const filterTasks = () => {
+    if (searchString === "") {
+      setTasks(originalTasks);
+      return;
+    }
+    let filteredTasks = originalTasks.filter(task => task.text.toLowerCase().includes(searchString.toLowerCase()));
+    setTasks(filteredTasks);
+  }
+
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -348,12 +365,22 @@ function TaskListDetails() {
       {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id} />}
       {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
 
+      {/* <div>{searchString}</div> */}
       <div className="page-content">
+        {t('sorting')}: &nbsp;
+        <Button onClick={() => toggleSortText(tasks)} text={t('name')} />&nbsp;
+        <Button onClick={() => toggleSortReminder(tasks)} text={t('task_ready')} />
+        <Form>
+          <Form.Label htmlFor="inputSearch">Hae</Form.Label>
+          <Form.Control
+            type="text"
+            id="inputSearchString"
+            aria-describedby="searchHelpBlock"
+            onChange={(e) => setSearchString(e.target.value)}
+          />
+        </Form>
         {tasks != null && tasks.length > 0 ? (
           <>
-            {t('sorting')}: &nbsp;
-            <Button onClick={() => toggleSortText(tasks)} text={t('name')} />&nbsp;
-            <Button onClick={() => toggleSortReminder(tasks)} text={t('task_ready')} />
             <Tasks
               taskListID={params.id}
               tasks={tasks}
