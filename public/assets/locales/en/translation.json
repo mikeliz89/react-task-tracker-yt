@@ -1,9 +1,5 @@
 {
-    "language": "Language",
     "coming_soon": "Coming soon...",
-    "manage_exercises_title": "Exercises",
-    "manage_drinks_title": "Drinks",
-    "manage_backpacking_title": "Backpacking",
     "about": {
         "about_version": "Version",
         "about_author": "Author"
@@ -28,6 +24,10 @@
         "please_fill_all_fields": "Please fill all fields",
         "reset_password": "Reset Password",
         "sign_up": "Sign Up"
+    },
+    "backpacking": {
+        "coming_soon": "Coming soon...",
+        "manage_backpacking_title": "Backpacking"
     },
     "bmicalculator": {
         "bmi_1": "Sickly underweight",
@@ -62,12 +62,23 @@
             "tasklists": "Task Lists"
         }
     },
+    "drinks": {
+        "coming_soon": "Coming soon...",
+        "manage_drinks_title": "Drinks"
+    },
+    "exercises": {
+        "coming_soon": "Coming soon...",
+        "manage_exercises_title": "Exercises"
+    },
     "footer": {
         "about": "About",
         "copyright": "Copyright"
     },
     "header": {
         "header_logged_in_as_text": "Logged in as: "
+    },
+    "language": {
+        "language": "Language"
     },
     "myprofile": {
         "button_myprofile": "My Profile",

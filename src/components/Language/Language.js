@@ -6,7 +6,8 @@ import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap'
 
 export default function Language() {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('language', { keyPrefix: 'language' });
+
     const currentLanguageCode = cookies.get('i18next') || 'fi';
 
     const languages = [

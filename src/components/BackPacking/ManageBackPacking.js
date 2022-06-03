@@ -2,7 +2,8 @@ import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
 
 export default function ManageBackPacking() {
-    const { t } = useTranslation();
+
+    const { t } = useTranslation('backpacking', { keyPrefix: 'backpacking' });
 
     return (
         <div>

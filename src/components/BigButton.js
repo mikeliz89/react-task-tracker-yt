@@ -1,8 +1,12 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor, imageName, comingsoon }) => {
 
+    const { t } = useTranslation();
+
     const background = `/images/${imageName}`;
+
     return (
         <div style={{ backgroundImage: `url(${background})` }}>
             <button
@@ -13,7 +17,7 @@ const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor, image
                 className='bigbtn'>
                 <div style={{ backgroundColor: textBackgroundColor, paddingTop: '5px', paddingBottom: '5px' }}>
                     <span style={comingsoon ? {color:'gray'} : {}}>{text}</span>
-                    {comingsoon && <div style={{ color: 'gray' }}>Coming soon!</div>}
+                    {comingsoon && <div style={{ color: 'gray' }}>{t('coming_soon')}</div>}
                 </div>
             </button>
         </div>

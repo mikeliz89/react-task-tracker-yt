@@ -23,7 +23,7 @@ export default function ManageTaskLists() {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
 
-  const { t } = useTranslation('tasklist', {keyPrefix: 'tasklist'});
+  const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
   //states
   const [showAddTaskList, setShowAddTaskList] = useState(false)

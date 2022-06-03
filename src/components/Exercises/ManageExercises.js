@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 const ManageExercises = () => {
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
 
   return (
     <div>

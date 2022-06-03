@@ -1,9 +1,5 @@
 {
-    "language": "Kieli",
     "coming_soon": "Tulossa pian...",
-    "manage_exercises_title": "Liikunta",
-    "manage_drinks_title": "Drinkit",
-    "manage_backpacking_title": "Retkeily",
     "about": {
         "about_version": "Versio",
         "about_author": "Tekijä"
@@ -28,6 +24,10 @@
         "please_fill_all_fields": "Ole hyvä ja täytä kaikki kentät",
         "reset_password": "Nollaa salasana",
         "sign_up": "Rekisteröidy"
+    },
+    "backpacking": {
+        "coming_soon": "Tulossa pian...",
+        "manage_backpacking_title": "Retkeily"
     },
     "bmicalculator": {
         "bmi_1": "Sairaalloinen alipaino",
@@ -62,12 +62,23 @@
             "tasklists": "Tehtävälistat"
         }
     },
+    "drinks": {
+        "coming_soon": "Tulossa pian...",
+        "manage_drinks_title": "Drinkit"
+    },
+    "exercises": {
+        "coming_soon": "Tulossa pian...",
+        "manage_exercises_title": "Liikunta"
+    },
     "footer": {
         "about": "Tietoja",
         "copyright": "Tekijänoikeus"
     },
     "header": {
         "header_logged_in_as_text": "Kirjautunut käyttäjä: "
+    },
+    "language": {
+        "language": "Kieli"
     },
     "myprofile": {
         "button_myprofile": "Oma profiili",
