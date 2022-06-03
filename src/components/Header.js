@@ -8,7 +8,7 @@ import { Row, ButtonGroup } from 'react-bootstrap';
 
 const Header = ({ title }) => {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('header', { keyPrefix: 'header' });
     const { currentUser } = useAuth()
 
     return (
