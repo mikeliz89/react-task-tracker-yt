@@ -115,6 +115,7 @@
         "created": "Luotu",
         "created_by": "Luoja",
         "delete_recipe_confirm_message": "Poista resepti?",
+        "description": "Kuvaus",
         "edit_recipe_name": "Muokkaa reseptin nimeä",
         "in_minutes": "minuuttia",
         "incredient_amount": "Määrä",

@@ -115,6 +115,7 @@
         "created": "Created",
         "created_by": "Created by",
         "delete_recipe_confirm_message": "Delete Recipe?",
+        "description": "Description",
         "edit_recipe_name": "Edit Recipe Name",
         "in_minutes": "minutes",
         "incredient_amount": "Incredient Amount",
