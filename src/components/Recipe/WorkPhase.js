@@ -25,8 +25,10 @@ export default function WorkPhase({ workPhase, recipeID, onDeleteWorkPhase }) {
     return (
         <div key={workPhase.id} className='recipe'>
             <Row>
-                <Col>
+                <Col xs={9}>
                     <span style={{ fontWeight: 'bold' }}>{workPhase.name}</span>
+                </Col>
+                <Col xs={3}>
                     {
                         <span style={{ float: 'right' }}>
                             <FaEdit className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.4em' }}
