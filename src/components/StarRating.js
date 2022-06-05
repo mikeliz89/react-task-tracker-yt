@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { FaStarHalfAlt, FaStar, FaRegStar } from 'react-icons/fa'
 
@@ -6,7 +5,7 @@ export default function StarRating({ starCount }) {
     const maxNumber = 5;
     return (
         <div>
-            {starCount == 0 &&
+            {starCount === 0 &&
                 <>
                     <FaRegStar />
                     <FaRegStar />
@@ -24,7 +23,7 @@ export default function StarRating({ starCount }) {
                     <FaRegStar />
                 </>
             }
-            {starCount == 1 &&
+            {starCount === 1 &&
                 <>
                     <FaStar />
                     <FaRegStar />
@@ -42,7 +41,7 @@ export default function StarRating({ starCount }) {
                     <FaRegStar />
                 </>
             }
-            {starCount == 2 &&
+            {starCount === 2 &&
                 <>
                     <FaStar />
                     <FaStar />
@@ -60,7 +59,7 @@ export default function StarRating({ starCount }) {
                     <FaRegStar />
                 </>
             }
-            {starCount == 3 &&
+            {starCount === 3 &&
                 <>
                     <FaStar />
                     <FaStar />
@@ -78,7 +77,7 @@ export default function StarRating({ starCount }) {
                     <FaRegStar />
                 </>
             }
-            {starCount == 4 &&
+            {starCount === 4 &&
                 <>
                     <FaStar />
                     <FaStar />
@@ -96,7 +95,7 @@ export default function StarRating({ starCount }) {
                     <FaStarHalfAlt />
                 </>
             }
-            {starCount == 5 &&
+            {starCount === 5 &&
                 <>
                     <FaStar />
                     <FaStar />

@@ -1,7 +1,7 @@
 import GoBackButton from '../GoBackButton';
 import RecipeButton from './RecipeButton';
 import { useTranslation } from 'react-i18next';
-import { ButtonGroup, Row, Alert } from 'react-bootstrap';
+import { ButtonGroup, Row, Alert, Form, Col } from 'react-bootstrap';
 import { useState, useEffect } from 'react'
 import { db } from '../../firebase-config';
 import { ref, push, onValue, remove } from "firebase/database";
@@ -9,6 +9,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 import AddRecipe from './AddRecipe';
 import Recipes from './Recipes';
+import Button from '../Button';
 
 const ManageRecipes = () => {
 
@@ -18,6 +19,12 @@ const ManageRecipes = () => {
   const [message, setMessage] = useState('')
   const [showMessage, setShowMessage] = useState(false);
   const [recipes, setRecipes] = useState()
+  const [originalRecipes, setOriginalRecipes] = useState();
+  const [searchString, setSearchString] = useState('');
+  //sorting
+  const [sortByTextAsc, setSortByTextAsc] = useState(true)
+  //searching
+  const [showOnlyCoreRecipes, setShowOnlyCoreRecipes] = useState(false);
 
   const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
@@ -40,6 +47,15 @@ const ManageRecipes = () => {
     }
   }, [])
 
+  /* kuuntele searchStringin muutoksia, jos niitä tulee, filtteröi */
+  useEffect(() => {
+    filterRecipesByTitle();
+  }, [searchString]);
+
+  useEffect(() => {
+    filterRecipesByShowCoreRecipesOnly();
+  }, [showOnlyCoreRecipes]);
+
   /** Fetch Recipes From Firebase */
   const fetchRecipesFromFirebase = async () => {
     const dbref = await ref(db, '/recipes');
@@ -50,6 +66,7 @@ const ManageRecipes = () => {
         recipesFromDB.push({ id, ...snap[id] });
       }
       setRecipes(recipesFromDB);
+      setOriginalRecipes(recipesFromDB);
     })
   }
 
@@ -74,6 +91,39 @@ const ManageRecipes = () => {
     remove(dbref)
   }
 
+  const toggleSortText = (recipes) => {
+
+    let sortedRecipes = recipes.sort((a, b) => a.title.localeCompare(b.title));
+
+    if (sortByTextAsc) {
+      sortedRecipes = sortedRecipes.reverse();
+    }
+
+    setRecipes(sortedRecipes);
+
+    //Toggle sorting
+    const sortByText = !sortByTextAsc;
+    setSortByTextAsc(sortByText);
+  }
+
+  const filterRecipesByTitle = () => {
+    if (searchString === "") {
+      setRecipes(originalRecipes);
+      return;
+    }
+    let filtered = originalRecipes.filter(recipe => recipe.title.toLowerCase().includes(searchString.toLowerCase()));
+    setRecipes(filtered);
+  }
+
+  const filterRecipesByShowCoreRecipesOnly = () => {
+    if (!showOnlyCoreRecipes) {
+      setRecipes(originalRecipes);
+      return;
+    }
+    let filtered = originalRecipes.filter(recipe => recipe.isCore === true);
+    setRecipes(filtered);
+  }
+
   return (
     <div>
       <Row>
@@ -86,6 +136,31 @@ const ManageRecipes = () => {
         </ButtonGroup>
       </Row>
       <h3 className="page-title">{t('manage_recipes_title')}</h3>
+      <Form className='form-no-paddings'>
+        <Form.Group as={Row}>
+          <Form.Label column xs={2} sm={2}>{t('sorting')}</Form.Label>
+          <Col xs={10} sm={10}>
+            <Button onClick={() => toggleSortText(recipes)} text={t('name')} type="button" />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Form.Label column xs={2} sm={2}>{t('search')}</Form.Label>
+          <Col xs={10} sm={10}>
+            <Form.Control
+              type="text"
+              id="inputSearchString"
+              aria-describedby="searchHelpBlock"
+              onChange={(e) => setSearchString(e.target.value)}
+            />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row} controlId="formHorizontalCheck">
+          <Form.Label column xs={2} sm={2}>{t('show')}</Form.Label>
+          <Col xs={10} sm={10}>
+            <Form.Check label={t('core_only')} onChange={(e) => setShowOnlyCoreRecipes(e.currentTarget.checked)} />
+          </Col>
+        </Form.Group>
+      </Form>
       {error && <div className="error">{error}</div>}
       {message &&
         <Alert show={showMessage} variant='success' className="success">

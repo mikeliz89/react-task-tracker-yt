@@ -1,4 +1,3 @@
-import React from 'react'
 import { useLocation } from 'react-router-dom'
 import Button from '../Button'
 import { useTranslation } from 'react-i18next';

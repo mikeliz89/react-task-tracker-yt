@@ -132,7 +132,8 @@ export default function RecipeDetails() {
                 <p>
                     {t('created')}: {getJsonAsDateTimeString(recipe.created, i18n.language)}<br />
                     {t('created_by')}: {recipe.createdBy}<br />
-                    {t('category')}: {recipe.category}
+                    {t('category')}: {recipe.category}<br/>
+                    {t('core_recipe')}: {recipe.isCore === true ? t('yes') : t('no')}
                 </p>
                 {showAddIncredient && <AddIncredient onAddIncredient={addIncredient} recipeID={params.id} />}
                 {showAddWorkPhase && <AddWorkPhase onAddWorkPhase={addWorkPhase} recipeID={params.id} />}

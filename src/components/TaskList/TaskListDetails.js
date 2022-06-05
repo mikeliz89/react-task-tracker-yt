@@ -11,7 +11,7 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import { FaListAlt } from 'react-icons/fa'
 import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Accordion, Table, Form } from 'react-bootstrap'
+import { Col, Row, ButtonGroup, Accordion, Table, Form } from 'react-bootstrap'
 import i18n from "i18next";
 
 function TaskListDetails() {
@@ -328,7 +328,7 @@ function TaskListDetails() {
           />
         </ButtonGroup>
       </Row>
-
+      {/* Accordion */}
       <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>
@@ -367,17 +367,25 @@ function TaskListDetails() {
 
       {/* <div>{searchString}</div> */}
       <div className="page-content">
-        {t('sorting')}: &nbsp;
-        <Button onClick={() => toggleSortText(tasks)} text={t('name')} />&nbsp;
-        <Button onClick={() => toggleSortReminder(tasks)} text={t('task_ready')} />
-        <Form>
-          <Form.Label htmlFor="inputSearch">Hae</Form.Label>
-          <Form.Control
-            type="text"
-            id="inputSearchString"
-            aria-describedby="searchHelpBlock"
-            onChange={(e) => setSearchString(e.target.value)}
-          />
+        <Form className='form-no-paddings'>
+          <Form.Group as={Row}>
+            <Form.Label column xs={2} sm={2}>{t('sorting')}</Form.Label>
+            <Col xs={10} sm={10}>
+              <Button onClick={() => toggleSortText(tasks)} text={t('name')} />&nbsp;
+              <Button onClick={() => toggleSortReminder(tasks)} text={t('task_ready')} />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column xs={2} sm={2}>{t('search')}</Form.Label>
+            <Col xs={10} sm={10}>
+              <Form.Control
+                type="text"
+                id="inputSearchString"
+                aria-describedby="searchHelpBlock"
+                onChange={(e) => setSearchString(e.target.value)}
+              />
+            </Col>
+          </Form.Group>
         </Form>
         {tasks != null && tasks.length > 0 ? (
           <>
