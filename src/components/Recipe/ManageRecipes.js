@@ -138,14 +138,14 @@ const ManageRecipes = () => {
       <h3 className="page-title">{t('manage_recipes_title')}</h3>
       <Form className='form-no-paddings'>
         <Form.Group as={Row}>
-          <Form.Label column xs={2} sm={2}>{t('sorting')}</Form.Label>
-          <Col xs={10} sm={10}>
+          <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
+          <Col xs={9} sm={10}>
             <Button onClick={() => toggleSortText(recipes)} text={t('name')} type="button" />
           </Col>
         </Form.Group>
         <Form.Group as={Row}>
-          <Form.Label column xs={2} sm={2}>{t('search')}</Form.Label>
-          <Col xs={10} sm={10}>
+          <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
+          <Col xs={9} sm={10}>
             <Form.Control
               type="text"
               id="inputSearchString"
@@ -155,8 +155,8 @@ const ManageRecipes = () => {
           </Col>
         </Form.Group>
         <Form.Group as={Row} controlId="formHorizontalCheck">
-          <Form.Label column xs={2} sm={2}>{t('show')}</Form.Label>
-          <Col xs={10} sm={10}>
+          <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+          <Col xs={9} sm={10}>
             <Form.Check label={t('core_only')} onChange={(e) => setShowOnlyCoreRecipes(e.currentTarget.checked)} />
           </Col>
         </Form.Group>

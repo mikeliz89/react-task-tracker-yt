@@ -369,15 +369,15 @@ function TaskListDetails() {
       <div className="page-content">
         <Form className='form-no-paddings'>
           <Form.Group as={Row}>
-            <Form.Label column xs={2} sm={2}>{t('sorting')}</Form.Label>
-            <Col xs={10} sm={10}>
+            <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
+            <Col xs={9} sm={10}>
               <Button onClick={() => toggleSortText(tasks)} text={t('name')} />&nbsp;
               <Button onClick={() => toggleSortReminder(tasks)} text={t('task_ready')} />
             </Col>
           </Form.Group>
           <Form.Group as={Row}>
-            <Form.Label column xs={2} sm={2}>{t('search')}</Form.Label>
-            <Col xs={10} sm={10}>
+            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
+            <Col xs={9} sm={10}>
               <Form.Control
                 type="text"
                 id="inputSearchString"
