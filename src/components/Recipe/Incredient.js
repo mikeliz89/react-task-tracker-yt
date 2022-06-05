@@ -28,9 +28,9 @@ export const Incredient = ({ incredient, recipeID, onDelete }) => {
                 <Col xs={3}>
                     {
                         <span style={{ float: 'right' }}>
-                            <FaEdit className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.4em' }}
+                            <FaEdit className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
-                            <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.4em' }}
+                            <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => onDelete(recipeID, incredient.id)} />
                         </span>
                     }
