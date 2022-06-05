@@ -8,13 +8,13 @@ const Recipe = ({ recipe, onDelete }) => {
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
     return (
-        <div className={recipe.isCore === true ? 'recipe coreRecipe' : 'recipe'}>
+        <div key={recipe.id} className={recipe.isCore === true ? 'recipe coreRecipe' : 'recipe'}>
             <h5>
                 <span>
                     <FaUtensils style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
                     {recipe.title}
                 </span>
-                <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer' }}
+                <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                     onClick={() => { if (window.confirm(t('delete_recipe_confirm_message'))) { onDelete(recipe.id); } }} />
             </h5>
             {recipe.category !== "" ? (<p> {'#' + recipe.category}</p>) : ('')}

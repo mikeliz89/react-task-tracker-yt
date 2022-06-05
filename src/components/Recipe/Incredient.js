@@ -1,8 +1,9 @@
-import { FaTimes, FaEdit } from 'react-icons/fa'
+import { FaTimes, FaEdit } from 'react-icons/fa';
 import EditIncredient from './EditIncredient';
 import { db } from '../../firebase-config';
 import { update, ref } from "firebase/database";
-import { useState } from 'react'
+import { useState } from 'react';
+import { Row, Col } from 'react-bootstrap';
 
 export const Incredient = ({ incredient, recipeID, onDelete }) => {
 
@@ -20,19 +21,22 @@ export const Incredient = ({ incredient, recipeID, onDelete }) => {
 
     return (
         <div key={incredient.id} className='recipe'>
-            <div className="inner">
-                <span>
-                    {incredient.name} - <b>{incredient.amount} {incredient.unit}</b>
-                </span>
-                {
-                    <span>
-                        <FaEdit className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '20px' }}
-                            onClick={() => editable ? setEditable(false) : setEditable(true)} />
-                        <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer' }}
-                            onClick={() => onDelete(recipeID, incredient.id)} />
-                    </span>
-                }
-            </div>
+            <Row>
+                <Col>
+                    <span style={{ fontWeight: 'bold' }}>{incredient.name}</span>
+                    {
+                        <span style={{ float: 'right' }}>
+                            <FaEdit className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.4em' }}
+                                onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                            <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.4em' }}
+                                onClick={() => onDelete(recipeID, incredient.id)} />
+                        </span>
+                    }
+                </Col>
+            </Row>
+            <Row>
+                <Col>{incredient.amount} {incredient.unit}</Col>
+            </Row>
             {editable &&
                 <EditIncredient
                     incredientID={incredient.id}

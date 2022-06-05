@@ -13,7 +13,8 @@ const Task = ({ taskListID, archived, task, onDelete, onToggle }) => {
             <h5>
                 - {task.text}
                 {archived ? null :
-                    <> <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer' }}
+                    <> <FaTimes className="deleteBtn"
+                        style={{ color: 'red', cursor: 'pointer', fontSize: '1.4em' }}
                         onClick={() => onDelete(taskListID, task.id)} />
                     </>
                 }

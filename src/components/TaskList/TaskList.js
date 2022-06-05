@@ -11,7 +11,7 @@ const TaskList = ({ taskList, archived, onDelete }) => {
                     <FaListAlt style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
                     {taskList.title}
                 </span>
-                <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer' }}
+                <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                     onClick={() => { if (window.confirm(t('delete_list_confirm_message'))) { onDelete(taskList.id); } }} />
             </h5>
             <p>{taskList.description}</p>
