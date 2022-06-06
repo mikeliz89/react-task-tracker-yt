@@ -21,7 +21,7 @@ import TaskDetails from './components/Task/TaskDetails'
 //Exercises
 import ManageExercises from './components/Exercises/ManageExercises'
 //Recipe
-import ManageRecipes from './components/Recipe/ManageRecipes'
+import ManageRecipes from './components/Recipe/ManageRecipes';
 import RecipeDetails from './components/Recipe/RecipeDetails';
 //BMICalculator
 import BmiCalculator from './components/BmiCalculator/BmiCalculator'
@@ -30,6 +30,7 @@ import WeightHistory from './components/BmiCalculator/WeightHistory'
 import ManageMyProfile from './components/MyProfile/ManageMyProfile';
 //Drinks
 import ManageDrinks from './components/Drinks/ManageDrinks'
+import DrinkDetails from './components/Drinks/DrinkDetails';
 //Backpacking
 import ManageBackPacking from './components/BackPacking/ManageBackPacking'
 //other components
@@ -88,6 +89,7 @@ function App() {
             <Route path='/weighthistory' element={<PrivateRoute><WeightHistory /></PrivateRoute>} />
             <Route path='/managemyprofile' element={<PrivateRoute><ManageMyProfile /></PrivateRoute>} />
             <Route path='/managedrinks' element={<PrivateRoute><ManageDrinks /></PrivateRoute>} />
+            <Route path='/drink/:id' element={<PrivateRoute><DrinkDetails /></PrivateRoute>} />
             <Route path='/managebackpacking' element={<PrivateRoute><ManageBackPacking /></PrivateRoute>} />
             <Route path='/Demo' element={<PrivateRoute><Demo /></PrivateRoute>} />
           </Routes>

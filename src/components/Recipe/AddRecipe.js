@@ -66,6 +66,10 @@ const categories = [
    {
       "id": 15,
       "name": "other"
+   },
+   {
+      "id": 16,
+      "name": "thai"
    }
 ]
 

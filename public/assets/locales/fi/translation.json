@@ -63,8 +63,27 @@
         }
     },
     "drinks": {
+        "button_close": "Sulje",
+        "button_add_drinks": "Lisää drinkki",
+        "button_add_incredient": "Lisää ainesosa",
+        "button_add_workphase": "Lisää työvaihe",
+        "button_save_drink": "Tallenna",
+        "category": "Kategoria",
+        "category_drink": "Drinkki",
+        "category_cocktail": "Cocktail",
+        "category_mocktail": "Mocktail",
         "coming_soon": "Tulossa pian...",
-        "manage_drinks_title": "Drinkit"
+        "created": "Luotu",
+        "created_by": "Luoja",
+        "delete_drink_confirm_message": "Poista drinkki?",
+        "description": "Kuvaus",
+        "manage_drinks_title": "Drinkit",
+        "name": "Drinkin nimi",
+        "no_drinks_to_show": "Ei lisättyjä drinkkejä",
+        "please_add_drink": "Ole hyvä ja anna drinkille nimi",
+        "save_exception": "Drinkin tallennus epäonnistui",
+        "save_success": "Drinkin tallennus onnistui",
+        "view_details": "Katso lisätiedot"
     },
     "exercises": {
         "coming_soon": "Tulossa pian...",
@@ -112,6 +131,7 @@
         "category_salad": "Salaatti",
         "category_soup": "Keitto",
         "category_texmex": "Tex mex",
+        "category_thai": "Thai",
         "core_only": "Vain core-reseptit",
         "core_recipe": "Core-resepti",
         "created": "Luotu",

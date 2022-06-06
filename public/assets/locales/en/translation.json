@@ -63,8 +63,27 @@
         }
     },
     "drinks": {
+        "button_close": "Close",
+        "button_add_drinks": "Add Drink",
+        "button_add_incredient": "Add Incredient",
+        "button_add_workphase": "Add Workphase",
+        "button_save_drink": "Save Drink",
+        "category": "Category",
+        "category_drink": "Drink",
+        "category_cocktail": "Cocktail",
+        "category_mocktail": "Mocktail",
         "coming_soon": "Coming soon...",
-        "manage_drinks_title": "Drinks"
+        "created": "Created",
+        "created_by": "Created By",
+        "delete_drink_confirm_message": "Delete Drink?",
+        "description": "Description",
+        "manage_drinks_title": "Drinks",
+        "name": "Name",
+        "no_drinks_to_show": "No Drinks To Show",
+        "please_add_drink": "Please Add Name",
+        "save_exception": "Drink save encountered an error",
+        "save_success": "Drink was saved",
+        "view_details": "View Details"
     },
     "exercises": {
         "coming_soon": "Coming soon...",
@@ -112,6 +131,7 @@
         "category_salad": "Salad",
         "category_soup": "Soup",
         "category_texmex": "Tex mex",
+        "category_thai": "Thai",
         "core_only": "Only core recipes",
         "core_recipe": "Core recipe",
         "created": "Created",

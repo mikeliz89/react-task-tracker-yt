@@ -22,12 +22,12 @@ export default function Dashboard() {
                     <Link to={'/bmicalculator'}><BigButton imageName="calculator.PNG" textcolor="black" text={t('bmi_calculator')} /></Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/manageexercises'}><BigButton imageName="exercises.PNG" textcolor="black" color="#ef7c1a" text={t('exercises')} comingsoon /></Link>
+                    <Link to={'/managedrinks'}><BigButton imageName="cocktail.jpg" textcolor="black" color="#f9a9d5" text={t('drinks')} /></Link>
                 </Col>
             </Row>
             <Row>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/managedrinks'}><BigButton imageName="cocktail.jpg" textcolor="black" color="#f9a9d5" text={t('drinks')} comingsoon /></Link>
+                    <Link to={'/manageexercises'}><BigButton imageName="exercises.PNG" textcolor="black" color="#ef7c1a" text={t('exercises')} comingsoon /></Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={'/managebackpacking'}><BigButton imageName="backpacking.jpg" textcolor="black" color="#0cb058" text={t('backpacking')} comingsoon /></Link>
