@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import { useAuth } from '../contexts/AuthContext';
-import Logout from '../components/Auth/Logout';
+import { useAuth } from '../../contexts/AuthContext';
+import Logout from '../Auth/Logout';
 import { useTranslation } from 'react-i18next';
-import Language from '../components/Language/Language';
-import MyProfile from '../components/MyProfile/MyProfile';
+import Language from '../Language/Language';
+import MyProfile from '../MyProfile/MyProfile';
 import { Row, ButtonGroup } from 'react-bootstrap';
 
 const Header = ({ title }) => {

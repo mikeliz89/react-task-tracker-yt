@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 import './App.css';
-import 'flag-icon-css/css/flag-icons.min.css'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import About from './components/About'
-import Dashboard from './components/Dashboard'
+import 'flag-icon-css/css/flag-icons.min.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/Site/Header';
+import Footer from './components/Site/Footer';
+import About from './components/About';
+import Dashboard from './components/Dashboard';
 //Auth
 import Signup from './components/Auth/Signup'
 import Login from './components/Auth/Login'
