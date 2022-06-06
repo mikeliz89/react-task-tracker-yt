@@ -3,7 +3,7 @@ import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
-import Button from '../Buttons/Button'
+import Button from '../../components/Button'
 
 const AddTaskList = ({ taskListID, onAddTaskList }) => {
 
