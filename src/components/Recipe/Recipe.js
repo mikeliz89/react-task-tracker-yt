@@ -8,12 +8,16 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import { useAuth } from '../../contexts/AuthContext';
 import { ref, push, child, onValue } from "firebase/database";
 import i18n from "i18next";
+import { useState } from 'react'
 
 const Recipe = ({ recipe, onDelete }) => {
 
     const navigate = useNavigate();
     const { currentUser } = useAuth();
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+
+    //states 
+    const [error, setError] = useState('')
 
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -25,13 +29,14 @@ const Recipe = ({ recipe, onDelete }) => {
         const incredients = await fetchIncredientsFromFirebase(recipe.id);
         //const incredients = await getRecipeIncredientsTest();
         
-        if (incredients) {
+        if (incredients && incredients.length > 0) {
             let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
             addTaskList({ title: `${t('shoppinglist')} ${currentDateTime}`}, incredients).then(() => {
                 navigate('/managetasklists')
             });
+        } else if (incredients && incredients.length <= 0) {
+            setError("Ei yhtään ainesosaa. Ostoslistaa ei voitu luoda");
         }
-
     }
 
     /*
@@ -96,6 +101,7 @@ const Recipe = ({ recipe, onDelete }) => {
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                     onClick={() => { if (window.confirm(t('delete_recipe_confirm_message'))) { onDelete(recipe.id); } }} />
             </h5>
+            {error && <div className="error">{error}</div>}
             {recipe.category !== "" ? (<p> {'#' + recipe.category}</p>) : ('')}
             <p>{recipe.description}</p>
             <p>
