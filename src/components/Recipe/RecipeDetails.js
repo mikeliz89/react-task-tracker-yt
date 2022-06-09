@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../../firebase-config';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, update } from "firebase/database";
 import GoBackButton from '../GoBackButton';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import AddIncredient from './AddIncredient';
@@ -11,8 +11,9 @@ import { push, child, remove } from "firebase/database";
 import Button from '../../components/Button'
 import Incredients from './Incredients';
 import WorkPhases from './WorkPhases';
+import AddRecipe from './AddRecipe';
 import i18n from "i18next";
-import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { FaUtensils } from 'react-icons/fa';
 
 export default function RecipeDetails() {
@@ -20,6 +21,7 @@ export default function RecipeDetails() {
     //states
     const [loading, setLoading] = useState(true)
     const [recipe, setRecipe] = useState({})
+    const [showEditRecipe, setShowEditRecipe] = useState(false)
     const [showAddIncredient, setShowAddIncredient] = useState(false)
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false)
     const [incredients, setIncredients] = useState()
@@ -108,6 +110,16 @@ export default function RecipeDetails() {
         remove(dbref);
     }
 
+    /** Add Recipe To Firebase */
+    const addRecipe = async (recipe) => {
+        var recipeID = params.id;
+        //save edited recipe to firebase
+        const updates = {};
+        recipe["modified"] = getCurrentDateAsJson()
+        updates[`/recipes/${recipeID}`] = recipe;
+        update(ref(db), updates);
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -115,6 +127,9 @@ export default function RecipeDetails() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
+                    <Button text={showEditRecipe ? t('button_close') : t('button_edit')}
+                        color={showEditRecipe ? 'red' : 'orange'}
+                        onClick={() => setShowEditRecipe(!showEditRecipe)} />
                     <Button color={showAddIncredient ? 'red' : 'green'}
                         text={showAddIncredient ? t('button_close') : t('button_add_incredient')}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
@@ -132,9 +147,10 @@ export default function RecipeDetails() {
                 <p>
                     {t('created')}: {getJsonAsDateTimeString(recipe.created, i18n.language)}<br />
                     {t('created_by')}: {recipe.createdBy}<br />
-                    {t('category')}: {recipe.category}<br/>
+                    {t('category')}: {recipe.category}<br />
                     {t('core_recipe')}: {recipe.isCore === true ? t('yes') : t('no')}
                 </p>
+                {showEditRecipe && <AddRecipe onAddRecipe={addRecipe} recipeID={params.id} />}
                 {showAddIncredient && <AddIncredient onAddIncredient={addIncredient} recipeID={params.id} />}
                 {showAddWorkPhase && <AddWorkPhase onAddWorkPhase={addWorkPhase} recipeID={params.id} />}
                 {incredients != null}
