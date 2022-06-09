@@ -4,9 +4,10 @@ import StarRating from '../StarRating';
 import { FaTimes, FaUtensils, FaShoppingCart } from 'react-icons/fa';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
-import { ref, push, child } from "firebase/database";
+import { ref, push, child, onValue } from "firebase/database";
+import i18n from "i18next";
 
 const Recipe = ({ recipe, onDelete }) => {
 
@@ -20,25 +21,61 @@ const Recipe = ({ recipe, onDelete }) => {
         </Tooltip>
     );
 
-    const makeShoppingList = () => {
-        addTaskList({ title: `${t('shoppinglist')} ${getCurrentDateAsJson()}` });
-        navigate('/managetasklists')
+    const makeShoppingList = async () => {
+        const incredients = await fetchIncredientsFromFirebase(recipe.id);
+        //const incredients = await getRecipeIncredientsTest();
+        
+        if (incredients) {
+            let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
+            addTaskList({ title: `${t('shoppinglist')} ${currentDateTime}`}, incredients).then(() => {
+                navigate('/managetasklists')
+            });
+        }
+
     }
 
-    const addTaskList = async (taskList) => {
+    /*
+    const getRecipeIncredientsTest = async () => {
+        return new Promise((resolve, reject) => {
+            //Faking an API Call
+            setTimeout(() => resolve(false), 400)
+        })
+    }
+    */
+
+    const fetchIncredientsFromFirebase = async (recipeID) => {
+        const incredients = [];
+        const dbref = await child(ref(db, '/incredients'), recipeID);
+        onValue(dbref, (snapshot) => {
+            const snap = snapshot.val();
+            for (let id in snap) {
+                incredients.push({ id, ...snap[id] });
+            }
+        });
+        return incredients;
+    }
+
+    const addTaskList = async (taskList, incredients) => {
         taskList["created"] = getCurrentDateAsJson();
         taskList["createdBy"] = currentUser.email;
         const dbref = ref(db, '/tasklists');
 
         push(dbref, taskList)
             .then((snap) => {
-                addTasksToTaskList(snap.key)
+                addTasksToTaskList(snap.key, incredients)
             })
     }
 
-    const addTasksToTaskList = async (tasklistID) => {
-        //Todo: kaiva tässä reseptin kaikki incredientit ja tee niistä add taskeja
-        addTask(tasklistID, { text: 'text', 'day': 'text2', 'reminder': false })
+    const addTasksToTaskList = async (tasklistID, incredients) => {
+
+        //tee reseptin aineksista taskilistaan taskeja
+        incredients.forEach(function (arrayItem) {
+            let name = arrayItem.name;
+            let amount = arrayItem.amount;
+            let unit = arrayItem.unit;
+
+            addTask(tasklistID, { text: name, 'day': amount + ' ' + unit, 'reminder': false });
+        });
     }
 
     const addTask = async (taskListID, task) => {
