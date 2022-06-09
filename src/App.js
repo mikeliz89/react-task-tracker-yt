@@ -77,14 +77,16 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/about' element={<About />} />
+            {/* Recipe */}
+            <Route path='/recipe/:id' element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
             <Route path='/managerecipes' element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
+            {/* Recipe */}
             <Route path='/managetasklists' element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
             <Route path='/manageexercises' element={<PrivateRoute><ManageExercises /></PrivateRoute>} />
             <Route path='/task/:id/:tasklistid' element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
             <Route path='/tasklist/:id' element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
             <Route path='/bmicalculator' element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
             <Route path='/tasklistarchive' element={<PrivateRoute><ManageTaskListsArchive /></PrivateRoute>} />
-            <Route path='/recipe/:id' element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
             <Route path='/tasklistarchive/:id' element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
             <Route path='/weighthistory' element={<PrivateRoute><WeightHistory /></PrivateRoute>} />
             <Route path='/managemyprofile' element={<PrivateRoute><ManageMyProfile /></PrivateRoute>} />
