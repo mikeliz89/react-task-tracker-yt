@@ -72,7 +72,6 @@ const ManageRecipes = () => {
 
   /** Add Recipe To Firebase */
   const addRecipe = async (recipe) => {
-
     try {
       recipe["created"] = getCurrentDateAsJson();
       recipe["createdBy"] = currentUser.email;

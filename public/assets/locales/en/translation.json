@@ -133,6 +133,7 @@
         "category_soup": "Soup",
         "category_texmex": "Tex mex",
         "category_thai": "Thai",
+        "category_none": "None",
         "core_only": "Only core recipes",
         "core_recipe": "Core recipe",
         "created": "Created",

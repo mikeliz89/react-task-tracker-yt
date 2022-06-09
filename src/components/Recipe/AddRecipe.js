@@ -6,7 +6,7 @@ import { Form } from 'react-bootstrap';
 import Button from '../Button'
 
 // TODO: Tällä hetkellä vain kovakoodatut ruoka-kategoriat
-const categories = [
+const categoriesTemp = [
    {
       "id": 1,
       "name": "pasta"
@@ -79,6 +79,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
 
    //states
    const [category, setCategory] = useState("");
+   const [categories, setCategories] = useState(categoriesTemp);
    const [title, setTitle] = useState('')
    const [description, setDescription] = useState('')
    const [created, setCreated] = useState('')
@@ -94,6 +95,10 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
       }
    }, [recipeID]);
 
+   useEffect(() => {
+      handleSort();
+    }, categories);
+
    /** get recipe from firebase by recipeID (in EDIT recipe) */
    const fetchRecipeFromFirebase = async (recipeID) => {
 
@@ -108,6 +113,13 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
             setIsCore(val["isCore"])
          }
       });
+   }
+   
+   const handleSort = () => {
+      const sortedCategories = [...categories].sort((a,b) => {
+            return a.name > b.name ? 1 : -1;
+      });
+      setCategories(sortedCategories);
    }
 
    /** Recipe Form Submit */
@@ -151,6 +163,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
             <Form.Group className="mb-3" controlId="addRecipeFormCategory">
                <Form.Label>{t('category')}</Form.Label>
                <Form.Select onChange={(e) => setCategory(e.target.value)}>
+                  <option>{t('category_none')}</option>
                   {categories.map(({ id, name }) => (
                      <option key={id}>{t(`category_${name}`)}</option>
                   ))}
