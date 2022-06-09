@@ -27,11 +27,13 @@ function getTimeString(json, language = "en") {
     let hour = myDate.getHours();
     let minute = myDate.getMinutes();
     let second = myDate.getSeconds();
+    const seconds = String(second).padStart(2, '0');
+    const minutes = String(minute).padStart(2, '0');
     switch (language) {
         case "en":
-            return `${hour}:${minute}:${second}`;
+            return `${hour}:${minutes}:${seconds}`;
         case "fi":
-            return `klo ${hour}.${minute}.${second}`;
+            return `klo ${hour}.${minutes}.${seconds}`;
         default:
             return "";
     }
@@ -48,7 +50,7 @@ function getDateString(json, language = "en") {
 
     switch (language) {
         case "en":
-            return `${year}-${month < 10 ? `0${month}` : `${month}`}-${date}`;
+            return `${year}-${month < 10 ? `0${month}` : `${month}`}-${date < 10 ? `0${date}` : `${date}`}`;
         case "fi":
             return `${date}.${month}.${year}`;
         default:
