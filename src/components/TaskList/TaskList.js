@@ -15,7 +15,10 @@ const TaskList = ({ taskList, archived, onDelete }) => {
                     onClick={() => { if (window.confirm(t('delete_list_confirm_message'))) { onDelete(taskList.id); } }} />
             </h5>
             <p>{taskList.description}</p>
-            <p><Link to={archived ? `/tasklistarchive/${taskList.id}` : `/tasklist/${taskList.id}`}>{t('view_details')}</Link></p>
+            <p>
+                <Link className="btn btn-primary"
+                    to={archived ? `/tasklistarchive/${taskList.id}` : `/tasklist/${taskList.id}`}>{t('view_details')}</Link>
+            </p>
         </div>
     )
 }

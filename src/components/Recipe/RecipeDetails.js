@@ -148,6 +148,7 @@ export default function RecipeDetails() {
                     {t('created')}: {getJsonAsDateTimeString(recipe.created, i18n.language)}<br />
                     {t('created_by')}: {recipe.createdBy}<br />
                     {t('category')}: {recipe.category}<br />
+                    {t('modified')}: {getJsonAsDateTimeString(recipe.modified, i18n.language)}<br />
                     {t('core_recipe')}: {recipe.isCore === true ? t('yes') : t('no')}
                 </p>
                 {showEditRecipe && <AddRecipe onAddRecipe={addRecipe} recipeID={params.id} />}

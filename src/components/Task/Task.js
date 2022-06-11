@@ -23,7 +23,7 @@ const Task = ({ taskListID, archived, task, onDelete, onToggle }) => {
             { /* TODO: Rakenna view details arkiston taskin katselulle? */
                 archived ? null :
                     <>
-                        <p><Link to={`/task/${task.id}/${taskListID}`}>{t('view_details')}</Link></p>
+                        <p><Link className="btn btn-primary" to={`/task/${task.id}/${taskListID}`}>{t('view_details')}</Link></p>
                     </>
             }
         </div>

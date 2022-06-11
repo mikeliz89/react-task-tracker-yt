@@ -105,7 +105,7 @@ const Recipe = ({ recipe, onDelete }) => {
             {recipe.category !== "" ? (<p> {'#' + recipe.category}</p>) : ('')}
             <p>{recipe.description}</p>
             <p>
-                <Link className='btn btn-info' to={`/recipe/${recipe.id}`}>{t('view_details')}</Link>
+                <Link className='btn btn-primary' to={`/recipe/${recipe.id}`}>{t('view_details')}</Link>
                 <OverlayTrigger
                     placement="right"
                     delay={{ show: 250, hide: 400 }}

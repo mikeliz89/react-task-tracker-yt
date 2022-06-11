@@ -7,9 +7,8 @@ import { Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
 import i18n from "i18next";
-import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { FaGlassMartini } from 'react-icons/fa';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import AddDrink from './AddDrink';
 
 export default function DrinkDetails() {
@@ -86,6 +85,7 @@ export default function DrinkDetails() {
                 <p>
                     {t('created')}: {getJsonAsDateTimeString(drink.created, i18n.language)}<br />
                     {t('created_by')}: {drink.createdBy}<br />
+                    {t('modified')}: {getJsonAsDateTimeString(drink.modified, i18n.language)}<br />
                     {t('category')}: {drink.category}
                 </p>
                 {showEditDrink && <AddDrink onAddDrink={addDrink} drinkID={params.id} />}
