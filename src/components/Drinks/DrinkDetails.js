@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../../firebase-config';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, update } from "firebase/database";
 import { Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
 import i18n from "i18next";
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { FaGlassMartini } from 'react-icons/fa';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import AddDrink from './AddDrink';
 
 export default function DrinkDetails() {
 
@@ -17,6 +19,9 @@ export default function DrinkDetails() {
     const [drink, setDrink] = useState({})
     const [showAddIncredient, setShowAddIncredient] = useState(false)
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false)
+    const [showEditDrink, setShowEditDrink] = useState(false)
+
+    //other
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
     const params = useParams();
     const navigate = useNavigate();
@@ -42,6 +47,18 @@ export default function DrinkDetails() {
         })
     }
 
+    
+    /** Add Drink To Firebase */
+    const addDrink = async (drink) => {
+        var drinkID = params.id;
+        //save edited drink to firebase
+        const updates = {};
+        drink["modified"] = getCurrentDateAsJson()
+        updates[`/drinks/${drinkID}`] = drink;
+        update(ref(db), updates);
+    }
+
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -49,6 +66,9 @@ export default function DrinkDetails() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
+                    <Button text={showEditDrink ? t('button_close') : t('button_edit')}
+                        color={showEditDrink ? 'red' : 'orange'}
+                        onClick={() => setShowEditDrink(!showEditDrink)} />
                     <Button color={showAddIncredient ? 'red' : 'green'}
                         text={showAddIncredient ? t('button_close') : t('button_add_incredient')}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
@@ -68,6 +88,7 @@ export default function DrinkDetails() {
                     {t('created_by')}: {drink.createdBy}<br />
                     {t('category')}: {drink.category}
                 </p>
+                {showEditDrink && <AddDrink onAddDrink={addDrink} drinkID={params.id} />}
             </div>
         </div>
     )

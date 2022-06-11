@@ -8,15 +8,23 @@ import Button from '../Button'
 // TODO: Tällä hetkellä vain kovakoodatut drinkki-kategoriat
 const categories = [
    {
+      //rakennettu juoma
       "id": 1,
-      "name": "drink"
+      "name": "build"
    },
    {
+      //sekoitettu juoma
       "id": 2,
-      "name": "cocktail"
+      "name": "stir"
    },
    {
+      //ravistettava juoma
       "id": 3,
+      "name": "shake"
+   },
+   {
+      //mocktail
+      "id": 4,
       "name": "mocktail"
    }
 ]
