@@ -23,6 +23,7 @@ const DrinkIncredient = ({ drinkIncredient, onDelete }) => {
             {error && <div className="error">{error}</div>}
             <p>{t('incredient_manufacturer')}: {drinkIncredient.manufacturer}</p>
             <p>{t('incredient_description')}: {drinkIncredient.description}</p>
+            <p>{t('category')}: {drinkIncredient.category}</p>
             <p>
                 {/* <Link className='btn btn-primary' to={`/recipe/${recipe.id}`}>{t('view_details')}</Link> */}
             </p>

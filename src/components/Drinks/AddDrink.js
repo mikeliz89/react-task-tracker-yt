@@ -26,6 +26,11 @@ const categories = [
       //mocktail
       "id": 4,
       "name": "mocktail"
+   },
+   {
+      //blenderillä sekoitettava
+      "id": 5,
+      "name": "blender"
    }
 ]
 
