@@ -82,6 +82,8 @@
         "delete_drink_confirm_message": "Poista drinkki?",
         "delete_incredient_confirm_message": "Poista tuote?",
         "description": "Kuvaus",
+        "do_drink": "Valmista reseptin mukainen juoma",
+        "do_drink_confirm": "Oletko varma?",
         "incredient_category_lemonade": "Limsa",
         "incredient_category_licour": "Likööri",
         "incredient_category_spirit": "Viina",
