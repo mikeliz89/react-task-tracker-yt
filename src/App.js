@@ -31,6 +31,7 @@ import ManageMyProfile from './components/MyProfile/ManageMyProfile';
 //Drinks
 import ManageDrinks from './components/Drinks/ManageDrinks'
 import DrinkDetails from './components/Drinks/DrinkDetails';
+import ManageDrinkIncredients from './components/Drinks/ManageDrinkIncredients';
 //Backpacking
 import ManageBackPacking from './components/BackPacking/ManageBackPacking'
 //other components
@@ -81,6 +82,11 @@ function App() {
             <Route path='/recipe/:id' element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
             <Route path='/managerecipes' element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
             {/* Recipe */}
+            {/* Drinks */}
+            <Route path='/managedrinks' element={<PrivateRoute><ManageDrinks /></PrivateRoute>} />
+            <Route path='/managedrinkincredients' element={<PrivateRoute><ManageDrinkIncredients /></PrivateRoute>} />
+            <Route path='/drink/:id' element={<PrivateRoute><DrinkDetails /></PrivateRoute>} />
+            {/*Drinks */}
             <Route path='/managetasklists' element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
             <Route path='/manageexercises' element={<PrivateRoute><ManageExercises /></PrivateRoute>} />
             <Route path='/task/:id/:tasklistid' element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
@@ -90,8 +96,6 @@ function App() {
             <Route path='/tasklistarchive/:id' element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
             <Route path='/weighthistory' element={<PrivateRoute><WeightHistory /></PrivateRoute>} />
             <Route path='/managemyprofile' element={<PrivateRoute><ManageMyProfile /></PrivateRoute>} />
-            <Route path='/managedrinks' element={<PrivateRoute><ManageDrinks /></PrivateRoute>} />
-            <Route path='/drink/:id' element={<PrivateRoute><DrinkDetails /></PrivateRoute>} />
             <Route path='/managebackpacking' element={<PrivateRoute><ManageBackPacking /></PrivateRoute>} />
             <Route path='/Demo' element={<PrivateRoute><Demo /></PrivateRoute>} />
           </Routes>

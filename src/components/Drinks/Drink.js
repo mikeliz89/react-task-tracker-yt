@@ -1,7 +1,7 @@
-import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
-import StarRating from '../StarRating'
-import { FaTimes, FaGlassMartini } from 'react-icons/fa'
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import StarRating from '../StarRating';
+import { FaTimes, FaGlassMartini } from 'react-icons/fa';
 
 const Drink = ({ drink, onDelete }) => {
 
@@ -19,7 +19,7 @@ const Drink = ({ drink, onDelete }) => {
             </h5>
             {drink.category !== "" ? (<p> {'#' + drink.category}</p>) : ('')}
             <p>{drink.description}</p>
-            <p><Link to={`/drink/${drink.id}`}>{t('view_details')}</Link></p>
+            <p><Link className='btn btn-primary' to={`/drink/${drink.id}`}>{t('view_details')}</Link></p>
             <StarRating starCount={drink.stars} />
         </div>
     )

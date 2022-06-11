@@ -2,7 +2,7 @@ import GoBackButton from '../GoBackButton';
 import RecipeButton from './RecipeButton';
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Row, Alert, Form, Col } from 'react-bootstrap';
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
 import { ref, push, onValue, remove } from "firebase/database";
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
@@ -25,9 +25,9 @@ const ManageRecipes = () => {
   const [sortByTextAsc, setSortByTextAsc] = useState(true)
   //searching
   const [showOnlyCoreRecipes, setShowOnlyCoreRecipes] = useState(false);
-
+  //translation
   const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
-
+  //user
   const { currentUser } = useAuth();
 
   //load data

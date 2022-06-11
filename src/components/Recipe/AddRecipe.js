@@ -141,8 +141,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
          setIsCore(false)
       }
    }
-
-   //todo: Tee checkboxista label clickable
+   
    return (
       <>
          <Form onSubmit={onSubmit}>

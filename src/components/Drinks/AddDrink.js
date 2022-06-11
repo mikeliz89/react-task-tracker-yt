@@ -60,6 +60,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
             setDescription(val["description"]);
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
+            setCategory(val["category"]);
          }
       });
    }
@@ -83,7 +84,6 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
       }
    }
 
-   //todo: Tee checkboxista label clickable
    return (
       <>
          <Form onSubmit={onSubmit}>

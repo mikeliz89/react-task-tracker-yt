@@ -9,20 +9,22 @@ import { db } from '../../firebase-config';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 import AddDrink from './AddDrink';
+import { Link } from 'react-router-dom';
 
 export default function ManageDrinks() {
 
+    //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
-
-    const [showAddDrink, setShowAddDrink] = useState(false);
-
+    
     //states
+    const [showAddDrink, setShowAddDrink] = useState(false);
     const [drinks, setDrinks] = useState();
     const [originalDrinks, setOriginalDrinks] = useState();
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const [showMessage, setShowMessage] = useState(false);
 
+    //user
     const { currentUser } = useAuth();
 
     //load data
@@ -88,6 +90,7 @@ export default function ManageDrinks() {
                 </ButtonGroup>
             </Row>
             <h3 className="page-title">{t('manage_drinks_title')}</h3>
+            <Link to="/managedrinkincredients" className='btn btn-primary'>{t('manage_drink_incredients_button')}</Link>
             {message &&
                 <Alert show={showMessage} variant='success' className="success">
                     {message}
