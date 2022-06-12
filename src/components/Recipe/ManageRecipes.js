@@ -131,7 +131,7 @@ const ManageRecipes = () => {
       <div className="page-content">
         {error && <div className="error">{error}</div>}
         {message &&
-          <Alert show={showMessage} variant='success' className="success">
+          <Alert show={showMessage} variant='success'>
             {message}
             <div className='d-flex justify-content-end'>
               <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>

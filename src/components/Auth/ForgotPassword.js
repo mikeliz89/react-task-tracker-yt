@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
+import { Form, Alert } from 'react-bootstrap';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //buttons
@@ -41,7 +41,7 @@ export default function ForgotPassword() {
         <div className="login-container">
             <h3>{t('password_reset')}</h3>
             {error && <div className="error">{error}</div>}
-            {message && <div className="success">{message}</div>}
+            {message && <Alert variant='info'>{message}</Alert>}
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="forgotPasswordFormEmail">
                     <Form.Label>{t('email')}</Form.Label>

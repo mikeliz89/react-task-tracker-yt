@@ -207,14 +207,6 @@ form {
   border-radius: 5px;
 }
 
-.success {
-  background: #00e100;
-  color: black;
-  margin: 5px;
-  padding: 10px 20px;
-  border-radius: 5px;
-}
-
 .bigbtn {
   width: 100%;
   height: 220px;

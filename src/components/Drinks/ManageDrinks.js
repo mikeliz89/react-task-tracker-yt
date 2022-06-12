@@ -149,7 +149,7 @@ export default function ManageDrinks() {
                 <Link to="/managedrinkingproducts" className='btn btn-primary'>{t('manage_drinkingproducts_button')}</Link>
                 {error && <div className="error">{error}</div>}
                 {message &&
-                    <Alert show={showMessage} variant='success' className="success">
+                    <Alert show={showMessage} variant='success'>
                         {message}
                         <div className='d-flex justify-content-end'>
                             <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
