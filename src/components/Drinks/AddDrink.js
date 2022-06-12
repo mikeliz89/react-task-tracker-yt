@@ -34,6 +34,11 @@ const categories = [
       //blenderillä sekoitettava
       "id": 5,
       "name": "blender"
+   },
+   {
+      //uutettava
+      "id": 6,
+      "name": "infusion", 
    }
 ]
 
