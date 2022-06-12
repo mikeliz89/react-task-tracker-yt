@@ -73,6 +73,10 @@ const categoriesTemp = [
    {
       "id": 16,
       "name": "thai"
+   }, 
+   {
+      "id": 17,
+      "name": "chinese"
    }
 ]
 
@@ -81,13 +85,13 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
    //states
-   const [category, setCategory] = useState("");
+   const [category, setCategory] = useState('');
    const [categories, setCategories] = useState(categoriesTemp);
-   const [title, setTitle] = useState('')
-   const [description, setDescription] = useState('')
-   const [created, setCreated] = useState('')
-   const [createdBy, setCreatedBy] = useState('')
-   const [isCore, setIsCore] = useState(false)
+   const [title, setTitle] = useState('');
+   const [description, setDescription] = useState('');
+   const [created, setCreated] = useState('');
+   const [createdBy, setCreatedBy] = useState('');
+   const [isCore, setIsCore] = useState(false);
 
    useEffect(() => {
       if (recipeID != null) {
@@ -100,7 +104,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
 
    useEffect(() => {
       handleSort();
-    }, categories);
+   }, categories);
 
    /** get recipe from firebase by recipeID (in EDIT recipe) */
    const fetchRecipeFromFirebase = async (recipeID) => {
@@ -113,14 +117,15 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
             setDescription(val["description"]);
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
-            setIsCore(val["isCore"])
+            setIsCore(val["isCore"]);
+            setCategory(val["category"]);
          }
       });
    }
-   
+
    const handleSort = () => {
-      const sortedCategories = [...categories].sort((a,b) => {
-            return a.name > b.name ? 1 : -1;
+      const sortedCategories = [...categories].sort((a, b) => {
+         return a.name > b.name ? 1 : -1;
       });
       setCategories(sortedCategories);
    }
@@ -139,12 +144,13 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
 
       if (recipeID == null) {
          //clear the form
-         setTitle('')
-         setDescription('')
-         setIsCore(false)
+         setTitle('');
+         setDescription('');
+         setIsCore(false);
+         setCategory('');
       }
    }
-   
+
    return (
       <>
          <Form onSubmit={onSubmit}>
@@ -164,7 +170,9 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="addRecipeFormCategory">
                <Form.Label>{t('category')}</Form.Label>
-               <Form.Select onChange={(e) => setCategory(e.target.value)}>
+               <Form.Select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}>
                   <option>{t('category_none')}</option>
                   {categories.map(({ id, name }) => (
                      <option key={id}>{t(`category_${name}`)}</option>

@@ -38,7 +38,7 @@ const categories = [
    {
       //uutettava
       "id": 6,
-      "name": "infusion", 
+      "name": "infusion",
    }
 ]
 
@@ -47,7 +47,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
    //states
-   const [category, setCategory] = useState("");
+   const [category, setCategory] = useState('');
    const [title, setTitle] = useState('')
    const [description, setDescription] = useState('')
    const [glass, setGlass] = useState('')
@@ -126,7 +126,10 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="addDrinkFormCategory">
                <Form.Label>{t('category')}</Form.Label>
-               <Form.Select onChange={(e) => setCategory(e.target.value)}>
+               <Form.Select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}>
+                  <option>{t('category_none')}</option>
                   {categories.map(({ id, name }) => (
                      <option key={id}>{t(`category_${name}`)}</option>
                   ))}

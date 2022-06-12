@@ -120,6 +120,9 @@ export default function RecipeDetails() {
         var recipeID = params.id;
         //save edited recipe to firebase
         const updates = {};
+        if (recipe["category"] === t('category_none')) {
+            recipe["category"] = '';
+        }
         recipe["modified"] = getCurrentDateAsJson()
         updates[`/recipes/${recipeID}`] = recipe;
         update(ref(db), updates);

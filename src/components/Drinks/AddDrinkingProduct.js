@@ -82,12 +82,12 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct }) => {
    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
    //states
-   const [category, setCategory] = useState("");
-   const [name, setName] = useState('')
-   const [manufacturer, setManufacturer] = useState('')
-   const [description, setDescription] = useState('')
-   const [created, setCreated] = useState('')
-   const [createdBy, setCreatedBy] = useState('')
+   const [category, setCategory] = useState('');
+   const [name, setName] = useState('');
+   const [manufacturer, setManufacturer] = useState('');
+   const [description, setDescription] = useState('');
+   const [created, setCreated] = useState('');
+   const [createdBy, setCreatedBy] = useState('');
 
    useEffect(() => {
       if (drinkingProductID != null) {
@@ -131,6 +131,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct }) => {
          setName('')
          setManufacturer('')
          setDescription('')
+         setCategory('')
       }
    }
 
@@ -160,7 +161,10 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct }) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Category">
                <Form.Label>{t('drinkingproduct_category')}</Form.Label>
-               <Form.Select onChange={(e) => setCategory(e.target.value)}>
+               <Form.Select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}>
+                  <option>{t('category_none')}</option>
                   {categories.map(({ id, name }) => (
                      <option key={id}>{t(`drinkingproduct_category_${name}`)}</option>
                   ))}
