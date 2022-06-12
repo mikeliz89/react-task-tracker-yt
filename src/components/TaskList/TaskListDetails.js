@@ -36,6 +36,7 @@ function TaskListDetails() {
   const [sortBy, setSortBy] = useState(SortMode.None);
   const [sortByText, setSortByText] = useState(true);
   const [showOnlyTaskReady, setShowOnlyTaskReady] = useState(false);
+  const [showOnlyTaskNotReady, setShowOnlyTaskNotReady] = useState(false);
   //counters
   const [taskCounter, setTaskCounter] = useState(0);
   const [taskReadyCounter, setTaskReadyCounter] = useState(0);
@@ -71,7 +72,7 @@ function TaskListDetails() {
   /* kuuntele muutoksia, jos niitä tulee, filtteröi ja sorttaa */
   useEffect(() => {
     filterAndSort();
-  }, [searchString, sortByText, showOnlyTaskReady]);
+  }, [searchString, sortByText, showOnlyTaskReady, showOnlyTaskNotReady]);
 
   /** Fetch Task List From Firebase */
   const fetchTaskListFromFirebase = async () => {
@@ -200,6 +201,9 @@ function TaskListDetails() {
     if (showOnlyTaskReady) {
       newTasks = newTasks.filter(task => task.reminder === true);
     }
+    else if(showOnlyTaskNotReady) {
+      newTasks = newTasks.filter(task => task.reminder === false);
+    }
     //sortit
     if (sortBy === SortMode.Text) {
       newTasks = [...newTasks].sort((a, b) => {
@@ -295,12 +299,21 @@ function TaskListDetails() {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} controlId="formHorizontalCheck">
+          <Form.Group as={Row} controlId="formHorizontalCheck-ShowOnlyTaskReady">
             <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
             <Col xs={9} sm={10}>
               <Form.Check label={t('task_ready_only')}
                 onChange={(e) => {
                   setShowOnlyTaskReady(e.currentTarget.checked);
+                }} />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} controlId="formHorizontalCheck-ShowOnlyTaskNotReady">
+            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+            <Col xs={9} sm={10}>
+              <Form.Check label={t('task_not_ready_only')}
+                onChange={(e) => {
+                  setShowOnlyTaskNotReady(e.currentTarget.checked);
                 }} />
             </Col>
           </Form.Group>
