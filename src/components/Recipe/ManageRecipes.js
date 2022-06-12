@@ -100,9 +100,9 @@ const ManageRecipes = () => {
       newRecipes = newRecipes.filter(recipe => recipe.isCore === true);
     }
     if (sortingIsOn) {
-      newRecipes = [...newRecipes].sort((a, b) => { 
+      newRecipes = [...newRecipes].sort((a, b) => {
         return a.title > b.title ? 1 : -1
-       });
+      });
       if (sortByTextAsc) {
         newRecipes.reverse();
       }
