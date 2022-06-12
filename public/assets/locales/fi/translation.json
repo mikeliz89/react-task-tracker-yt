@@ -79,6 +79,7 @@
         "coming_soon": "Tulossa pian...",
         "created": "Luotu",
         "created_by": "Luoja",
+        "created_date": "Luontipvm",
         "delete_drink_confirm_message": "Poista drinkki?",
         "delete_incredient_confirm_message": "Poista tuote?",
         "description": "Kuvaus",
@@ -108,6 +109,8 @@
         "please_add_drink_incredient": "Ole hyvä ja anna tuotteelle nimi",
         "save_exception": "Drinkin tallennus epäonnistui",
         "save_success": "Drinkin tallennus onnistui",
+        "search": "Hae",
+        "sorting": "Järjestä",
         "view_details": "Katso lisätiedot"
     },
     "exercises": {
