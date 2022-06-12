@@ -21,31 +21,30 @@ const SortMode = {
 }
 
 function TaskListDetails() {
-
+  //translate
   const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
-
-  //const taskUrl = 'http://localhost:5000/tasks'
-  //const taskListUrl = 'http://localhost:5000/tasklists'
-
   //states
-  const [loading, setLoading] = useState(true)
-  const [taskList, setTaskList] = useState({})
-  const [showAddTask, setShowAddTask] = useState(false)
-  const [showEditTaskList, setShowEditTaskList] = useState(false)
-  const [tasks, setTasks] = useState()
-  const [originalTasks, setOriginalTasks] = useState()
+  const [loading, setLoading] = useState(true);
+  const [taskList, setTaskList] = useState({});
+  const [showAddTask, setShowAddTask] = useState(false);
+  const [showEditTaskList, setShowEditTaskList] = useState(false);
+  const [tasks, setTasks] = useState();
+  const [originalTasks, setOriginalTasks] = useState();
+  //search
   const [searchString, setSearchString] = useState('');
   //sorting
-  const [sortBy, setSortBy] = useState(SortMode.None)
-  const [sortByText, setSortByText] = useState(true)
-  const [showOnlyTaskReady, setShowOnlyTaskReady] = useState(false)
+  const [sortBy, setSortBy] = useState(SortMode.None);
+  const [sortByText, setSortByText] = useState(true);
+  const [showOnlyTaskReady, setShowOnlyTaskReady] = useState(false);
   //counters
-  const [taskCounter, setTaskCounter] = useState(0)
-  const [taskReadyCounter, setTaskReadyCounter] = useState(0)
-
+  const [taskCounter, setTaskCounter] = useState(0);
+  const [taskReadyCounter, setTaskReadyCounter] = useState(0);
+  //params
   const params = useParams();
-  const navigate = useNavigate()
-  const { currentUser } = useAuth()
+  //navigate
+  const navigate = useNavigate();
+  //user
+  const { currentUser } = useAuth();
 
   //load data
   useEffect(() => {
@@ -193,12 +192,15 @@ function TaskListDetails() {
       return;
     }
     let newTasks = originalTasks;
+    //haut
     if (searchString !== "") {
       newTasks = newTasks.filter(task => task.text.toLowerCase().includes(searchString.toLowerCase()));
     }
+    //filtterit
     if (showOnlyTaskReady) {
       newTasks = newTasks.filter(task => task.reminder === true);
     }
+    //sortit
     if (sortBy === SortMode.Text) {
       newTasks = [...newTasks].sort((a, b) => {
         return a.text > b.text ? 1 : -1
@@ -298,7 +300,7 @@ function TaskListDetails() {
           <Form.Group as={Row} controlId="formHorizontalCheck">
             <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
             <Col xs={9} sm={10}>
-              <Form.Check label={t('task_ready')}
+              <Form.Check label={t('task_ready_only')}
                 onChange={(e) => {
                   setShowOnlyTaskReady(e.currentTarget.checked);
                 }} />

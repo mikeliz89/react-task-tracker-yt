@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Row, ButtonGroup } from 'react-bootstrap'
+import { Col, Row, ButtonGroup, Form } from 'react-bootstrap';
 //Firebase
 import { db } from '../../firebase-config';
 import { ref, onValue, push, child, remove } from "firebase/database";
@@ -11,26 +11,38 @@ import TaskListButton from '../../components/TaskList/TaskListButton';
 import AddTaskList from '../../components/TaskList/AddTaskList';
 import TaskLists from '../../components/TaskList/TaskLists';
 //Buttons
-import GoBackButton from '../GoBackButton'
-import Button from '../Button'
+import GoBackButton from '../GoBackButton';
+import Button from '../Button';
 //Utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //Context
 import { useAuth } from '../../contexts/AuthContext';
+//Icons
+import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
+
+const SortMode = {
+  None: "None",
+  Name_ASC: "Name_ASC",
+  Name_DESC: "Name_DESC",
+  Created_ASC: "Created_ASC",
+  Created_DESC: "Created_DESC",
+}
 
 export default function ManageTaskLists() {
-
+  //navigate
   const navigate = useNavigate();
+  //user
   const { currentUser } = useAuth();
-
+  //translation
   const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
-
   //states
-  const [showAddTaskList, setShowAddTaskList] = useState(false)
-  const [taskLists, setTaskLists] = useState()
-  //sort
-  const [sortByDateAsc, setSortByDateAsc] = useState(true)
-  const [sortByNameAsc, setSortByNameAsc] = useState(true)
+  const [showAddTaskList, setShowAddTaskList] = useState(false);
+  const [taskLists, setTaskLists] = useState();
+  const [originalTaskLists, setOriginalTaskLists] = useState();
+  //sorting
+  const [sortBy, setSortBy] = useState(SortMode.None);
+  //search
+  const [searchString, setSearchString] = useState('');
 
   //load data
   useEffect(() => {
@@ -40,23 +52,26 @@ export default function ManageTaskLists() {
     getTaskLists()
   }, [])
 
+  useEffect(() => {
+    filterAndSort();
+  }, [sortBy, searchString]);
+
   /* Fetch Task Lists From Firebase */
   const fetchTaskListsFromFireBase = async () => {
     const dbref = ref(db, '/tasklists');
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
-      const taskLists = [];
+      const fromDB = [];
       for (let id in snap) {
-        taskLists.push({ id, ...snap[id] });
+        fromDB.push({ id, ...snap[id] });
       }
-      setTaskLists(taskLists)
+      setTaskLists(fromDB);
+      setOriginalTaskLists(fromDB);
     })
   }
 
   /** Add Task List To Firebase */
   const addTaskList = async (taskList) => {
-
-    //To firebase
     taskList["created"] = getCurrentDateAsJson();
     taskList["createdBy"] = currentUser.email;
     const dbref = ref(db, '/tasklists');
@@ -65,13 +80,9 @@ export default function ManageTaskLists() {
 
   /** Delete Task List From Firebase */
   const deleteTaskList = async (id) => {
-
-    //From firebase
-
     //delete tasks
     const dbrefTasks = ref(db, '/tasks/' + id);
     remove(dbrefTasks);
-
     //delete task list
     const dbref = child(ref(db, '/tasklists'), id)
     remove(dbref)
@@ -82,34 +93,33 @@ export default function ManageTaskLists() {
     navigate('/tasklistarchive')
   }
 
-  const toggleSortDate = (taskLists) => {
-
-    let sortedTaskLists = taskLists.sort((a, b) => new Date(a.created).setHours(0, 0, 0, 0) - new Date(b.created).setHours(0, 0, 0, 0));
-
-    if (sortByDateAsc) {
-      sortedTaskLists = sortedTaskLists.reverse();
+  const filterAndSort = () => {
+    if (!originalTaskLists) {
+      return;
     }
-
-    setTaskLists(sortedTaskLists);
-
-    //Toggle sorting
-    const sortByDate = !sortByDateAsc;
-    setSortByDateAsc(sortByDate);
-  }
-
-  const toggleSortName = (taskLists) => {
-
-    let sortedTaskLists = taskLists.sort((a, b) => a.title.localeCompare(b.title));
-
-    if (sortByNameAsc) {
-      sortedTaskLists = sortedTaskLists.reverse();
+    let newTaskLists = originalTaskLists;
+    //haut
+    if (searchString !== "") {
+      newTaskLists = newTaskLists.filter(taskList => taskList.title.toLowerCase().includes(searchString.toLowerCase()));
     }
-
-    setTaskLists(sortedTaskLists);
-
-    //Toggle sorting
-    const sortByName = !sortByNameAsc;
-    setSortByNameAsc(sortByName);
+    //filtterit: TODO
+    //sortit
+    if (sortBy === SortMode.Name_ASC || sortBy === SortMode.Name_DESC) {
+      newTaskLists = [...newTaskLists].sort((a, b) => {
+        return a.title > b.title ? 1 : -1
+      });
+      if (sortBy === SortMode.Name_DESC) {
+        newTaskLists.reverse();
+      }
+    } else if (sortBy === SortMode.Created_ASC || sortBy === SortMode.Created_DESC) {
+      newTaskLists = newTaskLists.sort(
+        (a, b) => new Date(a.created).setHours(0, 0, 0, 0) - new Date(b.created).setHours(0, 0, 0, 0)
+      );
+      if (sortBy === SortMode.Created_DESC) {
+        newTaskLists.reverse();
+      }
+    }
+    setTaskLists(newTaskLists);
   }
 
   return (
@@ -125,11 +135,48 @@ export default function ManageTaskLists() {
         </ButtonGroup>
       </Row>
       <h3 className="page-title">{t('manage_tasklists_title')}</h3>
-      {t('sorting')}: &nbsp;
-      <Button onClick={() => toggleSortDate(taskLists)} text={t('created_date')} />&nbsp;
-      <Button onClick={() => toggleSortName(taskLists)} text={t('name')} />
       {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
       <div className="page-content">
+        <Form className='form-no-paddings'>
+          <Form.Group as={Row}>
+            <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
+            <Col xs={9} sm={10}>
+              <Button onClick={() => {
+                sortBy === SortMode.Created_ASC ? setSortBy(SortMode.Created_DESC) : setSortBy(SortMode.Created_ASC);
+              }} text={t('created_date')} type="button" />
+              {
+                sortBy === SortMode.Created_DESC ? <FaArrowDown /> : ''
+              }
+              {
+                sortBy === SortMode.Created_ASC ? <FaArrowUp /> : ''
+              }
+              &nbsp;
+              <Button onClick={() => {
+                sortBy === SortMode.Name_ASC ? setSortBy(SortMode.Name_DESC) : setSortBy(SortMode.Name_ASC);
+              }
+              }
+                text={t('name')} type="button"
+              />
+              {
+                sortBy === SortMode.Name_DESC ? <FaArrowDown /> : ''
+              }
+              {
+                sortBy === SortMode.Name_ASC ? <FaArrowUp /> : ''
+              }
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
+            <Col xs={9} sm={10}>
+              <Form.Control
+                type="text"
+                id="inputSearchString"
+                aria-describedby="searchHelpBlock"
+                onChange={(e) => setSearchString(e.target.value)}
+              />
+            </Col>
+          </Form.Group>
+        </Form>
         {taskLists != null && taskLists.length > 0 ? (
           <TaskLists
             taskLists={taskLists}

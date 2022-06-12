@@ -237,6 +237,8 @@
         "task_list": "Listan nimi",
         "task_name": "Tehtävän nimi",
         "task_ready": "Tehtävä valmis",
+        "task_ready_only": "Vain valmiit tehtävät",
+        "task_not_ready_only": "Vain ei-valmiit tehtävät",
         "tasks_ready_counter": "Tehtäviä valmiina",
         "view_details": "Katso lisätiedot",
         "yes": "Kyllä"
