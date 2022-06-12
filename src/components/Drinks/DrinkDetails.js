@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../../firebase-config';
-import { ref, onValue, update } from "firebase/database";
+import { ref, child, onValue, update } from "firebase/database";
 import { Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
@@ -10,12 +10,14 @@ import i18n from "i18next";
 import { FaGlassMartini } from 'react-icons/fa';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import AddDrink from './AddDrink';
+import DrinkHistories from './DrinkHistories';
 
 export default function DrinkDetails() {
 
     //states
     const [loading, setLoading] = useState(true)
     const [drink, setDrink] = useState({})
+    const [drinkHistory, setDrinkHistory] = useState({})
     const [showAddIncredient, setShowAddIncredient] = useState(false)
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false)
     const [showEditDrink, setShowEditDrink] = useState(false)
@@ -31,7 +33,24 @@ export default function DrinkDetails() {
             await fetchDrinkFromFirebase();
         }
         getDrink()
+
+        const getDrinkHistory = async () => {
+            await fetchDrinkHistoryFromFirebase();
+        }
+        getDrinkHistory()
     }, [])
+
+    const fetchDrinkHistoryFromFirebase = async () => {
+        const dbref = await child(ref(db, '/drinkhistory'), params.id);
+        onValue(dbref, (snapshot) => {
+            const snap = snapshot.val();
+            const fromDB = [];
+            for (let id in snap) {
+                fromDB.push({ id, ...snap[id] });
+            }
+            setDrinkHistory(fromDB);
+        })
+    }
 
     /** Fetch Drink From Firebase */
     const fetchDrinkFromFirebase = async () => {
@@ -46,7 +65,6 @@ export default function DrinkDetails() {
         })
     }
 
-    
     /** Add Drink To Firebase */
     const addDrink = async (drink) => {
         var drinkID = params.id;
@@ -56,7 +74,6 @@ export default function DrinkDetails() {
         updates[`/drinks/${drinkID}`] = drink;
         update(ref(db), updates);
     }
-
 
     return loading ? (
         <h3>{t('loading')}</h3>
@@ -80,7 +97,7 @@ export default function DrinkDetails() {
                 <FaGlassMartini style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} /> {drink.title}
             </h4>
             <div className="page-content">
-                {/* <pre>{JSON.stringify(recipe)}</pre> */}
+                {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}
                 <p>{drink.description}</p>
                 <p>
                     {t('created')}: {getJsonAsDateTimeString(drink.created, i18n.language)}<br />
@@ -89,6 +106,14 @@ export default function DrinkDetails() {
                     {t('category')}: {drink.category}
                 </p>
                 {showEditDrink && <AddDrink onAddDrink={addDrink} drinkID={params.id} />}
+                <h4>{t('drinkhistory_title')}</h4>
+                {
+                    drinkHistory != null && drinkHistory.length > 0 ? (
+                        <DrinkHistories drinkHistories={drinkHistory} />
+                    ) : (
+                        t('no_drink_history')
+                    )
+                }
             </div>
         </div>
     )

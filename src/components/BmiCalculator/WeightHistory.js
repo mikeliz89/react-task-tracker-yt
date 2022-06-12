@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useEffect, useState } from 'react'
 import { db } from '../../firebase-config';
 import { ref, onValue } from "firebase/database";
-import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils'
+import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import i18n from "i18next";
 
 const WeightHistory = () => {
