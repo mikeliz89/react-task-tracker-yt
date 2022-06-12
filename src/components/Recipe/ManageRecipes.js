@@ -122,58 +122,60 @@ const ManageRecipes = () => {
         </ButtonGroup>
       </Row>
       <h3 className="page-title">{t('manage_recipes_title')}</h3>
-      <Form className='form-no-paddings'>
-        <Form.Group as={Row}>
-          <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
-          <Col xs={9} sm={10}>
-            <Button onClick={() => {
-              setSortByTextAsc(!sortByTextAsc);
-              if (!sortingIsOn) {
-                setSortingIsOn(true);
+      <div className="page-content">
+        {error && <div className="error">{error}</div>}
+        {message &&
+          <Alert show={showMessage} variant='success' className="success">
+            {message}
+            <div className='d-flex justify-content-end'>
+              <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
+            </div>
+          </Alert>}
+        {showAddRecipe && <AddRecipe onAddRecipe={addRecipe} />}
+        <Form className='form-no-paddings'>
+          <Form.Group as={Row}>
+            <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
+            <Col xs={9} sm={10}>
+              <Button onClick={() => {
+                setSortByTextAsc(!sortByTextAsc);
+                if (!sortingIsOn) {
+                  setSortingIsOn(true);
+                }
+              }}
+                text={t('name')} type="button" />
+              {
+                sortByTextAsc ? <FaArrowDown /> : <FaArrowUp />
               }
-            }}
-              text={t('name')} type="button" />
-            {
-              sortByTextAsc ? <FaArrowDown /> : <FaArrowUp />
-            }
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
-          <Col xs={9} sm={10}>
-            <Form.Control
-              type="text"
-              id="inputSearchString"
-              aria-describedby="searchHelpBlock"
-              onChange={(e) => setSearchString(e.target.value)}
-            />
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row} controlId="formHorizontalCheck">
-          <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-          <Col xs={9} sm={10}>
-            <Form.Check label={t('core_only')} onChange={(e) => setShowOnlyCoreRecipes(e.currentTarget.checked)} />
-          </Col>
-        </Form.Group>
-      </Form>
-      {error && <div className="error">{error}</div>}
-      {message &&
-        <Alert show={showMessage} variant='success' className="success">
-          {message}
-          <div className='d-flex justify-content-end'>
-            <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
-          </div>
-        </Alert>}
-      {showAddRecipe && <AddRecipe onAddRecipe={addRecipe} />}
-      {
-        recipes != null && recipes.length > 0 ? (
-          <Recipes recipes={recipes}
-            onDelete={deleteRecipe} />
-        ) : (
-          t('no_recipes_to_show')
-        )
-      }
-      {/* { <pre>{JSON.stringify(recipes)}</pre> } */}
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
+            <Col xs={9} sm={10}>
+              <Form.Control
+                type="text"
+                id="inputSearchString"
+                aria-describedby="searchHelpBlock"
+                onChange={(e) => setSearchString(e.target.value)}
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} controlId="formHorizontalCheck">
+            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+            <Col xs={9} sm={10}>
+              <Form.Check label={t('core_only')} onChange={(e) => setShowOnlyCoreRecipes(e.currentTarget.checked)} />
+            </Col>
+          </Form.Group>
+        </Form>
+        {
+          recipes != null && recipes.length > 0 ? (
+            <Recipes recipes={recipes}
+              onDelete={deleteRecipe} />
+          ) : (
+            t('no_recipes_to_show')
+          )
+        }
+        {/* { <pre>{JSON.stringify(recipes)}</pre> } */}
+      </div>
     </div>
   )
 }
