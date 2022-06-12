@@ -47,6 +47,12 @@
         "weighthistory": "Painohistoria",
         "your_bmi_is": "Painoindeksisi on"
     },
+    "comments": {
+        "add_comment": "Kommentoi",
+        "header": "Kommentit",
+        "no_comments": "Ei kommentteja",
+        "text": "Teksti"
+    },
     "common": {
         "buttons": {
             "go_back": "Takaisin"

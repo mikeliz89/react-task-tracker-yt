@@ -1,54 +1,52 @@
+//react
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { ButtonGroup, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+//Buttons
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
+//Firebase
 import { db } from '../../firebase-config';
-import { ref, onValue, update } from "firebase/database";
-import AddTask from './AddTask'
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils'
-import { useTranslation } from 'react-i18next';
+import { ref, onValue, update, push, child } from "firebase/database";
+//task
+import AddTask from './AddTask';
+//comment
+import AddComment from '../Comments/AddComment';
+import Comments from '../Comments/Comments';
+//utils
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+//i18n
 import i18n from "i18next";
-import { ButtonGroup } from 'react-bootstrap'
+//auth
+import { useAuth } from '../../contexts/AuthContext';
 
 function TaskDetails() {
 
+  //translation
   const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
-  //const taskUrl = 'http://localhost:5000/tasks'
+  //states
+  const [showEditTask, setShowEditTask] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [task, setTask] = useState({});
 
-  const [showEditTask, setShowEditTask] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [task, setTask] = useState({})
-
+  //params
   const params = useParams();
+
+  //navigate
   const navigate = useNavigate();
+
+  //auth
+  const { currentUser } = useAuth();
 
   //load data
   useEffect(() => {
     const getTask = async () => {
-
       await fetchTaskFromFirebase();
-
-      /*
-      const taskFromServer = await fetchTaskFromJsonServer()
-      setTask(taskFromServer)
-      setLoading(false)
-      */
     }
-
-    getTask()
-  }, [])
-
-  /*
-  const fetchTaskFromJsonServer = async () => {
-      const res = await fetch(`${taskUrl}/${params.id}`)
-      const data = await res.json()
-      if(res.status === 404) {
-          navigate(-1)
-      }
-      return data
-  }
-  */
+    getTask();
+  }, []);
 
   /** Fetch Task From Firebase */
   const fetchTaskFromFirebase = async () => {
@@ -65,7 +63,7 @@ function TaskDetails() {
 
   /** Add Task To Firebase */
   const addTask = async (taskListID, task) => {
-    var taskID = params.id;
+    let taskID = params.id;
     //save edited task to firebase
     const updates = {};
     task["modified"] = getCurrentDateAsJson()
@@ -73,26 +71,40 @@ function TaskDetails() {
     update(ref(db), updates);
   }
 
+  const addCommentToTask = async (comment) => {
+    let taskID = params.id;
+    comment["created"] = getCurrentDateAsJson()
+    comment["createdBy"] = currentUser.email;
+    const dbref = child(ref(db, '/task-comments'), taskID);
+    push(dbref, comment);
+  }
+
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
     <div>
-      <ButtonGroup aria-label="Button group">
-        <GoBackButton />
-        <Button
-          text={showEditTask ? t('button_close') : t('button_edit')}
-          color={showEditTask ? 'red' : 'orange'}
-          onClick={() => setShowEditTask(!showEditTask)} />
-      </ButtonGroup>
+      <Row>
+        <ButtonGroup aria-label="Button group">
+          <GoBackButton />
+          <Button
+            text={showEditTask ? t('button_close') : t('button_edit')}
+            color={showEditTask ? 'red' : 'orange'}
+            onClick={() => setShowEditTask(!showEditTask)} />
+        </ButtonGroup>
+      </Row>
       <div className={task.reminder === true ? 'task reminder' : ''}>
         <h4 className="page-title">{task.text}</h4>
         <p>{t('day_and_time')}: {task.day}</p>
         {showEditTask && <AddTask onAddTask={addTask} taskID={params.id} taskListID={params.tasklistid} />}
-        <p>{t('created')}: {getJsonAsDateTimeString(task.created, i18n.language)}<br />
+        <p>
+          {t('created')}: {getJsonAsDateTimeString(task.created, i18n.language)}<br />
           {t('created_by')}: {task.createdBy}<br />
-          {t('modified')}: {getJsonAsDateTimeString(task.modified, i18n.language)}</p>
+          {t('modified')}: {getJsonAsDateTimeString(task.modified, i18n.language)}
+        </p>
         <p>{t('set_reminder')}: {task.reminder === true ? t('yes') : t('no')}</p>
       </div>
+      <AddComment onSave={addCommentToTask} />
+      <Comments objID={params.id} url={'task-comments'} />
     </div>
   );
 };

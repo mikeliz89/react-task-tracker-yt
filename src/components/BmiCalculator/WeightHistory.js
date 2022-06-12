@@ -1,11 +1,17 @@
+//buttons
 import GoBackButton from '../GoBackButton';
+//react
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../contexts/AuthContext';
 import { useEffect, useState } from 'react'
+//firebase
 import { db } from '../../firebase-config';
 import { ref, onValue } from "firebase/database";
+//utils
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+//i18n
 import i18n from "i18next";
+//auth
+import { useAuth } from '../../contexts/AuthContext';
 
 const WeightHistory = () => {
 
