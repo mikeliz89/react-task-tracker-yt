@@ -10,6 +10,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import AddRecipe from './AddRecipe';
 import Recipes from './Recipes';
 import Button from '../Button';
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 
 const ManageRecipes = () => {
 
@@ -22,7 +23,8 @@ const ManageRecipes = () => {
   const [originalRecipes, setOriginalRecipes] = useState();
   const [searchString, setSearchString] = useState('');
   //sorting
-  const [sortByTextAsc, setSortByTextAsc] = useState(true)
+  const [sortingIsOn, setSortingIsOn] = useState(false);
+  const [sortByTextAsc, setSortByTextAsc] = useState(true);
   //searching
   const [showOnlyCoreRecipes, setShowOnlyCoreRecipes] = useState(false);
   //translation
@@ -40,7 +42,7 @@ const ManageRecipes = () => {
       }
       await fetchRecipesFromFirebase()
     }
-    getRecipes()
+    getRecipes();
 
     return () => {
       cancel = true;
@@ -49,24 +51,20 @@ const ManageRecipes = () => {
 
   /* kuuntele searchStringin muutoksia, jos niitä tulee, filtteröi */
   useEffect(() => {
-    filterRecipesByTitle();
-  }, [searchString]);
-
-  useEffect(() => {
-    filterRecipesByShowCoreRecipesOnly();
-  }, [showOnlyCoreRecipes]);
+    filterAndSort();
+  }, [searchString, showOnlyCoreRecipes, sortByTextAsc]);
 
   /** Fetch Recipes From Firebase */
   const fetchRecipesFromFirebase = async () => {
     const dbref = await ref(db, '/recipes');
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
-      const recipesFromDB = [];
+      const fromDB = [];
       for (let id in snap) {
-        recipesFromDB.push({ id, ...snap[id] });
+        fromDB.push({ id, ...snap[id] });
       }
-      setRecipes(recipesFromDB);
-      setOriginalRecipes(recipesFromDB);
+      setRecipes(fromDB);
+      setOriginalRecipes(fromDB);
     })
   }
 
@@ -90,37 +88,26 @@ const ManageRecipes = () => {
     remove(dbref)
   }
 
-  const toggleSortText = (recipes) => {
-
-    let sortedRecipes = recipes.sort((a, b) => a.title.localeCompare(b.title));
-
-    if (sortByTextAsc) {
-      sortedRecipes = sortedRecipes.reverse();
-    }
-
-    setRecipes(sortedRecipes);
-
-    //Toggle sorting
-    const sortByText = !sortByTextAsc;
-    setSortByTextAsc(sortByText);
-  }
-
-  const filterRecipesByTitle = () => {
-    if (searchString === "") {
-      setRecipes(originalRecipes);
+  const filterAndSort = () => {
+    if (!originalRecipes) {
       return;
     }
-    let filtered = originalRecipes.filter(recipe => recipe.title.toLowerCase().includes(searchString.toLowerCase()));
-    setRecipes(filtered);
-  }
-
-  const filterRecipesByShowCoreRecipesOnly = () => {
-    if (!showOnlyCoreRecipes) {
-      setRecipes(originalRecipes);
-      return;
+    let newRecipes = originalRecipes;
+    if (searchString !== "") {
+      newRecipes = newRecipes.filter(recipe => recipe.title.toLowerCase().includes(searchString.toLowerCase()));
     }
-    let filtered = originalRecipes.filter(recipe => recipe.isCore === true);
-    setRecipes(filtered);
+    if (showOnlyCoreRecipes) {
+      newRecipes = newRecipes.filter(recipe => recipe.isCore === true);
+    }
+    if (sortingIsOn) {
+      newRecipes = [...newRecipes].sort((a, b) => { 
+        return a.title > b.title ? 1 : -1
+       });
+      if (sortByTextAsc) {
+        newRecipes.reverse();
+      }
+    }
+    setRecipes(newRecipes);
   }
 
   return (
@@ -139,7 +126,16 @@ const ManageRecipes = () => {
         <Form.Group as={Row}>
           <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
           <Col xs={9} sm={10}>
-            <Button onClick={() => toggleSortText(recipes)} text={t('name')} type="button" />
+            <Button onClick={() => {
+              setSortByTextAsc(!sortByTextAsc);
+              if (!sortingIsOn) {
+                setSortingIsOn(true);
+              }
+            }}
+              text={t('name')} type="button" />
+            {
+              sortByTextAsc ? <FaArrowDown /> : <FaArrowUp />
+            }
           </Col>
         </Form.Group>
         <Form.Group as={Row}>
