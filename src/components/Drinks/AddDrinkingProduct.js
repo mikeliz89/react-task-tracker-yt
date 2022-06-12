@@ -54,6 +54,26 @@ const categories = [
       //limsa
       "id": 9,
       "name": "lemonade"
+   },
+   {
+      //konjakki
+      "id": 10,
+      "name": "cognac"
+   },
+   {
+      //brandy
+      "id": 11,
+      "name": "brandy"
+   },
+   {
+      //rommi
+      "id": 12,
+      "name": "rum"
+   },
+   {
+      //katkero
+      "id": 13,
+      "name": "bitters"
    }
 ]
 
