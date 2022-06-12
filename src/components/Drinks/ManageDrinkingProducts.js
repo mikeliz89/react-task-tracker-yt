@@ -50,6 +50,9 @@ const ManageDrinkingProducts = () => {
 
     const addDrinkingProduct = (drinkingProduct) => {
         try {
+            if(drinkingProduct["category"] === t('category_none')) {
+                drinkingProduct["category"] = '';
+            }
             drinkingProduct["created"] = getCurrentDateAsJson();
             drinkingProduct["createdBy"] = currentUser.email;
             const dbref = ref(db, '/drinkingproducts');
