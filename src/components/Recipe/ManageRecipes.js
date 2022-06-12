@@ -49,7 +49,7 @@ const ManageRecipes = () => {
     }
   }, [])
 
-  /* kuuntele searchStringin muutoksia, jos niitä tulee, filtteröi */
+  /* kuuntele muutoksia, jos niitä tulee, filtteröi ja sorttaa */
   useEffect(() => {
     filterAndSort();
   }, [searchString, showOnlyCoreRecipes, sortByTextAsc]);

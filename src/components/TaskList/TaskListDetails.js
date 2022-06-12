@@ -8,11 +8,17 @@ import { useAuth } from '../../contexts/AuthContext'
 import { db } from '../../firebase-config';
 import { update, ref, onValue, push, child, remove, get } from "firebase/database";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { FaListAlt } from 'react-icons/fa'
+import { FaListAlt, FaArrowDown, FaArrowUp } from 'react-icons/fa'
 import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
 import { Col, Row, ButtonGroup, Accordion, Table, Form } from 'react-bootstrap'
 import i18n from "i18next";
+
+const SortMode = {
+  None: "None",
+  Text: "Text",
+  Created: "Created"
+}
 
 function TaskListDetails() {
 
@@ -30,8 +36,9 @@ function TaskListDetails() {
   const [originalTasks, setOriginalTasks] = useState()
   const [searchString, setSearchString] = useState('');
   //sorting
-  const [sortByTextAsc, setSortByTextAsc] = useState(true)
-  const [sortByTaskReady, setSortByTaskReady] = useState(true)
+  const [sortBy, setSortBy] = useState(SortMode.None)
+  const [sortByText, setSortByText] = useState(true)
+  const [showOnlyTaskReady, setShowOnlyTaskReady] = useState(false)
   //counters
   const [taskCounter, setTaskCounter] = useState(0)
   const [taskReadyCounter, setTaskReadyCounter] = useState(0)
@@ -39,32 +46,21 @@ function TaskListDetails() {
   const params = useParams();
   const navigate = useNavigate()
   const { currentUser } = useAuth()
-  //const { pathname } = useLocation()
 
   //load data
   useEffect(() => {
-    //https://dev.to/jexperton/how-to-fix-the-react-memory-leak-warning-d4i
     let cancel = false;
 
     //Task List
     const getTaskList = async () => {
       if (cancel) return;
       await fetchTaskListFromFirebase()
-      /*
-      const taskListFromServer = await fetchTaskListFromJsonServer()
-      setTaskList(taskListFromServer)
-      setLoading(false)
-      */
     }
     getTaskList()
 
     //Tasks
     const getTasks = async () => {
       await fetchTasksFromFirebase()
-      /*
-      const tasksFromServer = await fetchTasksFromJsonServer()
-      setTasks(tasksFromServer)
-      */
     }
     getTasks()
 
@@ -73,22 +69,10 @@ function TaskListDetails() {
     }
   }, [])
 
-  /* kuuntele searchStringin muutoksia, jos niitä tulee, filtteröi */
+  /* kuuntele muutoksia, jos niitä tulee, filtteröi ja sorttaa */
   useEffect(() => {
-    filterTasks();
-  }, [searchString]);
-
-  //Fetch Task List
-  /*
-  const fetchTaskListFromJsonServer = async () => {
-    const res = await fetch(`${taskListUrl}/${params.id}`)
-    const data = await res.json()
-    if(res.status === 404) {
-        navigate('/managetasklists')
-    }
-    return data
-  }
-  */
+    filterAndSort();
+  }, [searchString, sortByText, showOnlyTaskReady]);
 
   /** Fetch Task List From Firebase */
   const fetchTaskListFromFirebase = async () => {
@@ -103,21 +87,12 @@ function TaskListDetails() {
     })
   }
 
-  //Fetch Tasks
-  /* 
-  const fetchTasksFromJsonServer = async () => {
-      const res = await fetch(taskUrl)
-      const data = await res.json()
-      return data
-  }
-  */
-
   /** Fetch Tasks From Firebase */
   const fetchTasksFromFirebase = async () => {
     const dbref = await child(ref(db, '/tasks'), params.id);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
-      const tasks = [];
+      const fromDB = [];
       let taskCounterTemp = 0;
       let taskReadyCounterTemp = 0;
       for (let id in snap) {
@@ -125,40 +100,17 @@ function TaskListDetails() {
         if (snap[id]["reminder"] === true) {
           taskReadyCounterTemp++;
         }
-        tasks.push({ id, ...snap[id] });
+        fromDB.push({ id, ...snap[id] });
       }
-      setTasks(tasks);
-      setOriginalTasks(tasks);
+      setTasks(fromDB);
+      setOriginalTasks(fromDB);
       setTaskCounter(taskCounterTemp);
       setTaskReadyCounter(taskReadyCounterTemp);
     })
   }
 
-  //Fetch Task
-  /*
-  const fetchTaskFromJsonServer = async (id) => {
-    const res = await fetch(`${taskUrl}/${id}`)
-    const data = await res.json()
-    return data
-  }
-  */
-
   /** Add Task To FireBase */
   const addTask = async (taskListID, task) => {
-    //To json server
-    /*
-    const res = await fetch(taskUrl,
-    {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(task)
-    })
-    const data = await res.json()
-    setTasks([...tasks, task])
-    */
-
     //To firebase
     task["created"] = getCurrentDateAsJson()
     task["createdBy"] = currentUser.email;
@@ -168,16 +120,6 @@ function TaskListDetails() {
 
   /** Delete Task From Firebase */
   const deleteTask = async (taskListID, id) => {
-
-    //delete from json server
-    /*
-    await fetch(`${taskUrl}/${id}`,
-      {
-        method: 'DELETE'
-      });
-    setTasks(tasks.filter((task) => task.id !== id))
-    */
-
     //delete from firebase
     const dbref = ref(db, '/tasks/' + taskListID + "/" + id)
     remove(dbref)
@@ -185,29 +127,6 @@ function TaskListDetails() {
 
   /** Toggle Reminder Of A Task At Firebase */
   const toggleReminder = async (taskListID, id) => {
-
-    //to json server
-    /*
-    const taskToToggle = await fetchTaskFromJsonServer(id)
-    const updatedTask = {...taskToToggle, reminder: !taskToToggle.reminder}
-
-    const res = await fetch(`${taskUrl}/${id}`,
-        {
-        method: 'PUT',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(updatedTask)
-        })
-
-    const data = await res.json()
-    setTasks(
-        tasks.map((task) => 
-        task.id == id ? { ...task, reminder: data.reminder}: task
-        )
-    );
-    */
-
     //to firebase
     const dbref = ref(db, '/tasks/' + taskListID + '/' + id);
     get(dbref).then((snapshot) => {
@@ -269,44 +188,26 @@ function TaskListDetails() {
     });
   }
 
-
-  const toggleSortText = (tasks) => {
-
-    let sortedTasks = tasks.sort((a, b) => a.text.localeCompare(b.text));
-
-    if (sortByTextAsc) {
-      sortedTasks = sortedTasks.reverse();
-    }
-
-    setTasks(sortedTasks);
-
-    //Toggle sorting
-    const sortByText = !sortByTextAsc;
-    setSortByTextAsc(sortByText);
-  }
-
-  const toggleSortReminder = (tasks) => {
-
-    let sortedTasks = tasks.sort((a, b) => b.reminder - a.reminder);
-
-    if (sortByTaskReady) {
-      sortedTasks = sortedTasks.reverse();
-    }
-
-    setTasks(sortedTasks);
-
-    //Toggle sorting
-    const _sortByTaskReady = !sortByTaskReady;
-    setSortByTaskReady(_sortByTaskReady);
-  }
-
-  const filterTasks = () => {
-    if (searchString === "") {
-      setTasks(originalTasks);
+  const filterAndSort = () => {
+    if (!originalTasks) {
       return;
     }
-    let filteredTasks = originalTasks.filter(task => task.text.toLowerCase().includes(searchString.toLowerCase()));
-    setTasks(filteredTasks);
+    let newTasks = originalTasks;
+    if (searchString !== "") {
+      newTasks = newTasks.filter(task => task.text.toLowerCase().includes(searchString.toLowerCase()));
+    }
+    if (showOnlyTaskReady) {
+      newTasks = newTasks.filter(task => task.reminder === true);
+    }
+    if (sortBy === SortMode.Text) {
+      newTasks = [...newTasks].sort((a, b) => {
+        return a.text > b.text ? 1 : -1
+      });
+      if (sortByText) {
+        newTasks.reverse();
+      }
+    }
+    setTasks(newTasks);
   }
 
   return loading ? (
@@ -371,8 +272,16 @@ function TaskListDetails() {
           <Form.Group as={Row}>
             <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
             <Col xs={9} sm={10}>
-              <Button onClick={() => toggleSortText(tasks)} text={t('name')} />&nbsp;
-              <Button onClick={() => toggleSortReminder(tasks)} text={t('task_ready')} />
+              <Button onClick={() => {
+                setSortBy(SortMode.Text);
+                setSortByText(!sortByText);
+              }
+              }
+                text={t('name')} type="button"
+              />
+              {
+                sortBy === SortMode.Text ? sortByText ? <FaArrowDown /> : <FaArrowUp /> : ''
+              }
             </Col>
           </Form.Group>
           <Form.Group as={Row}>
@@ -384,6 +293,15 @@ function TaskListDetails() {
                 aria-describedby="searchHelpBlock"
                 onChange={(e) => setSearchString(e.target.value)}
               />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} controlId="formHorizontalCheck">
+            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+            <Col xs={9} sm={10}>
+              <Form.Check label={t('task_ready')}
+                onChange={(e) => {
+                  setShowOnlyTaskReady(e.currentTarget.checked);
+                }} />
             </Col>
           </Form.Group>
         </Form>
