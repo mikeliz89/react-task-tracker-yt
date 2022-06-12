@@ -1,8 +1,11 @@
+//react
 import { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
+//auth
+import { useAuth } from '../../contexts/AuthContext';
+//buttons
 import Button from '../../components/Button';
 
 export default function ForgotPassword() {

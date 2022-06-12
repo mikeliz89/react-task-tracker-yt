@@ -103,12 +103,13 @@ footer {
 
 /** Recipe Start */
 
-.recipe {
+.recipe,
+.drink {
   background: #faf1db;
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
-   /* 2.6.2022 lisätty borderit */
+  /* 2.6.2022 lisätty borderit */
   border: 1px solid #e3e3e3;
 }
 
@@ -116,12 +117,14 @@ footer {
   border-left: 5px solid green;
 }
 
-.recipe p {
+.recipe p,
+.drink p {
   font-family: 'Poppins', sans-serif;
   margin-bottom: 0.5em;
 }
 
-.recipe .inner {
+.recipe .inner,
+.drink .inner {
   justify-content: space-between;
   align-items: center;
   display: flex;
@@ -150,8 +153,8 @@ form {
 }
 
 .form-no-paddings {
-  padding:0;
-  margin:0;
+  padding: 0;
+  margin: 0;
 }
 
 .form-bordered {
@@ -244,8 +247,9 @@ form {
 .accordion-header .accordion-button {
   padding: 0rem 1rem;
 }
+
 .accordion-item .accordion-body {
   padding: 0.5em 1rem 0rem 1rem;
 }
-/* React-Bootstrap changes End */
 
+/* React-Bootstrap changes End */

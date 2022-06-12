@@ -1,20 +1,25 @@
+//react
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { db } from '../../firebase-config';
-import { ref, onValue, update } from "firebase/database";
-import GoBackButton from '../GoBackButton';
 import { Row, ButtonGroup } from 'react-bootstrap';
+import { FaUtensils } from 'react-icons/fa';
+//firebase
+import { db } from '../../firebase-config';
+import { push, child, remove, ref, onValue, update } from "firebase/database";
+//Buttons
+import GoBackButton from '../GoBackButton';
+import Button from '../../components/Button';
+//Recipe
 import AddIncredient from './AddIncredient';
 import AddWorkPhase from './AddWorkPhase';
-import { push, child, remove } from "firebase/database";
-import Button from '../../components/Button'
 import Incredients from './Incredients';
 import WorkPhases from './WorkPhases';
 import AddRecipe from './AddRecipe';
+//i18n
 import i18n from "i18next";
+//utils
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { FaUtensils } from 'react-icons/fa';
 
 export default function RecipeDetails() {
 

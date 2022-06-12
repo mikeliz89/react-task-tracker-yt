@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
 //buttons
-import Button from '../../components/Button';
+import Button from '../../components/Button'
 
-export default function EditIncredient({ recipeID, incredientID, onEditIncredient, onCloseEditIncredient }) {
+export default function EditIncredient({ drinkID, incredientID, onEditIncredient, onCloseEditIncredient }) {
 
-    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
     //states
     const [name, setName] = useState('')
@@ -18,18 +18,17 @@ export default function EditIncredient({ recipeID, incredientID, onEditIncredien
     const [unit, setUnit] = useState('')
 
     useEffect(() => {
-
-        if (recipeID != null) {
+        if (drinkID != null) {
             const getIncredient = async () => {
-                await fetchIncredientFromFirebase(recipeID)
+                await fetchIncredientFromFirebase(drinkID)
             }
             getIncredient()
         }
-    }, [recipeID]);
+    }, [drinkID]);
 
-    /** Fetch Incredient From Firebase By RecipeID */
-    const fetchIncredientFromFirebase = async (recipeID) => {
-        const dbref = ref(db, '/incredients/' + recipeID + "/" + incredientID);
+    /** Fetch Incredient From Firebase By drinkID */
+    const fetchIncredientFromFirebase = async (drinkID) => {
+        const dbref = ref(db, '/drink-incredients/' + drinkID + "/" + incredientID);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

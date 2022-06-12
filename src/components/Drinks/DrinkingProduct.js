@@ -1,8 +1,9 @@
+//react
 import { FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const DrinkIncredient = ({ drinkIncredient, onDelete }) => {
+const DrinkingProduct = ({ drinkingProduct, onDelete }) => {
 
     //states
     const [error, setError] = useState(false);
@@ -12,18 +13,18 @@ const DrinkIncredient = ({ drinkIncredient, onDelete }) => {
 
     return (
 
-        <div key={drinkIncredient.id} className='recipe'>
+        <div key={drinkingProduct.id} className='recipe'>
             <h5>
                 <span>
-                    {drinkIncredient.name}
+                    {drinkingProduct.name}
                 </span>
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
-                    onClick={() => { if (window.confirm(t('delete_incredient_confirm_message'))) { onDelete(drinkIncredient.id); } }} />
+                    onClick={() => { if (window.confirm(t('delete_drinkingproduct_confirm_message'))) { onDelete(drinkingProduct.id); } }} />
             </h5>
             {error && <div className="error">{error}</div>}
-            <p>{t('incredient_manufacturer')}: {drinkIncredient.manufacturer}</p>
-            <p>{t('incredient_description')}: {drinkIncredient.description}</p>
-            <p>{t('category')}: {drinkIncredient.category}</p>
+            <p>{t('drinkingproduct_manufacturer')}: {drinkingProduct.manufacturer}</p>
+            <p>{t('drinkingproduct_description')}: {drinkingProduct.description}</p>
+            <p>{t('drinkingproduct_category')}: {drinkingProduct.category}</p>
             <p>
                 {/* <Link className='btn btn-primary' to={`/recipe/${recipe.id}`}>{t('view_details')}</Link> */}
             </p>
@@ -31,4 +32,4 @@ const DrinkIncredient = ({ drinkIncredient, onDelete }) => {
     )
 }
 
-export default DrinkIncredient
+export default DrinkingProduct

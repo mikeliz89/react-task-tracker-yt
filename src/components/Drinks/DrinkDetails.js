@@ -1,26 +1,36 @@
+//react
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { db } from '../../firebase-config';
-import { ref, child, onValue, update } from "firebase/database";
 import { Row, ButtonGroup } from 'react-bootstrap';
+import { FaGlassMartini } from 'react-icons/fa';
+//firebase
+import { db } from '../../firebase-config';
+import { push, ref, child, onValue, update, remove } from "firebase/database";
+//buttons
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
+//i18n
 import i18n from "i18next";
-import { FaGlassMartini } from 'react-icons/fa';
+//utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+//Drinks
 import AddDrink from './AddDrink';
+import AddIncredient from './AddIncredient';
 import DrinkHistories from './DrinkHistories';
+import Incredients from './Incredients';
+import EditIncredient from './EditIncredient';
 
 export default function DrinkDetails() {
 
     //states
-    const [loading, setLoading] = useState(true)
-    const [drink, setDrink] = useState({})
-    const [drinkHistory, setDrinkHistory] = useState({})
-    const [showAddIncredient, setShowAddIncredient] = useState(false)
-    const [showAddWorkPhase, setShowAddWorkPhase] = useState(false)
-    const [showEditDrink, setShowEditDrink] = useState(false)
+    const [loading, setLoading] = useState(true);
+    const [drink, setDrink] = useState({});
+    const [drinkHistory, setDrinkHistory] = useState({});
+    const [showAddIncredient, setShowAddIncredient] = useState(false);
+    const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
+    const [showEditDrink, setShowEditDrink] = useState(false);
+    const [incredients, setIncredients] = useState({});
 
     //other
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
@@ -33,7 +43,10 @@ export default function DrinkDetails() {
             await fetchDrinkFromFirebase();
         }
         getDrink()
-
+        const getIncredients = async () => {
+            await fetchIncredientsFromFirebase()
+        }
+        getIncredients()
         const getDrinkHistory = async () => {
             await fetchDrinkHistoryFromFirebase();
         }
@@ -75,6 +88,31 @@ export default function DrinkDetails() {
         update(ref(db), updates);
     }
 
+    /** Fetch Incredients From Firebase */
+    const fetchIncredientsFromFirebase = async () => {
+        const dbref = await child(ref(db, '/drink-incredients'), params.id);
+        onValue(dbref, (snapshot) => {
+            const snap = snapshot.val();
+            const incredients = [];
+            for (let id in snap) {
+                incredients.push({ id, ...snap[id] });
+            }
+            setIncredients(incredients);
+        })
+    }
+
+    /** Delete Incredient From Firebase */
+    const deleteIncredient = async (drinkID, id) => {
+        const dbref = ref(db, '/drink-incredients/' + drinkID + "/" + id)
+        remove(dbref)
+    }
+
+    /** Add Incredient To Firebase */
+    const addIncredient = async (drinkID, incredient) => {
+        const dbref = child(ref(db, '/drink-incredients'), drinkID);
+        push(dbref, incredient);
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -103,9 +141,21 @@ export default function DrinkDetails() {
                     {t('created')}: {getJsonAsDateTimeString(drink.created, i18n.language)}<br />
                     {t('created_by')}: {drink.createdBy}<br />
                     {t('modified')}: {getJsonAsDateTimeString(drink.modified, i18n.language)}<br />
-                    {t('category')}: {drink.category}
+                    {t('category')}: {drink.category}<br />
+                    {t('glass')}: {drink.glass}
                 </p>
                 {showEditDrink && <AddDrink onAddDrink={addDrink} drinkID={params.id} />}
+                {showAddIncredient && <AddIncredient drinkID={params.id} onAddIncredient={addIncredient} />}
+                {incredients != null}
+                {incredients != null && incredients.length > 0 ? (
+                    <Incredients
+                        drinkID={params.id}
+                        incredients={incredients}
+                        onDelete={deleteIncredient}
+                    />
+                ) : (
+                    <p> {t('no_incredients_to_show')} </p>
+                )}
                 <h4>{t('drinkhistory_title')}</h4>
                 {
                     drinkHistory != null && drinkHistory.length > 0 ? (

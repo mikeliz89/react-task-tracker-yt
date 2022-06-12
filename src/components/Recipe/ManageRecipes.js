@@ -1,16 +1,22 @@
-import GoBackButton from '../GoBackButton';
-import RecipeButton from './RecipeButton';
+//react
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Row, Alert, Form, Col } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { db } from '../../firebase-config';
-import { ref, push, onValue, remove } from "firebase/database";
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { useAuth } from '../../contexts/AuthContext';
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
+//buttons
+import GoBackButton from '../GoBackButton';
+import Button from '../Button';
+//recipe
+import RecipeButton from './RecipeButton';
 import AddRecipe from './AddRecipe';
 import Recipes from './Recipes';
-import Button from '../Button';
-import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
+//firebase
+import { db } from '../../firebase-config';
+import { ref, push, onValue, remove } from "firebase/database";
+//utils
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+//auth
+import { useAuth } from '../../contexts/AuthContext';
 
 const ManageRecipes = () => {
 

@@ -1,17 +1,23 @@
-import GoBackButton from '../GoBackButton';
+//react
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
-import Drinks from './Drinks';
-import DrinkButton from './DrinkButton';
 import { Form, Col, Row, ButtonGroup, Alert } from 'react-bootstrap';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+//firebase
 import { ref, push, onValue, remove } from "firebase/database";
 import { db } from '../../firebase-config';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { useAuth } from '../../contexts/AuthContext';
+//drinks
+import Drinks from './Drinks';
+import DrinkButton from './DrinkButton';
 import AddDrink from './AddDrink';
-import { Link } from 'react-router-dom';
+//buttons
+import GoBackButton from '../GoBackButton';
 import Button from '../Button';
+//utils
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+//auth
+import { useAuth } from '../../contexts/AuthContext';
 
 const SortMode = {
     None: "None",
@@ -140,7 +146,7 @@ export default function ManageDrinks() {
             </Row>
             <h3 className="page-title">{t('manage_drinks_title')}</h3>
             <div className="page-content">
-                <Link to="/managedrinkincredients" className='btn btn-primary'>{t('manage_drink_incredients_button')}</Link>
+                <Link to="/managedrinkingproducts" className='btn btn-primary'>{t('manage_drinkingproducts_button')}</Link>
                 {error && <div className="error">{error}</div>}
                 {message &&
                     <Alert show={showMessage} variant='success' className="success">

@@ -1,5 +1,7 @@
-import GoBackButton from '../GoBackButton';
+//react
 import { useTranslation } from 'react-i18next';
+//buttons
+import GoBackButton from '../GoBackButton';
 
 export default function ManageBackPacking() {
 

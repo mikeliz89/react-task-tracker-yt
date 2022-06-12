@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react'
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
+//react
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
-import Button from '../Button'
+//firebase
+import { db } from '../../firebase-config';
+import { ref, get } from "firebase/database";
+//buttons
+import Button from '../Button';
 
 // TODO: Tällä hetkellä vain kovakoodatut drinkki-kategoriat
 const categories = [
@@ -42,6 +45,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
    const [category, setCategory] = useState("");
    const [title, setTitle] = useState('')
    const [description, setDescription] = useState('')
+   const [glass, setGlass] = useState('')
    const [created, setCreated] = useState('')
    const [createdBy, setCreatedBy] = useState('')
 
@@ -64,6 +68,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
             setTitle(val["title"]);
             setDescription(val["description"]);
             setCreated(val["created"]);
+            setGlass(val["glass"]);
             setCreatedBy(val["createdBy"]);
             setCategory(val["category"]);
          }
@@ -80,12 +85,13 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
          return
       }
 
-      onAddDrink({ created, createdBy, title, description, category });
+      onAddDrink({ created, createdBy, title, description, category, glass });
 
       if (drinkID == null) {
          //clear the form
          setTitle('')
          setDescription('')
+         setGlass('')
       }
    }
 
@@ -105,6 +111,13 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
                   placeholder={drinkID == null ? t('description') : t('description')}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="addDrinkFormGlass">
+               <Form.Label>{t('glass')}</Form.Label>
+               <Form.Control type='text'
+                  placeholder={drinkID == null ? t('glass') : t('glass')}
+                  value={glass}
+                  onChange={(e) => setGlass(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addDrinkFormCategory">
                <Form.Label>{t('category')}</Form.Label>

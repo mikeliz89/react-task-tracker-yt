@@ -31,7 +31,7 @@ import ManageMyProfile from './components/MyProfile/ManageMyProfile';
 //Drinks
 import ManageDrinks from './components/Drinks/ManageDrinks'
 import DrinkDetails from './components/Drinks/DrinkDetails';
-import ManageDrinkIncredients from './components/Drinks/ManageDrinkIncredients';
+import ManageDrinkingProducts from './components/Drinks/ManageDrinkingProducts';
 //Backpacking
 import ManageBackPacking from './components/BackPacking/ManageBackPacking'
 //other components
@@ -84,7 +84,7 @@ function App() {
             {/* Recipe */}
             {/* Drinks */}
             <Route path='/managedrinks' element={<PrivateRoute><ManageDrinks /></PrivateRoute>} />
-            <Route path='/managedrinkincredients' element={<PrivateRoute><ManageDrinkIncredients /></PrivateRoute>} />
+            <Route path='/managedrinkingproducts' element={<PrivateRoute><ManageDrinkingProducts /></PrivateRoute>} />
             <Route path='/drink/:id' element={<PrivateRoute><DrinkDetails /></PrivateRoute>} />
             {/*Drinks */}
             <Route path='/managetasklists' element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />

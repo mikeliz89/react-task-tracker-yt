@@ -1,7 +1,9 @@
+//react
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
-import Button from '../../components/Button'
 import { useState } from 'react'
+//buttons
+import Button from '../../components/Button'
 
 export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, recipeID }) {
 

@@ -1,8 +1,11 @@
+//react
 import { useState, useEffect } from 'react'
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
+//firebase
+import { db } from '../../firebase-config';
+import { ref, get } from "firebase/database";
+//buttons
 import Button from '../Button'
 
 // TODO: Tällä hetkellä vain kovakoodatut ruoka-kategoriat

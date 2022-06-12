@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react'
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
+//react
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
-import Button from '../Button'
+//firebase
+import { db } from '../../firebase-config';
+import { ref, get } from "firebase/database";
+//buttons
+import Button from '../Button';
 
 // TODO: Tällä hetkellä vain kovakoodatut tuote-kategoriat
 const categories = [
@@ -26,12 +29,12 @@ const categories = [
       //viini
       "id": 4,
       "name": "wine"
-   }, 
+   },
    {
       //vodka
       "id": 5,
       "name": "vodka"
-   }, 
+   },
    {
       //vermutti
       "id": 6,
@@ -39,9 +42,9 @@ const categories = [
    },
    {
       //triple sec
-      "id": 7, 
+      "id": 7,
       "name": "triplesec"
-   }, 
+   },
    {
       //tequila
       "id": 8,
@@ -54,7 +57,7 @@ const categories = [
    }
 ]
 
-const AddDrinkIncredient = ({ drinkIncredientID, onAddDrinkIncredient }) => {
+const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct }) => {
 
    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
@@ -67,18 +70,17 @@ const AddDrinkIncredient = ({ drinkIncredientID, onAddDrinkIncredient }) => {
    const [createdBy, setCreatedBy] = useState('')
 
    useEffect(() => {
-      if (drinkIncredientID != null) {
-         const getDrinkIncredient = async () => {
-            await fetchDrinkIncredientFromFirebase(drinkIncredientID)
+      if (drinkingProductID != null) {
+         const getDrinkingProduct = async () => {
+            await fetchDrinkingProductFromFirebase(drinkingProductID)
          }
-         getDrinkIncredient()
+         getDrinkingProduct()
       }
-   }, [drinkIncredientID]);
+   }, [drinkingProductID]);
 
    /** get drink incredient from firebase by id (in EDIT drink incredient) */
-   const fetchDrinkIncredientFromFirebase = async (drinkIncredientID) => {
-
-      const dbref = ref(db, '/drinkincredients/' + drinkIncredientID);
+   const fetchDrinkingProductFromFirebase = async (id) => {
+      const dbref = ref(db, '/drinkingproducts/' + id);
       get(dbref).then((snapshot) => {
          if (snapshot.exists()) {
             var val = snapshot.val();
@@ -102,9 +104,9 @@ const AddDrinkIncredient = ({ drinkIncredientID, onAddDrinkIncredient }) => {
          return
       }
 
-      onAddDrinkIncredient({ created, createdBy, name, description, category, manufacturer });
+      onAddDrinkingProduct({ created, createdBy, name, description, category, manufacturer });
 
-      if (drinkIncredientID == null) {
+      if (drinkingProductID == null) {
          //clear the form
          setName('')
          setManufacturer('')
@@ -115,32 +117,32 @@ const AddDrinkIncredient = ({ drinkIncredientID, onAddDrinkIncredient }) => {
    return (
       <>
          <Form onSubmit={onSubmit}>
-            <Form.Group className="mb-3" controlId="addDrinkIncredientFormName">
-               <Form.Label>{t('incredient_name')}</Form.Label>
+            <Form.Group className="mb-3" controlId="addDrinkingProductForm-Name">
+               <Form.Label>{t('drinkingproduct_name')}</Form.Label>
                <Form.Control type='text'
-                  placeholder={drinkIncredientID == null ? t('incredient_name') : t('incredient_name')}
+                  placeholder={t('drinkingproduct_name')}
                   value={name}
                   onChange={(e) => setName(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="addDrinkFormIncredientDescription">
-               <Form.Label>{t('description')}</Form.Label>
+            <Form.Group className="mb-3" controlId="addDrinkingProductForm-Description">
+               <Form.Label>{t('drinkingproduct_description')}</Form.Label>
                <Form.Control type='text'
-                  placeholder={drinkIncredientID == null ? t('description') : t('description')}
+                  placeholder={t('drinkingproduct_description')}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="addDrinkFormIncredientManufacturer">
-               <Form.Label>{t('incredient_manufacturer')}</Form.Label>
+            <Form.Group className="mb-3" controlId="addDrinkingProductForm-Manufacturer">
+               <Form.Label>{t('drinkingproduct_manufacturer')}</Form.Label>
                <Form.Control type='text'
-                  placeholder={drinkIncredientID == null ? t('incredient_manufacturer') : t('incredient_manufacturer')}
+                  placeholder={t('drinkingproduct_manufacturer')}
                   value={manufacturer}
                   onChange={(e) => setManufacturer(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="addDrinkIncredientFormCategory">
-               <Form.Label>{t('category')}</Form.Label>
+            <Form.Group className="mb-3" controlId="addDrinkingProductForm-Category">
+               <Form.Label>{t('drinkingproduct_category')}</Form.Label>
                <Form.Select onChange={(e) => setCategory(e.target.value)}>
                   {categories.map(({ id, name }) => (
-                     <option key={id}>{t(`incredient_category_${name}`)}</option>
+                     <option key={id}>{t(`drinkingproduct_category_${name}`)}</option>
                   ))}
                </Form.Select>
             </Form.Group>
@@ -150,4 +152,4 @@ const AddDrinkIncredient = ({ drinkIncredientID, onAddDrinkIncredient }) => {
    )
 }
 
-export default AddDrinkIncredient
+export default AddDrinkingProduct

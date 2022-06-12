@@ -1,13 +1,18 @@
+//react
 import { useState, useEffect } from 'react';
-import GoBackButton from '../GoBackButton';
 import { ButtonGroup, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Form, Table } from 'react-bootstrap';
-import Button from '../Button';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+//firebase
 import { db } from '../../firebase-config';
 import { ref, push, onValue } from "firebase/database";
+//buttons
+import GoBackButton from '../GoBackButton';
+import Button from '../Button';
+//auth
 import { useAuth } from '../../contexts/AuthContext';
+//utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 
 const BmiCalculator = () => {

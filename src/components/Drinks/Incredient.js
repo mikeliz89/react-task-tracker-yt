@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 //firebase
 import { db } from '../../firebase-config';
+//drinks
 import { update, ref } from "firebase/database";
-//recipe
 import EditIncredient from './EditIncredient';
 
-export const Incredient = ({ incredient, recipeID, onDelete }) => {
+export const Incredient = ({ incredient, drinkID, onDelete }) => {
 
     //states
     const [editable, setEditable] = useState(false);
@@ -16,14 +16,13 @@ export const Incredient = ({ incredient, recipeID, onDelete }) => {
     const editIncredient = (incredient) => {
         //save
         const updates = {};
-        updates[`/incredients/${recipeID}/${incredient.id}`] = incredient;
+        updates[`/drink-incredients/${drinkID}/${incredient.id}`] = incredient;
         update(ref(db), updates);
-
         setEditable(false);
     }
 
     return (
-        <div key={incredient.id} className='recipe'>
+        <div key={incredient.id} className='drink'>
             <Row>
                 <Col xs={9}>
                     <span style={{ fontWeight: 'bold' }}>{incredient.name}</span>
@@ -34,7 +33,7 @@ export const Incredient = ({ incredient, recipeID, onDelete }) => {
                             <FaEdit className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
-                                onClick={() => onDelete(recipeID, incredient.id)} />
+                                onClick={() => onDelete(drinkID, incredient.id)} />
                         </span>
                     }
                 </Col>
@@ -45,7 +44,7 @@ export const Incredient = ({ incredient, recipeID, onDelete }) => {
             {editable &&
                 <EditIncredient
                     incredientID={incredient.id}
-                    recipeID={recipeID}
+                    drinkID={drinkID}
                     onEditIncredient={editIncredient}
                     onCloseEditIncredient={() => setEditable(false)} />
             }

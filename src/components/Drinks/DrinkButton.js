@@ -1,6 +1,8 @@
-import { useLocation } from 'react-router-dom'
-import Button from '../Button'
+//react
+import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+//button
+import Button from '../Button';
 
 export default function DrinkButton({ onShowAddDrink, showAdd }) {
 

@@ -1,9 +1,11 @@
-import Button from '../../components/Button'
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
 import { useTranslation } from 'react-i18next';
+//firebase
+import { ref, get } from "firebase/database";
+import { db } from '../../firebase-config';
+//buttons
+import Button from '../../components/Button'
 
 export default function EditWorkPhase({ recipeID, workPhaseID, onEditWorkPhase, onCloseEditWorkPhase }) {
 

@@ -1,5 +1,7 @@
-import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+//i18n
 import i18n from "i18next";
+//utils
+import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 
 function DrinkHistories({ drinkHistories }) {
     return (

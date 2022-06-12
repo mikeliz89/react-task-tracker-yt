@@ -5,9 +5,9 @@ import { useState } from 'react';
 //buttons
 import Button from '../../components/Button';
 
-export default function AddIncredient({ onAddIncredient, incredientID, recipeID }) {
+export default function AddIncredient({ onAddIncredient, incredientID, drinkID }) {
 
-  const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+  const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
   //states
   const [name, setName] = useState('')
@@ -23,7 +23,7 @@ export default function AddIncredient({ onAddIncredient, incredientID, recipeID 
     }
 
     //call the RecipeDetails.js
-    onAddIncredient(recipeID, { name, unit, amount })
+    onAddIncredient(drinkID, { name, unit, amount })
 
     //clear the form
     if (incredientID == null) {

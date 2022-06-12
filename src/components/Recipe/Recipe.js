@@ -1,14 +1,20 @@
+//react
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import StarRating from '../StarRating';
 import { FaTimes, FaUtensils, FaShoppingCart } from 'react-icons/fa';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { useAuth } from '../../contexts/AuthContext';
-import { ref, push, child, onValue } from "firebase/database";
-import i18n from "i18next";
 import { useState } from 'react'
+//star rating
+import StarRating from '../StarRating';
+//firebase
+import { db } from '../../firebase-config';
+import { ref, push, child, onValue } from "firebase/database";
+//utils
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+//auth
+import { useAuth } from '../../contexts/AuthContext';
+//i18n
+import i18n from "i18next";
 
 const Recipe = ({ recipe, onDelete }) => {
 
