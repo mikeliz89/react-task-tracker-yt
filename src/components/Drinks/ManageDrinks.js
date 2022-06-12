@@ -117,7 +117,7 @@ export default function ManageDrinks() {
                 newDrinks.reverse();
             }
         } else if (sortBy === SortMode.Created_ASC || sortBy === SortMode.Created_DESC) {
-            newDrinks = newDrinks.sort(
+            newDrinks = [...newDrinks].sort(
                 (a, b) => new Date(a.created).setHours(0, 0, 0, 0) - new Date(b.created).setHours(0, 0, 0, 0)
             );
             if (sortBy === SortMode.Created_DESC) {

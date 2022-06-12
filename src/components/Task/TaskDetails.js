@@ -77,7 +77,7 @@ function TaskDetails() {
     <h3>{t('loading')}</h3>
   ) : (
     <div>
-      <ButtonGroup aria-label="Basic example">
+      <ButtonGroup aria-label="Button group">
         <GoBackButton />
         <Button
           text={showEditTask ? t('button_close') : t('button_edit')}

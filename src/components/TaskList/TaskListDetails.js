@@ -218,7 +218,7 @@ function TaskListDetails() {
     <div>
       {/* <pre>{JSON.stringify(taskList)}</pre> */}
       <Row>
-        <ButtonGroup aria-label="Basic example">
+        <ButtonGroup aria-label="Button group">
           <GoBackButton />
           <Button text={showEditTaskList ? t('button_close') : t('button_edit')}
             color={showEditTaskList ? 'red' : 'orange'}
@@ -264,12 +264,10 @@ function TaskListDetails() {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
-
-      {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id} />}
-      {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
-
       {/* <div>{searchString}</div> */}
       <div className="page-content">
+        {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id} />}
+        {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
         <Form className='form-no-paddings'>
           <Form.Group as={Row}>
             <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>

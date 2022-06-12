@@ -112,7 +112,7 @@ export default function ManageTaskLists() {
         newTaskLists.reverse();
       }
     } else if (sortBy === SortMode.Created_ASC || sortBy === SortMode.Created_DESC) {
-      newTaskLists = newTaskLists.sort(
+      newTaskLists = [...newTaskLists].sort(
         (a, b) => new Date(a.created).setHours(0, 0, 0, 0) - new Date(b.created).setHours(0, 0, 0, 0)
       );
       if (sortBy === SortMode.Created_DESC) {
