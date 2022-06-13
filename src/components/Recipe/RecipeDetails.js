@@ -20,6 +20,8 @@ import AddRecipe from './AddRecipe';
 import i18n from "i18next";
 //utils
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+//StarRating
+import SetStarRating from '../StarRating/SetStarRating';
 
 export default function RecipeDetails() {
 
@@ -128,6 +130,16 @@ export default function RecipeDetails() {
         update(ref(db), updates);
     }
 
+    const saveStars = async (stars) => {
+        var recipeID = params.id;
+        //save edited drink to firebase
+        const updates = {};
+        recipe["modified"] = getCurrentDateAsJson()
+        recipe["stars"] = Number(stars);
+        updates[`/recipes/${recipeID}`] = recipe;
+        update(ref(db), updates);
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -148,6 +160,7 @@ export default function RecipeDetails() {
             </Row>
             <h4 className="page-title">
                 <FaUtensils style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} /> {recipe.title}
+                <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
             </h4>
             <div className="page-content">
                 {/* <pre>{JSON.stringify(recipe)}</pre> */}

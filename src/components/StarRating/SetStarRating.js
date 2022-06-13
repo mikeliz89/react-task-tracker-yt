@@ -33,9 +33,8 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
         <div>
             <Row>
                 <Col></Col>
-                <Col></Col>
                 <Col>
-                    <span
+                    <span className='btn btn-primary'
                         onClick={() => setShowStarRating(!showStarRating)}>{t('rate')}</span>
                     {
                         showStarRating ? (
@@ -43,7 +42,6 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
                                 <StarRating starCount={Number(stars)} />
                                 <Form onSubmit={onSubmit}>
                                     <Form.Group className="mb-3" controlId="setStarRatingForm-Rating">
-                                        <Form.Label>{t('stars')}</Form.Label>
                                         <Form.Range min="0" max="5" step="0.1" type='number'
                                             value={stars}
                                             onChange={(e) => setStars(e.target.value)} />
