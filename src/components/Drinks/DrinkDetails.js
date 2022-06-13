@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Row, ButtonGroup } from 'react-bootstrap';
+import { Col, Row, ButtonGroup } from 'react-bootstrap';
 import { FaGlassMartini } from 'react-icons/fa';
 //firebase
 import { db } from '../../firebase-config';
@@ -20,6 +20,8 @@ import AddIncredient from './AddIncredient';
 import DrinkHistories from './DrinkHistories';
 import Incredients from './Incredients';
 import EditIncredient from './EditIncredient';
+//StarRating
+import SetStarRating from '../StarRating/SetStarRating';
 
 export default function DrinkDetails() {
 
@@ -32,9 +34,13 @@ export default function DrinkDetails() {
     const [showEditDrink, setShowEditDrink] = useState(false);
     const [incredients, setIncredients] = useState({});
 
-    //other
+    //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
+
+    //params
     const params = useParams();
+
+    //navigation
     const navigate = useNavigate();
 
     //load data
@@ -113,6 +119,16 @@ export default function DrinkDetails() {
         push(dbref, incredient);
     }
 
+    const saveStars = async (stars) => {
+        var drinkID = params.id;
+        //save edited drink to firebase
+        const updates = {};
+        drink["modified"] = getCurrentDateAsJson()
+        drink["stars"] = Number(stars);
+        updates[`/drinks/${drinkID}`] = drink;
+        update(ref(db), updates);
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -133,6 +149,7 @@ export default function DrinkDetails() {
             </Row>
             <h4 className="page-title">
                 <FaGlassMartini style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} /> {drink.title}
+                <SetStarRating starCount={drink.stars} onSaveStars={saveStars} />
             </h4>
             <div className="page-content">
                 {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}

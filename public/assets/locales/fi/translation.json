@@ -228,6 +228,11 @@
         "workphases_header": "Työvaiheet",
         "yes": "Kyllä"
     },
+    "starrating": {
+        "rate": "Arvioi",
+        "save_rating": "Tallenna arvio",
+        "stars": "Tähdet"
+    },
     "tasklist": {
         "add_description": "Lisää kuvaus",
         "add_task_list": "Listan nimi",

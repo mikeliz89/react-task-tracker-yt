@@ -5,7 +5,7 @@ import { FaTimes, FaUtensils, FaShoppingCart } from 'react-icons/fa';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useState } from 'react'
 //star rating
-import StarRating from '../StarRating';
+import StarRating from '../StarRating/StarRating';
 //firebase
 import { db } from '../../firebase-config';
 import { ref, push, child, onValue } from "firebase/database";

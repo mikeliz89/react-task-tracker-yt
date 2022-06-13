@@ -5,7 +5,7 @@ import { OverlayTrigger, Tooltip, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 //Star rating
-import StarRating from '../StarRating';
+import StarRating from '../StarRating/StarRating';
 //firebase
 import { ref, push, onValue, remove } from "firebase/database";
 import { db } from '../../firebase-config';

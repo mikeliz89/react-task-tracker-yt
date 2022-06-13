@@ -1,4 +1,4 @@
-import StarRating from './StarRating';
+import StarRating from "./StarRating/StarRating"
 
 function Demo() {
   return (
