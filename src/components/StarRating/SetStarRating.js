@@ -32,7 +32,6 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
     return (
         <div>
             <Row>
-                <Col></Col>
                 <Col>
                     <span className='btn btn-primary'
                         onClick={() => setShowStarRating(!showStarRating)}>{t('rate')}</span>
