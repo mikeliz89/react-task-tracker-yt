@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Col, Row, ButtonGroup } from 'react-bootstrap';
+import { Accordion, Table, Row, ButtonGroup } from 'react-bootstrap';
 import { FaGlassMartini } from 'react-icons/fa';
 //firebase
 import { db } from '../../firebase-config';
@@ -136,31 +136,66 @@ export default function DrinkDetails() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Button text={showEditDrink ? t('button_close') : t('button_edit')}
+                    <Button
+                        showIconEdit={true}
+                        text={showEditDrink ? t('button_close') : ''}
                         color={showEditDrink ? 'red' : 'orange'}
                         onClick={() => setShowEditDrink(!showEditDrink)} />
-                    <Button color={showAddIncredient ? 'red' : 'green'}
-                        text={showAddIncredient ? t('button_close') : t('button_add_incredient')}
+                    <Button
+                        showIconAdd={true}
+                        showIconCarrot={true}
+                        color={showAddIncredient ? 'red' : 'green'}
+                        text={showAddIncredient ? t('button_close') : ''}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
-                    <Button color={showAddWorkPhase ? 'red' : 'green'}
-                        text={showAddWorkPhase ? t('button_close') : t('button_add_workphase')}
+                    <Button
+                        showIconAdd={true}
+                        showIconHourGlass={true}
+                        color={showAddWorkPhase ? 'red' : 'green'}
+                        text={showAddWorkPhase ? t('button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                 </ButtonGroup>
             </Row>
-            <h4 className="page-title">
-                <FaGlassMartini style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} /> {drink.title}
-                <SetStarRating starCount={drink.stars} onSaveStars={saveStars} />
-            </h4>
+            {/* Accordion start */}
+            <Accordion>
+                <Accordion.Item eventKey="0">
+                    <Accordion.Header>
+                        <h3 className="page-title">
+                            <FaGlassMartini style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} /> {drink.title}
+                        </h3>
+                    </Accordion.Header>
+                    <Accordion.Body>
+                        {t('description')}: {drink.description}<br />
+                        <Table striped bordered hover>
+                            <tbody>
+                                <tr>
+                                    <td>{t('created')}</td>
+                                    <td>{getJsonAsDateTimeString(drink.created, i18n.language)}</td>
+                                </tr>
+                                <tr>
+                                    <td>{t('created_by')}</td>
+                                    <td>{drink.createdBy}</td>
+                                </tr>
+                                <tr>
+                                    <td>{t('modified')}</td>
+                                    <td>{getJsonAsDateTimeString(drink.modified, i18n.language)}</td>
+                                </tr>
+                                <tr>
+                                    <td>{t('glass')}</td>
+                                    <td>{drink.glass}</td>
+                                </tr>
+                                <tr>
+                                    <td>{t('category')}</td>
+                                    <td>{drink.category}</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
+            {/* Accordion end */}
             <div className="page-content">
                 {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}
-                <p>{drink.description}</p>
-                <p>
-                    {t('created')}: {getJsonAsDateTimeString(drink.created, i18n.language)}<br />
-                    {t('created_by')}: {drink.createdBy}<br />
-                    {t('modified')}: {getJsonAsDateTimeString(drink.modified, i18n.language)}<br />
-                    {t('category')}: {drink.category}<br />
-                    {t('glass')}: {drink.glass}
-                </p>
+                <SetStarRating starCount={drink.stars} onSaveStars={saveStars} />
                 {showEditDrink && <AddDrink onAddDrink={addDrink} drinkID={params.id} />}
                 {showAddIncredient && <AddIncredient drinkID={params.id} onAddIncredient={addIncredient} />}
                 {incredients != null}
