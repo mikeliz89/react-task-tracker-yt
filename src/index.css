@@ -55,11 +55,7 @@ a {
   width: 100%;
 }
 
-h3.page-title {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
+h3.page-title,
 h4.page-title {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -87,19 +83,24 @@ footer {
   border-left: 5px solid green;
 }
 
-.task h5,
-.recipe h5 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .task p {
   font-family: 'Poppins', sans-serif;
   margin-bottom: 0.5em;
 }
 
 /** Task End */
+
+/* Task Drink Recipe etc Start */
+
+.task h5,
+.recipe h5,
+.drink h5 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Task Drink Recipe etc End */
 
 /** Recipe Start */
 

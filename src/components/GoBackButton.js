@@ -6,7 +6,7 @@ const GoBackButton = () => {
   const navigate = useNavigate();
   const { t } = useTranslation('common', { keyPrefix: 'common.buttons' });
   return (
-    <Button text={t('go_back')} showIconArrowLeft={true} onClick={() => navigate(-1)} />
+    <Button text={''} showIconArrowLeft={true} onClick={() => navigate(-1)} />
   )
 }
 

@@ -13,7 +13,7 @@ const DrinkingProduct = ({ drinkingProduct, onDelete }) => {
 
     return (
 
-        <div key={drinkingProduct.id} className='recipe'>
+        <div key={drinkingProduct.id} className='drink'>
             <h5>
                 <span>
                     {drinkingProduct.name}

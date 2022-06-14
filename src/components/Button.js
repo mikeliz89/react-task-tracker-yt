@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
-import { FaArrowLeft, FaArchive, FaSignOutAlt } from 'react-icons/fa'
+import { FaArrowLeft, FaArchive, FaSignOutAlt, FaEdit, FaPlus, FaCarrot, FaHourglass } from 'react-icons/fa'
 
 const Button = ({ color, text, onClick, className,
-    showIconArrowLeft, showIconArchive, showIconLogout, type
+    showIconArrowLeft, showIconArchive, showIconLogout, showIconEdit, showIconAdd, showIconCarrot, showIconHourGlass,
+    type
 }) => {
     return (
         <button
@@ -27,6 +28,30 @@ const Button = ({ color, text, onClick, className,
                 showIconLogout &&
                 <span>
                     <FaSignOutAlt style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
+                </span>
+            }
+            {
+                showIconEdit &&
+                <span>
+                    <FaEdit style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
+                </span>
+            }
+            {
+                showIconAdd &&
+                <span>
+                    <FaPlus style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
+                </span>
+            }
+            {
+                showIconCarrot &&
+                <span>
+                    <FaCarrot style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
+                </span>
+            }
+            {
+                showIconHourGlass &&
+                <span>
+                    <FaHourglass style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
                 </span>
             }
             {text}</button>

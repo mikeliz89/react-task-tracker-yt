@@ -1,17 +1,24 @@
+//react
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate /*, useLocation */ } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { FaListAlt, FaArrowDown, FaArrowUp } from 'react-icons/fa';
+import { Col, Row, ButtonGroup, Accordion, Table, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+//buttons
 import Button from '../Button';
+import GoBackButton from '../GoBackButton';
+//tasklist and task
 import AddTask from '../Task/AddTask';
 import AddTaskList from '../TaskList/AddTaskList';
 import Tasks from '../Task/Tasks';
-import { useAuth } from '../../contexts/AuthContext'
+//auth
+import { useAuth } from '../../contexts/AuthContext';
+//firebase
 import { db } from '../../firebase-config';
 import { update, ref, onValue, push, child, remove, get } from "firebase/database";
+//utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { FaListAlt, FaArrowDown, FaArrowUp } from 'react-icons/fa'
-import GoBackButton from '../GoBackButton';
-import { useTranslation } from 'react-i18next';
-import { Col, Row, ButtonGroup, Accordion, Table, Form } from 'react-bootstrap'
+//i18n
 import i18n from "i18next";
 
 const SortMode = {
@@ -201,7 +208,7 @@ function TaskListDetails() {
     if (showOnlyTaskReady) {
       newTasks = newTasks.filter(task => task.reminder === true);
     }
-    else if(showOnlyTaskNotReady) {
+    else if (showOnlyTaskNotReady) {
       newTasks = newTasks.filter(task => task.reminder === false);
     }
     //sortit
@@ -224,13 +231,13 @@ function TaskListDetails() {
       <Row>
         <ButtonGroup aria-label="Button group">
           <GoBackButton />
-          <Button text={showEditTaskList ? t('button_close') : t('button_edit')}
+          <Button showIconEdit={true} text={showEditTaskList ? t('button_close') : ''}
             color={showEditTaskList ? 'red' : 'orange'}
             onClick={() => setShowEditTaskList(!showEditTaskList)} />
-          <Button color={showAddTask ? 'red' : 'green'}
-            text={showAddTask ? t('button_close') : t('button_add_task')}
+          <Button showIconAdd={true} color={showAddTask ? 'red' : 'green'}
+            text={showAddTask ? t('button_close') : ''}
             onClick={() => setShowAddTask(!showAddTask)} />
-          <Button text={t('archive')} color="#545454" showIconArchive={true}
+          <Button color="#545454" showIconArchive={true}
             onClick={() => { if (window.confirm(t('archive_list_confirm_message'))) { archiveTaskList(taskList); } }}
           />
         </ButtonGroup>

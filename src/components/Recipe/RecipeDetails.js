@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Row, ButtonGroup } from 'react-bootstrap';
+import { Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
 import { FaUtensils } from 'react-icons/fa';
 //firebase
 import { db } from '../../firebase-config';
@@ -147,31 +147,62 @@ export default function RecipeDetails() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Button text={showEditRecipe ? t('button_close') : t('button_edit')}
+                    <Button
+                        showIconEdit={true}
+                        text={showEditRecipe ? t('button_close') : ''}
                         color={showEditRecipe ? 'red' : 'orange'}
                         onClick={() => setShowEditRecipe(!showEditRecipe)} />
-                    <Button color={showAddIncredient ? 'red' : 'green'}
-                        text={showAddIncredient ? t('button_close') : t('button_add_incredient')}
+                    <Button
+                        showIconAdd={true}
+                        showIconCarrot={true}
+                        color={showAddIncredient ? 'red' : 'green'}
+                        text={showAddIncredient ? t('button_close') : ''}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
-                    <Button color={showAddWorkPhase ? 'red' : 'green'}
-                        text={showAddWorkPhase ? t('button_close') : t('button_add_workphase')}
+                    <Button
+                        showIconAdd={true}
+                        showIconHourGlass={true}
+                        color={showAddWorkPhase ? 'red' : 'green'}
+                        text={showAddWorkPhase ? t('button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                 </ButtonGroup>
             </Row>
-            <h4 className="page-title">
-                <FaUtensils style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} /> {recipe.title}
-                <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
-            </h4>
+            {/* Accordion start */}
+            <Accordion>
+                <Accordion.Item eventKey="0">
+                    <Accordion.Header>
+                        <h3 className="page-title">
+                            <FaUtensils style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} /> {recipe.title}
+                        </h3>
+                    </Accordion.Header>
+                    <Accordion.Body>
+                        {t('description')}: {recipe.description}<br />
+                        <Table striped bordered hover>
+                            <tbody>
+                                <tr>
+                                    <td>{t('created')}</td>
+                                    <td>{getJsonAsDateTimeString(recipe.created, i18n.language)}</td>
+                                </tr>
+                                <tr>
+                                    <td>{t('created_by')}</td>
+                                    <td>{recipe.createdBy}</td>
+                                </tr>
+                                <tr>
+                                    <td>{t('modified')}</td>
+                                    <td>{getJsonAsDateTimeString(recipe.modified, i18n.language)}</td>
+                                </tr>
+                                <tr>
+                                    <td>{t('core_recipe')}</td>
+                                    <td>{recipe.isCore === true ? t('yes') : t('no')}</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
+            {/* Accordion end */}
             <div className="page-content">
+                <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
                 {/* <pre>{JSON.stringify(recipe)}</pre> */}
-                <p>{recipe.description}</p>
-                <p>
-                    {t('created')}: {getJsonAsDateTimeString(recipe.created, i18n.language)}<br />
-                    {t('created_by')}: {recipe.createdBy}<br />
-                    {t('category')}: {recipe.category}<br />
-                    {t('modified')}: {getJsonAsDateTimeString(recipe.modified, i18n.language)}<br />
-                    {t('core_recipe')}: {recipe.isCore === true ? t('yes') : t('no')}
-                </p>
                 {showEditRecipe && <AddRecipe onAddRecipe={addRecipe} recipeID={params.id} />}
                 {showAddIncredient && <AddIncredient onAddIncredient={addIncredient} recipeID={params.id} />}
                 {showAddWorkPhase && <AddWorkPhase onAddWorkPhase={addWorkPhase} recipeID={params.id} />}

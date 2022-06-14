@@ -48,7 +48,7 @@ const Drink = ({ drink, onDelete }) => {
     }
 
     return (
-        <div key={drink.id} className='recipe'>
+        <div key={drink.id} className='drink'>
             {error && <div className="error">{error}</div>}
             {message &&
                 <Alert show={showMessage} variant='success'>
