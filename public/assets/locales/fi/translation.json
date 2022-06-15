@@ -201,7 +201,7 @@
         "incredient_name": "Ainesosan nimi",
         "incredient_save_button_text": "Tallenna",
         "incredient_unit": "Yksikkö",
-        "incredient_unit_label": "Yksikkö esim. L, dl, tl, rkl, g, kg, kpl, nippu, ripaus",
+        "incredient_unit_label": "Yksikkö",
         "incredients_header": "Ainesosat",
         "loading": "Lataa...",
         "manage_recipes_title": "Reseptit",
