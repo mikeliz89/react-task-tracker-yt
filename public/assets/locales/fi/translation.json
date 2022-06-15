@@ -228,6 +228,13 @@
         "workphases_header": "Työvaiheet",
         "yes": "Kyllä"
     },
+    "searchsortfilter": {
+        "created_date": "Luontipvm", 
+        "name": "Nimi",
+        "sorting": "Järjestä",
+        "search": "Hae", 
+        "title": "Otsikko"
+    },
     "starrating": {
         "rate": "Arvioi",
         "save_rating": "Tallenna arvio",
