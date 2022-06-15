@@ -79,7 +79,7 @@ function TaskListDetails() {
   /* kuuntele muutoksia, jos niitä tulee, filtteröi ja sorttaa */
   useEffect(() => {
     filterAndSort();
-  }, [searchString, sortByText, showOnlyTaskReady, showOnlyTaskNotReady]);
+  }, [searchString, sortBy, showOnlyTaskReady, showOnlyTaskNotReady]);
 
   /** Fetch Task List From Firebase */
   const fetchTaskListFromFirebase = async () => {
