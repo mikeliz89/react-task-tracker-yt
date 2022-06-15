@@ -110,7 +110,6 @@ const ManageDrinkingProducts = () => {
             <SearchSortFilter
                 onSet={setDrinkingProducts}
                 showSortByName={true}
-                showSortByTitle={true}
                 originalList={originalDrinkingProducts} />
             {showAddDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} />}
             {
