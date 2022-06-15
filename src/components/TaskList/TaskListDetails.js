@@ -87,7 +87,7 @@ function TaskListDetails() {
     onValue(dbref, (snapshot) => {
       const data = snapshot.val();
       if (data === null) {
-        navigate('/managetasklists')
+        navigate('/')
       }
       setTaskList(data)
       setLoading(false);
