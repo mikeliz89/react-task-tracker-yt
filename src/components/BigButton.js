@@ -29,7 +29,8 @@ BigButton.defaultProps = {
     text: '',
     textcolor: 'white',
     textBackgroundColor: 'rgba(255, 255, 255, 0.5)',
-    imageName: ''
+    imageName: '',
+    comingsoon: false
 }
 
 BigButton.propTypes = {
@@ -38,6 +39,7 @@ BigButton.propTypes = {
     textcolor: PropTypes.string,
     textBackgroundColor: PropTypes.string,
     imageName: PropTypes.string,
+    comingsoon: PropTypes.bool,
     onClick: PropTypes.func
 }
 

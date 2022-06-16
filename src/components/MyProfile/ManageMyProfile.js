@@ -1,21 +1,38 @@
+//buttons
 import GoBackButton from '../GoBackButton';
-import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../contexts/AuthContext';
-import { Form } from 'react-bootstrap';
-import { useState, useEffect } from 'react'
 import Button from '../Button';
-import { db } from '../../firebase-config';
+//react
+import { useTranslation } from 'react-i18next';
+import { Form, Alert } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+//auth
+import { useAuth } from '../../contexts/AuthContext';
+//firebase
+import { db, uploadProfilePic } from '../../firebase-config';
 import { ref, onValue, update } from "firebase/database";
+//utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 
 export default function ManageMyProfile() {
 
-    const { t } = useTranslation('myprofile', {keyPrefix: 'myprofile'});
+    const imageName = 'defaultavatar.png';
+    const defaultPhotoUrl = `/images/${imageName}`;
+
+    //translation
+    const { t } = useTranslation('myprofile', { keyPrefix: 'myprofile' });
+
+    //user
     const { currentUser } = useAuth();
 
     //states
-    const [name, setName] = useState('')
-    const [height, setHeight] = useState(0)
+    const [name, setName] = useState('');
+    const [height, setHeight] = useState(0);
+    const [photoUrl, setPhotoUrl] = useState(defaultPhotoUrl);
+    const [photo, setPhoto] = useState(null);
+    const [loading, setLoading] = useState(false);
+    //message
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
 
     //load data
     useEffect(() => {
@@ -26,7 +43,13 @@ export default function ManageMyProfile() {
         }
         getProfile()
         return () => { isMounted = false };
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (currentUser && currentUser.photoURL) {
+            setPhotoUrl(currentUser.photoURL);
+        }
+    }, [currentUser]);
 
     /** Fetch Profile From Firebase */
     const fetchProfileFromFirebase = async () => {
@@ -43,7 +66,10 @@ export default function ManageMyProfile() {
     /** Recipe Form Submit */
     const onSubmit = (e) => {
         e.preventDefault()
-        saveProfileToFirebase()
+        saveProfileToFirebase();
+
+        setShowMessage(true);
+        setMessage(t("saving_done"));
     }
 
     const saveProfileToFirebase = async () => {
@@ -55,11 +81,42 @@ export default function ManageMyProfile() {
         update(ref(db), updates);
     }
 
+    const handleChange = (e) => {
+        if (e.target.files[0]) {
+            setPhoto(e.target.files[0]);
+        }
+    }
+
+    const handleClick = () => {
+        const res = uploadProfilePic(photo, currentUser, setLoading);
+        if (res) {
+            setShowMessage(true);
+            setMessage(t("saving_done"));
+
+            setPhotoUrl(currentUser.photoURL);
+        }
+    }
+
     return (
         <div>
             <GoBackButton />
             <h3 className="page-title">{t('title')}</h3>
+            {message &&
+                <Alert show={showMessage} variant='success'>
+                    {message}
+                    <div className='d-flex justify-content-end'>
+                        <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
+                    </div>
+                </Alert>}
+            {/* <p>PhotoUrl: {photoUrl}</p> */}
+            <img src={photoUrl} alt='avatar' className='avatar' />
             <Form onSubmit={onSubmit}>
+                <Form.Group>
+                    <Form.Control type="file" onChange={handleChange} />
+                    <Button disabled={loading || !photo} type='button' text={t('upload')}
+                        className='btn btn-block'
+                        onClick={handleClick} />
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="myProfileFormName">
                     <Form.Label>{t('name')}</Form.Label>
                     <Form.Control type='text'

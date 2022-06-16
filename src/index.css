@@ -246,3 +246,13 @@ form {
 }
 
 /* React-Bootstrap changes End */
+
+/* Avatar */
+.avatar {
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 6px solid gray;
+  border-style: outset;
+}

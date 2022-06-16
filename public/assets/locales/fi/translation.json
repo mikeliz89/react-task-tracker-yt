@@ -156,11 +156,14 @@
         "language": "Kieli"
     },
     "myprofile": {
+        "button_close": "Sulje",
         "button_myprofile": "Oma profiili",
         "title": "Oma profiili",
         "name": "Nimi",
         "height": "Pituus",
-        "savebutton": "Tallenna"
+        "savebutton": "Tallenna",
+        "saving_done": "Tallennus onnistui",
+        "upload": "Lähetä"
     },
     "recipe": {
         "add_description": "Lisää kuvaus",

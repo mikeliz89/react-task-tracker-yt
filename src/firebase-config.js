@@ -1,8 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database"
-import { getAuth } from "firebase/auth"
-import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check"
+import { getDatabase } from "firebase/database";
+import { getAuth, updateProfile } from "firebase/auth";
+import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 //import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -24,6 +25,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 export const auth = getAuth(app);
+export const storage = getStorage(app);
 
 //App check for production
 if (process.env.NODE_ENV === 'production') {
@@ -34,6 +36,23 @@ if (process.env.NODE_ENV === 'production') {
     // tokens as needed.
     isTokenAutoRefreshEnabled: true
   });
+}
+
+//Storage functions
+export async function uploadProfilePic(file, currentUser, setLoading) {
+  const fileRef = ref(storage, "avatars/" + currentUser.uid + '.png');
+
+  setLoading(true);
+  let snapshot = await uploadBytes(fileRef, file);
+
+  const _photoURL = await getDownloadURL(fileRef)
+
+  updateProfile(currentUser, { photoURL: _photoURL });
+  setLoading(false);
+
+  console.log("file uploaded");
+
+  return true;
 }
 
 //const analytics = getAnalytics(app);

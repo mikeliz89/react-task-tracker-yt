@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types'
 import { FaArrowLeft, FaArchive, FaSignOutAlt, FaEdit, FaPlus, FaCarrot, FaHourglass } from 'react-icons/fa'
 
-const Button = ({ color, text, onClick, className,
-    showIconArrowLeft, showIconArchive, showIconLogout, showIconEdit, showIconAdd, showIconCarrot, showIconHourGlass,
+const Button = ({ disabled, color, text, onClick, className,
+    showIconArrowLeft, showIconArchive, showIconLogout, showIconEdit, showIconAdd,
+    showIconCarrot, showIconHourGlass,
     type
 }) => {
     return (
         <button
+            disabled={disabled}
             type={type}
             onClick={onClick}
             //jos class saveBtn niin ei styleä
@@ -64,16 +66,30 @@ Button.defaultProps = {
     className: 'btn',
     showIconArrowLeft: false,
     showIconArchive: false,
-    showIconLogout: false
+    showIconLogout: false,
+    showIconEdit: false,
+    showIconAdd: false,
+    showIconCarrot: false,
+    showIconHourGlass: false,
+    disabled: false
 }
 
 Button.propTypes = {
+    //strings
     text: PropTypes.string,
     color: PropTypes.string,
     className: PropTypes.string,
+    type: PropTypes.string,
+    //icons
     showIconArrowLeft: PropTypes.bool,
     showIconArchive: PropTypes.bool,
     showIconLogout: PropTypes.bool,
+    showIconEdit: PropTypes.bool,
+    showIconAdd: PropTypes.bool,
+    showIconCarrot: PropTypes.bool,
+    showIconHourGlass: PropTypes.bool,
+    //other
+    disabled: PropTypes.bool,
     onClick: PropTypes.func
 }
 
