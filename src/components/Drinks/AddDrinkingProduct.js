@@ -74,6 +74,11 @@ const categories = [
       //katkero
       "id": 13,
       "name": "bitters"
+   },
+   {
+      //gin
+      "id": 14,
+      "name": "gin"
    }
 ]
 
