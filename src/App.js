@@ -7,43 +7,43 @@ import Footer from './components/Site/Footer';
 import About from './components/About';
 import Dashboard from './components/Dashboard';
 //Auth
-import Signup from './components/Auth/Signup'
-import Login from './components/Auth/Login'
-import ForgotPassword from './components/Auth/ForgotPassword'
+import Signup from './components/Auth/Signup';
+import Login from './components/Auth/Login';
+import ForgotPassword from './components/Auth/ForgotPassword';
 //TaskListArchive
-import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive'
-import ArchivedTaskListDetails from './components/TaskListsArchive/ArchivedTaskListDetails'
+import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive';
+import ArchivedTaskListDetails from './components/TaskListsArchive/ArchivedTaskListDetails';
 //TaskList
-import ManageTaskLists from './components/TaskList/ManageTaskLists'
-import TaskListDetails from './components/TaskList/TaskListDetails'
+import ManageTaskLists from './components/TaskList/ManageTaskLists';
+import TaskListDetails from './components/TaskList/TaskListDetails';
 //Task
-import TaskDetails from './components/Task/TaskDetails'
+import TaskDetails from './components/Task/TaskDetails';
 //Exercises
-import ManageExercises from './components/Exercises/ManageExercises'
+import ManageExercises from './components/Exercises/ManageExercises';
 //Recipe
 import ManageRecipes from './components/Recipe/ManageRecipes';
 import RecipeDetails from './components/Recipe/RecipeDetails';
 //BMICalculator
-import BmiCalculator from './components/BmiCalculator/BmiCalculator'
-import WeightHistory from './components/BmiCalculator/WeightHistory'
+import BmiCalculator from './components/BmiCalculator/BmiCalculator';
+import WeightHistory from './components/BmiCalculator/WeightHistory';
 //MyProfile
 import ManageMyProfile from './components/MyProfile/ManageMyProfile';
 //Drinks
-import ManageDrinks from './components/Drinks/ManageDrinks'
+import ManageDrinks from './components/Drinks/ManageDrinks';
 import DrinkDetails from './components/Drinks/DrinkDetails';
 import ManageDrinkingProducts from './components/Drinks/ManageDrinkingProducts';
 //Backpacking
-import ManageBackPacking from './components/BackPacking/ManageBackPacking'
+import ManageBackPacking from './components/BackPacking/ManageBackPacking';
 //other components
-import PrivateRoute from './components/PrivateRoute'
+import PrivateRoute from './components/PrivateRoute';
 import Demo from './components/Demo';
 //AuthProvider
-import { AuthProvider } from './contexts/AuthContext'
+import { AuthProvider } from './contexts/AuthContext';
 //Language
-import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
-import HttpApi from 'i18next-http-backend'
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import HttpApi from 'i18next-http-backend';
 //Bootstrap
 import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -57,7 +57,7 @@ i18n
     fallbackLng: "fi",
     detection: {
       order: ['cookie', 'htmlTag', 'localStorage', 'subdomain'],
-      caches: ['cookie'],
+      caches: ['localStorage'],
     },
     backend: {
       loadPath: '/assets/locales/{{lng}}/translation.json',

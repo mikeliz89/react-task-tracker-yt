@@ -22,7 +22,10 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+    ],
+    "i18n": {
+      "root": "/assets/locales"
+    }
   },
   "database": {
     "rules": "database.rules.json"
