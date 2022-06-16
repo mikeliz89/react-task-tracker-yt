@@ -40,8 +40,12 @@ export default function ManageDrinks() {
     const [message, setMessage] = useState('');
     const [showMessage, setShowMessage] = useState(false);
 
+    //filters
+    const [showOnlyDone, setShowOnlyDone] = useState(false);
+    const [showOnlyNotDone, setShowOnlyNotDone] = useState(false);
+
     //search
-    const [searchString, setSearchString] = useState('')
+    const [searchString, setSearchString] = useState('');
 
     //sorting
     const [sortBy, setSortBy] = useState(SortMode.None);
@@ -68,7 +72,7 @@ export default function ManageDrinks() {
 
     useEffect(() => {
         filterAndSort();
-    }, [sortBy, searchString])
+    }, [sortBy, searchString, showOnlyDone, showOnlyNotDone])
 
     /** Fetch Drinks From Firebase */
     const fetchDrinksFromFirebase = async () => {
@@ -115,7 +119,12 @@ export default function ManageDrinks() {
         if (searchString !== "") {
             newDrinks = newDrinks.filter(drink => drink.title.toLowerCase().includes(searchString.toLowerCase()));
         }
-        //filtterit: TODO
+        //filtterit:
+        if(showOnlyDone) {
+            newDrinks = newDrinks.filter(drink => drink.stars !== undefined);
+        } else if (showOnlyNotDone) {
+            newDrinks = newDrinks.filter(drink => drink.stars === undefined);
+        }
         //sortit
         if (sortBy === SortMode.Name_ASC || sortBy === SortMode.Name_DESC) {
             newDrinks = [...newDrinks].sort((a, b) => {
@@ -195,6 +204,24 @@ export default function ManageDrinks() {
                                 aria-describedby="searchHelpBlock"
                                 onChange={(e) => setSearchString(e.target.value)}
                             />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formHorizontalCheck-ShowOnlyDone">
+                        <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+                        <Col xs={9} sm={10}>
+                            <Form.Check label={t('show_only_done')}
+                                onChange={(e) => {
+                                    setShowOnlyDone(e.currentTarget.checked);
+                                }} />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formHorizontalCheck-ShowOnlyNotDone">
+                        <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+                        <Col xs={9} sm={10}>
+                            <Form.Check label={t('show_only_not_done')}
+                                onChange={(e) => {
+                                    setShowOnlyNotDone(e.currentTarget.checked);
+                                }} />
                         </Col>
                     </Form.Group>
                 </Form>

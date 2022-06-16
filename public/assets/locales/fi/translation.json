@@ -134,6 +134,9 @@
         "save_exception": "Drinkin tallennus epäonnistui",
         "save_success": "Drinkin tallennus onnistui",
         "search": "Hae",
+        "show": "Näytä",
+        "show_only_done": "Vain arvioidut",
+        "show_only_not_done": "Vain ei-arvioidut",
         "sorting": "Järjestä",
         "view_details": "Katso lisätiedot"
     },
