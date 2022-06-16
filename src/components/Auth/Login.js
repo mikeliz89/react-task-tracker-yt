@@ -1,9 +1,12 @@
-import { useState } from 'react'
-import { useAuth } from '../../contexts/AuthContext'
-import { Link, useNavigate } from 'react-router-dom'
+//react
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
-import Button from '../../components/Button'
+//auth
+import { useAuth } from '../../contexts/AuthContext';
+//buttons
+import Button from '../../components/Button';
 
 export default function Login() {
 

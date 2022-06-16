@@ -1,20 +1,32 @@
+//proptypes
 import PropTypes from 'prop-types';
+//auth
 import { useAuth } from '../../contexts/AuthContext';
 import Logout from '../Auth/Logout';
+//react
 import { useTranslation } from 'react-i18next';
-import Language from '../Language/Language';
-import MyProfile from '../MyProfile/MyProfile';
 import { Row, ButtonGroup } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+//language
+import Language from '../Language/Language';
+//profile
+import MyProfile from '../MyProfile/MyProfile';
 
 const Header = ({ title }) => {
 
+    //navigation
+    const navigate = useNavigate();
+
+    //translation
     const { t } = useTranslation('header', { keyPrefix: 'header' });
+
+    //user
     const { currentUser } = useAuth()
 
     return (
         <div className="headerbox">
             <header className="header">
-                <h1>{title}</h1>
+                <h1 className='deleteBtn' onClick={() => navigate('/')}>{title}</h1>
             </header>
             <p className="loggedin-user">
                 {currentUser && t('header_logged_in_as_text') + currentUser.email}
