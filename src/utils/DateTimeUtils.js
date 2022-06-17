@@ -1,3 +1,5 @@
+import { Languages } from "../Languages";
+
 /** Get current date as Json datetime */
 export function getCurrentDateAsJson() {
     let newDate = new Date();
@@ -19,7 +21,7 @@ export function getJsonAsDateTimeString(json, language) {
     return getDateTimeString(json, language);
 }
 
-function getTimeString(json, language = "en") {
+function getTimeString(json, language = Languages.EN) {
     if (isEmptyOrUndefined(json)) {
         return "";
     }
@@ -30,16 +32,16 @@ function getTimeString(json, language = "en") {
     const seconds = String(second).padStart(2, '0');
     const minutes = String(minute).padStart(2, '0');
     switch (language) {
-        case "en":
+        case Languages.EN:
             return `${hour}:${minutes}:${seconds}`;
-        case "fi":
+        case Languages.FI:
             return `klo ${hour}.${minutes}.${seconds}`;
         default:
             return "";
     }
 }
 
-function getDateString(json, language = "en") {
+function getDateString(json, language = Languages.EN) {
     if (isEmptyOrUndefined(json)) {
         return "";
     }
@@ -49,16 +51,16 @@ function getDateString(json, language = "en") {
     let year = myDate.getFullYear();
 
     switch (language) {
-        case "en":
+        case Languages.EN:
             return `${year}-${month < 10 ? `0${month}` : `${month}`}-${date < 10 ? `0${date}` : `${date}`}`;
-        case "fi":
+        case Languages.FI:
             return `${date}.${month}.${year}`;
         default:
             return "";
     }
 }
 
-function getDateTimeString(json, language = "en") {
+function getDateTimeString(json, language = Languages.EN) {
     if (isEmptyOrUndefined(json)) {
         return "";
     }

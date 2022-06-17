@@ -1,23 +1,24 @@
-import i18n from 'i18next'
-import { useTranslation } from 'react-i18next'
+import i18n from 'i18next';
+import { useTranslation } from 'react-i18next';
 import cookies from 'js-cookie';
 import './Language.css';
-import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap'
+import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
+import { Languages } from '../../Languages';
 
 export default function Language() {
 
     const { t } = useTranslation('language', { keyPrefix: 'language' });
 
-    const currentLanguageCode = cookies.get('i18next') || 'fi';
+    const currentLanguageCode = cookies.get('i18next') || Languages.FI;
 
     const languages = [
         {
-            code: 'fi',
+            code: Languages.FI,
             name: 'Suomi',
-            country_code: 'fi'
+            country_code: Languages.FI
         },
         {
-            code: 'en',
+            code: Languages.EN,
             name: 'English',
             country_code: 'gb'
         }

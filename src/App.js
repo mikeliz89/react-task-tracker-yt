@@ -44,6 +44,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
+import { Languages } from './Languages';
 //Bootstrap
 import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -53,11 +54,11 @@ i18n
   .use(LanguageDetector)
   .use(HttpApi)
   .init({
-    supportedLngs: ['en', 'fi'],
-    fallbackLng: "fi",
+    supportedLngs: [Languages.EN, Languages.FI],
+    fallbackLng: Languages.FI,
     detection: {
       order: ['cookie', 'htmlTag', 'localStorage', 'subdomain'],
-      caches: ['localStorage'],
+      caches: ['cookie'],
     },
     backend: {
       loadPath: '/assets/locales/{{lng}}/translation.json',

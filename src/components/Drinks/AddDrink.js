@@ -38,7 +38,12 @@ const categories = [
    {
       //uutettava
       "id": 6,
-      "name": "infusion",
+      "name": "infusion"
+   },
+   {
+      //shotti
+      "id": 7,
+      "name": "shot"
    }
 ]
 
