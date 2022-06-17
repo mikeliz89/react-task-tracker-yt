@@ -71,8 +71,8 @@
     "drinks": {
         "button_close": "Sulje",
         "button_add_drinks": "Lisää drinkki",
-        "button_add_incredient": "Lisää ainesosa",
         "button_add_drinkingproduct": "Lisää tuote",
+        "button_add_incredient": "Lisää ainesosa",
         "button_add_workphase": "Lisää työvaihe",
         "button_edit": "Muokkaa drinkkiä",
         "button_save_drink": "Tallenna",
