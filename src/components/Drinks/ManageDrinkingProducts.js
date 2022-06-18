@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Row, ButtonGroup, Alert, Form, Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 //firebase
-import { ref, push, onValue, remove } from "firebase/database";
+import { ref, push, onValue, remove, update } from "firebase/database";
 import { db } from '../../firebase-config';
 //button
 import GoBackButton from '../GoBackButton';
@@ -72,6 +72,14 @@ const ManageDrinkingProducts = () => {
         remove(dbref)
     }
 
+    const editDrinkingProduct = (drinkingProduct) => {
+        const id = drinkingProduct.id;
+        //save
+        const updates = {};
+        updates[`/drinkingproducts/${id}`] = drinkingProduct;
+        update(ref(db), updates);
+    }
+
     /** Fetch Drinking Products From Firebase */
     const fetchDrinkingProductsFromFirebase = async () => {
         const dbref = await ref(db, '/drinkingproducts');
@@ -107,16 +115,16 @@ const ManageDrinkingProducts = () => {
                     </div>
                 </Alert>
             }
+            {showAddDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} />}
             <SearchSortFilter
                 onSet={setDrinkingProducts}
                 showSortByName={true}
                 showSortByCreatedDate={true}
                 originalList={originalDrinkingProducts} />
-            {showAddDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} />}
             {
                 drinkingProducts != null && drinkingProducts.length > 0 ? (
                     <DrinkingProducts drinkingProducts={drinkingProducts}
-                        onDelete={deleteDrinkingProduct} />
+                        onDelete={deleteDrinkingProduct} onEdit={editDrinkingProduct} />
                 ) : (
                     t('no_drinkingproducts_to_show')
                 )

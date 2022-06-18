@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 //drinks
 import DrinkingProduct from './DrinkingProduct';
 
-export default function DrinkingProducts({ drinkingProducts, onDelete }) {
+export default function DrinkingProducts({ drinkingProducts, onDelete, onEdit }) {
 
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
@@ -14,7 +14,8 @@ export default function DrinkingProducts({ drinkingProducts, onDelete }) {
                     <DrinkingProduct
                         key={product.id}
                         drinkingProduct={product}
-                        onDelete={onDelete} />
+                        onDelete={onDelete}
+                        onEdit={onEdit} />
                 ) : ''
             }
         </>
