@@ -80,6 +80,7 @@
         "category": "Kategoria",
         "category_build": "Rakennettava",
         "category_blender": "Blenderillä sekoitettava",
+        "category_bool": "Booli",
         "category_infusion": "Uutettava",
         "category_mocktail": "Mocktail",
         "category_none": "-Ei mikään-",

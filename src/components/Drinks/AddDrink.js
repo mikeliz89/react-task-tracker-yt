@@ -44,6 +44,11 @@ const categories = [
       //shotti
       "id": 7,
       "name": "shot"
+   },
+   {
+      //booli
+      "id": 8,
+      "name": "bool"
    }
 ]
 

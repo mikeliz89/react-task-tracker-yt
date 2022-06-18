@@ -73,6 +73,7 @@
         "category": "Category",
         "category_build": "Built",
         "category_blender": "Blender",
+        "category_bool": "Punch",
         "category_infusion": "Infusion",
         "category_mocktail": "Mocktail",
         "category_none": "-None-",
