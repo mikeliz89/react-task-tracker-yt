@@ -163,6 +163,7 @@
         "delete_exercise_confirm_message": "Oletko varma?",
         "exercises": "Harjoitukset",
         "manage_exercises_title": "Liikunta",
+        "no_exercises_to_show": "Ei harjoituksia",
         "view_details": "Katso harjoitusta"
     },
     "footer": {
