@@ -161,7 +161,9 @@
     },
     "links": {
         "add_link": "Lisää linkki",
+        "delete_link_confirm": "Poista linkki?",
         "header": "Linkit",
+        "no_links": "Ei linkkejä",
         "save_link": "Tallenna linkki",
         "url": "url-osoite",
         "urlText": "linkin teksti"
