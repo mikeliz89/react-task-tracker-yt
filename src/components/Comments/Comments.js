@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 //Firebase
 import { db } from '../../firebase-config';
-import { ref, onValue, child } from "firebase/database";
+import { ref, onValue, child, remove } from "firebase/database";
 //comments
 import CommentsInner from './CommentsInner';
 
@@ -42,13 +42,18 @@ const Comments = ({ url, objID }) => {
         })
     }
 
+    const deleteComment = (commentID) => {
+        const dbref = ref(db, url + '/' + objID + '/' + commentID);
+        remove(dbref);
+    }
+
     return (
         <div>
             {/* <pre>{JSON.stringify(comments)}</pre> */}
             <h4>{t('header')} {commentCounter > 0 ? '(' + commentCounter + ')' : ''}</h4>
             {
                 comments != null && comments.length > 0 ? (
-                    <CommentsInner comments={comments} />
+                    <CommentsInner onDelete={deleteComment} comments={comments} />
                 ) : t('no_comments')
             }
         </div>

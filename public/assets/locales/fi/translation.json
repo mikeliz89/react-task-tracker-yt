@@ -49,6 +49,8 @@
     },
     "comments": {
         "add_comment": "Kommentoi",
+        "close": "Sulje",
+        "delete_comment_confirm": "Oletko varma, että haluat poistaa kommentin?",
         "header": "Kommentit",
         "no_comments": "Ei kommentteja",
         "text": "Teksti"

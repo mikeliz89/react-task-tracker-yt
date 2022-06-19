@@ -21,6 +21,11 @@ function AddComment({ onSave }) {
     const onSubmit = (e) => {
         e.preventDefault();
 
+        //validation
+        if (!text) {
+            return;
+        }
+
         const created = getCurrentDateAsJson;
         //call the TaskListDetails.js
         onSave({ created, text });
@@ -31,7 +36,12 @@ function AddComment({ onSave }) {
 
     return (
         <>
-            <Button type="button" text={t('add_comment')} onClick={() => setShowAddComment(!showAddComment)} />
+            <Button type="button"
+                color={showAddComment ? 'red' : '#0d6efd'}
+                text={
+                    !showAddComment ? t('add_comment') : t('close')
+                }
+                onClick={() => setShowAddComment(!showAddComment)} />
             {
                 showAddComment &&
                 <Form onSubmit={onSubmit}>
