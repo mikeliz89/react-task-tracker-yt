@@ -94,7 +94,8 @@ footer {
 
 .task h5,
 .recipe h5,
-.drink h5 {
+.drink h5,
+.exercise h5 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -105,7 +106,8 @@ footer {
 /** Recipe Start */
 
 .recipe,
-.drink {
+.drink,
+.exercise {
   background: #faf1db;
   margin: 5px;
   padding: 10px 20px;
@@ -119,13 +121,15 @@ footer {
 }
 
 .recipe p,
-.drink p {
+.drink p,
+.recipe p {
   font-family: 'Poppins', sans-serif;
   margin-bottom: 0.5em;
 }
 
 .recipe .inner,
-.drink .inner {
+.drink .inner,
+.recipe .inner {
   justify-content: space-between;
   align-items: center;
   display: flex;
