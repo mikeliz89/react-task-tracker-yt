@@ -159,6 +159,13 @@
     "language": {
         "language": "Kieli"
     },
+    "links": {
+        "add_link": "Lisää linkki",
+        "header": "Linkit",
+        "save_link": "Tallenna linkki",
+        "url": "url-osoite",
+        "urlText": "linkin teksti"
+    },
     "myprofile": {
         "button_close": "Sulje",
         "button_myprofile": "Oma profiili",
@@ -240,10 +247,10 @@
         "yes": "Kyllä"
     },
     "searchsortfilter": {
-        "created_date": "Luontipvm", 
+        "created_date": "Luontipvm",
         "name": "Nimi",
         "sorting": "Järjestä",
-        "search": "Hae", 
+        "search": "Hae",
         "title": "Otsikko"
     },
     "starrating": {

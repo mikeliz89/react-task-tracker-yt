@@ -7,6 +7,8 @@ import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
 //buttons
 import Button from '../Button';
+//link component
+// import AddLink from '../Links/AddLink';
 
 // TODO: Tällä hetkellä vain kovakoodatut drinkki-kategoriat
 const categories = [
@@ -110,6 +112,10 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
       }
    }
 
+   // const saveLink = () => {
+   //    console.log("Save link");
+   // }
+
    return (
       <>
          <Form onSubmit={onSubmit}>
@@ -147,6 +153,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
             </Form.Group>
             <Button type='submit' text={t('button_save_drink')} className='btn btn-block saveBtn' />
          </Form>
+         {/* TODO rakenna linkin lisäys jo drinkin lisäykseen <AddLink onSaveLink={saveLink} /> */}
       </>
    )
 }

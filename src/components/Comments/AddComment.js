@@ -30,7 +30,7 @@ function AddComment({ onSave }) {
     }
 
     return (
-        <div>
+        <>
             <Button type="button" text={t('add_comment')} onClick={() => setShowAddComment(!showAddComment)} />
             {
                 showAddComment &&
@@ -46,7 +46,7 @@ function AddComment({ onSave }) {
                     </Form.Group>
                 </Form>
             }
-        </div>
+        </>
     )
 }
 

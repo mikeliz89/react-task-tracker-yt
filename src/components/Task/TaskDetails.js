@@ -75,6 +75,7 @@ function TaskDetails() {
     let taskID = params.id;
     comment["created"] = getCurrentDateAsJson()
     comment["createdBy"] = currentUser.email;
+    comment["creatorUserID"] = currentUser.uid;
     const dbref = child(ref(db, '/task-comments'), taskID);
     push(dbref, comment);
   }

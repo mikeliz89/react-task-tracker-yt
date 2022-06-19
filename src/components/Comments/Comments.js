@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 //Firebase
 import { db } from '../../firebase-config';
 import { ref, onValue, child } from "firebase/database";
+//comments
 import CommentsInner from './CommentsInner';
 
 const Comments = ({ url, objID }) => {

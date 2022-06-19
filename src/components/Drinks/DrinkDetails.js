@@ -22,6 +22,14 @@ import Incredients from './Incredients';
 import EditIncredient from './EditIncredient';
 //StarRating
 import SetStarRating from '../StarRating/SetStarRating';
+//Comment
+import AddComment from '../Comments/AddComment';
+import Comments from '../Comments/Comments';
+//Links
+import AddLink from '../Links/AddLink';
+import Links from '../Links/Links';
+//auth
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function DrinkDetails() {
 
@@ -42,6 +50,9 @@ export default function DrinkDetails() {
 
     //navigation
     const navigate = useNavigate();
+
+    //auth
+    const { currentUser } = useAuth();
 
     //load data
     useEffect(() => {
@@ -120,13 +131,29 @@ export default function DrinkDetails() {
     }
 
     const saveStars = async (stars) => {
-        var drinkID = params.id;
+        const drinkID = params.id;
         //save edited drink to firebase
         const updates = {};
         drink["modified"] = getCurrentDateAsJson()
         drink["stars"] = Number(stars);
         updates[`/drinks/${drinkID}`] = drink;
         update(ref(db), updates);
+    }
+
+    const addCommentToDrink = (comment) => {
+        const drinkID = params.id;
+        comment["created"] = getCurrentDateAsJson();
+        comment["createdBy"] = currentUser.email;
+        comment["creatorUserID"] = currentUser.uid;
+        const dbref = child(ref(db, '/drink-comments'), drinkID);
+        push(dbref, comment);
+    }
+
+    const addLinkToDrink = (link) => {
+        const drinkID = params.id;
+        link["created"] = getCurrentDateAsJson();
+        const dbref = child(ref(db, '/drink-links'), drinkID);
+        push(dbref, link);
     }
 
     return loading ? (
@@ -195,7 +222,11 @@ export default function DrinkDetails() {
             {/* Accordion end */}
             <div className="page-content">
                 {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}
+
                 <SetStarRating starCount={drink.stars} onSaveStars={saveStars} />
+                <AddComment onSave={addCommentToDrink} />
+                <AddLink onSaveLink={addLinkToDrink} />
+
                 {showEditDrink && <AddDrink onAddDrink={addDrink} drinkID={params.id} />}
                 {showAddIncredient && <AddIncredient drinkID={params.id} onAddIncredient={addIncredient} />}
                 {incredients != null}
@@ -216,6 +247,9 @@ export default function DrinkDetails() {
                         t('no_drink_history')
                     )
                 }
+
+                <Comments objID={params.id} url={'drink-comments'} />
+                <Links objID={params.id} url={'drink-links'} />
             </div>
         </div>
     )
