@@ -1,7 +1,7 @@
 //react
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
+import { Form, Row, ButtonGroup } from 'react-bootstrap';
 //firebase
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
@@ -82,7 +82,7 @@ const categories = [
    }
 ]
 
-const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct }) => {
+const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }) => {
 
    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
@@ -101,7 +101,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct }) => {
          }
          getDrinkingProduct()
       }
-   }, [drinkingProductID]);
+   }, []);
 
    /** get drink incredient from firebase by id (in EDIT drink incredient) */
    const fetchDrinkingProductFromFirebase = async (id) => {
@@ -175,7 +175,12 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct }) => {
                   ))}
                </Form.Select>
             </Form.Group>
-            <Button type='submit' text={t('button_save_drink')} className='btn btn-block saveBtn' />
+            <Row>
+               <ButtonGroup>
+                  <Button type="button" text="Sulje" className='btn btn-block' onClick={() => onClose()} />
+                  <Button type='submit' text={t('button_save_drink')} className='btn btn-block saveBtn' />
+               </ButtonGroup>
+            </Row>
          </Form>
       </>
    )

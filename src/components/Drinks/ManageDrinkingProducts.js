@@ -115,7 +115,8 @@ const ManageDrinkingProducts = () => {
                     </div>
                 </Alert>
             }
-            {showAddDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} />}
+            {showAddDrinkingProduct &&
+                <AddDrinkingProduct onClose={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)} onAddDrinkingProduct={addDrinkingProduct} />}
             <SearchSortFilter
                 onSet={setDrinkingProducts}
                 showSortByName={true}
@@ -124,7 +125,8 @@ const ManageDrinkingProducts = () => {
             {
                 drinkingProducts != null && drinkingProducts.length > 0 ? (
                     <DrinkingProducts drinkingProducts={drinkingProducts}
-                        onDelete={deleteDrinkingProduct} onEdit={editDrinkingProduct} />
+                        onDelete={deleteDrinkingProduct}
+                        onEdit={editDrinkingProduct} />
                 ) : (
                     t('no_drinkingproducts_to_show')
                 )
