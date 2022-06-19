@@ -60,11 +60,12 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
 
    //states
    const [category, setCategory] = useState('');
-   const [title, setTitle] = useState('')
-   const [description, setDescription] = useState('')
-   const [glass, setGlass] = useState('')
-   const [created, setCreated] = useState('')
-   const [createdBy, setCreatedBy] = useState('')
+   const [title, setTitle] = useState('');
+   const [description, setDescription] = useState('');
+   const [glass, setGlass] = useState('');
+   const [created, setCreated] = useState('');
+   const [createdBy, setCreatedBy] = useState('');
+   const [stars, setStars] = useState(0);
 
    useEffect(() => {
       if (drinkID != null) {
@@ -88,6 +89,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
             setGlass(val["glass"]);
             setCreatedBy(val["createdBy"]);
             setCategory(val["category"]);
+            setStars(val["stars"]);
          }
       });
    }
@@ -102,7 +104,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
          return
       }
 
-      onAddDrink({ created, createdBy, title, description, category, glass });
+      onAddDrink({ created, createdBy, title, description, category, glass, stars });
 
       if (drinkID == null) {
          //clear the form

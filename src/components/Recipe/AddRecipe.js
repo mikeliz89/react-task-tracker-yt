@@ -92,6 +92,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
    const [created, setCreated] = useState('');
    const [createdBy, setCreatedBy] = useState('');
    const [isCore, setIsCore] = useState(false);
+   const [stars, setStars] = useState(0);
 
    useEffect(() => {
       if (recipeID != null) {
@@ -119,6 +120,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
             setCreatedBy(val["createdBy"]);
             setIsCore(val["isCore"]);
             setCategory(val["category"]);
+            setStars(val["stars"]);
          }
       });
    }
@@ -140,7 +142,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
          return
       }
 
-      onAddRecipe({ created, createdBy, title, description, category, isCore });
+      onAddRecipe({ created, createdBy, title, description, category, isCore, stars });
 
       if (recipeID == null) {
          //clear the form
