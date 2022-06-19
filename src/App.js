@@ -20,6 +20,8 @@ import TaskListDetails from './components/TaskList/TaskListDetails';
 import TaskDetails from './components/Task/TaskDetails';
 //Exercises
 import ManageExercises from './components/Exercises/ManageExercises';
+import CreateExercise from './components/Exercises/CreateExercise';
+import ExerciseDetails from './components/Exercises/ExerciseDetails';
 //Recipe
 import ManageRecipes from './components/Recipe/ManageRecipes';
 import RecipeDetails from './components/Recipe/RecipeDetails';
@@ -88,8 +90,12 @@ function App() {
             <Route path='/managedrinkingproducts' element={<PrivateRoute><ManageDrinkingProducts /></PrivateRoute>} />
             <Route path='/drink/:id' element={<PrivateRoute><DrinkDetails /></PrivateRoute>} />
             {/*Drinks */}
-            <Route path='/managetasklists' element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
+            {/* Exercises */}
             <Route path='/manageexercises' element={<PrivateRoute><ManageExercises /></PrivateRoute>} />
+            <Route path='/createexercise' element={<PrivateRoute><CreateExercise /></PrivateRoute>} />
+            <Route path='/exercise/:id' element={<PrivateRoute><ExerciseDetails /></PrivateRoute>} />
+            {/* Exercises */}
+            <Route path='/managetasklists' element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
             <Route path='/task/:id/:tasklistid' element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
             <Route path='/tasklist/:id' element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
             <Route path='/bmicalculator' element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />

@@ -27,7 +27,7 @@ export default function Dashboard() {
             </Row>
             <Row>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/manageexercises'}><BigButton imageName="exercises.PNG" textcolor="black" color="#ef7c1a" text={t('exercises')} comingsoon /></Link>
+                    <Link to={'/manageexercises'}><BigButton imageName="exercises.PNG" textcolor="black" color="#ef7c1a" text={t('exercises')} /></Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={'/managebackpacking'}><BigButton imageName="backpacking.jpg" textcolor="black" color="#0cb058" text={t('backpacking')} comingsoon /></Link>

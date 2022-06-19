@@ -149,7 +149,17 @@
         "view_details": "Katso lisätiedot"
     },
     "exercises": {
+        "button_create_exercise": "Luo harjoitus",
+        "category": "Kategoria",
+        "category_none": "-Ei mikään-",
+        "category_gym": "Kuntosali / painoharjoittelu",
+        "category_kayaking": "Kajakointi/melonta",
+        "category_running": "Juoksu",
+        "category_walking": "Kävely",
+        "category_aerobics": "Jumppa",
+        "create_exercise": "Luo harjoitus",
         "coming_soon": "Tulossa pian...",
+        "date_and_time": "Ajankohta",
         "manage_exercises_title": "Liikunta"
     },
     "footer": {
