@@ -94,6 +94,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
    const [created, setCreated] = useState('');
    const [createdBy, setCreatedBy] = useState('');
    const [haveAtHome, setHaveAtHome] = useState('');
+   const [abv, setAbv] = useState(0);
 
    useEffect(() => {
       if (drinkingProductID != null) {
@@ -117,6 +118,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             setCategory(val["category"]);
             setManufacturer(val["manufacturer"]);
             setHaveAtHome(val["haveAtHome"]);
+            setAbv(val["abv"]);
          }
       });
    }
@@ -131,7 +133,10 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
          return
       }
 
-      onAddDrinkingProduct({ created, createdBy, name, description, category, manufacturer, haveAtHome });
+      onAddDrinkingProduct({
+         created, createdBy, name,
+         description, category, manufacturer, haveAtHome, abv
+      });
 
       if (drinkingProductID == null) {
          //clear the form
@@ -176,6 +181,13 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
                      <option key={id}>{t(`drinkingproduct_category_${name}`)}</option>
                   ))}
                </Form.Select>
+            </Form.Group>
+            <Form.Group>
+               <Form.Label>{t('drinkingproduct_abv')}</Form.Label>
+               <Form.Control type='text'
+                  value={abv}
+                  onChange={(e) => setAbv(e.target.value)}
+               />
             </Form.Group>
             <Row>
                <ButtonGroup>
