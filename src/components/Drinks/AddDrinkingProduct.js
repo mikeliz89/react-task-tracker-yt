@@ -93,6 +93,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
    const [description, setDescription] = useState('');
    const [created, setCreated] = useState('');
    const [createdBy, setCreatedBy] = useState('');
+   const [haveAtHome, setHaveAtHome] = useState('');
 
    useEffect(() => {
       if (drinkingProductID != null) {
@@ -115,6 +116,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             setCreatedBy(val["createdBy"]);
             setCategory(val["category"]);
             setManufacturer(val["manufacturer"]);
+            setHaveAtHome(val["haveAtHome"]);
          }
       });
    }
@@ -129,7 +131,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
          return
       }
 
-      onAddDrinkingProduct({ created, createdBy, name, description, category, manufacturer });
+      onAddDrinkingProduct({ created, createdBy, name, description, category, manufacturer, haveAtHome });
 
       if (drinkingProductID == null) {
          //clear the form
