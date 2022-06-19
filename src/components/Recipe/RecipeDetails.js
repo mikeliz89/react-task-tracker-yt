@@ -22,6 +22,14 @@ import i18n from "i18next";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //StarRating
 import SetStarRating from '../StarRating/SetStarRating';
+//Links
+import AddLink from '../Links/AddLink';
+import Links from '../Links/Links';
+//Comments
+import AddComment from '../Comments/AddComment';
+import Comments from '../Comments/Comments';
+//auth
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function RecipeDetails() {
 
@@ -34,9 +42,17 @@ export default function RecipeDetails() {
     const [incredients, setIncredients] = useState()
     const [workPhases, setWorkPhases] = useState()
 
+    //translation
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+
+    //params
     const params = useParams();
+
+    //navigation
     const navigate = useNavigate();
+
+    //auth
+    const { currentUser } = useAuth();
 
     //load data
     useEffect(() => {
@@ -119,7 +135,7 @@ export default function RecipeDetails() {
 
     /** Add Recipe To Firebase */
     const addRecipe = async (recipe) => {
-        var recipeID = params.id;
+        const recipeID = params.id;
         //save edited recipe to firebase
         const updates = {};
         if (recipe["category"] === t('category_none')) {
@@ -131,13 +147,29 @@ export default function RecipeDetails() {
     }
 
     const saveStars = async (stars) => {
-        var recipeID = params.id;
-        //save edited drink to firebase
+        const recipeID = params.id;
+        //save edited recipe to firebase
         const updates = {};
         recipe["modified"] = getCurrentDateAsJson()
         recipe["stars"] = Number(stars);
         updates[`/recipes/${recipeID}`] = recipe;
         update(ref(db), updates);
+    }
+
+    const addCommentToRecipe = (comment) => {
+        const recipeID = params.id;
+        comment["created"] = getCurrentDateAsJson();
+        comment["createdBy"] = currentUser.email;
+        comment["creatorUserID"] = currentUser.uid;
+        const dbref = child(ref(db, '/recipe-comments'), recipeID);
+        push(dbref, comment);
+    }
+
+    const addLinkToRecipe = (link) => {
+        const recipeID = params.id;
+        link["created"] = getCurrentDateAsJson();
+        const dbref = child(ref(db, '/recipe-links'), recipeID);
+        push(dbref, link);
     }
 
     return loading ? (
@@ -202,6 +234,8 @@ export default function RecipeDetails() {
             {/* Accordion end */}
             <div className="page-content">
                 <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
+                <AddComment onSave={addCommentToRecipe} />
+                <AddLink onSaveLink={addLinkToRecipe} />
                 {/* <pre>{JSON.stringify(recipe)}</pre> */}
                 {showEditRecipe && <AddRecipe onAddRecipe={addRecipe} recipeID={params.id} />}
                 {showAddIncredient && <AddIncredient onAddIncredient={addIncredient} recipeID={params.id} />}
@@ -226,6 +260,8 @@ export default function RecipeDetails() {
                 ) : (
                     <p> {t('no_workphases_to_show')} </p>
                 )}
+                <Comments objID={params.id} url={'recipe-comments'} />
+                <Links objID={params.id} url={'recipe-links'} />
             </div>
         </div>
     )
