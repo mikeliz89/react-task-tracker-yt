@@ -38,8 +38,12 @@ const AddLink = ({ onSaveLink }) => {
 
     return (
         <>
-            <span className='btn btn-primary'
-                onClick={() => setShowForm(!showForm)}>{t('add_link')}</span>
+            <Button
+                type='button'
+                color={showForm ? 'red' : '#0d6efd'}
+                className='btn btn-primary'
+                text={showForm ? t('button_close') : t('add_link')}
+                onClick={() => setShowForm(!showForm)} />
             {
                 showForm ? (
                     <>

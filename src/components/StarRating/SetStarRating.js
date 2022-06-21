@@ -31,23 +31,29 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
 
     return (
         <>
-            <span className='btn btn-primary'
-                onClick={() => setShowStarRating(!showStarRating)}>{t('rate')}</span>
+            <Button
+                color={showStarRating ? 'red' : '#0d6efd'}
+                className='btn btn-primary'
+                text={showStarRating ? t('close') : t('rate')}
+                onClick={() => setShowStarRating(!showStarRating)} />
             {
                 showStarRating ? (
-                    <>            <Row>
-                        <Col>
-                            <StarRating starCount={Number(stars)} />
-                            <Form onSubmit={onSubmit}>
-                                <Form.Group className="mb-3" controlId="setStarRatingForm-Rating">
-                                    <Form.Range min="0" max="5" step="0.1" type='number'
-                                        value={stars}
-                                        onChange={(e) => setStars(e.target.value)} />
-                                </Form.Group>
-                                <Button disabled={loading} type='submit' text={t('save_rating')} className='btn btn-block' />
-                            </Form>
-                        </Col>
-                    </Row>
+                    <>
+                        <Row>
+                            <Col>
+                                <StarRating starCount={Number(stars)} />
+                                <Form onSubmit={onSubmit}>
+                                    <Form.Group className="mb-3" controlId="setStarRatingForm-Rating">
+                                        <Form.Range min="0" max="5" step="0.1" type='number'
+                                            value={stars}
+                                            onChange={(e) => setStars(e.target.value)} />
+                                    </Form.Group>
+                                    <Button
+                                        disabled={loading} type='submit'
+                                        text={t('save_rating')} className='btn btn-block' />
+                                </Form>
+                            </Col>
+                        </Row>
                     </>) : ''
             }
         </>
