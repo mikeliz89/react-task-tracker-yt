@@ -83,7 +83,7 @@ function TaskListDetails() {
 
   /** Fetch Task List From Firebase */
   const fetchTaskListFromFirebase = async () => {
-    const dbref = ref(db, '/tasklists/' + params.id);
+    const dbref = ref(db, `/tasklists/${params.id}`);
     onValue(dbref, (snapshot) => {
       const data = snapshot.val();
       if (data === null) {
@@ -128,19 +128,19 @@ function TaskListDetails() {
   /** Delete Task From Firebase */
   const deleteTask = async (taskListID, id) => {
     //delete from firebase
-    const dbref = ref(db, '/tasks/' + taskListID + "/" + id)
+    const dbref = ref(db, `/tasks/${taskListID}/${id}`)
     remove(dbref)
   }
 
   /** Toggle Reminder Of A Task At Firebase */
   const toggleReminder = async (taskListID, id) => {
     //to firebase
-    const dbref = ref(db, '/tasks/' + taskListID + '/' + id);
+    const dbref = ref(db, `/tasks/${taskListID}/${id}`);
     get(dbref).then((snapshot) => {
       if (snapshot.exists()) {
         const updates = {};
         const oldReminder = snapshot.val()["reminder"];
-        updates['/tasks/' + taskListID + '/' + id + '/reminder'] = !oldReminder;
+        updates[`/tasks/${taskListID}/${id}/reminder`] = !oldReminder;
         update(ref(db), updates);
       } else {
         console.log("No data available");
