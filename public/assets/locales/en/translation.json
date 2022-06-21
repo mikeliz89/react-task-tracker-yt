@@ -133,8 +133,25 @@
         "view_details": "View Details"
     },
     "exercises": {
+        "button_create_exercise": "Create exercise",
+        "category": "Category",
+        "category_none": "-None-",
+        "category_gym": "Gym / weight lifting",
+        "category_kayaking": "Kayaiking",
+        "category_running": "Running",
+        "category_walking": "Walking",
+        "category_aerobics": "Aerobics",
+        "created": "Created",
+        "created_by": "Created by",
+        "create_exercise": "Create exercise",
         "coming_soon": "Coming soon...",
-        "manage_exercises_title": "Exercises"
+        "date_and_time": "Date and time",
+        "delete_exercise_confirm_message": "Are you sure?",
+        "exercises": "Exercises",
+        "exercisedetails": "Exercise Details",
+        "manage_exercises_title": "Exercise",
+        "no_exercises_to_show": "No exercises",
+        "view_details": "View Details"
     },
     "footer": {
         "about": "About",

@@ -67,12 +67,12 @@ const ExerciseDetails = () => {
         ) : (
             <div>
                 <GoBackButton />
-                <h3 className='page-title'>ExerciseDetails</h3>
+                <h3 className='page-title'>{t('exercisedetails')}</h3>
                 <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
-                <p>Date and time: {exercise.date} {exercise.time}</p>
-                <p>Created by: {exercise.createdBy}</p>
-                <p>Created: {exercise.created}</p>
-                <p>Category: {exercise.category}</p>
+                <p>{t('date_and_time')}: {exercise.date} {exercise.time}</p>
+                <p>{t('created_by')}: {exercise.createdBy}</p>
+                <p>{t('created')}: {exercise.created}</p>
+                <p>{t('category')}: {exercise.category}</p>
                 {
                     exercise.category === Categories.Gym &&
                     <AddPartsGym />
