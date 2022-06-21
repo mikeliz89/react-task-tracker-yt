@@ -178,6 +178,7 @@
     },
     "links": {
         "add_link": "Lisää linkki",
+        "close": "Sulje",
         "delete_link_confirm": "Poista linkki?",
         "header": "Linkit",
         "no_links": "Ei linkkejä",
@@ -273,6 +274,7 @@
         "title": "Otsikko"
     },
     "starrating": {
+        "close": "Sulje",
         "rate": "Arvioi",
         "save_rating": "Tallenna arvio",
         "stars": "Tähdet"
