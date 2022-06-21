@@ -110,7 +110,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
    /** get recipe from firebase by recipeID (in EDIT recipe) */
    const fetchRecipeFromFirebase = async (recipeID) => {
 
-      const dbref = ref(db, '/recipes/' + recipeID);
+      const dbref = ref(db, `/recipes/${recipeID}`);
       get(dbref).then((snapshot) => {
          if (snapshot.exists()) {
             var val = snapshot.val();

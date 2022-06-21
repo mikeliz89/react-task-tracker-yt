@@ -29,7 +29,7 @@ const AddTaskList = ({ taskListID, onAddTaskList }) => {
     /** Fetch Task List From Firebase By TaskListID (in EDIT Task List) */
     const fetchTaskListFromFirebase = async (taskListID) => {
 
-        const dbref = ref(db, '/tasklists/' + taskListID);
+        const dbref = ref(db, `/tasklists/${taskListID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

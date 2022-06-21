@@ -72,7 +72,7 @@ export default function RecipeDetails() {
 
     /** Fetch Recipe From Firebase */
     const fetchRecipeFromFirebase = async () => {
-        const dbref = ref(db, '/recipes/' + params.id);
+        const dbref = ref(db, `/recipes/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
@@ -117,7 +117,7 @@ export default function RecipeDetails() {
 
     /** Delete Incredient From Firebase */
     const deleteIncredient = async (recipeID, id) => {
-        const dbref = ref(db, '/incredients/' + recipeID + "/" + id)
+        const dbref = ref(db, `/incredients/${recipeID}/${id}`);
         remove(dbref)
     }
 
@@ -129,7 +129,7 @@ export default function RecipeDetails() {
 
     /** Delete Work Phase From Firebase */
     const deleteWorkPhase = async (recipeID, id) => {
-        const dbref = ref(db, '/workphases/' + recipeID + "/" + id);
+        const dbref = ref(db, `/workphases/${recipeID}/${id}`);
         remove(dbref);
     }
 

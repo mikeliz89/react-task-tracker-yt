@@ -78,14 +78,14 @@ export default function ManageTaskLists() {
     push(dbref, taskList)
       .then((snap) => {
         const key = snap.key;
-        navigate('/tasklist/' + key);
+        navigate(`/tasklist/${key}`);
       })
   }
 
   /** Delete Task List From Firebase */
   const deleteTaskList = async (id) => {
     //delete tasks
-    const dbrefTasks = ref(db, '/tasks/' + id);
+    const dbrefTasks = ref(db, `/tasks/${id}`);
     remove(dbrefTasks);
     //delete task list
     const dbref = child(ref(db, '/tasklists'), id)

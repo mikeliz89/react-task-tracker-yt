@@ -27,7 +27,7 @@ export default function EditWorkPhase({ recipeID, workPhaseID, onEditWorkPhase, 
 
     /** Fetch Work Phase From Firebase By RecipeID and WorkPhaseID */
     const fetchWorkPhaseFromFirebase = async (recipeID) => {
-        const dbref = ref(db, '/workphases/' + recipeID + "/" + workPhaseID);
+        const dbref = ref(db, `/workphases/${recipeID}/${workPhaseID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

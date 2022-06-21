@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+/** Common Start */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+label {
+    font-family: 'Poppins', sans-serif;
+}
+
+a {
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    margin: 10px auto;
+    overflow: auto;
+    min-height: 300px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-radius: 5px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerbox {
+    margin-bottom: 10px;
+    border-bottom: 3px solid #e0e0e0;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+h3.page-title,
+h4.page-title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+footer {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/** Common End */
+
+/** Task Start */
+
+.task {
+    background: #f4f4f4;
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    /* 2.6.2022 lisätty borderit */
+    border: 1px solid #e3e3e3;
+}
+
+.task.reminder {
+    border-left: 5px solid green;
+}
+
+.task p {
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 0.5em;
+}
+
+/** Task End */
+
+/* Task Drink Recipe etc Start */
+
+.task h5,
+.recipe h5,
+.drink h5,
+.exercise h5 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Task Drink Recipe etc End */
+
+/** Recipe Start */
+
+.recipe,
+.drink,
+.exercise {
+    background: #faf1db;
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    /* 2.6.2022 lisätty borderit */
+    border: 1px solid #e3e3e3;
+}
+
+.recipe.coreRecipe {
+    border-left: 5px solid green;
+}
+
+.recipe p,
+.drink p,
+.recipe p {
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 0.5em;
+}
+
+.recipe .inner,
+.drink .inner,
+.recipe .inner {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+}
+
+/** Recipe End */
+
+/** Form Start */
+
+.form-control {
+    margin: 10px 0;
+}
+
+.form-control label {
+    display: block;
+}
+
+form {
+    position: relative;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-radius: 8px;
+    margin-right: 0;
+    margin-left: 0;
+    color: #212529;
+}
+
+.form-no-paddings {
+    padding: 0;
+    margin: 0;
+}
+
+.form-bordered {
+    border: 0.2rem solid #ececec;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.form-control-check {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-control-check label {
+    flex: 1;
+}
+
+.form-control-check input {
+    flex: 2;
+    height: 30px;
+}
+
+/** Form End */
+
+/* Custom Start */
+
+.editBtn:hover,
+.deleteBtn:hover {
+    font-style: bold;
+    color: orange !important;
+}
+
+.btn.btn-block.saveBtn {
+    color: white;
+    background-color: green;
+    /* tai btn-success väri #198754 */
+}
+
+.btn.btn-block.saveBtn:hover {
+    background-color: rgb(0, 110, 0);
+}
+
+.error {
+    background: rgb(255, 145, 145);
+    color: black;
+    margin: 5px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.bigbtn {
+    width: 100%;
+    height: 220px;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: inherit;
+}
+
+.loggedin-user {
+    font-size: 1.0em;
+    margin-bottom: 3px;
+}
+
+.login-container {
+    padding: 10px 10px;
+}
+
+.page-content {
+    margin-top: 20px;
+}
+
+/* Custom End */
+
+/* React-Bootstrap changes Start */
+
+.accordion-header .accordion-button {
+    padding: 0rem 1rem;
+}
+
+.accordion-item .accordion-body {
+    padding: 0.5em 1rem 0rem 1rem;
+}
+
+/* React-Bootstrap changes End */
+
+/* Avatar start */
+.avatar {
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 6px solid gray;
+    border-style: outset;
+}
+/* Avatar end */ 

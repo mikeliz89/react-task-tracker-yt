@@ -17,7 +17,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 
 const BmiCalculator = () => {
 
-    const { t } = useTranslation('bmicalculator', {keyPrefix:'bmicalculator'});
+    const { t } = useTranslation('bmicalculator', { keyPrefix: 'bmicalculator' });
     const navigate = useNavigate();
     const { currentUser } = useAuth();
 
@@ -40,7 +40,7 @@ const BmiCalculator = () => {
 
     /** Fetch Profile From Firebase */
     const fetchProfileFromFirebase = async () => {
-        const dbref = ref(db, '/profiles/' + currentUser.uid);
+        const dbref = ref(db, `/profiles/${currentUser.uid}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
@@ -80,6 +80,7 @@ const BmiCalculator = () => {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
+                        showIconWeight={true}
                         color="#545454"
                         text={t('button_weight_history')}
                         onClick={() => navigate('/weighthistory')} />

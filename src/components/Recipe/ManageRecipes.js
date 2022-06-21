@@ -60,9 +60,11 @@ const ManageRecipes = () => {
     filterAndSort();
   }, [searchString, showOnlyCoreRecipes, sortByTextAsc]);
 
+  const DB_RECIPES = '/recipes';
+
   /** Fetch Recipes From Firebase */
   const fetchRecipesFromFirebase = async () => {
-    const dbref = await ref(db, '/recipes');
+    const dbref = await ref(db, DB_RECIPES);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -82,7 +84,7 @@ const ManageRecipes = () => {
       }
       recipe["created"] = getCurrentDateAsJson();
       recipe["createdBy"] = currentUser.email;
-      const dbref = ref(db, '/recipes');
+      const dbref = ref(db, DB_RECIPES);
       push(dbref, recipe);
       setMessage(t('recipe_save_successfull'));
       setShowMessage(true);
@@ -93,7 +95,7 @@ const ManageRecipes = () => {
 
   /** Delete Recipe From Firebase */
   const deleteRecipe = async (id) => {
-    const dbref = ref(db, `/recipes/${id}`);
+    const dbref = ref(db, `${DB_RECIPES}/${id}`);
     remove(dbref)
   }
 
