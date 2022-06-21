@@ -39,7 +39,7 @@ function AddComment({ onSave }) {
             <Button type="button"
                 color={showAddComment ? 'red' : '#0d6efd'}
                 text={
-                    !showAddComment ? t('add_comment') : t('close')
+                    showAddComment ? t('button_close') : t('add_comment')
                 }
                 onClick={() => setShowAddComment(!showAddComment)} />
             {

@@ -49,7 +49,7 @@
     },
     "comments": {
         "add_comment": "Kommentoi",
-        "close": "Sulje",
+        "button_close": "Sulje",
         "delete_comment_confirm": "Oletko varma, että haluat poistaa kommentin?",
         "header": "Kommentit",
         "no_comments": "Ei kommentteja",
@@ -178,7 +178,7 @@
     },
     "links": {
         "add_link": "Lisää linkki",
-        "close": "Sulje",
+        "button_close": "Sulje",
         "delete_link_confirm": "Poista linkki?",
         "header": "Linkit",
         "no_links": "Ei linkkejä",
@@ -274,7 +274,7 @@
         "title": "Otsikko"
     },
     "starrating": {
-        "close": "Sulje",
+        "button_close": "Sulje",
         "rate": "Arvioi",
         "save_rating": "Tallenna arvio",
         "stars": "Tähdet"
