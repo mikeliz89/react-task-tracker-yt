@@ -2,7 +2,6 @@
 import { FaTimes, FaCheckSquare, FaEdit } from 'react-icons/fa';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup } from 'react-bootstrap';
 //drinking product
 import AddDrinkingProduct from './AddDrinkingProduct';
 

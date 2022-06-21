@@ -56,6 +56,7 @@ const categories = [
 
 const AddDrink = ({ drinkID, onAddDrink }) => {
 
+   //translation
    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
    //states

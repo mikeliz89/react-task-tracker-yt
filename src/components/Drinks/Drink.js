@@ -7,7 +7,7 @@ import { useState } from 'react';
 //Star rating
 import StarRating from '../StarRating/StarRating';
 //firebase
-import { ref, push, onValue, remove } from "firebase/database";
+import { ref, push } from "firebase/database";
 import { db } from '../../firebase-config';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';

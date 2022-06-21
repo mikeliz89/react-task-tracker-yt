@@ -48,7 +48,7 @@ const AddTaskList = ({ taskListID, onAddTaskList }) => {
         //validation
         if (!title) {
             alert(t('please_add_tasklist'));
-            return
+            return;
         }
 
         onAddTaskList({ created, createdBy, title, description });

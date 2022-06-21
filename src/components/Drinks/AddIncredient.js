@@ -7,6 +7,7 @@ import Button from '../../components/Button';
 
 export default function AddIncredient({ onAddIncredient, incredientID, drinkID }) {
 
+  //translation
   const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
   //states

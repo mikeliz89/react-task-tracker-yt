@@ -1,6 +1,6 @@
 //react
 import { useState, useEffect } from 'react';
-import { Row, ButtonGroup, Alert, Form, Col } from 'react-bootstrap';
+import { Row, ButtonGroup, Alert } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 //firebase
 import { ref, push, onValue, remove, update } from "firebase/database";

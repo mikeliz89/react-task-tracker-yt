@@ -9,6 +9,7 @@ import { db } from "../../firebase-config";
 import GoBackButton from "../GoBackButton";
 //exercises
 import AddPartsGym from "./AddPartsGym";
+import AddPartsRunning from "./AddPartsRunning";
 import { Categories } from "./Categories";
 //star rating
 import SetStarRating from "../StarRating/SetStarRating";
@@ -76,6 +77,10 @@ const ExerciseDetails = () => {
                 {
                     exercise.category === Categories.Gym &&
                     <AddPartsGym />
+                }
+                {
+                    (exercise.category === Categories.Running || exercise.category === 'Juoksu') &&
+                    <AddPartsRunning />
                 }
             </div>
         )

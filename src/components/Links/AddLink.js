@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { Col, Form, Row, ButtonGroup } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 
 import Button from '../Button';
 

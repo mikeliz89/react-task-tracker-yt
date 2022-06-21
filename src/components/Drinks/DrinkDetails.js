@@ -19,7 +19,6 @@ import AddDrink from './AddDrink';
 import AddIncredient from './AddIncredient';
 import DrinkHistories from './DrinkHistories';
 import Incredients from './Incredients';
-import EditIncredient from './EditIncredient';
 //StarRating
 import SetStarRating from '../StarRating/SetStarRating';
 //Comment

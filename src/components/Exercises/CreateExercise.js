@@ -1,7 +1,7 @@
 //react
 import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 //firebase
 import { db } from '../../firebase-config';
@@ -37,7 +37,7 @@ const CreateExercise = () => {
 
     //states
     const [category, setCategory] = useState();
-    const [categories, setCategories] = useState(categoriesTemp);
+    const [categories] = useState(categoriesTemp);
     const [date, setDate] = useState(''); //todo: laita oletuksena nykypvm
     const [time, setTime] = useState(''); //todo: laita oletuksena nykyinen kellonaika
 

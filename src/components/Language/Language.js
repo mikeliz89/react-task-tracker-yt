@@ -1,8 +1,12 @@
-import i18n from 'i18next';
-import { useTranslation } from 'react-i18next';
-import cookies from 'js-cookie';
-import './Language.css';
+//react
 import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+//i18n
+import i18n from 'i18next';
+//js-cookie
+import cookies from 'js-cookie';
+//languages
+import './Language.css';
 import { Languages } from '../../Languages';
 
 export default function Language() {

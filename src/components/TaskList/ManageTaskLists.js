@@ -75,7 +75,11 @@ export default function ManageTaskLists() {
     taskList["created"] = getCurrentDateAsJson();
     taskList["createdBy"] = currentUser.email;
     const dbref = ref(db, '/tasklists');
-    push(dbref, taskList);
+    push(dbref, taskList)
+      .then((snap) => {
+        const key = snap.key;
+        navigate('/tasklist/' + key);
+      })
   }
 
   /** Delete Task List From Firebase */
