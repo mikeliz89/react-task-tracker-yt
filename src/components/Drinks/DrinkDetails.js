@@ -41,6 +41,7 @@ export default function DrinkDetails() {
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
     const [showEditDrink, setShowEditDrink] = useState(false);
     const [incredients, setIncredients] = useState({});
+    const [error, setError] = useState('');
 
     //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
@@ -97,15 +98,20 @@ export default function DrinkDetails() {
 
     /** Add Drink To Firebase */
     const addDrink = async (drink) => {
-        var drinkID = params.id;
-        //save edited drink to firebase
-        const updates = {};
-        drink["modified"] = getCurrentDateAsJson();
-        if (drink["glass"] === undefined) {
-            drink["glass"] = '';
+        try {
+            var drinkID = params.id;
+            //save edited drink to firebase
+            const updates = {};
+            drink["modified"] = getCurrentDateAsJson();
+            if (drink["glass"] === undefined) {
+                drink["glass"] = '';
+            }
+            updates[`/drinks/${drinkID}`] = drink;
+            update(ref(db), updates);
+        } catch (error) {
+            setError(t('failed_to_save_drink'));
+            console.log(error)
         }
-        updates[`/drinks/${drinkID}`] = drink;
-        update(ref(db), updates);
     }
 
     /** Fetch Incredients From Firebase */
@@ -225,6 +231,7 @@ export default function DrinkDetails() {
             {/* Accordion end */}
             <div className="page-content">
                 {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}
+                {error && <div className="error">{error}</div>}
 
                 <SetStarRating starCount={drink.stars} onSaveStars={saveStars} />
                 <AddComment onSave={addCommentToDrink} />

@@ -35,13 +35,14 @@ import { useAuth } from '../../contexts/AuthContext';
 export default function RecipeDetails() {
 
     //states
-    const [loading, setLoading] = useState(true)
-    const [recipe, setRecipe] = useState({})
-    const [showEditRecipe, setShowEditRecipe] = useState(false)
-    const [showAddIncredient, setShowAddIncredient] = useState(false)
-    const [showAddWorkPhase, setShowAddWorkPhase] = useState(false)
-    const [incredients, setIncredients] = useState()
-    const [workPhases, setWorkPhases] = useState()
+    const [loading, setLoading] = useState(true);
+    const [recipe, setRecipe] = useState({});
+    const [showEditRecipe, setShowEditRecipe] = useState(false);
+    const [showAddIncredient, setShowAddIncredient] = useState(false);
+    const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
+    const [incredients, setIncredients] = useState();
+    const [workPhases, setWorkPhases] = useState();
+    const [error, setError] = useState();
 
     //translation
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
@@ -136,15 +137,23 @@ export default function RecipeDetails() {
 
     /** Add Recipe To Firebase */
     const addRecipe = async (recipe) => {
-        const recipeID = params.id;
-        //save edited recipe to firebase
-        const updates = {};
-        recipe["modified"] = getCurrentDateAsJson();
-        if(recipe["stars"] === undefined) {
-            recipe["stars"] = 0;
+        try {
+            const recipeID = params.id;
+            //save edited recipe to firebase
+            const updates = {};
+            recipe["modified"] = getCurrentDateAsJson();
+            if (recipe["stars"] === undefined) {
+                recipe["stars"] = 0;
+            }
+            if (recipe["isCore"] === undefined) {
+                recipe["isCore"] = false;
+            }
+            updates[`/recipes/${recipeID}`] = recipe;
+            update(ref(db), updates);
+        } catch (error) {
+            setError(t('failed_to_save_recipe'));
+            console.log(error)
         }
-        updates[`/recipes/${recipeID}`] = recipe;
-        update(ref(db), updates);
     }
 
     const saveStars = async (stars) => {
@@ -238,6 +247,7 @@ export default function RecipeDetails() {
             </Accordion>
             {/* Accordion end */}
             <div className="page-content">
+                {error && <div className="error">{error}</div>}
                 <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
                 <AddComment onSave={addCommentToRecipe} />
                 <AddLink onSaveLink={addLinkToRecipe} />
