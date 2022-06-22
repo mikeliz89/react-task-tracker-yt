@@ -91,9 +91,6 @@ export default function ManageDrinks() {
     /** Add Drink To Firebase */
     const addDrink = async (drink) => {
         try {
-            if (drink["category"] === t('category_none')) {
-                drink["category"] = '';
-            }
             drink["created"] = getCurrentDateAsJson();
             drink["createdBy"] = currentUser.email;
             const dbref = ref(db, '/drinks');
