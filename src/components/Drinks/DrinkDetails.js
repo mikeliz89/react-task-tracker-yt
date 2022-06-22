@@ -106,6 +106,9 @@ export default function DrinkDetails() {
             if (drink["glass"] === undefined) {
                 drink["glass"] = '';
             }
+            if(drink["stars"] === undefined) {
+                drink["stars"] = 0;
+            }
             updates[`/drinks/${drinkID}`] = drink;
             update(ref(db), updates);
         } catch (error) {
