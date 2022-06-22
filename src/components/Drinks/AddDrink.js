@@ -7,52 +7,10 @@ import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
 //buttons
 import Button from '../Button';
+//drink
+import { DrinkCategories } from './Categories';
 //link component
 // import AddLink from '../Links/AddLink';
-
-// TODO: Tällä hetkellä vain kovakoodatut drinkki-kategoriat
-const categories = [
-   {
-      //rakennettu juoma
-      "id": 1,
-      "name": "build"
-   },
-   {
-      //sekoitettu juoma
-      "id": 2,
-      "name": "stir"
-   },
-   {
-      //ravistettava juoma
-      "id": 3,
-      "name": "shake"
-   },
-   {
-      //mocktail
-      "id": 4,
-      "name": "mocktail"
-   },
-   {
-      //blenderillä sekoitettava
-      "id": 5,
-      "name": "blender"
-   },
-   {
-      //uutettava
-      "id": 6,
-      "name": "infusion"
-   },
-   {
-      //shotti
-      "id": 7,
-      "name": "shot"
-   },
-   {
-      //booli
-      "id": 8,
-      "name": "bool"
-   }
-]
 
 const AddDrink = ({ drinkID, onAddDrink }) => {
 
@@ -149,7 +107,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}>
                   <option>{t('category_none')}</option>
-                  {categories.map(({ id, name }) => (
+                  {DrinkCategories.map(({ id, name }) => (
                      <option key={id}>{t(`category_${name}`)}</option>
                   ))}
                </Form.Select>

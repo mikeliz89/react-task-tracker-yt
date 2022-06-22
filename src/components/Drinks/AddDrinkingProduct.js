@@ -7,80 +7,8 @@ import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
 //buttons
 import Button from '../Button';
-
-// TODO: Tällä hetkellä vain kovakoodatut tuote-kategoriat
-const categories = [
-   {
-      //vahva viina
-      "id": 1,
-      "name": "spirit"
-   },
-   {
-      //likööri
-      "id": 2,
-      "name": "licour"
-   },
-   {
-      //viski
-      "id": 3,
-      "name": "whiskey"
-   },
-   {
-      //viini
-      "id": 4,
-      "name": "wine"
-   },
-   {
-      //vodka
-      "id": 5,
-      "name": "vodka"
-   },
-   {
-      //vermutti
-      "id": 6,
-      "name": "vermut"
-   },
-   {
-      //triple sec
-      "id": 7,
-      "name": "triplesec"
-   },
-   {
-      //tequila
-      "id": 8,
-      "name": "tequila"
-   },
-   {
-      //limsa
-      "id": 9,
-      "name": "lemonade"
-   },
-   {
-      //konjakki
-      "id": 10,
-      "name": "cognac"
-   },
-   {
-      //brandy
-      "id": 11,
-      "name": "brandy"
-   },
-   {
-      //rommi
-      "id": 12,
-      "name": "rum"
-   },
-   {
-      //katkero
-      "id": 13,
-      "name": "bitters"
-   },
-   {
-      //gin
-      "id": 14,
-      "name": "gin"
-   }
-]
+//drink
+import { DrinkingProductCategories } from './Categories';
 
 const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }) => {
 
@@ -177,7 +105,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}>
                   <option>{t('category_none')}</option>
-                  {categories.map(({ id, name }) => (
+                  {DrinkingProductCategories.map(({ id, name }) => (
                      <option key={id}>{t(`drinkingproduct_category_${name}`)}</option>
                   ))}
                </Form.Select>
