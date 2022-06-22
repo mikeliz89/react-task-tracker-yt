@@ -20,6 +20,7 @@ import AddRecipe from './AddRecipe';
 import i18n from "i18next";
 //utils
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
 //StarRating
 import SetStarRating from '../StarRating/SetStarRating';
 //Links
@@ -225,6 +226,10 @@ export default function RecipeDetails() {
                                 <tr>
                                     <td>{t('core_recipe')}</td>
                                     <td>{recipe.isCore === true ? t('yes') : t('no')}</td>
+                                </tr>
+                                <tr>
+                                    <td>{t('category')}</td>
+                                    <td>{t('category_' + getRecipeCategoryNameByID(recipe.category))}</td>
                                 </tr>
                             </tbody>
                         </Table>

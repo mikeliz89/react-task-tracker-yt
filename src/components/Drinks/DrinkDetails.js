@@ -14,6 +14,7 @@ import GoBackButton from '../../components/GoBackButton';
 import i18n from "i18next";
 //utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
 //Drinks
 import AddDrink from './AddDrink';
 import AddIncredient from './AddIncredient';
@@ -214,7 +215,7 @@ export default function DrinkDetails() {
                                 </tr>
                                 <tr>
                                     <td>{t('category')}</td>
-                                    <td>{drink.category}</td>
+                                    <td>{t('category_' + getDrinkCategoryNameByID(drink.category))}</td>
                                 </tr>
                             </tbody>
                         </Table>
