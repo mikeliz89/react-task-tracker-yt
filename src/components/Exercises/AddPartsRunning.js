@@ -1,7 +1,8 @@
 //react
 import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 //buttons
 import Button from '../Button';
 //firebase
@@ -20,14 +21,14 @@ const AddPartsRunning = () => {
   const [partID, setPartID] = useState();
   const [loading, setLoading] = useState(true);
 
-  //navigation
-  const navigate = useNavigate();
-
   //user
   const { currentUser } = useAuth();
 
   //params
   const params = useParams();
+
+  //translation  
+  const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
 
   //load data
   useEffect(() => {
@@ -44,6 +45,7 @@ const AddPartsRunning = () => {
       const val = snapshot.val();
       const fromDB = [];
       if (val === null) {
+        setLoading(false);
         return;
       }
       for (let id in val) {
@@ -87,24 +89,28 @@ const AddPartsRunning = () => {
   }
 
   return (
-    <div>
-      <h4>Running steps</h4>
-      <Form onSubmit={onSubmit}>
-        <Form.Group>
-          <Form.Label>Matka (km)</Form.Label>
-          <Form.Control type='number'
-            value={distance}
-            onChange={(e) => setDistance(e.target.value)}></Form.Control>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Aika</Form.Label>
-          <Form.Control type='text'
-            value={time}
-            onChange={(e) => setTime(e.target.value)}></Form.Control>
-        </Form.Group>
-        <Button type='submit' text='Tallenna' />
-      </Form>
-    </div>
+    loading ? (
+      <h3>{t('loading')}</h3>
+    ) : (
+      <div>
+        <h4>{t('running_parts_title')}</h4>
+        <Form onSubmit={onSubmit}>
+          <Form.Group>
+            <Form.Label>{t('running_distance')}</Form.Label>
+            <Form.Control type='number'
+              value={distance}
+              onChange={(e) => setDistance(e.target.value)}></Form.Control>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>{t('running_time')}</Form.Label>
+            <Form.Control type='text'
+              value={time}
+              onChange={(e) => setTime(e.target.value)}></Form.Control>
+          </Form.Group>
+          <Button disabled={loading} type='submit' text='Tallenna' />
+        </Form>
+      </div>
+    )
   )
 }
 

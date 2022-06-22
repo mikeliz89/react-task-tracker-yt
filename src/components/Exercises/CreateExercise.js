@@ -13,33 +13,17 @@ import GoBackButton from '../GoBackButton';
 import { useAuth } from '../../contexts/AuthContext';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-
-const categoriesTemp = [
-    {
-        "id": 1,
-        "name": "running"
-    },
-    {
-        "id": 2,
-        "name": "walking"
-    },
-    {
-        "id": 3,
-        "name": "gym"
-    },
-    {
-        "id": 4,
-        "name": "kayaking"
-    }
-]
+//Categories
+import { ExerciseCategories } from './Categories';
 
 const CreateExercise = () => {
 
     //states
     const [category, setCategory] = useState();
-    const [categories] = useState(categoriesTemp);
+    const [categories] = useState(ExerciseCategories);
     const [date, setDate] = useState(''); //todo: laita oletuksena nykypvm
     const [time, setTime] = useState(''); //todo: laita oletuksena nykyinen kellonaika
+    const [error, setError] = useState('');
 
     //translation
     const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
@@ -64,9 +48,6 @@ const CreateExercise = () => {
     /** Add Recipe To Firebase */
     const saveExercise = async (exercise) => {
         try {
-            if (exercise["category"] === t('category_none')) {
-                exercise["category"] = '';
-            }
             exercise["created"] = getCurrentDateAsJson();
             exercise["createdBy"] = currentUser.email;
             const dbref = ref(db, '/exercises');
@@ -75,7 +56,7 @@ const CreateExercise = () => {
                 navigate('/exercise/' + key);
             })
         } catch (ex) {
-            //setError(t('recipe_save_exception'));
+            setError(t('exercise_save_exception'));
         }
     }
 
@@ -85,15 +66,15 @@ const CreateExercise = () => {
             <ButtonGroup>
                 <GoBackButton />
             </ButtonGroup>
+            {error && <div className="error">{error}</div>}
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addRecipeFormCategory">
                     <Form.Label>{t('category')}</Form.Label>
                     <Form.Select
                         value={category}
-                        onChange={(e) => setCategory(e.target.value)}>
-                        <option>{t('category_none')}</option>
+                        onChange={(e) => { setCategory(e.target.value); console.log(e.target.value) }}>
                         {categories.map(({ id, name }) => (
-                            <option key={id}>{t(`category_${name}`)}</option>
+                            <option value={id} key={id}>{t(`category_${name}`)}</option>
                         ))}
                     </Form.Select>
                 </Form.Group>

@@ -15,6 +15,7 @@ import { Categories } from "./Categories";
 import SetStarRating from "../StarRating/SetStarRating";
 //utils
 import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
+import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
 
 const ExerciseDetails = () => {
 
@@ -73,13 +74,13 @@ const ExerciseDetails = () => {
                 <p>{t('date_and_time')}: {exercise.date} {exercise.time}</p>
                 <p>{t('created_by')}: {exercise.createdBy}</p>
                 <p>{t('created')}: {exercise.created}</p>
-                <p>{t('category')}: {exercise.category}</p>
+                <p>{t('category')}: {t('category_' + getExerciseCategoryNameByID(exercise.category))}</p>
                 {
-                    exercise.category === Categories.Gym &&
+                    Number(exercise.category) === Categories.Gym &&
                     <AddPartsGym />
                 }
                 {
-                    (exercise.category === Categories.Running || exercise.category === 'Juoksu') &&
+                    Number(exercise.category) === Categories.Running &&
                     <AddPartsRunning />
                 }
             </div>
