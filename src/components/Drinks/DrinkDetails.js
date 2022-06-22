@@ -99,7 +99,10 @@ export default function DrinkDetails() {
         var drinkID = params.id;
         //save edited drink to firebase
         const updates = {};
-        drink["modified"] = getCurrentDateAsJson()
+        drink["modified"] = getCurrentDateAsJson();
+        if (drink["glass"] === undefined) {
+            drink["glass"] = '';
+        }
         updates[`/drinks/${drinkID}`] = drink;
         update(ref(db), updates);
     }

@@ -1,7 +1,7 @@
 //react
 import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 //firebase
 import { db } from '../../firebase-config';
@@ -20,19 +20,32 @@ const CreateExercise = () => {
 
     //states
     const [category, setCategory] = useState();
-    const [categories] = useState(ExerciseCategories);
+    const [categories, setCategories] = useState(ExerciseCategories);
     const [date, setDate] = useState(''); //todo: laita oletuksena nykypvm
     const [time, setTime] = useState(''); //todo: laita oletuksena nykyinen kellonaika
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
+    const { t, ready } = useTranslation('exercises', { keyPrefix: 'exercises' });
 
     //auth
     const { currentUser } = useAuth();
 
     //navigation
     const navigate = useNavigate();
+
+    useEffect(() => {
+        sortCategoriesByName();
+    }, [ready]);
+
+    const sortCategoriesByName = () => {
+        const sortedCategories = [...categories].sort((a, b) => {
+            const aName = t(`category_${a.name}`);
+            const bName = t(`category_${b.name}`);
+            return aName > bName ? 1 : -1;
+        });
+        setCategories(sortedCategories);
+    }
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -72,7 +85,7 @@ const CreateExercise = () => {
                     <Form.Label>{t('category')}</Form.Label>
                     <Form.Select
                         value={category}
-                        onChange={(e) => { setCategory(e.target.value); console.log(e.target.value) }}>
+                        onChange={(e) => setCategory(e.target.value)}>
                         {categories.map(({ id, name }) => (
                             <option value={id} key={id}>{t(`category_${name}`)}</option>
                         ))}

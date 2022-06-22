@@ -12,10 +12,11 @@ import { DrinkingProductCategories } from './Categories';
 
 const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }) => {
 
-   const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
+   const { t, ready } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
    //states
    const [category, setCategory] = useState('');
+   const [categories, setCategories] = useState(DrinkingProductCategories);
    const [name, setName] = useState('');
    const [manufacturer, setManufacturer] = useState('');
    const [description, setDescription] = useState('');
@@ -24,6 +25,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
    const [haveAtHome, setHaveAtHome] = useState('');
    const [abv, setAbv] = useState(0);
 
+   //load data
    useEffect(() => {
       if (drinkingProductID != null) {
          const getDrinkingProduct = async () => {
@@ -31,7 +33,20 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
          }
          getDrinkingProduct()
       }
-   }, []);
+   }, [drinkingProductID]);
+
+   useEffect(() => {
+      sortCategoriesByName();
+   }, [ready]);
+
+   const sortCategoriesByName = () => {
+      const sortedCategories = [...categories].sort((a, b) => {
+         const aName = t(`drinkingproduct_category_${a.name}`);
+         const bName = t(`drinkingproduct_category_${b.name}`);
+         return aName > bName ? 1 : -1;
+      });
+      setCategories(sortedCategories);
+   }
 
    /** get drink incredient from firebase by id (in EDIT drink incredient) */
    const fetchDrinkingProductFromFirebase = async (id) => {
@@ -104,9 +119,9 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
                <Form.Select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}>
-                  <option>{t('category_none')}</option>
-                  {DrinkingProductCategories.map(({ id, name }) => (
-                     <option key={id}>{t(`drinkingproduct_category_${name}`)}</option>
+                  {categories.map(({ id, name }) => (
+                     <option value={id}
+                        key={id}>{t(`drinkingproduct_category_${name}`)}</option>
                   ))}
                </Form.Select>
             </Form.Group>

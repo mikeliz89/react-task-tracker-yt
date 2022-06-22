@@ -1,6 +1,11 @@
 // TODO: Tällä hetkellä vain kovakoodatut drinkki-kategoriat
 export const DrinkCategories = [
     {
+        //-ei mikään-
+        "id": 0,
+        "name": "none"
+    },
+    {
         //rakennettu juoma
         "id": 1,
         "name": "build"
@@ -44,6 +49,11 @@ export const DrinkCategories = [
 
 // TODO: Tällä hetkellä vain kovakoodatut tuote-kategoriat
 export const DrinkingProductCategories = [
+    {
+        //-ei mikään-
+        "id": 0,
+        "name": "none"
+    },
     {
         //vahva viina
         "id": 1,

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 //drinking product
 import AddDrinkingProduct from './AddDrinkingProduct';
+//utils
+import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
 
 const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
 
@@ -48,7 +50,9 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
             {error && <div className="error">{error}</div>}
             <p>{t('drinkingproduct_manufacturer')}: {drinkingProduct.manufacturer}</p>
             <p>{t('drinkingproduct_description')}: {drinkingProduct.description}</p>
-            <p>{t('drinkingproduct_category')}: {drinkingProduct.category}</p>
+            <p>{t('drinkingproduct_category')}: {
+                t('drinkingproduct_category_' + getDrinkingProductCategoryNameByID(drinkingProduct.category))
+            }</p>
             {editable &&
                 <AddDrinkingProduct
                     onClose={() => setEditable(!editable)}

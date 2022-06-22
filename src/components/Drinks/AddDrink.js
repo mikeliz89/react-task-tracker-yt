@@ -19,6 +19,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
 
    //states
    const [category, setCategory] = useState('');
+   const [categories, setCategories] = useState(DrinkCategories);
    const [title, setTitle] = useState('');
    const [description, setDescription] = useState('');
    const [glass, setGlass] = useState('');
@@ -26,6 +27,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
    const [createdBy, setCreatedBy] = useState('');
    const [stars, setStars] = useState(0);
 
+   //load data
    useEffect(() => {
       if (drinkID != null) {
          const getDrink = async () => {
@@ -34,6 +36,19 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
          getDrink()
       }
    }, [drinkID]);
+
+   useEffect(() => {
+      sortCategoriesByName();
+   }, []);
+
+   const sortCategoriesByName = () => {
+      const sortedCategories = [...categories].sort((a, b) => {
+         const aName = t(`category_${a.name}`);
+         const bName = t(`category_${b.name}`);
+         return aName > bName ? 1 : -1;
+      });
+      setCategories(sortedCategories);
+   }
 
    /** get drink from firebase by id (in EDIT drink) */
    const fetchDrinkFromFirebase = async (drinkID) => {
@@ -106,9 +121,8 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
                <Form.Select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}>
-                  <option>{t('category_none')}</option>
-                  {DrinkCategories.map(({ id, name }) => (
-                     <option key={id}>{t(`category_${name}`)}</option>
+                  {categories.map(({ id, name }) => (
+                     <option value={id} key={id}>{t(`category_${name}`)}</option>
                   ))}
                </Form.Select>
             </Form.Group>

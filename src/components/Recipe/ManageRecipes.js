@@ -79,9 +79,6 @@ const ManageRecipes = () => {
   /** Add Recipe To Firebase */
   const addRecipe = async (recipe) => {
     try {
-      if(recipe["category"] === t('category_none')) {
-        recipe["category"] = '';
-      }
       recipe["created"] = getCurrentDateAsJson();
       recipe["createdBy"] = currentUser.email;
       const dbref = ref(db, DB_RECIPES);

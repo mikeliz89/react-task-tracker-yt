@@ -53,11 +53,11 @@ const ManageDrinkingProducts = () => {
 
     const addDrinkingProduct = (drinkingProduct) => {
         try {
-            if (drinkingProduct["category"] === t('category_none')) {
-                drinkingProduct["category"] = '';
-            }
             drinkingProduct["created"] = getCurrentDateAsJson();
             drinkingProduct["createdBy"] = currentUser.email;
+            if(drinkingProduct["abv"] === undefined) {
+                drinkingProduct["abv"] = 0;
+            }
             const dbref = ref(db, '/drinkingproducts');
             push(dbref, drinkingProduct);
             setMessage(t('drinkingproduct_save_successfull'));
@@ -76,6 +76,9 @@ const ManageDrinkingProducts = () => {
         const id = drinkingProduct.id;
         //save
         const updates = {};
+        if(drinkingProduct["abv"] === undefined) {
+            drinkingProduct["abv"] = 0;
+        }
         updates[`/drinkingproducts/${id}`] = drinkingProduct;
         update(ref(db), updates);
     }

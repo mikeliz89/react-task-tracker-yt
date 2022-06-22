@@ -35,7 +35,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
 
    useEffect(() => {
       sortCategoriesByName();
-   }, categories);
+   }, []);
 
    /** get recipe from firebase by recipeID (in EDIT recipe) */
    const fetchRecipeFromFirebase = async (recipeID) => {

@@ -9,7 +9,9 @@ export const Categories = {
     /** Kuntosali/painoharjoittelu */
     Gym: 3,
     /** Kajakointi/melonta */
-    Kayaking: 4
+    Kayaking: 4,
+    /** Jumppa */
+    Aerobics: 5
 }
 
 export const ExerciseCategories = [
@@ -37,5 +39,9 @@ export const ExerciseCategories = [
         //Kajakointi/melonta
         "id": 4,
         "name": "kayaking"
+    },
+    {
+        "id": 5,
+        "name": "aerobics"
     }
 ]

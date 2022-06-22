@@ -11,6 +11,7 @@ import { ref, push } from "firebase/database";
 import { db } from '../../firebase-config';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -65,7 +66,9 @@ const Drink = ({ drink, onDelete }) => {
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                     onClick={() => { if (window.confirm(t('delete_drink_confirm_message'))) { onDelete(drink.id); } }} />
             </h5>
-            {drink.category !== "" ? (<p> {'#' + drink.category}</p>) : ('')}
+            {drink.category !== "" ? (
+                <p> {'#' + t('category_' + getDrinkCategoryNameByID(drink.category))}</p>
+            ) : ('')}
             <p>{drink.description}</p>
             <p>
                 <Link className='btn btn-primary' to={`/drink/${drink.id}`}>{t('view_details')}</Link>
