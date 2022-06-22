@@ -34,7 +34,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
    }, [recipeID]);
 
    useEffect(() => {
-      handleSort();
+      sortCategoriesByName();
    }, categories);
 
    /** get recipe from firebase by recipeID (in EDIT recipe) */
@@ -55,9 +55,11 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
       });
    }
 
-   const handleSort = () => {
+   const sortCategoriesByName = () => {
       const sortedCategories = [...categories].sort((a, b) => {
-         return a.name > b.name ? 1 : -1;
+         const aName = t(`category_${a.name}`);
+         const bName = t(`category_${b.name}`);
+         return aName > bName ? 1 : -1;
       });
       setCategories(sortedCategories);
    }
@@ -105,9 +107,8 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
                <Form.Select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}>
-                  <option>{t('category_none')}</option>
                   {categories.map(({ id, name }) => (
-                     <option key={id}>{t(`category_${name}`)}</option>
+                     <option value={id} key={id}>{t(`category_${name}`)}</option>
                   ))}
                </Form.Select>
             </Form.Group>

@@ -1,6 +1,10 @@
 // TODO: Tällä hetkellä vain kovakoodatut ruoka-kategoriat
 export const RecipeCategories = [
     {
+        "id": 0,
+        "name": "none"
+    },
+    {
         "id": 1,
         "name": "pasta"
     },
@@ -67,5 +71,10 @@ export const RecipeCategories = [
     {
         "id": 17,
         "name": "chinese"
+    },
+    {
+        //Jälkiruoka
+        "id": 18,
+        "name": "desert"
     }
 ]

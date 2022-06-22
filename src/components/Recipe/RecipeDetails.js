@@ -141,7 +141,10 @@ export default function RecipeDetails() {
         if (recipe["category"] === t('category_none')) {
             recipe["category"] = '';
         }
-        recipe["modified"] = getCurrentDateAsJson()
+        recipe["modified"] = getCurrentDateAsJson();
+        if(recipe["stars"] === undefined) {
+            recipe["stars"] = 0;
+        }
         updates[`/recipes/${recipeID}`] = recipe;
         update(ref(db), updates);
     }

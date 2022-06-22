@@ -11,6 +11,7 @@ import { db } from '../../firebase-config';
 import { ref, push, child, onValue } from "firebase/database";
 //utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //i18n
@@ -34,10 +35,10 @@ const Recipe = ({ recipe, onDelete }) => {
     const makeShoppingList = async () => {
         const incredients = await fetchIncredientsFromFirebase(recipe.id);
         //const incredients = await getRecipeIncredientsTest();
-        
+
         if (incredients && incredients.length > 0) {
             let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
-            addTaskList({ title: `${t('shoppinglist')} ${currentDateTime}`}, incredients).then(() => {
+            addTaskList({ title: `${t('shoppinglist')} ${currentDateTime}` }, incredients).then(() => {
                 navigate('/managetasklists')
             });
         } else if (incredients && incredients.length <= 0) {
@@ -108,7 +109,9 @@ const Recipe = ({ recipe, onDelete }) => {
                     onClick={() => { if (window.confirm(t('delete_recipe_confirm_message'))) { onDelete(recipe.id); } }} />
             </h5>
             {error && <div className="error">{error}</div>}
-            {recipe.category !== "" ? (<p> {'#' + recipe.category}</p>) : ('')}
+            {recipe.category > 0 ? (
+                <p> {'#' + t('category_' + getRecipeCategoryNameByID(recipe.category))}</p>
+            ) : ('')}
             <p>{recipe.description}</p>
             <p>
                 <Link className='btn btn-primary' to={`/recipe/${recipe.id}`}>{t('view_details')}</Link>
