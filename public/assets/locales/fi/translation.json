@@ -125,6 +125,7 @@
         "drinkingproduct_save_successfull": "Tuotteen tallennus onnistui",
         "failed_to_save_drink": "Drinkin tallennus epäonnistui",
         "glass": "Lasi",
+        "in_minutes": "minuuttia",
         "incredient_name": "Ainesosan nimi",
         "incredient_amount": "Määrä",
         "incredient_save_button_text": "Tallenna",
