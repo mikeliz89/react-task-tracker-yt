@@ -79,6 +79,7 @@
         "button_edit": "Muokkaa drinkkiä",
         "button_save_drink": "Tallenna",
         "button_save_incredient": "Tallenna ainesosa",
+        "button_save_workphase": "Tallenna työvaihe",
         "category": "Kategoria",
         "category_build": "Rakennettava",
         "category_blender": "Blenderillä sekoitettava",
@@ -139,6 +140,7 @@
         "no_drinks_to_show": "Ei lisättyjä drinkkejä",
         "no_drinkingproducts_to_show": "Ei lisättyjä tuotteita",
         "no_incredients_to_show": "Ei lisättyjä ainesosia",
+        "no_workphases_to_show": "Ei lisättyjä työvaiheita",
         "please_add_drink": "Ole hyvä ja anna drinkille nimi",
         "please_add_drink_incredient": "Ole hyvä ja anna tuotteelle nimi",
         "save_exception": "Drinkin tallennus epäonnistui",
@@ -148,7 +150,9 @@
         "show_only_done": "Vain arvioidut",
         "show_only_not_done": "Vain ei-arvioidut",
         "sorting": "Järjestä",
-        "view_details": "Katso lisätiedot"
+        "view_details": "Katso lisätiedot",
+        "workphase_estimated_length": "Arvioitu kesto minuutteina",
+        "workphase_name": "Työvaihe"
     },
     "exercises": {
         "button_create_exercise": "Luo harjoitus",

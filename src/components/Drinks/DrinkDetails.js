@@ -20,6 +20,7 @@ import AddDrink from './AddDrink';
 import AddIncredient from './AddIncredient';
 import DrinkHistories from './DrinkHistories';
 import Incredients from './Incredients';
+import WorkPhases from './WorkPhases';
 //StarRating
 import SetStarRating from '../StarRating/SetStarRating';
 //Comment
@@ -30,6 +31,7 @@ import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+import AddWorkPhase from './AddWorkPhase';
 
 export default function DrinkDetails() {
 
@@ -41,6 +43,7 @@ export default function DrinkDetails() {
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
     const [showEditDrink, setShowEditDrink] = useState(false);
     const [incredients, setIncredients] = useState({});
+    const [workPhases, setWorkPhases] = useState({});
     const [error, setError] = useState('');
 
     //translation
@@ -62,14 +65,31 @@ export default function DrinkDetails() {
         }
         getDrink()
         const getIncredients = async () => {
-            await fetchIncredientsFromFirebase()
+            await fetchIncredientsFromFirebase();
         }
         getIncredients()
+        const getWorkPhases = async () => {
+            await fetchWorkPhasesFromFirebase();
+        }
+        getWorkPhases();
         const getDrinkHistory = async () => {
             await fetchDrinkHistoryFromFirebase();
         }
         getDrinkHistory()
     }, [])
+
+    /** Fetch WorkPhases From Firebase */
+    const fetchWorkPhasesFromFirebase = async () => {
+        const dbref = await child(ref(db, '/drink-workphases'), params.id);
+        onValue(dbref, (snapshot) => {
+            const snap = snapshot.val();
+            const workphases = [];
+            for (let id in snap) {
+                workphases.push({ id, ...snap[id] });
+            }
+            setWorkPhases(workphases);
+        })
+    }
 
     const fetchDrinkHistoryFromFirebase = async () => {
         const dbref = await child(ref(db, '/drinkhistory'), params.id);
@@ -106,7 +126,7 @@ export default function DrinkDetails() {
             if (drink["glass"] === undefined) {
                 drink["glass"] = '';
             }
-            if(drink["stars"] === undefined) {
+            if (drink["stars"] === undefined) {
                 drink["stars"] = 0;
             }
             updates[`/drinks/${drinkID}`] = drink;
@@ -117,9 +137,12 @@ export default function DrinkDetails() {
         }
     }
 
+    const DB_DRINK_INCREDIENTS = '/drink-incredients';
+    const DB_DRINK_WORKPHASES = '/drink-workphases';
+
     /** Fetch Incredients From Firebase */
     const fetchIncredientsFromFirebase = async () => {
-        const dbref = await child(ref(db, '/drink-incredients'), params.id);
+        const dbref = await child(ref(db, DB_DRINK_INCREDIENTS), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const incredients = [];
@@ -132,13 +155,13 @@ export default function DrinkDetails() {
 
     /** Delete Incredient From Firebase */
     const deleteIncredient = async (drinkID, id) => {
-        const dbref = ref(db, '/drink-incredients/' + drinkID + "/" + id)
-        remove(dbref)
+        const dbref = ref(db, `${DB_DRINK_INCREDIENTS}/${drinkID}/${id}`);
+        remove(dbref);
     }
 
     /** Add Incredient To Firebase */
     const addIncredient = async (drinkID, incredient) => {
-        const dbref = child(ref(db, '/drink-incredients'), drinkID);
+        const dbref = child(ref(db, DB_DRINK_INCREDIENTS), drinkID);
         push(dbref, incredient);
     }
 
@@ -166,6 +189,20 @@ export default function DrinkDetails() {
         link["created"] = getCurrentDateAsJson();
         const dbref = child(ref(db, '/drink-links'), drinkID);
         push(dbref, link);
+    }
+
+    /** Add Work Phase To Firebase */
+    const addWorkPhase = async (drinkID, workPhase) => {
+        console.log(drinkID);
+        console.log(workPhase);
+        const dbref = child(ref(db, DB_DRINK_WORKPHASES), drinkID);
+        push(dbref, workPhase);
+    }
+
+    /** Delete Work Phase From Firebase */
+    const deleteWorkPhase = async (drinkID, id) => {
+        const dbref = ref(db, `${DB_DRINK_WORKPHASES}/${drinkID}/${id}`);
+        remove(dbref);
     }
 
     return loading ? (
@@ -242,6 +279,7 @@ export default function DrinkDetails() {
 
                 {showEditDrink && <AddDrink onAddDrink={addDrink} drinkID={params.id} />}
                 {showAddIncredient && <AddIncredient drinkID={params.id} onAddIncredient={addIncredient} />}
+                {showAddWorkPhase && <AddWorkPhase drinkID={params.id} onAddWorkPhase={addWorkPhase} />}
                 {incredients != null}
                 {incredients != null && incredients.length > 0 ? (
                     <Incredients
@@ -252,6 +290,16 @@ export default function DrinkDetails() {
                 ) : (
                     <p> {t('no_incredients_to_show')} </p>
                 )}
+                {workPhases != null}
+                {workPhases != null && workPhases.length > 0 ? (
+                    <WorkPhases
+                        drinkID={params.id}
+                        workPhases={workPhases}
+                        onDeleteWorkPhase={deleteWorkPhase}
+                    />
+                ) : (
+                    <p> {t('no_workphases_to_show')} </p>
+                )}
                 <h4>{t('drinkhistory_title')}</h4>
                 {
                     drinkHistory != null && drinkHistory.length > 0 ? (
@@ -260,7 +308,6 @@ export default function DrinkDetails() {
                         t('no_drink_history')
                     )
                 }
-
                 <Comments objID={params.id} url={'drink-comments'} />
                 <Links objID={params.id} url={'drink-links'} />
             </div>
