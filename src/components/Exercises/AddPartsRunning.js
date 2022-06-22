@@ -40,19 +40,20 @@ const AddPartsRunning = () => {
   /** Fetch Recipe From Firebase */
   const fetchExercisePartFromFirebase = async () => {
     const dbref = child(ref(db, '/exercise-parts'), params.id);
-    console.log("fetch");
     onValue(dbref, (snapshot) => {
       const val = snapshot.val();
       const fromDB = [];
       if (val === null) {
-        navigate(-1);
+        return;
       }
       for (let id in val) {
         fromDB.push({ id, ...val[id] });
       }
-      setPartID(fromDB[0]["id"]);
-      setDistance(fromDB[0]["distance"]);
-      setTime(fromDB[0]["time"]);
+      if (fromDB && fromDB.length > 0) {
+        setPartID(fromDB[0]["id"]);
+        setDistance(fromDB[0]["distance"]);
+        setTime(fromDB[0]["time"]);
+      }
       setLoading(false);
     })
   }
