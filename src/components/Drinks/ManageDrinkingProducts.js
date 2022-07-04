@@ -55,7 +55,7 @@ const ManageDrinkingProducts = () => {
         try {
             drinkingProduct["created"] = getCurrentDateAsJson();
             drinkingProduct["createdBy"] = currentUser.email;
-            if(drinkingProduct["abv"] === undefined) {
+            if (drinkingProduct["abv"] === undefined) {
                 drinkingProduct["abv"] = 0;
             }
             const dbref = ref(db, '/drinkingproducts');
@@ -76,7 +76,7 @@ const ManageDrinkingProducts = () => {
         const id = drinkingProduct.id;
         //save
         const updates = {};
-        if(drinkingProduct["abv"] === undefined) {
+        if (drinkingProduct["abv"] === undefined) {
             drinkingProduct["abv"] = 0;
         }
         updates[`/drinkingproducts/${id}`] = drinkingProduct;

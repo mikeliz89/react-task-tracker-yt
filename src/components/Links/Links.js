@@ -20,15 +20,35 @@ const Links = ({ url, objID }) => {
     //load data
     useEffect(() => {
         const getLinks = async () => {
-            await fetchLinksFromFireBase();
+            if (objID != null) {
+                await fetchLinksFromFireBase(objID);
+            } else {
+                await fetchLinksFromFirebaseWithoutID();
+            }
         }
         if (url !== "") {
             getLinks();
         }
     }, []);
 
-    const fetchLinksFromFireBase = async () => {
-        const dbref = await child(ref(db, url), objID);
+    const fetchLinksFromFireBase = async (myObjID) => {
+        const dbref = await child(ref(db, url), myObjID);
+        onValue(dbref, (snapshot) => {
+            const snap = snapshot.val();
+            const fromDB = [];
+            let linkCounterTemp = 0;
+            for (let id in snap) {
+                linkCounterTemp++;
+                fromDB.push({ id, ...snap[id] });
+            }
+            setLinks(fromDB);
+            setLinkCounter(linkCounterTemp);
+        })
+    }
+
+    const fetchLinksFromFirebaseWithoutID = async () => {
+
+        const dbref = ref(db, url);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -43,8 +63,13 @@ const Links = ({ url, objID }) => {
     }
 
     const deleteLink = (linkID) => {
-        const dbref = ref(db, url + '/' + objID + '/' + linkID);
-        remove(dbref);
+        if (objID != null) {
+            const dbref = ref(db, `${url}/${objID}/${linkID}`);
+            remove(dbref);
+        } else {
+            const dbref = ref(db, `${url}/${linkID}`);
+            remove(dbref);
+        }
     }
 
     return (
