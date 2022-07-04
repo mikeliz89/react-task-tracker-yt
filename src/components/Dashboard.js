@@ -32,6 +32,12 @@ export default function Dashboard() {
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={'/managebackpacking'}><BigButton imageName="backpacking.jpg" textcolor="black" color="#0cb058" text={t('backpacking')} comingsoon /></Link>
                 </Col>
+                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
+                    <Link to={'/car'}><BigButton imageName="car.jpg" textcolor="black" color="#0cb058" text={t('car')} comingsoon /></Link>
+                </Col>
+                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
+                    <Link to={'/music'}><BigButton imageName="music.jpg" textcolor="black" color="#0cb058" text={t('music')} comingsoon /></Link>
+                </Col>
             </Row>
             {/* <Link to={'/'}><BigButton text="button" /></Link>
                 <Link to={'/'}><BigButton text="button" /></Link>

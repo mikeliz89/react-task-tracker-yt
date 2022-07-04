@@ -16,7 +16,7 @@ const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor, image
                     { backgroundColor: 'rgba(0, 0, 0, 0)', color: textcolor }}
                 className='bigbtn'>
                 <div style={{ backgroundColor: textBackgroundColor, paddingTop: '5px', paddingBottom: '5px' }}>
-                    <span style={comingsoon ? {color:'gray'} : {}}>{text}</span>
+                    <span style={comingsoon ? {color:'gray'} : {}}><b>{text}</b></span>
                     {comingsoon && <div style={{ color: 'gray' }}>{t('coming_soon')}</div>}
                 </div>
             </button>

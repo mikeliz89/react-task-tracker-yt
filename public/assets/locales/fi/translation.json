@@ -47,6 +47,10 @@
         "weighthistory": "Painohistoria",
         "your_bmi_is": "Painoindeksisi on"
     },
+    "car": {
+        "car_title": "Auto",
+        "coming_soon": "Tulossa pian..."
+    },
     "comments": {
         "add_comment": "Kommentoi",
         "button_close": "Sulje",
@@ -64,8 +68,10 @@
         "buttons": {
             "backpacking": "Retkeily",
             "bmi_calculator": "Painoindeksi-laskuri",
+            "car": "Auto",
             "drinks": "Drinkit",
             "exercises": "Liikunta",
+            "music": "Musiikki",
             "recipes": "Reseptit",
             "tasklists": "Tehtävälistat"
         }
@@ -200,6 +206,10 @@
         "save_link": "Tallenna linkki",
         "url": "url-osoite",
         "urlText": "linkin teksti"
+    },
+    "music": {
+        "music_title": "Musiikki",
+        "coming_soon": "Tulossa pian..."
     },
     "myprofile": {
         "button_close": "Sulje",
