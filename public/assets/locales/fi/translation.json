@@ -71,6 +71,7 @@
             "car": "Auto",
             "drinks": "Drinkit",
             "exercises": "Liikunta",
+            "links_list": "Linkit",
             "music": "Musiikki",
             "recipes": "Reseptit",
             "tasklists": "Tehtävälistat"
@@ -200,8 +201,10 @@
     "links": {
         "add_link": "Lisää linkki",
         "button_close": "Sulje",
+        "coming_soon": "Tulossa pian...",
         "delete_link_confirm": "Poista linkki?",
         "header": "Linkit",
+        "links_list_title": "Linkit",
         "no_links": "Ei linkkejä",
         "save_link": "Tallenna linkki",
         "url": "url-osoite",

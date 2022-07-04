@@ -59,6 +59,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Car from './components/Car/Car';
 //Music
 import Music from './components/Music/Music';
+//LinksList
+import LinksList from './components/Links/LinksList';
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -132,6 +134,9 @@ function App() {
             {/* Demo */}
             <Route path='/Demo' element={<PrivateRoute><Demo /></PrivateRoute>} />
             {/* Demo */}
+            {/* Links */}
+            <Route path='/linkslist' element={<PrivateRoute><LinksList /></PrivateRoute>} />
+            {/* Links */}
           </Routes>
           <Footer />
         </AuthProvider>
