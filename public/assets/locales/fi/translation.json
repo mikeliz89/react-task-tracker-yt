@@ -171,6 +171,7 @@
         "category_running": "Juoksu",
         "category_walking": "Kävely",
         "category_aerobics": "Jumppa",
+        "category_bicycling": "Pyöräily",
         "created": "Luotu",
         "created_by": "Luoja",
         "create_exercise": "Luo harjoitus",
