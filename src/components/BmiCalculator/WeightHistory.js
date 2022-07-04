@@ -12,6 +12,8 @@ import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import i18n from "i18next";
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+//bmicalculator
+import WeightChart from './WeightChart';
 
 const WeightHistory = () => {
 
@@ -55,6 +57,7 @@ const WeightHistory = () => {
         <div>
             <GoBackButton />
             <h3 className="page-title">{t('weighthistory')}</h3>
+            <WeightChart data={historyRows} />
             {/* { <pre>{JSON.stringify(historyRows)}</pre> } */}
             {historyRows
                 ? historyRows.map((row, index) =>
