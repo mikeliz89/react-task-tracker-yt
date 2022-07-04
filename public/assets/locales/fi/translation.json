@@ -48,8 +48,21 @@
         "your_bmi_is": "Painoindeksisi on"
     },
     "car": {
+        "add_fueling": "Lisää tankilla käynti",
+        "add_fueling_title": "Tankilla käynti",
         "car_title": "Auto",
-        "coming_soon": "Tulossa pian..."
+        "coming_soon": "Tulossa pian...",
+        "fuel_price": "Bensan hinta €/L",
+        "fuel_price_simple": "Bensan hinta",
+        "fuelings": "Tankkaukset",
+        "liter_amount": "Tankattu litramäärä",
+        "meter_kilometers": "Matkamittarin km lukema",
+        "no_car_fuelings": "Ei tankillakäyntejä",
+        "price": "Tankattu euromäärä",
+        "purchase_location": "Ostopaikka",
+        "save": "Tallenna",
+        "save_exception": "Tallennus epäonnistui",
+        "save_successfull": "Tallennus onnistui"
     },
     "comments": {
         "add_comment": "Kommentoi",
