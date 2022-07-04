@@ -9,7 +9,7 @@ const WeightChart = ({ data }) => {
                 <Line type="monotone" dataKey="weight" stroke="#8884d8" />
                 <CartesianGrid stroke="#ccc" />
                 <XAxis dataKey="currentDateTime" />
-                <YAxis />
+                <YAxis type="number" domain={[80, 100]} />
                 <Tooltip />
                 <Legend />
             </LineChart>
