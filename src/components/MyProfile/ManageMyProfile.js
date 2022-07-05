@@ -15,6 +15,8 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 
 export default function ManageMyProfile() {
 
+    const DB_PROFILES = '/profiles';
+
     const imageName = 'defaultavatar.png';
     const defaultPhotoUrl = `/images/${imageName}`;
 
@@ -53,7 +55,7 @@ export default function ManageMyProfile() {
 
     /** Fetch Profile From Firebase */
     const fetchProfileFromFirebase = async () => {
-        const dbref = ref(db, '/profiles/' + currentUser.uid);
+        const dbref = ref(db, `${DB_PROFILES}/${currentUser.uid}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
@@ -77,7 +79,7 @@ export default function ManageMyProfile() {
         //save edited profile to firebase
         const updates = {};
         data["modified"] = getCurrentDateAsJson()
-        updates[`/profiles/${currentUser.uid}`] = data;
+        updates[`${DB_PROFILES}/${currentUser.uid}`] = data;
         update(ref(db), updates);
     }
 

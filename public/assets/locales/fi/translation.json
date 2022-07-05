@@ -50,19 +50,26 @@
     "car": {
         "add_fueling": "Lisää tankilla käynti",
         "add_fueling_title": "Tankilla käynti",
+        "add_info": "Ajoneuvon tiedot",
+        "button_close": "Sulje",
         "car_title": "Auto",
         "coming_soon": "Tulossa pian...",
+        "failed_to_add_info": "Infon tallennus epäonnistui",
+        "failed_to_add_fueling": "Tankkauksen tallennus epäonnistui",
         "fuel_price": "Bensan hinta €/L",
         "fuel_price_simple": "Bensan hinta",
         "fuelings": "Tankkaukset",
         "liter_amount": "Tankattu litramäärä",
         "meter_kilometers": "Matkamittarin km lukema",
+        "model_year": "Vuosimalli",
         "no_car_fuelings": "Ei tankillakäyntejä",
         "price": "Tankattu euromäärä",
         "purchase_location": "Ostopaikka",
+        "register_number": "Rekisterinumero",
         "save": "Tallenna",
         "save_exception": "Tallennus epäonnistui",
-        "save_successfull": "Tallennus onnistui"
+        "save_successfull": "Tallennus onnistui",
+        "text": "Lisätieto"
     },
     "comments": {
         "add_comment": "Kommentoi",

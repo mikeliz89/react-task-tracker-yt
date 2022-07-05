@@ -6,6 +6,7 @@ import GoBackButton from '../GoBackButton';
 import Button from '../Button';
 //car
 import AddFueling from './AddFueling';
+import AddInfo from './AddInfo';
 import CarFuelings from './CarFuelings';
 //firebase
 import { db } from '../../firebase-config';
@@ -14,7 +15,8 @@ import { onValue, ref } from 'firebase/database';
 export default function Car() {
 
     //states
-    const [showAddFueling, setShowAddFueling] = useState();
+    const [showAddFueling, setShowAddFueling] = useState(false);
+    const [showAddInfo, setShowAddInfo] = useState(false);
     const [carFuelings, setCarFuelings] = useState({});
 
     //translation
@@ -47,14 +49,28 @@ export default function Car() {
         <div>
             <GoBackButton />
             <h3 className="page-title">{t('car_title')}</h3>
+            <Button onClick={() => setShowAddInfo(!showAddInfo)}
+                text={t('add_info')} />
             <Button onClick={() => setShowAddFueling(!showAddFueling)}
                 text={t('add_fueling')} />
-            <div>
-                {
-                    showAddFueling &&
-                    <AddFueling />
-                }
-            </div>
+            {/* Info Start */}
+            {
+                showAddInfo ?
+                    (<div>
+                        <AddInfo />
+                    </div>
+                    ) : ''
+            }
+            {/* Info End */}
+            {/* Fueling Start */}
+            {
+                showAddFueling ?
+                    (<div>
+                        <AddFueling />
+                    </div>
+                    ) : ''
+            }
+            {/* Fueling End */}
             <div>
                 {
                     carFuelings != null && carFuelings.length > 0 ? (
