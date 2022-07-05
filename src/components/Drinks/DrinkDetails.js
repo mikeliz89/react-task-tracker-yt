@@ -35,6 +35,13 @@ import AddWorkPhase from './AddWorkPhase';
 
 export default function DrinkDetails() {
 
+    const DB_DRINKS = '/drinks';
+    const DB_DRINK_INCREDIENTS = '/drink-incredients';
+    const DB_DRINK_WORKPHASES = '/drink-workphases';
+    const DB_DRINK_COMMENTS = '/drink-comments';
+    const DB_DRINK_LINKS = '/drink-links';
+    const DB_DRINK_HISTORY = '/drinkhistory';
+
     //states
     const [loading, setLoading] = useState(true);
     const [drink, setDrink] = useState({});
@@ -80,7 +87,7 @@ export default function DrinkDetails() {
 
     /** Fetch WorkPhases From Firebase */
     const fetchWorkPhasesFromFirebase = async () => {
-        const dbref = await child(ref(db, '/drink-workphases'), params.id);
+        const dbref = await child(ref(db, DB_DRINK_WORKPHASES), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const workphases = [];
@@ -92,7 +99,7 @@ export default function DrinkDetails() {
     }
 
     const fetchDrinkHistoryFromFirebase = async () => {
-        const dbref = await child(ref(db, '/drinkhistory'), params.id);
+        const dbref = await child(ref(db, DB_DRINK_HISTORY), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -105,7 +112,7 @@ export default function DrinkDetails() {
 
     /** Fetch Drink From Firebase */
     const fetchDrinkFromFirebase = async () => {
-        const dbref = ref(db, '/drinks/' + params.id);
+        const dbref = ref(db, `${DB_DRINKS}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
@@ -129,16 +136,13 @@ export default function DrinkDetails() {
             if (drink["stars"] === undefined) {
                 drink["stars"] = 0;
             }
-            updates[`/drinks/${drinkID}`] = drink;
+            updates[`${DB_DRINKS}/${drinkID}`] = drink;
             update(ref(db), updates);
         } catch (error) {
             setError(t('failed_to_save_drink'));
             console.log(error)
         }
     }
-
-    const DB_DRINK_INCREDIENTS = '/drink-incredients';
-    const DB_DRINK_WORKPHASES = '/drink-workphases';
 
     /** Fetch Incredients From Firebase */
     const fetchIncredientsFromFirebase = async () => {
@@ -171,7 +175,7 @@ export default function DrinkDetails() {
         const updates = {};
         drink["modified"] = getCurrentDateAsJson()
         drink["stars"] = Number(stars);
-        updates[`/drinks/${drinkID}`] = drink;
+        updates[`${DB_DRINKS}/${drinkID}`] = drink;
         update(ref(db), updates);
     }
 
@@ -180,14 +184,14 @@ export default function DrinkDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, '/drink-comments'), drinkID);
+        const dbref = child(ref(db, DB_DRINK_COMMENTS), drinkID);
         push(dbref, comment);
     }
 
     const addLinkToDrink = (link) => {
         const drinkID = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, '/drink-links'), drinkID);
+        const dbref = child(ref(db, DB_DRINK_LINKS), drinkID);
         push(dbref, link);
     }
 
