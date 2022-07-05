@@ -12,6 +12,9 @@ import { DrinkingProductCategories } from './Categories';
 
 const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }) => {
 
+   const DB_DRINKINGPRODUCTS = '/drinkingproducts';
+
+   //translation
    const { t, ready } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
    //states
@@ -50,7 +53,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
 
    /** get drink incredient from firebase by id (in EDIT drink incredient) */
    const fetchDrinkingProductFromFirebase = async (id) => {
-      const dbref = ref(db, '/drinkingproducts/' + id);
+      const dbref = ref(db, `${DB_DRINKINGPRODUCTS}/${id}`);
       get(dbref).then((snapshot) => {
          if (snapshot.exists()) {
             var val = snapshot.val();

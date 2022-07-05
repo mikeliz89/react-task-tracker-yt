@@ -29,6 +29,8 @@ const SortMode = {
 
 export default function ManageDrinks() {
 
+    const DB_DRINKS = '/drinks';
+
     //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
@@ -76,7 +78,7 @@ export default function ManageDrinks() {
 
     /** Fetch Drinks From Firebase */
     const fetchDrinksFromFirebase = async () => {
-        const dbref = await ref(db, '/drinks');
+        const dbref = await ref(db, DB_DRINKS);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const drinksFromDB = [];
@@ -93,7 +95,7 @@ export default function ManageDrinks() {
         try {
             drink["created"] = getCurrentDateAsJson();
             drink["createdBy"] = currentUser.email;
-            const dbref = ref(db, '/drinks');
+            const dbref = ref(db, DB_DRINKS);
             push(dbref, drink);
             setMessage(t('save_success'));
             setShowMessage(true);
@@ -103,7 +105,7 @@ export default function ManageDrinks() {
     }
 
     const deleteDrink = (id) => {
-        const dbref = ref(db, `/drinks/${id}`);
+        const dbref = ref(db, `${DB_DRINKS}/${id}`);
         remove(dbref)
     }
 

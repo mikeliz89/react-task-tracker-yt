@@ -11,6 +11,8 @@ import { update, ref } from "firebase/database";
 
 export default function WorkPhase({ workPhase, drinkID, onDeleteWorkPhase }) {
 
+    const DB_DRINK_WORKPHASES = '/drink-workphases';
+
     //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
@@ -20,7 +22,7 @@ export default function WorkPhase({ workPhase, drinkID, onDeleteWorkPhase }) {
     const editWorkPhase = (workPhase) => {
         //save
         const updates = {};
-        updates[`/drink-workphases/${drinkID}/${workPhase.id}`] = workPhase;
+        updates[`${DB_DRINK_WORKPHASES}/${drinkID}/${workPhase.id}`] = workPhase;
         update(ref(db), updates);
 
         setEditable(false);

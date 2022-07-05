@@ -6,7 +6,10 @@ import Button from '../Button';
 
 export default function DrinkButton({ onShowAddDrink, showAdd }) {
 
+    //location
     const location = useLocation();
+
+    //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
     return (

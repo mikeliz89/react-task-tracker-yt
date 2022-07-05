@@ -10,6 +10,9 @@ import Button from '../../components/Button';
 
 export default function EditWorkPhase({ drinkID, workPhaseID, onEditWorkPhase, onCloseEditWorkPhase }) {
 
+    const DB_DRINK_WORKPHASES = '/drink-workphases';
+
+    //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
     //states
@@ -28,7 +31,7 @@ export default function EditWorkPhase({ drinkID, workPhaseID, onEditWorkPhase, o
 
     /** Fetch Work Phase From Firebase By DrinkID and WorkPhaseID */
     const fetchWorkPhaseFromFirebase = async (drinkID) => {
-        const dbref = ref(db, `/drink-workphases/${drinkID}/${workPhaseID}`);
+        const dbref = ref(db, `${DB_DRINK_WORKPHASES}/${drinkID}/${workPhaseID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

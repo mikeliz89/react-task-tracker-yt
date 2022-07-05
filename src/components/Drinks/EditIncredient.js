@@ -10,6 +10,9 @@ import Button from '../../components/Button'
 
 export default function EditIncredient({ drinkID, incredientID, onEditIncredient, onCloseEditIncredient }) {
 
+    const DB_DRINK_INCREDIENTS = '/drink-incredients';
+
+    //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
     //states
@@ -28,7 +31,7 @@ export default function EditIncredient({ drinkID, incredientID, onEditIncredient
 
     /** Fetch Incredient From Firebase By drinkID */
     const fetchIncredientFromFirebase = async (drinkID) => {
-        const dbref = ref(db, '/drink-incredients/' + drinkID + "/" + incredientID);
+        const dbref = ref(db, `${DB_DRINK_INCREDIENTS}/${drinkID}/${incredientID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

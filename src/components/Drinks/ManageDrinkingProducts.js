@@ -20,6 +20,8 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 
 const ManageDrinkingProducts = () => {
 
+    const DB_DRINKINGPRODUCTS = '/drinkingproducts';
+
     //user
     const { currentUser } = useAuth();
 
@@ -58,7 +60,7 @@ const ManageDrinkingProducts = () => {
             if (drinkingProduct["abv"] === undefined) {
                 drinkingProduct["abv"] = 0;
             }
-            const dbref = ref(db, '/drinkingproducts');
+            const dbref = ref(db, DB_DRINKINGPRODUCTS);
             push(dbref, drinkingProduct);
             setMessage(t('drinkingproduct_save_successfull'));
             setShowMessage(true);
@@ -68,7 +70,7 @@ const ManageDrinkingProducts = () => {
     }
 
     const deleteDrinkingProduct = (id) => {
-        const dbref = ref(db, `/drinkingproducts/${id}`);
+        const dbref = ref(db, `${DB_DRINKINGPRODUCTS}/${id}`);
         remove(dbref)
     }
 
@@ -79,13 +81,13 @@ const ManageDrinkingProducts = () => {
         if (drinkingProduct["abv"] === undefined) {
             drinkingProduct["abv"] = 0;
         }
-        updates[`/drinkingproducts/${id}`] = drinkingProduct;
+        updates[`${DB_DRINKINGPRODUCTS}/${id}`] = drinkingProduct;
         update(ref(db), updates);
     }
 
     /** Fetch Drinking Products From Firebase */
     const fetchDrinkingProductsFromFirebase = async () => {
-        const dbref = await ref(db, '/drinkingproducts');
+        const dbref = await ref(db, DB_DRINKINGPRODUCTS);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];

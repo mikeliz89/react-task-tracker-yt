@@ -17,6 +17,8 @@ import { useAuth } from '../../contexts/AuthContext';
 
 const Drink = ({ drink, onDelete }) => {
 
+    const DB_DRINK_HISTORY = '/drinkhistory';
+
     //user
     const { currentUser } = useAuth();
 
@@ -39,13 +41,13 @@ const Drink = ({ drink, onDelete }) => {
     }
 
     const saveDrinkHistory = async (drinkID) => {
-        const dbref = ref(db, '/drinkhistory/' + drinkID);
+        const dbref = ref(db, `${DB_DRINK_HISTORY}/${drinkID}`);
         const currentDateTime = getCurrentDateAsJson();
         const userID = currentUser.uid;
         push(dbref, { currentDateTime, userID });
 
         setShowMessage(true);
-        setMessage("Tallennus onnistui");
+        setMessage("Tallennus onnistui"); //todo: kieleistys
     }
 
     return (

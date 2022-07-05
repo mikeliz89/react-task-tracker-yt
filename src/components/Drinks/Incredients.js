@@ -5,6 +5,7 @@ import { Incredient } from './Incredient';
 
 export default function Incredients({ incredients, drinkID, onDelete }) {
 
+  //translation
   const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
   return (
