@@ -7,10 +7,12 @@ import Button from "../Button";
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //firebase
-import { onValue, ref, push } from "firebase/database";
+import { onValue, ref, push, update } from "firebase/database";
 import { db } from "../../firebase-config";
 //utils
-import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
+import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateTimeUtils";
+//i18n
+import i18n from "i18next";
 
 const AddInfo = () => {
 
@@ -25,9 +27,13 @@ const AddInfo = () => {
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     //car data states
+    const [carId, setCarId] = useState('');
     const [registerNumber, setRegisterNumber] = useState('');
     const [modelYear, setModelYear] = useState(0);
     const [text, setText] = useState('');
+    const [created, setCreated] = useState('');
+    const [createdBy, setCreatedBy] = useState('');
+    const [modified, setModified] = useState('');
 
     //translation
     const { t } = useTranslation('car', { keyPrefix: 'car' });
@@ -47,14 +53,31 @@ const AddInfo = () => {
     const fetchCarInfoFromFirebase = async () => {
         const dbref = ref(db, `${DB_INFO}`);
         onValue(dbref, (snapshot) => {
-            const data = snapshot.val();
-            console.log(data);
-            console.log(data["registerNumber"]);
-            if (data != null) {
-                setRegisterNumber(data["registerNumber"]);
-                setModelYear(data["modelYear"]);
-                setText(data["text"]);
-            }
+            snapshot.forEach(function (child) {
+                const key = child.key;
+                const data = child.val();
+                if (data != null) {
+                    if (data["registerNumber"] !== undefined) {
+                        setRegisterNumber(data["registerNumber"]);
+                    }
+                    if (data["modelYear"] !== undefined) {
+                        setModelYear(data["modelYear"]);
+                    }
+                    if (data["text"] !== undefined) {
+                        setText(data["text"]);
+                    }
+                    if (data["created"] !== undefined) {
+                        setCreated(data["created"]);
+                    }
+                    if (data["createdBy"] !== undefined) {
+                        setCreatedBy(data["createdBy"]);
+                    }
+                    if (data["modified"] !== undefined) {
+                        setModified(data["modified"]);
+                    }
+                }
+                setCarId(key);
+            });
         })
     }
 
@@ -68,9 +91,14 @@ const AddInfo = () => {
 
             //save
             const info = {
-                registerNumber, modelYear
+                registerNumber, modelYear, text, created, createdBy
             };
-            saveInfo(info);
+
+            if (carId === '') {
+                saveInfo(info);
+            } else {
+                updateInfo(info);
+            }
         } catch (error) {
             setError(t('failed_to_add_info'));
             console.log(error)
@@ -79,8 +107,25 @@ const AddInfo = () => {
         setLoading(false)
     }
 
+    const updateInfo = (info) => {
+        try {
+            const updates = {};
+            info["modified"] = getCurrentDateAsJson()
+            updates[`${DB_INFO}/${carId}`] = info;
+            update(ref(db), updates);
+            setMessage(t('save_successfull'));
+            setShowMessage(true);
+        } catch (ex) {
+            setError(t('save_exception'));
+            console.warn(ex);
+        }
+    }
+
     const saveInfo = (info) => {
         try {
+            if (carId !== '') {
+                info["id"] = carId;
+            }
             info["created"] = getCurrentDateAsJson();
             info["createdBy"] = currentUser.email;
             const dbref = ref(db, DB_INFO);
@@ -96,6 +141,7 @@ const AddInfo = () => {
     return (
         <div>
             <h5>{t('add_info_title')}</h5>
+            {modified !== '' && <p style={{ marginBottom: '0' }}>{t('last_modified')}: {getJsonAsDateTimeString(modified, i18n.language)} &nbsp;</p>}
             {error && <div className="error">{error}</div>}
             {message &&
                 <Alert show={showMessage} variant='success'>
