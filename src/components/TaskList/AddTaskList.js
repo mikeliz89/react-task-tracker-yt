@@ -7,6 +7,9 @@ import Button from '../../components/Button'
 
 const AddTaskList = ({ taskListID, onAddTaskList }) => {
 
+    const DB_TASKLISTS = '/tasklists';
+
+    //translation
     const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
     //states
@@ -29,7 +32,7 @@ const AddTaskList = ({ taskListID, onAddTaskList }) => {
     /** Fetch Task List From Firebase By TaskListID (in EDIT Task List) */
     const fetchTaskListFromFirebase = async (taskListID) => {
 
-        const dbref = ref(db, `/tasklists/${taskListID}`);
+        const dbref = ref(db, `${DB_TASKLISTS}/${taskListID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

@@ -28,7 +28,11 @@ const SortMode = {
 }
 
 function TaskListDetails() {
-  //translate
+
+  const DB_TASKS = '/tasks';
+  const DB_TASK_LISTS = '/tasklists';
+
+  //translation
   const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
   //states
   const [loading, setLoading] = useState(true);
@@ -58,14 +62,12 @@ function TaskListDetails() {
   useEffect(() => {
     let cancel = false;
 
-    //Task List
     const getTaskList = async () => {
       if (cancel) return;
       await fetchTaskListFromFirebase()
     }
     getTaskList()
 
-    //Tasks
     const getTasks = async () => {
       await fetchTasksFromFirebase()
     }
@@ -83,7 +85,7 @@ function TaskListDetails() {
 
   /** Fetch Task List From Firebase */
   const fetchTaskListFromFirebase = async () => {
-    const dbref = ref(db, `/tasklists/${params.id}`);
+    const dbref = ref(db, `${DB_TASK_LISTS}/${params.id}`);
     onValue(dbref, (snapshot) => {
       const data = snapshot.val();
       if (data === null) {
@@ -96,7 +98,7 @@ function TaskListDetails() {
 
   /** Fetch Tasks From Firebase */
   const fetchTasksFromFirebase = async () => {
-    const dbref = await child(ref(db, '/tasks'), params.id);
+    const dbref = await child(ref(db, DB_TASKS), params.id);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -121,26 +123,26 @@ function TaskListDetails() {
     //To firebase
     task["created"] = getCurrentDateAsJson()
     task["createdBy"] = currentUser.email;
-    const dbref = child(ref(db, '/tasks'), taskListID);
+    const dbref = child(ref(db, DB_TASKS), taskListID);
     push(dbref, task);
   }
 
   /** Delete Task From Firebase */
   const deleteTask = async (taskListID, id) => {
     //delete from firebase
-    const dbref = ref(db, `/tasks/${taskListID}/${id}`)
+    const dbref = ref(db, `${DB_TASKS}/${taskListID}/${id}`)
     remove(dbref)
   }
 
   /** Toggle Reminder Of A Task At Firebase */
   const toggleReminder = async (taskListID, id) => {
     //to firebase
-    const dbref = ref(db, `/tasks/${taskListID}/${id}`);
+    const dbref = ref(db, `${DB_TASKS}/${taskListID}/${id}`);
     get(dbref).then((snapshot) => {
       if (snapshot.exists()) {
         const updates = {};
         const oldReminder = snapshot.val()["reminder"];
-        updates[`/tasks/${taskListID}/${id}/reminder`] = !oldReminder;
+        updates[`${DB_TASKS}/${taskListID}/${id}/reminder`] = !oldReminder;
         update(ref(db), updates);
       } else {
         console.log("No data available");
@@ -154,7 +156,7 @@ function TaskListDetails() {
     //save edited task list to firebase
     const updates = {};
     taskList["modified"] = getCurrentDateAsJson()
-    updates[`/tasklists/${taskListID}`] = taskList;
+    updates[`${DB_TASK_LISTS}/${taskListID}`] = taskList;
     update(ref(db), updates);
   }
 
@@ -169,11 +171,11 @@ function TaskListDetails() {
     const taskListID = params.id;
 
     //2. delete old task lists
-    const taskListRef = ref(db, `/tasklists/${taskListID}`);
+    const taskListRef = ref(db, `${DB_TASK_LISTS}/${taskListID}`);
     get(taskListRef).then((snapshot) => {
       if (snapshot.exists()) {
         let updates = {};
-        updates[`/tasklists/${taskListID}`] = null;
+        updates[`${DB_TASK_LISTS}/${taskListID}`] = null;
         update(ref(db), updates);
       } else {
         console.log("No data available for taskLists");
@@ -181,12 +183,12 @@ function TaskListDetails() {
     })
 
     //3. delete old tasks, create new tasklist-archive-tasks
-    const tasksRef = ref(db, `/tasks/${taskListID}`);
+    const tasksRef = ref(db, `${DB_TASKS}/${taskListID}`);
     get(tasksRef).then((snapshot) => {
       if (snapshot.exists()) {
         var data = snapshot.val();
         let updates = {};
-        updates[`/tasks/${taskListID}`] = null;
+        updates[`${DB_TASKS}/${taskListID}`] = null;
         updates[`/tasklist-archive-tasks/${archiveTaskListID}`] = data;
         update(ref(db), updates);
       } else {
