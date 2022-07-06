@@ -1,13 +1,13 @@
 //react
 import { Alert, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //buttons
 import Button from "../Button";
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //firebase
-import { ref, push } from "firebase/database";
+import { onValue, ref, push } from "firebase/database";
 import { db } from "../../firebase-config";
 //utils
 import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
@@ -32,6 +32,32 @@ const AddInfo = () => {
     //translation
     const { t } = useTranslation('car', { keyPrefix: 'car' });
 
+    //load data
+    useEffect(() => {
+        let isMounted = true;
+        const getCarInfo = async () => {
+            if (isMounted)
+                await fetchCarInfoFromFirebase();
+        }
+        getCarInfo()
+        return () => { isMounted = false };
+    }, []);
+
+    /** Fetch Profile From Firebase */
+    const fetchCarInfoFromFirebase = async () => {
+        const dbref = ref(db, `${DB_INFO}`);
+        onValue(dbref, (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            console.log(data["registerNumber"]);
+            if (data != null) {
+                setRegisterNumber(data["registerNumber"]);
+                setModelYear(data["modelYear"]);
+                setText(data["text"]);
+            }
+        })
+    }
+
     async function onSubmit(e) {
         e.preventDefault()
 
@@ -54,7 +80,6 @@ const AddInfo = () => {
     }
 
     const saveInfo = (info) => {
-
         try {
             info["created"] = getCurrentDateAsJson();
             info["createdBy"] = currentUser.email;
@@ -70,7 +95,7 @@ const AddInfo = () => {
 
     return (
         <div>
-            <h5>{t('add_fueling_title')}</h5>
+            <h5>{t('add_info_title')}</h5>
             {error && <div className="error">{error}</div>}
             {message &&
                 <Alert show={showMessage} variant='success'>

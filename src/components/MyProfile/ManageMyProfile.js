@@ -17,6 +17,7 @@ export default function ManageMyProfile() {
 
     const DB_PROFILES = '/profiles';
 
+    //avatar
     const imageName = 'defaultavatar.png';
     const defaultPhotoUrl = `/images/${imageName}`;
 

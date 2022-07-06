@@ -15,7 +15,7 @@ const CarFuelings = ({ carFuelings }) => {
         <>
             <h5>{t('fuelings')}</h5>
             {carFuelings.map((fuelingRow) => (
-                <Row key={fuelingRow.id} style={{ marginBottom: '5px;', borderTop: '1px solid black' }}>
+                <Row key={fuelingRow.id} style={{ marginBottom: '5px', borderTop: '1px solid black' }}>
                     <Col>
                         {getJsonAsDateTimeString(fuelingRow.created, i18n.language)} &nbsp;
                         {fuelingRow.createdBy}<br />

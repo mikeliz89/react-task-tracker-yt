@@ -1,11 +1,18 @@
-import Button from '../../components/Button'
+//Buttons
+import Button from '../../components/Button';
+//react
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function MyProfile() {
 
+    //translation
     const { t } = useTranslation('myprofile', { keyPrefix: 'myprofile' });
+
+    //navigate
     const navigate = useNavigate();
+
+    //location
     const location = useLocation();
 
     const navigateTo = () => {
