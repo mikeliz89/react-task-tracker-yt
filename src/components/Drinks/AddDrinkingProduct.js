@@ -27,6 +27,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
    const [createdBy, setCreatedBy] = useState('');
    const [haveAtHome, setHaveAtHome] = useState('');
    const [abv, setAbv] = useState(0);
+   const [amount, setAmount] = useState(0);
 
    //load data
    useEffect(() => {
@@ -65,6 +66,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             setManufacturer(val["manufacturer"]);
             setHaveAtHome(val["haveAtHome"]);
             setAbv(val["abv"]);
+            setAmount(val["amount"]);
          }
       });
    }
@@ -82,7 +84,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
       onAddDrinkingProduct({
          created, createdBy, name,
          description, category, manufacturer,
-         haveAtHome, abv
+         haveAtHome, abv, amount
       });
 
       if (drinkingProductID == null) {
@@ -93,6 +95,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
          setCategory('');
          setAbv(0);
          setHaveAtHome(false);
+         setAmount(0);
       }
    }
 
@@ -138,7 +141,14 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
                   onChange={(e) => setAbv(e.target.value)}
                />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="AddRecipeFormIsCore">
+            <Form.Group className="mb-3" controlId="addDrinkingProductForm-Amount">
+               <Form.Label>{t('drinkingproduct_amount')}</Form.Label>
+               <Form.Control type='text'
+                  placeholder={t('drinkingproduct_amount')}
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="addDrinkingProductForm-HaveAtHome">
                <Form.Check
                   type='checkbox'
                   label={t('drinkingproduct_have_at_home')}

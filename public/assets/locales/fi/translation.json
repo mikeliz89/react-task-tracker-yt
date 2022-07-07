@@ -130,6 +130,7 @@
         "do_drink_confirm": "Oletko varma?",
         "drinkhistory_title": "Drinkkihistoria",
         "drinkingproduct_abv": "Alkoholi-%",
+        "drinkingproduct_amount": "Määrä (cl)",
         "drinkingproduct_category": "Tuotekategoria",
         "drinkingproduct_category_lemonade": "Limsa",
         "drinkingproduct_category_licour": "Likööri",
