@@ -10,14 +10,19 @@ import GoBackButton from "../GoBackButton";
 //exercises
 import AddPartsGym from "./AddPartsGym";
 import AddPartsRunning from "./AddPartsRunning";
+import AddPartsWalking from "./AddPartsWalking";
 import { Categories } from "./Categories";
 //star rating
 import SetStarRating from "../StarRating/SetStarRating";
 //utils
-import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
+//i18n
+import i18n from "i18next";
 
 const ExerciseDetails = () => {
+
+    const DB_EXERCISES = '/exercises';
 
     //params
     const params = useParams();
@@ -42,7 +47,7 @@ const ExerciseDetails = () => {
 
     /** Fetch Recipe From Firebase */
     const fetchExerciseFromFirebase = async () => {
-        const dbref = ref(db, '/exercises/' + params.id);
+        const dbref = ref(db, `${DB_EXERCISES}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
@@ -59,7 +64,7 @@ const ExerciseDetails = () => {
         const updates = {};
         exercise["modified"] = getCurrentDateAsJson()
         exercise["stars"] = Number(stars);
-        updates[`/exercises/${exerciseID}`] = exercise;
+        updates[`${DB_EXERCISES}/${exerciseID}`] = exercise;
         update(ref(db), updates);
     }
 
@@ -73,7 +78,7 @@ const ExerciseDetails = () => {
                 <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
                 <p>{t('date_and_time')}: {exercise.date} {exercise.time}</p>
                 <p>{t('created_by')}: {exercise.createdBy}</p>
-                <p>{t('created')}: {exercise.created}</p>
+                <p>{t('created')}: {getJsonAsDateTimeString(exercise.created, i18n.language)}</p>
                 <p>{t('category')}: {t('category_' + getExerciseCategoryNameByID(exercise.category))}</p>
                 {
                     Number(exercise.category) === Categories.Gym &&
@@ -82,6 +87,10 @@ const ExerciseDetails = () => {
                 {
                     Number(exercise.category) === Categories.Running &&
                     <AddPartsRunning />
+                }
+                {
+                    Number(exercise.category) === Categories.Walking &&
+                    <AddPartsWalking />
                 }
             </div>
         )

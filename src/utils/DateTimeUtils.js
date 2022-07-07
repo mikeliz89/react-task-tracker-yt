@@ -21,14 +21,32 @@ export function getJsonAsDateTimeString(json, language) {
     return getDateTimeString(json, language);
 }
 
+export function getDateAndTimeAsDateTimeString(date, time, language) {
+
+    let hasNoTime = false;
+    if(time === "") {
+        time = "00:00";
+        hasNoTime = true;
+    }
+
+    const jsonDate = date + 'T' + time + ':00.000Z';
+    const datePart = getDateString(jsonDate, language);
+
+    if(hasNoTime) {
+        return datePart;
+    }
+    const timePart = getTimeString(jsonDate, language);
+    return datePart + ' ' + timePart;
+}
+
 function getTimeString(json, language = Languages.EN) {
     if (isEmptyOrUndefined(json)) {
         return "";
     }
-    let myDate = new Date(json);
-    let hour = myDate.getHours();
-    let minute = myDate.getMinutes();
-    let second = myDate.getSeconds();
+    const myDate = new Date(json);
+    const hour = myDate.getHours();
+    const minute = myDate.getMinutes();
+    const second = myDate.getSeconds();
     const seconds = String(second).padStart(2, '0');
     const minutes = String(minute).padStart(2, '0');
     switch (language) {
@@ -45,10 +63,10 @@ function getDateString(json, language = Languages.EN) {
     if (isEmptyOrUndefined(json)) {
         return "";
     }
-    let myDate = new Date(json);
-    let date = myDate.getDate();
-    let month = myDate.getMonth() + 1;
-    let year = myDate.getFullYear();
+    const myDate = new Date(json);
+    const date = myDate.getDate();
+    const month = myDate.getMonth() + 1;
+    const year = myDate.getFullYear();
 
     switch (language) {
         case Languages.EN:
@@ -64,14 +82,14 @@ function getDateTimeString(json, language = Languages.EN) {
     if (isEmptyOrUndefined(json)) {
         return "";
     }
-    let dateStr = getDateString(json, language);
-    let timeString = getTimeString(json, language);
+    const dateStr = getDateString(json, language);
+    const timeString = getTimeString(json, language);
     return `${dateStr} ${timeString}`;
 }
 
 function isEmptyOrUndefined(json) {
-    if (json === "" || json === undefined)
+    if (json === "" || json === undefined) {
         return true;
-
+    }
     return false;
 }

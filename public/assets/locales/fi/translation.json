@@ -205,13 +205,15 @@
         "exercises": "Harjoitukset",
         "exercisedetails": "Harjoituksen tiedot",
         "exercise_save_exception": "Harjoituksen tallennus epäonnistui",
+        "gym_parts_header": "Kuntosaliharjoitus",
         "loading": "Lataa...",
         "manage_exercises_title": "Liikunta",
         "no_exercises_to_show": "Ei harjoituksia",
         "running_parts_title": "Juoksuharjoitus",
         "running_distance": "Matka (km)",
         "running_time": "Aika (min)",
-        "view_details": "Katso harjoitusta"
+        "view_details": "Katso harjoitusta",
+        "walking_parts_title": "Kävely"
     },
     "footer": {
         "about": "Tietoja",

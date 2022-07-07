@@ -13,6 +13,8 @@ import { onValue, ref, remove } from 'firebase/database';
 
 const ManageExercises = () => {
 
+  const DB_EXERCISES = '/exercises';
+
   //translation
   const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
 
@@ -38,7 +40,7 @@ const ManageExercises = () => {
 
   /** Fetch Recipes From Firebase */
   const fetchExercisesFromFirebase = async () => {
-    const dbref = await ref(db, '/exercises');
+    const dbref = await ref(db, DB_EXERCISES);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -50,7 +52,7 @@ const ManageExercises = () => {
   }
 
   const deleteExercise = async (id) => {
-    const dbref = ref(db, `/exercises/${id}`);
+    const dbref = ref(db, `${DB_EXERCISES}/${id}`);
     remove(dbref)
   }
 
