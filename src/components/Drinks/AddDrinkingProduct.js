@@ -81,15 +81,18 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
 
       onAddDrinkingProduct({
          created, createdBy, name,
-         description, category, manufacturer, haveAtHome, abv
+         description, category, manufacturer,
+         haveAtHome, abv
       });
 
       if (drinkingProductID == null) {
          //clear the form
-         setName('')
-         setManufacturer('')
-         setDescription('')
-         setCategory('')
+         setName('');
+         setManufacturer('');
+         setDescription('');
+         setCategory('');
+         setAbv(0);
+         setHaveAtHome(false);
       }
    }
 
@@ -134,6 +137,14 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
                   value={abv}
                   onChange={(e) => setAbv(e.target.value)}
                />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="AddRecipeFormIsCore">
+               <Form.Check
+                  type='checkbox'
+                  label={t('drinkingproduct_have_at_home')}
+                  checked={haveAtHome}
+                  value={haveAtHome}
+                  onChange={(e) => setHaveAtHome(e.currentTarget.checked)} />
             </Form.Group>
             <Row>
                <ButtonGroup>
