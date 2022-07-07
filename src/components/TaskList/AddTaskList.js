@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react'
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
+//react
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
-import Button from '../../components/Button'
+//firebase
+import { db } from '../../firebase-config';
+import { ref, get } from "firebase/database";
+//buttons
+import Button from '../../components/Button';
 
 const AddTaskList = ({ taskListID, onAddTaskList }) => {
 
@@ -58,8 +61,8 @@ const AddTaskList = ({ taskListID, onAddTaskList }) => {
 
         if (taskListID == null) {
             //clear the form
-            setTitle('')
-            setDescription('')
+            setTitle('');
+            setDescription('');
         }
     }
 

@@ -1,8 +1,11 @@
+//proptypes
 import PropTypes from 'prop-types';
+//react
 import { useTranslation } from 'react-i18next';
 
 const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor, imageName, comingsoon }) => {
 
+    //translation
     const { t } = useTranslation();
 
     const background = `/images/${imageName}`;

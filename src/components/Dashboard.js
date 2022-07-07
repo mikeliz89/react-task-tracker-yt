@@ -1,11 +1,15 @@
-import { Link } from 'react-router-dom'
-import BigButton from '../components/BigButton'
+//buttons
+import BigButton from '../components/BigButton';
+//react
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Row, Col } from 'react-bootstrap';
+//css
 import styles from './dashboard.module.css';
 
 export default function Dashboard() {
 
+    //translation
     const { t } = useTranslation('dashboard', { keyPrefix: 'dashboard.buttons' });
 
     return (

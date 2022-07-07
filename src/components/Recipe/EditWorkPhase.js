@@ -9,6 +9,9 @@ import Button from '../../components/Button'
 
 export default function EditWorkPhase({ recipeID, workPhaseID, onEditWorkPhase, onCloseEditWorkPhase }) {
 
+    const DB_WORKPHASES = '/workphases';
+
+    //translation
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
     //states
@@ -27,7 +30,7 @@ export default function EditWorkPhase({ recipeID, workPhaseID, onEditWorkPhase, 
 
     /** Fetch Work Phase From Firebase By RecipeID and WorkPhaseID */
     const fetchWorkPhaseFromFirebase = async (recipeID) => {
-        const dbref = ref(db, `/workphases/${recipeID}/${workPhaseID}`);
+        const dbref = ref(db, `${DB_WORKPHASES}/${recipeID}/${workPhaseID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

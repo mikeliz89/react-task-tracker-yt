@@ -28,13 +28,17 @@ const ManageRecipes = () => {
   const [recipes, setRecipes] = useState()
   const [originalRecipes, setOriginalRecipes] = useState();
   const [searchString, setSearchString] = useState('');
+
   //sorting
   const [sortingIsOn, setSortingIsOn] = useState(false);
   const [sortByTextAsc, setSortByTextAsc] = useState(true);
+
   //searching
   const [showOnlyCoreRecipes, setShowOnlyCoreRecipes] = useState(false);
+
   //translation
   const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+
   //user
   const { currentUser } = useAuth();
 

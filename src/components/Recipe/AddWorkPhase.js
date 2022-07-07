@@ -7,6 +7,7 @@ import Button from '../../components/Button'
 
 export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, recipeID }) {
 
+  //translation
   const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
   //states
@@ -14,11 +15,11 @@ export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, recipeID }) 
   const [estimatedLength, setEstimatedLength] = useState(0)
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     //validation
     if (!name) {
-      return
+      return;
     }
 
     //call the RecipeDetails.js
@@ -26,8 +27,8 @@ export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, recipeID }) 
 
     //clear the form
     if (workPhaseID == null) {
-      setName('')
-      setEstimatedLength(0)
+      setName('');
+      setEstimatedLength(0);
     }
   }
 

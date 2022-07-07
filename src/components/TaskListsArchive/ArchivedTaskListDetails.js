@@ -1,18 +1,24 @@
+//react
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { db } from '../../firebase-config';
-import { ref, onValue, child } from "firebase/database";
-import Tasks from '../../components/Task/Tasks';
 import { useTranslation } from 'react-i18next';
+//firebase
+import { ref, onValue, child } from "firebase/database";
+import { db } from '../../firebase-config';
+//tasks
+import Tasks from '../../components/Task/Tasks';
+//buttons
 import GoBackButton from '../GoBackButton';
-
 
 export default function ArchivedTaskListDetails() {
 
+  //params
   const params = useParams();
 
-  const [tasks, setTasks] = useState()
+  //states
+  const [tasks, setTasks] = useState();
 
+  //translation
   const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
   //load data

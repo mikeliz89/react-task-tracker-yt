@@ -7,19 +7,20 @@ import Button from '../../components/Button';
 
 export default function AddIncredient({ onAddIncredient, incredientID, recipeID }) {
 
+  //translation
   const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
   //states
-  const [name, setName] = useState('')
-  const [unit, setUnit] = useState('')
-  const [amount, setAmount] = useState(0)
+  const [name, setName] = useState('');
+  const [unit, setUnit] = useState('');
+  const [amount, setAmount] = useState(0);
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     //validation
     if (!name) {
-      return
+      return;
     }
 
     //call the RecipeDetails.js
@@ -27,9 +28,9 @@ export default function AddIncredient({ onAddIncredient, incredientID, recipeID 
 
     //clear the form
     if (incredientID == null) {
-      setName('')
-      setUnit('')
-      setAmount(0)
+      setName('');
+      setUnit('');
+      setAmount(0);
     }
   }
 

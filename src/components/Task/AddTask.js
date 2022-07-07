@@ -10,22 +10,23 @@ import Button from '../../components/Button';
 
 const AddTask = ({ taskID, taskListID, onAddTask }) => {
 
+    //translation
     const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
     //states
-    const [text, setText] = useState('')
-    const [day, setDay] = useState('')
-    const [reminder, setReminder] = useState(false)
-    const [created, setCreated] = useState('')
-    const [createdBy, setCreatedBy] = useState('')
+    const [text, setText] = useState('');
+    const [day, setDay] = useState('');
+    const [reminder, setReminder] = useState(false);
+    const [created, setCreated] = useState('');
+    const [createdBy, setCreatedBy] = useState('');
 
     useEffect(() => {
         if (taskID != null) {
             //Task List
             const getTask = async () => {
-                await fetchTaskFromFirebase(taskID, taskListID)
+                await fetchTaskFromFirebase(taskID, taskListID);
             }
-            getTask()
+            getTask();
         }
     }, [taskID, taskListID]);
 

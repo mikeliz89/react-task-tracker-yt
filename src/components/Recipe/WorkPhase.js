@@ -1,13 +1,17 @@
+//react
 import { useTranslation } from 'react-i18next';
 import { FaTimes, FaEdit } from 'react-icons/fa';
 import { useState } from 'react';
-import EditWorkPhase from './EditWorkPhase';
-import { db } from '../../firebase-config';
-import { update, ref } from "firebase/database";
 import { Row, Col } from 'react-bootstrap';
+//firebase
+import { update, ref } from "firebase/database";
+import { db } from '../../firebase-config';
+//recipes
+import EditWorkPhase from './EditWorkPhase';
 
 export default function WorkPhase({ workPhase, recipeID, onDeleteWorkPhase }) {
 
+    //translation
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
     //states
