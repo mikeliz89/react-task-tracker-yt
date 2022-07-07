@@ -105,6 +105,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Name">
                <Form.Label>{t('drinkingproduct_name')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   placeholder={t('drinkingproduct_name')}
                   value={name}
                   onChange={(e) => setName(e.target.value)} />
@@ -112,6 +113,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Description">
                <Form.Label>{t('drinkingproduct_description')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   placeholder={t('drinkingproduct_description')}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)} />
@@ -119,6 +121,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Manufacturer">
                <Form.Label>{t('drinkingproduct_manufacturer')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   placeholder={t('drinkingproduct_manufacturer')}
                   value={manufacturer}
                   onChange={(e) => setManufacturer(e.target.value)} />
@@ -137,6 +140,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             <Form.Group>
                <Form.Label>{t('drinkingproduct_abv')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   value={abv}
                   onChange={(e) => setAbv(e.target.value)}
                />
@@ -144,6 +148,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Amount">
                <Form.Label>{t('drinkingproduct_amount')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   placeholder={t('drinkingproduct_amount')}
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)} />

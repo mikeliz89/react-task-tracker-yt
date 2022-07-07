@@ -94,7 +94,7 @@ export default function ManageTaskLists() {
   /** Delete Task List From Firebase */
   const deleteTaskList = async (id) => {
     //delete tasks
-    const dbrefTasks = ref(db,  `${DB_TASKS}/${id}`);
+    const dbrefTasks = ref(db, `${DB_TASKS}/${id}`);
     remove(dbrefTasks);
     //delete task list
     const dbref = child(ref(db, DB_TASKLISTS), id);
@@ -182,6 +182,7 @@ export default function ManageTaskLists() {
             <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
             <Col xs={9} sm={10}>
               <Form.Control
+                autoComplete="off"
                 type="text"
                 id="inputSearchString"
                 aria-describedby="searchHelpBlock"

@@ -71,6 +71,7 @@ const AddTaskList = ({ taskListID, onAddTaskList }) => {
             <Form.Group className="mb-3" controlId="formBasicTaskListName">
                 <Form.Label>{t('task_list')}</Form.Label>
                 <Form.Control type='text'
+                    autoComplete="off"
                     placeholder={taskListID == null ? t('task_list') : t('edit_task_list')}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)} />
@@ -78,6 +79,7 @@ const AddTaskList = ({ taskListID, onAddTaskList }) => {
             <Form.Group className="mb-3" controlId="formBasicTaskListDescription">
                 <Form.Label>{t('description')}</Form.Label>
                 <Form.Control type='text'
+                    autoComplete="off"
                     placeholder={taskListID == null ? t('add_description') : t('edit_description')}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)} />

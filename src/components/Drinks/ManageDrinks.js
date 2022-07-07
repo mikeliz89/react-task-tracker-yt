@@ -119,7 +119,7 @@ export default function ManageDrinks() {
             newDrinks = newDrinks.filter(drink => drink.title.toLowerCase().includes(searchString.toLowerCase()));
         }
         //filtterit:
-        if(showOnlyDone) {
+        if (showOnlyDone) {
             newDrinks = newDrinks.filter(drink => drink.stars !== undefined);
         } else if (showOnlyNotDone) {
             newDrinks = newDrinks.filter(drink => drink.stars === undefined);
@@ -198,6 +198,7 @@ export default function ManageDrinks() {
                         <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
                         <Col xs={9} sm={10}>
                             <Form.Control
+                                autoComplete="off"
                                 type="text"
                                 id="inputSearchString"
                                 aria-describedby="searchHelpBlock"

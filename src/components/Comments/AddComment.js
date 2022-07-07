@@ -48,6 +48,7 @@ function AddComment({ onSave }) {
                     <Form.Group className="mb-3" controlId="addTaskFormTaskName">
                         <Form.Label>{t('text')}</Form.Label>
                         <Form.Control
+                            autoComplete="off"
                             type='text'
                             placeholder={t('text')}
                             value={text}

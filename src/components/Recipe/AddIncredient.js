@@ -39,6 +39,7 @@ export default function AddIncredient({ onAddIncredient, incredientID, recipeID 
       <Form.Group className="mb-3" controlId="addIncredientFormName">
         <Form.Label>{t('incredient_name')}</Form.Label>
         <Form.Control
+          autoComplete="off"
           type='text'
           placeholder={t('incredient_name')}
           value={name}
@@ -48,6 +49,7 @@ export default function AddIncredient({ onAddIncredient, incredientID, recipeID 
         <Form.Group as={Col} className="mb-3" controlId="addIncredientFormAmount">
           <Form.Label>{t('incredient_amount')}</Form.Label>
           <Form.Control
+            autoComplete="off"
             type='number'
             placeholder={t('incredient_amount')}
             value={amount}
@@ -56,6 +58,7 @@ export default function AddIncredient({ onAddIncredient, incredientID, recipeID 
         <Form.Group as={Col} className="mb-3" controlId="addIncredientFormUnit">
           <Form.Label>{t('incredient_unit_label')}</Form.Label>
           <Form.Control
+            autoComplete="off"
             type='text'
             placeholder={t('incredient_unit')}
             value={unit}

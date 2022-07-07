@@ -55,12 +55,14 @@ export default function EditWorkPhase({ drinkID, workPhaseID, onEditWorkPhase, o
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="workPhaseName">
                 <Form.Control type='text'
+                    autoComplete="off"
                     placeholder={t('workphase_name')}
                     value={name}
                     onChange={(e) => setName(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="workPhaseEstimatedLength">
                 <Form.Control type='number'
+                    autoComplete="off"
                     placeholder={t('workphase_estimated_length')}
                     value={estimatedLength}
                     onChange={(e) => setEstimatedLength(e.target.value)} />

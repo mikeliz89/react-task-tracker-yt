@@ -71,6 +71,7 @@ const AddTask = ({ taskID, taskListID, onAddTask }) => {
             <Form.Group className="mb-3" controlId="addTaskFormTaskName">
                 <Form.Label>{t('task_name')}</Form.Label>
                 <Form.Control
+                    autoComplete="off"
                     type='text'
                     placeholder={t('task_name')}
                     value={text}
@@ -79,6 +80,7 @@ const AddTask = ({ taskID, taskListID, onAddTask }) => {
             <Form.Group className="mb-3" controlId="addTaskFormDayAndTime">
                 <Form.Label>{t('day_and_time')}</Form.Label>
                 <Form.Control
+                    autoComplete="off"
                     type='text'
                     placeholder={t('day_and_time')}
                     value={day}

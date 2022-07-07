@@ -164,6 +164,7 @@ const ManageRecipes = () => {
             <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
             <Col xs={9} sm={10}>
               <Form.Control
+                autoComplete="off"
                 type="text"
                 id="inputSearchString"
                 aria-describedby="searchHelpBlock"
