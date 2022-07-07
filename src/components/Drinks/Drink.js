@@ -47,7 +47,7 @@ const Drink = ({ drink, onDelete }) => {
         push(dbref, { currentDateTime, userID });
 
         setShowMessage(true);
-        setMessage("Tallennus onnistui"); //todo: kieleistys
+        setMessage(t('save_success_drinkinghistory'));
     }
 
     return (

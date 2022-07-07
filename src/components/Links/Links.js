@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 //Firebase
 import { db } from '../../firebase-config';
-import { ref, onValue, child, remove } from "firebase/database";
+import { ref, onValue, child, remove, update } from "firebase/database";
 //links
 import LinksInner from './LinksInner';
 
@@ -72,13 +72,23 @@ const Links = ({ url, objID }) => {
         }
     }
 
+    const editLink = (link) => {
+        const updates = {};
+        if (objID != null) {
+            updates[`${url}/${objID}/${link.id}`] = link;
+        } else {
+            updates[`${url}/${link.id}`] = link;
+        }
+        update(ref(db), updates);
+    }
+
     return (
         <div>
             {/* <pre>{JSON.stringify(links)}</pre> */}
             <h4>{t('header')} {linkCounter > 0 ? '(' + linkCounter + ')' : ''}</h4>
             {
                 links != null && links.length > 0 ? (
-                    <LinksInner links={links} onDelete={deleteLink} />
+                    <LinksInner objID={objID} linkUrl={url} links={links} onDelete={deleteLink} onEdit={editLink} />
                 ) : t('no_links')
             }
         </div>

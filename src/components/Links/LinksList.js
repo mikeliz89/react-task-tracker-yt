@@ -1,5 +1,3 @@
-//react
-import { useTranslation } from 'react-i18next';
 //buttons
 import GoBackButton from '../GoBackButton';
 //Links
@@ -12,8 +10,6 @@ import { db } from '../../firebase-config';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 
 export default function LinksList() {
-
-    const { t } = useTranslation('links', { keyPrefix: 'links' });
 
     const addLink = (link) => {
         link["created"] = getCurrentDateAsJson();

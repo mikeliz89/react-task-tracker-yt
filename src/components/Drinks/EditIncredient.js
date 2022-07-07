@@ -74,7 +74,7 @@ export default function EditIncredient({ drinkID, incredientID, onEditIncredient
             </Form.Group>
             <Row>
                 <ButtonGroup>
-                    <Button type='button' text='Sulje' className='btn btn-block' onClick={() => close()} />
+                    <Button type='button' text={t('button_close')} className='btn btn-block' onClick={() => close()} />
                     <Button type='submit' text={t('incredient_save_button_text')} className='btn btn-block saveBtn' />
                 </ButtonGroup>
             </Row>

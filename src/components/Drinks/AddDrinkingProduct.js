@@ -137,7 +137,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             </Form.Group>
             <Row>
                <ButtonGroup>
-                  <Button type="button" text="Sulje" className='btn btn-block' onClick={() => onClose()} />
+                  <Button type="button" text={t('button_close')} className='btn btn-block' onClick={() => onClose()} />
                   <Button type='submit' text={t('button_save_drink')} className='btn btn-block saveBtn' />
                </ButtonGroup>
             </Row>
