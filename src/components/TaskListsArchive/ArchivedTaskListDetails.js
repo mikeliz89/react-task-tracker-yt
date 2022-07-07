@@ -28,6 +28,9 @@ export default function ArchivedTaskListDetails() {
   const [loading, setLoading] = useState(true);
   const [taskList, setTaskList] = useState({});
   const [tasks, setTasks] = useState();
+  //counters
+  const [taskCounter, setTaskCounter] = useState(0);
+  const [taskReadyCounter, setTaskReadyCounter] = useState(0);
 
   //navigate
   const navigate = useNavigate();
@@ -77,11 +80,19 @@ export default function ArchivedTaskListDetails() {
     const dbref = await child(ref(db, DB_TASKLIST_ARCHIVE_TASKS), params.id);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
-      const tasks = [];
+      const fromDB = [];
+      let taskCounterTemp = 0;
+      let taskReadyCounterTemp = 0;
       for (let id in snap) {
-        tasks.push({ id, ...snap[id] });
+        taskCounterTemp++;
+        if (snap[id]["reminder"] === true) {
+          taskReadyCounterTemp++;
+        }
+        fromDB.push({ id, ...snap[id] });
       }
-      setTasks(tasks);
+      setTasks(fromDB);
+      setTaskCounter(taskCounterTemp);
+      setTaskReadyCounter(taskReadyCounterTemp);
     })
   }
 
@@ -114,6 +125,10 @@ export default function ArchivedTaskListDetails() {
                 <tr>
                   <td>{t('modified')}</td>
                   <td>{getJsonAsDateTimeString(taskList.modified, i18n.language)}</td>
+                </tr>
+                <tr>
+                  <td>{t('tasks_ready_counter')}</td>
+                  <td>{taskReadyCounter}/{taskCounter}</td>
                 </tr>
               </tbody>
             </Table>
