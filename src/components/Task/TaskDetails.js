@@ -20,11 +20,15 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import i18n from "i18next";
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+//links
+import AddLink from '../Links/AddLink';
+import Links from '../Links/Links';
 
 function TaskDetails() {
 
   const DB_TASKS = '/tasks';
   const DB_TASK_COMMENTS = '/task-comments';
+  const DB_TASK_LINKS = '/task-links';
 
   //translation
   const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
@@ -83,6 +87,13 @@ function TaskDetails() {
     push(dbref, comment);
   }
 
+  const addLinkToTask = (link) => {
+    const taskID = params.id;
+    link["created"] = getCurrentDateAsJson();
+    const dbref = child(ref(db, DB_TASK_LINKS), taskID);
+    push(dbref, link);
+  }
+
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -108,7 +119,9 @@ function TaskDetails() {
         <p>{t('set_reminder')}: {task.reminder === true ? t('yes') : t('no')}</p>
       </div>
       <AddComment onSave={addCommentToTask} />
+      <AddLink onSaveLink={addLinkToTask} />
       <Comments objID={params.id} url={'task-comments'} />
+      <Links objID={params.id} url={'task-links'} />
     </div>
   );
 };
