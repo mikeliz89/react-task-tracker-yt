@@ -188,6 +188,7 @@
     },
     "exercises": {
         "button_create_exercise": "Luo harjoitus",
+        "button_save_gym_part": "Tallenna liike",
         "category": "Kategoria",
         "category_none": "-Ei mikään-",
         "category_gym": "Kuntosali / painoharjoittelu",
@@ -205,7 +206,10 @@
         "exercises": "Harjoitukset",
         "exercisedetails": "Harjoituksen tiedot",
         "exercise_save_exception": "Harjoituksen tallennus epäonnistui",
+        "gym_no_parts": "Ei lisättyjä liikkeitä",
         "gym_parts_header": "Kuntosaliharjoitus",
+        "gym_part_name": "Liikkeen nimi",
+        "gym_parts_add_button": "Lisää liike",
         "loading": "Lataa...",
         "manage_exercises_title": "Liikunta",
         "no_exercises_to_show": "Ei harjoituksia",
