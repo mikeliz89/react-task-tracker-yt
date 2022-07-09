@@ -10,13 +10,15 @@ import EditIncredient from './EditIncredient';
 
 export const Incredient = ({ incredient, recipeID, onDelete }) => {
 
+    const DB_INCREDIENTS = '/incredients';
+
     //states
     const [editable, setEditable] = useState(false);
 
     const editIncredient = (incredient) => {
         //save
         const updates = {};
-        updates[`/incredients/${recipeID}/${incredient.id}`] = incredient;
+        updates[`${DB_INCREDIENTS}/${recipeID}/${incredient.id}`] = incredient;
         update(ref(db), updates);
 
         setEditable(false);

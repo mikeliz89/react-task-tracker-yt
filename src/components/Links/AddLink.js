@@ -52,12 +52,14 @@ const AddLink = ({ onSaveLink }) => {
                                 <Form onSubmit={onSubmit}>
                                     <Form.Group className="mb-3" controlId="addLinkForm-UrlText">
                                         <Form.Control type='text'
+                                            autoComplete="off"
                                             placeholder={t('urlText')}
                                             value={urlText}
                                             onChange={(e) => setUrlText(e.target.value)} />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="addLinkForm-Url">
                                         <Form.Control type='text'
+                                            autoComplete="off"
                                             placeholder={t('url')}
                                             value={url}
                                             onChange={(e) => setUrl(e.target.value)} />

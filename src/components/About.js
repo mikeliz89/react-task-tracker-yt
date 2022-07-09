@@ -1,8 +1,11 @@
+//buttons
 import GoBackButton from './GoBackButton';
+//react
 import { useTranslation } from 'react-i18next';
 
 const About = () => {
 
+    //translation
     const { t } = useTranslation('about', { keyPrefix: 'about' });
 
     return (

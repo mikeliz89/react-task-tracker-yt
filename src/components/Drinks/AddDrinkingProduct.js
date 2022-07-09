@@ -27,6 +27,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
    const [createdBy, setCreatedBy] = useState('');
    const [haveAtHome, setHaveAtHome] = useState('');
    const [abv, setAbv] = useState(0);
+   const [amount, setAmount] = useState(0);
 
    //load data
    useEffect(() => {
@@ -65,6 +66,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             setManufacturer(val["manufacturer"]);
             setHaveAtHome(val["haveAtHome"]);
             setAbv(val["abv"]);
+            setAmount(val["amount"]);
          }
       });
    }
@@ -81,15 +83,19 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
 
       onAddDrinkingProduct({
          created, createdBy, name,
-         description, category, manufacturer, haveAtHome, abv
+         description, category, manufacturer,
+         haveAtHome, abv, amount
       });
 
       if (drinkingProductID == null) {
          //clear the form
-         setName('')
-         setManufacturer('')
-         setDescription('')
-         setCategory('')
+         setName('');
+         setManufacturer('');
+         setDescription('');
+         setCategory('');
+         setAbv(0);
+         setHaveAtHome(false);
+         setAmount(0);
       }
    }
 
@@ -99,6 +105,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Name">
                <Form.Label>{t('drinkingproduct_name')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   placeholder={t('drinkingproduct_name')}
                   value={name}
                   onChange={(e) => setName(e.target.value)} />
@@ -106,6 +113,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Description">
                <Form.Label>{t('drinkingproduct_description')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   placeholder={t('drinkingproduct_description')}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)} />
@@ -113,6 +121,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Manufacturer">
                <Form.Label>{t('drinkingproduct_manufacturer')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   placeholder={t('drinkingproduct_manufacturer')}
                   value={manufacturer}
                   onChange={(e) => setManufacturer(e.target.value)} />
@@ -131,13 +140,30 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
             <Form.Group>
                <Form.Label>{t('drinkingproduct_abv')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   value={abv}
                   onChange={(e) => setAbv(e.target.value)}
                />
             </Form.Group>
+            <Form.Group className="mb-3" controlId="addDrinkingProductForm-Amount">
+               <Form.Label>{t('drinkingproduct_amount')}</Form.Label>
+               <Form.Control type='text'
+                  autoComplete="off"
+                  placeholder={t('drinkingproduct_amount')}
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="addDrinkingProductForm-HaveAtHome">
+               <Form.Check
+                  type='checkbox'
+                  label={t('drinkingproduct_have_at_home')}
+                  checked={haveAtHome}
+                  value={haveAtHome}
+                  onChange={(e) => setHaveAtHome(e.currentTarget.checked)} />
+            </Form.Group>
             <Row>
                <ButtonGroup>
-                  <Button type="button" text="Sulje" className='btn btn-block' onClick={() => onClose()} />
+                  <Button type="button" text={t('button_close')} className='btn btn-block' onClick={() => onClose()} />
                   <Button type='submit' text={t('button_save_drink')} className='btn btn-block saveBtn' />
                </ButtonGroup>
             </Row>

@@ -1,7 +1,7 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { FaTimes, FaRunning, FaDumbbell } from 'react-icons/fa';
+import { FaTimes, FaRunning, FaWalking, FaDumbbell } from 'react-icons/fa';
 import { useState } from 'react'
 //star rating
 import StarRating from '../StarRating/StarRating';
@@ -9,6 +9,9 @@ import StarRating from '../StarRating/StarRating';
 import { Categories } from './Categories';
 //utils
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
+import { getDateAndTimeAsDateTimeString } from '../../utils/DateTimeUtils';
+//i18n
+import i18n from "i18next";
 
 const Exercise = ({ exercise, onDelete }) => {
 
@@ -30,7 +33,11 @@ const Exercise = ({ exercise, onDelete }) => {
                         Number(exercise.category) === Categories.Gym &&
                         <FaDumbbell style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
                     }
-                    {exercise.date} {exercise.time}
+                    {
+                        Number(exercise.category) === Categories.Walking &&
+                        <FaWalking style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                    }
+                    {getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)}
                 </span>
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                     onClick={() => { if (window.confirm(t('delete_exercise_confirm_message'))) { onDelete(exercise.id); } }} />

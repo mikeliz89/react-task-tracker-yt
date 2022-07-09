@@ -29,18 +29,27 @@ const SortMode = {
 }
 
 export default function ManageTaskLists() {
+
+  const DB_TASKLISTS = '/tasklists';
+  const DB_TASKS = '/tasks';
+
   //navigate
   const navigate = useNavigate();
+
   //user
   const { currentUser } = useAuth();
+
   //translation
   const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
+
   //states
   const [showAddTaskList, setShowAddTaskList] = useState(false);
   const [taskLists, setTaskLists] = useState();
   const [originalTaskLists, setOriginalTaskLists] = useState();
+
   //sorting
   const [sortBy, setSortBy] = useState(SortMode.None);
+
   //search
   const [searchString, setSearchString] = useState('');
 
@@ -58,7 +67,7 @@ export default function ManageTaskLists() {
 
   /* Fetch Task Lists From Firebase */
   const fetchTaskListsFromFireBase = async () => {
-    const dbref = ref(db, '/tasklists');
+    const dbref = ref(db, DB_TASKLISTS);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -74,7 +83,7 @@ export default function ManageTaskLists() {
   const addTaskList = async (taskList) => {
     taskList["created"] = getCurrentDateAsJson();
     taskList["createdBy"] = currentUser.email;
-    const dbref = ref(db, '/tasklists');
+    const dbref = ref(db, DB_TASKLISTS);
     push(dbref, taskList)
       .then((snap) => {
         const key = snap.key;
@@ -85,16 +94,16 @@ export default function ManageTaskLists() {
   /** Delete Task List From Firebase */
   const deleteTaskList = async (id) => {
     //delete tasks
-    const dbrefTasks = ref(db, `/tasks/${id}`);
+    const dbrefTasks = ref(db, `${DB_TASKS}/${id}`);
     remove(dbrefTasks);
     //delete task list
-    const dbref = child(ref(db, '/tasklists'), id)
-    remove(dbref)
+    const dbref = child(ref(db, DB_TASKLISTS), id);
+    remove(dbref);
   }
 
   /** Navigate To Task List Archive */
   function gotoTaskListArchive() {
-    navigate('/tasklistarchive')
+    navigate('/tasklistarchive');
   }
 
   const filterAndSort = () => {
@@ -110,7 +119,7 @@ export default function ManageTaskLists() {
     //sortit
     if (sortBy === SortMode.Name_ASC || sortBy === SortMode.Name_DESC) {
       newTaskLists = [...newTaskLists].sort((a, b) => {
-        return a.title > b.title ? 1 : -1
+        return a.title > b.title ? 1 : -1;
       });
       if (sortBy === SortMode.Name_DESC) {
         newTaskLists.reverse();
@@ -173,6 +182,7 @@ export default function ManageTaskLists() {
             <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
             <Col xs={9} sm={10}>
               <Form.Control
+                autoComplete="off"
                 type="text"
                 id="inputSearchString"
                 aria-describedby="searchHelpBlock"

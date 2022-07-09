@@ -1,4 +1,6 @@
+//react
 import { useTranslation } from 'react-i18next';
+//recipes
 import WorkPhase from './WorkPhase';
 
 export default function WorkPhases({ workPhases, recipeID, onDeleteWorkPhase }) {

@@ -1,9 +1,11 @@
+//react
 import { FaTimes } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 
 const Task = ({ taskListID, archived, task, onDelete, onToggle }) => {
 
+    //translation
     const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
     return (

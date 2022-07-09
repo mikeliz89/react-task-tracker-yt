@@ -10,22 +10,23 @@ import Button from '../../components/Button';
 
 const AddTask = ({ taskID, taskListID, onAddTask }) => {
 
+    //translation
     const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
     //states
-    const [text, setText] = useState('')
-    const [day, setDay] = useState('')
-    const [reminder, setReminder] = useState(false)
-    const [created, setCreated] = useState('')
-    const [createdBy, setCreatedBy] = useState('')
+    const [text, setText] = useState('');
+    const [day, setDay] = useState('');
+    const [reminder, setReminder] = useState(false);
+    const [created, setCreated] = useState('');
+    const [createdBy, setCreatedBy] = useState('');
 
     useEffect(() => {
         if (taskID != null) {
             //Task List
             const getTask = async () => {
-                await fetchTaskFromFirebase(taskID, taskListID)
+                await fetchTaskFromFirebase(taskID, taskListID);
             }
-            getTask()
+            getTask();
         }
     }, [taskID, taskListID]);
 
@@ -70,6 +71,7 @@ const AddTask = ({ taskID, taskListID, onAddTask }) => {
             <Form.Group className="mb-3" controlId="addTaskFormTaskName">
                 <Form.Label>{t('task_name')}</Form.Label>
                 <Form.Control
+                    autoComplete="off"
                     type='text'
                     placeholder={t('task_name')}
                     value={text}
@@ -78,6 +80,7 @@ const AddTask = ({ taskID, taskListID, onAddTask }) => {
             <Form.Group className="mb-3" controlId="addTaskFormDayAndTime">
                 <Form.Label>{t('day_and_time')}</Form.Label>
                 <Form.Control
+                    autoComplete="off"
                     type='text'
                     placeholder={t('day_and_time')}
                     value={day}

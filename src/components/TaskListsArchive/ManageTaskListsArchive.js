@@ -7,8 +7,13 @@ import TaskLists from '../../components/TaskList/TaskLists';
 
 const ManageTaskListsArchive = () => {
 
+  const DB_TASKLIST_ARCHIVE = '/tasklist-archive';
+  const DB_TASKLIST_ARCHIVE_TASKS = '/tasklist-archive-tasks';
+
+  //translation
   const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
+  //states
   const [taskLists, setTaskLists] = useState();
 
   //load data
@@ -21,7 +26,7 @@ const ManageTaskListsArchive = () => {
 
   /** Fetch Archived Task Lists From Firebase */
   const fetchTaskListsFromFireBase = async () => {
-    const dbref = ref(db, '/tasklist-archive');
+    const dbref = ref(db, DB_TASKLIST_ARCHIVE);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const taskLists = [];
@@ -36,11 +41,11 @@ const ManageTaskListsArchive = () => {
   const deleteTaskList = async (id) => {
 
     //delete tasks
-    const dbrefTasks = ref(db, `/tasklist-archive-tasks/${id}`);
+    const dbrefTasks = ref(db, `${DB_TASKLIST_ARCHIVE_TASKS}/${id}`);
     remove(dbrefTasks);
 
     //delete task list
-    const dbref = ref(db, `/tasklist-archive/${id}`);
+    const dbref = ref(db, `${DB_TASKLIST_ARCHIVE}/${id}`);
     remove(dbref)
   }
 

@@ -1,9 +1,13 @@
+//react
 import { FaTimes, FaListAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 
 const TaskList = ({ taskList, archived, onDelete }) => {
+
+    //translation
     const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
+
     return (
         <div className='task'>
             <h5>

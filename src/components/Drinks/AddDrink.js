@@ -100,6 +100,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
             <Form.Group className="mb-3" controlId="addDrinkFormName">
                <Form.Label>{t('name')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   placeholder={drinkID == null ? t('name') : t('name')}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)} />
@@ -107,6 +108,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
             <Form.Group className="mb-3" controlId="addDrinkFormDescription">
                <Form.Label>{t('description')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   placeholder={drinkID == null ? t('description') : t('description')}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)} />
@@ -114,6 +116,7 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
             <Form.Group className="mb-3" controlId="addDrinkFormGlass">
                <Form.Label>{t('glass')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   placeholder={drinkID == null ? t('glass') : t('glass')}
                   value={glass}
                   onChange={(e) => setGlass(e.target.value)} />

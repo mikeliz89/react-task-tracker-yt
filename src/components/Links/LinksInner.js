@@ -1,20 +1,14 @@
-//react
-import { FaTimes } from "react-icons/fa";
-import { useTranslation } from 'react-i18next';
+//links
+import LinkInner from "./LinkInner";
 
-const LinksInner = ({ links, onDelete }) => {
-
-    //translation
-    const { t } = useTranslation('links', { keyPrefix: 'links' });
+const LinksInner = ({ links, objID, linkUrl, onDelete, onEdit }) => {
 
     return (
         <div>
             {links
                 ? links.map((link) =>
-                    <div key={link.id}>
-                        <a href={link.url} target="_blank" rel="noreferrer">{link.urlText}</a>
-                        <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
-                            onClick={() => { if (window.confirm(t('delete_link_confirm'))) { onDelete(link.id); } }} />
+                    <div key={link.id} style={{ padding: '5px', border: '1px solid black' }}>
+                        <LinkInner link={link} objID={objID} linkUrl={linkUrl} onDelete={onDelete} onEdit={onEdit} />
                     </div>
                 ) : '-'
             }

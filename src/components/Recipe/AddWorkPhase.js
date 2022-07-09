@@ -7,6 +7,7 @@ import Button from '../../components/Button'
 
 export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, recipeID }) {
 
+  //translation
   const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
   //states
@@ -14,11 +15,11 @@ export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, recipeID }) 
   const [estimatedLength, setEstimatedLength] = useState(0)
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     //validation
     if (!name) {
-      return
+      return;
     }
 
     //call the RecipeDetails.js
@@ -26,8 +27,8 @@ export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, recipeID }) 
 
     //clear the form
     if (workPhaseID == null) {
-      setName('')
-      setEstimatedLength(0)
+      setName('');
+      setEstimatedLength(0);
     }
   }
 
@@ -36,6 +37,7 @@ export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, recipeID }) 
       <Form.Group className="mb-3" controlId="addWorkPhaseFormName">
         <Form.Label>{t('workphase_name')}</Form.Label>
         <Form.Control
+          autoComplete="off"
           type='text'
           placeholder={t('workphase_name')}
           value={name}
@@ -44,6 +46,7 @@ export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, recipeID }) 
       <Form.Group className="mb-3" controlId="addWorkPhaseFormEstimatedLength">
         <Form.Label>{t('workphase_estimated_length')}</Form.Label>
         <Form.Control
+          autoComplete="off"
           type='number'
           placeholder={t('workphase_estimated_length')}
           value={estimatedLength || ''}

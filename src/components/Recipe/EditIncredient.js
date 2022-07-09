@@ -10,6 +10,9 @@ import Button from '../../components/Button';
 
 export default function EditIncredient({ recipeID, incredientID, onEditIncredient, onCloseEditIncredient }) {
 
+    const DB_INCREDIENTS = '/incredients';
+
+    //translation
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
     //states
@@ -29,7 +32,7 @@ export default function EditIncredient({ recipeID, incredientID, onEditIncredien
 
     /** Fetch Incredient From Firebase By RecipeID */
     const fetchIncredientFromFirebase = async (recipeID) => {
-        const dbref = ref(db, `/incredients/${recipeID}/${incredientID}`);
+        const dbref = ref(db, `${DB_INCREDIENTS}/${recipeID}/${incredientID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();
@@ -54,25 +57,28 @@ export default function EditIncredient({ recipeID, incredientID, onEditIncredien
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="incredientName">
                 <Form.Control type='text'
+                    autoComplete="off"
                     placeholder={t('incredient_name')}
                     value={name}
                     onChange={(e) => setName(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="incredientAmount">
                 <Form.Control type='number'
+                    autoComplete="off"
                     placeholder={t('incredient_amount')}
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="incredientUnit">
                 <Form.Control type='text'
+                    autoComplete="off"
                     placeholder={t('incredient_unit')}
                     value={unit}
                     onChange={(e) => setUnit(e.target.value)} />
             </Form.Group>
             <Row>
                 <ButtonGroup>
-                    <Button type='button' text='Sulje' className='btn btn-block' onClick={() => close()} />
+                    <Button type='button' text={t('button_close')} className='btn btn-block' onClick={() => close()} />
                     <Button type='submit' text={t('incredient_save_button_text')} className='btn btn-block saveBtn' />
                 </ButtonGroup>
             </Row>

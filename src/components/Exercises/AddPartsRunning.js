@@ -15,6 +15,8 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 
 const AddPartsRunning = () => {
 
+  const DB_EXERCISE_PARTS = '/exercise-parts';
+
   //states
   const [distance, setDistance] = useState(0);
   const [time, setTime] = useState(0);
@@ -40,7 +42,7 @@ const AddPartsRunning = () => {
 
   /** Fetch Recipe From Firebase */
   const fetchExercisePartFromFirebase = async () => {
-    const dbref = child(ref(db, '/exercise-parts'), params.id);
+    const dbref = child(ref(db, DB_EXERCISE_PARTS), params.id);
     onValue(dbref, (snapshot) => {
       const val = snapshot.val();
       const fromDB = [];
@@ -76,7 +78,7 @@ const AddPartsRunning = () => {
     const exerciseID = params.id;
     const updates = {};
     running["modified"] = getCurrentDateAsJson()
-    updates[`/exercise-parts/${exerciseID}/${partID}`] = running;
+    updates[`${DB_EXERCISE_PARTS}/${exerciseID}/${partID}`] = running;
     update(ref(db), updates);
   }
 
@@ -84,7 +86,7 @@ const AddPartsRunning = () => {
     const exerciseID = params.id;
     running["created"] = getCurrentDateAsJson();
     running["createdBy"] = currentUser.email;
-    const dbref = child(ref(db, '/exercise-parts'), exerciseID);
+    const dbref = child(ref(db, DB_EXERCISE_PARTS), exerciseID);
     push(dbref, running);
   }
 

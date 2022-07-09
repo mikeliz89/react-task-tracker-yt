@@ -34,6 +34,12 @@ import { useAuth } from '../../contexts/AuthContext';
 
 export default function RecipeDetails() {
 
+    const DB_INCREDIENTS = '/incredients';
+    const DB_RECIPES = '/recipes';
+    const DB_WORKPHASES = '/workphases';
+    const DB_RECIPE_COMMENTS = '/recipe-comments';
+    const DB_RECIPE_LINKS = '/recipe-links';
+
     //states
     const [loading, setLoading] = useState(true);
     const [recipe, setRecipe] = useState({});
@@ -74,7 +80,7 @@ export default function RecipeDetails() {
 
     /** Fetch Recipe From Firebase */
     const fetchRecipeFromFirebase = async () => {
-        const dbref = ref(db, `/recipes/${params.id}`);
+        const dbref = ref(db, `${DB_RECIPES}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
@@ -87,7 +93,7 @@ export default function RecipeDetails() {
 
     /** Fetch Incredients From Firebase */
     const fetchIncredientsFromFirebase = async () => {
-        const dbref = await child(ref(db, '/incredients'), params.id);
+        const dbref = await child(ref(db, DB_INCREDIENTS), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const incredients = [];
@@ -100,7 +106,7 @@ export default function RecipeDetails() {
 
     /** Fetch WorkPhases From Firebase */
     const fetchWorkPhasesFromFirebase = async () => {
-        const dbref = await child(ref(db, '/workphases'), params.id);
+        const dbref = await child(ref(db, DB_WORKPHASES), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const workphases = [];
@@ -113,25 +119,25 @@ export default function RecipeDetails() {
 
     /** Add Incredient To Firebase */
     const addIncredient = async (recipeID, incredient) => {
-        const dbref = child(ref(db, '/incredients'), recipeID);
+        const dbref = child(ref(db, DB_INCREDIENTS), recipeID);
         push(dbref, incredient);
     }
 
     /** Delete Incredient From Firebase */
     const deleteIncredient = async (recipeID, id) => {
-        const dbref = ref(db, `/incredients/${recipeID}/${id}`);
+        const dbref = ref(db, `${DB_INCREDIENTS}/${recipeID}/${id}`);
         remove(dbref)
     }
 
     /** Add Work Phase To Firebase */
     const addWorkPhase = async (recipeID, workPhase) => {
-        const dbref = child(ref(db, '/workphases'), recipeID);
+        const dbref = child(ref(db, DB_WORKPHASES), recipeID);
         push(dbref, workPhase);
     }
 
     /** Delete Work Phase From Firebase */
     const deleteWorkPhase = async (recipeID, id) => {
-        const dbref = ref(db, `/workphases/${recipeID}/${id}`);
+        const dbref = ref(db, `${DB_WORKPHASES}/${recipeID}/${id}`);
         remove(dbref);
     }
 
@@ -148,7 +154,7 @@ export default function RecipeDetails() {
             if (recipe["isCore"] === undefined) {
                 recipe["isCore"] = false;
             }
-            updates[`/recipes/${recipeID}`] = recipe;
+            updates[`${DB_RECIPES}/${recipeID}`] = recipe;
             update(ref(db), updates);
         } catch (error) {
             setError(t('failed_to_save_recipe'));
@@ -162,7 +168,7 @@ export default function RecipeDetails() {
         const updates = {};
         recipe["modified"] = getCurrentDateAsJson()
         recipe["stars"] = Number(stars);
-        updates[`/recipes/${recipeID}`] = recipe;
+        updates[`${DB_RECIPES}/${recipeID}`] = recipe;
         update(ref(db), updates);
     }
 
@@ -171,14 +177,14 @@ export default function RecipeDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, '/recipe-comments'), recipeID);
+        const dbref = child(ref(db, DB_RECIPE_COMMENTS), recipeID);
         push(dbref, comment);
     }
 
     const addLinkToRecipe = (link) => {
         const recipeID = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, '/recipe-links'), recipeID);
+        const dbref = child(ref(db, DB_RECIPE_LINKS), recipeID);
         push(dbref, link);
     }
 

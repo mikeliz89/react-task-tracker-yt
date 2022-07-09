@@ -20,7 +20,7 @@ export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, drinkID }) {
     if (!name) {
       return
     }
-    
+
     onAddWorkPhase(drinkID, { name, estimatedLength })
 
     //clear the form
@@ -35,6 +35,7 @@ export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, drinkID }) {
       <Form.Group className="mb-3" controlId="addWorkPhaseFormName">
         <Form.Label>{t('workphase_name')}</Form.Label>
         <Form.Control
+          autoComplete="off"
           type='text'
           placeholder={t('workphase_name')}
           value={name}
@@ -43,6 +44,7 @@ export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, drinkID }) {
       <Form.Group className="mb-3" controlId="addWorkPhaseFormEstimatedLength">
         <Form.Label>{t('workphase_estimated_length')}</Form.Label>
         <Form.Control
+          autoComplete="off"
           type='number'
           placeholder={t('workphase_estimated_length')}
           value={estimatedLength || ''}

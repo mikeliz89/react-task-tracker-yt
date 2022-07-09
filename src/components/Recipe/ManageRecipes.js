@@ -28,13 +28,17 @@ const ManageRecipes = () => {
   const [recipes, setRecipes] = useState()
   const [originalRecipes, setOriginalRecipes] = useState();
   const [searchString, setSearchString] = useState('');
+
   //sorting
   const [sortingIsOn, setSortingIsOn] = useState(false);
   const [sortByTextAsc, setSortByTextAsc] = useState(true);
+
   //searching
   const [showOnlyCoreRecipes, setShowOnlyCoreRecipes] = useState(false);
+
   //translation
   const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+
   //user
   const { currentUser } = useAuth();
 
@@ -160,6 +164,7 @@ const ManageRecipes = () => {
             <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
             <Col xs={9} sm={10}>
               <Form.Control
+                autoComplete="off"
                 type="text"
                 id="inputSearchString"
                 aria-describedby="searchHelpBlock"

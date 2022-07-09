@@ -1,6 +1,9 @@
-import PropTypes from 'prop-types'
-import { FaArrowLeft, FaArchive, FaSignOutAlt, FaEdit, FaPlus, FaCarrot, FaHourglass,
-FaWeight } from 'react-icons/fa'
+import PropTypes from 'prop-types';
+import {
+    FaArrowLeft, FaArchive, FaSignOutAlt,
+    FaEdit, FaPlus, FaCarrot, FaHourglass,
+    FaWeight
+} from 'react-icons/fa';
 
 const Button = ({ disabled, color, text, onClick, className,
     showIconArrowLeft, showIconArchive, showIconLogout, showIconEdit, showIconAdd,
@@ -68,9 +71,11 @@ const Button = ({ disabled, color, text, onClick, className,
 }
 
 Button.defaultProps = {
+    //strings
     color: 'steelblue',
     textcolor: 'white',
     className: 'btn',
+    //icons
     showIconArrowLeft: false,
     showIconArchive: false,
     showIconLogout: false,
@@ -79,6 +84,7 @@ Button.defaultProps = {
     showIconCarrot: false,
     showIconHourGlass: false,
     showIconWeight: false,
+    //other
     disabled: false
 }
 

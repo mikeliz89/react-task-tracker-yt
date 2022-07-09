@@ -55,19 +55,21 @@ export default function EditWorkPhase({ drinkID, workPhaseID, onEditWorkPhase, o
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="workPhaseName">
                 <Form.Control type='text'
+                    autoComplete="off"
                     placeholder={t('workphase_name')}
                     value={name}
                     onChange={(e) => setName(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="workPhaseEstimatedLength">
                 <Form.Control type='number'
+                    autoComplete="off"
                     placeholder={t('workphase_estimated_length')}
                     value={estimatedLength}
                     onChange={(e) => setEstimatedLength(e.target.value)} />
             </Form.Group>
             <Row>
                 <ButtonGroup>
-                    <Button type='button' text='Sulje' className='btn btn-block' onClick={() => close()} />
+                    <Button type='button' text={t('button_close')} className='btn btn-block' onClick={() => close()} />
                     <Button type='submit' text={t('incredient_save_button_text')} className='btn btn-block saveBtn' />
                 </ButtonGroup>
             </Row>

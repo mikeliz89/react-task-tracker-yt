@@ -12,6 +12,9 @@ import { RecipeCategories } from './Categories';
 
 const AddRecipe = ({ recipeID, onAddRecipe }) => {
 
+   const DB_RECIPES = '/recipes';
+
+   //translation
    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
    //states
@@ -40,7 +43,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
    /** get recipe from firebase by recipeID (in EDIT recipe) */
    const fetchRecipeFromFirebase = async (recipeID) => {
 
-      const dbref = ref(db, `/recipes/${recipeID}`);
+      const dbref = ref(db, `${DB_RECIPES}/${recipeID}`);
       get(dbref).then((snapshot) => {
          if (snapshot.exists()) {
             var val = snapshot.val();
@@ -91,6 +94,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
             <Form.Group className="mb-3" controlId="addRecipeFormName">
                <Form.Label>{t('recipe_name')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   placeholder={recipeID == null ? t('recipe_name') : t('edit_recipe_name')}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)} />
@@ -98,6 +102,7 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
             <Form.Group className="mb-3" controlId="addRecipeFormDescription">
                <Form.Label>{t('description')}</Form.Label>
                <Form.Control type='text'
+                  autoComplete="off"
                   placeholder={recipeID == null ? t('add_description') : t('edit_description')}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)} />
