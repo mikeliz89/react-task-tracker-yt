@@ -60,6 +60,7 @@
         "fuel_price": "Bensan hinta €/L",
         "fuel_price_simple": "Bensan hinta",
         "fuelings": "Tankkaukset",
+        "fueler_name": "Tankkaaja",
         "liter_amount": "Tankattu litramäärä",
         "meter_kilometers": "Matkamittarin km lukema",
         "model_year": "Vuosimalli",

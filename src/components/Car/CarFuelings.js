@@ -23,7 +23,8 @@ const CarFuelings = ({ carFuelings }) => {
                         {t('price')}: {fuelingRow.price} € <br />
                         {t('meter_kilometers')}: {fuelingRow.meterKilometers} km<br />
                         {t('fuel_price_simple')} {fuelingRow.fuelPricePerLiter} €/L<br />
-                        {t('purchase_location')}: {fuelingRow.purchaseLocation}
+                        {t('purchase_location')}: {fuelingRow.purchaseLocation}<br />
+                        {t('fueler_name')}: {fuelingRow.fuelerName}
                     </Col>
                 </Row>
             ))}

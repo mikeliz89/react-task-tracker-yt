@@ -28,6 +28,7 @@ const AddFueling = () => {
     const [fuelPricePerLiter, setFuelPricePerLiter] = useState(0);
     const [fuelLiterAmount, setFuelLiterAmount] = useState(0);
     const [price, setPrice] = useState(0);
+    const [fuelerName, setFuelerName] = useState('');
 
     //translation
     const { t } = useTranslation('car', { keyPrefix: 'car' });
@@ -43,7 +44,7 @@ const AddFueling = () => {
             //save
             const fueling = {
                 purchaseLocation, meterKilometers, fuelPricePerLiter,
-                fuelLiterAmount, price
+                fuelLiterAmount, price, fuelerName
             };
             saveFueling(fueling);
         } catch (error) {
@@ -51,10 +52,21 @@ const AddFueling = () => {
             console.log(error)
         }
 
-        setLoading(false)
+        setLoading(false);
+        clearForm();
     }
 
     const DB_FUELING = 'car-fueling';
+
+    const clearForm = () => {
+        setFuelerName('');
+        setMeterKilometers(0);
+        setFuelLiterAmount(0);
+        setPurchaseLocation('');
+        setFuelLiterAmount(0);
+        setFuelPricePerLiter(0);
+        setPrice(0);
+    }
 
     const saveFueling = (fueling) => {
 
@@ -96,18 +108,31 @@ const AddFueling = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addFuelingFormMeterKilometers">
                     <Form.Label>{t('meter_kilometers')}</Form.Label>
-                    <Form.Control type='number' placeholder={t('meter_kilometers')}
+                    <Form.Control
+                        autoComplete="off"
+                        type='number' placeholder={t('meter_kilometers')}
                         value={meterKilometers} onChange={(e) => setMeterKilometers(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addFuelingFormFuelPrice">
                     <Form.Label>{t('fuel_price')}</Form.Label>
-                    <Form.Control type='number' placeholder={t('fuel_price')}
+                    <Form.Control
+                        autoComplete="off"
+                        type='number' placeholder={t('fuel_price')}
                         value={fuelPricePerLiter} onChange={(e) => setFuelPricePerLiter(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addFuelingFormPurchaseLocation">
                     <Form.Label>{t('purchase_location')}</Form.Label>
-                    <Form.Control type='text' placeholder={t('purchase_location')}
+                    <Form.Control
+                        autoComplete="off"
+                        type='text' placeholder={t('purchase_location')}
                         value={purchaseLocation} onChange={(e) => setPurchaseLocation(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addFuelingForm-FuelerName">
+                    <Form.Label>{t('fueler_name')}</Form.Label>
+                    <Form.Control
+                        autoComplete="off"
+                        type='text' placeholder={t('fueler_name')}
+                        value={fuelerName} onChange={(e) => setFuelerName(e.target.value)} />
                 </Form.Group>
                 <Button disabled={loading} type='submit' text={t('save')} className='btn btn-block' />
             </Form>
