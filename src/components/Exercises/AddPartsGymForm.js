@@ -12,6 +12,9 @@ function AddPartsGymForm({ exerciseID, onAddPart }) {
 
     //states
     const [name, setName] = useState('');
+    /** Painojen määrä */
+    const [weight, setWeight] = useState(0);
+    const [repeat, setRepeat] = useState(0);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -21,10 +24,15 @@ function AddPartsGymForm({ exerciseID, onAddPart }) {
             return;
         }
 
-        onAddPart(exerciseID, { name })
+        onAddPart(exerciseID, { name, weight, repeat })
 
-        //clear the form
+        clearForm();
+    }
+
+    const clearForm = () => {
         setName('');
+        setWeight(0);
+        setRepeat(0);
     }
 
     return (
@@ -38,6 +46,26 @@ function AddPartsGymForm({ exerciseID, onAddPart }) {
                     value={name}
                     onChange={(e) => setName(e.target.value)} />
             </Form.Group>
+            <Row>
+                <Form.Group as={Col} className="mb-3" className="mb-3" controlId="addPartsGymForm-Weight">
+                    <Form.Label>{t('gym_part_weight')}</Form.Label>
+                    <Form.Control
+                        autoComplete="off"
+                        type='number'
+                        placeholder={t('gym_part_weight')}
+                        value={weight}
+                        onChange={(e) => setWeight(e.target.value)} />
+                </Form.Group>
+                <Form.Group as={Col} className="mb-3" className="mb-3" controlId="addPartsGymForm-Repeat">
+                    <Form.Label>{t('gym_part_repeat')}</Form.Label>
+                    <Form.Control
+                        autoComplete="off"
+                        type='text'
+                        placeholder={t('gym_part_repeat')}
+                        value={repeat}
+                        onChange={(e) => setRepeat(e.target.value)} />
+                </Form.Group>
+            </Row>
             <Button type='submit' text={t('button_save_gym_part')} className='btn btn-block saveBtn' />
         </Form>
     )

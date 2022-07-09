@@ -4,7 +4,7 @@ function GymParts({ parts }) {
     return (
         <div>
             {parts.map((row) => (
-                <p key={row.id}>{row.name}</p>
+                <p key={row.id}>{row.name} {row.weight} kg {row.repeat}</p>
             ))}
         </div>
     )

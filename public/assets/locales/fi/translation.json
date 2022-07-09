@@ -210,6 +210,8 @@
         "gym_no_parts": "Ei lisättyjä liikkeitä",
         "gym_parts_header": "Kuntosaliharjoitus",
         "gym_part_name": "Liikkeen nimi",
+        "gym_part_weight": "Painon määrä",
+        "gym_part_repeat": "Toistojen määrä",
         "gym_parts_add_button": "Lisää liike",
         "loading": "Lataa...",
         "manage_exercises_title": "Liikunta",
