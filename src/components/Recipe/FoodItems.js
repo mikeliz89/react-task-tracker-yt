@@ -1,11 +1,19 @@
-import React from 'react'
+//recipe
+import FoodItem from './FoodItem';
 
-const FoodItems = () => {
-  return (
-    <div>
-      Food Items
-    </div>
-  )
+export default function FoodItems({ foodItems, onDelete, onEdit }) {
+
+    return (
+        <>
+            {foodItems
+                ? foodItems.map((foodItem, index) =>
+                    <FoodItem
+                        key={foodItem.id}
+                        foodItem={foodItem}
+                        onDelete={onDelete}
+                        onEdit={onEdit} />
+                ) : ''
+            }
+        </>
+    )
 }
-
-export default FoodItems

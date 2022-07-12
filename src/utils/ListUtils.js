@@ -1,5 +1,5 @@
 import { ExerciseCategories } from "../components/Exercises/Categories";
-import { RecipeCategories } from "../components/Recipe/Categories";
+import { RecipeCategories, FoodItemCategories } from "../components/Recipe/Categories";
 import { DrinkCategories } from "../components/Drinks/Categories";
 import { DrinkingProductCategories } from "../components/Drinks/Categories";
 
@@ -13,6 +13,10 @@ export function getDrinkingProductCategoryNameByID(id) {
 
 export function getRecipeCategoryNameByID(id) {
     return getNameByID(RecipeCategories, id);
+}
+
+export function getFoodItemCategoryNameByID(id) {
+    return getNameByID(FoodItemCategories, id);
 }
 
 /** Get Exercise Category Name by CategoryID */

@@ -99,7 +99,18 @@ export const RecipeCategories = [
 
 export const FoodItemCategories = [
     {
+        //-ei mikään-
+        "id": 0,
+        "name": "none"
+    },
+    {
+        //vihannes
         "id": 1,
         "name": "vegetable"
+    },
+    {
+        //maitotuote
+        "id": 2,
+        "name": "dairyproduct"
     }
 ]
