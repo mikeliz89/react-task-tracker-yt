@@ -27,6 +27,7 @@ import ManageExercises from './components/Exercises/ManageExercises';
 import CreateExercise from './components/Exercises/CreateExercise';
 import ExerciseDetails from './components/Exercises/ExerciseDetails';
 //Recipe
+import ManageFoodItems from './components/Recipe/ManageFoodItems';
 import ManageRecipes from './components/Recipe/ManageRecipes';
 import RecipeDetails from './components/Recipe/RecipeDetails';
 //BMICalculator
@@ -97,6 +98,7 @@ function App() {
             {/* Recipe */}
             <Route path='/recipe/:id' element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
             <Route path='/managerecipes' element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
+            <Route path='/managefooditems' element={<PrivateRoute><ManageFoodItems /></PrivateRoute>} />
             {/* Recipe */}
             {/* Drinks */}
             <Route path='/managedrinks' element={<PrivateRoute><ManageDrinks /></PrivateRoute>} />

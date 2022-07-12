@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Row, Alert, Form, Col } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 //buttons
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
@@ -135,6 +136,7 @@ const ManageRecipes = () => {
       </Row>
       <h3 className="page-title">{t('manage_recipes_title')}</h3>
       <div className="page-content">
+      <Link to="/managefooditems" className='btn btn-primary'>{t('manage_fooditems_button')}</Link>
         {error && <div className="error">{error}</div>}
         {message &&
           <Alert show={showMessage} variant='success'>

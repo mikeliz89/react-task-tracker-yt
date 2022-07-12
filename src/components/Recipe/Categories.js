@@ -96,3 +96,10 @@ export const RecipeCategories = [
         "name": "desert"
     }
 ]
+
+export const FoodItemCategories = [
+    {
+        "id": 1,
+        "name": "vegetable"
+    }
+]
