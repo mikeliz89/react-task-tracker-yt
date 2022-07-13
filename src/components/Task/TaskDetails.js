@@ -110,7 +110,7 @@ function TaskDetails() {
       <div className={task.reminder === true ? 'task reminder' : ''}>
         <h4 className="page-title">{task.text}</h4>
         <p>{t('day_and_time')}: {task.day}</p>
-        {showEditTask && <AddTask onAddTask={addTask} taskID={params.id} taskListID={params.tasklistid} />}
+        {showEditTask && <AddTask onClose={() => setShowEditTask(false)} onAddTask={addTask} taskID={params.id} taskListID={params.tasklistid} />}
         <p>
           {t('created')}: {getJsonAsDateTimeString(task.created, i18n.language)}<br />
           {t('created_by')}: {task.createdBy}<br />

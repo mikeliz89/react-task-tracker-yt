@@ -1,14 +1,14 @@
 //react
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
+import { Form, Row, ButtonGroup } from 'react-bootstrap';
 //firebase
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
 //buttons
 import Button from '../../components/Button';
 
-const AddTask = ({ taskID, taskListID, onAddTask }) => {
+const AddTask = ({ taskID, taskListID, onAddTask, onClose }) => {
 
     //translation
     const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
@@ -60,9 +60,9 @@ const AddTask = ({ taskID, taskListID, onAddTask }) => {
 
         //clear the form
         if (taskID == null) {
-            setText('')
-            setDay('')
-            setReminder(false)
+            setText('');
+            setDay('');
+            setReminder(false);
         }
     }
 
@@ -95,7 +95,14 @@ const AddTask = ({ taskID, taskListID, onAddTask }) => {
                     value={reminder}
                     onChange={(e) => setReminder(e.currentTarget.checked)} />
             </Form.Group>
-            <Button type='submit' text={t('button_save_task')} className='btn btn-block saveBtn' />
+            <Row>
+                <ButtonGroup>
+                    <Button type='button' text={t('button_close')} className='btn btn-block' 
+                    onClick={() => onClose()}
+                    />
+                    <Button type='submit' text={t('button_save_task')} className='btn btn-block saveBtn' />
+                </ButtonGroup>
+            </Row>
         </Form>
     )
 }

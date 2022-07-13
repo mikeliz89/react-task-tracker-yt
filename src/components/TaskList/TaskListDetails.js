@@ -280,7 +280,7 @@ function TaskListDetails() {
       {/* <div>{searchString}</div> */}
       <div className="page-content">
         {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id} />}
-        {showAddTask && <AddTask taskListID={params.id} onAddTask={addTask} />}
+        {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onAddTask={addTask} />}
         <Form className='form-no-paddings'>
           <Form.Group as={Row}>
             <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>

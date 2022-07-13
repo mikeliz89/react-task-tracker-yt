@@ -148,7 +148,7 @@ export default function ManageTaskLists() {
         </ButtonGroup>
       </Row>
       <h3 className="page-title">{t('manage_tasklists_title')}</h3>
-      {showAddTaskList && <AddTaskList onAddTaskList={addTaskList} />}
+      {showAddTaskList && <AddTaskList onClose={() => setShowAddTaskList(false)} onAddTaskList={addTaskList} />}
       <div className="page-content">
         <Form className='form-no-paddings'>
           <Form.Group as={Row}>

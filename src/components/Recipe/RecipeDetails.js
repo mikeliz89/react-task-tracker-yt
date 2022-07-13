@@ -258,7 +258,7 @@ export default function RecipeDetails() {
                 <AddComment onSave={addCommentToRecipe} />
                 <AddLink onSaveLink={addLinkToRecipe} />
                 {/* <pre>{JSON.stringify(recipe)}</pre> */}
-                {showEditRecipe && <AddRecipe onAddRecipe={addRecipe} recipeID={params.id} />}
+                {showEditRecipe && <AddRecipe onClose={() => setShowEditRecipe(false)} onAddRecipe={addRecipe} recipeID={params.id} />}
                 {showAddIncredient && <AddIncredient onAddIncredient={addIncredient} recipeID={params.id} />}
                 {showAddWorkPhase && <AddWorkPhase onAddWorkPhase={addWorkPhase} recipeID={params.id} />}
                 {incredients != null}

@@ -1,14 +1,14 @@
 //react
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
+import { Row, ButtonGroup, Form } from 'react-bootstrap';
 //firebase
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
 //buttons
 import Button from '../../components/Button';
 
-const AddTaskList = ({ taskListID, onAddTaskList }) => {
+const AddTaskList = ({ taskListID, onAddTaskList, onClose }) => {
 
     const DB_TASKLISTS = '/tasklists';
 
@@ -84,7 +84,13 @@ const AddTaskList = ({ taskListID, onAddTaskList }) => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
-            <Button type='submit' text={t('button_save_list')} className='btn btn-block saveBtn' />
+            <Row>
+                <ButtonGroup>
+                    <Button type='button' text={t('button_close')} className='btn btn-block' 
+                    onClick={() => onClose()}/>
+                    <Button type='submit' text={t('button_save_list')} className='btn btn-block saveBtn' />
+                </ButtonGroup>
+            </Row>
         </Form>
     )
 }

@@ -1,7 +1,7 @@
 //react
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
+import { Form, Row, ButtonGroup } from 'react-bootstrap';
 //firebase
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
@@ -10,7 +10,7 @@ import Button from '../Button';
 //recipe
 import { RecipeCategories } from './Categories';
 
-const AddRecipe = ({ recipeID, onAddRecipe }) => {
+const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
 
    const DB_RECIPES = '/recipes';
 
@@ -125,7 +125,13 @@ const AddRecipe = ({ recipeID, onAddRecipe }) => {
                   value={isCore}
                   onChange={(e) => setIsCore(e.currentTarget.checked)} />
             </Form.Group>
-            <Button type='submit' text={t('button_save_recipe')} className='btn btn-block saveBtn' />
+            <Row>
+               <ButtonGroup>
+                  <Button type='button' text={t('button_close')} className='btn btn-block'
+                  onClick={() => onClose()} />
+                  <Button type='submit' text={t('button_save_recipe')} className='btn btn-block saveBtn' />
+               </ButtonGroup>
+            </Row>
          </Form>
       </>
    )

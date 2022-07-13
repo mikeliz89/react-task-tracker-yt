@@ -145,7 +145,7 @@ const ManageRecipes = () => {
               <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
             </div>
           </Alert>}
-        {showAddRecipe && <AddRecipe onAddRecipe={addRecipe} />}
+        {showAddRecipe && <AddRecipe onClose={() => setShowAddRecipe(false)} onAddRecipe={addRecipe} />}
         <Form className='form-no-paddings'>
           <Form.Group as={Row}>
             <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
