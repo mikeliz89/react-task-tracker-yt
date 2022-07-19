@@ -165,7 +165,7 @@ export default function ManageDrinks() {
                             <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
                         </div>
                     </Alert>}
-                {showAddDrink && <AddDrink onAddDrink={addDrink} />}
+                {showAddDrink && <AddDrink onAddDrink={addDrink} onClose={() => setShowAddDrink(false)} />}
                 <Form className='form-no-paddings'>
                     <Form.Group as={Row}>
                         <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
