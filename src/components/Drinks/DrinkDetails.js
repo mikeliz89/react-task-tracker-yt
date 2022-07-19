@@ -319,10 +319,10 @@ export default function DrinkDetails() {
                 <AddComment onSave={addCommentToDrink} />
                 <AddLink onSaveLink={addLinkToDrink} />
 
-                {showEditDrink && <AddDrink onAddDrink={addDrink} drinkID={params.id} />}
-                {showAddGarnish && <AddGarnish drinkID={params.id} onAddGarnish={addGarnish} />}
-                {showAddIncredient && <AddIncredient drinkID={params.id} onAddIncredient={addIncredient} />}
-                {showAddWorkPhase && <AddWorkPhase drinkID={params.id} onAddWorkPhase={addWorkPhase} />}
+                {showEditDrink && <AddDrink onAddDrink={addDrink} drinkID={params.id} onClose={() => setShowEditDrink(false)} />}
+                {showAddIncredient && <AddIncredient drinkID={params.id} onAddIncredient={addIncredient} onClose={() => setShowAddIncredient(false)} />}
+                {showAddWorkPhase && <AddWorkPhase drinkID={params.id} onAddWorkPhase={addWorkPhase} onClose={() => setShowAddWorkPhase(false)} />}
+                {showAddGarnish && <AddGarnish drinkID={params.id} onAddGarnish={addGarnish} onClose={() => setShowAddGarnish(false)} />}
                 {incredients != null && incredients.length > 0 ? (
                     <Incredients
                         drinkID={params.id}

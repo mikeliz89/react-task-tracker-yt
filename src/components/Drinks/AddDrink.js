@@ -1,7 +1,7 @@
 //react
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
+import { Row, ButtonGroup, Form } from 'react-bootstrap';
 //firebase
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
@@ -12,7 +12,7 @@ import { DrinkCategories } from './Categories';
 //link component
 // import AddLink from '../Links/AddLink';
 
-const AddDrink = ({ drinkID, onAddDrink }) => {
+const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
 
    const DB_DRINKS = "/drinks";
 
@@ -131,7 +131,13 @@ const AddDrink = ({ drinkID, onAddDrink }) => {
                   ))}
                </Form.Select>
             </Form.Group>
-            <Button type='submit' text={t('button_save_drink')} className='btn btn-block saveBtn' />
+            <Row>
+               <ButtonGroup>
+                  <Button type='button' text={t('button_close')} className='btn btn-block'
+                     onClick={() => onClose()} />
+                  <Button type='submit' text={t('button_save_drink')} className='btn btn-block saveBtn' />
+               </ButtonGroup>
+            </Row>
          </Form>
          {/* TODO rakenna linkin lisäys jo drinkin lisäykseen <AddLink onSaveLink={saveLink} /> */}
       </>

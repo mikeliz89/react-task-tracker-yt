@@ -1,11 +1,11 @@
 //react
 import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
+import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 //buttons
 import Button from '../../components/Button';
 
-export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, drinkID }) {
+export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, drinkID, onClose }) {
 
   const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
@@ -50,7 +50,13 @@ export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, drinkID }) {
           value={estimatedLength || ''}
           onChange={(e) => setEstimatedLength(e.target.value)} />
       </Form.Group>
-      <Button type='submit' text={t('button_save_workphase')} className='btn btn-block saveBtn' />
+      <Row>
+        <ButtonGroup>
+          <Button type='button' text={t('button_close')} className='btn btn-block'
+            onClick={() => onClose()} />
+          <Button type='submit' text={t('button_save_workphase')} className='btn btn-block saveBtn' />
+        </ButtonGroup>
+      </Row>
     </Form>
   )
 }

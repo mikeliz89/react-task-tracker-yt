@@ -1,11 +1,11 @@
 //react
 import { useTranslation } from 'react-i18next';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 //buttons
 import Button from '../../components/Button';
 
-export default function AddIncredient({ onAddIncredient, incredientID, drinkID }) {
+export default function AddIncredient({ onAddIncredient, incredientID, drinkID, onClose }) {
 
   //translation
   const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
@@ -65,7 +65,13 @@ export default function AddIncredient({ onAddIncredient, incredientID, drinkID }
             onChange={(e) => setUnit(e.target.value)} />
         </Form.Group>
       </Row>
-      <Button type='submit' text={t('button_save_incredient')} className='btn btn-block saveBtn' />
+      <Row>
+        <ButtonGroup>
+          <Button type='button' text={t('button_close')} className='btn btn-block'
+            onClick={() => onClose()} />
+          <Button type='submit' text={t('button_save_incredient')} className='btn btn-block saveBtn' />
+        </ButtonGroup>
+      </Row>
     </Form>
   )
 }
