@@ -14,6 +14,7 @@ const Links = ({ url, objID }) => {
     const { t } = useTranslation('links', { keyPrefix: 'links' });
 
     //states
+    const [loading, setLoading] = useState(true);
     const [links, setLinks] = useState({});
     const [linkCounter, setLinkCounter] = useState(0);
 
@@ -43,6 +44,7 @@ const Links = ({ url, objID }) => {
             }
             setLinks(fromDB);
             setLinkCounter(linkCounterTemp);
+            setLoading(false);
         })
     }
 
@@ -59,6 +61,7 @@ const Links = ({ url, objID }) => {
             }
             setLinks(fromDB);
             setLinkCounter(linkCounterTemp);
+            setLoading(false);
         })
     }
 
@@ -82,7 +85,9 @@ const Links = ({ url, objID }) => {
         update(ref(db), updates);
     }
 
-    return (
+    return loading ? (
+        <h3>{t('loading')}</h3>
+    ) : (
         <div>
             {/* <pre>{JSON.stringify(links)}</pre> */}
             <h4>{t('header')} {linkCounter > 0 ? '(' + linkCounter + ')' : ''}</h4>
