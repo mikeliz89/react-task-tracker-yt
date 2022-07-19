@@ -9,7 +9,7 @@ import EditWorkPhase from './EditWorkPhase';
 import { db } from '../../firebase-config';
 import { update, ref } from "firebase/database";
 
-export default function WorkPhase({ workPhase, drinkID, onDeleteWorkPhase }) {
+export default function WorkPhase({ workPhase, drinkID, onDelete }) {
 
     const DB_DRINK_WORKPHASES = '/drink-workphases';
 
@@ -40,7 +40,7 @@ export default function WorkPhase({ workPhase, drinkID, onDeleteWorkPhase }) {
                             <FaEdit className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
-                                onClick={() => onDeleteWorkPhase(drinkID, workPhase.id)} />
+                                onClick={() => onDelete(drinkID, workPhase.id)} />
                         </span>
                     }
                 </Col>

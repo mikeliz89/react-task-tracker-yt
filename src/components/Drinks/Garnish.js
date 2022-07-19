@@ -6,28 +6,28 @@ import { Row, Col } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { update, ref } from "firebase/database";
 //drinks
-import EditIncredient from './EditIncredient';
+import EditGarnish from './EditGarnish';
 
-export const Incredient = ({ incredient, drinkID, onDelete }) => {
+export const Garnish = ({ garnish, drinkID, onDelete }) => {
 
-    const DB_DRINK_INCREDIENTS = '/drink-incredients';
+    const DB_DRINK_GARNISHES = '/drink-garnishes';
 
     //states
     const [editable, setEditable] = useState(false);
 
-    const editIncredient = (incredient) => {
+    const editGarnish = (garnish) => {
         //save
         const updates = {};
-        updates[`${DB_DRINK_INCREDIENTS}/${drinkID}/${incredient.id}`] = incredient;
+        updates[`${DB_DRINK_GARNISHES}/${drinkID}/${garnish.id}`] = garnish;
         update(ref(db), updates);
         setEditable(false);
     }
 
     return (
-        <div key={incredient.id} className='drink'>
+        <div key={garnish.id} className='drink'>
             <Row>
                 <Col xs={9}>
-                    <span style={{ fontWeight: 'bold' }}>{incredient.name}</span>
+                    <span style={{ fontWeight: 'bold' }}>{garnish.name}</span>
                 </Col>
                 <Col xs={3}>
                     {
@@ -35,20 +35,18 @@ export const Incredient = ({ incredient, drinkID, onDelete }) => {
                             <FaEdit className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
-                                onClick={() => onDelete(drinkID, incredient.id)} />
+                                onClick={() => onDelete(drinkID, garnish.id)} />
                         </span>
                     }
                 </Col>
             </Row>
-            <Row>
-                <Col>{incredient.amount} {incredient.unit}</Col>
-            </Row>
             {editable &&
-                <EditIncredient
-                    incredientID={incredient.id}
+                <EditGarnish
+                    garnishID={garnish.id}
                     drinkID={drinkID}
-                    onEditIncredient={editIncredient}
-                    onCloseEditIncredient={() => setEditable(false)} />
+                    onEditGarnish={editGarnish}
+                    onDelete={onDelete}
+                    onCloseEditGarnish={() => setEditable(false)} />
             }
         </div>
     )

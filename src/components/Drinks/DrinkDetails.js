@@ -17,7 +17,9 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
 //Drinks
 import AddDrink from './AddDrink';
+import AddGarnish from './AddGarnish';
 import AddIncredient from './AddIncredient';
+import AddWorkPhase from './AddWorkPhase';
 import DrinkHistories from './DrinkHistories';
 import Incredients from './Incredients';
 import WorkPhases from './WorkPhases';
@@ -31,11 +33,13 @@ import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
-import AddWorkPhase from './AddWorkPhase';
+import Garnishes from './Garnishes';
 
 export default function DrinkDetails() {
 
+    //constants
     const DB_DRINKS = '/drinks';
+    const DB_DRINK_GARNISHES = '/drink-garnishes';
     const DB_DRINK_INCREDIENTS = '/drink-incredients';
     const DB_DRINK_WORKPHASES = '/drink-workphases';
     const DB_DRINK_COMMENTS = '/drink-comments';
@@ -48,9 +52,11 @@ export default function DrinkDetails() {
     const [drinkHistory, setDrinkHistory] = useState({});
     const [showAddIncredient, setShowAddIncredient] = useState(false);
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
+    const [showAddGarnish, setShowAddGarnish] = useState(false);
     const [showEditDrink, setShowEditDrink] = useState(false);
     const [incredients, setIncredients] = useState({});
     const [workPhases, setWorkPhases] = useState({});
+    const [garnishes, setGarnishes] = useState({});
     const [error, setError] = useState('');
 
     //translation
@@ -70,11 +76,11 @@ export default function DrinkDetails() {
         const getDrink = async () => {
             await fetchDrinkFromFirebase();
         }
-        getDrink()
+        getDrink();
         const getIncredients = async () => {
             await fetchIncredientsFromFirebase();
         }
-        getIncredients()
+        getIncredients();
         const getWorkPhases = async () => {
             await fetchWorkPhasesFromFirebase();
         }
@@ -82,7 +88,11 @@ export default function DrinkDetails() {
         const getDrinkHistory = async () => {
             await fetchDrinkHistoryFromFirebase();
         }
-        getDrinkHistory()
+        getDrinkHistory();
+        const getGarnishes = async () => {
+            await fetchGarnishesFromFirebase();
+        }
+        getGarnishes();
     }, [])
 
     /** Fetch WorkPhases From Firebase */
@@ -90,11 +100,23 @@ export default function DrinkDetails() {
         const dbref = await child(ref(db, DB_DRINK_WORKPHASES), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
-            const workphases = [];
+            const fromDB = [];
             for (let id in snap) {
-                workphases.push({ id, ...snap[id] });
+                fromDB.push({ id, ...snap[id] });
             }
-            setWorkPhases(workphases);
+            setWorkPhases(fromDB);
+        })
+    }
+
+    const fetchGarnishesFromFirebase = async () => {
+        const dbref = await child(ref(db, DB_DRINK_GARNISHES), params.id);
+        onValue(dbref, (snapshot) => {
+            const snap = snapshot.val();
+            const fromDB = [];
+            for (let id in snap) {
+                fromDB.push({ id, ...snap[id] });
+            }
+            setGarnishes(fromDB);
         })
     }
 
@@ -197,15 +219,25 @@ export default function DrinkDetails() {
 
     /** Add Work Phase To Firebase */
     const addWorkPhase = async (drinkID, workPhase) => {
-        console.log(drinkID);
-        console.log(workPhase);
         const dbref = child(ref(db, DB_DRINK_WORKPHASES), drinkID);
         push(dbref, workPhase);
+    }
+
+    /** Add Garnish To Firebase */
+    const addGarnish = async (drinkID, garnish) => {
+        const dbref = child(ref(db, DB_DRINK_GARNISHES), drinkID);
+        push(dbref, garnish);
     }
 
     /** Delete Work Phase From Firebase */
     const deleteWorkPhase = async (drinkID, id) => {
         const dbref = ref(db, `${DB_DRINK_WORKPHASES}/${drinkID}/${id}`);
+        remove(dbref);
+    }
+
+    /** Delete Garnish From Firebase */
+    const deleteGarnish = async (drinkID, id) => {
+        const dbref = ref(db, `${DB_DRINK_GARNISHES}/${drinkID}/${id}`);
         remove(dbref);
     }
 
@@ -233,6 +265,12 @@ export default function DrinkDetails() {
                         color={showAddWorkPhase ? 'red' : 'green'}
                         text={showAddWorkPhase ? t('button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
+                    <Button
+                        showIconAdd={true}
+                        showIconLemon={true}
+                        color={showAddGarnish ? 'red' : 'green'}
+                        text={showAddGarnish ? t('button_close') : ''}
+                        onClick={() => setShowAddGarnish(!showAddGarnish)} />
                 </ButtonGroup>
             </Row>
             {/* Accordion start */}
@@ -282,9 +320,9 @@ export default function DrinkDetails() {
                 <AddLink onSaveLink={addLinkToDrink} />
 
                 {showEditDrink && <AddDrink onAddDrink={addDrink} drinkID={params.id} />}
+                {showAddGarnish && <AddGarnish drinkID={params.id} onAddGarnish={addGarnish} />}
                 {showAddIncredient && <AddIncredient drinkID={params.id} onAddIncredient={addIncredient} />}
                 {showAddWorkPhase && <AddWorkPhase drinkID={params.id} onAddWorkPhase={addWorkPhase} />}
-                {incredients != null}
                 {incredients != null && incredients.length > 0 ? (
                     <Incredients
                         drinkID={params.id}
@@ -294,15 +332,23 @@ export default function DrinkDetails() {
                 ) : (
                     <p> {t('no_incredients_to_show')} </p>
                 )}
-                {workPhases != null}
                 {workPhases != null && workPhases.length > 0 ? (
                     <WorkPhases
                         drinkID={params.id}
                         workPhases={workPhases}
-                        onDeleteWorkPhase={deleteWorkPhase}
+                        onDelete={deleteWorkPhase}
                     />
                 ) : (
                     <p> {t('no_workphases_to_show')} </p>
+                )}
+                {garnishes != null && garnishes.length > 0 ? (
+                    <Garnishes
+                        drinkID={params.id}
+                        garnishes={garnishes}
+                        onDelete={deleteGarnish}
+                    />
+                ) : (
+                    <p> {t('no_garnishes_to_show')} </p>
                 )}
                 <h4>{t('drinkhistory_title')}</h4>
                 {

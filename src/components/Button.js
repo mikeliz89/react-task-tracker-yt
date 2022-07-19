@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import {
     FaArrowLeft, FaArchive, FaSignOutAlt,
     FaEdit, FaPlus, FaCarrot, FaHourglass,
-    FaWeight
+    FaWeight, FaLemon
 } from 'react-icons/fa';
 
 const Button = ({ disabled, color, text, onClick, className,
     showIconArrowLeft, showIconArchive, showIconLogout, showIconEdit, showIconAdd,
-    showIconCarrot, showIconHourGlass, showIconWeight,
+    showIconCarrot, showIconHourGlass, showIconWeight, showIconLemon,
     type
 }) => {
     return (
@@ -66,6 +66,12 @@ const Button = ({ disabled, color, text, onClick, className,
                     <FaWeight style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
                 </span>
             }
+            {
+                showIconLemon &&
+                <span>
+                    <FaLemon style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
+                </span>
+            }
             {text}</button>
     )
 }
@@ -84,6 +90,7 @@ Button.defaultProps = {
     showIconCarrot: false,
     showIconHourGlass: false,
     showIconWeight: false,
+    showIconLemon: false,
     //other
     disabled: false
 }
@@ -103,6 +110,7 @@ Button.propTypes = {
     showIconCarrot: PropTypes.bool,
     showIconHourGlass: PropTypes.bool,
     showIconWeight: PropTypes.bool,
+    showIconLemon: PropTypes.bool,
     //other
     disabled: PropTypes.bool,
     onClick: PropTypes.func

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 //drinks
 import WorkPhase from './WorkPhase';
 
-export default function WorkPhases({ workPhases, drinkID, onDeleteWorkPhase }) {
+export default function WorkPhases({ workPhases, drinkID, onDelete }) {
 
   //translation
   const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
@@ -17,7 +17,7 @@ export default function WorkPhases({ workPhases, drinkID, onDeleteWorkPhase }) {
             key={workPhase.id}
             drinkID={drinkID}
             workPhase={workPhase}
-            onDeleteWorkPhase={onDeleteWorkPhase}
+            onDelete={onDelete}
           />
         ) : ''
       }
