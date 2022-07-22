@@ -7,7 +7,6 @@ import { Col, Row, ButtonGroup, Form } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { ref, onValue, push, child, remove } from "firebase/database";
 //TaskList components
-import TaskListButton from '../../components/TaskList/TaskListButton';
 import AddTaskList from '../../components/TaskList/AddTaskList';
 import TaskLists from '../../components/TaskList/TaskLists';
 //Buttons
@@ -147,10 +146,10 @@ export default function ManageTaskLists() {
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <TaskListButton
-            onShowAddTaskList={() => setShowAddTaskList(!showAddTaskList)}
-            showAdd={showAddTaskList}>
-          </TaskListButton>
+          <Button
+            color={showAddTaskList ? 'red' : 'green'}
+            text={showAddTaskList ? t('button_close') : t('button_add_list')}
+            onClick={() => setShowAddTaskList(!showAddTaskList)} />
           <Button text={t('button_goto_tasklist_archive')} color="#545454" onClick={() => gotoTaskListArchive()} />
         </ButtonGroup>
       </Row>

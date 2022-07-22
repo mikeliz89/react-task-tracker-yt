@@ -290,7 +290,7 @@ function TaskListDetails() {
       </Accordion>
       {/* <div>{searchString}</div> */}
       <div className="page-content">
-        {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id} />}
+        {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />}
         {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onAddTask={addTask} />}
         <Form className='form-no-paddings'>
           <Form.Group as={Row}>
