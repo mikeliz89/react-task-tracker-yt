@@ -20,6 +20,9 @@ import { update, ref, onValue, push, child, remove, get } from "firebase/databas
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 //i18n
 import i18n from "i18next";
+//Links
+import Links from '../Links/Links';
+import AddLink from '../Links/AddLink';
 
 const SortMode = {
   None: "None",
@@ -29,8 +32,12 @@ const SortMode = {
 
 function TaskListDetails() {
 
+  //constants
   const DB_TASKS = '/tasks';
   const DB_TASK_LISTS = '/tasklists';
+  const DB_TASK_LIST_LINKS = '/tasklist-links';
+  const DB_TASK_LIST_ARCHIVE = '/tasklist-archive';
+  const DB_TASK_LIST_ARCHIVE_TASKS = '/tasklist-archive-tasks';
 
   //translation
   const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
@@ -64,14 +71,14 @@ function TaskListDetails() {
 
     const getTaskList = async () => {
       if (cancel) return;
-      await fetchTaskListFromFirebase()
+      await fetchTaskListFromFirebase();
     }
-    getTaskList()
+    getTaskList();
 
     const getTasks = async () => {
-      await fetchTasksFromFirebase()
+      await fetchTasksFromFirebase();
     }
-    getTasks()
+    getTasks();
 
     return () => {
       cancel = true;
@@ -89,9 +96,9 @@ function TaskListDetails() {
     onValue(dbref, (snapshot) => {
       const data = snapshot.val();
       if (data === null) {
-        navigate('/')
+        navigate('/');
       }
-      setTaskList(data)
+      setTaskList(data);
       setLoading(false);
     })
   }
@@ -120,8 +127,7 @@ function TaskListDetails() {
 
   /** Add Task To FireBase */
   const addTask = async (taskListID, task) => {
-    //To firebase
-    task["created"] = getCurrentDateAsJson()
+    task["created"] = getCurrentDateAsJson();
     task["createdBy"] = currentUser.email;
     const dbref = child(ref(db, DB_TASKS), taskListID);
     push(dbref, task);
@@ -129,14 +135,12 @@ function TaskListDetails() {
 
   /** Delete Task From Firebase */
   const deleteTask = async (taskListID, id) => {
-    //delete from firebase
-    const dbref = ref(db, `${DB_TASKS}/${taskListID}/${id}`)
-    remove(dbref)
+    const dbref = ref(db, `${DB_TASKS}/${taskListID}/${id}`);
+    remove(dbref);
   }
 
   /** Toggle Reminder Of A Task At Firebase */
   const toggleReminder = async (taskListID, id) => {
-    //to firebase
     const dbref = ref(db, `${DB_TASKS}/${taskListID}/${id}`);
     get(dbref).then((snapshot) => {
       if (snapshot.exists()) {
@@ -155,7 +159,7 @@ function TaskListDetails() {
     var taskListID = params.id;
     //save edited task list to firebase
     const updates = {};
-    taskList["modified"] = getCurrentDateAsJson()
+    taskList["modified"] = getCurrentDateAsJson();
     updates[`${DB_TASK_LISTS}/${taskListID}`] = taskList;
     update(ref(db), updates);
   }
@@ -163,7 +167,7 @@ function TaskListDetails() {
   /** Archive Task List At Firebase */
   function archiveTaskList(taskList) {
     //1. add this taskList to tasklist-archive
-    const dbref = ref(db, '/tasklist-archive')
+    const dbref = ref(db, DB_TASK_LIST_ARCHIVE);
     taskList["archived"] = getCurrentDateAsJson();
     taskList["archivedBy"] = currentUser.email;
     let archiveTaskListID = push(dbref, taskList).key;
@@ -189,7 +193,7 @@ function TaskListDetails() {
         var data = snapshot.val();
         let updates = {};
         updates[`${DB_TASKS}/${taskListID}`] = null;
-        updates[`/tasklist-archive-tasks/${archiveTaskListID}`] = data;
+        updates[`${DB_TASK_LIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = data;
         update(ref(db), updates);
       } else {
         console.log("No data available");
@@ -223,6 +227,13 @@ function TaskListDetails() {
       }
     }
     setTasks(newTasks);
+  }
+
+  const addLinkToTaskList = (link) => {
+    const taskListID = params.id;
+    link["created"] = getCurrentDateAsJson();
+    const dbref = child(ref(db, DB_TASK_LIST_LINKS), taskListID);
+    push(dbref, link);
   }
 
   return loading ? (
@@ -340,6 +351,9 @@ function TaskListDetails() {
         ) : (
           t('no_tasks_to_show')
         )}
+        <Row />
+        <AddLink onSaveLink={addLinkToTaskList} />
+        <Links objID={params.id} url={'tasklist-links'} />
       </div>
     </div>
   );
