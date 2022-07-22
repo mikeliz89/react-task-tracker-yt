@@ -21,12 +21,16 @@ import { useAuth } from '../../contexts/AuthContext';
 
 const ManageRecipes = () => {
 
+  //constants
+  const DB_RECIPES = '/recipes';
+
   //states
-  const [showAddRecipe, setShowAddRecipe] = useState(false)
-  const [error, setError] = useState('')
-  const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(true);
+  const [showAddRecipe, setShowAddRecipe] = useState(false);
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
-  const [recipes, setRecipes] = useState()
+  const [recipes, setRecipes] = useState();
   const [originalRecipes, setOriginalRecipes] = useState();
   const [searchString, setSearchString] = useState('');
 
@@ -51,7 +55,7 @@ const ManageRecipes = () => {
       if (cancel) {
         return;
       }
-      await fetchRecipesFromFirebase()
+      await fetchRecipesFromFirebase();
     }
     getRecipes();
 
@@ -65,8 +69,6 @@ const ManageRecipes = () => {
     filterAndSort();
   }, [searchString, showOnlyCoreRecipes, sortByTextAsc]);
 
-  const DB_RECIPES = '/recipes';
-
   /** Fetch Recipes From Firebase */
   const fetchRecipesFromFirebase = async () => {
     const dbref = await ref(db, DB_RECIPES);
@@ -76,6 +78,7 @@ const ManageRecipes = () => {
       for (let id in snap) {
         fromDB.push({ id, ...snap[id] });
       }
+      setLoading(false);
       setRecipes(fromDB);
       setOriginalRecipes(fromDB);
     })
@@ -123,7 +126,9 @@ const ManageRecipes = () => {
     setRecipes(newRecipes);
   }
 
-  return (
+  return loading ? (
+    <h3>{t('loading')}</h3>
+  ) : (
     <div>
       <Row>
         <ButtonGroup>
@@ -136,7 +141,7 @@ const ManageRecipes = () => {
       </Row>
       <h3 className="page-title">{t('manage_recipes_title')}</h3>
       <div className="page-content">
-      <Link to="/managefooditems" className='btn btn-primary'>{t('manage_fooditems_button')}</Link>
+        <Link to="/managefooditems" className='btn btn-primary'>{t('manage_fooditems_button')}</Link>
         {error && <div className="error">{error}</div>}
         {message &&
           <Alert show={showMessage} variant='success'>

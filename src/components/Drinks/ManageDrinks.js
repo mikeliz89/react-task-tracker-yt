@@ -29,12 +29,14 @@ const SortMode = {
 
 export default function ManageDrinks() {
 
+    //constants
     const DB_DRINKS = '/drinks';
 
     //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
     //states
+    const [loading, setLoading] = useState(true);
     const [showAddDrink, setShowAddDrink] = useState(false);
     const [drinks, setDrinks] = useState();
     const [originalDrinks, setOriginalDrinks] = useState();
@@ -85,6 +87,7 @@ export default function ManageDrinks() {
             for (let id in snap) {
                 drinksFromDB.push({ id, ...snap[id] });
             }
+            setLoading(false);
             setDrinks(drinksFromDB);
             setOriginalDrinks(drinksFromDB);
         })
@@ -143,7 +146,9 @@ export default function ManageDrinks() {
         setDrinks(newDrinks);
     }
 
-    return (
+    return loading ? (
+        <h3>{t('loading')}</h3>
+    ) : (
         <div>
             <Row>
                 <ButtonGroup>

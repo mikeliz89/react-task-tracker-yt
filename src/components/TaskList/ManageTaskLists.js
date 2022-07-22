@@ -30,8 +30,11 @@ const SortMode = {
 
 export default function ManageTaskLists() {
 
+  //constants
   const DB_TASKLISTS = '/tasklists';
+  const DB_TASKLIST = '/tasklist';
   const DB_TASKS = '/tasks';
+  const DB_TASKLIST_ARCHIVE = '/tasklistarchive';
 
   //navigate
   const navigate = useNavigate();
@@ -43,6 +46,7 @@ export default function ManageTaskLists() {
   const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
   //states
+  const [loading, setLoading] = useState(true);
   const [showAddTaskList, setShowAddTaskList] = useState(false);
   const [taskLists, setTaskLists] = useState();
   const [originalTaskLists, setOriginalTaskLists] = useState();
@@ -56,9 +60,9 @@ export default function ManageTaskLists() {
   //load data
   useEffect(() => {
     const getTaskLists = async () => {
-      await fetchTaskListsFromFireBase()
+      await fetchTaskListsFromFireBase();
     }
-    getTaskLists()
+    getTaskLists();
   }, [])
 
   useEffect(() => {
@@ -74,6 +78,7 @@ export default function ManageTaskLists() {
       for (let id in snap) {
         fromDB.push({ id, ...snap[id] });
       }
+      setLoading(false);
       setTaskLists(fromDB);
       setOriginalTaskLists(fromDB);
     })
@@ -87,7 +92,7 @@ export default function ManageTaskLists() {
     push(dbref, taskList)
       .then((snap) => {
         const key = snap.key;
-        navigate(`/tasklist/${key}`);
+        navigate(`${DB_TASKLIST}/${key}`);
       })
   }
 
@@ -103,7 +108,7 @@ export default function ManageTaskLists() {
 
   /** Navigate To Task List Archive */
   function gotoTaskListArchive() {
-    navigate('/tasklistarchive');
+    navigate(DB_TASKLIST_ARCHIVE);
   }
 
   const filterAndSort = () => {
@@ -135,7 +140,9 @@ export default function ManageTaskLists() {
     setTaskLists(newTaskLists);
   }
 
-  return (
+  return loading ? (
+    <h3>{t('loading')}</h3>
+  ) : (
     <div>
       <Row>
         <ButtonGroup>
