@@ -2,6 +2,7 @@
 import { FaTimes, FaCheckSquare, FaEdit } from 'react-icons/fa';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 //drinking product
 import AddDrinkingProduct from './AddDrinkingProduct';
 //utils
@@ -60,6 +61,7 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
                     drinkingProductID={drinkingProduct.id} />
             }
             <p>
+                <Link className='btn btn-primary' to={`/drinkingproduct/${drinkingProduct.id}`}>{t('view_details')}</Link>
                 {
                     drinkingProduct.haveAtHome &&
                     <span
@@ -78,7 +80,6 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
                         <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
                     </span>
                 }
-                {/* <Link className='btn btn-primary' to={`/recipe/${recipe.id}`}>{t('view_details')}</Link> */}
             </p>
         </div>
     )

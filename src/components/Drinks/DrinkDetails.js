@@ -23,6 +23,7 @@ import AddWorkPhase from './AddWorkPhase';
 import DrinkHistories from './DrinkHistories';
 import Incredients from './Incredients';
 import WorkPhases from './WorkPhases';
+import Garnishes from './Garnishes';
 //StarRating
 import SetStarRating from '../StarRating/SetStarRating';
 //Comment
@@ -33,7 +34,6 @@ import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
-import Garnishes from './Garnishes';
 
 export default function DrinkDetails() {
 
