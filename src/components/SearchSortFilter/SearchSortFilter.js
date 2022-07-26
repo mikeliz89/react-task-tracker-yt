@@ -56,7 +56,7 @@ const SearchSortFilter = ({ onSet,
             newList = newList.filter(x => x.haveAtHome === true);
         }
         else if (showOnlyNotHaveAtHome) {
-            newList = newList.filter(x => x.haveAtHome === false);
+            newList = newList.filter(x => x.haveAtHome === false || !x.haveAtHome);
         }
         //sortit
         if (sortBy === SortMode.Name_ASC || sortBy === SortMode.Name_DESC) {
