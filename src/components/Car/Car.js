@@ -13,8 +13,12 @@ import { db } from '../../firebase-config';
 import { onValue, ref } from 'firebase/database';
 
 export default function Car() {
+    
+    //constants
+    const DB_FUELING = 'car-fueling';
 
     //states
+    const [loading, setLoading] = useState(true);
     const [showAddFueling, setShowAddFueling] = useState(false);
     const [showAddInfo, setShowAddInfo] = useState(false);
     const [carFuelings, setCarFuelings] = useState({});
@@ -27,11 +31,8 @@ export default function Car() {
         const getFuelings = async () => {
             await fetchCarFuelingsFromFirebase();
         }
-        getFuelings()
-    }, [])
-
-
-    const DB_FUELING = 'car-fueling';
+        getFuelings();
+    }, []);
 
     const fetchCarFuelingsFromFirebase = async () => {
         const dbref = await ref(db, `${DB_FUELING}`);
@@ -41,11 +42,14 @@ export default function Car() {
             for (let id in snap) {
                 fromDB.push({ id, ...snap[id] });
             }
+            setLoading(false);
             setCarFuelings(fromDB);
         })
     }
 
-    return (
+    return loading ? (
+        <h3>{t('loading')}</h3>
+      ) : (
         <div>
             <GoBackButton />
             <h3 className="page-title">{t('car_title')}</h3>
