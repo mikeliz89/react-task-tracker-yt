@@ -1,9 +1,8 @@
 //react
 import { useState } from 'react';
-
 import { useTranslation } from 'react-i18next';
-import { Col, Form, Row } from 'react-bootstrap';
-
+import { ButtonGroup, Col, Form, Row } from 'react-bootstrap';
+//buttons
 import Button from '../Button';
 
 const AddLink = ({ onSaveLink }) => {
@@ -64,7 +63,13 @@ const AddLink = ({ onSaveLink }) => {
                                             value={url}
                                             onChange={(e) => setUrl(e.target.value)} />
                                     </Form.Group>
-                                    <Button disabled={loading} type='submit' text={t('save_link')} className='btn btn-block' />
+                                    <Row>
+                                        <ButtonGroup>
+                                            <Button type='button' text={t('button_close')} className='btn btn-block'
+                                            onClick={() => setShowForm(false)} />
+                                            <Button disabled={loading} type='submit' text={t('save_link')} className='btn btn-block saveBtn' />
+                                        </ButtonGroup>
+                                    </Row>
                                 </Form>
                             </Col>
                         </Row>

@@ -1,5 +1,5 @@
 //react
-import { Row, Col, Form } from 'react-bootstrap';
+import { Row, Col, Form, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 //buttons
@@ -47,9 +47,15 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
                                             value={stars}
                                             onChange={(e) => setStars(e.target.value)} />
                                     </Form.Group>
-                                    <Button
-                                        disabled={loading} type='submit'
-                                        text={t('save_rating')} className='btn btn-block' />
+                                    <Row>
+                                        <ButtonGroup>
+                                            <Button type='button' text={t('button_close')} className='btn btn-block'
+                                            onClick={() => setShowStarRating(false)} />
+                                            <Button
+                                                disabled={loading} type='submit'
+                                                text={t('save_rating')} className='btn btn-block saveBtn' />
+                                        </ButtonGroup>
+                                    </Row>
                                 </Form>
                             </Col>
                         </Row>

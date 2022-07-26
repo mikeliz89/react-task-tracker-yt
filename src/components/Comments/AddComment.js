@@ -1,5 +1,5 @@
 //react
-import { Form } from 'react-bootstrap';
+import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 //buttons
@@ -53,7 +53,13 @@ function AddComment({ onSave }) {
                             placeholder={t('text')}
                             value={text}
                             onChange={(e) => setText(e.target.value)} />
-                        <Button type="submit" text="Tallenna" className="btn btn-block saveBtn" />
+                        <Row>
+                            <ButtonGroup>
+                                <Button type='button' text={t('button_close')} className='btn btn-block'
+                                    onClick={() => setShowAddComment(false)} />
+                                <Button type="submit" text={t('button_save')} className="btn btn-block saveBtn" />
+                            </ButtonGroup>
+                        </Row>
                     </Form.Group>
                 </Form>
             }
