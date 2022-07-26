@@ -33,9 +33,9 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
    useEffect(() => {
       if (drinkingProductID != null) {
          const getDrinkingProduct = async () => {
-            await fetchDrinkingProductFromFirebase(drinkingProductID)
+            await fetchDrinkingProductFromFirebase(drinkingProductID);
          }
-         getDrinkingProduct()
+         getDrinkingProduct();
       }
    }, [drinkingProductID]);
 

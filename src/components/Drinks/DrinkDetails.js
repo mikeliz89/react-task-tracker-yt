@@ -138,9 +138,9 @@ export default function DrinkDetails() {
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
-                navigate(-1)
+                navigate(-1);
             }
-            setDrink(data)
+            setDrink(data);
             setLoading(false);
         })
     }

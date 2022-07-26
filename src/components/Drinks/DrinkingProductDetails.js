@@ -157,7 +157,7 @@ export default function DrinkingProductDetails() {
                 <AddComment onSave={addCommentToDrinkingProduct} />
                 <AddLink onSaveLink={addLinkToDrinkingProduct} />
 
-                {showEditDrinkingProduct && <AddDrinkingProduct onAddDrink={addDrinkingProduct} drinkID={params.id} 
+                {showEditDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} drinkingProductID={params.id} 
                 onClose={() => setShowEditDrinkingProduct(false)} />}
 
                 <Comments objID={params.id} url={'drinkingproduct-comments'} />
