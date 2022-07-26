@@ -123,9 +123,9 @@ export default function ManageDrinks() {
         }
         //filtterit:
         if (showOnlyDone) {
-            newDrinks = newDrinks.filter(drink => drink.stars !== undefined);
+            newDrinks = newDrinks.filter(drink => drink.stars !== undefined && drink.stars > 0);
         } else if (showOnlyNotDone) {
-            newDrinks = newDrinks.filter(drink => drink.stars === undefined);
+            newDrinks = newDrinks.filter(drink => drink.stars === undefined || drink.stars === 0);
         }
         //sortit
         if (sortBy === SortMode.Name_ASC || sortBy === SortMode.Name_DESC) {
