@@ -23,6 +23,7 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
     const [name, setName] = useState('');
     const [created, setCreated] = useState('');
     const [createdBy, setCreatedBy] = useState('');
+    const [haveAtHome, setHaveAtHome] = useState('');
 
     //nutrition info
     const [carbs, setCarbs] = useState(0);
@@ -68,6 +69,7 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
                 setCreatedBy(val["createdBy"]);
                 setFat(val["fat"]);
                 setFiber(val["fiber"]);
+                setHaveAtHome(val["haveAtHome"]);
                 setName(val["name"]);
                 setProtein(val["protein"]);
                 setSalt(val["salt"]);
@@ -88,7 +90,9 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
         onAddFoodItem({
             created, createdBy,
             calories, carbs, category,
-            fat, fiber, name, protein, salt
+            fat, fiber,
+            haveAtHome,
+            name, protein, salt
         });
 
         if (foodItemID == null) {
@@ -98,6 +102,7 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
             setCategory('');
             setFat(0);
             setFiber(0);
+            setHaveAtHome(false);
             setName('');
             setProtein(0);
             setSalt(0);
@@ -173,6 +178,14 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
                         placeholder={t('fooditem_fiber')}
                         value={fiber}
                         onChange={(e) => setFiber(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addFoodItemForm-HaveAtHome">
+                    <Form.Check
+                        type='checkbox'
+                        label={t('fooditem_have_at_home')}
+                        checked={haveAtHome}
+                        value={haveAtHome}
+                        onChange={(e) => setHaveAtHome(e.currentTarget.checked)} />
                 </Form.Group>
                 <Row>
                     <ButtonGroup>
