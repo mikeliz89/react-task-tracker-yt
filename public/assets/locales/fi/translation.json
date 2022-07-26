@@ -94,6 +94,7 @@
             "car": "Auto",
             "drinks": "Drinkit",
             "exercises": "Liikunta",
+            "games": "Pelit",
             "links_list": "Linkit",
             "music": "Musiikki",
             "recipes": "Reseptit",
@@ -232,6 +233,10 @@
     "footer": {
         "about": "Tietoja",
         "copyright": "Tekijänoikeus"
+    },
+    "games": {
+        "games_title": "Pelit",
+        "coming_soon": "Tulossa pian..."
     },
     "header": {
         "header_logged_in_as_text": "Kirjautunut käyttäjä: "

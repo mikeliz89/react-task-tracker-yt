@@ -61,6 +61,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Car from './components/Car/Car';
 //Music
 import Music from './components/Music/Music';
+//Games
+import Games from './components/Games/Games';
 //LinksList
 import LinksList from './components/Links/LinksList';
 
@@ -135,6 +137,9 @@ function App() {
             {/* Music */}
             <Route path='/music' element={<PrivateRoute><Music /></PrivateRoute>} />
             {/* Music */}
+            {/* Games */}
+            <Route path='/games' element={<PrivateRoute><Games /></PrivateRoute>} />
+            {/* Games */}
             {/* Demo */}
             <Route path='/Demo' element={<PrivateRoute><Demo /></PrivateRoute>} />
             {/* Demo */}
