@@ -369,8 +369,11 @@
     "searchsortfilter": {
         "created_date": "Luontipvm",
         "name": "Nimi",
-        "sorting": "Järjestä",
         "search": "Hae",
+        "show": "Näytä",
+        "show_only_have_at_home": "Minulla on tätä",
+        "show_only_not_have_at_home": "Minulla ei ole tätä",
+        "sorting": "Järjestä",
         "title": "Otsikko"
     },
     "starrating": {

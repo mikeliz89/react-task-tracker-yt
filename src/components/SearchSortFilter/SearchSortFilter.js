@@ -15,14 +15,20 @@ const SearchSortFilter = ({ onSet,
     showSortByTitle,
     showSortByCreatedDate,
     showSearch,
+    showFilterHaveAtHome,
+    showFilterNotHaveAtHome,
     defaultSort }) => {
 
     //states
     const [searchString, setSearchString] = useState('');
     const [sortBy, setSortBy] = useState(defaultSort);
+    const [showOnlyHaveAtHome, setShowOnlyHaveAtHome] = useState(false);
+    const [showOnlyNotHaveAtHome, setShowOnlyNotHaveAtHome] = useState(false);
     const [_showSortByName, _setShowSortByName] = useState(showSortByName);
     const [_showSortByTitle, _setShowSortByTitle] = useState(showSortByTitle);
     const [_showSortByCreatedDate, _setShowSortByCreatedDate] = useState(showSortByCreatedDate);
+    const [_showOnlyHaveAtHome, _setShowOnlyHaveAtHome] = useState(showFilterHaveAtHome);
+    const [_showOnlyNotHaveAtHome, _setShowOnlyNotHaveAtHome] = useState(showFilterNotHaveAtHome);
 
     //translation
     const { t } = useTranslation('searchsortfilter', { keyPrefix: 'searchsortfilter' });
@@ -33,10 +39,10 @@ const SearchSortFilter = ({ onSet,
     }, [])
 
     useEffect(() => {
-        filterAndSort(searchString, sortBy);
-    }, [sortBy, searchString]);
+        filterAndSort(searchString, sortBy, showOnlyHaveAtHome, showOnlyNotHaveAtHome);
+    }, [sortBy, searchString, showOnlyHaveAtHome, showOnlyNotHaveAtHome]);
 
-    const filterAndSort = (searchString, sortBy) => {
+    const filterAndSort = (searchString, sortBy, showOnlyHaveAtHome, showOnlyNotHaveAtHome) => {
         if (!originalList) {
             return;
         }
@@ -45,7 +51,13 @@ const SearchSortFilter = ({ onSet,
         if (searchString !== "") {
             newList = newList.filter(x => x.name.toLowerCase().includes(searchString.toLowerCase()));
         }
-        //filtterit: TODO
+        //filtterit
+        if (showOnlyHaveAtHome) {
+            newList = newList.filter(x => x.haveAtHome === true);
+        }
+        else if (showOnlyNotHaveAtHome) {
+            newList = newList.filter(x => x.haveAtHome === false);
+        }
         //sortit
         if (sortBy === SortMode.Name_ASC || sortBy === SortMode.Name_DESC) {
             newList = [...newList].sort((a, b) => {
@@ -147,6 +159,34 @@ const SearchSortFilter = ({ onSet,
                         </Form.Group>
                     </>
                 }
+                {
+                    showFilterHaveAtHome &&
+                    <>
+                        <Form.Group as={Row} controlId='searchSortFilter-OnlyHaveAtHome'>
+                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+                            <Col xs={9} sm={10}>
+                                <Form.Check label={t('show_only_have_at_home')}
+                                    onChange={(e) => {
+                                        setShowOnlyHaveAtHome(e.currentTarget.checked);
+                                    }} />
+                            </Col>
+                        </Form.Group>
+                    </>
+                }
+                {
+                    showFilterNotHaveAtHome &&
+                    <>
+                        <Form.Group as={Row} controlId='searchSortFilter-OnlyNotHaveAtHome'>
+                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+                            <Col xs={9} sm={10}>
+                                <Form.Check label={t('show_only_not_have_at_home')}
+                                    onChange={(e) => {
+                                        setShowOnlyNotHaveAtHome(e.currentTarget.checked);
+                                    }} />
+                            </Col>
+                        </Form.Group>
+                    </>
+                }
             </Form>
         </div>
     )
@@ -154,7 +194,9 @@ const SearchSortFilter = ({ onSet,
 
 SearchSortFilter.defaultProps = {
     defaultSort: SortMode.Created_ASC,
-    showSearch: true
+    showSearch: true,
+    showFilterHaveAtHome: false,
+    showFilterNotHaveAtHome: false
 }
 
 SearchSortFilter.propTypes = {
@@ -163,6 +205,8 @@ SearchSortFilter.propTypes = {
     showSortByTitle: PropTypes.bool,
     showSortByCreatedDate: PropTypes.bool,
     showSearch: PropTypes.bool,
+    showFilterHaveAtHome: PropTypes.bool,
+    showFilterNotHaveAtHome: PropTypes.bool,
     onSet: PropTypes.func
 }
 

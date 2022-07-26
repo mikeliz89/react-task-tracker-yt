@@ -124,6 +124,8 @@ const ManageDrinkingProducts = () => {
                 <AddDrinkingProduct onClose={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)} onAddDrinkingProduct={addDrinkingProduct} />}
             <SearchSortFilter
                 onSet={setDrinkingProducts}
+                showFilterHaveAtHome={true}
+                showFilterNotHaveAtHome={true}
                 showSortByName={true}
                 showSortByCreatedDate={true}
                 originalList={originalDrinkingProducts} />
