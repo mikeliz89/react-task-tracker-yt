@@ -19,5 +19,29 @@ export const GearCategories = [
         //hygienia
         "id": 3,
         "name": "hygiene"
+    },
+    {
+        //työkalu
+        "id": 4,
+        "name": "tool"
+    },
+    {
+        //vaate
+        "id": 5,
+        "name": "clothing"
+    }, 
+    {
+        //ruuanlaitto
+        "id": 6,
+        "name": "cooking"
+    },
+    {
+        //tulenteko
+        "id": 7,
+        "name": "firecreation"
+    },
+    {
+        "id": 8,
+        "name": "other"
     }
 ]
