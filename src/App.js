@@ -42,6 +42,7 @@ import DrinkingProductDetails from './components/Drinks/DrinkingProductDetails';
 import ManageDrinkingProducts from './components/Drinks/ManageDrinkingProducts';
 //Backpacking
 import ManageBackPacking from './components/BackPacking/ManageBackPacking';
+import ManageGear from './components/BackPacking/ManageGear';
 //other components
 import PrivateRoute from './components/PrivateRoute';
 import Demo from './components/Demo';
@@ -130,6 +131,7 @@ function App() {
             {/* MyProfile */}
             {/* Backpacking */}
             <Route path='/managebackpacking' element={<PrivateRoute><ManageBackPacking /></PrivateRoute>} />
+            <Route path='/managegear' element={<PrivateRoute><ManageGear /></PrivateRoute>} />
             {/* Backpacking */}
             {/* Car */}
             <Route path='/car' element={<PrivateRoute><Car /></PrivateRoute>} />

@@ -14,6 +14,9 @@ import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 
 const AddFueling = () => {
 
+    //constants
+    const DB_FUELING = 'car-fueling';
+
     //user
     const { currentUser } = useAuth();
 
@@ -55,8 +58,6 @@ const AddFueling = () => {
         setLoading(false);
         clearForm();
     }
-
-    const DB_FUELING = 'car-fueling';
 
     const clearForm = () => {
         setFuelerName('');

@@ -27,7 +27,8 @@
     },
     "backpacking": {
         "coming_soon": "Tulossa pian...",
-        "manage_backpacking_title": "Retkeily"
+        "manage_backpacking_title": "Retkeily",
+        "manage_gear_button": "Varusteeni"
     },
     "bmicalculator": {
         "bmi_1": "Sairaalloinen alipaino",
