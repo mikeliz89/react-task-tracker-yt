@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
 //recipe
-import RecipeButton from './RecipeButton';
 import AddRecipe from './AddRecipe';
 import Recipes from './Recipes';
 //firebase
@@ -133,10 +132,10 @@ const ManageRecipes = () => {
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <RecipeButton
-            onShowAddRecipe={() => setShowAddRecipe(!showAddRecipe)}
-            showAdd={showAddRecipe}
-          />
+          <Button
+            color={showAddRecipe ? 'red' : 'green'}
+            text={showAddRecipe ? t('button_close') : t('button_add_recipe')}
+            onClick={() => setShowAddRecipe(!showAddRecipe)} />
         </ButtonGroup>
       </Row>
       <h3 className="page-title">{t('manage_recipes_title')}</h3>

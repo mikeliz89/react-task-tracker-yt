@@ -9,7 +9,6 @@ import { ref, push, onValue, remove } from "firebase/database";
 import { db } from '../../firebase-config';
 //drinks
 import Drinks from './Drinks';
-import DrinkButton from './DrinkButton';
 import AddDrink from './AddDrink';
 //buttons
 import GoBackButton from '../GoBackButton';
@@ -153,10 +152,10 @@ export default function ManageDrinks() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <DrinkButton
-                        onShowAddDrink={() => setShowAddDrink(!showAddDrink)}
-                        showAdd={showAddDrink}
-                    />
+                    <Button
+                        color={showAddDrink ? 'red' : 'green'}
+                        text={showAddDrink ? t('button_close') : t('button_add_drinks')}
+                        onClick={() => setShowAddDrink(!showAddDrink)} />
                 </ButtonGroup>
             </Row>
             <h3 className="page-title">{t('manage_drinks_title')}</h3>
