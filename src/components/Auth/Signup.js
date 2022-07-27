@@ -10,46 +10,46 @@ export default function Signup() {
     const { t } = useTranslation('auth', { keyPrefix: 'auth' });
 
     //states
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [passwordConfirm, setPasswordConfirm] = useState('')
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
-    const { signup } = useAuth()
-    const navigate = useNavigate()
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const { signup } = useAuth();
+    const navigate = useNavigate();
 
     async function onSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
 
         //validation
         if (!email || !password || !passwordConfirm) {
-            setError(t('please_fill_all_fields'))
-            return
+            setError(t('please_fill_all_fields'));
+            return;
         }
 
         if (password !== passwordConfirm) {
             setError(t('passwords_do_not_match'));
-            return
+            return;
         }
 
         try {
             //clear the error
-            setError('')
-            setLoading(true)
+            setError('');
+            setLoading(true);
             await signup(email, password);
             //navigate to dashboard
             navigate('/');
         } catch (error) {
             setError(t('failed_to_create_account'));
-            console.log(error)
+            console.log(error);
         }
 
-        setLoading(false)
+        setLoading(false);
 
         //clear the form
-        setEmail('')
-        setPassword('')
-        setPasswordConfirm('')
+        setEmail('');
+        setPassword('');
+        setPasswordConfirm('');
     }
 
     return (
