@@ -30,15 +30,21 @@
         "button_close": "Sulje",
         "button_save_gear": "Tallenna varuste",
         "coming_soon": "Tulossa pian...",
+        "delete_gear_confirm_message": "Oletko varma, että haluat poistaa varusteen?",
         "gear_category": "Varustekategoria",
         "gear_category_electronics": "Elektroniikka",
         "gear_category_none": "-Ei mikään-",
+        "gear_category_hygiene": "Hygienia",
         "gear_category_sleeping": "Nukkuminen",
         "gear_name": "Nimi",
+        "gear_weight": "Paino",
+        "gear_weight_in_grams": "Paino (grammoja)",
+        "loading": "Lataa...",
         "manage_backpacking_title": "Retkeily",
         "manage_gear_button": "Varusteeni",
         "my_gear_title": "Varusteeni",
-        "please_add_gear": "Ole hyvä ja anna varusteelle nimi"
+        "please_add_gear": "Ole hyvä ja anna varusteelle nimi",
+        "view_details": "Katso lisätiedot"
     },
     "bmicalculator": {
         "bmi_1": "Sairaalloinen alipaino",

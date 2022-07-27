@@ -14,5 +14,10 @@ export const GearCategories = [
         //elektroniikka
         "id": 2,
         "name": "electronics"
+    },
+    {
+        //hygienia
+        "id": 3,
+        "name": "hygiene"
     }
 ]

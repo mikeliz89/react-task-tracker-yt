@@ -2,6 +2,11 @@ import { ExerciseCategories } from "../components/Exercises/Categories";
 import { RecipeCategories, FoodItemCategories } from "../components/Recipe/Categories";
 import { DrinkCategories } from "../components/Drinks/Categories";
 import { DrinkingProductCategories } from "../components/Drinks/Categories";
+import { GearCategories } from "../components/BackPacking/Categories";
+
+export function getGearCategoryNameByID(id) {
+    return getNameByID(GearCategories, id);
+}
 
 export function getDrinkCategoryNameByID(id) {
     return getNameByID(DrinkCategories, id);
