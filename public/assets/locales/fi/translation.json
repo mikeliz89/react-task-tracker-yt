@@ -26,9 +26,19 @@
         "sign_up": "Rekisteröidy"
     },
     "backpacking": {
+        "button_add_gear": "Lisää varuste",
+        "button_close": "Sulje",
+        "button_save_gear": "Tallenna varuste",
         "coming_soon": "Tulossa pian...",
+        "gear_category": "Varustekategoria",
+        "gear_category_electronics": "Elektroniikka",
+        "gear_category_none": "-Ei mikään-",
+        "gear_category_sleeping": "Nukkuminen",
+        "gear_name": "Nimi",
         "manage_backpacking_title": "Retkeily",
-        "manage_gear_button": "Varusteeni"
+        "manage_gear_button": "Varusteeni",
+        "my_gear_title": "Varusteeni",
+        "please_add_gear": "Ole hyvä ja anna varusteelle nimi"
     },
     "bmicalculator": {
         "bmi_1": "Sairaalloinen alipaino",

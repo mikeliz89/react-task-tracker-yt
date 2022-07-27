@@ -20,6 +20,7 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 
 const ManageDrinkingProducts = () => {
 
+    //constants
     const DB_DRINKINGPRODUCTS = '/drinkingproducts';
 
     //user
@@ -44,9 +45,9 @@ const ManageDrinkingProducts = () => {
             if (cancel) {
                 return;
             }
-            await fetchDrinkingProductsFromFirebase()
+            await fetchDrinkingProductsFromFirebase();
         }
-        getDrinkingProducts()
+        getDrinkingProducts();
 
         return () => {
             cancel = true;
@@ -71,7 +72,7 @@ const ManageDrinkingProducts = () => {
 
     const deleteDrinkingProduct = (id) => {
         const dbref = ref(db, `${DB_DRINKINGPRODUCTS}/${id}`);
-        remove(dbref)
+        remove(dbref);
     }
 
     const editDrinkingProduct = (drinkingProduct) => {

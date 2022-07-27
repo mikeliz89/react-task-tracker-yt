@@ -33,9 +33,9 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
    useEffect(() => {
       if (drinkID != null) {
          const getDrink = async () => {
-            await fetchDrinkFromFirebase(drinkID)
+            await fetchDrinkFromFirebase(drinkID);
          }
-         getDrink()
+         getDrink();
       }
    }, [drinkID]);
 
@@ -59,45 +59,41 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
       get(dbref).then((snapshot) => {
          if (snapshot.exists()) {
             var val = snapshot.val();
-            setTitle(val["title"]);
-            setDescription(val["description"]);
-            setCreated(val["created"]);
-            setGlass(val["glass"]);
-            setCreatedBy(val["createdBy"]);
             setCategory(val["category"]);
+            setCreated(val["created"]);
+            setCreatedBy(val["createdBy"]);
+            setDescription(val["description"]);
+            setGlass(val["glass"]);
             setStars(val["stars"]);
+            setTitle(val["title"]);
          }
       });
    }
 
    /** Drink Form Submit */
    const onSubmit = (e) => {
-      e.preventDefault()
+      e.preventDefault();
 
       //validation
       if (!title) {
-         alert(t('please_add_drink'))
-         return
+         alert(t('please_add_drink'));
+         return;
       }
 
       onAddDrink({ created, createdBy, title, description, category, glass, stars });
 
       if (drinkID == null) {
          //clear the form
-         setTitle('')
-         setDescription('')
-         setGlass('')
+         setTitle('');
+         setDescription('');
+         setGlass('');
       }
    }
-
-   // const saveLink = () => {
-   //    console.log("Save link");
-   // }
 
    return (
       <>
          <Form onSubmit={onSubmit}>
-            <Form.Group className="mb-3" controlId="addDrinkFormName">
+            <Form.Group className="mb-3" controlId="addDrinkForm-Name">
                <Form.Label>{t('name')}</Form.Label>
                <Form.Control type='text'
                   autoComplete="off"
@@ -105,7 +101,7 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="addDrinkFormDescription">
+            <Form.Group className="mb-3" controlId="addDrinkForm-Description">
                <Form.Label>{t('description')}</Form.Label>
                <Form.Control type='text'
                   autoComplete="off"
@@ -113,7 +109,7 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="addDrinkFormGlass">
+            <Form.Group className="mb-3" controlId="addDrinkForm-Glass">
                <Form.Label>{t('glass')}</Form.Label>
                <Form.Control type='text'
                   autoComplete="off"
@@ -121,7 +117,7 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
                   value={glass}
                   onChange={(e) => setGlass(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="addDrinkFormCategory">
+            <Form.Group className="mb-3" controlId="addDrinkForm-Category">
                <Form.Label>{t('category')}</Form.Label>
                <Form.Select
                   value={category}
