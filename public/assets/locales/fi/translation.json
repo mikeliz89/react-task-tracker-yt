@@ -237,6 +237,7 @@
         "coming_soon": "Tulossa pian...",
         "date_and_time": "Ajankohta",
         "delete_exercise_confirm_message": "Oletko varma?",
+        "delete_gympart_confirm_message": "Oletko varma, että haluat poistaa liikkeen harjoituksesta?",
         "exercises": "Harjoitukset",
         "exercisedetails": "Harjoituksen tiedot",
         "exercise_save_exception": "Harjoituksen tallennus epäonnistui",

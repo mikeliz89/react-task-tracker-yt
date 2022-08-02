@@ -9,7 +9,7 @@ const TaskList = ({ taskList, archived, onDelete }) => {
     const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
     return (
-        <div className='task'>
+        <div className='tasklist'>
             <h5>
                 <span>
                     <FaListAlt style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />

@@ -58,7 +58,7 @@ const AddPartsGym = () => {
       <Button text={t('gym_parts_add_button')} onClick={() => setShowAddGymPart(!showAddGymPart)} />
       {showAddGymPart && <AddPartsGymForm exerciseID={params.id} onAddPart={addPart} />}
       {parts != null && parts.length > 0 ?
-        (<div><GymParts parts={parts} /></div>) :
+        (<div><GymParts exerciseID={params.id} parts={parts} /></div>) :
         (<div>{t('gym_no_parts')} </div>)
       }
     </div>
