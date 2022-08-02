@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { Form, Col, Row, ButtonGroup, Alert } from 'react-bootstrap';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 //firebase
 import { ref, push, onValue, remove } from "firebase/database";
 import { db } from '../../firebase-config';
@@ -30,9 +30,13 @@ export default function ManageDrinks() {
 
     //constants
     const DB_DRINKS = '/drinks';
+    const DB_DRINK = '/drink';
 
     //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
+
+    //navigate
+    const navigate = useNavigate();
 
     //states
     const [loading, setLoading] = useState(true);
@@ -64,9 +68,9 @@ export default function ManageDrinks() {
             if (cancel) {
                 return;
             }
-            await fetchDrinksFromFirebase()
+            await fetchDrinksFromFirebase();
         }
-        getDrinks()
+        getDrinks();
 
         return () => {
             cancel = true;
@@ -98,7 +102,11 @@ export default function ManageDrinks() {
             drink["created"] = getCurrentDateAsJson();
             drink["createdBy"] = currentUser.email;
             const dbref = ref(db, DB_DRINKS);
-            push(dbref, drink);
+            push(dbref, drink)
+                .then((snap) => {
+                    const key = snap.key;
+                    navigate(`${DB_DRINK}/${key}`);
+                })
             setMessage(t('save_success'));
             setShowMessage(true);
         } catch (ex) {
@@ -108,7 +116,7 @@ export default function ManageDrinks() {
 
     const deleteDrink = (id) => {
         const dbref = ref(db, `${DB_DRINKS}/${id}`);
-        remove(dbref)
+        remove(dbref);
     }
 
     const filterAndSort = () => {

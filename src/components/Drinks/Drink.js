@@ -14,6 +14,8 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+//button
+import Button from '../Button';
 
 const Drink = ({ drink, onDelete }) => {
 
@@ -57,7 +59,7 @@ const Drink = ({ drink, onDelete }) => {
                 <Alert show={showMessage} variant='success'>
                     {message}
                     <div className='d-flex justify-content-end'>
-                        <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
+                        <Button onClick={() => setShowMessage(false)} className='btn btn-success' text={t('button_close')} />
                     </div>
                 </Alert>}
             <h5>
