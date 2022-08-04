@@ -88,11 +88,11 @@ const BmiCalculator = () => {
             </Row>
             <h3 className="page-title">{t('title')}</h3>
             <Form onSubmit={onSubmit}>
-                <Form.Group className="mb-3" controlId="addTaskFormTaskName">
+                <Form.Group className="mb-3" controlId="bmiCalculatorForm-Height">
                     <Form.Label>{t('height')}</Form.Label>
                     <Form.Control type='number' placeholder={t('height')} value={height} onChange={(e) => setHeight(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addTaskFormTaskName">
+                <Form.Group className="mb-3" controlId="bmiCalculatorForm-Weight">
                     <Form.Label>{t('weight')}</Form.Label>
                     <Form.Control type='number' placeholder={t('weight')} value={weight} onChange={(e) => setWeight(e.target.value)} />
                 </Form.Group>

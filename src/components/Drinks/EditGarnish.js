@@ -50,7 +50,7 @@ export default function EditGarnish({ drinkID, garnishID, onEditGarnish, onClose
 
     return (
         <Form onSubmit={onSubmit}>
-            <Form.Group className="mb-3" controlId="garnishName">
+            <Form.Group className="mb-3" controlId="editGarnishForm-GarnishName">
                 <Form.Control type='text'
                     autoComplete="off"
                     placeholder={t('garnish_name')}

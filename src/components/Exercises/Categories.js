@@ -46,10 +46,53 @@ export const ExerciseCategories = [
         //Jumppa
         "id": 5,
         "name": "aerobics"
-    }, 
+    },
     {
         //Pyöräily
         "id": 6,
         "name": "bicycling"
     }
+]
+
+export const MovementCategories = [
+    {
+        //Ei mikään
+        "id": 0,
+        "name": "none"
+    },
+    {
+        //Takareidet
+        "id": 1,
+        "name": "hamstring"
+    },
+    {
+        //Etureidet
+        "id": 2,
+        "name": "quads"
+    },
+    {
+        //Hauikset
+        "id": 3,
+        "name": "biceps"
+    },
+    {
+        //Rinta
+        "id": 4,
+        "name": "chest"
+    },
+    {
+        //Selkä
+        "id": 5,
+        "name": "back"
+    },
+    {
+        //Vatsalihakset
+        "id": 6,
+        "name": "abs"
+    },
+    {
+        //Muut
+        "id": 7,
+        "name": "other"
+    },
 ]

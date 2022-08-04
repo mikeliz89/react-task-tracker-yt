@@ -97,31 +97,31 @@ const AddFueling = () => {
                 </Alert>
             }
             <Form onSubmit={onSubmit}>
-                <Form.Group className="mb-3" controlId="addFuelingFormLiterAmount">
+                <Form.Group className="mb-3" controlId="addFuelingForm-LiterAmount">
                     <Form.Label>{t('liter_amount')}</Form.Label>
                     <Form.Control type='number' placeholder={t('liter_amount')}
                         value={fuelLiterAmount} onChange={(e) => setFuelLiterAmount(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addFuelingFormPrice">
+                <Form.Group className="mb-3" controlId="addFuelingForm-Price">
                     <Form.Label>{t('price')}</Form.Label>
                     <Form.Control type='number' placeholder={t('price')}
                         value={price} onChange={(e) => setPrice(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addFuelingFormMeterKilometers">
+                <Form.Group className="mb-3" controlId="addFuelingForm-MeterKilometers">
                     <Form.Label>{t('meter_kilometers')}</Form.Label>
                     <Form.Control
                         autoComplete="off"
                         type='number' placeholder={t('meter_kilometers')}
                         value={meterKilometers} onChange={(e) => setMeterKilometers(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addFuelingFormFuelPrice">
+                <Form.Group className="mb-3" controlId="addFuelingForm-FuelPrice">
                     <Form.Label>{t('fuel_price')}</Form.Label>
                     <Form.Control
                         autoComplete="off"
                         type='number' placeholder={t('fuel_price')}
                         value={fuelPricePerLiter} onChange={(e) => setFuelPricePerLiter(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addFuelingFormPurchaseLocation">
+                <Form.Group className="mb-3" controlId="addFuelingForm-PurchaseLocation">
                     <Form.Label>{t('purchase_location')}</Form.Label>
                     <Form.Control
                         autoComplete="off"

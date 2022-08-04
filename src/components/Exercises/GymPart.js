@@ -14,7 +14,7 @@ function GymPart({ exerciseID, gymPart, onDelete }) {
     const [editable, setEditable] = useState(true);
 
     return (
-        <p key={gymPart.id} className='exercise'>
+        <div key={gymPart.id} className='exercise'>
 
             <Row>
                 <Col xs={9}>
@@ -34,7 +34,7 @@ function GymPart({ exerciseID, gymPart, onDelete }) {
 
             {gymPart.series} x {gymPart.weight > 0 ? gymPart.weight + ' (kg) x' : ''}   {gymPart.repeat}
 
-        </p>
+        </div>
     )
 }
 

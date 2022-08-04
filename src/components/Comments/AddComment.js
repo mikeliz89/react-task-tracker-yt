@@ -45,7 +45,7 @@ function AddComment({ onSave }) {
             {
                 showAddComment &&
                 <Form onSubmit={onSubmit}>
-                    <Form.Group className="mb-3" controlId="addTaskFormTaskName">
+                    <Form.Group className="mb-3" controlId="addCommentForm-Text">
                         <Form.Label>{t('text')}</Form.Label>
                         <Form.Control
                             autoComplete="off"

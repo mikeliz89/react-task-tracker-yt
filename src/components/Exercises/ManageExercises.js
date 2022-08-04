@@ -65,15 +65,19 @@ const ManageExercises = () => {
         </ButtonGroup>
       </Row>
       <h3 className="page-title">{t('manage_exercises_title')}</h3>
-      <p className="text-center">{t('exercises')}</p>
-      {
-        exercises != null && exercises.length > 0 ? (
-          <Exercises exercises={exercises}
-            onDelete={deleteExercise} />
-        ) : (
-          t('no_exercises_to_show')
-        )
-      }
+      <div className="page-content">
+        <Link to="/managemovements" className='btn btn-primary'>{t('manage_movements_button')}</Link>
+        <p className="text-center">{t('exercises')}</p>
+        {
+          exercises != null && exercises.length > 0 ? (
+            <Exercises exercises={exercises}
+              onDelete={deleteExercise} />
+          ) : (
+            t('no_exercises_to_show')
+          )
+        }
+      </div>
+
     </div>
   )
 }

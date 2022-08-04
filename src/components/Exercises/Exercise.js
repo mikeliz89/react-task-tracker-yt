@@ -37,7 +37,10 @@ const Exercise = ({ exercise, onDelete }) => {
                         Number(exercise.category) === Categories.Walking &&
                         <FaWalking style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
                     }
-                    {getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)}
+                    { exercise.date + ' ' + exercise.time 
+                    // TODO: Korjaa formaatit kieleistyksien mukaan
+                    //  getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)
+                    }
                 </span>
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                     onClick={() => { if (window.confirm(t('delete_exercise_confirm_message'))) { onDelete(exercise.id); } }} />

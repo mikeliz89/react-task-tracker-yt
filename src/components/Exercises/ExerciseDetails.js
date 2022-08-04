@@ -2,17 +2,19 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, ButtonGroup } from "react-bootstrap";
 //firebase
 import { child, push, ref, onValue, update } from "firebase/database";
 import { db } from "../../firebase-config";
 //buttons
 import GoBackButton from "../GoBackButton";
+import Button from "../Button";
 //exercises
 import AddPartsGym from "./AddPartsGym";
 import AddPartsRunning from "./AddPartsRunning";
 import AddPartsWalking from "./AddPartsWalking";
 import { Categories } from "./Categories";
+import EditExercise from "./EditExercise";
 //star rating
 import SetStarRating from "../StarRating/SetStarRating";
 //comment
@@ -40,6 +42,7 @@ const ExerciseDetails = () => {
     //states
     const [exercise, setExercise] = useState({});
     const [loading, setLoading] = useState(true);
+    const [showEditExercise, setShowEditExercise] = useState(false);
 
     //translation
     const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
@@ -92,32 +95,43 @@ const ExerciseDetails = () => {
             <h3>{t('loading')}</h3>
         ) : (
             <div>
-                <GoBackButton />
-                <h3 className='page-title'>{t('exercisedetails')}</h3>
-                <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
-                <AddComment onSave={addCommentToExercise} />
-                {/*<AddLink onSaveLink={addLinkToTask} /> */}
                 <Row>
-                    <Col>
-                        {t('date_and_time')}: {exercise.date} {exercise.time} <br />
-                        {t('created_by')}: {exercise.createdBy} <br />
-                        {t('created')}: {getJsonAsDateTimeString(exercise.created, i18n.language)}<br />
-                        {t('category')}: {t('category_' + getExerciseCategoryNameByID(exercise.category))}
-                    </Col>
+                    <ButtonGroup>
+                        <GoBackButton />
+                        <Button 
+                        showIconEdit={true} 
+                        onClick={() => setShowEditExercise(!showEditExercise)} text={t('button_edit')} />
+                    </ButtonGroup>
                 </Row>
-                {
-                    Number(exercise.category) === Categories.Gym &&
-                    <AddPartsGym />
-                }
-                {
-                    Number(exercise.category) === Categories.Running &&
-                    <AddPartsRunning />
-                }
-                {
-                    Number(exercise.category) === Categories.Walking &&
-                    <AddPartsWalking />
-                }
-                <Comments objID={params.id} url={'exercise-comments'} />
+                <h3 className='page-title'>{t('exercisedetails')}</h3>
+                <div className='page-content'>
+                    {showEditExercise && <EditExercise />}
+                    <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
+                    <AddComment onSave={addCommentToExercise} />
+                    {/*<AddLink onSaveLink={addLinkToTask} /> */}
+                    <Row>
+                        <Col>
+                            {t('date_and_time')}: {exercise.date} {exercise.time} <br />
+                            {t('end_date')}: {exercise.endDate} <br />
+                            {t('created_by')}: {exercise.createdBy} <br />
+                            {t('created')}: {getJsonAsDateTimeString(exercise.created, i18n.language)}<br />
+                            {t('category')}: {t('category_' + getExerciseCategoryNameByID(exercise.category))}
+                        </Col>
+                    </Row>
+                    {
+                        Number(exercise.category) === Categories.Gym &&
+                        <AddPartsGym />
+                    }
+                    {
+                        Number(exercise.category) === Categories.Running &&
+                        <AddPartsRunning />
+                    }
+                    {
+                        Number(exercise.category) === Categories.Walking &&
+                        <AddPartsWalking />
+                    }
+                    <Comments objID={params.id} url={'exercise-comments'} />
+                </div>
             </div>
         )
     )

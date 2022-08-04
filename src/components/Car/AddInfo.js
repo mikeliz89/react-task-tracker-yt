@@ -152,17 +152,17 @@ const AddInfo = () => {
                 </Alert>
             }
             <Form onSubmit={onSubmit}>
-                <Form.Group className="mb-3" controlId="addInfoFormRegisterNumber">
+                <Form.Group className="mb-3" controlId="addInfoForm-RegisterNumber">
                     <Form.Label>{t('register_number')}</Form.Label>
                     <Form.Control type='text' placeholder={t('register_number')}
                         value={registerNumber} onChange={(e) => setRegisterNumber(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addInfoFormRegisterNumber">
+                <Form.Group className="mb-3" controlId="addInfoForm-RegisterNumber">
                     <Form.Label>{t('model_year')}</Form.Label>
                     <Form.Control type='number' placeholder={t('model_year')}
                         value={modelYear} onChange={(e) => setModelYear(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addInfoFormText">
+                <Form.Group className="mb-3" controlId="addInfoForm-Text">
                     <Form.Label>{t('text')}</Form.Label>
                     <Form.Control type='text' placeholder={t('text')}
                         value={text} onChange={(e) => setText(e.target.value)} />
