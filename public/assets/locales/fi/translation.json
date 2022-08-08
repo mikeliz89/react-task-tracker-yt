@@ -302,7 +302,9 @@
         "urlText": "linkin teksti"
     },
     "music": {
+        "bands_seen_live": "Nähdyt bändit",
         "music_title": "Musiikki",
+        "manage_bands_seen_live_button": "Nähdyt bändit",
         "coming_soon": "Tulossa pian..."
     },
     "myprofile": {
