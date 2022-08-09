@@ -1,7 +1,7 @@
 //react
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaListAlt, FaArrowDown, FaArrowUp } from 'react-icons/fa';
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import { Col, Row, ButtonGroup, Accordion, Table, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 //buttons
@@ -155,6 +155,24 @@ function TaskListDetails() {
     });
   }
 
+  const markAllTasksDone = async (taskListID) => {
+    const dbref = child(ref(db, DB_TASKS), taskListID);
+    get(dbref).then((snapshot) => {
+      if (snapshot.exists()) {
+
+        //update each snapshot data separately (child)
+        snapshot.forEach((data) => {
+          //console.log(data.val());
+          const updates = {};
+          updates[`${DB_TASKS}/${taskListID}/${data.key}/reminder`] = true;
+          update(ref(db), updates);
+        });
+      } else {
+        console.log("No data available");
+      }
+    });
+  }
+
   /** Add Task List To Firebase */
   const addTaskList = async (taskList) => {
     var taskListID = params.id;
@@ -289,6 +307,7 @@ function TaskListDetails() {
       </Accordion>
       {/* <div>{searchString}</div> */}
       <div className="page-content">
+        <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} />
         {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />}
         {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onAddTask={addTask} />}
         <Form className='form-no-paddings'>

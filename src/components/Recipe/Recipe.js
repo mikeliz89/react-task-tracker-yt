@@ -19,8 +19,18 @@ import i18n from "i18next";
 
 const Recipe = ({ recipe, onDelete }) => {
 
+    //constants
+    const DB_INCREDIENTS = '/incredients';
+    const DB_TASKS = '/tasks';
+    const DB_TASKLISTS = '/tasklists';
+
+    //navigate
     const navigate = useNavigate();
+
+    //user
     const { currentUser } = useAuth();
+
+    //translation
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
     //states 
@@ -57,7 +67,7 @@ const Recipe = ({ recipe, onDelete }) => {
 
     const fetchIncredientsFromFirebase = async (recipeID) => {
         const incredients = [];
-        const dbref = await child(ref(db, '/incredients'), recipeID);
+        const dbref = await child(ref(db, DB_INCREDIENTS), recipeID);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             for (let id in snap) {
@@ -70,7 +80,7 @@ const Recipe = ({ recipe, onDelete }) => {
     const addTaskList = async (taskList, incredients) => {
         taskList["created"] = getCurrentDateAsJson();
         taskList["createdBy"] = currentUser.email;
-        const dbref = ref(db, '/tasklists');
+        const dbref = ref(db, DB_TASKLISTS);
 
         push(dbref, taskList)
             .then((snap) => {
@@ -94,7 +104,7 @@ const Recipe = ({ recipe, onDelete }) => {
         //To firebase
         task["created"] = getCurrentDateAsJson()
         task["createdBy"] = currentUser.email;
-        const dbref = child(ref(db, '/tasks'), taskListID);
+        const dbref = child(ref(db, DB_TASKS), taskListID);
         push(dbref, task);
     }
 
