@@ -21,7 +21,6 @@ function PageTitle({ title, showIconMartiniGlass, showIconUtentils,
                 showIconListAlt &&
                 <FaListAlt style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} />
             }
-            &nbsp;
             {title}
         </h3>
     )

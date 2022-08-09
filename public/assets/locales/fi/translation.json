@@ -2,7 +2,8 @@
     "coming_soon": "Tulossa pian...",
     "about": {
         "about_version": "Versio",
-        "about_author": "Tekijä"
+        "about_author": "Tekijä",
+        "version_upgraded": "Versiota nostettu viimeksi"
     },
     "auth": {
         "already_have_an_account": "Oletko jo rekisteröitynyt?",

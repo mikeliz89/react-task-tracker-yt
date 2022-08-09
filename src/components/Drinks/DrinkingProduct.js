@@ -1,5 +1,5 @@
 //react
-import { FaTimes, FaCheckSquare, FaEdit } from 'react-icons/fa';
+import { FaTimes, FaCheckSquare, FaEdit, FaCocktail } from 'react-icons/fa';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -37,6 +37,7 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
         <div key={drinkingProduct.id} className='drink'>
             <h5>
                 <span>
+                    <FaCocktail style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
                     {drinkingProduct.name}
                 </span>
 

@@ -2,6 +2,7 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
+import { FaComments } from 'react-icons/fa';
 //Firebase
 import { db } from '../../firebase-config';
 import { ref, onValue, child, remove } from "firebase/database";
@@ -50,7 +51,10 @@ const Comments = ({ url, objID }) => {
     return (
         <div>
             {/* <pre>{JSON.stringify(comments)}</pre> */}
-            <h4>{t('header')} {commentCounter > 0 ? '(' + commentCounter + ')' : ''}</h4>
+            <h4>
+                <FaComments style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                {t('header')} {commentCounter > 0 ? '(' + commentCounter + ')' : ''}
+            </h4>
             {
                 comments != null && comments.length > 0 ? (
                     <CommentsInner onDelete={deleteComment} comments={comments} />

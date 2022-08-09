@@ -366,7 +366,6 @@ export default function DrinkDetails() {
                 ) : (
                     <p> {t('no_garnishes_to_show')} </p>
                 )}
-                <h4>{t('drinkhistory_title')}</h4>
                 {
                     drinkHistory != null && drinkHistory.length > 0 ? (
                         <DrinkHistories drinkHistories={drinkHistory} drinkID={params.id} />

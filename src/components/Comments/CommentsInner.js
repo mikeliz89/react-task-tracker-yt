@@ -13,12 +13,6 @@ const CommentsInner = ({ comments, onDelete }) => {
 
     return (
         <div>
-            {
-                comments.map((comment) => {
-                    <p key={comment.id}>{comment.createdBy}{comment.text}</p>
-                })
-            }
-
             {comments
                 ? comments.map((comment) =>
                     <div key={comment.id}>
