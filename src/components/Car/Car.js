@@ -11,6 +11,7 @@ import CarFuelings from './CarFuelings';
 //firebase
 import { db } from '../../firebase-config';
 import { onValue, ref } from 'firebase/database';
+import PageTitle from '../PageTitle';
 
 export default function Car() {
     
@@ -52,7 +53,7 @@ export default function Car() {
       ) : (
         <div>
             <GoBackButton />
-            <h3 className="page-title">{t('car_title')}</h3>
+            <PageTitle title={t('car_title')} />
             <Button onClick={() => setShowAddInfo(!showAddInfo)}
                 text={t('add_info')} />
             <Button onClick={() => setShowAddFueling(!showAddFueling)}

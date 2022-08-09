@@ -17,6 +17,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 //searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+import PageTitle from '../PageTitle';
 
 const ManageFoodItems = () => {
 
@@ -104,7 +105,7 @@ const ManageFoodItems = () => {
                         onClick={() => setShowAddFoodItem(!showAddFoodItem)} />
                 </ButtonGroup>
             </Row>
-            <h3 className="page-title">{t('manage_fooditems_title')}</h3>
+            <PageTitle title={t('manage_fooditems_title')} />
             {error && <div className="error">{error}</div>}
             {message &&
                 <Alert show={showMessage} variant='success'>

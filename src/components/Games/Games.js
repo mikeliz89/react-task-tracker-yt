@@ -2,6 +2,7 @@
 import { useTranslation } from 'react-i18next';
 //buttons
 import GoBackButton from '../GoBackButton';
+import PageTitle from '../PageTitle';
 
 export default function Games() {
 
@@ -10,7 +11,7 @@ export default function Games() {
     return (
         <div>
             <GoBackButton />
-            <h3 className="page-title">{t('games_title')}</h3>
+            <PageTitle title={t('games_title')} />
             <p className="text-center">{t('coming_soon')}</p>
         </div>
     )

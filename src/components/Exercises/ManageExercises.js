@@ -10,6 +10,7 @@ import Exercises from './Exercises';
 //firebase
 import { db } from '../../firebase-config';
 import { onValue, ref, remove } from 'firebase/database';
+import PageTitle from '../PageTitle';
 
 const ManageExercises = () => {
 
@@ -64,7 +65,7 @@ const ManageExercises = () => {
           <Link className="btn btn-primary" to={`/createexercise`}>{t('create_exercise')}</Link>
         </ButtonGroup>
       </Row>
-      <h3 className="page-title">{t('manage_exercises_title')}</h3>
+      <PageTitle title={t('manage_exercises_title')} />
       <div className="page-content">
         <Link to="/managemovements" className='btn btn-primary'>{t('manage_movements_button')}</Link>
         <p className="text-center">{t('exercises')}</p>

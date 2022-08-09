@@ -14,6 +14,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 import Gears from './Gears';
+import PageTitle from '../PageTitle';
 
 export default function ManageGear() {
 
@@ -95,7 +96,7 @@ export default function ManageGear() {
                 </ButtonGroup>
             </Row>
 
-            <h3 className="page-title">{t('my_gear_title')}</h3>
+            <PageTitle title={t('my_gear_title')} />
 
             <div className="page-content">
                 {showAdd && <AddGear onAddGear={addGear} onClose={() => setShowAdd(false)} />}

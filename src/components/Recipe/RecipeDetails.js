@@ -31,6 +31,7 @@ import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+import PageTitle from '../PageTitle';
 
 export default function RecipeDetails() {
 
@@ -218,9 +219,7 @@ export default function RecipeDetails() {
             <Accordion>
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>
-                        <h3 className="page-title">
-                            <FaUtensils style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} /> {recipe.title}
-                        </h3>
+                        <PageTitle title={recipe.title} showIconUtentils={true} />
                     </Accordion.Header>
                     <Accordion.Body>
                         {t('description')}: {recipe.description}<br />

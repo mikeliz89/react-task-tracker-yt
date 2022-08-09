@@ -15,6 +15,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //Categories
 import { ExerciseCategories } from './Categories';
+import PageTitle from '../PageTitle';
 
 const CreateExercise = () => {
 
@@ -78,10 +79,10 @@ const CreateExercise = () => {
 
     return (
         <>
-            <h3 className='page-title'>{t('create_exercise')}</h3>
             <ButtonGroup>
                 <GoBackButton />
             </ButtonGroup>
+            <PageTitle title={t('create_exercise')} />
             {error && <div className="error">{error}</div>}
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="createExerciseForm-Category">

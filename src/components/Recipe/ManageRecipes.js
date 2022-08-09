@@ -17,6 +17,7 @@ import { ref, push, onValue, remove } from "firebase/database";
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+import PageTitle from '../PageTitle';
 
 const ManageRecipes = () => {
 
@@ -138,7 +139,7 @@ const ManageRecipes = () => {
             onClick={() => setShowAddRecipe(!showAddRecipe)} />
         </ButtonGroup>
       </Row>
-      <h3 className="page-title">{t('manage_recipes_title')}</h3>
+      <PageTitle title={t('manage_recipes_title')} />
       <div className="page-content">
         <Link to="/managefooditems" className='btn btn-primary'>{t('manage_fooditems_button')}</Link>
         {error && <div className="error">{error}</div>}

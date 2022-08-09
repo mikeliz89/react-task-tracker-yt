@@ -14,6 +14,7 @@ import i18n from "i18next";
 import { useAuth } from '../../contexts/AuthContext';
 //bmicalculator
 import WeightChart from './WeightChart';
+import PageTitle from '../PageTitle';
 
 const WeightHistory = () => {
 
@@ -56,7 +57,7 @@ const WeightHistory = () => {
     return (
         <div>
             <GoBackButton />
-            <h3 className="page-title">{t('weighthistory')}</h3>
+            <PageTitle title={t('weighthistory')} />
             <WeightChart data={historyRows} />
             {/* { <pre>{JSON.stringify(historyRows)}</pre> } */}
             {historyRows

@@ -23,6 +23,7 @@ import { useAuth } from '../../contexts/AuthContext';
 //links
 import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
+import PageTitle from '../PageTitle';
 
 function TaskDetails() {
 
@@ -108,7 +109,7 @@ function TaskDetails() {
         </ButtonGroup>
       </Row>
       <div className={task.reminder === true ? 'task reminder' : ''}>
-        <h4 className="page-title">{task.text}</h4>
+        <PageTitle title={task.text} />
         <p>{t('day_and_time')}: {task.day}</p>
         {showEditTask && <AddTask onClose={() => setShowEditTask(false)} onAddTask={addTask} taskID={params.id} taskListID={params.tasklistid} />}
         <p>

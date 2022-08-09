@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
 import { ref, onValue, remove } from "firebase/database";
 import TaskLists from '../../components/TaskList/TaskLists';
+import PageTitle from '../PageTitle';
 
 const ManageTaskListsArchive = () => {
 
@@ -52,7 +53,7 @@ const ManageTaskListsArchive = () => {
   return (
     <div>
       <GoBackButton />
-      <h3 className="page-title">{t('manage_tasklists_archive_title')}</h3>
+      <PageTitle title={t('manage_tasklists_archive_title')} />
       <div className="page-content">
         {taskLists != null && taskLists.length > 0 ? (
           <TaskLists

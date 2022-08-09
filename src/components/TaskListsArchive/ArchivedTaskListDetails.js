@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { FaListAlt } from 'react-icons/fa';
 import { Accordion, Table } from 'react-bootstrap';
 //firebase
 import { ref, onValue, child } from "firebase/database";
@@ -15,6 +14,7 @@ import GoBackButton from '../GoBackButton';
 import i18n from "i18next";
 //utils
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import PageTitle from '../PageTitle';
 
 export default function ArchivedTaskListDetails() {
 
@@ -106,9 +106,7 @@ export default function ArchivedTaskListDetails() {
       <Accordion>
         <Accordion.Item>
           <Accordion.Header>
-            <h3 className="page-title">
-              <FaListAlt style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} /> {taskList.title}
-            </h3>
+            <PageTitle title={taskList.title} showIconListAlt={true} />
           </Accordion.Header>
           <Accordion.Body>
             {t('description')}: {taskList.description}<br />

@@ -12,6 +12,7 @@ import { db, uploadProfilePic } from '../../firebase-config';
 import { ref, onValue, update } from "firebase/database";
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import PageTitle from '../PageTitle';
 
 export default function ManageMyProfile() {
 
@@ -103,7 +104,7 @@ export default function ManageMyProfile() {
     return (
         <div>
             <GoBackButton />
-            <h3 className="page-title">{t('title')}</h3>
+            <PageTitle title={t('title')} />
             {message &&
                 <Alert show={showMessage} variant='success'>
                     {message}

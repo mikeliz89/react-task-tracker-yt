@@ -34,6 +34,7 @@ import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+import PageTitle from '../PageTitle';
 
 export default function DrinkDetails() {
 
@@ -289,9 +290,7 @@ export default function DrinkDetails() {
             <Accordion>
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>
-                        <h3 className="page-title">
-                            <FaGlassMartini style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} /> {drink.title}
-                        </h3>
+                        <PageTitle title={drink.title} showIconMartiniGlass={true} />
                     </Accordion.Header>
                     <Accordion.Body>
                         {t('description')}: {drink.description}<br />

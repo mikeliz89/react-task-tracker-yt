@@ -27,6 +27,7 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateT
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
 //i18n
 import i18n from "i18next";
+import PageTitle from "../PageTitle";
 
 const ExerciseDetails = () => {
 
@@ -103,7 +104,7 @@ const ExerciseDetails = () => {
                         onClick={() => setShowEditExercise(!showEditExercise)} text={t('button_edit')} />
                     </ButtonGroup>
                 </Row>
-                <h3 className='page-title'>{t('exercisedetails')}</h3>
+                <PageTitle title={t('exercisedetails')} />
                 <div className='page-content'>
                     {showEditExercise && <EditExercise />}
                     <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />

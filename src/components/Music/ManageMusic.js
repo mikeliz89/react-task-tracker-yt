@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 //buttons
 import GoBackButton from '../GoBackButton';
+import PageTitle from '../PageTitle';
 
 export default function ManageMusic() {
 
@@ -11,7 +12,7 @@ export default function ManageMusic() {
     return (
         <div>
             <GoBackButton />
-            <h3 className="page-title">{t('music_title')}</h3>
+            <PageTitle title={t('music_title')} />
             <div className="page-content">
                 <Link to="/bandsseenlive" className='btn btn-primary'>{t('manage_bands_seen_live_button')}</Link>
             </div>

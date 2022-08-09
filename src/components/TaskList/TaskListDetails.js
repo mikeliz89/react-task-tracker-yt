@@ -23,6 +23,7 @@ import i18n from "i18next";
 //Links
 import Links from '../Links/Links';
 import AddLink from '../Links/AddLink';
+import PageTitle from '../PageTitle';
 
 const SortMode = {
   None: "None",
@@ -259,9 +260,7 @@ function TaskListDetails() {
       <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>
-            <h3 className="page-title">
-              <FaListAlt style={{ color: 'gray', cursor: 'pointer', marginBottom: '3px' }} /> {taskList.title}
-            </h3>
+            <PageTitle title={taskList.title} showIconListAlt={true} />
           </Accordion.Header>
           <Accordion.Body>
             {t('description')}: {taskList.description}<br />

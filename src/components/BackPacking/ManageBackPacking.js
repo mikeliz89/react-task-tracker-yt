@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 //buttons
 import GoBackButton from '../GoBackButton';
+import PageTitle from '../PageTitle';
 
 export default function ManageBackPacking() {
 
@@ -12,7 +13,7 @@ export default function ManageBackPacking() {
     return (
         <div>
             <GoBackButton />
-            <h3 className="page-title">{t('manage_backpacking_title')}</h3>
+            <PageTitle title={t('manage_backpacking_title')} />
 
             <div className="page-content">
                 <Link to="/managegear" className='btn btn-primary'>{t('manage_gear_button')}</Link>

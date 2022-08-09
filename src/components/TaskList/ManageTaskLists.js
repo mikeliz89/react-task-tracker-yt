@@ -18,6 +18,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 //Icons
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import PageTitle from '../PageTitle';
 
 const SortMode = {
   None: "None",
@@ -153,7 +154,7 @@ export default function ManageTaskLists() {
           <Button text={t('button_goto_tasklist_archive')} color="#545454" onClick={() => gotoTaskListArchive()} />
         </ButtonGroup>
       </Row>
-      <h3 className="page-title">{t('manage_tasklists_title')}</h3>
+      <PageTitle title={t('manage_tasklists_title')} />
       {showAddTaskList && <AddTaskList onClose={() => setShowAddTaskList(false)} onAddTaskList={addTaskList} />}
       <div className="page-content">
         <Form className='form-no-paddings'>

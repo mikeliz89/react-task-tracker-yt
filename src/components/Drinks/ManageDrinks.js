@@ -17,6 +17,7 @@ import Button from '../Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+import PageTitle from '../PageTitle';
 
 const SortMode = {
     None: "None",
@@ -166,7 +167,7 @@ export default function ManageDrinks() {
                         onClick={() => setShowAddDrink(!showAddDrink)} />
                 </ButtonGroup>
             </Row>
-            <h3 className="page-title">{t('manage_drinks_title')}</h3>
+            <PageTitle title={t('manage_drinks_title')} />
             <div className="page-content">
                 <Link to="/managedrinkingproducts" className='btn btn-primary'>{t('manage_drinkingproducts_button')}</Link>
                 {error && <div className="error">{error}</div>}

@@ -15,6 +15,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //Categories
 import { MovementCategories } from './Categories';
+import PageTitle from '../PageTitle';
 
 const CreateMovement = () => {
 
@@ -76,10 +77,10 @@ const CreateMovement = () => {
 
     return (
         <>
-            <h3 className='page-title'>{t('create_movement')}</h3>
             <ButtonGroup>
                 <GoBackButton />
             </ButtonGroup>
+            <PageTitle title={t('create_movement')} />
             {error && <div className="error">{error}</div>}
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="createMovementForm-Category">

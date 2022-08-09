@@ -14,6 +14,7 @@ import Button from '../Button';
 import { useAuth } from '../../contexts/AuthContext';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import PageTitle from '../PageTitle';
 
 const BmiCalculator = () => {
 
@@ -86,7 +87,7 @@ const BmiCalculator = () => {
                         onClick={() => navigate('/weighthistory')} />
                 </ButtonGroup>
             </Row>
-            <h3 className="page-title">{t('title')}</h3>
+            <PageTitle title={t('title')} />
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="bmiCalculatorForm-Height">
                     <Form.Label>{t('height')}</Form.Label>
