@@ -40,11 +40,6 @@ function EditExercise({ exerciseID, exercise }) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    //validation
-    if (!date) {
-      return;
-    }
-
     saveExercise(exerciseID, { date, time, endDate, endTime, created, createdBy, category });
   }
 
