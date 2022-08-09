@@ -83,11 +83,11 @@ const ExerciseDetails = () => {
     }
 
     const addCommentToExercise = async (comment) => {
-        let taskID = params.id;
+        let id = params.id;
         comment["created"] = getCurrentDateAsJson()
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, DB_EXERCISE_COMMENTS), taskID);
+        const dbref = child(ref(db, DB_EXERCISE_COMMENTS), id);
         push(dbref, comment);
     }
 
@@ -99,21 +99,24 @@ const ExerciseDetails = () => {
                 <Row>
                     <ButtonGroup>
                         <GoBackButton />
-                        <Button 
-                        showIconEdit={true} 
-                        onClick={() => setShowEditExercise(!showEditExercise)} text={t('button_edit')} />
+                        <Button
+                            showIconEdit={true}
+                            onClick={() => setShowEditExercise(!showEditExercise)}
+                            color={showEditExercise ? 'red' : 'orange'}
+                            text={showEditExercise ? t('close') : t('button_edit')} />
                     </ButtonGroup>
                 </Row>
                 <PageTitle title={t('exercisedetails')} />
                 <div className='page-content'>
-                    {showEditExercise && <EditExercise />}
+                    {showEditExercise && <EditExercise exerciseID={params.id} exercise={exercise} />}
                     <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
                     <AddComment onSave={addCommentToExercise} />
                     {/*<AddLink onSaveLink={addLinkToTask} /> */}
                     <Row>
                         <Col>
                             {t('date_and_time')}: {exercise.date} {exercise.time} <br />
-                            {t('end_date')}: {exercise.endDate} <br />
+                            {t('end_date')}: {exercise.endDate} {exercise.endTime} <br />
+                            {t('duration')} : {t('coming_soon')}<br />
                             {t('created_by')}: {exercise.createdBy} <br />
                             {t('created')}: {getJsonAsDateTimeString(exercise.created, i18n.language)}<br />
                             {t('category')}: {t('category_' + getExerciseCategoryNameByID(exercise.category))}
