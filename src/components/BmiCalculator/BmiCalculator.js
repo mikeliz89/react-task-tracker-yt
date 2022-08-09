@@ -23,19 +23,19 @@ const BmiCalculator = () => {
     const { currentUser } = useAuth();
 
     //states
-    const [BMI, setBMI] = useState(0)
-    const [weight, setWeight] = useState(0)
-    const [height, setHeight] = useState(0)
-    const [profile, setProfile] = useState({})
+    const [BMI, setBMI] = useState(0);
+    const [weight, setWeight] = useState(0);
+    const [height, setHeight] = useState(0);
 
     //load data
     useEffect(() => {
         let isMounted = true;
         const getProfile = async () => {
-            if (isMounted)
+            if (isMounted) {
                 await fetchProfileFromFirebase();
+            }
         }
-        getProfile()
+        getProfile();
         return () => { isMounted = false };
     }, [])
 
@@ -45,7 +45,6 @@ const BmiCalculator = () => {
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
-                setProfile(data);
                 setHeight(data["height"]);
             }
         })

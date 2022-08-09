@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
-import { FaUtensils } from 'react-icons/fa';
 //firebase
 import { db } from '../../firebase-config';
 import { push, child, remove, ref, onValue, update } from "firebase/database";

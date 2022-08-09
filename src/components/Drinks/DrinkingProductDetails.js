@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup } from 'react-bootstrap';
-import { FaGlassMartini } from 'react-icons/fa';
 //firebase
 import { db } from '../../firebase-config';
 import { push, ref, child, onValue, update, remove } from "firebase/database";

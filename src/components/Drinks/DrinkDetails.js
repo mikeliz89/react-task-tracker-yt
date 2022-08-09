@@ -1,9 +1,8 @@
 //react
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup } from 'react-bootstrap';
-import { FaGlassMartini } from 'react-icons/fa';
 //firebase
 import { db } from '../../firebase-config';
 import { push, ref, child, onValue, update, remove } from "firebase/database";
@@ -59,8 +58,8 @@ export default function DrinkDetails() {
     const [workPhases, setWorkPhases] = useState({});
     const [garnishes, setGarnishes] = useState({});
     const [error, setError] = useState('');
-    const [message, setMessage] = useState('');
-    const [showMessage, setShowMessage] = useState(false);
+    const [setMessage] = useState('');
+    const [setShowMessage] = useState(false);
 
     //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });

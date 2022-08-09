@@ -11,7 +11,7 @@ import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
 const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
 
     //states
-    const [error, setError] = useState(false);
+    const [error] = useState(false);
     const [editable, setEditable] = useState(false);
 
     //translation
@@ -40,14 +40,12 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
                     <FaCocktail style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
                     {drinkingProduct.name}
                 </span>
-
                 <span style={{ float: 'right' }}>
                     <FaEdit className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => editable ? setEditable(false) : setEditable(true)} />
                     <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => { if (window.confirm(t('delete_drinkingproduct_confirm_message'))) { onDelete(drinkingProduct.id); } }} />
                 </span>
-
             </h5>
             {error && <div className="error">{error}</div>}
             <p>{t('drinkingproduct_manufacturer')}: {drinkingProduct.manufacturer}</p>

@@ -13,25 +13,25 @@ export default function ForgotPassword() {
     const { t } = useTranslation('auth', { keyPrefix: 'auth' });
 
     //states
-    const [email, setEmail] = useState('')
-    const [error, setError] = useState('')
-    const [message, setMessage] = useState('')
-    const [loading, setLoading] = useState(false)
-    const { resetPassword } = useAuth()
+    const [email, setEmail] = useState('');
+    const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const { resetPassword } = useAuth();
 
     async function onSubmit(e) {
         e.preventDefault()
 
         try {
             //clear 
-            setError('')
-            setMessage('')
-            setLoading(true)
+            setError('');
+            setMessage('');
+            setLoading(true);
             await resetPassword(email);
             setMessage(t('check_your_inbox'));
         } catch (error) {
             setError(t('failed_to_reset_password'));
-            console.log(error)
+            console.log(error);
         }
 
         setLoading(false)

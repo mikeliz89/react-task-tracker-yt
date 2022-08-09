@@ -1,5 +1,5 @@
 //react
-import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
+import { Form, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

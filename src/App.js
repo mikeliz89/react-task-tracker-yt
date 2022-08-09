@@ -1,5 +1,6 @@
 //App
 import './App.css';
+//React icons: https://react-icons.github.io/react-icons/icons?name=fa
 //react
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';

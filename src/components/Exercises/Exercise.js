@@ -1,7 +1,7 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { FaTimes, FaRunning, FaWalking, FaDumbbell } from 'react-icons/fa';
+import { FaTimes, FaRunning, FaWalking, FaDumbbell, FaChild, FaBiking, FaShip } from 'react-icons/fa';
 import { useState } from 'react'
 //star rating
 import StarRating from '../StarRating/StarRating';
@@ -9,9 +9,6 @@ import StarRating from '../StarRating/StarRating';
 import { Categories } from './Categories';
 //utils
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
-import { getDateAndTimeAsDateTimeString } from '../../utils/DateTimeUtils';
-//i18n
-import i18n from "i18next";
 
 const Exercise = ({ exercise, onDelete }) => {
 
@@ -19,7 +16,7 @@ const Exercise = ({ exercise, onDelete }) => {
     const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
 
     //states 
-    const [error, setError] = useState('');
+    const [error] = useState('');
 
     return (
         <div key={exercise.id} className='exercise'>
@@ -37,9 +34,21 @@ const Exercise = ({ exercise, onDelete }) => {
                         Number(exercise.category) === Categories.Walking &&
                         <FaWalking style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
                     }
-                    { exercise.date + ' ' + exercise.time 
-                    // TODO: Korjaa formaatit kieleistyksien mukaan
-                    //  getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)
+                    {
+                        Number(exercise.category) === Categories.Aerobics &&
+                        <FaChild style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                    }
+                    {
+                        Number(exercise.category) === Categories.Bicycling &&
+                        <FaBiking style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                    }
+                    {
+                        Number(exercise.category) === Categories.Kayaking &&
+                        <FaShip style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                    }
+                    {exercise.date + ' ' + exercise.time
+                        // TODO: Korjaa formaatit kieleistyksien mukaan
+                        //  getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)
                     }
                 </span>
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}

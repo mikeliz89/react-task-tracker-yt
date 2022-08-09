@@ -4,27 +4,18 @@ import { FaTimes, FaTripadvisor } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Alert } from 'react-bootstrap';
-//firebase
-import { ref, push } from "firebase/database";
-import { db } from '../../firebase-config';
 //utils
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
-//auth
-import { useAuth } from '../../contexts/AuthContext';
 
 const Gear = ({ gear, onDelete }) => {
-
-    //user
-    const { currentUser } = useAuth();
 
     //translation
     const { t } = useTranslation('backpacking', { keyPrefix: 'backpacking' });
 
     //states
-    const [message, setMessage] = useState('')
+    const [message] = useState('')
     const [showMessage, setShowMessage] = useState(false);
-    const [error, showError] = useState(false);
+    const [error] = useState(false);
 
     return (
         <div key={gear.id} className='drink'>

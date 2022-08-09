@@ -30,7 +30,7 @@ const Drink = ({ drink, onDelete }) => {
     //states
     const [message, setMessage] = useState('');
     const [showMessage, setShowMessage] = useState(false);
-    const [error, showError] = useState(false);
+    const [error] = useState(false);
 
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
