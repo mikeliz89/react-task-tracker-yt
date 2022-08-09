@@ -43,7 +43,7 @@ const Comments = ({ url, objID }) => {
     }
 
     const deleteComment = (commentID) => {
-        const dbref = ref(db, url + '/' + objID + '/' + commentID);
+        const dbref = ref(db, `${url}/${objID}/${commentID}`);
         remove(dbref);
     }
 

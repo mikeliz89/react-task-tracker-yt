@@ -1,13 +1,23 @@
-//i18n
-import i18n from "i18next";
-//utils
-import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+//Drinks
+import DrinkHistory from "./DrinkHistory";
+//Firebase
+import { db } from '../../firebase-config';
+import { ref, remove } from "firebase/database";
 
-function DrinkHistories({ drinkHistories }) {
+function DrinkHistories({ drinkHistories, drinkID }) {
+
+    const DB_DRINK_HISTORY = '/drinkhistory';
+
+    const deleteDrinkHistory = (drinkHistoryID) => {
+        console.log(drinkHistoryID);
+        const dbref = ref(db, `${DB_DRINK_HISTORY}/${drinkID}/${drinkHistoryID}`);
+        remove(dbref);
+    }
+
     return (
         <div>
-            {drinkHistories.map((historyRow) => (
-                <p key={historyRow.id}>{getJsonAsDateTimeString(historyRow.currentDateTime, i18n.language)}</p>
+            {drinkHistories.map((drinkHistory) => (
+                <DrinkHistory key={drinkHistory.id} drinkHistory={drinkHistory} onDelete={deleteDrinkHistory} />
             ))}
         </div>
     )

@@ -1,7 +1,7 @@
 //react
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup } from 'react-bootstrap';
 import { FaGlassMartini } from 'react-icons/fa';
 //firebase
@@ -58,6 +58,8 @@ export default function DrinkDetails() {
     const [workPhases, setWorkPhases] = useState({});
     const [garnishes, setGarnishes] = useState({});
     const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
+    const [showMessage, setShowMessage] = useState(false);
 
     //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
@@ -241,6 +243,16 @@ export default function DrinkDetails() {
         remove(dbref);
     }
 
+    const saveDrinkHistory = async (drinkID) => {
+        const dbref = ref(db, `${DB_DRINK_HISTORY}/${drinkID}`);
+        const currentDateTime = getCurrentDateAsJson();
+        const userID = currentUser.uid;
+        push(dbref, { currentDateTime, userID });
+
+        setShowMessage(true);
+        setMessage(t('save_success_drinkinghistory'));
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -319,6 +331,11 @@ export default function DrinkDetails() {
                 <AddComment onSave={addCommentToDrink} />
                 <AddLink onSaveLink={addLinkToDrink} />
 
+                <Button
+                    text={t('do_drink')}
+                    onClick={() => { if (window.confirm(t('do_drink_confirm'))) { saveDrinkHistory(params.id); } }}
+                />
+
                 {showEditDrink && <AddDrink onAddDrink={addDrink} drinkID={params.id} onClose={() => setShowEditDrink(false)} />}
                 {showAddIncredient && <AddIncredient drinkID={params.id} onAddIncredient={addIncredient} onClose={() => setShowAddIncredient(false)} />}
                 {showAddWorkPhase && <AddWorkPhase drinkID={params.id} onAddWorkPhase={addWorkPhase} onClose={() => setShowAddWorkPhase(false)} />}
@@ -353,7 +370,7 @@ export default function DrinkDetails() {
                 <h4>{t('drinkhistory_title')}</h4>
                 {
                     drinkHistory != null && drinkHistory.length > 0 ? (
-                        <DrinkHistories drinkHistories={drinkHistory} />
+                        <DrinkHistories drinkHistories={drinkHistory} drinkID={params.id} />
                     ) : (
                         t('no_drink_history')
                     )

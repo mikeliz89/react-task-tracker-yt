@@ -28,7 +28,7 @@ const Drink = ({ drink, onDelete }) => {
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
     //states
-    const [message, setMessage] = useState('')
+    const [message, setMessage] = useState('');
     const [showMessage, setShowMessage] = useState(false);
     const [error, showError] = useState(false);
 
