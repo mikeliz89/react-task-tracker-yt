@@ -73,13 +73,12 @@ import LinksList from './components/Links/LinksList';
 
 //global icons (https://fontawesome.com/v5/docs/web/use-with/react)
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
 import { 
   faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft,
-  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt
+  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar
  } from '@fortawesome/free-solid-svg-icons';
-library.add(fab, faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft,
-  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt);
+library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft,
+  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar);
 
 //languagization
 i18n

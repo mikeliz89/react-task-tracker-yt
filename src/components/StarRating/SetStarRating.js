@@ -32,6 +32,7 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
     return (
         <>
             <Button
+                iconName='star'
                 color={showStarRating ? 'red' : '#0d6efd'}
                 text={showStarRating ? t('button_close') : t('rate')}
                 onClick={() => setShowStarRating(!showStarRating)} />
@@ -50,7 +51,7 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
                                     <Row>
                                         <ButtonGroup>
                                             <Button type='button' text={t('button_close')} className='btn btn-block'
-                                            onClick={() => setShowStarRating(false)} />
+                                                onClick={() => setShowStarRating(false)} />
                                             <Button
                                                 disabled={loading} type='submit'
                                                 text={t('save_rating')} className='btn btn-block saveBtn' />
