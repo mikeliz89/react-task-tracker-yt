@@ -2,12 +2,15 @@
 import PropTypes from 'prop-types';
 //react
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor, imageName, comingsoon }) => {
+const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor,
+    imageName, comingsoon, iconName }) => {
 
     //translation
     const { t } = useTranslation();
 
+    //images
     const background = `/images/${imageName}`;
 
     return (
@@ -19,7 +22,13 @@ const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor, image
                     { backgroundColor: 'rgba(0, 0, 0, 0)', color: textcolor }}
                 className='bigbtn'>
                 <div style={{ backgroundColor: textBackgroundColor, paddingTop: '5px', paddingBottom: '5px' }}>
-                    <span style={comingsoon ? {color:'gray'} : {}}><b>{text}</b></span>
+                    <span style={comingsoon ? { color: 'gray' } : {}}>
+                        <b>
+                            {iconName && <FontAwesomeIcon icon={iconName} />}
+                            {iconName && ' '}
+                            {text}
+                        </b>
+                    </span>
                     {comingsoon && <div style={{ color: 'gray' }}>{t('coming_soon')}</div>}
                 </div>
             </button>
@@ -33,6 +42,7 @@ BigButton.defaultProps = {
     textcolor: 'white',
     textBackgroundColor: 'rgba(255, 255, 255, 0.5)',
     imageName: '',
+    iconName: '',
     comingsoon: false
 }
 
@@ -42,6 +52,7 @@ BigButton.propTypes = {
     textcolor: PropTypes.string,
     textBackgroundColor: PropTypes.string,
     imageName: PropTypes.string,
+    iconName: PropTypes.string,
     comingsoon: PropTypes.bool,
     onClick: PropTypes.func
 }

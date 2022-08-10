@@ -71,6 +71,13 @@ import Games from './components/Games/Games';
 //LinksList
 import LinksList from './components/Links/LinksList';
 
+//global icons (https://fontawesome.com/v5/docs/web/use-with/react)
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { faCheckSquare, faCoffee, faUtensils, faGlassMartini, faWeight } from '@fortawesome/free-solid-svg-icons';
+library.add(fab, faCheckSquare, faCoffee, faUtensils, faGlassMartini, faWeight);
+
+//languagization
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .use(LanguageDetector)
@@ -88,6 +95,7 @@ i18n
     react: { useSuspense: false },
   });
 
+//app
 function App() {
 
   return (
