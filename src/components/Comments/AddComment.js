@@ -37,6 +37,7 @@ function AddComment({ onSave }) {
     return (
         <>
             <Button type="button"
+                iconName='comments'
                 color={showAddComment ? 'red' : '#0d6efd'}
                 text={
                     showAddComment ? t('button_close') : t('add_comment')
