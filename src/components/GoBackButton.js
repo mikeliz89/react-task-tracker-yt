@@ -9,7 +9,7 @@ const GoBackButton = () => {
   const navigate = useNavigate();
 
   return (
-    <Button text={''} showIconArrowLeft={true} onClick={() => navigate(-1)} />
+    <Button iconName='arrow-left' onClick={() => navigate(-1)} />
   )
 }
 

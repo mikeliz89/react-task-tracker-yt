@@ -2,7 +2,6 @@
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Row, Alert, Form, Col } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 //buttons
 import GoBackButton from '../GoBackButton';
@@ -17,7 +16,10 @@ import { ref, push, onValue, remove } from "firebase/database";
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+//title
 import PageTitle from '../PageTitle';
+//icon
+import Icon from '../Icon';
 
 const ManageRecipes = () => {
 
@@ -163,7 +165,7 @@ const ManageRecipes = () => {
               }}
                 text={t('name')} type="button" />
               {
-                sortByTextAsc ? <FaArrowDown /> : <FaArrowUp />
+                sortByTextAsc ? <Icon name='arrow-down' /> : <Icon name='arrow-up' />
               }
             </Col>
           </Form.Group>

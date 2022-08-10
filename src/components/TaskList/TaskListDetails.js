@@ -1,7 +1,6 @@
 //react
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import { Col, Row, ButtonGroup, Accordion, Table, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 //buttons
@@ -24,6 +23,7 @@ import i18n from "i18next";
 import Links from '../Links/Links';
 import AddLink from '../Links/AddLink';
 import PageTitle from '../PageTitle';
+import Icon from '../Icon';
 
 const SortMode = {
   None: "None",
@@ -269,7 +269,7 @@ function TaskListDetails() {
           <Button showIconAdd={true} color={showAddTask ? 'red' : 'green'}
             text={showAddTask ? t('button_close') : ''}
             onClick={() => setShowAddTask(!showAddTask)} />
-          <Button color="#545454" showIconArchive={true}
+          <Button color="#545454" iconName='archive'
             onClick={() => { if (window.confirm(t('archive_list_confirm_message'))) { archiveTaskList(taskList); } }}
           />
         </ButtonGroup>
@@ -278,7 +278,7 @@ function TaskListDetails() {
       <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>
-            <PageTitle title={taskList.title} showIconListAlt={true} />
+            <PageTitle title={taskList.title} iconName='list-alt' iconColor='gray' />
           </Accordion.Header>
           <Accordion.Body>
             {t('description')}: {taskList.description}<br />
@@ -307,7 +307,7 @@ function TaskListDetails() {
       </Accordion>
       {/* <div>{searchString}</div> */}
       <div className="page-content">
-        <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} />
+        <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} iconName='square-check' />
         {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />}
         {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onAddTask={addTask} />}
         <Form className='form-no-paddings'>
@@ -322,7 +322,7 @@ function TaskListDetails() {
                 text={t('name')} type="button"
               />
               {
-                sortBy === SortMode.Text ? sortByText ? <FaArrowDown /> : <FaArrowUp /> : ''
+                sortBy === SortMode.Text ? sortByText ? <Icon name='arrow-down' /> : <Icon name='arrow-up' /> : ''
               }
             </Col>
           </Form.Group>

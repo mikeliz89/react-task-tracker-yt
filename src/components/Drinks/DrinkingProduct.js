@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import AddDrinkingProduct from './AddDrinkingProduct';
 //utils
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
+//icons
+import Icon from '../Icon';
 
 const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
 
@@ -37,7 +39,7 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
         <div key={drinkingProduct.id} className='drink'>
             <h5>
                 <span>
-                    <FaCocktail style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                    <Icon name='cocktail' color='gray' />
                     {drinkingProduct.name}
                 </span>
                 <span style={{ float: 'right' }}>

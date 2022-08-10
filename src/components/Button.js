@@ -1,14 +1,15 @@
+//proptypes
 import PropTypes from 'prop-types';
+//react
 import {
-    FaArrowLeft, FaArchive, FaSignOutAlt,
     FaEdit, FaPlus, FaCarrot, FaHourglass,
-    FaWeight, FaLemon
+    FaLemon
 } from 'react-icons/fa';
+import Icon from './Icon';
 
 const Button = ({ disabled, color, text, onClick, className,
-    showIconArrowLeft, showIconArchive, showIconLogout, showIconEdit, showIconAdd,
-    showIconCarrot, showIconHourGlass, showIconWeight, showIconLemon,
-    type
+    showIconEdit, showIconAdd, showIconCarrot, showIconHourGlass, showIconLemon,
+    type, iconName, iconColor
 }) => {
     return (
         <button
@@ -18,24 +19,6 @@ const Button = ({ disabled, color, text, onClick, className,
             //jos class saveBtn niin ei styleä
             style={className.includes('saveBtn') ? {} : { backgroundColor: color, color: 'white' }}
             className={className}>
-            {
-                showIconArrowLeft &&
-                <span>
-                    <FaArrowLeft style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
-                </span>
-            }
-            {
-                showIconArchive &&
-                <span>
-                    <FaArchive style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
-                </span>
-            }
-            {
-                showIconLogout &&
-                <span>
-                    <FaSignOutAlt style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
-                </span>
-            }
             {
                 showIconEdit &&
                 <span>
@@ -61,17 +44,12 @@ const Button = ({ disabled, color, text, onClick, className,
                 </span>
             }
             {
-                showIconWeight &&
-                <span>
-                    <FaWeight style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
-                </span>
-            }
-            {
                 showIconLemon &&
                 <span>
                     <FaLemon style={{ color: 'white', cursor: 'pointer', marginRight: '5px', marginBottom: '5px' }} />
                 </span>
             }
+            <Icon name={iconName} color={iconColor} />
             {text}</button>
     )
 }
@@ -82,14 +60,12 @@ Button.defaultProps = {
     textcolor: 'white',
     className: 'btn',
     //icons
-    showIconArrowLeft: false,
-    showIconArchive: false,
-    showIconLogout: false,
+    iconName: '',
+    iconColor: '',
     showIconEdit: false,
     showIconAdd: false,
     showIconCarrot: false,
     showIconHourGlass: false,
-    showIconWeight: false,
     showIconLemon: false,
     //other
     disabled: false
@@ -102,14 +78,12 @@ Button.propTypes = {
     className: PropTypes.string,
     type: PropTypes.string,
     //icons
-    showIconArrowLeft: PropTypes.bool,
-    showIconArchive: PropTypes.bool,
-    showIconLogout: PropTypes.bool,
+    iconName: PropTypes.string,
+    iconColor: PropTypes.string,
     showIconEdit: PropTypes.bool,
     showIconAdd: PropTypes.bool,
     showIconCarrot: PropTypes.bool,
     showIconHourGlass: PropTypes.bool,
-    showIconWeight: PropTypes.bool,
     showIconLemon: PropTypes.bool,
     //other
     disabled: PropTypes.bool,

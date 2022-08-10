@@ -1,7 +1,7 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaTimes, FaUtensils, FaShoppingCart } from 'react-icons/fa';
+import { FaTimes, FaShoppingCart } from 'react-icons/fa';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useState } from 'react'
 //star rating
@@ -16,6 +16,7 @@ import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
 import { useAuth } from '../../contexts/AuthContext';
 //i18n
 import i18n from "i18next";
+import Icon from '../Icon';
 
 const Recipe = ({ recipe, onDelete }) => {
 
@@ -112,7 +113,7 @@ const Recipe = ({ recipe, onDelete }) => {
         <div key={recipe.id} className={recipe.isCore === true ? 'recipe coreRecipe' : 'recipe'}>
             <h5>
                 <span>
-                    <FaUtensils style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                    <Icon name='utensils' color='gray' />
                     {recipe.title}
                 </span>
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}

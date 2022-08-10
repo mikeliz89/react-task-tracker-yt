@@ -2,10 +2,10 @@
 import PropTypes from 'prop-types';
 //react
 import { useTranslation } from 'react-i18next';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Icon from './Icon';
 
 const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor,
-    imageName, comingsoon, iconName }) => {
+    imageName, comingsoon, iconName, iconColor }) => {
 
     //translation
     const { t } = useTranslation();
@@ -24,8 +24,7 @@ const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor,
                 <div style={{ backgroundColor: textBackgroundColor, paddingTop: '5px', paddingBottom: '5px' }}>
                     <span style={comingsoon ? { color: 'gray' } : {}}>
                         <b>
-                            {iconName && <FontAwesomeIcon icon={iconName} />}
-                            {iconName && ' '}
+                            <Icon name={iconName} color={iconColor} />
                             {text}
                         </b>
                     </span>
@@ -43,6 +42,7 @@ BigButton.defaultProps = {
     textBackgroundColor: 'rgba(255, 255, 255, 0.5)',
     imageName: '',
     iconName: '',
+    iconColor: '',
     comingsoon: false
 }
 
@@ -53,6 +53,7 @@ BigButton.propTypes = {
     textBackgroundColor: PropTypes.string,
     imageName: PropTypes.string,
     iconName: PropTypes.string,
+    iconColor: PropTypes.string,
     comingsoon: PropTypes.bool,
     onClick: PropTypes.func
 }

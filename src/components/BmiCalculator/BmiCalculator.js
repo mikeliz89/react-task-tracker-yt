@@ -51,7 +51,12 @@ const BmiCalculator = () => {
     }
 
     async function onSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
+
+        //validation
+        if(weight <= 0) {
+            alert(t('please_give_weight'));
+        }
 
         let bmi = calculateBMI();
         setBMI(bmi);
@@ -80,7 +85,7 @@ const BmiCalculator = () => {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        showIconWeight={true}
+                        iconName='weight'
                         color="#545454"
                         text={t('button_weight_history')}
                         onClick={() => navigate('/weighthistory')} />

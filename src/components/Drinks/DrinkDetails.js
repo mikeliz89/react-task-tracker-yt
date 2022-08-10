@@ -289,7 +289,7 @@ export default function DrinkDetails() {
             <Accordion>
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>
-                        <PageTitle title={drink.title} showIconMartiniGlass={true} />
+                        <PageTitle title={drink.title} iconName='glass-martini' iconColor='gray' />
                     </Accordion.Header>
                     <Accordion.Body>
                         {t('description')}: {drink.description}<br />

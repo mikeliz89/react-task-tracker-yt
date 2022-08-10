@@ -121,7 +121,7 @@ export default function DrinkingProductDetails() {
             <Accordion>
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>
-                        <PageTitle title={drinkingProduct.name} showIconCocktail={true} />
+                        <PageTitle title={drinkingProduct.name} iconName='cocktail' iconColor='gray' />
                     </Accordion.Header>
                     <Accordion.Body>
                         {t('description')}: {drinkingProduct.description}<br />

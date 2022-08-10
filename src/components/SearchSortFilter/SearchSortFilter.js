@@ -1,13 +1,13 @@
 //react
 import { useState, useEffect } from 'react';
 import { Col, Row, Form } from 'react-bootstrap';
-import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 //buttons
 import Button from '../Button';
 import { SortMode } from './SortModes';
 //proptypes
 import PropTypes from 'prop-types';
+import Icon from '../Icon';
 
 const SearchSortFilter = ({ onSet,
     originalList,
@@ -97,10 +97,10 @@ const SearchSortFilter = ({ onSet,
                                     sortBy === SortMode.Created_ASC ? setSortBy(SortMode.Created_DESC) : setSortBy(SortMode.Created_ASC);
                                 }} text={t('created_date')} type="button" />
                                 {
-                                    sortBy === SortMode.Created_DESC ? <FaArrowDown /> : ''
+                                    sortBy === SortMode.Created_DESC ? <Icon name='arrow-down' /> : ''
                                 }
                                 {
-                                    sortBy === SortMode.Created_ASC ? <FaArrowUp /> : ''
+                                    sortBy === SortMode.Created_ASC ? <Icon name='arrow-up' /> : ''
                                 }
                             </>
                         }
@@ -115,10 +115,10 @@ const SearchSortFilter = ({ onSet,
                                     text={t('name')} type="button"
                                 />
                                 {
-                                    sortBy === SortMode.Name_DESC ? <FaArrowDown /> : ''
+                                    sortBy === SortMode.Name_DESC ? <Icon name='arrow-down' /> : ''
                                 }
                                 {
-                                    sortBy === SortMode.Name_ASC ? <FaArrowUp /> : ''
+                                    sortBy === SortMode.Name_ASC ? <Icon name='arrow-up' /> : ''
                                 }
                             </>
                         }
@@ -133,10 +133,10 @@ const SearchSortFilter = ({ onSet,
                                     text={t('title')} type="button"
                                 />
                                 {
-                                    sortBy === SortMode.Name_DESC ? <FaArrowDown /> : ''
+                                    sortBy === SortMode.Name_DESC ? <Icon name='arrow-down' /> : ''
                                 }
                                 {
-                                    sortBy === SortMode.Title_ASC ? <FaArrowUp /> : ''
+                                    sortBy === SortMode.Title_ASC ? <Icon name='arrow-up' /> : ''
                                 }
                             </>
                         }

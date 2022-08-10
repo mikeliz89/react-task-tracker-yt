@@ -1,7 +1,8 @@
 //react
-import { FaTimes, FaListAlt } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { FaTimes } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Icon from '../Icon';
 
 const TaskList = ({ taskList, archived, onDelete }) => {
 
@@ -12,7 +13,7 @@ const TaskList = ({ taskList, archived, onDelete }) => {
         <div className='tasklist'>
             <h5>
                 <span>
-                    <FaListAlt style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                    <Icon name='list-alt' color='gray' />
                     {taskList.title}
                 </span>
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}

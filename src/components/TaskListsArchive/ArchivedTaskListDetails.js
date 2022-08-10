@@ -106,7 +106,7 @@ export default function ArchivedTaskListDetails() {
       <Accordion>
         <Accordion.Item>
           <Accordion.Header>
-            <PageTitle title={taskList.title} showIconListAlt={true} />
+            <PageTitle title={taskList.title} iconName='list-alt' />
           </Accordion.Header>
           <Accordion.Body>
             {t('description')}: {taskList.description}<br />

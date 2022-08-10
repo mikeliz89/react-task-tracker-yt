@@ -218,7 +218,7 @@ export default function RecipeDetails() {
             <Accordion>
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>
-                        <PageTitle title={recipe.title} showIconUtentils={true} />
+                        <PageTitle title={recipe.title} iconName='utensils' iconColor='gray' />
                     </Accordion.Header>
                     <Accordion.Body>
                         {t('description')}: {recipe.description}<br />

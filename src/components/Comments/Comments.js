@@ -2,12 +2,12 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
-import { FaComments } from 'react-icons/fa';
 //Firebase
 import { db } from '../../firebase-config';
 import { ref, onValue, child, remove } from "firebase/database";
 //comments
 import CommentsInner from './CommentsInner';
+import Icon from '../Icon';
 
 const Comments = ({ url, objID }) => {
 
@@ -52,7 +52,7 @@ const Comments = ({ url, objID }) => {
         <div>
             {/* <pre>{JSON.stringify(comments)}</pre> */}
             <h4>
-                <FaComments style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                <Icon name='comments' color='gray' />
                 {t('header')} {commentCounter > 0 ? '(' + commentCounter + ')' : ''}
             </h4>
             {

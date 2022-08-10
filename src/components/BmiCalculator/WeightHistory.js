@@ -57,7 +57,7 @@ const WeightHistory = () => {
     return (
         <div>
             <GoBackButton />
-            <PageTitle title={t('weighthistory')} />
+            <PageTitle title={t('weighthistory')} iconName='weight' iconColor='gray' />
             <WeightChart data={historyRows} />
             {/* { <pre>{JSON.stringify(historyRows)}</pre> } */}
             {historyRows

@@ -17,8 +17,8 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //Context
 import { useAuth } from '../../contexts/AuthContext';
 //Icons
-import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import PageTitle from '../PageTitle';
+import Icon from '../Icon';
 
 const SortMode = {
   None: "None",
@@ -165,10 +165,10 @@ export default function ManageTaskLists() {
                 sortBy === SortMode.Created_ASC ? setSortBy(SortMode.Created_DESC) : setSortBy(SortMode.Created_ASC);
               }} text={t('created_date')} type="button" />
               {
-                sortBy === SortMode.Created_DESC ? <FaArrowDown /> : ''
+                sortBy === SortMode.Created_DESC ? <Icon name='arrow-down' /> : ''
               }
               {
-                sortBy === SortMode.Created_ASC ? <FaArrowUp /> : ''
+                sortBy === SortMode.Created_ASC ? <Icon name='arrow-up' /> : ''
               }
               &nbsp;
               <Button onClick={() => {
@@ -178,10 +178,10 @@ export default function ManageTaskLists() {
                 text={t('name')} type="button"
               />
               {
-                sortBy === SortMode.Name_DESC ? <FaArrowDown /> : ''
+                sortBy === SortMode.Name_DESC ? <Icon name='arrow-down' /> : ''
               }
               {
-                sortBy === SortMode.Name_ASC ? <FaArrowUp /> : ''
+                sortBy === SortMode.Name_ASC ? <Icon name='arrow-up' /> : ''
               }
             </Col>
           </Form.Group>

@@ -27,7 +27,7 @@ export default function Logout() {
         <>
             {error && <div className="error">{error}</div>}
             <Button
-                showIconLogout={true}
+                iconName='sign-out-alt'
                 onClick={() => handleLogout()}
                 text={t('log_out')}
                 color="gray"
