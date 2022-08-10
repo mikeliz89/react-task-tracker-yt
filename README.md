@@ -109,3 +109,6 @@ https://react.i18next.com/getting-started
 https://github.com/i18next/i18next-browser-languageDetector
 
 https://github.com/i18next/i18next-http-backend
+
+### React Fontawesome v5 icons
+https://fontawesome.com/v5/docs/web/use-with/react
