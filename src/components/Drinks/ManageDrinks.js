@@ -16,9 +16,12 @@ import Button from '../Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+//pagetitle
 import PageTitle from '../PageTitle';
-
+//icon
 import Icon from '../Icon';
+//searchsortfilter
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 
 const SortMode = {
     None: "None",
@@ -49,16 +52,6 @@ export default function ManageDrinks() {
     const [message, setMessage] = useState('');
     const [showMessage, setShowMessage] = useState(false);
 
-    //filters
-    const [showOnlyDone, setShowOnlyDone] = useState(false);
-    const [showOnlyNotDone, setShowOnlyNotDone] = useState(false);
-
-    //search
-    const [searchString, setSearchString] = useState('');
-
-    //sorting
-    const [sortBy, setSortBy] = useState(SortMode.None);
-
     //user
     const { currentUser } = useAuth();
 
@@ -78,10 +71,6 @@ export default function ManageDrinks() {
             cancel = true;
         }
     }, [])
-
-    useEffect(() => {
-        filterAndSort();
-    }, [sortBy, searchString, showOnlyDone, showOnlyNotDone])
 
     /** Fetch Drinks From Firebase */
     const fetchDrinksFromFirebase = async () => {
@@ -121,40 +110,6 @@ export default function ManageDrinks() {
         remove(dbref);
     }
 
-    const filterAndSort = () => {
-        if (!originalDrinks) {
-            return;
-        }
-        let newDrinks = originalDrinks;
-        //haut
-        if (searchString !== "") {
-            newDrinks = newDrinks.filter(drink => drink.title.toLowerCase().includes(searchString.toLowerCase()));
-        }
-        //filtterit:
-        if (showOnlyDone) {
-            newDrinks = newDrinks.filter(drink => drink.stars !== undefined && drink.stars > 0);
-        } else if (showOnlyNotDone) {
-            newDrinks = newDrinks.filter(drink => drink.stars === undefined || drink.stars === 0);
-        }
-        //sortit
-        if (sortBy === SortMode.Name_ASC || sortBy === SortMode.Name_DESC) {
-            newDrinks = [...newDrinks].sort((a, b) => {
-                return a.title > b.title ? 1 : -1
-            });
-            if (sortBy === SortMode.Name_DESC) {
-                newDrinks.reverse();
-            }
-        } else if (sortBy === SortMode.Created_ASC || sortBy === SortMode.Created_DESC) {
-            newDrinks = [...newDrinks].sort(
-                (a, b) => new Date(a.created).setHours(0, 0, 0, 0) - new Date(b.created).setHours(0, 0, 0, 0)
-            );
-            if (sortBy === SortMode.Created_DESC) {
-                newDrinks.reverse();
-            }
-        }
-        setDrinks(newDrinks);
-    }
-
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -180,65 +135,15 @@ export default function ManageDrinks() {
                         </div>
                     </Alert>}
                 {showAddDrink && <AddDrink onAddDrink={addDrink} onClose={() => setShowAddDrink(false)} />}
-                <Form className='form-no-paddings'>
-                    <Form.Group as={Row}>
-                        <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
-                        <Col xs={9} sm={10}>
-                            <Button onClick={() => {
-                                sortBy === SortMode.Created_ASC ? setSortBy(SortMode.Created_DESC) : setSortBy(SortMode.Created_ASC);
-                            }} text={t('created_date')} type="button" />
-                            {
-                                sortBy === SortMode.Created_DESC ? <Icon name='arrow-down' /> : ''
-                            }
-                            {
-                                sortBy === SortMode.Created_ASC ? <Icon name='arrow-up' /> : ''
-                            }
-                            &nbsp;
-                            <Button onClick={() => {
-                                sortBy === SortMode.Name_ASC ? setSortBy(SortMode.Name_DESC) : setSortBy(SortMode.Name_ASC);
-                            }
-                            }
-                                text={t('name')} type="button"
-                            />
-                            {
-                                sortBy === SortMode.Name_DESC ? <Icon name='arrow-down' /> : ''
-                            }
-                            {
-                                sortBy === SortMode.Name_ASC ? <Icon name='arrow-up' /> : ''
-                            }
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
-                        <Col xs={9} sm={10}>
-                            <Form.Control
-                                autoComplete="off"
-                                type="text"
-                                id="inputSearchString"
-                                aria-describedby="searchHelpBlock"
-                                onChange={(e) => setSearchString(e.target.value)}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="formHorizontalCheck-ShowOnlyDone">
-                        <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-                        <Col xs={9} sm={10}>
-                            <Form.Check label={t('show_only_done')}
-                                onChange={(e) => {
-                                    setShowOnlyDone(e.currentTarget.checked);
-                                }} />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="formHorizontalCheck-ShowOnlyNotDone">
-                        <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-                        <Col xs={9} sm={10}>
-                            <Form.Check label={t('show_only_not_done')}
-                                onChange={(e) => {
-                                    setShowOnlyNotDone(e.currentTarget.checked);
-                                }} />
-                        </Col>
-                    </Form.Group>
-                </Form>
+
+                <SearchSortFilter
+                    useTitleFiltering={true}
+                    onSet={setDrinks}
+                    showFilterHaveRated={true}
+                    showFilterNotHaveRated={true}
+                    showSortByTitle={true}
+                    showSortByCreatedDate={true}
+                    originalList={originalDrinks} />
                 {
                     drinks != null && drinks.length > 0 ? (
                         <Drinks drinks={drinks}

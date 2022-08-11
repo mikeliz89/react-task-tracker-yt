@@ -17,6 +17,10 @@ const SearchSortFilter = ({ onSet,
     showSearch,
     showFilterHaveAtHome,
     showFilterNotHaveAtHome,
+    showFilterHaveRated,
+    showFilterNotHaveRated,
+    useNameFiltering,
+    useTitleFiltering,
     defaultSort }) => {
 
     //states
@@ -24,11 +28,17 @@ const SearchSortFilter = ({ onSet,
     const [sortBy, setSortBy] = useState(defaultSort);
     const [showOnlyHaveAtHome, setShowOnlyHaveAtHome] = useState(false);
     const [showOnlyNotHaveAtHome, setShowOnlyNotHaveAtHome] = useState(false);
+    const [showOnlyHaveRated, setShowOnlyHaveRated] = useState(false);
+    const [showOnlyNotHaveRated, setShowOnlyNotHaveRated] = useState(false);
+
+    //private states
     const [_showSortByName, _setShowSortByName] = useState(showSortByName);
     const [_showSortByTitle, _setShowSortByTitle] = useState(showSortByTitle);
     const [_showSortByCreatedDate, _setShowSortByCreatedDate] = useState(showSortByCreatedDate);
     const [_showOnlyHaveAtHome, _setShowOnlyHaveAtHome] = useState(showFilterHaveAtHome);
     const [_showOnlyNotHaveAtHome, _setShowOnlyNotHaveAtHome] = useState(showFilterNotHaveAtHome);
+    const [_showOnlyHaveRated, _setShowOnlyHaveRated] = useState(showFilterHaveRated);
+    const [_showOnlyNotHaveRated, _setShowOnlyNotHaveRated] = useState(showFilterNotHaveRated);
 
     //translation
     const { t } = useTranslation('searchsortfilter', { keyPrefix: 'searchsortfilter' });
@@ -39,25 +49,51 @@ const SearchSortFilter = ({ onSet,
     }, [])
 
     useEffect(() => {
-        filterAndSort(searchString, sortBy, showOnlyHaveAtHome, showOnlyNotHaveAtHome);
-    }, [sortBy, searchString, showOnlyHaveAtHome, showOnlyNotHaveAtHome]);
+        filterAndSort();
+    }, [sortBy, searchString, showOnlyHaveAtHome, showOnlyNotHaveAtHome, showOnlyHaveRated, showOnlyNotHaveRated]);
 
-    const filterAndSort = (searchString, sortBy, showOnlyHaveAtHome, showOnlyNotHaveAtHome) => {
+    const filterAndSort = (searchString) => {
         if (!originalList) {
             return;
         }
         let newList = originalList;
-        //haut
+        newList = searching(newList);
+        newList = filtering(newList);
+        newList = sorting(newList);
+        onSet(newList);
+    }
+
+    const searching = (newList) => {
         if (searchString !== "") {
-            newList = newList.filter(x => x.name.toLowerCase().includes(searchString.toLowerCase()));
+            if (useNameFiltering) {
+                newList = newList.filter(x => x.name != null && x.name.toLowerCase().includes(searchString.toLowerCase()));
+            }
+            if (useTitleFiltering) {
+                newList = newList.filter(x => x.title != null && x.title.toLowerCase().includes(searchString.toLowerCase()));
+            }
         }
-        //filtterit
+        return newList;
+    }
+
+    const filtering = (newList) => {
+        //have at home
         if (showOnlyHaveAtHome) {
             newList = newList.filter(x => x.haveAtHome === true);
         }
         else if (showOnlyNotHaveAtHome) {
             newList = newList.filter(x => x.haveAtHome === false || !x.haveAtHome);
         }
+        //rated
+        if (showOnlyHaveRated) {
+            newList = newList.filter(x => x.stars !== undefined && x.stars > 0);
+        }
+        else if (showOnlyNotHaveRated) {
+            newList = newList.filter(x => x.stars === undefined || x.stars === 0);
+        }
+        return newList;
+    }
+
+    const sorting = (newList) => {
         //sortit
         if (sortBy === SortMode.Name_ASC || sortBy === SortMode.Name_DESC) {
             newList = [...newList].sort((a, b) => {
@@ -81,7 +117,7 @@ const SearchSortFilter = ({ onSet,
                 newList.reverse();
             }
         }
-        onSet(newList);
+        return newList;
     }
 
     return (
@@ -133,7 +169,7 @@ const SearchSortFilter = ({ onSet,
                                     text={t('title')} type="button"
                                 />
                                 {
-                                    sortBy === SortMode.Name_DESC ? <Icon name='arrow-down' /> : ''
+                                    sortBy === SortMode.Title_DESC ? <Icon name='arrow-down' /> : ''
                                 }
                                 {
                                     sortBy === SortMode.Title_ASC ? <Icon name='arrow-up' /> : ''
@@ -187,6 +223,34 @@ const SearchSortFilter = ({ onSet,
                         </Form.Group>
                     </>
                 }
+                {
+                    showFilterHaveRated &&
+                    <>
+                        <Form.Group as={Row} controlId='searchSortFilter-OnlyHaveRated'>
+                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+                            <Col xs={9} sm={10}>
+                                <Form.Check label={t('show_only_have_rated')}
+                                    onChange={(e) => {
+                                        setShowOnlyHaveRated(e.currentTarget.checked);
+                                    }} />
+                            </Col>
+                        </Form.Group>
+                    </>
+                }
+                {
+                    showFilterNotHaveRated &&
+                    <>
+                        <Form.Group as={Row} controlId='searchSortFilter-OnlyNotHaveRated'>
+                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+                            <Col xs={9} sm={10}>
+                                <Form.Check label={t('show_only_not_have_rated')}
+                                    onChange={(e) => {
+                                        setShowOnlyNotHaveRated(e.currentTarget.checked);
+                                    }} />
+                            </Col>
+                        </Form.Group>
+                    </>
+                }
             </Form>
         </div>
     )
@@ -196,7 +260,11 @@ SearchSortFilter.defaultProps = {
     defaultSort: SortMode.Created_ASC,
     showSearch: true,
     showFilterHaveAtHome: false,
-    showFilterNotHaveAtHome: false
+    showFilterNotHaveAtHome: false,
+    showFilterHaveRated: false,
+    showFilterNotHaveRated: false,
+    useNameFiltering: false,
+    useTitleFiltering: false
 }
 
 SearchSortFilter.propTypes = {
@@ -207,6 +275,10 @@ SearchSortFilter.propTypes = {
     showSearch: PropTypes.bool,
     showFilterHaveAtHome: PropTypes.bool,
     showFilterNotHaveAtHome: PropTypes.bool,
+    showFilterHaveRated: PropTypes.bool,
+    showFilterNotHaveRated: PropTypes.bool,
+    useNameFiltering: PropTypes.bool,
+    useTitleFiltering: PropTypes.bool,
     onSet: PropTypes.func
 }
 

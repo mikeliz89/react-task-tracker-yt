@@ -216,8 +216,6 @@
         "save_success_drinkinghistory": "Tallennus onnistui",
         "search": "Hae",
         "show": "Näytä",
-        "show_only_done": "Vain arvioidut",
-        "show_only_not_done": "Vain ei-arvioidut",
         "sorting": "Järjestä",
         "view_details": "Katso lisätiedot",
         "workphase_estimated_length": "Arvioitu kesto minuutteina",
@@ -428,8 +426,10 @@
         "show": "Näytä",
         "show_only_have_at_home": "Minulla on tätä",
         "show_only_not_have_at_home": "Minulla ei ole tätä",
+        "show_only_have_rated": "Vain arvioidut",
+        "show_only_not_have_rated": "Vain ei-arvioidut",
         "sorting": "Järjestä",
-        "title": "Otsikko"
+        "title": "Nimi"
     },
     "starrating": {
         "button_close": "Sulje",

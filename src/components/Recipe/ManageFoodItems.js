@@ -118,6 +118,7 @@ const ManageFoodItems = () => {
             {showAddFoodItem &&
                 <AddFoodItem onClose={() => setShowAddFoodItem(!showAddFoodItem)} onAddFoodItem={addFoodItem} />}
             <SearchSortFilter
+                useNameFiltering={true}
                 showFilterHaveAtHome={true}
                 showFilterNotHaveAtHome={true}
                 onSet={setFoodItems}
