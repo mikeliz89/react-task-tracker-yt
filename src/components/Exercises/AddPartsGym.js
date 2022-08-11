@@ -55,8 +55,12 @@ const AddPartsGym = () => {
   return (
     <div>
       <h4>{t('gym_parts_header')}</h4>
-      <Button text={t('gym_parts_add_button')} onClick={() => setShowAddGymPart(!showAddGymPart)} />
-      {showAddGymPart && <AddPartsGymForm exerciseID={params.id} onAddPart={addPart} />}
+      <Button 
+      iconName='burn'
+      color={showAddGymPart ? 'red' : 'steelblue'}
+      text={showAddGymPart ? t('close') : t('gym_parts_add_button')} 
+      onClick={() => setShowAddGymPart(!showAddGymPart)} />
+      {showAddGymPart && <AddPartsGymForm exerciseID={params.id} onAddPart={addPart} onClose={() => setShowAddGymPart(false)} />}
       {parts != null && parts.length > 0 ?
         (<div><GymParts exerciseID={params.id} parts={parts} /></div>) :
         (<div>{t('gym_no_parts')} </div>)

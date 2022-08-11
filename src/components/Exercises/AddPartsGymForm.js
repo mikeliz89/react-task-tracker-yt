@@ -3,9 +3,9 @@ import Button from "../Button";
 //react
 import { useTranslation } from 'react-i18next';
 import { useState } from "react";
-import { Form, Row, Col } from "react-bootstrap";
+import { Form, Row, Col, ButtonGroup } from "react-bootstrap";
 
-function AddPartsGymForm({ exerciseID, onAddPart }) {
+function AddPartsGymForm({ exerciseID, onAddPart, onClose }) {
 
     //translation  
     const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
@@ -78,7 +78,12 @@ function AddPartsGymForm({ exerciseID, onAddPart }) {
                         onChange={(e) => setRepeat(e.target.value)} />
                 </Form.Group>
             </Row>
-            <Button type='submit' text={t('button_save_gym_part')} className='btn btn-block saveBtn' />
+            <Row>
+                <ButtonGroup>
+                    <Button type='button' text={t('close')} className='btn btn-block' onClick={() => onClose()} />
+                    <Button type='submit' text={t('button_save_gym_part')} className='btn btn-block saveBtn' />
+                </ButtonGroup>
+            </Row>
         </Form>
     )
 }

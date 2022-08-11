@@ -75,10 +75,10 @@ import LinksList from './components/Links/LinksList';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { 
   faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft,
-  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar
+  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn
  } from '@fortawesome/free-solid-svg-icons';
 library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft,
-  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar);
+  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn);
 
 //languagization
 i18n
