@@ -18,8 +18,6 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 //pagetitle
 import PageTitle from '../PageTitle';
-//icon
-import Icon from '../Icon';
 //searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 

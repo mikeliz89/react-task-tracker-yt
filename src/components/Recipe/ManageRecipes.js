@@ -18,8 +18,8 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 //title
 import PageTitle from '../PageTitle';
-//icon
-import Icon from '../Icon';
+//search sort filter
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 
 const ManageRecipes = () => {
 
@@ -34,14 +34,6 @@ const ManageRecipes = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [recipes, setRecipes] = useState();
   const [originalRecipes, setOriginalRecipes] = useState();
-  const [searchString, setSearchString] = useState('');
-
-  //sorting
-  const [sortingIsOn, setSortingIsOn] = useState(false);
-  const [sortByTextAsc, setSortByTextAsc] = useState(true);
-
-  //searching
-  const [showOnlyCoreRecipes, setShowOnlyCoreRecipes] = useState(false);
 
   //translation
   const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
@@ -65,11 +57,6 @@ const ManageRecipes = () => {
       cancel = true;
     }
   }, [])
-
-  /* kuuntele muutoksia, jos niitä tulee, filtteröi ja sorttaa */
-  useEffect(() => {
-    filterAndSort();
-  }, [searchString, showOnlyCoreRecipes, sortByTextAsc]);
 
   /** Fetch Recipes From Firebase */
   const fetchRecipesFromFirebase = async () => {
@@ -106,28 +93,6 @@ const ManageRecipes = () => {
     remove(dbref)
   }
 
-  const filterAndSort = () => {
-    if (!originalRecipes) {
-      return;
-    }
-    let newRecipes = originalRecipes;
-    if (searchString !== "") {
-      newRecipes = newRecipes.filter(recipe => recipe.title.toLowerCase().includes(searchString.toLowerCase()));
-    }
-    if (showOnlyCoreRecipes) {
-      newRecipes = newRecipes.filter(recipe => recipe.isCore === true);
-    }
-    if (sortingIsOn) {
-      newRecipes = [...newRecipes].sort((a, b) => {
-        return a.title > b.title ? 1 : -1
-      });
-      if (sortByTextAsc) {
-        newRecipes.reverse();
-      }
-    }
-    setRecipes(newRecipes);
-  }
-
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -153,41 +118,13 @@ const ManageRecipes = () => {
             </div>
           </Alert>}
         {showAddRecipe && <AddRecipe onClose={() => setShowAddRecipe(false)} onAddRecipe={addRecipe} />}
-        <Form className='form-no-paddings'>
-          <Form.Group as={Row}>
-            <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
-            <Col xs={9} sm={10}>
-              <Button onClick={() => {
-                setSortByTextAsc(!sortByTextAsc);
-                if (!sortingIsOn) {
-                  setSortingIsOn(true);
-                }
-              }}
-                text={t('name')} type="button" />
-              {
-                sortByTextAsc ? <Icon name='arrow-down' /> : <Icon name='arrow-up' />
-              }
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
-            <Col xs={9} sm={10}>
-              <Form.Control
-                autoComplete="off"
-                type="text"
-                id="inputSearchString"
-                aria-describedby="searchHelpBlock"
-                onChange={(e) => setSearchString(e.target.value)}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="formHorizontalCheck">
-            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-            <Col xs={9} sm={10}>
-              <Form.Check label={t('core_only')} onChange={(e) => setShowOnlyCoreRecipes(e.currentTarget.checked)} />
-            </Col>
-          </Form.Group>
-        </Form>
+        <SearchSortFilter
+                useTitleFiltering={true}
+                onSet={setRecipes}
+                showFilterCore={true}
+                showSortByTitle={true}
+                showSortByCreatedDate={true}
+                originalList={originalRecipes} />
         {
           recipes != null && recipes.length > 0 ? (
             <Recipes recipes={recipes}

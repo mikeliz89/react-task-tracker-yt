@@ -19,6 +19,7 @@ const SearchSortFilter = ({ onSet,
     showFilterNotHaveAtHome,
     showFilterHaveRated,
     showFilterNotHaveRated,
+    showFilterCore,
     useNameFiltering,
     useTitleFiltering,
     defaultSort }) => {
@@ -30,6 +31,7 @@ const SearchSortFilter = ({ onSet,
     const [showOnlyNotHaveAtHome, setShowOnlyNotHaveAtHome] = useState(false);
     const [showOnlyHaveRated, setShowOnlyHaveRated] = useState(false);
     const [showOnlyNotHaveRated, setShowOnlyNotHaveRated] = useState(false);
+    const [showOnlyCore, setShowOnlyCore] = useState(false);
 
     //private states
     const [_showSortByName, _setShowSortByName] = useState(showSortByName);
@@ -39,6 +41,7 @@ const SearchSortFilter = ({ onSet,
     const [_showOnlyNotHaveAtHome, _setShowOnlyNotHaveAtHome] = useState(showFilterNotHaveAtHome);
     const [_showOnlyHaveRated, _setShowOnlyHaveRated] = useState(showFilterHaveRated);
     const [_showOnlyNotHaveRated, _setShowOnlyNotHaveRated] = useState(showFilterNotHaveRated);
+    const [_showOnlyCore, _setShowOnlyCore] = useState(showFilterCore);
 
     //translation
     const { t } = useTranslation('searchsortfilter', { keyPrefix: 'searchsortfilter' });
@@ -50,9 +53,10 @@ const SearchSortFilter = ({ onSet,
 
     useEffect(() => {
         filterAndSort();
-    }, [sortBy, searchString, showOnlyHaveAtHome, showOnlyNotHaveAtHome, showOnlyHaveRated, showOnlyNotHaveRated]);
+    }, [sortBy, searchString, showOnlyHaveAtHome, showOnlyNotHaveAtHome, showOnlyHaveRated, showOnlyNotHaveRated,
+        showOnlyCore]);
 
-    const filterAndSort = (searchString) => {
+    const filterAndSort = () => {
         if (!originalList) {
             return;
         }
@@ -89,6 +93,9 @@ const SearchSortFilter = ({ onSet,
         }
         else if (showOnlyNotHaveRated) {
             newList = newList.filter(x => x.stars === undefined || x.stars === 0);
+        }
+        if(showOnlyCore) {
+            newList = newList.filter(x => x.isCore === true);
         }
         return newList;
     }
@@ -251,34 +258,57 @@ const SearchSortFilter = ({ onSet,
                         </Form.Group>
                     </>
                 }
+                {
+                    showFilterCore &&
+                    <>
+                        <Form.Group as={Row} controlId='searchSortFilter-OnlyCore'>
+                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+                            <Col xs={9} sm={10}>
+                                <Form.Check label={t('show_only_core')}
+                                    onChange={(e) => {
+                                        setShowOnlyCore(e.currentTarget.checked);
+                                    }} />
+                            </Col>
+                        </Form.Group>
+                    </>
+                }
             </Form>
         </div>
     )
 }
 
 SearchSortFilter.defaultProps = {
+    //sorting
     defaultSort: SortMode.Created_ASC,
+    //searching
     showSearch: true,
+    //filtering
     showFilterHaveAtHome: false,
     showFilterNotHaveAtHome: false,
     showFilterHaveRated: false,
     showFilterNotHaveRated: false,
+    showFilterCore: false,
     useNameFiltering: false,
     useTitleFiltering: false
 }
 
 SearchSortFilter.propTypes = {
+    //sorting
     defaultSort: PropTypes.string,
     showSortByName: PropTypes.bool,
     showSortByTitle: PropTypes.bool,
     showSortByCreatedDate: PropTypes.bool,
+    //searching
     showSearch: PropTypes.bool,
+    //filtering
     showFilterHaveAtHome: PropTypes.bool,
     showFilterNotHaveAtHome: PropTypes.bool,
     showFilterHaveRated: PropTypes.bool,
     showFilterNotHaveRated: PropTypes.bool,
+    showFilterCore: PropTypes.bool,
     useNameFiltering: PropTypes.bool,
     useTitleFiltering: PropTypes.bool,
+    //other
     onSet: PropTypes.func
 }
 

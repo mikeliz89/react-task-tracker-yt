@@ -428,6 +428,7 @@
         "show_only_not_have_at_home": "Minulla ei ole tätä",
         "show_only_have_rated": "Vain arvioidut",
         "show_only_not_have_rated": "Vain ei-arvioidut",
+        "show_only_core": "Vain core",
         "sorting": "Järjestä",
         "title": "Nimi"
     },
