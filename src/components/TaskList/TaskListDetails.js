@@ -22,14 +22,10 @@ import i18n from "i18next";
 //Links
 import Links from '../Links/Links';
 import AddLink from '../Links/AddLink';
+//pagetitle
 import PageTitle from '../PageTitle';
-import Icon from '../Icon';
-
-const SortMode = {
-  None: "None",
-  Text: "Text",
-  Created: "Created"
-}
+//SearchSortFilter
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 
 function TaskListDetails() {
 
@@ -49,13 +45,7 @@ function TaskListDetails() {
   const [showEditTaskList, setShowEditTaskList] = useState(false);
   const [tasks, setTasks] = useState();
   const [originalTasks, setOriginalTasks] = useState();
-  //search
-  const [searchString, setSearchString] = useState('');
-  //sorting
-  const [sortBy, setSortBy] = useState(SortMode.None);
-  const [sortByText, setSortByText] = useState(true);
-  const [showOnlyTaskReady, setShowOnlyTaskReady] = useState(false);
-  const [showOnlyTaskNotReady, setShowOnlyTaskNotReady] = useState(false);
+
   //counters
   const [taskCounter, setTaskCounter] = useState(0);
   const [taskReadyCounter, setTaskReadyCounter] = useState(0);
@@ -85,11 +75,6 @@ function TaskListDetails() {
       cancel = true;
     }
   }, [])
-
-  /* kuuntele muutoksia, jos niitä tulee, filtteröi ja sorttaa */
-  useEffect(() => {
-    filterAndSort();
-  }, [searchString, sortBy, showOnlyTaskReady, showOnlyTaskNotReady]);
 
   /** Fetch Task List From Firebase */
   const fetchTaskListFromFirebase = async () => {
@@ -159,7 +144,6 @@ function TaskListDetails() {
     const dbref = child(ref(db, DB_TASKS), taskListID);
     get(dbref).then((snapshot) => {
       if (snapshot.exists()) {
-
         //update each snapshot data separately (child)
         snapshot.forEach((data) => {
           //console.log(data.val());
@@ -218,34 +202,6 @@ function TaskListDetails() {
         console.log("No data available");
       }
     });
-  }
-
-  const filterAndSort = () => {
-    if (!originalTasks) {
-      return;
-    }
-    let newTasks = originalTasks;
-    //haut
-    if (searchString !== "") {
-      newTasks = newTasks.filter(task => task.text.toLowerCase().includes(searchString.toLowerCase()));
-    }
-    //filtterit
-    if (showOnlyTaskReady) {
-      newTasks = newTasks.filter(task => task.reminder === true);
-    }
-    else if (showOnlyTaskNotReady) {
-      newTasks = newTasks.filter(task => task.reminder === false);
-    }
-    //sortit
-    if (sortBy === SortMode.Text) {
-      newTasks = [...newTasks].sort((a, b) => {
-        return a.text > b.text ? 1 : -1
-      });
-      if (sortByText) {
-        newTasks.reverse();
-      }
-    }
-    setTasks(newTasks);
   }
 
   const addLinkToTaskList = (link) => {
@@ -310,53 +266,15 @@ function TaskListDetails() {
         <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} iconName='square-check' />
         {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />}
         {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onAddTask={addTask} />}
-        <Form className='form-no-paddings'>
-          <Form.Group as={Row}>
-            <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
-            <Col xs={9} sm={10}>
-              <Button onClick={() => {
-                setSortBy(SortMode.Text);
-                setSortByText(!sortByText);
-              }
-              }
-                text={t('name')} type="button"
-              />
-              {
-                sortBy === SortMode.Text ? sortByText ? <Icon name='arrow-down' /> : <Icon name='arrow-up' /> : ''
-              }
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
-            <Col xs={9} sm={10}>
-              <Form.Control
-                autoComplete="off"
-                type="text"
-                id="inputSearchString"
-                aria-describedby="searchHelpBlock"
-                onChange={(e) => setSearchString(e.target.value)}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="formHorizontalCheck-ShowOnlyTaskReady">
-            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-            <Col xs={9} sm={10}>
-              <Form.Check label={t('task_ready_only')}
-                onChange={(e) => {
-                  setShowOnlyTaskReady(e.currentTarget.checked);
-                }} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="formHorizontalCheck-ShowOnlyTaskNotReady">
-            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-            <Col xs={9} sm={10}>
-              <Form.Check label={t('task_not_ready_only')}
-                onChange={(e) => {
-                  setShowOnlyTaskNotReady(e.currentTarget.checked);
-                }} />
-            </Col>
-          </Form.Group>
-        </Form>
+
+        <SearchSortFilter
+          useTextFiltering={true}
+          showFilterReady={true}
+          showFilterNotReady={true}
+          onSet={setTasks}
+          showSortByText={true}
+          showSortByCreatedDate={true}
+          originalList={originalTasks} />
         {tasks != null && tasks.length > 0 ? (
           <>
             <Tasks

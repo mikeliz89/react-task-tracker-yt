@@ -21,14 +21,6 @@ import PageTitle from '../PageTitle';
 //searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 
-const SortMode = {
-    None: "None",
-    Name_ASC: "Name_ASC",
-    Name_DESC: "Name_DESC",
-    Created_ASC: "Created_ASC",
-    Created_DESC: "Created_DESC",
-}
-
 export default function ManageDrinks() {
 
     //constants

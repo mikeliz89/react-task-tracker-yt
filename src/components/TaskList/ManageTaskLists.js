@@ -16,17 +16,10 @@ import Button from '../Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //Context
 import { useAuth } from '../../contexts/AuthContext';
-//Icons
+//PageTitle
 import PageTitle from '../PageTitle';
-import Icon from '../Icon';
-
-const SortMode = {
-  None: "None",
-  Name_ASC: "Name_ASC",
-  Name_DESC: "Name_DESC",
-  Created_ASC: "Created_ASC",
-  Created_DESC: "Created_DESC",
-}
+//SearchSortFilter
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 
 export default function ManageTaskLists() {
 
@@ -51,12 +44,6 @@ export default function ManageTaskLists() {
   const [taskLists, setTaskLists] = useState();
   const [originalTaskLists, setOriginalTaskLists] = useState();
 
-  //sorting
-  const [sortBy, setSortBy] = useState(SortMode.None);
-
-  //search
-  const [searchString, setSearchString] = useState('');
-
   //load data
   useEffect(() => {
     const getTaskLists = async () => {
@@ -64,10 +51,6 @@ export default function ManageTaskLists() {
     }
     getTaskLists();
   }, [])
-
-  useEffect(() => {
-    filterAndSort();
-  }, [sortBy, searchString]);
 
   /* Fetch Task Lists From Firebase */
   const fetchTaskListsFromFireBase = async () => {
@@ -111,35 +94,6 @@ export default function ManageTaskLists() {
     navigate(DB_TASKLIST_ARCHIVE);
   }
 
-  const filterAndSort = () => {
-    if (!originalTaskLists) {
-      return;
-    }
-    let newTaskLists = originalTaskLists;
-    //haut
-    if (searchString !== "") {
-      newTaskLists = newTaskLists.filter(taskList => taskList.title.toLowerCase().includes(searchString.toLowerCase()));
-    }
-    //filtterit: TODO
-    //sortit
-    if (sortBy === SortMode.Name_ASC || sortBy === SortMode.Name_DESC) {
-      newTaskLists = [...newTaskLists].sort((a, b) => {
-        return a.title > b.title ? 1 : -1;
-      });
-      if (sortBy === SortMode.Name_DESC) {
-        newTaskLists.reverse();
-      }
-    } else if (sortBy === SortMode.Created_ASC || sortBy === SortMode.Created_DESC) {
-      newTaskLists = [...newTaskLists].sort(
-        (a, b) => new Date(a.created).setHours(0, 0, 0, 0) - new Date(b.created).setHours(0, 0, 0, 0)
-      );
-      if (sortBy === SortMode.Created_DESC) {
-        newTaskLists.reverse();
-      }
-    }
-    setTaskLists(newTaskLists);
-  }
-
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -157,47 +111,12 @@ export default function ManageTaskLists() {
       <PageTitle title={t('manage_tasklists_title')} />
       {showAddTaskList && <AddTaskList onClose={() => setShowAddTaskList(false)} onAddTaskList={addTaskList} />}
       <div className="page-content">
-        <Form className='form-no-paddings'>
-          <Form.Group as={Row}>
-            <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
-            <Col xs={9} sm={10}>
-              <Button onClick={() => {
-                sortBy === SortMode.Created_ASC ? setSortBy(SortMode.Created_DESC) : setSortBy(SortMode.Created_ASC);
-              }} text={t('created_date')} type="button" />
-              {
-                sortBy === SortMode.Created_DESC ? <Icon name='arrow-down' /> : ''
-              }
-              {
-                sortBy === SortMode.Created_ASC ? <Icon name='arrow-up' /> : ''
-              }
-              &nbsp;
-              <Button onClick={() => {
-                sortBy === SortMode.Name_ASC ? setSortBy(SortMode.Name_DESC) : setSortBy(SortMode.Name_ASC);
-              }
-              }
-                text={t('name')} type="button"
-              />
-              {
-                sortBy === SortMode.Name_DESC ? <Icon name='arrow-down' /> : ''
-              }
-              {
-                sortBy === SortMode.Name_ASC ? <Icon name='arrow-up' /> : ''
-              }
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
-            <Col xs={9} sm={10}>
-              <Form.Control
-                autoComplete="off"
-                type="text"
-                id="inputSearchString"
-                aria-describedby="searchHelpBlock"
-                onChange={(e) => setSearchString(e.target.value)}
-              />
-            </Col>
-          </Form.Group>
-        </Form>
+        <SearchSortFilter
+          useTitleFiltering={true}
+          onSet={setTaskLists}
+          showSortByTitle={true}
+          showSortByCreatedDate={true}
+          originalList={originalTaskLists} />
         {taskLists != null && taskLists.length > 0 ? (
           <TaskLists
             taskLists={taskLists}
