@@ -10,7 +10,7 @@ import EditIncredient from './EditIncredient';
 
 export const Incredient = ({ incredient, recipeID, onDelete }) => {
 
-    const DB_INCREDIENTS = '/incredients';
+    const DB_INCREDIENTS = '/recipe-incredients';
 
     //states
     const [editable, setEditable] = useState(false);

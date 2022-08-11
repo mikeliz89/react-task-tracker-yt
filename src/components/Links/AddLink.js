@@ -38,6 +38,7 @@ const AddLink = ({ onSaveLink }) => {
     return (
         <>
             <Button
+                iconName='external-link-alt'
                 type='button'
                 color={showForm ? 'red' : '#0d6efd'}
                 text={showForm ? t('button_close') : t('add_link')}
@@ -66,7 +67,7 @@ const AddLink = ({ onSaveLink }) => {
                                     <Row>
                                         <ButtonGroup>
                                             <Button type='button' text={t('button_close')} className='btn btn-block'
-                                            onClick={() => setShowForm(false)} />
+                                                onClick={() => setShowForm(false)} />
                                             <Button disabled={loading} type='submit' text={t('save_link')} className='btn btn-block saveBtn' />
                                         </ButtonGroup>
                                     </Row>

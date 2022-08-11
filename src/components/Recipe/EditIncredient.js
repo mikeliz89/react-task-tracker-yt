@@ -10,7 +10,7 @@ import Button from '../../components/Button';
 
 export default function EditIncredient({ recipeID, incredientID, onEditIncredient, onCloseEditIncredient }) {
 
-    const DB_INCREDIENTS = '/incredients';
+    const DB_INCREDIENTS = '/recipe-incredients';
 
     //translation
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });

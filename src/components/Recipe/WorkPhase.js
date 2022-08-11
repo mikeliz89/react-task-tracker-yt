@@ -11,6 +11,9 @@ import EditWorkPhase from './EditWorkPhase';
 
 export default function WorkPhase({ workPhase, recipeID, onDeleteWorkPhase }) {
 
+    //constants
+    const DB_WORKPHASES = '/recipe-workphases';
+
     //translation
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
@@ -20,7 +23,7 @@ export default function WorkPhase({ workPhase, recipeID, onDeleteWorkPhase }) {
     const editWorkPhase = (workPhase) => {
         //save
         const updates = {};
-        updates[`/workphases/${recipeID}/${workPhase.id}`] = workPhase;
+        updates[`${DB_WORKPHASES}/${recipeID}/${workPhase.id}`] = workPhase;
         update(ref(db), updates);
 
         setEditable(false);

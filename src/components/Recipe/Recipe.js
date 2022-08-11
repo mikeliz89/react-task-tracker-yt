@@ -21,7 +21,7 @@ import Icon from '../Icon';
 const Recipe = ({ recipe, onDelete }) => {
 
     //constants
-    const DB_INCREDIENTS = '/incredients';
+    const DB_INCREDIENTS = '/recipe-incredients';
     const DB_TASKS = '/tasks';
     const DB_TASKLISTS = '/tasklists';
 

@@ -34,9 +34,9 @@ import PageTitle from '../PageTitle';
 
 export default function RecipeDetails() {
 
-    const DB_INCREDIENTS = '/incredients';
     const DB_RECIPES = '/recipes';
-    const DB_WORKPHASES = '/workphases';
+    const DB_INCREDIENTS = '/recipe-incredients';
+    const DB_WORKPHASES = '/recipe-workphases';
     const DB_RECIPE_COMMENTS = '/recipe-comments';
     const DB_RECIPE_LINKS = '/recipe-links';
 
