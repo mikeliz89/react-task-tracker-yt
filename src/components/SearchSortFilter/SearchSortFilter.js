@@ -66,9 +66,11 @@ const SearchSortFilter = ({ onSet,
 
     useEffect(() => {
         filterAndSort();
-    }, [sortBy, searchString, showOnlyHaveAtHome,
-        showOnlyNotHaveAtHome, showOnlyHaveRated, showOnlyNotHaveRated,
-        showOnlyCore, showOnlyReady, showOnlyNotReady]);
+    }, [sortBy, searchString,
+        showOnlyHaveAtHome, showOnlyNotHaveAtHome,
+        showOnlyHaveRated, showOnlyNotHaveRated,
+        showOnlyCore,
+        showOnlyReady, showOnlyNotReady]);
 
     const filterAndSort = () => {
         if (!originalList) {
@@ -134,6 +136,7 @@ const SearchSortFilter = ({ onSet,
     }
 
     const sorting = (newList) => {
+
         //sortit
         if (sortBy === SortMode.Name_ASC || sortBy === SortMode.Name_DESC) {
             newList = [...newList].sort((a, b) => {

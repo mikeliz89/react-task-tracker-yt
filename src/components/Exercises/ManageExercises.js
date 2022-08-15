@@ -11,6 +11,7 @@ import Exercises from './Exercises';
 import { db } from '../../firebase-config';
 import { onValue, ref, remove } from 'firebase/database';
 import PageTitle from '../PageTitle';
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 
 const ManageExercises = () => {
 
@@ -21,6 +22,7 @@ const ManageExercises = () => {
 
   //states
   const [exercises, setExercises] = useState();
+  const [originalExercises, setOriginalExercises] = useState();
 
   //load data
   useEffect(() => {
@@ -30,7 +32,7 @@ const ManageExercises = () => {
       if (cancel) {
         return;
       }
-      await fetchExercisesFromFirebase()
+      await fetchExercisesFromFirebase();
     }
     getExercises();
 
@@ -49,6 +51,7 @@ const ManageExercises = () => {
         fromDB.push({ id, ...snap[id] });
       }
       setExercises(fromDB);
+      setOriginalExercises(fromDB);
     })
   }
 
@@ -69,6 +72,11 @@ const ManageExercises = () => {
       <div className="page-content">
         <Link to="/managemovements" className='btn btn-primary'>{t('manage_movements_button')}</Link>
         <p className="text-center">{t('exercises')}</p>
+        <SearchSortFilter 
+        onSet={setExercises}
+        originalList={originalExercises}
+        showSearch={false} 
+        showSortByCreatedDate={true} />
         {
           exercises != null && exercises.length > 0 ? (
             <Exercises exercises={exercises}
