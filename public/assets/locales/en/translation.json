@@ -2,7 +2,8 @@
     "coming_soon": "Coming soon...",
     "about": {
         "about_version": "Version",
-        "about_author": "Author"
+        "about_author": "Author",
+        "version_upgraded": "Version upgraded last"
     },
     "auth": {
         "already_have_an_account": "Already have an account?",
@@ -26,8 +27,31 @@
         "sign_up": "Sign Up"
     },
     "backpacking": {
+        "button_add_gear": "Add gear",
+        "button_close": "Close",
+        "button_save_gear": "Save gear",
         "coming_soon": "Coming soon...",
-        "manage_backpacking_title": "Backpacking"
+        "delete_gear_confirm_message": "Are you sure you want to delete gear?",
+        "gear_category": "Gear category",
+        "gear_category_clothing": "Clothing",
+        "gear_category_cooking": "Cooking",
+        "gear_category_electronics": "Electronics",
+        "gear_category_firecreation": "Firestarters",
+        "gear_category_hygiene": "Hygiene",
+        "gear_category_none": "-None-",
+        "gear_category_other": "Other",
+        "gear_category_sleeping": "Sleeping",
+        "gear_category_tool": "Tool",
+        "gear_name": "Name",
+        "gear_weight": "Weight",
+        "gear_weight_in_grams": "Weight (g)",
+        "loading": "Loading...",
+        "manage_backpacking_title": "Backpacking",
+        "manage_gear_button": "My gear",
+        "my_gear_title": "My gear",
+        "no_gear_to_show": "No gear to show",
+        "please_add_gear": "Please give gear a name",
+        "view_details": "View Details"
     },
     "bmicalculator": {
         "bmi_1": "Sickly underweight",
@@ -46,6 +70,43 @@
         "weight": "Weight",
         "weighthistory": "Weigh History",
         "your_bmi_is": "Your BMI is"
+    },
+    "car": {
+        "add_fueling": "Add fuel tanking",
+        "add_fueling_title": "Fueling",
+        "add_info": "Car details",
+        "add_info_title": "Car details",
+        "button_close": "Close",
+        "car_title": "Car",
+        "coming_soon": "Coming soon...",
+        "failed_to_add_info": "Adding info failed",
+        "failed_to_add_fueling": "Saving fueling failed",
+        "fuel_price": "Gas price €/L",
+        "fuel_price_simple": "Gas price",
+        "fuelings": "Fuelings",
+        "fueler_name": "Fueler",
+        "last_modified": "Last modified",
+        "liter_amount": "Liter amount",
+        "loading": "Loading...",
+        "meter_kilometers": "Travel meter kilometers",
+        "model_year": "Model year",
+        "no_car_fuelings": "No fuelings",
+        "price": "Price",
+        "purchase_location": "Location",
+        "register_number": "Register number",
+        "save": "Save",
+        "save_exception": "Save failed",
+        "save_successfull": "Save succeded",
+        "text": "Info"
+    },
+    "comments": {
+        "add_comment": "Comment",
+        "button_close": "Close",
+        "button_save": "Save",
+        "delete_comment_confirm": "Are you sure you want to delete a comment?",
+        "header": "Comments",
+        "no_comments": "No comments",
+        "text": "Text"
     },
     "common": {
         "buttons": {
@@ -162,6 +223,19 @@
     },
     "language": {
         "language": "Language"
+    },
+    "links": {
+        "add_link": "Add Link",
+        "button_close": "Close",
+        "coming_soon": "Coming soon...",
+        "delete_link_confirm": "Delete link?",
+        "header": "Links",
+        "links_list_title": "Links",
+        "loading": "Loading...",
+        "no_links": "No links",
+        "save_link": "Save Link",
+        "url": "url-address",
+        "urlText": "link text"
     },
     "myprofile": {
         "button_close": "Close",
