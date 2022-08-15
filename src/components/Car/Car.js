@@ -14,7 +14,7 @@ import { onValue, ref } from 'firebase/database';
 import PageTitle from '../PageTitle';
 
 export default function Car() {
-    
+
     //constants
     const DB_FUELING = 'car-fueling';
 
@@ -50,19 +50,19 @@ export default function Car() {
 
     return loading ? (
         <h3>{t('loading')}</h3>
-      ) : (
+    ) : (
         <div>
             <GoBackButton />
             <PageTitle title={t('car_title')} />
             <Button onClick={() => setShowAddInfo(!showAddInfo)}
-                text={t('add_info')} />
+                text={t('add_info')} iconName={'car'} />
             <Button onClick={() => setShowAddFueling(!showAddFueling)}
-                text={t('add_fueling')} />
+                text={t('add_fueling')} iconName={'gas-pump'} />
             {/* Info Start */}
             {
                 showAddInfo ?
                     (<div>
-                        <AddInfo />
+                        <AddInfo onClose={() => setShowAddInfo(false)} />
                     </div>
                     ) : ''
             }
@@ -71,7 +71,7 @@ export default function Car() {
             {
                 showAddFueling ?
                     (<div>
-                        <AddFueling />
+                        <AddFueling onClose={() => setShowAddFueling(false)} />
                     </div>
                     ) : ''
             }

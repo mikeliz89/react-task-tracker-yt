@@ -5,6 +5,7 @@ import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 //react
 import { Col, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import PageTitle from "../PageTitle";
 
 const CarFuelings = ({ carFuelings }) => {
 
@@ -13,7 +14,7 @@ const CarFuelings = ({ carFuelings }) => {
 
     return (
         <>
-            <h5>{t('fuelings')}</h5>
+            <PageTitle title={t('fuelings')} iconName='gas-pump' />
             {carFuelings.map((fuelingRow) => (
                 <Row key={fuelingRow.id} style={{ marginBottom: '5px', borderTop: '1px solid black' }}>
                     <Col>

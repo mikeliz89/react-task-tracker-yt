@@ -1,5 +1,5 @@
 //react
-import { Alert, Form } from "react-bootstrap";
+import { Alert, ButtonGroup, Form, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 //buttons
@@ -12,7 +12,7 @@ import { db } from "../../firebase-config";
 //utils
 import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 
-const AddFueling = () => {
+const AddFueling = ({ onClose }) => {
 
     //constants
     const DB_FUELING = 'car-fueling';
@@ -135,9 +135,15 @@ const AddFueling = () => {
                         type='text' placeholder={t('fueler_name')}
                         value={fuelerName} onChange={(e) => setFuelerName(e.target.value)} />
                 </Form.Group>
-                <Button disabled={loading} type='submit' text={t('save')} className='btn btn-block' />
+                <Row>
+                    <ButtonGroup>
+                        <Button type='button' text={t('button_close')} className='btn btn-block'
+                            onClick={() => onClose()} color='red' />
+                        <Button disabled={loading} type='submit' text={t('save')} className='btn btn-block saveBtn' />
+                    </ButtonGroup>
+                </Row>
             </Form>
-        </div>
+        </div >
     )
 }
 

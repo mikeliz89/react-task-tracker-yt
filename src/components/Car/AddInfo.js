@@ -1,5 +1,5 @@
 //react
-import { Alert, Form } from "react-bootstrap";
+import { Alert, Form, ButtonGroup, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 //buttons
@@ -13,9 +13,11 @@ import { db } from "../../firebase-config";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 //i18n
 import i18n from "i18next";
+import PageTitle from "../PageTitle";
 
-const AddInfo = () => {
+const AddInfo = ({onClose}) => {
 
+    //constants
     const DB_INFO = 'car-info';
 
     //user
@@ -140,7 +142,7 @@ const AddInfo = () => {
 
     return (
         <div>
-            <h5>{t('add_info_title')}</h5>
+            <PageTitle title={t('add_info_title')} iconName='car' />
             {modified !== '' && <p style={{ marginBottom: '0' }}>{t('last_modified')}: {getJsonAsDateTimeString(modified, i18n.language)} &nbsp;</p>}
             {error && <div className="error">{error}</div>}
             {message &&
@@ -167,7 +169,13 @@ const AddInfo = () => {
                     <Form.Control type='text' placeholder={t('text')}
                         value={text} onChange={(e) => setText(e.target.value)} />
                 </Form.Group>
-                <Button disabled={loading} type='submit' text={t('save')} className='btn btn-block' />
+                <Row>
+                    <ButtonGroup>
+                        <Button type='button' text={t('button_close')} className='btn btn-block'
+                            onClick={() => onClose()} color='red' />
+                        <Button disabled={loading} type='submit' text={t('save')} className='btn btn-block saveBtn' />
+                    </ButtonGroup>
+                </Row>
             </Form>
         </div>
     )

@@ -5,6 +5,7 @@ import {
     FaEdit, FaPlus, FaCarrot, FaHourglass,
     FaLemon
 } from 'react-icons/fa';
+//icon
 import Icon from './Icon';
 
 const Button = ({ disabled, color, text, onClick, className,

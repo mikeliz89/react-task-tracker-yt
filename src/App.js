@@ -76,11 +76,11 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn,
-  faExternalLinkAlt
+  faExternalLinkAlt, faCar, faGasPump
 } from '@fortawesome/free-solid-svg-icons';
 library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn,
-  faExternalLinkAlt
+  faExternalLinkAlt, faCar, faGasPump
 );
 
 //languagization
