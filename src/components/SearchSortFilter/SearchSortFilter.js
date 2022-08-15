@@ -62,7 +62,7 @@ const SearchSortFilter = ({ onSet,
     //componentDidMount
     useEffect(() => {
         filterAndSort();
-    }, [])
+    }, []);
 
     useEffect(() => {
         filterAndSort();
@@ -136,7 +136,7 @@ const SearchSortFilter = ({ onSet,
     }
 
     const sorting = (newList) => {
-
+        
         //sortit
         if (sortBy === SortMode.Name_ASC || sortBy === SortMode.Name_DESC) {
             newList = [...newList].sort((a, b) => {
@@ -249,7 +249,7 @@ const SearchSortFilter = ({ onSet,
                 {
                     showSearch &&
                     <>
-                        <Form.Group as={Row} controlId='searchSortFilter-SearchString'>
+                        <Form.Group as={Row}>
                             <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
                             <Col xs={9} sm={10}>
                                 <Form.Control

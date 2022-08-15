@@ -15,6 +15,8 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 import Gears from './Gears';
 import PageTitle from '../PageTitle';
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+import { SortMode } from '../SearchSortFilter/SortModes';
 
 export default function ManageGear() {
 
@@ -27,6 +29,7 @@ export default function ManageGear() {
     //states
     const [showAdd, setShowAdd] = useState(false);
     const [gear, setGear] = useState();
+    const [originalGear, setOriginalGear] = useState();
     const [loading, setLoading] = useState(true);
 
     //load data
@@ -37,7 +40,7 @@ export default function ManageGear() {
             if (cancel) {
                 return;
             }
-            await fetchGearsFromFirebase()
+            await fetchGearsFromFirebase();
         }
         getGear();
 
@@ -57,6 +60,7 @@ export default function ManageGear() {
             }
             setLoading(false);
             setGear(fromDB);
+            setOriginalGear(fromDB);
         })
     }
 
@@ -100,6 +104,7 @@ export default function ManageGear() {
 
             <div className="page-content">
                 {showAdd && <AddGear onAddGear={addGear} onClose={() => setShowAdd(false)} />}
+                <SearchSortFilter onSet={setGear} originalList={originalGear} useNameFiltering={true} showSortByName={true} defaultSort={SortMode.Name_DESC} />
                 {
                     gear != null && gear.length > 0 ? (
                         <Gears gears={gear}
