@@ -21,21 +21,21 @@ export default function Login() {
     const navigate = useNavigate();
 
     async function onSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
 
         try {
             //clear the error
-            setError('')
-            setLoading(true)
+            setError('');
+            setLoading(true);
             await login(email, password);
             //navigate to dashboard
             navigate('/');
         } catch (error) {
             setError(t('failed_to_log_in'));
-            console.log(error)
+            console.log(error);
         }
 
-        setLoading(false)
+        setLoading(false);
     }
 
     return (

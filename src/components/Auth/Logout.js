@@ -1,25 +1,24 @@
-import React, { useState } from 'react'
-import { useAuth } from '../../contexts/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Button from '../../components/Button'
+import Button from '../../components/Button';
 
 export default function Logout() {
 
-    const { logout } = useAuth()
-    const navigate = useNavigate()
+    const { logout } = useAuth();
+    const navigate = useNavigate();
     const { t } = useTranslation('auth', { keyPrefix: 'auth' });
-    const [error, setError] = useState("")
+    const [error, setError] = useState('');
 
     async function handleLogout() {
-        setError('')
+        setError('');
 
         try {
-            await logout()
-
+            await logout();
             navigate('/login');
         } catch (error) {
-            setError(t('failed_to_log_out'))
+            setError(t('failed_to_log_out'));
             console.log(error);
         }
     }
