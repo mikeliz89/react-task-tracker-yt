@@ -1,5 +1,5 @@
 //react
-import { FaTimes, FaCheckSquare, FaEdit, FaCocktail } from 'react-icons/fa';
+import { FaTimes, FaCheckSquare, FaEdit } from 'react-icons/fa';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';

@@ -74,13 +74,13 @@ import LinksList from './components/Links/LinksList';
 //global icons (https://fontawesome.com/v5/docs/web/use-with/react)
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft,
+  faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn,
-  faExternalLinkAlt, faCar, faGasPump
+  faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell
 } from '@fortawesome/free-solid-svg-icons';
-library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft,
+library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn,
-  faExternalLinkAlt, faCar, faGasPump
+  faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell
 );
 
 //languagization

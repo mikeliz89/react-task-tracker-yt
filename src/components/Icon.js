@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 //https://fontawesome.com/v5/docs/web/use-with/react
 
-function Icon({ name, color }) {
+function Icon({ name, color, className, onClick, fontSize, cursor }) {
     return (
         <>
-            {name && <FontAwesomeIcon icon={name} color={color} />}
+            {name && <FontAwesomeIcon icon={name} color={color} className={className} onClick={onClick} fontSize={fontSize} cursor={cursor} />}
             {name && ' '}
         </>
     )
@@ -16,12 +16,16 @@ function Icon({ name, color }) {
 
 Icon.defaultProps = {
     name: '',
-    color: ''
+    color: 'gray',
+    className: '',
+    fontSize: '1em'
 }
 
 Icon.propTypes = {
     name: PropTypes.string,
-    color: PropTypes.string
+    color: PropTypes.string,
+    className: PropTypes.string,
+    fontSize: PropTypes.string
 }
 
 export default Icon

@@ -1,7 +1,6 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { FaTimes, FaRunning, FaWalking, FaDumbbell, FaChild, FaBiking, FaShip } from 'react-icons/fa';
 import { useState } from 'react'
 //star rating
 import StarRating from '../StarRating/StarRating';
@@ -9,6 +8,8 @@ import StarRating from '../StarRating/StarRating';
 import { Categories } from './Categories';
 //utils
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
+//icon
+import Icon from '../Icon';
 
 const Exercise = ({ exercise, onDelete }) => {
 
@@ -24,35 +25,36 @@ const Exercise = ({ exercise, onDelete }) => {
                 <span>
                     {
                         Number(exercise.category) === Categories.Running &&
-                        <FaRunning style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                        <Icon name='running' /> 
                     }
                     {
                         Number(exercise.category) === Categories.Gym &&
-                        <FaDumbbell style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                        <Icon name='dumbbell' />
                     }
                     {
                         Number(exercise.category) === Categories.Walking &&
-                        <FaWalking style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                        <Icon name='walking' />
                     }
                     {
                         Number(exercise.category) === Categories.Aerobics &&
-                        <FaChild style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                        <Icon name='child' />
                     }
                     {
                         Number(exercise.category) === Categories.Bicycling &&
-                        <FaBiking style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                        <Icon name='biking' />
                     }
                     {
                         Number(exercise.category) === Categories.Kayaking &&
-                        <FaShip style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                        <Icon name='ship' />
                     }
                     {exercise.date + ' ' + exercise.time
                         // TODO: Korjaa formaatit kieleistyksien mukaan
                         //  getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)
                     }
                 </span>
-                <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
-                    onClick={() => { if (window.confirm(t('delete_exercise_confirm_message'))) { onDelete(exercise.id); } }} />
+                <Icon className='deleteBtn' name='times' color='red' fontSize='1.2em' cursor='pointer'
+                onClick={() => { if (window.confirm(t('delete_exercise_confirm_message'))) { onDelete(exercise.id); } }} />
+    
             </h5>
             {error && <div className="error">{error}</div>}
             <p>

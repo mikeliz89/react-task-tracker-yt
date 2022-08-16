@@ -45,22 +45,26 @@ export default function Dashboard() {
             <Row>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={'/manageexercises'}>
-                        <BigButton imageName="exercises.PNG" textcolor="black" color="#ef7c1a" text={t('exercises')} />
+                        <BigButton imageName="exercises.PNG" textcolor="black" color="#ef7c1a" text={t('exercises')}
+                        iconName='running' />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={'/linkslist'}>
-                        <BigButton imageName="links.jpg" textcolor="black" color="white" text={t('links_list')} />
+                        <BigButton imageName="links.jpg" textcolor="black" color="white" text={t('links_list')}
+                        iconName='external-link-alt' />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={'/car'}>
-                        <BigButton imageName="car.jpg" textcolor="black" color="#0cb058" text={t('car')} />
+                        <BigButton imageName="car.jpg" textcolor="black" color="#0cb058" text={t('car')}
+                        iconName='car' />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={'/managebackpacking'}>
-                        <BigButton imageName="backpacking.jpg" textcolor="black" color="#0cb058" text={t('backpacking')} />
+                        <BigButton imageName="backpacking.jpg" textcolor="black" color="#0cb058" text={t('backpacking')}
+                        iconName='campground' />
                     </Link>
                 </Col>
             </Row>

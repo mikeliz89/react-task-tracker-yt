@@ -7,6 +7,8 @@ import { db } from '../../firebase-config';
 import { ref, onValue, child, remove, update } from "firebase/database";
 //links
 import LinksInner from './LinksInner';
+//icon
+import Icon from '../Icon';
 
 const Links = ({ url, objID }) => {
 
@@ -90,7 +92,10 @@ const Links = ({ url, objID }) => {
     ) : (
         <div>
             {/* <pre>{JSON.stringify(links)}</pre> */}
-            <h4>{t('header')} {linkCounter > 0 ? '(' + linkCounter + ')' : ''}</h4>
+            <h4>
+                <Icon name='external-link-alt' color='gray' />
+                {t('header')} {linkCounter > 0 ? '(' + linkCounter + ')' : ''}
+            </h4>
             {
                 links != null && links.length > 0 ? (
                     <LinksInner objID={objID} linkUrl={url} links={links} onDelete={deleteLink} onEdit={editLink} />
