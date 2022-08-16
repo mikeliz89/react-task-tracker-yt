@@ -10,7 +10,9 @@ import Exercises from './Exercises';
 //firebase
 import { db } from '../../firebase-config';
 import { onValue, ref, remove } from 'firebase/database';
+//pagetitle
 import PageTitle from '../PageTitle';
+//searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 
 const ManageExercises = () => {
@@ -41,7 +43,7 @@ const ManageExercises = () => {
     }
   }, [])
 
-  /** Fetch Recipes From Firebase */
+  /** Fetch Exercises From Firebase */
   const fetchExercisesFromFirebase = async () => {
     const dbref = await ref(db, DB_EXERCISES);
     onValue(dbref, (snapshot) => {

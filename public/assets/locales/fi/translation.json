@@ -262,6 +262,7 @@
         "loading": "Lataa...",
         "manage_exercises_title": "Liikunta",
         "manage_movements_button": "Liikkeet",
+        "manage_movements_title": "Liikkeet",
         "movementcategory": "Liikekategoria",
         "movementcategory_none": "-Ei mikään-",
         "movementcategory_abs": "Vatsalihakset",
@@ -272,8 +273,10 @@
         "movementcategory_other": "Muu",
         "movementcategory_quads": "Etureidet",
         "movement_save_exception": "Liikkeen tallennus epäonnistui",
+        "movements": "Liikkeet",
         "name": "Nimi",
         "no_exercises_to_show": "Ei harjoituksia",
+        "no_movements_to_show": "Ei liikkeitä",
         "please_add_exercise_name": "Ole hyvä ja anna liikkeelle nimi",
         "running_parts_title": "Juoksuharjoitus",
         "running_distance": "Matka (km)",
@@ -281,6 +284,7 @@
         "startdate": "Alkupvm",
         "starttime": "Alkuaika",
         "view_details": "Katso harjoitusta",
+        "view_movement_details": "Katso liikettä",
         "walking_parts_title": "Kävely"
     },
     "footer": {
