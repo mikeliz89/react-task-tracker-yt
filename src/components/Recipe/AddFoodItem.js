@@ -32,6 +32,7 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
     const [fiber, setFiber] = useState(0);
     const [protein, setProtein] = useState(0);
     const [salt, setSalt] = useState(0);
+    const [sugars, setSugars] = useState(0);
 
     //load data
     useEffect(() => {
@@ -73,6 +74,7 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
                 setName(val["name"]);
                 setProtein(val["protein"]);
                 setSalt(val["salt"]);
+                setSugars(val["sugars"]);
             }
         });
     }
@@ -92,7 +94,8 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
             calories, carbs, category,
             fat, fiber,
             haveAtHome,
-            name, protein, salt
+            name, protein, salt,
+            sugars
         });
 
         if (foodItemID == null) {
@@ -106,6 +109,7 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
             setName('');
             setProtein(0);
             setSalt(0);
+            setSugars(0);
         }
     }
 
@@ -139,6 +143,14 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
                         value={calories}
                         onChange={(e) => setCalories(e.target.value)} />
                 </Form.Group>
+                <Form.Group className="mb-3" controlId="addFoodItemForm-Fat">
+                    <Form.Label>{t('fooditem_fat')}</Form.Label>
+                    <Form.Control type='number'
+                        autoComplete="off"
+                        placeholder={t('fooditem_fat')}
+                        value={fat}
+                        onChange={(e) => setFat(e.target.value)} />
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="addFoodItemForm-Carbs">
                     <Form.Label>{t('fooditem_carbs')}</Form.Label>
                     <Form.Control type='number'
@@ -147,13 +159,13 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
                         value={carbs}
                         onChange={(e) => setCarbs(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addFoodItemForm-Fat">
-                    <Form.Label>{t('fooditem_fat')}</Form.Label>
+                <Form.Group className="mb-3" controlId="addFoodItemForm-Sugars">
+                    <Form.Label>{t('fooditem_sugars')}</Form.Label>
                     <Form.Control type='number'
                         autoComplete="off"
-                        placeholder={t('fooditem_fat')}
-                        value={fat}
-                        onChange={(e) => setFat(e.target.value)} />
+                        placeholder={t('fooditem_sugars')}
+                        value={sugars}
+                        onChange={(e) => setSugars(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addFoodItemForm-Protein">
                     <Form.Label>{t('fooditem_protein')}</Form.Label>

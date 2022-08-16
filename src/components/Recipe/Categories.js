@@ -112,5 +112,25 @@ export const FoodItemCategories = [
         //maitotuote
         "id": 2,
         "name": "dairyproduct"
+    },
+    {
+        //marja
+        "id": 3,
+        "name": "berry"
+    },
+    {
+        //hedelmä
+        "id": 4,
+        "name": "fruit"
+    },
+    {
+        //öljyt ja voit
+        "id": 5,
+        "name": "oilsandfats"
+    },
+    {
+        //liha
+        "id": 6,
+        "name": "meat"
     }
 ]
