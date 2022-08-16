@@ -116,6 +116,7 @@ export default function ManageTaskLists() {
           onSet={setTaskLists}
           showSortByTitle={true}
           showSortByCreatedDate={true}
+          showSearchByDescription={true}
           originalList={originalTaskLists} />
         {taskLists != null && taskLists.length > 0 ? (
           <TaskLists

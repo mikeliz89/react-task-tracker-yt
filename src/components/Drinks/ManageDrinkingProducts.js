@@ -131,6 +131,7 @@ const ManageDrinkingProducts = () => {
                 showFilterNotHaveAtHome={true}
                 showSortByName={true}
                 showSortByCreatedDate={true}
+                showSearchByDescription={true}
                 originalList={originalDrinkingProducts} />
             {
                 drinkingProducts != null && drinkingProducts.length > 0 ? (

@@ -134,6 +134,7 @@ export default function ManageDrinks() {
                     showSortByTitle={true}
                     showSortByCreatedDate={true}
                     showSortByStarRating={true}
+                    showSearchByDescription={true}
                     originalList={originalDrinks} />
                 {
                     drinks != null && drinks.length > 0 ? (

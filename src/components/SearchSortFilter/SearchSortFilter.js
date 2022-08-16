@@ -19,6 +19,7 @@ const SearchSortFilter = ({ onSet,
     showSortByStarRating,
     //searching
     showSearch,
+    showSearchByDescription,
     //filtering
     showFilterHaveAtHome,
     showFilterNotHaveAtHome,
@@ -34,6 +35,7 @@ const SearchSortFilter = ({ onSet,
 
     //states
     const [searchString, setSearchString] = useState('');
+    const [searchStringDescription, setSearchStringDescription] = useState('');
     const [sortBy, setSortBy] = useState(defaultSort);
     const [showOnlyHaveAtHome, setShowOnlyHaveAtHome] = useState(false);
     const [showOnlyNotHaveAtHome, setShowOnlyNotHaveAtHome] = useState(false);
@@ -67,7 +69,7 @@ const SearchSortFilter = ({ onSet,
 
     useEffect(() => {
         filterAndSort();
-    }, [sortBy, searchString,
+    }, [sortBy, searchString, searchStringDescription,
         showOnlyHaveAtHome, showOnlyNotHaveAtHome,
         showOnlyHaveRated, showOnlyNotHaveRated,
         showOnlyCore,
@@ -95,6 +97,9 @@ const SearchSortFilter = ({ onSet,
             if (useTextFiltering) {
                 newList = newList.filter(x => x.text.toLowerCase().includes(searchString.toLowerCase()));
             }
+        }
+        if (searchStringDescription !== "") {
+            newList = newList.filter(x => x.description.toLowerCase().includes(searchStringDescription.toLowerCase()));
         }
         return newList;
     }
@@ -274,6 +279,25 @@ const SearchSortFilter = ({ onSet,
                                     id="inputSearchString"
                                     aria-describedby="searchHelpBlock"
                                     onChange={(e) => setSearchString(e.target.value)}
+                                    placeholder='nimi'
+                                />
+                            </Col>
+                        </Form.Group>
+                    </>
+                }
+                {
+                    showSearchByDescription &&
+                    <>
+                        <Form.Group as={Row}>
+                            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
+                            <Col xs={9} sm={10}>
+                                <Form.Control
+                                    autoComplete='off'
+                                    type="text"
+                                    id="inputSearchStringDescription"
+                                    aria-describedby="searchHelpBlock"
+                                    onChange={(e) => setSearchStringDescription(e.target.value)}
+                                    placeholder='kuvaus'
                                 />
                             </Col>
                         </Form.Group>
@@ -392,6 +416,7 @@ SearchSortFilter.defaultProps = {
     showSortByStarRating: false,
     //searching
     showSearch: true,
+    showSearchByDescription: false,
     //filtering
     showFilterHaveAtHome: false,
     showFilterNotHaveAtHome: false,
@@ -415,6 +440,7 @@ SearchSortFilter.propTypes = {
     showSortByStarRating: PropTypes.bool,
     //searching
     showSearch: PropTypes.bool,
+    showSearchByDescription: PropTypes.bool,
     //filtering
     showFilterHaveAtHome: PropTypes.bool,
     showFilterNotHaveAtHome: PropTypes.bool,
