@@ -1,8 +1,7 @@
 //react
 import { useState, useEffect } from 'react';
-import { ButtonGroup, Row } from 'react-bootstrap';
+import { Form, Table, ButtonGroup, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { Form, Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 //firebase
 import { db } from '../../firebase-config';
@@ -18,8 +17,17 @@ import PageTitle from '../PageTitle';
 
 const BmiCalculator = () => {
 
+    //constants
+    const DB_PROFILES = '/profiles';
+    const DB_WEIGHT_HISTORY = '/weighthistory';
+
+    //translation
     const { t } = useTranslation('bmicalculator', { keyPrefix: 'bmicalculator' });
+
+    //navigation
     const navigate = useNavigate();
+
+    //user
     const { currentUser } = useAuth();
 
     //states
@@ -41,7 +49,7 @@ const BmiCalculator = () => {
 
     /** Fetch Profile From Firebase */
     const fetchProfileFromFirebase = async () => {
-        const dbref = ref(db, `/profiles/${currentUser.uid}`);
+        const dbref = ref(db, `${DB_PROFILES}/${currentUser.uid}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
@@ -54,7 +62,7 @@ const BmiCalculator = () => {
         e.preventDefault();
 
         //validation
-        if(weight <= 0) {
+        if (weight <= 0) {
             alert(t('please_give_weight'));
             return;
         }
@@ -75,7 +83,7 @@ const BmiCalculator = () => {
 
     /** Save Given Weight and BMI To Firebase for this user */
     const saveWeightToFirebase = async (weight, bmi) => {
-        const dbref = ref(db, '/weighthistory/' + currentUser.uid);
+        const dbref = ref(db, `${DB_WEIGHT_HISTORY}/${currentUser.uid}`);
         let currentDateTime = getCurrentDateAsJson();
         push(dbref, { weight, currentDateTime, bmi });
     }
