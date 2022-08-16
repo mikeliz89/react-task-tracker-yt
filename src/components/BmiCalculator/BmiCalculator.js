@@ -56,6 +56,7 @@ const BmiCalculator = () => {
         //validation
         if(weight <= 0) {
             alert(t('please_give_weight'));
+            return;
         }
 
         let bmi = calculateBMI();
