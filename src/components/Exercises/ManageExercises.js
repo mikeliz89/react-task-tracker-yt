@@ -74,11 +74,12 @@ const ManageExercises = () => {
       <div className="page-content">
         <Link to="/managemovements" className='btn btn-primary'>{t('manage_movements_button')}</Link>
         <p className="text-center">{t('exercises')}</p>
-        <SearchSortFilter 
-        onSet={setExercises}
-        originalList={originalExercises}
-        showSearch={false} 
-        showSortByCreatedDate={true} />
+        <SearchSortFilter
+          onSet={setExercises}
+          originalList={originalExercises}
+          showSearch={false}
+          showSortByStarRating={true}
+          showSortByCreatedDate={true} />
         {
           exercises != null && exercises.length > 0 ? (
             <Exercises exercises={exercises}

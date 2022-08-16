@@ -8,5 +8,7 @@ export const SortMode = {
     Title_ASC: "Title_ASC",
     Title_DESC: "Title_DESC",
     Text_ASC: "Text_ASC",
-    Text_DESC: "Text_DESC"
+    Text_DESC: "Text_DESC",
+    StarRating_ASC: "StarRating_ASC",
+    StarRating_DESC: "StarRating_DESC"
 }

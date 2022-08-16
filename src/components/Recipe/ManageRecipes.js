@@ -124,6 +124,7 @@ const ManageRecipes = () => {
                 showFilterCore={true}
                 showSortByTitle={true}
                 showSortByCreatedDate={true}
+                showSortByStarRating={true}
                 originalList={originalRecipes} />
         {
           recipes != null && recipes.length > 0 ? (
