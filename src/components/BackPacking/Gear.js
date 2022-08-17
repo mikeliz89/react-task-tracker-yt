@@ -1,11 +1,14 @@
 //react
 import { useTranslation } from 'react-i18next';
-import { FaTimes, FaTripadvisor } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Alert } from 'react-bootstrap';
 //utils
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
+//icons
+import Icon from '../Icon';
+import { Categories } from './Categories';
 
 const Gear = ({ gear, onDelete }) => {
 
@@ -16,6 +19,25 @@ const Gear = ({ gear, onDelete }) => {
     const [message] = useState('')
     const [showMessage, setShowMessage] = useState(false);
     const [error] = useState(false);
+
+    const getIconNameByCategory = (gear) => {
+        switch(Number(gear.category)) {
+            case Categories.Sleeping:
+                return 'campground';
+            case Categories.Electronics:
+                return 'charging-station';
+            case Categories.Tool:
+                return 'hammer';
+            case Categories.FireCreation:
+                return 'burn';
+            case Categories.Clothing:
+                return 't-shirt';
+            case Categories.Cooking:
+                return 'utensils';
+            case Categories.Hygiene:
+                return 'hands-wash'
+        }
+    }
 
     return (
         <div key={gear.id} className='drink'>
@@ -29,7 +51,7 @@ const Gear = ({ gear, onDelete }) => {
                 </Alert>}
             <h5>
                 <span>
-                    <FaTripadvisor style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                    <Icon name={getIconNameByCategory(gear)} />
                     {gear.name}
                 </span>
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}

@@ -1,3 +1,25 @@
+/** Categories */
+export const Categories = {
+    /** -Ei mikään- */
+    None: 0,
+    /** Nukkuminen */
+    Sleeping: 1,
+    /** Elektroniikka */
+    Electronics: 2,
+    /** Hygienia */
+    Hygiene: 3,
+    /** työkalu */
+    Tool: 4,
+    /** vaate */
+    Clothing: 5,
+    /** Ruuanlaitto */
+    Cooking: 6,
+    /** Tulenteko */
+    FireCreation: 7,
+    /** Muu */
+    Other: 8
+}
+
 // TODO: Tällä hetkellä vain kovakoodatut drinkki-kategoriat
 export const GearCategories = [
     {
@@ -29,7 +51,7 @@ export const GearCategories = [
         //vaate
         "id": 5,
         "name": "clothing"
-    }, 
+    },
     {
         //ruuanlaitto
         "id": 6,

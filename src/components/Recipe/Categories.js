@@ -1,3 +1,15 @@
+/** Categories */
+export const Categories = {
+    /** -Ei mikään- */
+    None: 0,
+    /** Kala */
+    Fish: 3,
+    /** Pizza */
+    Pizza: 11,
+    /** hampurilainen */
+    Burger: 12
+}
+
 // TODO: Tällä hetkellä vain kovakoodatut ruoka-kategoriat
 export const RecipeCategories = [
     {

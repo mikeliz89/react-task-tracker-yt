@@ -16,7 +16,10 @@ import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
 import { useAuth } from '../../contexts/AuthContext';
 //i18n
 import i18n from "i18next";
+//icon
 import Icon from '../Icon';
+//categories
+import { Categories } from './Categories';
 
 const Recipe = ({ recipe, onDelete }) => {
 
@@ -109,11 +112,24 @@ const Recipe = ({ recipe, onDelete }) => {
         push(dbref, task);
     }
 
+    const getIconNameByCategory = (recipe) => {
+        switch (Number(recipe.category)) {
+            case Categories.Burger:
+                return 'hamburger';
+            case Categories.Pizza:
+                return 'pizza-slice';
+            case Categories.Fish:
+                return 'fish';
+            default:
+                return 'utensils';
+        }
+    }
+
     return (
         <div key={recipe.id} className={recipe.isCore === true ? 'recipe coreRecipe' : 'recipe'}>
             <h5>
                 <span>
-                    <Icon name='utensils' color='gray' />
+                    <Icon name={getIconNameByCategory(recipe)} color='gray' />
                     {recipe.title}
                 </span>
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}

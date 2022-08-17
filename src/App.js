@@ -1,6 +1,5 @@
 //App
 import './App.css';
-//React icons: https://react-icons.github.io/react-icons/icons?name=fa
 //react
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -71,16 +70,19 @@ import Games from './components/Games/Games';
 //LinksList
 import LinksList from './components/Links/LinksList';
 
-//global icons (https://fontawesome.com/v5/docs/web/use-with/react)
+//React icons: https://react-icons.github.io/react-icons/icons?name=fa
+//Icon instructions: https://fontawesome.com/v5/docs/web/use-with/react
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground,
-  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn,
-  faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell
+  faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
+  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
+  faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
+  faFish
 } from '@fortawesome/free-solid-svg-icons';
-library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground,
-  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn,
-  faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell
+library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
+  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
+  faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
+  faFish
 );
 
 //languagization
