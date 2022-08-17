@@ -108,7 +108,7 @@ const ExerciseDetails = () => {
                 </Row>
                 <PageTitle title={t('exercisedetails')} />
                 <div className='page-content'>
-                    {showEditExercise && <EditExercise exerciseID={params.id} exercise={exercise} />}
+                    {showEditExercise && <EditExercise exerciseID={params.id} exercise={exercise} onClose={() => setShowEditExercise(false)} />}
                     <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
                     <AddComment onSave={addCommentToExercise} />
                     {/*<AddLink onSaveLink={addLinkToTask} /> */}

@@ -1,5 +1,5 @@
 //react
-import { Col, Row, Form } from 'react-bootstrap';
+import { Col, Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 //firebase
@@ -8,7 +8,7 @@ import { update, ref } from 'firebase/database';
 //buttons
 import Button from '../Button';
 
-function EditExercise({ exerciseID, exercise }) {
+function EditExercise({ exerciseID, exercise, onClose }) {
 
   //constants
   const DB_EXERCISES = '/exercises';
@@ -76,7 +76,12 @@ function EditExercise({ exerciseID, exercise }) {
           <Form.Control type="time" name='time' value={endTime} onChange={(e) => setEndTime(e.target.value)} />
         </Form.Group>
       </Row>
-      <Button type='submit' text={t('button_save_exercise')} className='btn btn-block saveBtn' />
+      <Row>
+        <ButtonGroup>
+          <Button type='button' text={t('close')} className='btn btn-block' onClick={() => onClose()} />
+          <Button type='submit' text={t('button_save_exercise')} className='btn btn-block saveBtn' />
+        </ButtonGroup>
+      </Row>
     </Form>
   )
 }
