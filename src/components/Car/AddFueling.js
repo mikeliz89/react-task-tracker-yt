@@ -137,8 +137,9 @@ const AddFueling = ({ onClose }) => {
                 </Form.Group>
                 <Row>
                     <ButtonGroup>
-                        <Button type='button' text={t('button_close')} className='btn btn-block'
-                            onClick={() => onClose()} color='red' />
+                        <Button
+                            type='button' text={t('button_close')} className='btn btn-block'
+                            onClick={() => onClose()} />
                         <Button disabled={loading} type='submit' text={t('save')} className='btn btn-block saveBtn' />
                     </ButtonGroup>
                 </Row>

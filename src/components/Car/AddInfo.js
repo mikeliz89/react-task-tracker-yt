@@ -15,7 +15,7 @@ import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateT
 import i18n from "i18next";
 import PageTitle from "../PageTitle";
 
-const AddInfo = ({onClose}) => {
+const AddInfo = ({ onClose }) => {
 
     //constants
     const DB_INFO = 'car-info';
@@ -171,8 +171,9 @@ const AddInfo = ({onClose}) => {
                 </Form.Group>
                 <Row>
                     <ButtonGroup>
-                        <Button type='button' text={t('button_close')} className='btn btn-block'
-                            onClick={() => onClose()} color='red' />
+                        <Button
+                            type='button' text={t('button_close')} className='btn btn-block'
+                            onClick={() => onClose()} />
                         <Button disabled={loading} type='submit' text={t('save')} className='btn btn-block saveBtn' />
                     </ButtonGroup>
                 </Row>

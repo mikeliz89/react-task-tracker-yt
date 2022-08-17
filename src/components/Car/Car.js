@@ -54,10 +54,16 @@ export default function Car() {
         <div>
             <GoBackButton />
             <PageTitle title={t('car_title')} />
-            <Button onClick={() => setShowAddInfo(!showAddInfo)}
-                text={t('add_info')} iconName={'car'} />
-            <Button onClick={() => setShowAddFueling(!showAddFueling)}
-                text={t('add_fueling')} iconName={'gas-pump'} />
+            <Button
+                color={showAddInfo ? 'red' : 'steelblue'}
+                onClick={() => setShowAddInfo(!showAddInfo)}
+                text={t('add_info')}
+                iconName={'car'} />
+            <Button
+                color={showAddFueling ? 'red' : 'steelblue'}
+                onClick={() => setShowAddFueling(!showAddFueling)}
+                text={t('add_fueling')}
+                iconName={'gas-pump'} />
             {/* Info Start */}
             {
                 showAddInfo ?
