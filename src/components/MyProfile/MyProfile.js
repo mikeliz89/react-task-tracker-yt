@@ -24,6 +24,7 @@ export default function MyProfile() {
     return (
         <>
             <Button
+                iconName='user-alt'
                 text={t('button_myprofile')}
                 onClick={() => navigateTo()} />
         </>
