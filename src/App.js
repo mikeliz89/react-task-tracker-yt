@@ -47,7 +47,7 @@ import ManageBackPacking from './components/BackPacking/ManageBackPacking';
 import ManageGear from './components/BackPacking/ManageGear';
 //other components
 import PrivateRoute from './components/PrivateRoute';
-import Demo from './components/Demo';
+import Demo from './components/Demo/Demo';
 //AuthProvider
 import { AuthProvider } from './contexts/AuthContext';
 //Language
