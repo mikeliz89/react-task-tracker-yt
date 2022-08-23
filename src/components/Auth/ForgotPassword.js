@@ -41,7 +41,9 @@ export default function ForgotPassword() {
         <div className="login-container">
             <h3>{t('password_reset')}</h3>
             {error && <div className="error">{error}</div>}
-            {message && <Alert variant='info'>{message}</Alert>}
+            {message &&
+                <Alert variant='info'>{message}</Alert>
+            }
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="forgotPasswordFormEmail">
                     <Form.Label>{t('email')}</Form.Label>

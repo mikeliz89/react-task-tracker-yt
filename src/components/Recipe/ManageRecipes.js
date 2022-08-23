@@ -116,17 +116,18 @@ const ManageRecipes = () => {
             <div className='d-flex justify-content-end'>
               <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
             </div>
-          </Alert>}
+          </Alert>
+        }
         {showAddRecipe && <AddRecipe onClose={() => setShowAddRecipe(false)} onAddRecipe={addRecipe} />}
         <SearchSortFilter
-                useTitleFiltering={true}
-                onSet={setRecipes}
-                showFilterCore={true}
-                showSortByTitle={true}
-                showSortByCreatedDate={true}
-                showSortByStarRating={true}
-                showSearchByDescription={true}
-                originalList={originalRecipes} />
+          useTitleFiltering={true}
+          onSet={setRecipes}
+          showFilterCore={true}
+          showSortByTitle={true}
+          showSortByCreatedDate={true}
+          showSortByStarRating={true}
+          showSearchByDescription={true}
+          originalList={originalRecipes} />
         {
           recipes != null && recipes.length > 0 ? (
             <Recipes recipes={recipes}
