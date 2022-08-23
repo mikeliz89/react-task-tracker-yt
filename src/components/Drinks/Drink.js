@@ -1,7 +1,7 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { FaTimes, FaPlusSquare, FaGlassMartini } from 'react-icons/fa';
-import { OverlayTrigger, Tooltip, Alert } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 //Star rating
@@ -14,8 +14,8 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
-//button
-import Button from '../Button';
+//alert
+import Alert from '../Alert';
 
 const Drink = ({ drink, onDelete }) => {
 
@@ -28,8 +28,6 @@ const Drink = ({ drink, onDelete }) => {
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
     //states
-    const [message, setMessage] = useState('');
-    const [showMessage, setShowMessage] = useState(false);
     const [error] = useState(false);
 
     const renderTooltip = (props) => (
@@ -47,22 +45,14 @@ const Drink = ({ drink, onDelete }) => {
         const currentDateTime = getCurrentDateAsJson();
         const userID = currentUser.uid;
         push(dbref, { currentDateTime, userID });
-
-        setShowMessage(true);
-        setMessage(t('save_success_drinkinghistory'));
     }
 
     return (
         <div key={drink.id} className='drink'>
             {error && <div className="error">{error}</div>}
-            {message &&
-                <Alert show={showMessage} variant='success'>
-                    {message}
-                    <div className='d-flex justify-content-end'>
-                        <Button onClick={() => setShowMessage(false)} className='btn btn-success' text={t('button_close')} />
-                    </div>
-                </Alert>
-            }
+
+            <Alert />
+
             <h5>
                 <span>
                     <FaGlassMartini style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />

@@ -1,6 +1,6 @@
 //react
 import { useTranslation } from 'react-i18next';
-import { ButtonGroup, Row, Alert, Form, Col } from 'react-bootstrap';
+import { ButtonGroup, Row, Alert } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 //buttons

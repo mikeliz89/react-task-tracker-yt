@@ -1,7 +1,7 @@
 //react
-import { Alert, Form, ButtonGroup, Row } from "react-bootstrap";
+import { Form, ButtonGroup, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 //buttons
 import Button from "../Button";
 //auth
@@ -13,9 +13,14 @@ import { db } from "../../firebase-config";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 //i18n
 import i18n from "i18next";
+//pagetitle
 import PageTitle from "../PageTitle";
+//alert
+import Alert from "../Alert";
 
 const AddInfo = ({ onClose }) => {
+
+    const childRef = useRef(null);
 
     //constants
     const DB_INFO = 'car-info';
@@ -25,8 +30,6 @@ const AddInfo = ({ onClose }) => {
 
     //states
     const [error, setError] = useState('');
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     //car data states
     const [carId, setCarId] = useState('');
@@ -88,7 +91,7 @@ const AddInfo = ({ onClose }) => {
 
         try {
             //clear
-            setMessage('');
+            childRef.current.setMessage('');
             setLoading(true);
 
             //save
@@ -115,8 +118,8 @@ const AddInfo = ({ onClose }) => {
             info["modified"] = getCurrentDateAsJson()
             updates[`${DB_INFO}/${carId}`] = info;
             update(ref(db), updates);
-            setMessage(t('save_successfull'));
-            setShowMessage(true);
+            childRef.current.setMessage(t('save_successfull'));
+            childRef.current.setShowMessage(true);
         } catch (ex) {
             setError(t('save_exception'));
             console.warn(ex);
@@ -132,8 +135,8 @@ const AddInfo = ({ onClose }) => {
             info["createdBy"] = currentUser.email;
             const dbref = ref(db, DB_INFO);
             push(dbref, info);
-            setMessage(t('save_successfull'));
-            setShowMessage(true);
+            childRef.current.setMessage(t('save_successfull'));
+            childRef.current.setShowMessage(true);
         } catch (ex) {
             setError(t('save_exception'));
             console.warn(ex);
@@ -145,14 +148,8 @@ const AddInfo = ({ onClose }) => {
             <PageTitle title={t('add_info_title')} iconName='car' />
             {modified !== '' && <p style={{ marginBottom: '0' }}>{t('last_modified')}: {getJsonAsDateTimeString(modified, i18n.language)} &nbsp;</p>}
             {error && <div className="error">{error}</div>}
-            {message &&
-                <Alert show={showMessage} variant='success'>
-                    {message}
-                    <div className='d-flex justify-content-end'>
-                        <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
-                    </div>
-                </Alert>
-            }
+            <Alert innerRef={childRef} />
+
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addInfoForm-RegisterNumber">
                     <Form.Label>{t('register_number')}</Form.Label>
