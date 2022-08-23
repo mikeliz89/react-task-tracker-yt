@@ -23,7 +23,6 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
 
         setLoading(true);
 
-        //tallenna
         onSaveStars(stars);
 
         setLoading(false);

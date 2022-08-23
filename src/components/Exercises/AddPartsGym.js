@@ -10,6 +10,8 @@ import GymParts from './GymParts';
 //firebase
 import { onValue, push, child, ref } from 'firebase/database';
 import { db } from '../../firebase-config';
+//pagetitle
+import PageTitle from '../PageTitle';
 
 const AddPartsGym = () => {
 
@@ -54,12 +56,12 @@ const AddPartsGym = () => {
 
   return (
     <div>
-      <h4>{t('gym_parts_header')}</h4>
-      <Button 
-      iconName='burn'
-      color={showAddGymPart ? 'red' : 'steelblue'}
-      text={showAddGymPart ? t('close') : t('gym_parts_add_button')} 
-      onClick={() => setShowAddGymPart(!showAddGymPart)} />
+      <PageTitle title={t('title_gym')} iconName='dumbbell' />
+      <Button
+        iconName='burn'
+        color={showAddGymPart ? 'red' : 'steelblue'}
+        text={showAddGymPart ? t('close') : t('gym_parts_add_button')}
+        onClick={() => setShowAddGymPart(!showAddGymPart)} />
       {showAddGymPart && <AddPartsGymForm exerciseID={params.id} onAddPart={addPart} onClose={() => setShowAddGymPart(false)} />}
       {parts != null && parts.length > 0 ?
         (<div><GymParts exerciseID={params.id} parts={parts} /></div>) :

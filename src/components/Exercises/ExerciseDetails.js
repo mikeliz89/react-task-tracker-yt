@@ -11,10 +11,10 @@ import GoBackButton from "../GoBackButton";
 import Button from "../Button";
 //exercises
 import AddPartsGym from "./AddPartsGym";
-import AddPartsRunning from "./AddPartsRunning";
-import AddPartsWalking from "./AddPartsWalking";
-import { Categories } from "./Categories";
+import AddPartsMoving from "./AddPartsMoving";
+import AddPartsAerobics from "./AddPartsAerobics";
 import EditExercise from "./EditExercise";
+import { Categories, getTitleByCategory, getIconNameByCategory } from './Categories';
 //star rating
 import SetStarRating from "../StarRating/SetStarRating";
 //comment
@@ -27,6 +27,7 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateT
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
 //i18n
 import i18n from "i18next";
+//pagetitle
 import PageTitle from "../PageTitle";
 
 const ExerciseDetails = () => {
@@ -127,12 +128,19 @@ const ExerciseDetails = () => {
                         <AddPartsGym />
                     }
                     {
-                        Number(exercise.category) === Categories.Running &&
-                        <AddPartsRunning />
+                        Number(exercise.category) === Categories.Aerobics &&
+                        <AddPartsAerobics />
                     }
                     {
-                        Number(exercise.category) === Categories.Walking &&
-                        <AddPartsWalking />
+                        (
+                            Number(exercise.category) === Categories.BikingInside ||
+                            Number(exercise.category) === Categories.Biking ||
+                            Number(exercise.category) === Categories.Kayaking ||
+                            Number(exercise.category) === Categories.Running ||
+                            Number(exercise.category) === Categories.Walking
+                        ) &&
+                        <AddPartsMoving title={getTitleByCategory(exercise.category)}
+                            iconName={getIconNameByCategory(exercise.category)} />
                     }
                     <Comments objID={params.id} url={'exercise-comments'} />
                 </div>

@@ -12,13 +12,14 @@ import { push, ref, child, update, onValue } from 'firebase/database';
 import { useAuth } from '../../contexts/AuthContext';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+//pagetitle
+import PageTitle from '../PageTitle';
 
-const AddPartsRunning = () => {
+const AddPartsAerobics = () => {
 
   const DB_EXERCISE_PARTS = '/exercise-parts';
 
   //states
-  const [distance, setDistance] = useState(0);
   const [time, setTime] = useState(0);
   const [partID, setPartID] = useState();
   const [loading, setLoading] = useState(true);
@@ -55,7 +56,6 @@ const AddPartsRunning = () => {
       }
       if (fromDB && fromDB.length > 0) {
         setPartID(fromDB[0]["id"]);
-        setDistance(fromDB[0]["distance"]);
         setTime(fromDB[0]["time"]);
       }
       setLoading(false);
@@ -65,29 +65,29 @@ const AddPartsRunning = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const running = { distance, time };
+    const moving = { time };
     if (!partID) {
-      saveRunning(running);
+      save(moving);
     } else {
-      running["id"] = partID;
-      updateRunning(running, partID);
+      moving["id"] = partID;
+      updateMoving(moving, partID);
     }
   }
 
-  const updateRunning = async (running, partID) => {
+  const updateMoving = async (moving, partID) => {
     const exerciseID = params.id;
     const updates = {};
-    running["modified"] = getCurrentDateAsJson()
-    updates[`${DB_EXERCISE_PARTS}/${exerciseID}/${partID}`] = running;
+    moving["modified"] = getCurrentDateAsJson()
+    updates[`${DB_EXERCISE_PARTS}/${exerciseID}/${partID}`] = moving;
     update(ref(db), updates);
   }
 
-  const saveRunning = async (running) => {
+  const save = async (moving) => {
     const exerciseID = params.id;
-    running["created"] = getCurrentDateAsJson();
-    running["createdBy"] = currentUser.email;
+    moving["created"] = getCurrentDateAsJson();
+    moving["createdBy"] = currentUser.email;
     const dbref = child(ref(db, DB_EXERCISE_PARTS), exerciseID);
-    push(dbref, running);
+    push(dbref, moving);
   }
 
   return (
@@ -95,25 +95,19 @@ const AddPartsRunning = () => {
       <h3>{t('loading')}</h3>
     ) : (
       <div>
-        <h4>{t('running_parts_title')}</h4>
+        <PageTitle title={t('title_aerobics')} iconName='child' />
         <Form onSubmit={onSubmit}>
           <Form.Group>
-            <Form.Label>{t('running_distance')}</Form.Label>
-            <Form.Control type='number'
-              value={distance}
-              onChange={(e) => setDistance(e.target.value)}></Form.Control>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>{t('running_time')}</Form.Label>
+            <Form.Label>{t('time')}</Form.Label>
             <Form.Control type='text'
               value={time}
               onChange={(e) => setTime(e.target.value)}></Form.Control>
           </Form.Group>
-          <Button disabled={loading} type='submit' text='Tallenna' />
+          <Button disabled={loading} type='submit' text={t('button_save')} />
         </Form>
       </div>
     )
   )
 }
 
-export default AddPartsRunning
+export default AddPartsAerobics

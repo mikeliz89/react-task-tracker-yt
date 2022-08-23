@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react'
 //star rating
 import StarRating from '../StarRating/StarRating';
-//categories
-import { Categories } from './Categories';
-//utils
-import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
+//exercises
+import { getIconNameByCategory } from './Categories';
 //icon
 import Icon from '../Icon';
+//utils
+import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
 
 const Exercise = ({ exercise, onDelete }) => {
 
@@ -19,28 +19,11 @@ const Exercise = ({ exercise, onDelete }) => {
     //states 
     const [error] = useState('');
 
-    const getIconNameByCategory = (exercise) => {
-        switch (Number(exercise.category)) {
-            case Categories.Running:
-                return 'running';
-            case Categories.Gym:
-                return 'dumbbell';
-            case Categories.Walking:
-                return 'walking';
-            case Categories.Aerobics:
-                return 'child';
-            case Categories.Bicycling:
-                return 'biking';
-            case Categories.Kayaking:
-                return 'ship';
-        }
-    }
-
     return (
         <div key={exercise.id} className='exercise'>
             <h5>
                 <span>
-                    <Icon name={getIconNameByCategory(exercise)} />
+                    <Icon name={getIconNameByCategory(exercise.category)} />
                     {exercise.date + ' ' + exercise.time
                         // TODO: Korjaa formaatit kieleistyksien mukaan
                         //  getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)

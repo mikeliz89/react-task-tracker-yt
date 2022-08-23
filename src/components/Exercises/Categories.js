@@ -13,7 +13,9 @@ export const Categories = {
     /** Jumppa */
     Aerobics: 5,
     /** Pyöräily */
-    Bicycling: 6
+    Biking: 6,
+    /** Kuntopyöräily */
+    BikingInside: 7
 }
 
 export const ExerciseCategories = [
@@ -50,7 +52,12 @@ export const ExerciseCategories = [
     {
         //Pyöräily
         "id": 6,
-        "name": "bicycling"
+        "name": "biking"
+    },
+    {
+        //Kuntopyöräily
+        "id": 7,
+        "name": "biking_inside"
     }
 ]
 
@@ -96,3 +103,41 @@ export const MovementCategories = [
         "name": "other"
     },
 ]
+
+export function getTitleByCategory(category) {
+    switch (Number(category)) {
+        case Categories.Aerobics:
+            return 'title_aerobics';
+        case Categories.Biking:
+            return 'title_biking';
+        case Categories.BikingInside:
+            return 'title_biking_inside';
+        case Categories.Gym:
+            return 'title_gym';
+        case Categories.Kayaking:
+            return 'title_kayaking';
+        case Categories.Running:
+            return 'title_running';
+        case Categories.Walking:
+            return 'title_walking';
+    }
+}
+
+export function getIconNameByCategory(category) {
+    switch (Number(category)) {
+        case Categories.Aerobics:
+            return 'child';
+        case Categories.Biking:
+            return 'biking';
+        case Categories.BikingInside:
+            return 'biking';
+        case Categories.Gym:
+            return 'dumbbell';
+        case Categories.Kayaking:
+            return 'ship';
+        case Categories.Running:
+            return 'running';
+        case Categories.Walking:
+            return 'walking';
+    }
+}

@@ -31,6 +31,7 @@ function EditExercise({ exerciseID, exercise, onClose }) {
       setDate(exercise.date);
       setTime(exercise.time);
       setEndDate(exercise.endDate);
+      setEndTime(exercise.endTime);
       setCreated(exercise.created);
       setCreatedBy(exercise.createdBy);
       setCategory(exercise.category);

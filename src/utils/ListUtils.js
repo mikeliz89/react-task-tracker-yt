@@ -24,7 +24,6 @@ export function getFoodItemCategoryNameByID(id) {
     return getNameByID(FoodItemCategories, id);
 }
 
-/** Get Exercise Category Name by CategoryID */
 export function getExerciseCategoryNameByID(id) {
     return getNameByID(ExerciseCategories, id);
 }

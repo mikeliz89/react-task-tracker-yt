@@ -111,7 +111,8 @@ export default function ManageMyProfile() {
                     <div className='d-flex justify-content-end'>
                         <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
                     </div>
-                </Alert>}
+                </Alert>
+            }
             {/* <p>PhotoUrl: {photoUrl}</p> */}
             <img src={photoUrl} alt='avatar' className='avatar' />
             <Form onSubmit={onSubmit}>

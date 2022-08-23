@@ -61,7 +61,8 @@ const Drink = ({ drink, onDelete }) => {
                     <div className='d-flex justify-content-end'>
                         <Button onClick={() => setShowMessage(false)} className='btn btn-success' text={t('button_close')} />
                     </div>
-                </Alert>}
+                </Alert>
+            }
             <h5>
                 <span>
                     <FaGlassMartini style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
