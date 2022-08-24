@@ -4,6 +4,8 @@ import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 //buttons
 import Button from '../../components/Button';
+//formtitle
+import FormTitle from '../FormTitle';
 
 export default function AddIncredient({ onAddIncredient, incredientID, drinkID, onClose }) {
 
@@ -37,43 +39,46 @@ export default function AddIncredient({ onAddIncredient, incredientID, drinkID, 
   }
 
   return (
-    <Form onSubmit={onSubmit}>
-      <Form.Group className="mb-3" controlId="addIncredientForm-Name">
-        <Form.Label>{t('incredient_name')}</Form.Label>
-        <Form.Control
-          autoComplete="off"
-          type='text'
-          placeholder={t('incredient_name')}
-          value={name}
-          onChange={(e) => setName(e.target.value)} />
-      </Form.Group>
-      <Row>
-        <Form.Group as={Col} className="mb-3" controlId="addIncredientForm-Amount">
-          <Form.Label>{t('incredient_amount')}</Form.Label>
-          <Form.Control
-            autoComplete="off"
-            type='number'
-            placeholder={t('incredient_amount')}
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)} />
-        </Form.Group>
-        <Form.Group as={Col} className="mb-3" controlId="addIncredientForm-Unit">
-          <Form.Label>{t('incredient_unit_label')}</Form.Label>
+    <>
+      <FormTitle iconName='carrot' title={t('add_incredient_formtitle')} />
+      <Form onSubmit={onSubmit}>
+        <Form.Group className="mb-3" controlId="addIncredientForm-Name">
+          <Form.Label>{t('incredient_name')}</Form.Label>
           <Form.Control
             autoComplete="off"
             type='text'
-            placeholder={t('incredient_unit')}
-            value={unit}
-            onChange={(e) => setUnit(e.target.value)} />
+            placeholder={t('incredient_name')}
+            value={name}
+            onChange={(e) => setName(e.target.value)} />
         </Form.Group>
-      </Row>
-      <Row>
-        <ButtonGroup>
-          <Button type='button' text={t('button_close')} className='btn btn-block'
-            onClick={() => onClose()} />
-          <Button type='submit' text={t('button_save_incredient')} className='btn btn-block saveBtn' />
-        </ButtonGroup>
-      </Row>
-    </Form>
+        <Row>
+          <Form.Group as={Col} className="mb-3" controlId="addIncredientForm-Amount">
+            <Form.Label>{t('incredient_amount')}</Form.Label>
+            <Form.Control
+              autoComplete="off"
+              type='number'
+              placeholder={t('incredient_amount')}
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)} />
+          </Form.Group>
+          <Form.Group as={Col} className="mb-3" controlId="addIncredientForm-Unit">
+            <Form.Label>{t('incredient_unit_label')}</Form.Label>
+            <Form.Control
+              autoComplete="off"
+              type='text'
+              placeholder={t('incredient_unit')}
+              value={unit}
+              onChange={(e) => setUnit(e.target.value)} />
+          </Form.Group>
+        </Row>
+        <Row>
+          <ButtonGroup>
+            <Button type='button' text={t('button_close')} className='btn btn-block'
+              onClick={() => onClose()} />
+            <Button type='submit' text={t('button_save_incredient')} className='btn btn-block saveBtn' />
+          </ButtonGroup>
+        </Row>
+      </Form>
+    </>
   )
 }

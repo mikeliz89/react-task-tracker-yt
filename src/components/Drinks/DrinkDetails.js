@@ -65,7 +65,7 @@ export default function DrinkDetails() {
     //alert
     const [showMessage, setShowMessage] = useState(false);
     const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState('');
+    const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
     //translation

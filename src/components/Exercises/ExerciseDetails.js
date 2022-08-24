@@ -52,7 +52,7 @@ const ExerciseDetails = () => {
     //alert
     const [showMessage, setShowMessage] = useState(false);
     const [message] = useState('');
-    const [showError, setShowError] = useState('');
+    const [showError, setShowError] = useState(false);
     const [error] = useState('');
 
     //translation
