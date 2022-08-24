@@ -7,7 +7,7 @@ const LinksInner = ({ links, objID, linkUrl, onDelete, onEdit }) => {
         <div>
             {links
                 ? links.map((link) =>
-                    <div key={link.id} style={{ padding: '5px', border: '1px solid black' }}>
+                    <div key={link.id} className='linkContainer'>
                         <LinkInner link={link} objID={objID} linkUrl={linkUrl} onDelete={onDelete} onEdit={onEdit} />
                     </div>
                 ) : '-'

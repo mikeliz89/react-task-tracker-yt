@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 //firebase
 import { db } from '../../firebase-config';
 import { push, child, remove, ref, onValue, update } from "firebase/database";
@@ -200,18 +202,6 @@ export default function RecipeDetails() {
                         text={showEditRecipe ? t('button_close') : ''}
                         color={showEditRecipe ? 'red' : 'orange'}
                         onClick={() => setShowEditRecipe(!showEditRecipe)} />
-                    <Button
-                        iconName='plus'
-                        secondIconName='carrot'
-                        color={showAddIncredient ? 'red' : 'green'}
-                        text={showAddIncredient ? t('button_close') : ''}
-                        onClick={() => setShowAddIncredient(!showAddIncredient)} />
-                    <Button
-                        iconName='plus'
-                        secondIconName='hourglass-1'
-                        color={showAddWorkPhase ? 'red' : 'green'}
-                        text={showAddWorkPhase ? t('button_close') : ''}
-                        onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                 </ButtonGroup>
             </Row>
             <Row>
@@ -264,33 +254,58 @@ export default function RecipeDetails() {
                     error={error} showError={showError}
                     variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-                <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
-                <AddComment onSave={addCommentToRecipe} />
-                <AddLink onSaveLink={addLinkToRecipe} />
                 {/* <pre>{JSON.stringify(recipe)}</pre> */}
                 {showEditRecipe && <AddRecipe onClose={() => setShowEditRecipe(false)} onAddRecipe={addRecipe} recipeID={params.id} />}
-                {showAddIncredient && <AddIncredient onAddIncredient={addIncredient} recipeID={params.id} />}
-                {showAddWorkPhase && <AddWorkPhase onAddWorkPhase={addWorkPhase} recipeID={params.id} />}
-                {incredients != null}
-                {incredients != null && incredients.length > 0 ? (
-                    <Incredients
-                        recipeID={params.id}
-                        incredients={incredients}
-                        onDelete={deleteIncredient}
-                    />
-                ) : (
-                    <p> {t('no_incredients_to_show')} </p>
-                )}
-                {workPhases != null}
-                {workPhases != null && workPhases.length > 0 ? (
-                    <WorkPhases
-                        recipeID={params.id}
-                        workPhases={workPhases}
-                        onDeleteWorkPhase={deleteWorkPhase}
-                    />
-                ) : (
-                    <p> {t('no_workphases_to_show')} </p>
-                )}
+
+                <Tabs defaultActiveKey="home"
+                    id="recipeDetails-Tab"
+                    className="mb-3">
+                    <Tab eventKey="home" title={t('incredients_header')}>
+                        <Button
+                            iconName='plus'
+                            secondIconName='carrot'
+                            color={showAddIncredient ? 'red' : 'green'}
+                            text={showAddIncredient ? t('button_close') : ''}
+                            onClick={() => setShowAddIncredient(!showAddIncredient)} />
+                        {showAddIncredient && <AddIncredient onAddIncredient={addIncredient} recipeID={params.id} onClose={() => setShowAddIncredient(false)} />}
+                        {incredients != null}
+                        {incredients != null && incredients.length > 0 ? (
+                            <Incredients
+                                recipeID={params.id}
+                                incredients={incredients}
+                                onDelete={deleteIncredient}
+                            />
+                        ) : (
+                            <p> {t('no_incredients_to_show')} </p>
+                        )}
+                    </Tab>
+                    <Tab eventKey="workPhases" title={t('workphases_header')}>
+                        <Button
+                            iconName='plus'
+                            secondIconName='hourglass-1'
+                            color={showAddWorkPhase ? 'red' : 'green'}
+                            text={showAddWorkPhase ? t('button_close') : ''}
+                            onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
+                        {showAddWorkPhase && <AddWorkPhase onAddWorkPhase={addWorkPhase} recipeID={params.id} onClose={() => setShowAddWorkPhase(false)} />}
+                        {workPhases != null}
+                        {workPhases != null && workPhases.length > 0 ? (
+                            <WorkPhases
+                                recipeID={params.id}
+                                workPhases={workPhases}
+                                onDeleteWorkPhase={deleteWorkPhase}
+                            />
+                        ) : (
+                            <p> {t('no_workphases_to_show')} </p>
+                        )}
+                    </Tab>
+                    <Tab eventKey="actions" title="Toiminnot">
+                        <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
+                        <AddComment onSave={addCommentToRecipe} />
+                        <AddLink onSaveLink={addLinkToRecipe} />
+                    </Tab>
+                </Tabs>
+
+                <hr />
                 <Comments objID={params.id} url={'recipe-comments'} />
                 <Links objID={params.id} url={'recipe-links'} />
             </div>

@@ -1,11 +1,11 @@
 //react
 import { useTranslation } from 'react-i18next';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 //buttons
 import Button from '../../components/Button';
 
-export default function AddIncredient({ onAddIncredient, incredientID, recipeID }) {
+export default function AddIncredient({ onAddIncredient, incredientID, recipeID, onClose }) {
 
   //translation
   const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
@@ -67,7 +67,12 @@ export default function AddIncredient({ onAddIncredient, incredientID, recipeID 
             onChange={(e) => setUnit(e.target.value)} />
         </Form.Group>
       </Row>
-      <Button type='submit' text={t('button_save_incredient')} className='btn btn-block saveBtn' />
+      <Row>
+        <ButtonGroup>
+          <Button type='button' onClick={() => onClose()} className='btn btn-block' text={t('button_close')} />
+          <Button type='submit' text={t('button_save_incredient')} className='btn btn-block saveBtn' />
+        </ButtonGroup>
+      </Row>
     </Form>
   )
 }

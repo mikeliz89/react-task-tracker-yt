@@ -2,7 +2,7 @@
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Row } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 //buttons
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
@@ -27,6 +27,7 @@ const ManageRecipes = () => {
 
   //constants
   const DB_RECIPES = '/recipes';
+  const NAVIGATION_RECIPE = '/recipe';
 
   //states
   const [loading, setLoading] = useState(true);
@@ -45,6 +46,9 @@ const ManageRecipes = () => {
 
   //user
   const { currentUser } = useAuth();
+
+  //navigate
+  const navigate = useNavigate();
 
   //load data
   useEffect(() => {
@@ -82,7 +86,10 @@ const ManageRecipes = () => {
       recipe["created"] = getCurrentDateAsJson();
       recipe["createdBy"] = currentUser.email;
       const dbref = ref(db, DB_RECIPES);
-      push(dbref, recipe);
+      push(dbref, recipe).then((snap) => {
+        const key = snap.key;
+        navigate(`${NAVIGATION_RECIPE}/${key}`);
+      })
       showSuccess();
     } catch (ex) {
       showFailure();

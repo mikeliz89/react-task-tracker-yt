@@ -18,8 +18,7 @@ Icon.defaultProps = {
     name: '',
     color: 'gray',
     className: '',
-    fontSize: '1em',
-    style: ''
+    fontSize: '1em'
 }
 
 Icon.propTypes = {
@@ -27,7 +26,7 @@ Icon.propTypes = {
     color: PropTypes.string,
     className: PropTypes.string,
     fontSize: PropTypes.string,
-    style: PropTypes.string
+    style: PropTypes.object
 }
 
 export default Icon
