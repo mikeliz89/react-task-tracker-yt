@@ -27,7 +27,6 @@ const Exercise = ({ exercise, onDelete }) => {
                 </span>
                 <Icon className='deleteBtn' name='times' color='red' fontSize='1.2em' cursor='pointer'
                     onClick={() => { if (window.confirm(t('delete_exercise_confirm_message'))) { onDelete(exercise.id); } }} />
-
             </h5>
             <p>
                 {exercise.category > 0 ?

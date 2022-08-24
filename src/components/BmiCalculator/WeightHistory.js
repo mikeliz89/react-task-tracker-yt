@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react'
 //firebase
 import { db } from '../../firebase-config';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, remove } from "firebase/database";
 //utils
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 //i18n
@@ -16,10 +16,18 @@ import { useAuth } from '../../contexts/AuthContext';
 import WeightChart from './WeightChart';
 //pagetitle
 import PageTitle from '../PageTitle';
+//icon
+import Icon from '../Icon';
 
 const WeightHistory = () => {
 
-    const { t } = useTranslation('bmicalculator', {keyPrefix:'bmicalculator'});
+    //constants
+    const DB_WEIGHT_HISTORY = '/weighthistory';
+
+    //translation
+    const { t } = useTranslation('bmicalculator', { keyPrefix: 'bmicalculator' });
+
+    //auth
     const { currentUser } = useAuth();
 
     //states
@@ -43,7 +51,7 @@ const WeightHistory = () => {
     }, [])
 
     const fetchHistoryRowsFromFirebase = async () => {
-        const dbref = await ref(db, '/weighthistory/' + currentUser.uid);
+        const dbref = await ref(db, `${DB_WEIGHT_HISTORY}/${currentUser.uid}`);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const historyRowsFromDB = [];
@@ -52,6 +60,11 @@ const WeightHistory = () => {
             }
             setHistoryRows(historyRowsFromDB);
         })
+    }
+
+    const deleteHistoryRow = async (id) => {
+        const dbref = ref(db, `${DB_WEIGHT_HISTORY}/${currentUser.uid}/${id}`);
+        remove(dbref);
     }
 
     return (
@@ -65,6 +78,9 @@ const WeightHistory = () => {
                     <div key={row.id}>
                         <p>
                             {getJsonAsDateTimeString(row.currentDateTime, i18n.language)}<br /> - {row.weight} kg, BMI: {row.bmi}
+
+                            <Icon className='btn deleteBtn' name='times' color='red' fontSize='1.2em' cursor='pointer'
+                                onClick={() => { if (window.confirm(t('delete_weighthistory_confirm_message'))) { deleteHistoryRow(row.id) } }} />
                         </p>
                     </div>
                 ) : '-'

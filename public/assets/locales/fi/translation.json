@@ -71,6 +71,7 @@
         "bmi_ormore": "tai enemmän",
         "button_weight_history": "Katso painohistoriaasi",
         "calculate_bmi": "Laske painoindeksi",
+        "delete_weighthistory_confirm_message": "Oletko varma?",
         "height": "Pituus",
         "please_give_height": "Ole hyvä ja anna pituus",
         "please_give_weight": "Ole hyvä ja anna paino",
