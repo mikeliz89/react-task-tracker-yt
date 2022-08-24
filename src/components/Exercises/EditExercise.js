@@ -7,6 +7,8 @@ import { db } from '../../firebase-config';
 import { update, ref } from 'firebase/database';
 //buttons
 import Button from '../Button';
+//utils
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 
 function EditExercise({ exerciseID, exercise, onClose }) {
 
@@ -48,6 +50,7 @@ function EditExercise({ exerciseID, exercise, onClose }) {
   const saveExercise = async (exerciseID, exercise) => {
     try {
       const updates = {};
+      exercise["modified"] = getCurrentDateAsJson();
       updates[`${DB_EXERCISES}/${exerciseID}`] = exercise;
       update(ref(db), updates);
     } catch (ex) {

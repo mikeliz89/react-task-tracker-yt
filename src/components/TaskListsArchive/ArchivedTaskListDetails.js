@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Accordion, Table } from 'react-bootstrap';
+import { Accordion, Table, Row, Col } from 'react-bootstrap';
 //firebase
 import { ref, onValue, child } from "firebase/database";
 import { db } from '../../firebase-config';
@@ -103,37 +103,40 @@ export default function ArchivedTaskListDetails() {
     <div>
       <GoBackButton />
       {/* TODO: Arkistoidun listan palautustoiminto -nappi */}
-      {/* Accordion */}
-      <Accordion>
-        <Accordion.Item>
-          <Accordion.Header>
-            <PageTitle title={taskList.title} iconName='list-alt' />
-          </Accordion.Header>
-          <Accordion.Body>
-            {t('description')}: {taskList.description}<br />
-            <Table striped bordered hover>
-              <tbody>
-                <tr>
-                  <td>{t('created')}</td>
-                  <td>{getJsonAsDateTimeString(taskList.created, i18n.language)}</td>
-                </tr>
-                <tr>
-                  <td>{t('created_by')}</td>
-                  <td>{taskList.createdBy}</td>
-                </tr>
-                <tr>
-                  <td>{t('modified')}</td>
-                  <td>{getJsonAsDateTimeString(taskList.modified, i18n.language)}</td>
-                </tr>
-                <tr>
-                  <td>{t('tasks_ready_counter')}</td>
-                  <td>{taskReadyCounter}/{taskCounter}</td>
-                </tr>
-              </tbody>
-            </Table>
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
+      <Row>
+        <Col>
+          <Accordion>
+            <Accordion.Item>
+              <Accordion.Header>
+                <PageTitle title={taskList.title} iconName='list-alt' />
+              </Accordion.Header>
+              <Accordion.Body>
+                {t('description')}: {taskList.description}<br />
+                <Table striped bordered hover>
+                  <tbody>
+                    <tr>
+                      <td>{t('created')}</td>
+                      <td>{getJsonAsDateTimeString(taskList.created, i18n.language)}</td>
+                    </tr>
+                    <tr>
+                      <td>{t('created_by')}</td>
+                      <td>{taskList.createdBy}</td>
+                    </tr>
+                    <tr>
+                      <td>{t('modified')}</td>
+                      <td>{getJsonAsDateTimeString(taskList.modified, i18n.language)}</td>
+                    </tr>
+                    <tr>
+                      <td>{t('tasks_ready_counter')}</td>
+                      <td>{taskReadyCounter}/{taskCounter}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </Col>
+      </Row>
       <div className="page-content">
         {tasks != null && tasks.length > 0 ? (
           <Tasks

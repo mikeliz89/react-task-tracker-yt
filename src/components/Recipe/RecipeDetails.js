@@ -226,7 +226,6 @@ export default function RecipeDetails() {
             </Row>
             <Row>
                 <Col>
-                    {/* Accordion start */}
                     <Accordion>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>

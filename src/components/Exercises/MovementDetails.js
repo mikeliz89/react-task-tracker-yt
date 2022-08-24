@@ -13,7 +13,12 @@ import GoBackButton from '../../components/GoBackButton';
 import i18n from "i18next";
 //utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
+import { getMovementCategoryNameByID } from '../../utils/ListUtils';
+//exercise
+
+//StarRating
+import SetStarRating from '../StarRating/SetStarRating';
+import StarRating from '../StarRating/StarRating';
 //Comment
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
@@ -22,33 +27,31 @@ import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
-//drinks
-import AddDrinkingProduct from './AddDrinkingProduct';
 //pagetitle
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
 
-export default function DrinkingProductDetails() {
+export default function MovementDetails() {
 
     //constants
-    const DB_DRINKINGPRODUCTS = '/drinkingproducts';
-    const DB_DRINKINGPRODUCT_COMMENTS = '/drinkingproduct-comments';
-    const DB_DRINKINGPRODUCT_LINKS = '/drinkingproduct-links';
+    const DB_MOVEMENTS = '/exercise-movements';
+    const DB_MOVEMENT_COMMENTS = '/exercise-movement-comments';
+    const DB_MOVEMENT_LINKS = '/exercise-movement-links';
 
     //states
     const [loading, setLoading] = useState(true);
-    const [drinkingProduct, setDrinkingProduct] = useState({});
-    const [showEditDrinkingProduct, setShowEditDrinkingProduct] = useState(false);
+    const [movement, setMovement] = useState({});
+    const [showEditMovement, setShowEditMovement] = useState(false);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
     const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
+    const [showError, setShowError] = useState('');
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
+    const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
 
     //params
     const params = useParams();
@@ -61,55 +64,47 @@ export default function DrinkingProductDetails() {
 
     //load data
     useEffect(() => {
-        const getDrinkingProduct = async () => {
-            await fetchDrinkingProductFromFirebase();
+        const getMovement = async () => {
+            await fetchMovementFromFirebase();
         }
-        getDrinkingProduct();
+        getMovement();
     }, [])
 
-    /** Fetch Drink From Firebase */
-    const fetchDrinkingProductFromFirebase = async () => {
-        const dbref = ref(db, `${DB_DRINKINGPRODUCTS}/${params.id}`);
+    const fetchMovementFromFirebase = async () => {
+        const dbref = ref(db, `${DB_MOVEMENTS}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
                 navigate(-1);
             }
-            setDrinkingProduct(data);
+            setMovement(data);
             setLoading(false);
         })
     }
 
-    const addCommentToDrinkingProduct = (comment) => {
-        const drinkID = params.id;
+    const saveStars = async (stars) => {
+        const movementID = params.id;
+        const updates = {};
+        movement["modified"] = getCurrentDateAsJson();
+        movement["stars"] = Number(stars);
+        updates[`${DB_MOVEMENTS}/${movementID}`] = movement;
+        update(ref(db), updates);
+    }
+
+    const addCommentToMovement = (comment) => {
+        const movementID = params.id;
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, DB_DRINKINGPRODUCT_COMMENTS), drinkID);
+        const dbref = child(ref(db, DB_MOVEMENT_COMMENTS), movementID);
         push(dbref, comment);
     }
 
-    const addLinkToDrinkingProduct = (link) => {
-        const drinkID = params.id;
+    const addLinkToMovement = (link) => {
+        const movementID = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, DB_DRINKINGPRODUCT_LINKS), drinkID);
+        const dbref = child(ref(db, DB_MOVEMENT_LINKS), movementID);
         push(dbref, link);
-    }
-
-    /** Add Drink To Firebase */
-    const addDrinkingProduct = async (drinkingProduct) => {
-        try {
-            var drinkingProductID = params.id;
-            //save edited drink to firebase
-            const updates = {};
-            drinkingProduct["modified"] = getCurrentDateAsJson();
-            updates[`${DB_DRINKINGPRODUCTS}/${drinkingProductID}`] = drinkingProduct;
-            update(ref(db), updates);
-        } catch (error) {
-            console.log(error)
-            setError(t('failed_to_save_drink'));
-            setShowError(true);
-        }
     }
 
     return loading ? (
@@ -121,9 +116,9 @@ export default function DrinkingProductDetails() {
                     <GoBackButton />
                     <Button
                         iconName='edit'
-                        text={showEditDrinkingProduct ? t('button_close') : ''}
-                        color={showEditDrinkingProduct ? 'red' : 'orange'}
-                        onClick={() => setShowEditDrinkingProduct(!showEditDrinkingProduct)} />
+                        text={showEditMovement ? t('button_close') : ''}
+                        color={showEditMovement ? 'red' : 'orange'}
+                        onClick={() => setShowEditMovement(!showEditMovement)} />
                 </ButtonGroup>
             </Row>
             <Row>
@@ -131,27 +126,26 @@ export default function DrinkingProductDetails() {
                     <Accordion>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>
-                                <PageTitle title={drinkingProduct.name} iconName='cocktail' iconColor='gray' />
+                                <PageTitle title={movement.name} iconName='glass-martini' iconColor='gray' />
                             </Accordion.Header>
                             <Accordion.Body>
-                                {t('description')}: {drinkingProduct.description}<br />
                                 <Table striped bordered hover>
                                     <tbody>
                                         <tr>
                                             <td>{t('created')}</td>
-                                            <td>{getJsonAsDateTimeString(drinkingProduct.created, i18n.language)}</td>
+                                            <td>{getJsonAsDateTimeString(movement.created, i18n.language)}</td>
                                         </tr>
                                         <tr>
                                             <td>{t('created_by')}</td>
-                                            <td>{drinkingProduct.createdBy}</td>
+                                            <td>{movement.createdBy}</td>
                                         </tr>
                                         <tr>
                                             <td>{t('modified')}</td>
-                                            <td>{getJsonAsDateTimeString(drinkingProduct.modified, i18n.language)}</td>
+                                            <td>{getJsonAsDateTimeString(movement.modified, i18n.language)}</td>
                                         </tr>
                                         <tr>
                                             <td>{t('category')}</td>
-                                            <td>{t('drinkingproduct_category_' + getDrinkingProductCategoryNameByID(drinkingProduct.category))}</td>
+                                            <td>{t('movementcategory_' + getMovementCategoryNameByID(movement.category))}</td>
                                         </tr>
                                     </tbody>
                                 </Table>
@@ -160,20 +154,24 @@ export default function DrinkingProductDetails() {
                     </Accordion>
                 </Col>
             </Row>
+            <Row>
+                <Col>
+                    <StarRating starCount={movement.stars} />
+                </Col>
+            </Row>
+
             <div className="page-content">
 
                 <Alert message={message} showMessage={showMessage}
                     error={error} showError={showError}
                     variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-                <AddComment onSave={addCommentToDrinkingProduct} />
-                <AddLink onSaveLink={addLinkToDrinkingProduct} />
+                <SetStarRating starCount={movement.stars} onSaveStars={saveStars} />
+                <AddComment onSave={addCommentToMovement} />
+                <AddLink onSaveLink={addLinkToMovement} />
 
-                {showEditDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} drinkingProductID={params.id}
-                    onClose={() => setShowEditDrinkingProduct(false)} />}
-
-                <Comments objID={params.id} url={'drinkingproduct-comments'} />
-                <Links objID={params.id} url={'drinkingproduct-links'} />
+                <Comments objID={params.id} url={'exercise-movement-comments'} />
+                <Links objID={params.id} url={'exercise-movement-links'} />
             </div>
         </div>
     )

@@ -1,7 +1,7 @@
 //react
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Col, Row, ButtonGroup, Accordion, Table, Form } from 'react-bootstrap';
+import { Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 //buttons
 import Button from '../Button';
@@ -234,38 +234,41 @@ function TaskListDetails() {
           />
         </ButtonGroup>
       </Row>
-      {/* Accordion */}
-      <Accordion>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>
-            <PageTitle title={taskList.title} iconName='list-alt' iconColor='gray' />
-          </Accordion.Header>
-          <Accordion.Body>
-            {t('description')}: {taskList.description}<br />
-            <Table striped bordered hover>
-              <tbody>
-                <tr>
-                  <td>{t('created')}</td>
-                  <td>{getJsonAsDateTimeString(taskList.created, i18n.language)}</td>
-                </tr>
-                <tr>
-                  <td>{t('created_by')}</td>
-                  <td>{taskList.createdBy}</td>
-                </tr>
-                <tr>
-                  <td>{t('modified')}</td>
-                  <td>{getJsonAsDateTimeString(taskList.modified, i18n.language)}</td>
-                </tr>
-                <tr>
-                  <td>{t('tasks_ready_counter')}</td>
-                  <td>{taskReadyCounter}/{taskCounter}</td>
-                </tr>
-              </tbody>
-            </Table>
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
-      {/* <div>{searchString}</div> */}
+      <Row>
+        <Col>
+          <Accordion>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <PageTitle title={taskList.title} iconName='list-alt' iconColor='gray' />
+              </Accordion.Header>
+              <Accordion.Body>
+                {t('description')}: {taskList.description}<br />
+                <Table striped bordered hover>
+                  <tbody>
+                    <tr>
+                      <td>{t('created')}</td>
+                      <td>{getJsonAsDateTimeString(taskList.created, i18n.language)}</td>
+                    </tr>
+                    <tr>
+                      <td>{t('created_by')}</td>
+                      <td>{taskList.createdBy}</td>
+                    </tr>
+                    <tr>
+                      <td>{t('modified')}</td>
+                      <td>{getJsonAsDateTimeString(taskList.modified, i18n.language)}</td>
+                    </tr>
+                    <tr>
+                      <td>{t('tasks_ready_counter')}</td>
+                      <td>{taskReadyCounter}/{taskCounter}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </Col>
+      </Row>
+
       <div className="page-content">
         <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} iconName='square-check' />
         {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />}

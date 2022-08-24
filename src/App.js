@@ -28,6 +28,7 @@ import CreateExercise from './components/Exercises/CreateExercise';
 import CreateMovement from './components/Exercises/CreateMovement';
 import ExerciseDetails from './components/Exercises/ExerciseDetails';
 import ManageMovements from './components/Exercises/ManageMovements';
+import MovementDetails from './components/Exercises/MovementDetails';
 //Recipe
 import ManageFoodItems from './components/Recipe/ManageFoodItems';
 import ManageRecipes from './components/Recipe/ManageRecipes';
@@ -136,6 +137,7 @@ function App() {
             <Route path='/exercise/:id' element={<PrivateRoute><ExerciseDetails /></PrivateRoute>} />
             <Route path='/managemovements' element={<PrivateRoute><ManageMovements /></PrivateRoute>} />
             <Route path='/createmovement' element={<PrivateRoute><CreateMovement /></PrivateRoute>} />
+            <Route path='/movement/:id' element={<PrivateRoute><MovementDetails /></PrivateRoute>} />
             {/* Exercises */}
             {/* BMI */}
             <Route path='/bmicalculator' element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />

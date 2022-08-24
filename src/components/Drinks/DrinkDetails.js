@@ -293,42 +293,44 @@ export default function DrinkDetails() {
                         onClick={() => setShowAddGarnish(!showAddGarnish)} />
                 </ButtonGroup>
             </Row>
-            {/* Accordion start */}
-            <Accordion>
-                <Accordion.Item eventKey="0">
-                    <Accordion.Header>
-                        <PageTitle title={drink.title} iconName='glass-martini' iconColor='gray' />
-                    </Accordion.Header>
-                    <Accordion.Body>
-                        {t('description')}: {drink.description}<br />
-                        <Table striped bordered hover>
-                            <tbody>
-                                <tr>
-                                    <td>{t('created')}</td>
-                                    <td>{getJsonAsDateTimeString(drink.created, i18n.language)}</td>
-                                </tr>
-                                <tr>
-                                    <td>{t('created_by')}</td>
-                                    <td>{drink.createdBy}</td>
-                                </tr>
-                                <tr>
-                                    <td>{t('modified')}</td>
-                                    <td>{getJsonAsDateTimeString(drink.modified, i18n.language)}</td>
-                                </tr>
-                                <tr>
-                                    <td>{t('glass')}</td>
-                                    <td>{drink.glass}</td>
-                                </tr>
-                                <tr>
-                                    <td>{t('category')}</td>
-                                    <td>{t('category_' + getDrinkCategoryNameByID(drink.category))}</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </Accordion.Body>
-                </Accordion.Item>
-            </Accordion>
-
+            <Row>
+                <Col>
+                    <Accordion>
+                        <Accordion.Item eventKey="0">
+                            <Accordion.Header>
+                                <PageTitle title={drink.title} iconName='glass-martini' iconColor='gray' />
+                            </Accordion.Header>
+                            <Accordion.Body>
+                                {t('description')}: {drink.description}<br />
+                                <Table striped bordered hover>
+                                    <tbody>
+                                        <tr>
+                                            <td>{t('created')}</td>
+                                            <td>{getJsonAsDateTimeString(drink.created, i18n.language)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{t('created_by')}</td>
+                                            <td>{drink.createdBy}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{t('modified')}</td>
+                                            <td>{getJsonAsDateTimeString(drink.modified, i18n.language)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{t('glass')}</td>
+                                            <td>{drink.glass}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{t('category')}</td>
+                                            <td>{t('category_' + getDrinkCategoryNameByID(drink.category))}</td>
+                                        </tr>
+                                    </tbody>
+                                </Table>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion>
+                </Col>
+            </Row>
             <Row>
                 <Col>
                     <StarRating starCount={drink.stars} />

@@ -228,6 +228,7 @@
     },
     "exercises": {
         "button_create_exercise": "Luo harjoitus",
+        "button_close": "Sulje",
         "button_edit": "Muokkaa",
         "button_save": "Tallenna",
         "button_save_exercise": "Tallenna harjoitus",
@@ -270,6 +271,7 @@
         "manage_exercises_title": "Liikunta",
         "manage_movements_button": "Liikkeet",
         "manage_movements_title": "Liikkeet",
+        "modified": "Muokattu",
         "movementcategory": "Liikekategoria",
         "movementcategory_none": "-Ei mikään-",
         "movementcategory_abs": "Vatsalihakset",
