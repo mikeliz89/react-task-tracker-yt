@@ -259,6 +259,7 @@
         "endtime": "Päättymisaika",
         "exercises": "Harjoitukset",
         "exercisedetails": "Harjoituksen tiedot",
+        "exercise_save_success": "Harjoituksen tallennus onnistui",
         "exercise_save_exception": "Harjoituksen tallennus epäonnistui",
         "gym_no_parts": "Ei lisättyjä liikkeitä",
         "gym_parts": "Liikkeet",
@@ -337,12 +338,13 @@
     "myprofile": {
         "button_close": "Sulje",
         "button_myprofile": "Oma profiili",
-        "title": "Oma profiili",
-        "name": "Nimi",
         "height": "Pituus",
+        "loading": "Lataa...",
+        "name": "Nimi",
         "savebutton": "Tallenna",
         "saving_done": "Tallennus onnistui",
         "saving_failed": "Tallennus epäonnistui",
+        "title": "Oma profiili",
         "upload": "Lähetä"
     },
     "recipe": {

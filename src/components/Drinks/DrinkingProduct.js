@@ -35,7 +35,7 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
 
     return (
 
-        <div key={drinkingProduct.id} className='drink'>
+        <div className='drink'>
             <h5>
                 <span>
                     <Icon name='cocktail' color='gray' />

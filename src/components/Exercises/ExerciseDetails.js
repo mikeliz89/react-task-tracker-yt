@@ -51,9 +51,9 @@ const ExerciseDetails = () => {
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message] = useState('');
     const [showError, setShowError] = useState('');
-    const [error, setError] = useState('');
+    const [error] = useState('');
 
     //translation
     const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });

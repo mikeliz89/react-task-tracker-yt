@@ -25,7 +25,7 @@ export const Incredient = ({ incredient, recipeID, onDelete }) => {
     }
 
     return (
-        <div key={incredient.id} className='recipe'>
+        <div className='recipe'>
             <Row>
                 <Col xs={9}>
                     <span style={{ fontWeight: 'bold' }}>{incredient.name}</span>

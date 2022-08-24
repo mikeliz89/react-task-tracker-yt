@@ -36,7 +36,7 @@ export default function ManageMyProfile() {
     const [height, setHeight] = useState(0);
     const [photoUrl, setPhotoUrl] = useState(defaultPhotoUrl);
     const [photo, setPhoto] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -68,6 +68,7 @@ export default function ManageMyProfile() {
             if (data != null) {
                 setName(data["name"]);
                 setHeight(data["height"]);
+                setLoading(false);
             }
         })
     }
@@ -121,7 +122,9 @@ export default function ManageMyProfile() {
         setMessage(t('saving_done'));
     }
 
-    return (
+    return loading ? (
+        <h3>{t('loading')}</h3>
+    ) : (
         <div>
             <GoBackButton />
             <PageTitle title={t('title')} />

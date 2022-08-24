@@ -23,6 +23,7 @@ function ManageMovements() {
     const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
 
     //states
+    const [loading, setLoading] = useState(true);
     const [movements, setMovements] = useState();
     const [originalMovements, setOriginalMovements] = useState();
 
@@ -53,6 +54,7 @@ function ManageMovements() {
             }
             setMovements(fromDB);
             setOriginalMovements(fromDB);
+            setLoading(false);
         })
     }
 
@@ -61,7 +63,9 @@ function ManageMovements() {
         remove(dbref)
     }
 
-    return (
+    return loading ? (
+        <h3>{t('loading')}</h3>
+    ) : (
         <>
             <Row>
                 <ButtonGroup>

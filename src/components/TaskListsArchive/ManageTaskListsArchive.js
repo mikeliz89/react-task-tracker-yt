@@ -13,6 +13,7 @@ import PageTitle from '../PageTitle';
 
 const ManageTaskListsArchive = () => {
 
+  //constants
   const DB_TASKLIST_ARCHIVE = '/tasklist-archive';
   const DB_TASKLIST_ARCHIVE_TASKS = '/tasklist-archive-tasks';
 
@@ -20,14 +21,15 @@ const ManageTaskListsArchive = () => {
   const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
   //states
+  const [loading, setLoading] = useState(true);
   const [taskLists, setTaskLists] = useState();
 
   //load data
   useEffect(() => {
     const getArchivedTaskLists = async () => {
-      await fetchTaskListsFromFireBase()
+      await fetchTaskListsFromFireBase();
     }
-    getArchivedTaskLists()
+    getArchivedTaskLists();
   }, [])
 
   const fetchTaskListsFromFireBase = async () => {
@@ -38,7 +40,8 @@ const ManageTaskListsArchive = () => {
       for (let id in snap) {
         taskLists.push({ id, ...snap[id] });
       }
-      setTaskLists(taskLists)
+      setTaskLists(taskLists);
+      setLoading(false);
     })
   }
 
@@ -53,7 +56,9 @@ const ManageTaskListsArchive = () => {
     remove(dbref)
   }
 
-  return (
+  return loading ? (
+    <h3>{t('loading')}</h3>
+  ) : (
     <div>
       <GoBackButton />
       <PageTitle title={t('manage_tasklists_archive_title')} />

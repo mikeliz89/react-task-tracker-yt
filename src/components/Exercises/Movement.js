@@ -14,12 +14,10 @@ const Movement = ({ movement, onDelete }) => {
     const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
 
     return (
-        <div key={movement.id} className='exercise'>
+        <div className='exercise'>
             <h5>
                 <span>
-                    {
-                        movement.name
-                    }
+                    {movement.name}
                 </span>
                 <Icon className='deleteBtn' name='times' color='red' fontSize='1.2em' cursor='pointer'
                     onClick={() => { if (window.confirm(t('delete_exercise_confirm_message'))) { onDelete(movement.id); } }} />

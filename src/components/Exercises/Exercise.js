@@ -16,7 +16,7 @@ const Exercise = ({ exercise, onDelete }) => {
     const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
 
     return (
-        <div key={exercise.id} className='exercise'>
+        <div className='exercise'>
             <h5>
                 <span>
                     <Icon name={getIconNameByCategory(exercise.category)} />

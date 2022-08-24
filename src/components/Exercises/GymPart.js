@@ -9,7 +9,7 @@ function GymPart({ exerciseID, gymPart, onDelete }) {
     const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
 
     return (
-        <div key={gymPart.id} className='exercise'>
+        <div className='exercise'>
 
             <Row>
                 <Col xs={9}>

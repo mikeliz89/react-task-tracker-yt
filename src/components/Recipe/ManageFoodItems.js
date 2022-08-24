@@ -36,6 +36,7 @@ const ManageFoodItems = () => {
     const [showAddFoodItem, setShowAddFoodItem] = useState(false);
     const [foodItems, setFoodItems] = useState();
     const [originalFoodItems, setOriginalFoodItems] = useState();
+    const [loading, setLoading] = useState(true);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -105,10 +106,13 @@ const ManageFoodItems = () => {
             }
             setFoodItems(fromDB);
             setOriginalFoodItems(fromDB);
+            setLoading(false);
         })
     }
 
-    return (
+    return loading ? (
+        <h3>{t('loading')}</h3>
+    ) : (
         <div>
             <Row>
                 <ButtonGroup>

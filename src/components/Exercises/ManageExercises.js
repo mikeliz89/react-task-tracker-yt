@@ -23,6 +23,7 @@ const ManageExercises = () => {
   const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
 
   //states
+  const [loading, setLoading] = useState(true);
   const [exercises, setExercises] = useState();
   const [originalExercises, setOriginalExercises] = useState();
 
@@ -53,6 +54,7 @@ const ManageExercises = () => {
       }
       setExercises(fromDB);
       setOriginalExercises(fromDB);
+      setLoading(false);
     })
   }
 
@@ -61,7 +63,9 @@ const ManageExercises = () => {
     remove(dbref)
   }
 
-  return (
+  return loading ? (
+    <h3>{t('loading')}</h3>
+  ) : (
     <div>
       <Row>
         <ButtonGroup>

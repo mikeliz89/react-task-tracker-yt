@@ -12,6 +12,7 @@ function AddComment({ onSave }) {
     //states
     const [text, setText] = useState();
     const [showAddComment, setShowAddComment] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     //translation
     const { t } = useTranslation('comments', { keyPrefix: 'comments' });
@@ -25,10 +26,14 @@ function AddComment({ onSave }) {
             return;
         }
 
+        setLoading(true);
+
         const created = getCurrentDateAsJson;
         onSave({ created, text });
 
         clearForm();
+
+        setLoading(false);
     }
 
     const clearForm = () => {
@@ -39,6 +44,7 @@ function AddComment({ onSave }) {
         <>
             <Button type="button"
                 iconName='comments'
+                disabled={loading}
                 color={showAddComment ? 'red' : '#0d6efd'}
                 text={
                     showAddComment ? t('button_close') : t('add_comment')

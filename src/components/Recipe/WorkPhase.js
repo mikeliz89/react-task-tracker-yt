@@ -30,7 +30,7 @@ export default function WorkPhase({ workPhase, recipeID, onDeleteWorkPhase }) {
     }
 
     return (
-        <div key={workPhase.id} className='recipe'>
+        <div className='recipe'>
             <Row>
                 <Col xs={9}>
                     <span style={{ fontWeight: 'bold' }}>{workPhase.name}</span>

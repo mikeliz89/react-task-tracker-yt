@@ -120,6 +120,7 @@ export function getTitleByCategory(category) {
             return 'title_running';
         case Categories.Walking:
             return 'title_walking';
+        default: return '';
     }
 }
 
@@ -139,5 +140,6 @@ export function getIconNameByCategory(category) {
             return 'running';
         case Categories.Walking:
             return 'walking';
+        default: return '';
     }
 }

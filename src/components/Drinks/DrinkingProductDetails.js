@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
 //firebase
 import { db } from '../../firebase-config';
-import { push, ref, child, onValue, update, remove } from "firebase/database";
+import { push, ref, child, onValue, update } from "firebase/database";
 //buttons
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
@@ -43,7 +43,7 @@ export default function DrinkingProductDetails() {
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message] = useState('');
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 

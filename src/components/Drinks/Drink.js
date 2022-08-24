@@ -30,9 +30,9 @@ const Drink = ({ drink, onDelete }) => {
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
-    const [message, setmessage] = useState('');
+    const [message] = useState('');
     const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const [error] = useState('');
 
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -52,7 +52,7 @@ const Drink = ({ drink, onDelete }) => {
     }
 
     return (
-        <div key={drink.id} className='drink'>
+        <div className='drink'>
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}

@@ -21,10 +21,10 @@ const Gear = ({ gear, onDelete }) => {
     const [showMessage, setShowMessage] = useState(false);
     const [message] = useState('')
     const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const [error] = useState('');
 
     return (
-        <div key={gear.id} className='drink'>
+        <div className='drink'>
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}

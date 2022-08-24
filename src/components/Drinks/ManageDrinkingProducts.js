@@ -37,6 +37,8 @@ const ManageDrinkingProducts = () => {
     const [showAddDrinkingProduct, setShowAddDrinkingProduct] = useState(false);
     const [drinkingProducts, setDrinkingProducts] = useState();
     const [originalDrinkingProducts, setOriginalDrinkingProducts] = useState();
+    const [loading, setLoading] = useState(true);
+
     //alert
     const [showMessage, setShowMessage] = useState(false);
     const [message, setMessage] = useState('');
@@ -103,10 +105,13 @@ const ManageDrinkingProducts = () => {
             }
             setDrinkingProducts(fromDB);
             setOriginalDrinkingProducts(fromDB);
+            setLoading(false);
         })
     }
 
-    return (
+    return loading ? (
+        <h3>{t('loading')}</h3>
+    ) : (
         <div>
             <Row>
                 <ButtonGroup>

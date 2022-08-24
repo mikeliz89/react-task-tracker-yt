@@ -1,5 +1,5 @@
 //react
-import { Form, ButtonGroup, Row, Alert as BootstrapAlert } from "react-bootstrap";
+import { Form, ButtonGroup, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 //buttons

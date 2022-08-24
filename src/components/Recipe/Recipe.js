@@ -119,7 +119,7 @@ const Recipe = ({ recipe, onDelete }) => {
     }
 
     return (
-        <div key={recipe.id} className={recipe.isCore === true ? 'recipe coreRecipe' : 'recipe'}>
+        <div className={recipe.isCore === true ? 'recipe coreRecipe' : 'recipe'}>
             <h5>
                 <span>
                     <Icon name={getIconNameByCategory(recipe.category)} color='gray' />

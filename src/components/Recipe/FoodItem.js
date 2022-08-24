@@ -32,7 +32,7 @@ const FoodItem = ({ foodItem, onDelete, onEdit }) => {
 
     return (
 
-        <div key={foodItem.id} className='drink'>
+        <div className='recipe'>
             <h5>
                 <span>
                     {foodItem.name}
