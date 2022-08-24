@@ -57,7 +57,6 @@ function TaskDetails() {
     getTask();
   }, []);
 
-  /** Fetch Task From Firebase */
   const fetchTaskFromFirebase = async () => {
     const dbref = ref(db, `${DB_TASKS}/${params.tasklistid}/${params.id}`);
     onValue(dbref, (snapshot) => {
@@ -70,10 +69,8 @@ function TaskDetails() {
     })
   }
 
-  /** Add Task To Firebase */
   const addTask = async (taskListID, task) => {
     let taskID = params.id;
-    //save edited task to firebase
     const updates = {};
     task["modified"] = getCurrentDateAsJson()
     updates[`${DB_TASKS}/${taskListID}/${taskID}`] = task;

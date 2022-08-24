@@ -104,7 +104,6 @@ export default function DrinkDetails() {
         getGarnishes();
     }, [])
 
-    /** Fetch WorkPhases From Firebase */
     const fetchWorkPhasesFromFirebase = async () => {
         const dbref = await child(ref(db, DB_DRINK_WORKPHASES), params.id);
         onValue(dbref, (snapshot) => {
@@ -141,7 +140,6 @@ export default function DrinkDetails() {
         })
     }
 
-    /** Fetch Drink From Firebase */
     const fetchDrinkFromFirebase = async () => {
         const dbref = ref(db, `${DB_DRINKS}/${params.id}`);
         onValue(dbref, (snapshot) => {
@@ -154,7 +152,6 @@ export default function DrinkDetails() {
         })
     }
 
-    /** Add Drink To Firebase */
     const addDrink = async (drink) => {
         try {
             var drinkID = params.id;
@@ -176,7 +173,6 @@ export default function DrinkDetails() {
         }
     }
 
-    /** Fetch Incredients From Firebase */
     const fetchIncredientsFromFirebase = async () => {
         const dbref = await child(ref(db, DB_DRINK_INCREDIENTS), params.id);
         onValue(dbref, (snapshot) => {
@@ -189,13 +185,11 @@ export default function DrinkDetails() {
         })
     }
 
-    /** Delete Incredient From Firebase */
     const deleteIncredient = async (drinkID, id) => {
         const dbref = ref(db, `${DB_DRINK_INCREDIENTS}/${drinkID}/${id}`);
         remove(dbref);
     }
 
-    /** Add Incredient To Firebase */
     const addIncredient = async (drinkID, incredient) => {
         const dbref = child(ref(db, DB_DRINK_INCREDIENTS), drinkID);
         push(dbref, incredient);
@@ -227,25 +221,21 @@ export default function DrinkDetails() {
         push(dbref, link);
     }
 
-    /** Add Work Phase To Firebase */
     const addWorkPhase = async (drinkID, workPhase) => {
         const dbref = child(ref(db, DB_DRINK_WORKPHASES), drinkID);
         push(dbref, workPhase);
     }
 
-    /** Add Garnish To Firebase */
     const addGarnish = async (drinkID, garnish) => {
         const dbref = child(ref(db, DB_DRINK_GARNISHES), drinkID);
         push(dbref, garnish);
     }
 
-    /** Delete Work Phase From Firebase */
     const deleteWorkPhase = async (drinkID, id) => {
         const dbref = ref(db, `${DB_DRINK_WORKPHASES}/${drinkID}/${id}`);
         remove(dbref);
     }
 
-    /** Delete Garnish From Firebase */
     const deleteGarnish = async (drinkID, id) => {
         const dbref = ref(db, `${DB_DRINK_GARNISHES}/${drinkID}/${id}`);
         remove(dbref);
@@ -336,7 +326,6 @@ export default function DrinkDetails() {
                     <StarRating starCount={drink.stars} />
                 </Col>
             </Row>
-            {/* Accordion end */}
             <div className="page-content">
                 {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}
 

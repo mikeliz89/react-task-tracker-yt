@@ -36,7 +36,6 @@ const AddPartsGym = () => {
   }, [])
 
 
-  /** Fetch Gym Parts From Firebase */
   const fetchPartsFromFirebase = async () => {
     const dbref = await child(ref(db, DB_EXERCISE_PARTS), params.id);
     onValue(dbref, (snapshot) => {

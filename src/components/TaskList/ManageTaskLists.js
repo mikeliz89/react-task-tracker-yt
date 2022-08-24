@@ -52,7 +52,6 @@ export default function ManageTaskLists() {
     getTaskLists();
   }, [])
 
-  /* Fetch Task Lists From Firebase */
   const fetchTaskListsFromFireBase = async () => {
     const dbref = ref(db, DB_TASKLISTS);
     onValue(dbref, (snapshot) => {
@@ -67,7 +66,6 @@ export default function ManageTaskLists() {
     })
   }
 
-  /** Add Task List To Firebase */
   const addTaskList = async (taskList) => {
     taskList["created"] = getCurrentDateAsJson();
     taskList["createdBy"] = currentUser.email;
@@ -79,7 +77,6 @@ export default function ManageTaskLists() {
       })
   }
 
-  /** Delete Task List From Firebase */
   const deleteTaskList = async (id) => {
     //delete tasks
     const dbrefTasks = ref(db, `${DB_TASKS}/${id}`);
@@ -89,7 +86,6 @@ export default function ManageTaskLists() {
     remove(dbref);
   }
 
-  /** Navigate To Task List Archive */
   function gotoTaskListArchive() {
     navigate(DB_TASKLIST_ARCHIVE);
   }

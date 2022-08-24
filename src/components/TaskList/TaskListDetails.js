@@ -76,7 +76,6 @@ function TaskListDetails() {
     }
   }, [])
 
-  /** Fetch Task List From Firebase */
   const fetchTaskListFromFirebase = async () => {
     const dbref = ref(db, `${DB_TASK_LISTS}/${params.id}`);
     onValue(dbref, (snapshot) => {
@@ -89,7 +88,6 @@ function TaskListDetails() {
     })
   }
 
-  /** Fetch Tasks From Firebase */
   const fetchTasksFromFirebase = async () => {
     const dbref = await child(ref(db, DB_TASKS), params.id);
     onValue(dbref, (snapshot) => {
@@ -111,7 +109,6 @@ function TaskListDetails() {
     })
   }
 
-  /** Add Task To FireBase */
   const addTask = async (taskListID, task) => {
     task["created"] = getCurrentDateAsJson();
     task["createdBy"] = currentUser.email;
@@ -119,7 +116,6 @@ function TaskListDetails() {
     push(dbref, task);
   }
 
-  /** Delete Task From Firebase */
   const deleteTask = async (taskListID, id) => {
     const dbref = ref(db, `${DB_TASKS}/${taskListID}/${id}`);
     remove(dbref);
@@ -157,17 +153,14 @@ function TaskListDetails() {
     });
   }
 
-  /** Add Task List To Firebase */
   const addTaskList = async (taskList) => {
     var taskListID = params.id;
-    //save edited task list to firebase
     const updates = {};
     taskList["modified"] = getCurrentDateAsJson();
     updates[`${DB_TASK_LISTS}/${taskListID}`] = taskList;
     update(ref(db), updates);
   }
 
-  /** Archive Task List At Firebase */
   function archiveTaskList(taskList) {
     //1. add this taskList to tasklist-archive
     const dbref = ref(db, DB_TASK_LIST_ARCHIVE);

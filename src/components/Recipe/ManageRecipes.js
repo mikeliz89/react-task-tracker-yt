@@ -63,7 +63,6 @@ const ManageRecipes = () => {
     }
   }, [])
 
-  /** Fetch Recipes From Firebase */
   const fetchRecipesFromFirebase = async () => {
     const dbref = await ref(db, DB_RECIPES);
     onValue(dbref, (snapshot) => {
@@ -78,7 +77,6 @@ const ManageRecipes = () => {
     })
   }
 
-  /** Add Recipe To Firebase */
   const addRecipe = async (recipe) => {
     try {
       recipe["created"] = getCurrentDateAsJson();
@@ -101,7 +99,6 @@ const ManageRecipes = () => {
     setShowError(true);
   }
 
-  /** Delete Recipe From Firebase */
   const deleteRecipe = async (id) => {
     const dbref = ref(db, `${DB_RECIPES}/${id}`);
     remove(dbref)

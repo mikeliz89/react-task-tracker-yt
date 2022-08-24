@@ -28,7 +28,6 @@ export default function EditWorkPhase({ recipeID, workPhaseID, onEditWorkPhase, 
         }
     }, [recipeID]);
 
-    /** Fetch Work Phase From Firebase By RecipeID and WorkPhaseID */
     const fetchWorkPhaseFromFirebase = async (recipeID) => {
         const dbref = ref(db, `${DB_WORKPHASES}/${recipeID}/${workPhaseID}`);
         get(dbref).then((snapshot) => {

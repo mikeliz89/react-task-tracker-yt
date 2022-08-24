@@ -29,7 +29,6 @@ export default function EditIncredient({ drinkID, incredientID, onEditIncredient
         }
     }, [drinkID]);
 
-    /** Fetch Incredient From Firebase By drinkID */
     const fetchIncredientFromFirebase = async (drinkID) => {
         const dbref = ref(db, `${DB_DRINK_INCREDIENTS}/${drinkID}/${incredientID}`);
         get(dbref).then((snapshot) => {

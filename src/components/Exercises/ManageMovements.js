@@ -43,7 +43,6 @@ function ManageMovements() {
         }
     }, [])
 
-    /** Fetch Recipes From Firebase */
     const fetchMovementsFromFirebase = async () => {
         const dbref = await ref(db, DB_MOVEMENTS);
         onValue(dbref, (snapshot) => {

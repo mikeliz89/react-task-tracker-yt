@@ -63,7 +63,6 @@ export default function ArchivedTaskListDetails() {
     }
   }, [])
 
-  /** Fetch Task List From Firebase */
   const fetchTaskListFromFirebase = async () => {
     const dbref = ref(db, `${DB_TASKLIST_ARCHIVE}/${params.id}`);
     onValue(dbref, (snapshot) => {
@@ -76,7 +75,6 @@ export default function ArchivedTaskListDetails() {
     })
   }
 
-  /** Fetch Tasks From Database */
   const fetchTasksFromFirebase = async () => {
     const dbref = await child(ref(db, DB_TASKLIST_ARCHIVE_TASKS), params.id);
     onValue(dbref, (snapshot) => {

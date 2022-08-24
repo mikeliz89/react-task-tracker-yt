@@ -95,7 +95,6 @@ const ManageFoodItems = () => {
         update(ref(db), updates);
     }
 
-    /** Fetch Food Items From Firebase */
     const fetchFoodItemsFromFirebase = async () => {
         const dbref = await ref(db, DB_FOODITEMS);
         onValue(dbref, (snapshot) => {

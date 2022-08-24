@@ -65,8 +65,7 @@ export default function ManageDrinks() {
             cancel = true;
         }
     }, [])
-
-    /** Fetch Drinks From Firebase */
+    
     const fetchDrinksFromFirebase = async () => {
         const dbref = await ref(db, DB_DRINKS);
         onValue(dbref, (snapshot) => {
@@ -81,7 +80,6 @@ export default function ManageDrinks() {
         })
     }
 
-    /** Add Drink To Firebase */
     const addDrink = async (drink) => {
         try {
             drink["created"] = getCurrentDateAsJson();

@@ -48,7 +48,6 @@ const AddGear = ({ gearID, onAddGear, onClose }) => {
         setCategories(sortedCategories);
     }
 
-    /** get gear from firebase by id (in EDIT gear) */
     const fetchGearFromFirebase = async (gearID) => {
 
         const dbref = ref(db, `${DB_GEAR}/${gearID}`);
@@ -64,7 +63,6 @@ const AddGear = ({ gearID, onAddGear, onClose }) => {
         });
     }
 
-    /** Gear Form Submit */
     const onSubmit = (e) => {
         e.preventDefault();
 

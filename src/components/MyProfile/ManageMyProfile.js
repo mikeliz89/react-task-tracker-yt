@@ -61,7 +61,6 @@ export default function ManageMyProfile() {
         }
     }, [currentUser]);
 
-    /** Fetch Profile From Firebase */
     const fetchProfileFromFirebase = async () => {
         const dbref = ref(db, `${DB_PROFILES}/${currentUser.uid}`);
         onValue(dbref, (snapshot) => {

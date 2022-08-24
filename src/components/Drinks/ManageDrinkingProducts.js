@@ -93,7 +93,6 @@ const ManageDrinkingProducts = () => {
         update(ref(db), updates);
     }
 
-    /** Fetch Drinking Products From Firebase */
     const fetchDrinkingProductsFromFirebase = async () => {
         const dbref = await ref(db, DB_DRINKINGPRODUCTS);
         onValue(dbref, (snapshot) => {

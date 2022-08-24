@@ -40,7 +40,6 @@ const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
       sortCategoriesByName();
    }, []);
 
-   /** get recipe from firebase by recipeID (in EDIT recipe) */
    const fetchRecipeFromFirebase = async (recipeID) => {
 
       const dbref = ref(db, `${DB_RECIPES}/${recipeID}`);
@@ -67,7 +66,6 @@ const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
       setCategories(sortedCategories);
    }
 
-   /** Recipe Form Submit */
    const onSubmit = (e) => {
       e.preventDefault()
 

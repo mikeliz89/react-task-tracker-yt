@@ -87,7 +87,6 @@ export default function RecipeDetails() {
         getWorkPhases()
     }, [])
 
-    /** Fetch Recipe From Firebase */
     const fetchRecipeFromFirebase = async () => {
         const dbref = ref(db, `${DB_RECIPES}/${params.id}`);
         onValue(dbref, (snapshot) => {
@@ -100,7 +99,6 @@ export default function RecipeDetails() {
         })
     }
 
-    /** Fetch Incredients From Firebase */
     const fetchIncredientsFromFirebase = async () => {
         const dbref = await child(ref(db, DB_INCREDIENTS), params.id);
         onValue(dbref, (snapshot) => {
@@ -113,7 +111,6 @@ export default function RecipeDetails() {
         })
     }
 
-    /** Fetch WorkPhases From Firebase */
     const fetchWorkPhasesFromFirebase = async () => {
         const dbref = await child(ref(db, DB_WORKPHASES), params.id);
         onValue(dbref, (snapshot) => {
@@ -126,35 +123,29 @@ export default function RecipeDetails() {
         })
     }
 
-    /** Add Incredient To Firebase */
     const addIncredient = async (recipeID, incredient) => {
         const dbref = child(ref(db, DB_INCREDIENTS), recipeID);
         push(dbref, incredient);
     }
 
-    /** Delete Incredient From Firebase */
     const deleteIncredient = async (recipeID, id) => {
         const dbref = ref(db, `${DB_INCREDIENTS}/${recipeID}/${id}`);
         remove(dbref)
     }
 
-    /** Add Work Phase To Firebase */
     const addWorkPhase = async (recipeID, workPhase) => {
         const dbref = child(ref(db, DB_WORKPHASES), recipeID);
         push(dbref, workPhase);
     }
 
-    /** Delete Work Phase From Firebase */
     const deleteWorkPhase = async (recipeID, id) => {
         const dbref = ref(db, `${DB_WORKPHASES}/${recipeID}/${id}`);
         remove(dbref);
     }
 
-    /** Add Recipe To Firebase */
     const addRecipe = async (recipe) => {
         try {
             const recipeID = params.id;
-            //save edited recipe to firebase
             const updates = {};
             recipe["modified"] = getCurrentDateAsJson();
             if (recipe["stars"] === undefined) {
@@ -174,7 +165,6 @@ export default function RecipeDetails() {
 
     const saveStars = async (stars) => {
         const recipeID = params.id;
-        //save edited recipe to firebase
         const updates = {};
         recipe["modified"] = getCurrentDateAsJson()
         recipe["stars"] = Number(stars);

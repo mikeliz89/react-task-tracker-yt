@@ -43,7 +43,6 @@ const ManageExercises = () => {
     }
   }, [])
 
-  /** Fetch Exercises From Firebase */
   const fetchExercisesFromFirebase = async () => {
     const dbref = await ref(db, DB_EXERCISES);
     onValue(dbref, (snapshot) => {

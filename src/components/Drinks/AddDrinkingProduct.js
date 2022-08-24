@@ -52,7 +52,6 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
       setCategories(sortedCategories);
    }
 
-   /** get drink incredient from firebase by id (in EDIT drink incredient) */
    const fetchDrinkingProductFromFirebase = async (id) => {
       const dbref = ref(db, `${DB_DRINKINGPRODUCTS}/${id}`);
       get(dbref).then((snapshot) => {
@@ -71,7 +70,6 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
       });
    }
 
-   /** Drink Form Submit */
    const onSubmit = (e) => {
       e.preventDefault()
 

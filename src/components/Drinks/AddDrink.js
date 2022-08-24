@@ -52,7 +52,6 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
       setCategories(sortedCategories);
    }
 
-   /** get drink from firebase by id (in EDIT drink) */
    const fetchDrinkFromFirebase = async (drinkID) => {
 
       const dbref = ref(db, `${DB_DRINKS}/${drinkID}`);

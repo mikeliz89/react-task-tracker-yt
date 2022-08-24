@@ -48,7 +48,6 @@ const BmiCalculator = () => {
         return () => { isMounted = false };
     }, [])
 
-    /** Fetch Profile From Firebase */
     const fetchProfileFromFirebase = async () => {
         const dbref = ref(db, `${DB_PROFILES}/${currentUser.uid}`);
         onValue(dbref, (snapshot) => {
@@ -82,7 +81,6 @@ const BmiCalculator = () => {
         return BMIRounded;
     }
 
-    /** Save Given Weight and BMI To Firebase for this user */
     const saveWeightToFirebase = async (weight, bmi) => {
         const dbref = ref(db, `${DB_WEIGHT_HISTORY}/${currentUser.uid}`);
         let currentDateTime = getCurrentDateAsJson();

@@ -56,7 +56,6 @@ const AddInfo = ({ onClose }) => {
         return () => { isMounted = false };
     }, []);
 
-    /** Fetch Profile From Firebase */
     const fetchCarInfoFromFirebase = async () => {
         const dbref = ref(db, `${DB_INFO}`);
         onValue(dbref, (snapshot) => {

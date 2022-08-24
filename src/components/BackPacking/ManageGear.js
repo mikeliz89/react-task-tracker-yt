@@ -44,6 +44,9 @@ export default function ManageGear() {
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
+    //user
+    const { currentUser } = useAuth();
+
     //load data
     useEffect(() => {
         let cancel = false;
@@ -61,7 +64,6 @@ export default function ManageGear() {
         }
     }, [])
 
-    /** Fetch Gears From Firebase */
     const fetchGearsFromFirebase = async () => {
         const dbref = await ref(db, DB_GEAR);
         onValue(dbref, (snapshot) => {
@@ -76,10 +78,6 @@ export default function ManageGear() {
         })
     }
 
-    //user
-    const { currentUser } = useAuth();
-
-    /** Add Gear To Firebase */
     const addGear = async (gear) => {
         try {
             clearMessages();

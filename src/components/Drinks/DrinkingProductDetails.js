@@ -67,7 +67,6 @@ export default function DrinkingProductDetails() {
         getDrinkingProduct();
     }, [])
 
-    /** Fetch Drink From Firebase */
     const fetchDrinkingProductFromFirebase = async () => {
         const dbref = ref(db, `${DB_DRINKINGPRODUCTS}/${params.id}`);
         onValue(dbref, (snapshot) => {

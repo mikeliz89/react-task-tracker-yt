@@ -42,7 +42,6 @@ const WeightHistory = () => {
         }
     }, [])
 
-    /** Fetch Weight History Rows From Firebase */
     const fetchHistoryRowsFromFirebase = async () => {
         const dbref = await ref(db, '/weighthistory/' + currentUser.uid);
         onValue(dbref, (snapshot) => {

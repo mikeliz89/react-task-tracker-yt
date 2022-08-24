@@ -30,7 +30,6 @@ export default function EditIncredient({ recipeID, incredientID, onEditIncredien
         }
     }, [recipeID]);
 
-    /** Fetch Incredient From Firebase By RecipeID */
     const fetchIncredientFromFirebase = async (recipeID) => {
         const dbref = ref(db, `${DB_INCREDIENTS}/${recipeID}/${incredientID}`);
         get(dbref).then((snapshot) => {

@@ -41,7 +41,6 @@ const AddPartsAerobics = () => {
     getExercisePart();
   }, [])
 
-  /** Fetch Recipe From Firebase */
   const fetchExercisePartFromFirebase = async () => {
     const dbref = child(ref(db, DB_EXERCISE_PARTS), params.id);
     onValue(dbref, (snapshot) => {

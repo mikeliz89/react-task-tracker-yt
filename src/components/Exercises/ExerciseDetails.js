@@ -69,7 +69,6 @@ const ExerciseDetails = () => {
         getExercise();
     }, [])
 
-    /** Fetch Recipe From Firebase */
     const fetchExerciseFromFirebase = async () => {
         const dbref = ref(db, `${DB_EXERCISES}/${params.id}`);
         onValue(dbref, (snapshot) => {
@@ -84,7 +83,6 @@ const ExerciseDetails = () => {
 
     const saveStars = async (stars) => {
         const exerciseID = params.id;
-        //save edited drink to firebase
         const updates = {};
         exercise["modified"] = getCurrentDateAsJson()
         exercise["stars"] = Number(stars);

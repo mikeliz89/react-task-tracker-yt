@@ -32,7 +32,6 @@ const EditLink = ({ linkID, objID, linkUrl, onEditLink, onCloseEditLink }) => {
         }
     }, [linkID]);
 
-    /** Fetch Link From Firebase By linkID */
     const fetchLinkFromFirebaseWithoutObjID = async (linkID) => {
         const dbref = ref(db, `${linkUrl}/${linkID}`);
         fetch(dbref);

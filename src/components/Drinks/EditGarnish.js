@@ -27,7 +27,6 @@ export default function EditGarnish({ drinkID, garnishID, onEditGarnish, onClose
         }
     }, [drinkID]);
 
-    /** Fetch Garnish From Firebase By drinkID */
     const fetchGarnishFromFirebase = async (drinkID) => {
         const dbref = ref(db, `${DB_DRINK_GARNISHES}/${drinkID}/${garnishID}`);
         get(dbref).then((snapshot) => {

@@ -57,7 +57,6 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
         setCategories(sortedCategories);
     }
 
-    /** get food item from firebase by id (in EDIT food item) */
     const fetchFoodItemFromFirebase = async (id) => {
         const dbref = ref(db, `${DB_FOODITEMS}/${id}`);
         get(dbref).then((snapshot) => {
@@ -79,7 +78,6 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
         });
     }
 
-    /** Form Submit */
     const onSubmit = (e) => {
         e.preventDefault()
 
