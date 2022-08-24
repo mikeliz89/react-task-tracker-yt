@@ -15,6 +15,8 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //pagetitle
 import PageTitle from '../PageTitle';
+//alert
+import Alert from '../Alert';
 
 const BmiCalculator = () => {
 
@@ -35,6 +37,12 @@ const BmiCalculator = () => {
     const [BMI, setBMI] = useState(0);
     const [weight, setWeight] = useState(0);
     const [height, setHeight] = useState(0);
+
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
 
     //load data
     useEffect(() => {
@@ -69,6 +77,11 @@ const BmiCalculator = () => {
 
         let bmi = calculateBMI();
         setBMI(bmi);
+
+        console.log("bmi", bmi);
+
+        setMessage(t('your_bmi_is') + ': ' + bmi);
+        setShowMessage(true);
 
         saveWeightToFirebase(weight, bmi)
     }
@@ -112,9 +125,9 @@ const BmiCalculator = () => {
                 <Button type='submit' text={t('calculate_bmi')} className='btn btn-block' />
             </Form>
             {BMI > 0 &&
-                <div className="alert alert-primary">
-                    {t('your_bmi_is')} : {BMI}
-                </div>
+                <Alert message={message} showMessage={showMessage}
+                    error={error} showError={showError}
+                    variant='primary' onClose={() => { setShowMessage(false); setShowError(false); }} />
             }
             <Table>
                 <tbody>
