@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Accordion, Table, Row, ButtonGroup } from 'react-bootstrap';
+import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
 //firebase
 import { db } from '../../firebase-config';
 import { push, ref, child, onValue, update, remove } from "firebase/database";
@@ -25,6 +25,7 @@ import WorkPhases from './WorkPhases';
 import Garnishes from './Garnishes';
 //StarRating
 import SetStarRating from '../StarRating/SetStarRating';
+import StarRating from '../StarRating/StarRating';
 //Comment
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
@@ -327,6 +328,12 @@ export default function DrinkDetails() {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
+
+            <Row>
+                <Col>
+                    <StarRating starCount={drink.stars} />
+                </Col>
+            </Row>
             {/* Accordion end */}
             <div className="page-content">
                 {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}

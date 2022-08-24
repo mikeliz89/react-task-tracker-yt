@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
+import { Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
 //firebase
 import { db } from '../../firebase-config';
 import { push, child, remove, ref, onValue, update } from "firebase/database";
@@ -34,6 +34,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
+import StarRating from '../StarRating/StarRating';
 
 export default function RecipeDetails() {
 
@@ -52,11 +53,11 @@ export default function RecipeDetails() {
     const [incredients, setIncredients] = useState();
     const [workPhases, setWorkPhases] = useState();
 
-        //alert
-        const [showMessage, setShowMessage] = useState(false);
-        const [message, setMessage] = useState('');
-        const [showError, setShowError] = useState(false);
-        const [error, setError] = useState('');
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
 
     //translation
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
@@ -205,59 +206,68 @@ export default function RecipeDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        showIconEdit={true}
+                        iconName='edit'
                         text={showEditRecipe ? t('button_close') : ''}
                         color={showEditRecipe ? 'red' : 'orange'}
                         onClick={() => setShowEditRecipe(!showEditRecipe)} />
                     <Button
-                        showIconAdd={true}
-                        showIconCarrot={true}
+                        iconName='plus'
+                        secondIconName='carrot'
                         color={showAddIncredient ? 'red' : 'green'}
                         text={showAddIncredient ? t('button_close') : ''}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
                     <Button
-                        showIconAdd={true}
-                        showIconHourGlass={true}
+                        iconName='plus'
+                        secondIconName='hourglass-1'
                         color={showAddWorkPhase ? 'red' : 'green'}
                         text={showAddWorkPhase ? t('button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                 </ButtonGroup>
             </Row>
-            {/* Accordion start */}
-            <Accordion>
-                <Accordion.Item eventKey="0">
-                    <Accordion.Header>
-                        <PageTitle title={recipe.title} iconName='utensils' iconColor='gray' />
-                    </Accordion.Header>
-                    <Accordion.Body>
-                        {t('description')}: {recipe.description}<br />
-                        <Table striped bordered hover>
-                            <tbody>
-                                <tr>
-                                    <td>{t('created')}</td>
-                                    <td>{getJsonAsDateTimeString(recipe.created, i18n.language)}</td>
-                                </tr>
-                                <tr>
-                                    <td>{t('created_by')}</td>
-                                    <td>{recipe.createdBy}</td>
-                                </tr>
-                                <tr>
-                                    <td>{t('modified')}</td>
-                                    <td>{getJsonAsDateTimeString(recipe.modified, i18n.language)}</td>
-                                </tr>
-                                <tr>
-                                    <td>{t('core_recipe')}</td>
-                                    <td>{recipe.isCore === true ? t('yes') : t('no')}</td>
-                                </tr>
-                                <tr>
-                                    <td>{t('category')}</td>
-                                    <td>{t('category_' + getRecipeCategoryNameByID(recipe.category))}</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </Accordion.Body>
-                </Accordion.Item>
-            </Accordion>
+            <Row>
+                <Col>
+                    {/* Accordion start */}
+                    <Accordion>
+                        <Accordion.Item eventKey="0">
+                            <Accordion.Header>
+                                <PageTitle title={recipe.title} iconName='utensils' iconColor='gray' />
+                            </Accordion.Header>
+                            <Accordion.Body>
+                                {t('description')}: {recipe.description}<br />
+                                <Table striped bordered hover>
+                                    <tbody>
+                                        <tr>
+                                            <td>{t('created')}</td>
+                                            <td>{getJsonAsDateTimeString(recipe.created, i18n.language)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{t('created_by')}</td>
+                                            <td>{recipe.createdBy}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{t('modified')}</td>
+                                            <td>{getJsonAsDateTimeString(recipe.modified, i18n.language)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{t('core_recipe')}</td>
+                                            <td>{recipe.isCore === true ? t('yes') : t('no')}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{t('category')}</td>
+                                            <td>{t('category_' + getRecipeCategoryNameByID(recipe.category))}</td>
+                                        </tr>
+                                    </tbody>
+                                </Table>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <StarRating starCount={recipe.stars} />
+                </Col>
+            </Row>
             {/* Accordion end */}
             <div className="page-content">
 

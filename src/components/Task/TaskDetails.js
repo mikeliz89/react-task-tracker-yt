@@ -104,6 +104,7 @@ function TaskDetails() {
         <ButtonGroup aria-label="Button group">
           <GoBackButton />
           <Button
+            iconName='edit'
             text={showEditTask ? t('button_close') : t('button_edit')}
             color={showEditTask ? 'red' : 'orange'}
             onClick={() => setShowEditTask(!showEditTask)} />

@@ -219,10 +219,14 @@ function TaskListDetails() {
       <Row>
         <ButtonGroup aria-label="Button group">
           <GoBackButton />
-          <Button showIconEdit={true} text={showEditTaskList ? t('button_close') : ''}
+          <Button
+            iconName='edit'
+            text={showEditTaskList ? t('button_close') : ''}
             color={showEditTaskList ? 'red' : 'orange'}
             onClick={() => setShowEditTaskList(!showEditTaskList)} />
-          <Button showIconAdd={true} color={showAddTask ? 'red' : 'green'}
+          <Button
+            iconName='plus'
+            color={showAddTask ? 'red' : 'green'}
             text={showAddTask ? t('button_close') : ''}
             onClick={() => setShowAddTask(!showAddTask)} />
           <Button color="#545454" iconName='archive'

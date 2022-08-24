@@ -120,7 +120,7 @@ export default function DrinkingProductDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        showIconEdit={true}
+                        iconName='edit'
                         text={showEditDrinkingProduct ? t('button_close') : ''}
                         color={showEditDrinkingProduct ? 'red' : 'orange'}
                         onClick={() => setShowEditDrinkingProduct(!showEditDrinkingProduct)} />

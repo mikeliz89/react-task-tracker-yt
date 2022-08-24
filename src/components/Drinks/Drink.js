@@ -1,6 +1,6 @@
 //react
 import { useTranslation } from 'react-i18next';
-import { FaTimes, FaPlusSquare, FaGlassMartini } from 'react-icons/fa';
+import { FaTimes, FaPlusSquare } from 'react-icons/fa';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -16,6 +16,7 @@ import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
 import { useAuth } from '../../contexts/AuthContext';
 //alert
 import Alert from '../Alert';
+import Icon from '../Icon';
 
 const Drink = ({ drink, onDelete }) => {
 
@@ -59,7 +60,7 @@ const Drink = ({ drink, onDelete }) => {
 
             <h5>
                 <span>
-                    <FaGlassMartini style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                    <Icon name='glass-martini' />
                     {drink.title}
                 </span>
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}

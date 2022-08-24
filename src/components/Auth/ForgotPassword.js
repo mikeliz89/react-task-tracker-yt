@@ -9,6 +9,8 @@ import { useAuth } from '../../contexts/AuthContext';
 import Button from '../../components/Button';
 //alert
 import Alert from '../Alert';
+//pagetitle
+import PageTitle from '../PageTitle';
 
 export default function ForgotPassword() {
 
@@ -60,7 +62,8 @@ export default function ForgotPassword() {
 
     return (
         <div className="login-container">
-            <h3>{t('password_reset')}</h3>
+
+            <PageTitle title={t('password_reset')} />
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}

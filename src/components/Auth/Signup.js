@@ -9,6 +9,8 @@ import { Form } from 'react-bootstrap';
 import Button from '../../components/Button';
 //alert
 import Alert from '../Alert';
+//pagetitle
+import PageTitle from '../PageTitle';
 
 export default function Signup() {
 
@@ -83,7 +85,8 @@ export default function Signup() {
 
     return (
         <div className="login-container">
-            <h3>{t('sign_up')}</h3>
+
+            <PageTitle title={t('sign_up')} />
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}

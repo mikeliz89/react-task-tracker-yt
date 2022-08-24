@@ -5,8 +5,8 @@ import { db } from '../../firebase-config';
 import { ref, remove } from "firebase/database";
 //react
 import { useTranslation } from "react-i18next";
-import { FaHistory } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import Icon from "../Icon";
 
 function DrinkHistories({ drinkHistories, drinkID }) {
 
@@ -32,7 +32,7 @@ function DrinkHistories({ drinkHistories, drinkID }) {
     return (
         <div>
             <h4>
-                <FaHistory style={{ color: 'gray', cursor: 'pointer', marginRight: '5px', marginBottom: '3x' }} />
+                <Icon name='history' />
                 {t('drinkhistory_title')} {counter > 0 ? '(' + counter + ')' : ''}
             </h4>
             {drinkHistories.map((drinkHistory) => (

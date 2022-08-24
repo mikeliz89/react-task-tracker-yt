@@ -9,6 +9,8 @@ import { useAuth } from '../../contexts/AuthContext';
 import Button from '../../components/Button';
 //alert
 import Alert from '../Alert';
+//pagetitle
+import PageTitle from '../PageTitle';
 
 export default function Login() {
 
@@ -58,7 +60,8 @@ export default function Login() {
 
     return (
         <div className="login-container">
-            <h3>{t('log_in')}</h3>
+
+            <PageTitle title={t('log_in')} />
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
