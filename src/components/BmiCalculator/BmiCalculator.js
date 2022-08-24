@@ -69,9 +69,20 @@ const BmiCalculator = () => {
     async function onSubmit(e) {
         e.preventDefault();
 
+        setShowError(false);
+        setShowMessage(false);
+        setError('');
+        setMessage('');
+
         //validation
+        if(height <= 0) {
+            setShowError(true);
+            setError(t('please_give_height'));
+            return;
+        }
         if (weight <= 0) {
-            alert(t('please_give_weight'));
+            setShowError(true);
+            setError(t('please_give_weight'));
             return;
         }
 
@@ -80,10 +91,14 @@ const BmiCalculator = () => {
 
         console.log("bmi", bmi);
 
-        setMessage(t('your_bmi_is') + ': ' + bmi);
-        setShowMessage(true);
-
-        saveWeightToFirebase(weight, bmi)
+        if (bmi === 0) {
+            setError(t('bmi_is_zero'));
+            setShowError(true);
+        } else {
+            setMessage(t('your_bmi_is') + ': ' + bmi);
+            setShowMessage(true);
+            saveWeightToFirebase(weight, bmi);
+        }
     }
 
     const calculateBMI = () => {
@@ -124,11 +139,11 @@ const BmiCalculator = () => {
                 </Form.Group>
                 <Button type='submit' text={t('calculate_bmi')} className='btn btn-block' />
             </Form>
-            {BMI > 0 &&
-                <Alert message={message} showMessage={showMessage}
-                    error={error} showError={showError}
-                    variant='primary' onClose={() => { setShowMessage(false); setShowError(false); }} />
-            }
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='primary' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             <Table>
                 <tbody>
                     <tr>
