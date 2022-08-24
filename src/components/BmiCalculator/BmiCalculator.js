@@ -13,6 +13,7 @@ import Button from '../Button';
 import { useAuth } from '../../contexts/AuthContext';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+//pagetitle
 import PageTitle from '../PageTitle';
 
 const BmiCalculator = () => {

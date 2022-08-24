@@ -11,7 +11,6 @@ function AddComment({ onSave }) {
 
     //states
     const [text, setText] = useState();
-
     const [showAddComment, setShowAddComment] = useState(false);
 
     //translation
@@ -27,10 +26,12 @@ function AddComment({ onSave }) {
         }
 
         const created = getCurrentDateAsJson;
-        //call the TaskListDetails.js
         onSave({ created, text });
 
-        //clear the form
+        clearForm();
+    }
+
+    const clearForm = () => {
         setText('');
     }
 

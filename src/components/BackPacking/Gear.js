@@ -3,55 +3,36 @@ import { useTranslation } from 'react-i18next';
 import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { Alert } from 'react-bootstrap';
 //utils
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
 //icons
 import Icon from '../Icon';
-import { Categories } from './Categories';
+//alert
+import Alert from '../Alert';
+//categories
+import { getIconNameByCategory } from './Categories';
 
 const Gear = ({ gear, onDelete }) => {
 
     //translation
     const { t } = useTranslation('backpacking', { keyPrefix: 'backpacking' });
 
-    //states
-    const [message] = useState('')
+    //alert
     const [showMessage, setShowMessage] = useState(false);
-    const [error] = useState(false);
-
-    const getIconNameByCategory = (gear) => {
-        switch(Number(gear.category)) {
-            case Categories.Sleeping:
-                return 'campground';
-            case Categories.Electronics:
-                return 'charging-station';
-            case Categories.Tool:
-                return 'hammer';
-            case Categories.FireCreation:
-                return 'burn';
-            case Categories.Clothing:
-                return 't-shirt';
-            case Categories.Cooking:
-                return 'utensils';
-            case Categories.Hygiene:
-                return 'hands-wash'
-        }
-    }
+    const [message] = useState('')
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
 
     return (
         <div key={gear.id} className='drink'>
-            {error && <div className="error">{error}</div>}
-            {message &&
-                <Alert show={showMessage} variant='success'>
-                    {message}
-                    <div className='d-flex justify-content-end'>
-                        <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
-                    </div>
-                </Alert>}
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             <h5>
                 <span>
-                    <Icon name={getIconNameByCategory(gear)} />
+                    <Icon name={getIconNameByCategory(gear.category)} />
                     {gear.name}
                 </span>
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}

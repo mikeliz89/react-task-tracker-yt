@@ -1,30 +1,56 @@
+//react
 import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+//auth
+import { useAuth } from '../../contexts/AuthContext';
+//button
 import Button from '../../components/Button';
+//alert
+import Alert from '../Alert';
 
 export default function Logout() {
 
+    //auth
     const { logout } = useAuth();
+
+    //navigate
     const navigate = useNavigate();
+
+    //translation
     const { t } = useTranslation('auth', { keyPrefix: 'auth' });
+
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
     async function handleLogout() {
-        setError('');
-
         try {
+            clearMessages();
             await logout();
             navigate('/login');
         } catch (error) {
-            setError(t('failed_to_log_out'));
             console.log(error);
+            setError(t('failed_to_log_out'));
+            setShowError(true);
         }
     }
+
+    function clearMessages() {
+        setError('');
+        setShowError(false);
+        setMessage('');
+        setShowMessage(false);
+    }
+
     return (
         <>
-            {error && <div className="error">{error}</div>}
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             <Button
                 iconName='sign-out-alt'
                 onClick={() => handleLogout()}

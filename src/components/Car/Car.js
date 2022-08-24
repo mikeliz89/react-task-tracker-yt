@@ -11,6 +11,7 @@ import CarFuelings from './CarFuelings';
 //firebase
 import { db } from '../../firebase-config';
 import { onValue, ref } from 'firebase/database';
+//pagetitle
 import PageTitle from '../PageTitle';
 
 export default function Car() {
@@ -57,12 +58,12 @@ export default function Car() {
             <Button
                 color={showAddInfo ? 'red' : 'steelblue'}
                 onClick={() => setShowAddInfo(!showAddInfo)}
-                text={t('add_info')}
+                text={showAddInfo ? t('button_close') : t('add_info')}
                 iconName={'car'} />
             <Button
                 color={showAddFueling ? 'red' : 'steelblue'}
                 onClick={() => setShowAddFueling(!showAddFueling)}
-                text={t('add_fueling')}
+                text={showAddFueling ? t('button_close') : t('add_fueling')}
                 iconName={'gas-pump'} />
             {/* Info Start */}
             {

@@ -7,41 +7,63 @@ import { Form } from 'react-bootstrap';
 import { useAuth } from '../../contexts/AuthContext';
 //buttons
 import Button from '../../components/Button';
+//alert
+import Alert from '../Alert';
 
 export default function Login() {
 
     const { t } = useTranslation('auth', { keyPrefix: 'auth' });
 
     //states
+    const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
+
+    //auth
     const { login } = useAuth();
+
+    //navigate
     const navigate = useNavigate();
 
     async function onSubmit(e) {
         e.preventDefault();
 
         try {
-            //clear the error
-            setError('');
             setLoading(true);
+            clearMessages();
             await login(email, password);
             //navigate to dashboard
             navigate('/');
         } catch (error) {
             setError(t('failed_to_log_in'));
+            setShowError(true);
             console.log(error);
         }
 
         setLoading(false);
     }
 
+    function clearMessages() {
+        setError('');
+        setShowError(false);
+        setMessage('');
+        setShowMessage(false);
+    }
+
     return (
         <div className="login-container">
             <h3>{t('log_in')}</h3>
-            {error && <div className="error">{error}</div>}
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="loginFormEmail">
                     <Form.Label>{t('email')}</Form.Label>

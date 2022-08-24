@@ -1,7 +1,6 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useState } from 'react'
 //star rating
 import StarRating from '../StarRating/StarRating';
 //utils
@@ -13,9 +12,6 @@ const Movement = ({ movement, onDelete }) => {
 
     //translation
     const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
-
-    //states 
-    const [error] = useState('');
 
     return (
         <div key={movement.id} className='exercise'>
@@ -29,7 +25,6 @@ const Movement = ({ movement, onDelete }) => {
                     onClick={() => { if (window.confirm(t('delete_exercise_confirm_message'))) { onDelete(movement.id); } }} />
 
             </h5>
-            {error && <div className="error">{error}</div>}
             <p>
                 {movement.category > 0 ?
                     (<span> {

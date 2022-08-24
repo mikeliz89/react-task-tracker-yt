@@ -21,13 +21,15 @@ export default function AddGarnish({ onAddGarnish, garnishID, drinkID, onClose }
             return;
         }
 
-        //call the RecipeDetails.js
         onAddGarnish(drinkID, { name })
 
-        //clear the form
         if (garnishID == null) {
-            setName('');
+            clearForm();
         }
+    }
+
+    const clearForm = () => {
+        setName('');
     }
 
     return (
@@ -44,7 +46,7 @@ export default function AddGarnish({ onAddGarnish, garnishID, drinkID, onClose }
             <Row>
                 <ButtonGroup>
                     <Button type='button' text={t('button_close')} className='btn btn-block'
-                    onClick={() => onClose()} />
+                        onClick={() => onClose()} />
                     <Button type='submit' text={t('button_save_garnish')} className='btn btn-block saveBtn' />
                 </ButtonGroup>
             </Row>

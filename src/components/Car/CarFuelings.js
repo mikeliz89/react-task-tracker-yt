@@ -5,6 +5,7 @@ import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 //react
 import { Col, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+//pagetitle
 import PageTitle from "../PageTitle";
 
 const CarFuelings = ({ carFuelings }) => {

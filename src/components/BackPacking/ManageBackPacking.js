@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 //buttons
 import GoBackButton from '../GoBackButton';
+//pagetitle
 import PageTitle from '../PageTitle';
 
 export default function ManageBackPacking() {

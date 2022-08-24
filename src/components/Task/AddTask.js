@@ -55,15 +55,17 @@ const AddTask = ({ taskID, taskListID, onAddTask, onClose }) => {
             return
         }
 
-        //call the TaskListDetails.js
         onAddTask(taskListID, { created, createdBy, text, day, reminder })
 
-        //clear the form
         if (taskID == null) {
-            setText('');
-            setDay('');
-            setReminder(false);
+            clearForm();
         }
+    }
+
+    const clearForm = () => {
+        setText('');
+        setDay('');
+        setReminder(false);
     }
 
     return (
@@ -97,8 +99,8 @@ const AddTask = ({ taskID, taskListID, onAddTask, onClose }) => {
             </Form.Group>
             <Row>
                 <ButtonGroup>
-                    <Button type='button' text={t('button_close')} className='btn btn-block' 
-                    onClick={() => onClose()}
+                    <Button type='button' text={t('button_close')} className='btn btn-block'
+                        onClick={() => onClose()}
                     />
                     <Button type='submit' text={t('button_save_task')} className='btn btn-block saveBtn' />
                 </ButtonGroup>

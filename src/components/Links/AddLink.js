@@ -26,10 +26,12 @@ const AddLink = ({ onSaveLink }) => {
 
         setLoading(true);
 
-        //call the RecipeDetails.js
         onSaveLink({ url, urlText });
 
-        //clear the form
+        clearForm();
+    }
+
+    const clearForm = () => {
         setUrl('');
         setUrlText('');
         setLoading(false);

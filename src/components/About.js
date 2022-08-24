@@ -2,6 +2,7 @@
 import GoBackButton from './GoBackButton';
 //react
 import { useTranslation } from 'react-i18next';
+//pagetitle
 import PageTitle from './PageTitle';
 
 const About = () => {
@@ -12,7 +13,7 @@ const About = () => {
     return (
         <div>
             <GoBackButton />
-            <PageTitle title={t('about_version') + ' 2.0.1'}  />
+            <PageTitle title={t('about_version') + ' 2.0.1'} />
             <div className="page-content">
                 <p>{t('version_upgraded')} 9.8.2022</p>
                 <p>{t('about_author')} Miika Kontio</p>

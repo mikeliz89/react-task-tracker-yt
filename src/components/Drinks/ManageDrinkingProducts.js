@@ -1,6 +1,6 @@
 //react
 import { useState, useEffect } from 'react';
-import { Row, ButtonGroup, Alert } from 'react-bootstrap';
+import { Row, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 //firebase
 import { ref, push, onValue, remove, update } from "firebase/database";
@@ -17,7 +17,10 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 //searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+//pagetitle
 import PageTitle from '../PageTitle';
+//alert
+import Alert from '../Alert';
 
 const ManageDrinkingProducts = () => {
 
@@ -34,8 +37,10 @@ const ManageDrinkingProducts = () => {
     const [showAddDrinkingProduct, setShowAddDrinkingProduct] = useState(false);
     const [drinkingProducts, setDrinkingProducts] = useState();
     const [originalDrinkingProducts, setOriginalDrinkingProducts] = useState();
-    const [message, setMessage] = useState('');
+    //alert
     const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
     //load data
@@ -68,6 +73,7 @@ const ManageDrinkingProducts = () => {
             setShowMessage(true);
         } catch (ex) {
             setError(t('drinkingproduct_save_exception'));
+            setShowError(true);
         }
     }
 
@@ -113,15 +119,11 @@ const ManageDrinkingProducts = () => {
                 </ButtonGroup>
             </Row>
             <PageTitle title={t('manage_drinkingproducts_title')} />
-            {error && <div className="error">{error}</div>}
-            {message &&
-                <Alert show={showMessage} variant='success'>
-                    {message}
-                    <div className='d-flex justify-content-end'>
-                        <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
-                    </div>
-                </Alert>
-            }
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             {showAddDrinkingProduct &&
                 <AddDrinkingProduct onClose={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)} onAddDrinkingProduct={addDrinkingProduct} />}
             <SearchSortFilter

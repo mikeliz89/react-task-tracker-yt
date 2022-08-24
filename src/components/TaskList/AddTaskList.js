@@ -22,7 +22,6 @@ const AddTaskList = ({ taskListID, onAddTaskList, onClose }) => {
     const [createdBy, setCreatedBy] = useState('')
 
     useEffect(() => {
-
         if (taskListID != null) {
             //Task List
             const getTaskList = async () => {
@@ -60,10 +59,13 @@ const AddTaskList = ({ taskListID, onAddTaskList, onClose }) => {
         onAddTaskList({ created, createdBy, title, description });
 
         if (taskListID == null) {
-            //clear the form
-            setTitle('');
-            setDescription('');
+            clearForm();
         }
+    }
+
+    const clearForm = () => {
+        setTitle('');
+        setDescription('');
     }
 
     return (
@@ -86,8 +88,8 @@ const AddTaskList = ({ taskListID, onAddTaskList, onClose }) => {
             </Form.Group>
             <Row>
                 <ButtonGroup>
-                    <Button type='button' text={t('button_close')} className='btn btn-block' 
-                    onClick={() => onClose()}/>
+                    <Button type='button' text={t('button_close')} className='btn btn-block'
+                        onClick={() => onClose()} />
                     <Button type='submit' text={t('button_save_list')} className='btn btn-block saveBtn' />
                 </ButtonGroup>
             </Row>

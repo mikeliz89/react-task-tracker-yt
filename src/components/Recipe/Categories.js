@@ -8,6 +8,7 @@ export const Categories = {
     Pizza: 11,
     /** hampurilainen */
     Burger: 12
+    //todo: koodaa lisää ikoneita eri ruuille
 }
 
 // TODO: Tällä hetkellä vain kovakoodatut ruoka-kategoriat
@@ -146,3 +147,18 @@ export const FoodItemCategories = [
         "name": "meat"
     }
 ]
+
+
+export function getIconNameByCategory(category) {
+    switch (Number(category)) {
+        case Categories.Burger:
+            return 'hamburger';
+        case Categories.Pizza:
+            return 'pizza-slice';
+        case Categories.Fish:
+            return 'fish';
+        //todo: koodaa lisää ikoneita eri ruuille
+        default:
+            return 'utensils';
+    }
+}

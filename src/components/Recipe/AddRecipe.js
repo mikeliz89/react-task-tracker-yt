@@ -80,12 +80,15 @@ const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
       onAddRecipe({ created, createdBy, title, description, category, isCore, stars });
 
       if (recipeID == null) {
-         //clear the form
-         setTitle('');
-         setDescription('');
-         setIsCore(false);
-         setCategory('');
+         clearForm();
       }
+   }
+
+   const clearForm = () => {
+      setTitle('');
+      setDescription('');
+      setIsCore(false);
+      setCategory('');
    }
 
    return (
@@ -128,7 +131,7 @@ const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
             <Row>
                <ButtonGroup>
                   <Button type='button' text={t('button_close')} className='btn btn-block'
-                  onClick={() => onClose()} />
+                     onClick={() => onClose()} />
                   <Button type='submit' text={t('button_save_recipe')} className='btn btn-block saveBtn' />
                </ButtonGroup>
             </Row>

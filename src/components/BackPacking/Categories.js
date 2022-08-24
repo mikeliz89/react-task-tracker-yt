@@ -67,3 +67,22 @@ export const GearCategories = [
         "name": "other"
     }
 ]
+
+export function getIconNameByCategory(category) {
+    switch (Number(category)) {
+        case Categories.Sleeping:
+            return 'campground';
+        case Categories.Electronics:
+            return 'charging-station';
+        case Categories.Tool:
+            return 'hammer';
+        case Categories.FireCreation:
+            return 'burn';
+        case Categories.Clothing:
+            return 't-shirt';
+        case Categories.Cooking:
+            return 'utensils';
+        case Categories.Hygiene:
+            return 'hands-wash'
+    }
+}

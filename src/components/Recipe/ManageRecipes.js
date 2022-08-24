@@ -1,6 +1,6 @@
 //react
 import { useTranslation } from 'react-i18next';
-import { ButtonGroup, Row, Alert } from 'react-bootstrap';
+import { ButtonGroup, Row } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 //buttons
@@ -20,6 +20,8 @@ import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../PageTitle';
 //search sort filter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+//alert
+import Alert from '../Alert';
 
 const ManageRecipes = () => {
 
@@ -29,11 +31,14 @@ const ManageRecipes = () => {
   //states
   const [loading, setLoading] = useState(true);
   const [showAddRecipe, setShowAddRecipe] = useState(false);
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
   const [recipes, setRecipes] = useState();
   const [originalRecipes, setOriginalRecipes] = useState();
+
+  //alert
+  const [message, setMessage] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [error, setError] = useState('');
 
   //translation
   const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
@@ -80,11 +85,20 @@ const ManageRecipes = () => {
       recipe["createdBy"] = currentUser.email;
       const dbref = ref(db, DB_RECIPES);
       push(dbref, recipe);
-      setMessage(t('recipe_save_successfull'));
-      setShowMessage(true);
+      showSuccess();
     } catch (ex) {
-      setError(t('recipe_save_exception'));
+      showFailure();
     }
+  }
+
+  function showSuccess() {
+    setMessage(t('recipe_save_successfull'));
+    setShowMessage(true);
+  }
+
+  function showFailure() {
+    setError(t('recipe_save_exception'));
+    setShowError(true);
   }
 
   /** Delete Recipe From Firebase */
@@ -109,15 +123,11 @@ const ManageRecipes = () => {
       <PageTitle title={t('manage_recipes_title')} />
       <div className="page-content">
         <Link to="/managefooditems" className='btn btn-primary'>{t('manage_fooditems_button')}</Link>
-        {error && <div className="error">{error}</div>}
-        {message &&
-          <Alert show={showMessage} variant='success'>
-            {message}
-            <div className='d-flex justify-content-end'>
-              <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
-            </div>
-          </Alert>
-        }
+
+        <Alert message={message} showMessage={showMessage}
+          error={error} showError={showError}
+          variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
         {showAddRecipe && <AddRecipe onClose={() => setShowAddRecipe(false)} onAddRecipe={addRecipe} />}
         <SearchSortFilter
           useTitleFiltering={true}

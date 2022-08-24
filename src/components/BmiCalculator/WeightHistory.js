@@ -14,6 +14,7 @@ import i18n from "i18next";
 import { useAuth } from '../../contexts/AuthContext';
 //bmicalculator
 import WeightChart from './WeightChart';
+//pagetitle
 import PageTitle from '../PageTitle';
 
 const WeightHistory = () => {

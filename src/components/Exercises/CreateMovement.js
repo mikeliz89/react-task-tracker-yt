@@ -15,7 +15,10 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //Categories
 import { MovementCategories } from './Categories';
+//pagetitle
 import PageTitle from '../PageTitle';
+//alert
+import Alert from '../Alert';
 
 const CreateMovement = () => {
 
@@ -25,6 +28,11 @@ const CreateMovement = () => {
     const [category, setCategory] = useState();
     const [categories, setCategories] = useState(MovementCategories);
     const [name, setName] = useState('');
+
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
     //translation
@@ -72,6 +80,7 @@ const CreateMovement = () => {
             })
         } catch (ex) {
             setError(t('movement_save_exception'));
+            setShowError(true);
         }
     }
 
@@ -81,7 +90,11 @@ const CreateMovement = () => {
                 <GoBackButton />
             </ButtonGroup>
             <PageTitle title={t('create_movement')} />
-            {error && <div className="error">{error}</div>}
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="createMovementForm-Category">
                     <Form.Label>{t('movementcategory')}</Form.Label>

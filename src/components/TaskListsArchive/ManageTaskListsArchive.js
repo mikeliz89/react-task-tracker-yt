@@ -1,9 +1,14 @@
+//buttons
 import GoBackButton from '../GoBackButton';
+//react
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
+//firebase
 import { db } from '../../firebase-config';
 import { ref, onValue, remove } from "firebase/database";
+//tasklists
 import TaskLists from '../../components/TaskList/TaskLists';
+//pagetitle
 import PageTitle from '../PageTitle';
 
 const ManageTaskListsArchive = () => {

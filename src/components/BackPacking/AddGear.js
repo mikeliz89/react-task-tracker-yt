@@ -77,11 +77,14 @@ const AddGear = ({ gearID, onAddGear, onClose }) => {
         onAddGear({ created, createdBy, name, category, weightInGrams });
 
         if (gearID == null) {
-            //clear the form
-            setName('');
-            setCategory('');
-            setWeightInGrams(0);
+            clearForm();
         }
+    }
+
+    const clearForm = () => {
+        setName('');
+        setCategory('');
+        setWeightInGrams(0);
     }
 
     return (

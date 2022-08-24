@@ -33,7 +33,10 @@ import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+//pagetitle
 import PageTitle from '../PageTitle';
+//alert
+import Alert from '../Alert';
 
 export default function DrinkDetails() {
 
@@ -57,9 +60,12 @@ export default function DrinkDetails() {
     const [incredients, setIncredients] = useState({});
     const [workPhases, setWorkPhases] = useState({});
     const [garnishes, setGarnishes] = useState({});
+
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState('');
     const [error, setError] = useState('');
-    const [setMessage] = useState('');
-    const [setShowMessage] = useState(false);
 
     //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
@@ -164,6 +170,7 @@ export default function DrinkDetails() {
             update(ref(db), updates);
         } catch (error) {
             setError(t('failed_to_save_drink'));
+            setShowError(true);
             console.log(error)
         }
     }
@@ -323,7 +330,10 @@ export default function DrinkDetails() {
             {/* Accordion end */}
             <div className="page-content">
                 {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}
-                {error && <div className="error">{error}</div>}
+
+                <Alert message={message} showMessage={showMessage}
+                    error={error} showError={showError}
+                    variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
                 <SetStarRating starCount={drink.stars} onSaveStars={saveStars} />
                 <AddComment onSave={addCommentToDrink} />

@@ -2,11 +2,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Form, Alert } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //buttons
 import Button from '../../components/Button';
+//alert
+import Alert from '../Alert';
 
 export default function ForgotPassword() {
 
@@ -14,36 +16,56 @@ export default function ForgotPassword() {
 
     //states
     const [email, setEmail] = useState('');
-    const [error, setError] = useState('');
-    const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const { resetPassword } = useAuth();
+
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
 
     async function onSubmit(e) {
         e.preventDefault()
 
         try {
-            //clear 
-            setError('');
-            setMessage('');
             setLoading(true);
+            clearMessages();
             await resetPassword(email);
-            setMessage(t('check_your_inbox'));
+            showSuccess();
         } catch (error) {
-            setError(t('failed_to_reset_password'));
             console.log(error);
+            showFailure();
         }
 
         setLoading(false);
     }
 
+    function clearMessages() {
+        setError('');
+        setShowError(false);
+        setMessage('');
+        setShowMessage(false);
+    }
+
+    function showSuccess() {
+        setMessage(t('check_your_inbox'));
+        setShowMessage();
+    }
+
+    function showFailure() {
+        setError(t('failed_to_reset_password'));
+        setShowError(true);
+    }
+
     return (
         <div className="login-container">
             <h3>{t('password_reset')}</h3>
-            {error && <div className="error">{error}</div>}
-            {message &&
-                <Alert variant='info'>{message}</Alert>
-            }
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='info' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="forgotPasswordFormEmail">
                     <Form.Label>{t('email')}</Form.Label>

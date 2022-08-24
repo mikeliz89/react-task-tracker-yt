@@ -88,15 +88,18 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
       });
 
       if (drinkingProductID == null) {
-         //clear the form
-         setName('');
-         setManufacturer('');
-         setDescription('');
-         setCategory('');
-         setAbv(0);
-         setHaveAtHome(false);
-         setAmount(0);
+         clearForm();
       }
+   }
+
+   const clearForm = () => {
+      setName('');
+      setManufacturer('');
+      setDescription('');
+      setCategory('');
+      setAbv(0);
+      setHaveAtHome(false);
+      setAmount(0);
    }
 
    return (

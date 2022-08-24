@@ -1,5 +1,5 @@
 //react
-import { Alert, ButtonGroup, Form, Row } from "react-bootstrap";
+import { ButtonGroup, Form, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 //buttons
@@ -11,6 +11,8 @@ import { ref, push } from "firebase/database";
 import { db } from "../../firebase-config";
 //utils
 import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
+//alert
+import Alert from "../Alert";
 
 const AddFueling = ({ onClose }) => {
 
@@ -21,10 +23,12 @@ const AddFueling = ({ onClose }) => {
     const { currentUser } = useAuth();
 
     //states
-    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    //alert
     const [showMessage, setShowMessage] = useState(false);
     const [message, setMessage] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
     //car data states
     const [purchaseLocation, setPurchaseLocation] = useState('');
     const [meterKilometers, setMeterKilometers] = useState(0);
@@ -40,11 +44,8 @@ const AddFueling = ({ onClose }) => {
         e.preventDefault()
 
         try {
-            //clear
-            setMessage('');
             setLoading(true);
-
-            //save
+            clearMessages();
             const fueling = {
                 purchaseLocation, meterKilometers, fuelPricePerLiter,
                 fuelLiterAmount, price, fuelerName
@@ -57,6 +58,13 @@ const AddFueling = ({ onClose }) => {
 
         setLoading(false);
         clearForm();
+    }
+
+    function clearMessages() {
+        setError('');
+        setShowError(false);
+        setMessage('');
+        setShowMessage(false);
     }
 
     const clearForm = () => {
@@ -80,6 +88,7 @@ const AddFueling = ({ onClose }) => {
             setShowMessage(true);
         } catch (ex) {
             setError(t('save_exception'));
+            setShowError(true);
             console.warn(ex);
         }
     }
@@ -87,15 +96,11 @@ const AddFueling = ({ onClose }) => {
     return (
         <div>
             <h5>{t('add_fueling_title')}</h5>
-            {error && <div className="error">{error}</div>}
-            {message &&
-                <Alert show={showMessage} variant='success'>
-                    {message}
-                    <div className='d-flex justify-content-end'>
-                        <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
-                    </div>
-                </Alert>
-            }
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addFuelingForm-LiterAmount">
                     <Form.Label>{t('liter_amount')}</Form.Label>

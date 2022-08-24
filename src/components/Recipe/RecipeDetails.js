@@ -30,7 +30,10 @@ import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+//pagetitle
 import PageTitle from '../PageTitle';
+//alert
+import Alert from '../Alert';
 
 export default function RecipeDetails() {
 
@@ -48,7 +51,12 @@ export default function RecipeDetails() {
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
     const [incredients, setIncredients] = useState();
     const [workPhases, setWorkPhases] = useState();
-    const [error, setError] = useState();
+
+        //alert
+        const [showMessage, setShowMessage] = useState(false);
+        const [message, setMessage] = useState('');
+        const [showError, setShowError] = useState(false);
+        const [error, setError] = useState('');
 
     //translation
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
@@ -157,8 +165,9 @@ export default function RecipeDetails() {
             updates[`${DB_RECIPES}/${recipeID}`] = recipe;
             update(ref(db), updates);
         } catch (error) {
-            setError(t('failed_to_save_recipe'));
             console.log(error)
+            setError(t('failed_to_save_recipe'));
+            setShowError(true);
         }
     }
 
@@ -251,7 +260,11 @@ export default function RecipeDetails() {
             </Accordion>
             {/* Accordion end */}
             <div className="page-content">
-                {error && <div className="error">{error}</div>}
+
+                <Alert message={message} showMessage={showMessage}
+                    error={error} showError={showError}
+                    variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
                 <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
                 <AddComment onSave={addCommentToRecipe} />
                 <AddLink onSaveLink={addLinkToRecipe} />

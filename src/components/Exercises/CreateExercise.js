@@ -15,7 +15,10 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //Categories
 import { ExerciseCategories } from './Categories';
+//pagetitle
 import PageTitle from '../PageTitle';
+//alert
+import Alert from '../Alert';
 
 const CreateExercise = () => {
 
@@ -27,6 +30,11 @@ const CreateExercise = () => {
     const [categories, setCategories] = useState(ExerciseCategories);
     const [date, setDate] = useState(''); //todo: laita oletuksena nykypvm
     const [time, setTime] = useState(''); //todo: laita oletuksena nykyinen kellonaika
+
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
     //translation
@@ -74,6 +82,7 @@ const CreateExercise = () => {
             })
         } catch (ex) {
             setError(t('exercise_save_exception'));
+            setShowError(true);
         }
     }
 
@@ -83,7 +92,11 @@ const CreateExercise = () => {
                 <GoBackButton />
             </ButtonGroup>
             <PageTitle title={t('create_exercise')} />
-            {error && <div className="error">{error}</div>}
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="createExerciseForm-Category">
                     <Form.Label>{t('category')}</Form.Label>

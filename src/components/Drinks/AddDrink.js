@@ -83,11 +83,14 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
       onAddDrink({ created, createdBy, title, description, category, glass, stars });
 
       if (drinkID == null) {
-         //clear the form
-         setTitle('');
-         setDescription('');
-         setGlass('');
+         clearForm();
       }
+   }
+
+   const clearForm = () => {
+      setTitle('');
+      setDescription('');
+      setGlass('');
    }
 
    return (

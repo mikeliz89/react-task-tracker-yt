@@ -99,18 +99,21 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
         });
 
         if (foodItemID == null) {
-            //clear the form
-            setCalories(0);
-            setCarbs(0);
-            setCategory('');
-            setFat(0);
-            setFiber(0);
-            setHaveAtHome(false);
-            setName('');
-            setProtein(0);
-            setSalt(0);
-            setSugars(0);
+            clearForm();
         }
+    }
+
+    const clearForm = () => {
+        setCalories(0);
+        setCarbs(0);
+        setCategory('');
+        setFat(0);
+        setFiber(0);
+        setHaveAtHome(false);
+        setName('');
+        setProtein(0);
+        setSalt(0);
+        setSugars(0);
     }
 
     return (

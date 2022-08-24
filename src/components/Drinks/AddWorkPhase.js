@@ -23,11 +23,14 @@ export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, drinkID, onC
 
     onAddWorkPhase(drinkID, { name, estimatedLength })
 
-    //clear the form
     if (workPhaseID == null) {
-      setName('')
-      setEstimatedLength(0)
+      clearForm();
     }
+  }
+
+  const clearForm = () => {
+    setName('');
+    setEstimatedLength(0);
   }
 
   return (

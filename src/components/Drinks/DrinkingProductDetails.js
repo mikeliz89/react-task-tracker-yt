@@ -24,7 +24,10 @@ import Links from '../Links/Links';
 import { useAuth } from '../../contexts/AuthContext';
 //drinks
 import AddDrinkingProduct from './AddDrinkingProduct';
+//pagetitle
 import PageTitle from '../PageTitle';
+//alert
+import Alert from '../Alert';
 
 export default function DrinkingProductDetails() {
 
@@ -37,6 +40,11 @@ export default function DrinkingProductDetails() {
     const [loading, setLoading] = useState(true);
     const [drinkingProduct, setDrinkingProduct] = useState({});
     const [showEditDrinkingProduct, setShowEditDrinkingProduct] = useState(false);
+
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
     //translation
@@ -88,20 +96,21 @@ export default function DrinkingProductDetails() {
         push(dbref, link);
     }
 
-        /** Add Drink To Firebase */
-        const addDrinkingProduct = async (drinkingProduct) => {
-            try {
-                var drinkingProductID = params.id;
-                //save edited drink to firebase
-                const updates = {};
-                drinkingProduct["modified"] = getCurrentDateAsJson();
-                updates[`${DB_DRINKINGPRODUCTS}/${drinkingProductID}`] = drinkingProduct;
-                update(ref(db), updates);
-            } catch (error) {
-                setError(t('failed_to_save_drink'));
-                console.log(error)
-            }
+    /** Add Drink To Firebase */
+    const addDrinkingProduct = async (drinkingProduct) => {
+        try {
+            var drinkingProductID = params.id;
+            //save edited drink to firebase
+            const updates = {};
+            drinkingProduct["modified"] = getCurrentDateAsJson();
+            updates[`${DB_DRINKINGPRODUCTS}/${drinkingProductID}`] = drinkingProduct;
+            update(ref(db), updates);
+        } catch (error) {
+            console.log(error)
+            setError(t('failed_to_save_drink'));
+            setShowError(true);
         }
+    }
 
     return loading ? (
         <h3>{t('loading')}</h3>
@@ -150,13 +159,16 @@ export default function DrinkingProductDetails() {
             </Accordion>
             {/* Accordion end */}
             <div className="page-content">
-                {error && <div className="error">{error}</div>}
+
+                <Alert message={message} showMessage={showMessage}
+                    error={error} showError={showError}
+                    variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
                 <AddComment onSave={addCommentToDrinkingProduct} />
                 <AddLink onSaveLink={addLinkToDrinkingProduct} />
 
-                {showEditDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} drinkingProductID={params.id} 
-                onClose={() => setShowEditDrinkingProduct(false)} />}
+                {showEditDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} drinkingProductID={params.id}
+                    onClose={() => setShowEditDrinkingProduct(false)} />}
 
                 <Comments objID={params.id} url={'drinkingproduct-comments'} />
                 <Links objID={params.id} url={'drinkingproduct-links'} />

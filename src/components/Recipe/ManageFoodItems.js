@@ -1,6 +1,6 @@
 //react
 import { useState, useEffect } from 'react';
-import { Row, ButtonGroup, Alert } from 'react-bootstrap';
+import { Row, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 //firebase
 import { ref, push, onValue, remove, update } from "firebase/database";
@@ -17,7 +17,10 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 //searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+//pagetitle
 import PageTitle from '../PageTitle';
+//alert
+import Alert from '../Alert';
 
 const ManageFoodItems = () => {
 
@@ -33,8 +36,11 @@ const ManageFoodItems = () => {
     const [showAddFoodItem, setShowAddFoodItem] = useState(false);
     const [foodItems, setFoodItems] = useState();
     const [originalFoodItems, setOriginalFoodItems] = useState();
-    const [message, setMessage] = useState('');
+
+    //alert
     const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
     //load data
@@ -45,9 +51,9 @@ const ManageFoodItems = () => {
             if (cancel) {
                 return;
             }
-            await fetchFoodItemsFromFirebase()
+            await fetchFoodItemsFromFirebase();
         }
-        getFoodItems()
+        getFoodItems();
 
         return () => {
             cancel = true;
@@ -60,16 +66,25 @@ const ManageFoodItems = () => {
             foodItem["createdBy"] = currentUser.email;
             const dbref = ref(db, DB_FOODITEMS);
             push(dbref, foodItem);
-            setMessage(t('fooditem_save_successfull'));
-            setShowMessage(true);
+            showSuccess();
         } catch (ex) {
-            setError(t('fooditem_save_exception'));
+            showFailure();
         }
+    }
+
+    function showSuccess() {
+        setMessage(t('fooditem_save_successfull'));
+        setShowMessage(true);
+    }
+
+    function showFailure() {
+        setError(t('fooditem_save_exception'));
+        setShowError(true);
     }
 
     const deleteFoodItem = (id) => {
         const dbref = ref(db, `${DB_FOODITEMS}/${id}`);
-        remove(dbref)
+        remove(dbref);
     }
 
     const editFoodItem = (foodItem) => {
@@ -106,17 +121,13 @@ const ManageFoodItems = () => {
                 </ButtonGroup>
             </Row>
             <PageTitle title={t('manage_fooditems_title')} />
-            {error && <div className="error">{error}</div>}
-            {message &&
-                <Alert show={showMessage} variant='success'>
-                    {message}
-                    <div className='d-flex justify-content-end'>
-                        <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
-                    </div>
-                </Alert>
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+            {
+                showAddFoodItem &&
+                <AddFoodItem onClose={() => setShowAddFoodItem(!showAddFoodItem)} onAddFoodItem={addFoodItem} />
             }
-            {showAddFoodItem &&
-                <AddFoodItem onClose={() => setShowAddFoodItem(!showAddFoodItem)} onAddFoodItem={addFoodItem} />}
             <SearchSortFilter
                 useNameFiltering={true}
                 showFilterHaveAtHome={true}

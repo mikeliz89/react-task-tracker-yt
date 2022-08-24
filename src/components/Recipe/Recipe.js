@@ -19,7 +19,9 @@ import i18n from "i18next";
 //icon
 import Icon from '../Icon';
 //categories
-import { Categories } from './Categories';
+import { getIconNameByCategory } from './Categories';
+//alert
+import Alert from '../Alert';
 
 const Recipe = ({ recipe, onDelete }) => {
 
@@ -37,8 +39,11 @@ const Recipe = ({ recipe, onDelete }) => {
     //translation
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
-    //states 
-    const [error, setError] = useState('')
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
 
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -56,7 +61,8 @@ const Recipe = ({ recipe, onDelete }) => {
                 navigate('/managetasklists')
             });
         } else if (incredients && incredients.length <= 0) {
-            setError("Ei yhtään ainesosaa. Ostoslistaa ei voitu luoda");
+            setError("Ei yhtään ainesosaa. Ostoslistaa ei voitu luoda"); //todo: kieleistys
+            setShowError(true);
         }
     }
 
@@ -112,30 +118,21 @@ const Recipe = ({ recipe, onDelete }) => {
         push(dbref, task);
     }
 
-    const getIconNameByCategory = (recipe) => {
-        switch (Number(recipe.category)) {
-            case Categories.Burger:
-                return 'hamburger';
-            case Categories.Pizza:
-                return 'pizza-slice';
-            case Categories.Fish:
-                return 'fish';
-            default:
-                return 'utensils';
-        }
-    }
-
     return (
         <div key={recipe.id} className={recipe.isCore === true ? 'recipe coreRecipe' : 'recipe'}>
             <h5>
                 <span>
-                    <Icon name={getIconNameByCategory(recipe)} color='gray' />
+                    <Icon name={getIconNameByCategory(recipe.category)} color='gray' />
                     {recipe.title}
                 </span>
                 <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                     onClick={() => { if (window.confirm(t('delete_recipe_confirm_message'))) { onDelete(recipe.id); } }} />
             </h5>
-            {error && <div className="error">{error}</div>}
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             {recipe.category > 0 ? (
                 <p> {'#' + t('category_' + getRecipeCategoryNameByID(recipe.category))}</p>
             ) : ('')}

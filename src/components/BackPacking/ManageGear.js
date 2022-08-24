@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 //buttons
 import Button from '../Button';
 import GoBackButton from '../GoBackButton';
+//backpacking
 import AddGear from './AddGear';
 //firebase
 import { db } from '../../firebase-config';
@@ -13,10 +14,15 @@ import { ref, push, onValue, remove } from 'firebase/database';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+//backpacking
 import Gears from './Gears';
+//pagetitle
 import PageTitle from '../PageTitle';
+//searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from '../SearchSortFilter/SortModes';
+//alert
+import Alert from '../Alert';
 
 export default function ManageGear() {
 
@@ -31,6 +37,12 @@ export default function ManageGear() {
     const [gear, setGear] = useState();
     const [originalGear, setOriginalGear] = useState();
     const [loading, setLoading] = useState(true);
+
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
 
     //load data
     useEffect(() => {
@@ -70,15 +82,24 @@ export default function ManageGear() {
     /** Add Gear To Firebase */
     const addGear = async (gear) => {
         try {
+            clearMessages();
             gear["created"] = getCurrentDateAsJson();
             gear["createdBy"] = currentUser.email;
             const dbref = ref(db, DB_GEAR);
             push(dbref, gear);
-            // setMessage(t('save_success'));
-            // setShowMessage(true);
+            setMessage(t('save_success'));
+            setShowMessage(true);
         } catch (ex) {
-            // setError(t('save_exception'));
+            setError(t('save_exception'));
+            setShowError(true);
         }
+    }
+
+    function clearMessages() {
+        setError('');
+        setShowError(false);
+        setMessage('');
+        setShowMessage(false);
     }
 
     const deleteGear = (id) => {
@@ -101,6 +122,10 @@ export default function ManageGear() {
             </Row>
 
             <PageTitle title={t('my_gear_title')} />
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             <div className="page-content">
                 {showAdd && <AddGear onAddGear={addGear} onClose={() => setShowAdd(false)} />}

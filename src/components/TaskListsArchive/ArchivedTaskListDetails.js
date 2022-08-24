@@ -14,6 +14,7 @@ import GoBackButton from '../GoBackButton';
 import i18n from "i18next";
 //utils
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+//pagetitle
 import PageTitle from '../PageTitle';
 
 export default function ArchivedTaskListDetails() {

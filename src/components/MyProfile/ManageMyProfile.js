@@ -3,7 +3,7 @@ import GoBackButton from '../GoBackButton';
 import Button from '../Button';
 //react
 import { useTranslation } from 'react-i18next';
-import { Form, Alert } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
@@ -12,7 +12,10 @@ import { db, uploadProfilePic } from '../../firebase-config';
 import { ref, onValue, update } from "firebase/database";
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+//pagetitle
 import PageTitle from '../PageTitle';
+//alert
+import Alert from '../Alert';
 
 export default function ManageMyProfile() {
 
@@ -34,9 +37,12 @@ export default function ManageMyProfile() {
     const [photoUrl, setPhotoUrl] = useState(defaultPhotoUrl);
     const [photo, setPhoto] = useState(null);
     const [loading, setLoading] = useState(false);
-    //message
+
+    //alert
     const [showMessage, setShowMessage] = useState(false);
     const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
 
     //load data
     useEffect(() => {
@@ -67,13 +73,20 @@ export default function ManageMyProfile() {
         })
     }
 
-    /** Recipe Form Submit */
+    /** Form Submit */
     const onSubmit = (e) => {
         e.preventDefault()
+
+        //validation
+        if (height > 220) {
+            alert("maksimi pituus on 220 cm!");
+            showFailure();
+            return;
+        }
+
         saveProfileToFirebase();
 
-        setShowMessage(true);
-        setMessage(t("saving_done"));
+        showSuccess();
     }
 
     const saveProfileToFirebase = async () => {
@@ -94,25 +107,30 @@ export default function ManageMyProfile() {
     const handleClick = () => {
         const res = uploadProfilePic(photo, currentUser, setLoading);
         if (res) {
-            setShowMessage(true);
-            setMessage(t("saving_done"));
-
+            showSuccess();
             setPhotoUrl(currentUser.photoURL);
         }
+    }
+
+    function showFailure() {
+        setShowError(true);
+        setError(t('saving_failed'));
+    }
+
+    function showSuccess() {
+        setShowMessage(true);
+        setMessage(t('saving_done'));
     }
 
     return (
         <div>
             <GoBackButton />
             <PageTitle title={t('title')} />
-            {message &&
-                <Alert show={showMessage} variant='success'>
-                    {message}
-                    <div className='d-flex justify-content-end'>
-                        <button onClick={() => setShowMessage(false)} className='btn btn-success'>{t('button_close')}</button>
-                    </div>
-                </Alert>
-            }
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             {/* <p>PhotoUrl: {photoUrl}</p> */}
             <img src={photoUrl} alt='avatar' className='avatar' />
             <Form onSubmit={onSubmit}>

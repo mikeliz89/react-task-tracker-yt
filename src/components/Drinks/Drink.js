@@ -27,8 +27,11 @@ const Drink = ({ drink, onDelete }) => {
     //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
-    //states
-    const [error] = useState(false);
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setmessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
 
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -49,9 +52,10 @@ const Drink = ({ drink, onDelete }) => {
 
     return (
         <div key={drink.id} className='drink'>
-            {error && <div className="error">{error}</div>}
 
-            <Alert />
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             <h5>
                 <span>

@@ -22,14 +22,16 @@ export default function AddWorkPhase({ onAddWorkPhase, workPhaseID, recipeID }) 
       return;
     }
 
-    //call the RecipeDetails.js
     onAddWorkPhase(recipeID, { name, estimatedLength })
 
-    //clear the form
     if (workPhaseID == null) {
-      setName('');
-      setEstimatedLength(0);
+      clearForm();
     }
+  }
+
+  const clearForm = () => {
+    setName('');
+    setEstimatedLength(0);
   }
 
   return (

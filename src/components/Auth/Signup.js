@@ -1,9 +1,14 @@
-import { useState } from 'react';
+//auth
 import { useAuth } from '../../contexts/AuthContext';
+//react
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
+//button
 import Button from '../../components/Button';
+//alert
+import Alert from '../Alert';
 
 export default function Signup() {
 
@@ -14,12 +19,17 @@ export default function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
 
     //auth
     const { signup } = useAuth();
-    
+
     //navigate
     const navigate = useNavigate();
 
@@ -28,30 +38,44 @@ export default function Signup() {
 
         //validation
         if (!email || !password || !passwordConfirm) {
-            setError(t('please_fill_all_fields'));
+            showFailure('please_fill_all_fields');
             return;
         }
 
         if (password !== passwordConfirm) {
-            setError(t('passwords_do_not_match'));
+            showFailure('passwords_do_not_match');
             return;
         }
 
         try {
-            //clear the error
-            setError('');
             setLoading(true);
+            clearMessages();
             await signup(email, password);
             //navigate to dashboard
             navigate('/');
         } catch (error) {
-            setError(t('failed_to_create_account'));
             console.log(error);
+            showFailure('failed_to_create_account');
         }
 
         setLoading(false);
 
-        //clear the form
+        clearForm();
+    }
+
+    function showFailure(content) {
+        setShowError(true);
+        setError(t(content));
+    }
+
+    function clearMessages() {
+        setError('');
+        setShowError(false);
+        setMessage('');
+        setShowMessage(false);
+    }
+
+    const clearForm = () => {
         setEmail('');
         setPassword('');
         setPasswordConfirm('');
@@ -60,7 +84,11 @@ export default function Signup() {
     return (
         <div className="login-container">
             <h3>{t('sign_up')}</h3>
-            {error && <div className="error">{error}</div>}
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="signupFormEmail">
                     <Form.Label>{t('email')}</Form.Label>

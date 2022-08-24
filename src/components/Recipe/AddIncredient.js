@@ -23,15 +23,17 @@ export default function AddIncredient({ onAddIncredient, incredientID, recipeID 
       return;
     }
 
-    //call the RecipeDetails.js
     onAddIncredient(recipeID, { name, unit, amount })
 
-    //clear the form
     if (incredientID == null) {
-      setName('');
-      setUnit('');
-      setAmount(0);
+      clearForm();
     }
+  }
+
+  const clearForm = () => {
+    setName('');
+    setUnit('');
+    setAmount(0);
   }
 
   return (

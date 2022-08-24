@@ -5,6 +5,9 @@
         "about_author": "Tekijä",
         "version_upgraded": "Versiota nostettu viimeksi"
     },
+    "alert": {
+        "button_close": "Sulje"
+    },
     "auth": {
         "already_have_an_account": "Oletko jo rekisteröitynyt?",
         "check_your_inbox": "Katso sähköpostiisi lähetetty viesti",
@@ -51,6 +54,8 @@
         "my_gear_title": "Varusteeni",
         "no_gear_to_show": "Ei lisättyjä varusteita",
         "please_add_gear": "Ole hyvä ja anna varusteelle nimi",
+        "save_exception": "Tallennus epäonnistui",
+        "save_success": "Tallennus onnistui",
         "view_details": "Katso lisätiedot"
     },
     "bmicalculator": {
@@ -335,6 +340,7 @@
         "height": "Pituus",
         "savebutton": "Tallenna",
         "saving_done": "Tallennus onnistui",
+        "saving_failed": "Tallennus epäonnistui",
         "upload": "Lähetä"
     },
     "recipe": {
@@ -375,6 +381,7 @@
         "created": "Luotu",
         "created_by": "Luoja",
         "delete_recipe_confirm_message": "Poista resepti?",
+        "delete_fooditem_confirm_message": "Poista ruoka-aines?",
         "description": "Kuvaus",
         "edit_description": "Muokkaa kuvausta",
         "edit_recipe_name": "Muokkaa reseptin nimeä",

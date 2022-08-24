@@ -10,7 +10,6 @@ import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
 const FoodItem = ({ foodItem, onDelete, onEdit }) => {
 
     //states
-    const [error, setError] = useState(false);
     const [editable, setEditable] = useState(false);
 
     //translation
@@ -45,9 +44,7 @@ const FoodItem = ({ foodItem, onDelete, onEdit }) => {
                     <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => { if (window.confirm(t('delete_fooditem_confirm_message'))) { onDelete(foodItem.id); } }} />
                 </span>
-
             </h5>
-            {error && <div className="error">{error}</div>}
             <p>{t('fooditem_calories')}: {foodItem.calories}</p>
 
             <p>{t('fooditem_category')}: {

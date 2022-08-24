@@ -13,7 +13,6 @@ import Icon from '../Icon';
 const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
 
     //states
-    const [error] = useState(false);
     const [editable, setEditable] = useState(false);
 
     //translation
@@ -49,7 +48,6 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
                         onClick={() => { if (window.confirm(t('delete_drinkingproduct_confirm_message'))) { onDelete(drinkingProduct.id); } }} />
                 </span>
             </h5>
-            {error && <div className="error">{error}</div>}
             <p>{t('drinkingproduct_manufacturer')}: {drinkingProduct.manufacturer}</p>
             <p>{t('drinkingproduct_description')}: {drinkingProduct.description}</p>
             <p>{t('drinkingproduct_category')}: {
