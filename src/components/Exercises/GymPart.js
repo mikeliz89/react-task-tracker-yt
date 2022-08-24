@@ -1,7 +1,8 @@
 //react
-import { FaTimes } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import { Row, Col } from 'react-bootstrap';
+//icon
+import Icon from '../Icon';
 
 function GymPart({ exerciseID, gymPart, onDelete }) {
 
@@ -18,7 +19,7 @@ function GymPart({ exerciseID, gymPart, onDelete }) {
                 <Col xs={3}>
                     {
                         <span style={{ float: 'right' }}>
-                            <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
+                            <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => { if (window.confirm(t('delete_gympart_confirm_message'))) { onDelete(exerciseID, gymPart.id); } }} />
                         </span>
                     }

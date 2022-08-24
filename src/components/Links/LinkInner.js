@@ -1,10 +1,11 @@
 //react
-import { FaTimes, FaEdit } from "react-icons/fa";
 import { Col, Row } from "react-bootstrap";
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
 //links
 import EditLink from "./EditLink";
+//icon
+import Icon from "../Icon";
 
 const LinkInner = ({ link, objID, linkUrl, onEdit, onDelete }) => {
 
@@ -28,9 +29,9 @@ const LinkInner = ({ link, objID, linkUrl, onEdit, onDelete }) => {
                 <Col xs={3}>
                     {
                         <span style={{ float: 'right' }}>
-                            <FaEdit className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
+                            <Icon name='edit' className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
-                            <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
+                            <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => { if (window.confirm(t('delete_link_confirm'))) { onDelete(link.id); } }} />
                         </span>
                     }

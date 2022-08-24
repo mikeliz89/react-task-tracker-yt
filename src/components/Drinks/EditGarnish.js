@@ -21,9 +21,9 @@ export default function EditGarnish({ drinkID, garnishID, onEditGarnish, onClose
     useEffect(() => {
         if (drinkID != null) {
             const getGarnish = async () => {
-                await fetchGarnishFromFirebase(drinkID)
+                await fetchGarnishFromFirebase(drinkID);
             }
-            getGarnish()
+            getGarnish();
         }
     }, [drinkID]);
 
@@ -42,11 +42,7 @@ export default function EditGarnish({ drinkID, garnishID, onEditGarnish, onClose
         let garnish = { id: garnishID, name };
         onEditGarnish(garnish);
     }
-
-    const close = (e) => {
-        onCloseEditGarnish();
-    }
-
+    
     return (
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="editGarnishForm-GarnishName">
@@ -58,7 +54,7 @@ export default function EditGarnish({ drinkID, garnishID, onEditGarnish, onClose
             </Form.Group>
             <Row>
                 <ButtonGroup>
-                    <Button type='button' text={t('button_close')} className='btn btn-block' onClick={() => close()} />
+                    <Button type='button' text={t('button_close')} className='btn btn-block' onClick={() => onCloseEditGarnish()} />
                     <Button type='submit' text={t('button_save_garnish')} className='btn btn-block saveBtn' />
                 </ButtonGroup>
             </Row>

@@ -1,11 +1,13 @@
 //react
-import { FaTimes, FaCheckSquare, FaEdit } from 'react-icons/fa';
+import { FaCheckSquare } from 'react-icons/fa';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 //recipe
 import AddFoodItem from './AddFoodItem';
 //utils
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
+//icon
+import Icon from '../Icon';
 
 const FoodItem = ({ foodItem, onDelete, onEdit }) => {
 
@@ -39,9 +41,9 @@ const FoodItem = ({ foodItem, onDelete, onEdit }) => {
                 </span>
 
                 <span style={{ float: 'right' }}>
-                    <FaEdit className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
+                    <Icon name='edit' className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => editable ? setEditable(false) : setEditable(true)} />
-                    <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
+                    <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => { if (window.confirm(t('delete_fooditem_confirm_message'))) { onDelete(foodItem.id); } }} />
                 </span>
             </h5>

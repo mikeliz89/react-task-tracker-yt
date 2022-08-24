@@ -1,7 +1,7 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaTimes, FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useState } from 'react'
 //star rating
@@ -125,7 +125,7 @@ const Recipe = ({ recipe, onDelete }) => {
                     <Icon name={getIconNameByCategory(recipe.category)} color='gray' />
                     {recipe.title}
                 </span>
-                <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
+                <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                     onClick={() => { if (window.confirm(t('delete_recipe_confirm_message'))) { onDelete(recipe.id); } }} />
             </h5>
 

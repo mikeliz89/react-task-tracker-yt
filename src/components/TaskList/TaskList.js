@@ -1,7 +1,7 @@
 //react
-import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+//icon
 import Icon from '../Icon';
 
 const TaskList = ({ taskList, archived, onDelete }) => {
@@ -16,7 +16,7 @@ const TaskList = ({ taskList, archived, onDelete }) => {
                     <Icon name='list-alt' color='gray' />
                     {taskList.title}
                 </span>
-                <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
+                <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                     onClick={() => { if (window.confirm(t('delete_list_confirm_message'))) { onDelete(taskList.id); } }} />
             </h5>
             <p>{taskList.description}</p>

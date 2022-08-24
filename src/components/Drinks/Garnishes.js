@@ -2,6 +2,8 @@
 import { useTranslation } from 'react-i18next';
 //Drinks
 import { Garnish } from './Garnish';
+//Icon
+import Icon from '../Icon';
 
 export default function Garnishes({ garnishes, drinkID, onDelete }) {
 
@@ -10,7 +12,10 @@ export default function Garnishes({ garnishes, drinkID, onDelete }) {
 
   return (
     <>
-      <h5>{t('garnishes_header')}</h5>
+      <h5>
+        <Icon name='lemon' />
+        {t('garnishes_header')}
+      </h5>
 
       {garnishes
         ? garnishes.map((garnish, index) =>

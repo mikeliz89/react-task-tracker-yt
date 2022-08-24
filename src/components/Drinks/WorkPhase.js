@@ -1,6 +1,5 @@
 //react
 import { useTranslation } from 'react-i18next';
-import { FaTimes, FaEdit } from 'react-icons/fa';
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 //drinks
@@ -8,6 +7,8 @@ import EditWorkPhase from './EditWorkPhase';
 //firebase
 import { db } from '../../firebase-config';
 import { update, ref } from "firebase/database";
+//icon
+import Icon from '../Icon';
 
 export default function WorkPhase({ workPhase, drinkID, onDelete }) {
 
@@ -37,9 +38,9 @@ export default function WorkPhase({ workPhase, drinkID, onDelete }) {
                 <Col xs={3}>
                     {
                         <span style={{ float: 'right' }}>
-                            <FaEdit className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
+                            <Icon name='edit' className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
-                            <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
+                            <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => onDelete(drinkID, workPhase.id)} />
                         </span>
                     }

@@ -1,6 +1,5 @@
 //react
 import { useTranslation } from 'react-i18next';
-import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 //utils
@@ -35,7 +34,7 @@ const Gear = ({ gear, onDelete }) => {
                     <Icon name={getIconNameByCategory(gear.category)} />
                     {gear.name}
                 </span>
-                <FaTimes className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
+                <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                     onClick={() => { if (window.confirm(t('delete_gear_confirm_message'))) { onDelete(gear.id); } }} />
             </h5>
             {gear.category !== "" ? (

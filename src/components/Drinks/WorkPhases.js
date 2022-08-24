@@ -2,6 +2,8 @@
 import { useTranslation } from 'react-i18next';
 //drinks
 import WorkPhase from './WorkPhase';
+//icon
+import Icon from '../Icon';
 
 export default function WorkPhases({ workPhases, drinkID, onDelete }) {
 
@@ -10,7 +12,10 @@ export default function WorkPhases({ workPhases, drinkID, onDelete }) {
 
   return (
     <>
-      <h5>{t('workphases_header')}</h5>
+      <h5>
+        <Icon name='hourglass-1' />
+        {t('workphases_header')}
+      </h5>
       {workPhases
         ? workPhases.map((workPhase, index) =>
           <WorkPhase

@@ -2,6 +2,8 @@
 import { useTranslation } from 'react-i18next';
 //Drinks
 import { Incredient } from './Incredient';
+//icon
+import Icon from '../Icon';
 
 export default function Incredients({ incredients, drinkID, onDelete }) {
 
@@ -10,7 +12,10 @@ export default function Incredients({ incredients, drinkID, onDelete }) {
 
   return (
     <>
-      <h5>{t('incredients_header')}</h5>
+      <h5>
+        <Icon name='carrot' />
+        {t('incredients_header')}
+      </h5>
 
       {incredients
         ? incredients.map((incredient, index) =>

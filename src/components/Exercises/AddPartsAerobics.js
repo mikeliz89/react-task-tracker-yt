@@ -76,7 +76,7 @@ const AddPartsAerobics = () => {
   const updateMoving = async (moving, partID) => {
     const exerciseID = params.id;
     const updates = {};
-    moving["modified"] = getCurrentDateAsJson()
+    moving["modified"] = getCurrentDateAsJson();
     updates[`${DB_EXERCISE_PARTS}/${exerciseID}/${partID}`] = moving;
     update(ref(db), updates);
   }
