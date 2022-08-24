@@ -17,6 +17,7 @@ import EditExercise from "./EditExercise";
 import { Categories, getTitleByCategory, getIconNameByCategory } from './Categories';
 //star rating
 import SetStarRating from "../StarRating/SetStarRating";
+import StarRating from "../StarRating/StarRating";
 //comment
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
@@ -106,6 +107,11 @@ const ExerciseDetails = () => {
                             color={showEditExercise ? 'red' : 'orange'}
                             text={showEditExercise ? t('close') : t('button_edit')} />
                     </ButtonGroup>
+                </Row>
+                <Row>
+                    <Col>
+                        <StarRating starCount={exercise.stars} />
+                    </Col>
                 </Row>
                 <PageTitle title={t('exercisedetails')} />
                 <div className='page-content'>
