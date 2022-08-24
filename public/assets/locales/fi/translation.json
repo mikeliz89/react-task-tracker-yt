@@ -56,7 +56,8 @@
         "please_add_gear": "Ole hyvä ja anna varusteelle nimi",
         "save_exception": "Tallennus epäonnistui",
         "save_success": "Tallennus onnistui",
-        "view_details": "Katso lisätiedot"
+        "view_details": "Katso lisätiedot",
+        "test": "test"
     },
     "bmicalculator": {
         "bmi_1": "Sairaalloinen alipaino",
