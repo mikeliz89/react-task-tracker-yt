@@ -268,25 +268,25 @@ export default function DrinkDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        showIconEdit={true}
+                        iconName='edit'
                         text={showEditDrink ? t('button_close') : ''}
                         color={showEditDrink ? 'red' : 'orange'}
                         onClick={() => setShowEditDrink(!showEditDrink)} />
                     <Button
-                        showIconAdd={true}
-                        showIconCarrot={true}
+                        iconName='plus'
+                        secondIconName='carrot'
                         color={showAddIncredient ? 'red' : 'green'}
                         text={showAddIncredient ? t('button_close') : ''}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
                     <Button
-                        showIconAdd={true}
-                        showIconHourGlass={true}
+                        iconName='plus'
+                        secondIconName='hourglass-1'
                         color={showAddWorkPhase ? 'red' : 'green'}
                         text={showAddWorkPhase ? t('button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                     <Button
-                        showIconAdd={true}
-                        showIconLemon={true}
+                        iconName='plus'
+                        secondIconName='lemon'
                         color={showAddGarnish ? 'red' : 'green'}
                         text={showAddGarnish ? t('button_close') : ''}
                         onClick={() => setShowAddGarnish(!showAddGarnish)} />
