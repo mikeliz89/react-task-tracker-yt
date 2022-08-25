@@ -1,6 +1,5 @@
 //react
 import { useTranslation } from 'react-i18next';
-import { FaPlusSquare } from 'react-icons/fa';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -79,7 +78,7 @@ const Drink = ({ drink, onDelete }) => {
                     overlay={renderTooltip}
                 >
                     <span style={{ marginLeft: '5px' }}>
-                        <FaPlusSquare style={{ cursor: 'pointer', marginRight: '5px', fontSize: '1.2em' }}
+                        <Icon name='plus-square' style={{ cursor: 'pointer', marginRight: '5px', fontSize: '1.2em' }}
                             onClick={() => { if (window.confirm(t('do_drink_confirm'))) { doDrink(drink.id) } }} />
                     </span>
                 </OverlayTrigger>

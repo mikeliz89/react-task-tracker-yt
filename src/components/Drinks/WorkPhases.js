@@ -8,7 +8,7 @@ import Icon from '../Icon';
 export default function WorkPhases({ workPhases, drinkID, onDelete }) {
 
   //translation
-  const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+  const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
   return (
     <>

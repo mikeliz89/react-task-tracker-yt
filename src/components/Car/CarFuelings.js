@@ -15,7 +15,7 @@ const CarFuelings = ({ carFuelings }) => {
         <>
             <PageTitle title={t('fuelings')} iconName='gas-pump' />
             {carFuelings.map((fuelingRow) => (
-                <CarFueling fuelingRow={fuelingRow} />
+                <CarFueling key={fuelingRow.id} fuelingRow={fuelingRow} />
             ))}
         </>
     )

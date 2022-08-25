@@ -166,7 +166,7 @@
         "delete_drinkingproduct_confirm_message": "Poista tuote?",
         "delete_drink_history_confirm_message": "Poista drinkkihistoria?",
         "description": "Kuvaus",
-        "do_drink": "Valmista reseptin mukainen juoma",
+        "do_drink": "Tee juoma",
         "do_drink_confirm": "Oletko varma?",
         "drinkhistory_title": "Drinkkihistoria",
         "drinkingproduct_abv": "Alkoholi-%",
@@ -228,6 +228,7 @@
         "sorting": "Järjestä",
         "view_details": "Katso lisätiedot",
         "workphase_estimated_length": "Arvioitu kesto minuutteina",
+        "workphases_header": "Työvaiheet",
         "workphase_name": "Työvaihe"
     },
     "exercises": {

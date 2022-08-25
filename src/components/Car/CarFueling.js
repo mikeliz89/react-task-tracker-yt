@@ -35,7 +35,7 @@ function CarFueling({ fuelingRow }) {
 
     return (
         <>
-            <Row key={fuelingRow.id} style={{ marginBottom: '5px', borderTop: '1px solid black' }}>
+            <Row style={{ marginBottom: '5px', borderTop: '1px solid black' }}>
                 <Col>
                     <b>{getJsonAsDateTimeString(fuelingRow.created, i18n.language)}</b>&nbsp;
                     {fuelingRow.createdBy}
