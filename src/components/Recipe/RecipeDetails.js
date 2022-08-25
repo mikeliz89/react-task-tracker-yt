@@ -37,6 +37,7 @@ import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
 import StarRating from '../StarRating/StarRating';
+import RecipeHistories from './RecipeHistories';
 
 export default function RecipeDetails() {
 
@@ -45,10 +46,12 @@ export default function RecipeDetails() {
     const DB_WORKPHASES = '/recipe-workphases';
     const DB_RECIPE_COMMENTS = '/recipe-comments';
     const DB_RECIPE_LINKS = '/recipe-links';
+    const DB_RECIPE_HISTORY = '/recipehistory';
 
     //states
     const [loading, setLoading] = useState(true);
     const [recipe, setRecipe] = useState({});
+    const [recipeHistory, setRecipeHistory] = useState({});
     const [showEditRecipe, setShowEditRecipe] = useState(false);
     const [showAddIncredient, setShowAddIncredient] = useState(false);
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
@@ -78,15 +81,19 @@ export default function RecipeDetails() {
         const getRecipe = async () => {
             await fetchRecipeFromFirebase();
         }
-        getRecipe()
+        getRecipe();
         const getIncredients = async () => {
-            await fetchIncredientsFromFirebase()
+            await fetchIncredientsFromFirebase();
         }
-        getIncredients()
+        getIncredients();
         const getWorkPhases = async () => {
-            await fetchWorkPhasesFromFirebase()
+            await fetchWorkPhasesFromFirebase();
         }
-        getWorkPhases()
+        getWorkPhases();
+        const getRecipeHistory = async () => {
+            await fetchRecipeHistoryFromFirebase();
+        }
+        getRecipeHistory();
     }, [])
 
     const fetchRecipeFromFirebase = async () => {
@@ -98,6 +105,19 @@ export default function RecipeDetails() {
             }
             setRecipe(data)
             setLoading(false);
+        })
+    }
+
+
+    const fetchRecipeHistoryFromFirebase = async () => {
+        const dbref = await child(ref(db, DB_RECIPE_HISTORY), params.id);
+        onValue(dbref, (snapshot) => {
+            const snap = snapshot.val();
+            const fromDB = [];
+            for (let id in snap) {
+                fromDB.push({ id, ...snap[id] });
+            }
+            setRecipeHistory(fromDB);
         })
     }
 
@@ -188,6 +208,16 @@ export default function RecipeDetails() {
         link["created"] = getCurrentDateAsJson();
         const dbref = child(ref(db, DB_RECIPE_LINKS), recipeID);
         push(dbref, link);
+    }
+
+    const saveRecipeHistory = async (recipeID) => {
+        const dbref = ref(db, `${DB_RECIPE_HISTORY}/${recipeID}`);
+        const currentDateTime = getCurrentDateAsJson();
+        const userID = currentUser.uid;
+        push(dbref, { currentDateTime, userID });
+
+        setShowMessage(true);
+        setMessage(t('save_success_recipehistoryhistory'));
     }
 
     return loading ? (
@@ -302,10 +332,21 @@ export default function RecipeDetails() {
                         <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
                         <AddComment onSave={addCommentToRecipe} />
                         <AddLink onSaveLink={addLinkToRecipe} />
+                        <Button
+                            iconName='plus-square'
+                            text={t('do_recipe')}
+                            onClick={() => { if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); } }}
+                        />
                     </Tab>
                 </Tabs>
-
                 <hr />
+                {
+                    recipeHistory != null && recipeHistory.length > 0 ? (
+                        <RecipeHistories recipeHistories={recipeHistory} recipeID={params.id} />
+                    ) : (
+                        t('no_recipe_history')
+                    )
+                }
                 <Comments objID={params.id} url={'recipe-comments'} />
                 <Links objID={params.id} url={'recipe-links'} />
             </div>

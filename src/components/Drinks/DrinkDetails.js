@@ -385,9 +385,7 @@ export default function DrinkDetails() {
                         />
                     </Tab>
                 </Tabs>
-
                 <hr />
-
                 {
                     drinkHistory != null && drinkHistory.length > 0 ? (
                         <DrinkHistories drinkHistories={drinkHistory} drinkID={params.id} />
