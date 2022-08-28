@@ -11,7 +11,7 @@ import { db } from '../../firebase-config';
 import { ref, push, child, onValue } from "firebase/database";
 //utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
+import { getRecipeCategoryNameByID, getDrinkCategoryNameByID } from '../../utils/ListUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //i18n
@@ -22,11 +22,14 @@ import Icon from '../Icon';
 import { getIconNameByCategory } from './Categories';
 //alert
 import Alert from '../Alert';
+//proptypes
+import PropTypes from 'prop-types';
+//recipetypes
+import { RecipeTypes } from '../../utils/Enums';
 
-const Recipe = ({ recipe, onDelete }) => {
+const Recipe = ({ recipeType, dbUrl, translation, recipe, onDelete }) => {
 
     //constants
-    const DB_INCREDIENTS = '/recipe-incredients';
     const DB_TASKS = '/tasks';
     const DB_TASKLISTS = '/tasklists';
 
@@ -37,7 +40,7 @@ const Recipe = ({ recipe, onDelete }) => {
     const { currentUser } = useAuth();
 
     //translation
-    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+    const { t } = useTranslation(translation, { keyPrefix: translation });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -53,7 +56,6 @@ const Recipe = ({ recipe, onDelete }) => {
 
     const makeShoppingList = async () => {
         const incredients = await fetchIncredientsFromFirebase(recipe.id);
-        //const incredients = await getRecipeIncredientsTest();
 
         if (incredients && incredients.length > 0) {
             let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
@@ -66,18 +68,9 @@ const Recipe = ({ recipe, onDelete }) => {
         }
     }
 
-    /*
-    const getRecipeIncredientsTest = async () => {
-        return new Promise((resolve, reject) => {
-            //Faking an API Call
-            setTimeout(() => resolve(false), 400)
-        })
-    }
-    */
-
     const fetchIncredientsFromFirebase = async (recipeID) => {
         const incredients = [];
-        const dbref = await child(ref(db, DB_INCREDIENTS), recipeID);
+        const dbref = await child(ref(db, dbUrl), recipeID);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             for (let id in snap) {
@@ -99,7 +92,6 @@ const Recipe = ({ recipe, onDelete }) => {
     }
 
     const addTasksToTaskList = async (tasklistID, incredients) => {
-
         //tee reseptin aineksista taskilistaan taskeja
         incredients.forEach(function (arrayItem) {
             let name = arrayItem.name;
@@ -111,18 +103,47 @@ const Recipe = ({ recipe, onDelete }) => {
     }
 
     const addTask = async (taskListID, task) => {
-        //To firebase
         task["created"] = getCurrentDateAsJson()
         task["createdBy"] = currentUser.email;
         const dbref = child(ref(db, DB_TASKS), taskListID);
         push(dbref, task);
     }
 
+    const getIconName = (category) => {
+        switch (recipeType) {
+            case RecipeTypes.Food:
+                return getIconNameByCategory(category);
+            case RecipeTypes.Drink:
+                return 'glass-martini';
+            default: return '';
+        }
+    }
+
+    const getCategory = (category) => {
+        switch (recipeType) {
+            case RecipeTypes.Food:
+                return '#' + t('category_' + getRecipeCategoryNameByID(category));
+            case RecipeTypes.Drink:
+                return '#' + t('category_' + getDrinkCategoryNameByID(category));
+            default: return '';
+        }
+    }
+
+    const getUrl = () => {
+        switch (recipeType) {
+            case RecipeTypes.Food:
+                return '/recipe';
+            case RecipeTypes.Drink:
+                return '/drink';
+            default: return '';
+        }
+    }
+
     return (
-        <div className={recipe.isCore === true ? 'recipe coreRecipe' : 'recipe'}>
+        <div className={recipe.isCore === true ? `${translation} coreRecipe` : translation}>
             <h5>
                 <span>
-                    <Icon name={getIconNameByCategory(recipe.category)} color='gray' />
+                    <Icon name={getIconName(recipe.category)} color='gray' />
                     {recipe.title}
                 </span>
                 <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
@@ -134,11 +155,11 @@ const Recipe = ({ recipe, onDelete }) => {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             {recipe.category > 0 ? (
-                <p> {'#' + t('category_' + getRecipeCategoryNameByID(recipe.category))}</p>
+                <p> {getCategory(recipe.category)}</p>
             ) : ('')}
             <p>{recipe.description}</p>
             <p>
-                <Link className='btn btn-primary' to={`/recipe/${recipe.id}`}>{t('view_details')}</Link>
+                <Link className='btn btn-primary' to={`${getUrl()}/${recipe.id}`}>{t('view_details')}</Link>
                 <OverlayTrigger
                     placement="right"
                     delay={{ show: 250, hide: 400 }}
@@ -156,3 +177,16 @@ const Recipe = ({ recipe, onDelete }) => {
 }
 
 export default Recipe
+
+Recipe.defaultProps = {
+    dbUrl: '/none',
+    translation: '',
+    recipeType: RecipeTypes.None
+}
+
+Recipe.propTypes = {
+    dbUrl: PropTypes.string,
+    translation: PropTypes.string,
+    onDelete: PropTypes.func,
+    recipeType: RecipeTypes
+}

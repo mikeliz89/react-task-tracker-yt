@@ -22,12 +22,15 @@ import PageTitle from '../PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 //alert
 import Alert from '../Alert';
+//import recipetypes
+import { RecipeTypes } from '../../utils/Enums';
 
 const ManageRecipes = () => {
 
   //constants
   const DB_RECIPES = '/recipes';
   const NAVIGATION_RECIPE = '/recipe';
+  const TRANSLATION = 'recipe';
 
   //states
   const [loading, setLoading] = useState(true);
@@ -42,7 +45,7 @@ const ManageRecipes = () => {
   const [error, setError] = useState('');
 
   //translation
-  const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+  const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
 
   //user
   const { currentUser } = useAuth();
@@ -144,7 +147,11 @@ const ManageRecipes = () => {
           originalList={originalRecipes} />
         {
           recipes != null && recipes.length > 0 ? (
-            <Recipes recipes={recipes}
+            <Recipes
+              recipeType={RecipeTypes.Food}
+              translation={TRANSLATION}
+              dbUrl={DB_RECIPES}
+              recipes={recipes}
               onDelete={deleteRecipe} />
           ) : (
             t('no_recipes_to_show')

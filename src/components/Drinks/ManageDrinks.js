@@ -6,8 +6,9 @@ import { Link, useNavigate } from 'react-router-dom';
 //firebase
 import { ref, push, onValue, remove } from "firebase/database";
 import { db } from '../../firebase-config';
+//recipes
+import Recipes from '../Recipe/Recipes';
 //drinks
-import Drinks from './Drinks';
 import AddDrink from './AddDrink';
 //buttons
 import GoBackButton from '../GoBackButton';
@@ -22,15 +23,18 @@ import PageTitle from '../PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 //alert
 import Alert from '../Alert';
+//recipetypes
+import { RecipeTypes } from '../../utils/Enums';
 
 export default function ManageDrinks() {
 
     //constants
     const DB_DRINKS = '/drinks';
     const DB_DRINK = '/drink';
+    const TRANSLATION = 'drinks';
 
     //translation
-    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
+    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
 
     //navigate
     const navigate = useNavigate();
@@ -65,7 +69,7 @@ export default function ManageDrinks() {
             cancel = true;
         }
     }, [])
-    
+
     const fetchDrinksFromFirebase = async () => {
         const dbref = await ref(db, DB_DRINKS);
         onValue(dbref, (snapshot) => {
@@ -138,7 +142,11 @@ export default function ManageDrinks() {
                     originalList={originalDrinks} />
                 {
                     drinks != null && drinks.length > 0 ? (
-                        <Drinks drinks={drinks}
+                        <Recipes
+                            translation={TRANSLATION}
+                            dbUrl={DB_DRINKS}
+                            recipes={drinks}
+                            recipeType={RecipeTypes.Drink}
                             onDelete={deleteDrink} />
                     ) : (
                         t('no_drinks_to_show')
