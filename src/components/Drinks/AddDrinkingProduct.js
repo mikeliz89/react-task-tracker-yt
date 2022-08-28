@@ -75,7 +75,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
 
       //validation
       if (!name) {
-         alert(t('please_add_drink_incredient'))
+         alert(t('please_add_drink_product'));
          return
       }
 

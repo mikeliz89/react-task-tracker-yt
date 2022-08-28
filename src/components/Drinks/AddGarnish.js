@@ -43,6 +43,7 @@ export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {
 
         //validation
         if (!name) {
+            alert(t('please_add_garnish'));
             return;
         }
 

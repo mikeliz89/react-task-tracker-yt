@@ -183,7 +183,7 @@
         "no_drinks_to_show": "No Drinks To Show",
         "no_incredients_to_show": "No Incredients To Show",
         "please_add_drink": "Please Add Name",
-        "please_add_drink_incredient": "Please Add Product Name",
+        "please_add_drink_product": "Please Add Product Name",
         "save_exception": "Drink save encountered an error",
         "save_success": "Drink was saved",
         "search": "Search",
