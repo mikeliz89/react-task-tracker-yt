@@ -2,11 +2,13 @@
 import { useTranslation } from 'react-i18next';
 //recipes
 import { Incredient } from './Incredient';
+//proptypes
+import PropTypes from 'prop-types';
 
-export default function Incredients({ incredients, recipeID, onDelete }) {
+export default function Incredients({ dbUrl, translation, incredients, recipeID, onDelete }) {
 
   //translation
-  const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+  const { t } = useTranslation(translation, { keyPrefix: translation });
 
   return (
     <>
@@ -15,6 +17,8 @@ export default function Incredients({ incredients, recipeID, onDelete }) {
       {incredients
         ? incredients.map((incredient, index) =>
           <Incredient
+            dbUrl={dbUrl}
+            translation={translation}
             key={incredient.id}
             incredient={incredient}
             recipeID={recipeID}
@@ -23,4 +27,16 @@ export default function Incredients({ incredients, recipeID, onDelete }) {
       }
     </>
   )
+}
+
+Incredient.defaultProps = {
+  dbUrl: '/none',
+  translation: '',
+}
+
+Incredient.propTypes = {
+  dbUrl: PropTypes.string,
+  translation: PropTypes.string,
+  recipeID: PropTypes.string,
+  onDelete: PropTypes.func
 }

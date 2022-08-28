@@ -5,27 +5,26 @@ import { Row, Col } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { update, ref } from "firebase/database";
 //recipe
-import EditIncredient from './EditIncredient';
+import AddIncredient from './AddIncredient';
+//icon
 import Icon from '../Icon';
+//proptypes
+import PropTypes from 'prop-types';
 
-export const Incredient = ({ incredient, recipeID, onDelete }) => {
-
-    const DB_INCREDIENTS = '/recipe-incredients';
+export const Incredient = ({ dbUrl, translation, incredient, recipeID, onDelete }) => {
 
     //states
     const [editable, setEditable] = useState(false);
 
-    const editIncredient = (incredient) => {
-        //save
+    const updateIncredient = (recipeID, newIncredient) => {
         const updates = {};
-        updates[`${DB_INCREDIENTS}/${recipeID}/${incredient.id}`] = incredient;
+        updates[`${dbUrl}/${recipeID}/${incredient.id}`] = newIncredient;
         update(ref(db), updates);
-
         setEditable(false);
     }
 
     return (
-        <div className='recipe'>
+        <div className={translation}>
             <Row>
                 <Col xs={9}>
                     <span style={{ fontWeight: 'bold' }}>{incredient.name}</span>
@@ -45,12 +44,26 @@ export const Incredient = ({ incredient, recipeID, onDelete }) => {
                 <Col>{incredient.amount} {incredient.unit}</Col>
             </Row>
             {editable &&
-                <EditIncredient
+                <AddIncredient
+                    translation={translation}
+                    dbUrl={dbUrl}
                     incredientID={incredient.id}
                     recipeID={recipeID}
-                    onEditIncredient={editIncredient}
-                    onCloseEditIncredient={() => setEditable(false)} />
+                    onSave={updateIncredient}
+                    onClose={() => setEditable(false)} />
             }
         </div>
     )
+}
+
+Incredient.defaultProps = {
+    dbUrl: '/none',
+    translation: '',
+}
+
+Incredient.propTypes = {
+    dbUrl: PropTypes.string,
+    translation: PropTypes.string,
+    recipeID: PropTypes.string,
+    onDelete: PropTypes.func
 }

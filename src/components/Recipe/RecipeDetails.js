@@ -299,10 +299,19 @@ export default function RecipeDetails() {
                             color={showAddIncredient ? 'red' : 'green'}
                             text={showAddIncredient ? t('button_close') : ''}
                             onClick={() => setShowAddIncredient(!showAddIncredient)} />
-                        {showAddIncredient && <AddIncredient onAddIncredient={addIncredient} recipeID={params.id} onClose={() => setShowAddIncredient(false)} />}
+                        {showAddIncredient &&
+                            <AddIncredient
+                                dbUrl={DB_INCREDIENTS}
+                                translation={TRANSLATION}
+                                onSave={addIncredient}
+                                recipeID={params.id}
+                                onClose={() => setShowAddIncredient(false)}
+                            />}
                         {incredients != null}
                         {incredients != null && incredients.length > 0 ? (
                             <Incredients
+                                dbUrl={DB_INCREDIENTS}
+                                translation={TRANSLATION}
                                 recipeID={params.id}
                                 incredients={incredients}
                                 onDelete={deleteIncredient}

@@ -1,19 +1,48 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+//firebase
+import { db } from '../../firebase-config';
+import { ref, get } from "firebase/database";
 //buttons
 import Button from '../../components/Button';
+//proptypes
+import PropTypes from 'prop-types';
+//formtitle
+import FormTitle from '../FormTitle';
 
-export default function AddIncredient({ onAddIncredient, incredientID, recipeID, onClose }) {
+export default function AddIncredient({ dbUrl, translation, onSave, incredientID, recipeID, onClose }) {
 
   //translation
-  const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+  const { t } = useTranslation(translation, { keyPrefix: translation });
 
   //states
   const [name, setName] = useState('');
   const [unit, setUnit] = useState('');
   const [amount, setAmount] = useState(0);
+
+  //load data
+  useEffect(() => {
+    if (recipeID != null) {
+      const getIncredient = async () => {
+        await fetchIncredientFromFirebase(recipeID)
+      }
+      getIncredient()
+    }
+  }, [recipeID]);
+
+  const fetchIncredientFromFirebase = async (recipeID) => {
+    const dbref = ref(db, `${dbUrl}/${recipeID}/${incredientID}`);
+    get(dbref).then((snapshot) => {
+      if (snapshot.exists()) {
+        var val = snapshot.val();
+        setName(val["name"]);
+        setUnit(val["unit"]);
+        setAmount(val["amount"]);
+      }
+    });
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +52,7 @@ export default function AddIncredient({ onAddIncredient, incredientID, recipeID,
       return;
     }
 
-    onAddIncredient(recipeID, { name, unit, amount })
+    onSave(recipeID, { name, unit, amount });
 
     if (incredientID == null) {
       clearForm();
@@ -37,42 +66,59 @@ export default function AddIncredient({ onAddIncredient, incredientID, recipeID,
   }
 
   return (
-    <Form onSubmit={onSubmit}>
-      <Form.Group className="mb-3" controlId="addIncredientFormName">
-        <Form.Label>{t('incredient_name')}</Form.Label>
-        <Form.Control
-          autoComplete="off"
-          type='text'
-          placeholder={t('incredient_name')}
-          value={name}
-          onChange={(e) => setName(e.target.value)} />
-      </Form.Group>
-      <Row>
-        <Form.Group as={Col} className="mb-3" controlId="addIncredientFormAmount">
-          <Form.Label>{t('incredient_amount')}</Form.Label>
-          <Form.Control
-            autoComplete="off"
-            type='number'
-            placeholder={t('incredient_amount')}
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)} />
-        </Form.Group>
-        <Form.Group as={Col} className="mb-3" controlId="addIncredientFormUnit">
-          <Form.Label>{t('incredient_unit_label')}</Form.Label>
+    <>
+      {(incredientID === "" || incredientID === undefined) &&
+        <FormTitle iconName='carrot' title={t('add_incredient_formtitle')} />
+      }
+      <Form onSubmit={onSubmit}>
+        <Form.Group className="mb-3" controlId="addIncredientFormName">
+          <Form.Label>{t('incredient_name')}</Form.Label>
           <Form.Control
             autoComplete="off"
             type='text'
-            placeholder={t('incredient_unit')}
-            value={unit}
-            onChange={(e) => setUnit(e.target.value)} />
+            placeholder={t('incredient_name')}
+            value={name}
+            onChange={(e) => setName(e.target.value)} />
         </Form.Group>
-      </Row>
-      <Row>
-        <ButtonGroup>
-          <Button type='button' onClick={() => onClose()} className='btn btn-block' text={t('button_close')} />
-          <Button type='submit' text={t('button_save_incredient')} className='btn btn-block saveBtn' />
-        </ButtonGroup>
-      </Row>
-    </Form>
+        <Row>
+          <Form.Group as={Col} className="mb-3" controlId="addIncredientFormAmount">
+            <Form.Label>{t('incredient_amount')}</Form.Label>
+            <Form.Control
+              autoComplete="off"
+              type='number'
+              placeholder={t('incredient_amount')}
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)} />
+          </Form.Group>
+          <Form.Group as={Col} className="mb-3" controlId="addIncredientFormUnit">
+            <Form.Label>{t('incredient_unit_label')}</Form.Label>
+            <Form.Control
+              autoComplete="off"
+              type='text'
+              placeholder={t('incredient_unit')}
+              value={unit}
+              onChange={(e) => setUnit(e.target.value)} />
+          </Form.Group>
+        </Row>
+        <Row>
+          <ButtonGroup>
+            <Button type='button' onClick={() => onClose()} className='btn btn-block' text={t('button_close')} />
+            <Button type='submit' text={t('button_save_incredient')} className='btn btn-block saveBtn' />
+          </ButtonGroup>
+        </Row>
+      </Form>
+    </>
   )
+}
+
+AddIncredient.defaultProps = {
+  dbUrl: '/none',
+  translation: '',
+}
+
+AddIncredient.propTypes = {
+  dbUrl: PropTypes.string,
+  translation: PropTypes.string,
+  recipeID: PropTypes.string,
+  onDelete: PropTypes.func
 }

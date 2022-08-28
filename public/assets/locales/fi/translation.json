@@ -354,6 +354,7 @@
     },
     "recipe": {
         "add_description": "Lisää kuvaus",
+        "add_incredient_formtitle": "Ainesosan lisäys",
         "button_add_fooditem": "Lisää ruoka-aines",
         "button_add_incredient": "Lisää ainesosa",
         "button_add_recipe": "Lisää resepti",

@@ -17,13 +17,13 @@ import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
 //Drinks
 import AddDrink from './AddDrink';
 import AddGarnish from './AddGarnish';
-import AddIncredient from './AddIncredient';
 import AddWorkPhase from '../Recipe/AddWorkPhase';
 import DrinkHistories from './DrinkHistories';
-import Incredients from './Incredients';
 import Garnishes from './Garnishes';
 //recipe
+import AddIncredient from '../Recipe/AddIncredient';
 import WorkPhases from '../Recipe/WorkPhases';
+import Incredients from '../Recipe/Incredients';
 //StarRating
 import SetStarRating from '../StarRating/SetStarRating';
 import StarRating from '../StarRating/StarRating';
@@ -329,10 +329,19 @@ export default function DrinkDetails() {
                             color={showAddIncredient ? 'red' : 'green'}
                             text={showAddIncredient ? t('button_close') : ''}
                             onClick={() => setShowAddIncredient(!showAddIncredient)} />
-                        {showAddIncredient && <AddIncredient drinkID={params.id} onAddIncredient={addIncredient} onClose={() => setShowAddIncredient(false)} />}
+                        {showAddIncredient &&
+                            <AddIncredient
+                                dbUrl={DB_DRINK_INCREDIENTS}
+                                translation={TRANSLATION}
+                                recipeID={params.id}
+                                onSave={addIncredient}
+                                onClose={() => setShowAddIncredient(false)} />
+                        }
                         {incredients != null && incredients.length > 0 ? (
                             <Incredients
-                                drinkID={params.id}
+                                dbUrl={DB_DRINK_INCREDIENTS}
+                                translation={TRANSLATION}
+                                recipeID={params.id}
                                 incredients={incredients}
                                 onDelete={deleteIncredient}
                             />
