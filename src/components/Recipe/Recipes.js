@@ -5,14 +5,13 @@ import PropTypes from 'prop-types';
 //recipetypes
 import { RecipeTypes } from '../../utils/Enums';
 
-const Recipes = ({ recipeType, dbUrl, translation, recipes, onDelete }) => {
+const Recipes = ({ recipeType, translation, recipes, onDelete }) => {
 
   return (
     <div>
       {recipes.map((recipe) => (
         <Recipe
           recipeType={recipeType}
-          dbUrl={dbUrl}
           translation={translation}
           key={recipe.id} recipe={recipe}
           onDelete={onDelete} />
@@ -24,14 +23,13 @@ const Recipes = ({ recipeType, dbUrl, translation, recipes, onDelete }) => {
 export default Recipes
 
 Recipes.defaultProps = {
-  dbUrl: '/none',
   translation: '',
   recipeType: RecipeTypes.None
 }
 
 Recipes.propTypes = {
-  dbUrl: PropTypes.string,
   translation: PropTypes.string,
-  recipeType: RecipeTypes,
+  recipeType: PropTypes.any,
+  recipes: PropTypes.array,
   onDelete: PropTypes.func
 }

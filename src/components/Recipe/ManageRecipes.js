@@ -150,7 +150,6 @@ const ManageRecipes = () => {
             <Recipes
               recipeType={RecipeTypes.Food}
               translation={TRANSLATION}
-              dbUrl={DB_RECIPES}
               recipes={recipes}
               onDelete={deleteRecipe} />
           ) : (

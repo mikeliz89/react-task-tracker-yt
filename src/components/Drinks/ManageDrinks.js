@@ -144,7 +144,6 @@ export default function ManageDrinks() {
                     drinks != null && drinks.length > 0 ? (
                         <Recipes
                             translation={TRANSLATION}
-                            dbUrl={DB_DRINKS}
                             recipes={drinks}
                             recipeType={RecipeTypes.Drink}
                             onDelete={deleteDrink} />

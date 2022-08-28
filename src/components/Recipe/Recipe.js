@@ -27,7 +27,7 @@ import PropTypes from 'prop-types';
 //recipetypes
 import { RecipeTypes } from '../../utils/Enums';
 
-const Recipe = ({ recipeType, dbUrl, translation, recipe, onDelete }) => {
+const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
 
     //constants
     const DB_TASKS = '/tasks';
@@ -70,7 +70,7 @@ const Recipe = ({ recipeType, dbUrl, translation, recipe, onDelete }) => {
 
     const fetchIncredientsFromFirebase = async (recipeID) => {
         const incredients = [];
-        const dbref = await child(ref(db, dbUrl), recipeID);
+        const dbref = await child(ref(db, getIncredientsUrl()), recipeID);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             for (let id in snap) {
@@ -129,7 +129,17 @@ const Recipe = ({ recipeType, dbUrl, translation, recipe, onDelete }) => {
         }
     }
 
-    const getUrl = () => {
+    const getIncredientsUrl = () => {
+        switch (recipeType) {
+            case RecipeTypes.Food:
+                return '/recipe-incredients';
+            case RecipeTypes.Drink:
+                return '/drink-incredients';
+            default: return '';
+        }
+    }
+
+    const getViewDetailsUrl = () => {
         switch (recipeType) {
             case RecipeTypes.Food:
                 return '/recipe';
@@ -159,7 +169,7 @@ const Recipe = ({ recipeType, dbUrl, translation, recipe, onDelete }) => {
             ) : ('')}
             <p>{recipe.description}</p>
             <p>
-                <Link className='btn btn-primary' to={`${getUrl()}/${recipe.id}`}>{t('view_details')}</Link>
+                <Link className='btn btn-primary' to={`${getViewDetailsUrl()}/${recipe.id}`}>{t('view_details')}</Link>
                 <OverlayTrigger
                     placement="right"
                     delay={{ show: 250, hide: 400 }}
@@ -179,14 +189,13 @@ const Recipe = ({ recipeType, dbUrl, translation, recipe, onDelete }) => {
 export default Recipe
 
 Recipe.defaultProps = {
-    dbUrl: '/none',
     translation: '',
     recipeType: RecipeTypes.None
 }
 
 Recipe.propTypes = {
-    dbUrl: PropTypes.string,
     translation: PropTypes.string,
     onDelete: PropTypes.func,
-    recipeType: RecipeTypes
+    recipeType: PropTypes.any,
+    recipe: PropTypes.object
 }
