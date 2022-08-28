@@ -6,7 +6,7 @@ import PageTitle from "../PageTitle";
 //car
 import CarFueling from "./CarFueling";
 
-const CarFuelings = ({ carFuelings }) => {
+const CarFuelings = ({ carFuelings, onDelete }) => {
 
     //translation
     const { t } = useTranslation('car', { keyPrefix: 'car' });
@@ -15,7 +15,7 @@ const CarFuelings = ({ carFuelings }) => {
         <>
             <PageTitle title={t('fuelings')} iconName='gas-pump' />
             {carFuelings.map((fuelingRow) => (
-                <CarFueling key={fuelingRow.id} fuelingRow={fuelingRow} />
+                <CarFueling key={fuelingRow.id} fuelingRow={fuelingRow} onDelete={onDelete} />
             ))}
         </>
     )

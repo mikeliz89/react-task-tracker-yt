@@ -1,34 +1,24 @@
 //react
 import { ButtonGroup, Form, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 //buttons
 import Button from "../Button";
-//auth
-import { useAuth } from '../../contexts/AuthContext';
 //firebase
-import { ref, push } from "firebase/database";
+import { onValue, ref } from "firebase/database";
 import { db } from "../../firebase-config";
-//utils
-import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
-//alert
-import Alert from "../Alert";
 
-const AddFueling = ({ onClose }) => {
+const AddFueling = ({ ID, onClose, onSave }) => {
 
     //constants
     const DB_FUELING = 'car-fueling';
 
-    //user
-    const { currentUser } = useAuth();
+    //translation
+    const { t } = useTranslation('car', { keyPrefix: 'car' });
 
     //states
     const [loading, setLoading] = useState(false);
-    //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+
     //car data states
     const [purchaseLocation, setPurchaseLocation] = useState('');
     const [meterKilometers, setMeterKilometers] = useState(0);
@@ -36,35 +26,49 @@ const AddFueling = ({ onClose }) => {
     const [fuelLiterAmount, setFuelLiterAmount] = useState(0);
     const [price, setPrice] = useState(0);
     const [fuelerName, setFuelerName] = useState('');
+    const [created, setCreated] = useState('');
+    const [createdBy, setCreatedBy] = useState('');
 
-    //translation
-    const { t } = useTranslation('car', { keyPrefix: 'car' });
-
-    async function onSubmit(e) {
-        e.preventDefault()
-
-        try {
-            setLoading(true);
-            clearMessages();
-            const fueling = {
-                purchaseLocation, meterKilometers, fuelPricePerLiter,
-                fuelLiterAmount, price, fuelerName
-            };
-            saveFueling(fueling);
-        } catch (error) {
-            setError(t('failed_to_add_fueling'));
-            console.log(error)
+    //loadData
+    useEffect(() => {
+        if (ID != null) {
+            const getFueling = async () => {
+                await fetchFuelingFromFirebase(ID);
+            }
+            getFueling();
         }
+    }, [ID]);
 
-        setLoading(false);
-        clearForm();
+    const fetchFuelingFromFirebase = async (ID) => {
+        const dbref = ref(db, `${DB_FUELING}/${ID}`);
+        onValue(dbref, (snapshot) => {
+            if (snapshot.exists()) {
+                var val = snapshot.val();
+                setCreated(val["created"]);
+                setCreatedBy(val["createdBy"]);
+                setFuelerName(val["fuelerName"]);
+                setFuelLiterAmount(val["fuelLiterAmount"]);
+                setFuelPricePerLiter(val["fuelPricePerLiter"]);
+                setMeterKilometers(val["meterKilometers"]);
+                setPrice(val["price"]);
+                setPurchaseLocation(val["purchaseLocation"]);
+            }
+        });
     }
 
-    function clearMessages() {
-        setError('');
-        setShowError(false);
-        setMessage('');
-        setShowMessage(false);
+    async function onSubmit(e) {
+        e.preventDefault();
+
+        const fueling = {
+            created, createdBy,
+            purchaseLocation, meterKilometers, fuelPricePerLiter,
+            fuelLiterAmount, price, fuelerName
+        };
+        onSave(fueling);
+
+        if (ID == null) {
+            clearForm();
+        }
     }
 
     const clearForm = () => {
@@ -77,29 +81,9 @@ const AddFueling = ({ onClose }) => {
         setPrice(0);
     }
 
-    const saveFueling = (fueling) => {
-
-        try {
-            fueling["created"] = getCurrentDateAsJson();
-            fueling["createdBy"] = currentUser.email;
-            const dbref = ref(db, DB_FUELING);
-            push(dbref, fueling);
-            setMessage(t('save_successfull'));
-            setShowMessage(true);
-        } catch (ex) {
-            setError(t('save_exception'));
-            setShowError(true);
-            console.warn(ex);
-        }
-    }
-
     return (
         <div>
             <h5>{t('add_fueling_title')}</h5>
-
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addFuelingForm-LiterAmount">

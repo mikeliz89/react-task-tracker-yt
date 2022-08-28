@@ -83,7 +83,7 @@ export function getIconNameByCategory(category) {
         case Categories.Cooking:
             return 'utensils';
         case Categories.Hygiene:
-            return 'hands-wash'
+            return 'hands-wash';
         default: return '';
     }
 }

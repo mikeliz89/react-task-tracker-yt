@@ -96,7 +96,7 @@
         "register_number": "Register number",
         "save": "Save",
         "save_exception": "Save failed",
-        "save_successfull": "Save succeded",
+        "save_successful": "Save succeded",
         "text": "Info"
     },
     "comments": {
@@ -168,7 +168,7 @@
         "drinkingproduct_description": "Description",
         "drinkingproduct_name": "Product name",
         "drinkingproduct_manufacturer": "Manufacturer",
-        "drinkingproduct_save_successfull": "Saving drinking product was successful",
+        "drinkingproduct_save_successful": "Saving drinking product was successful",
         "glass": "Glass",
         "incredient_name": "Incredient Name",
         "incredient_amount": "Amount",
@@ -304,7 +304,7 @@
         "please_add_recipe": "Please add a recipe",
         "recipe_name": "Recipe Name",
         "recipe_save_exception": "Recipe save encountered an error",
-        "recipe_save_successfull": "Recipe was saved",
+        "recipe_save_successful": "Recipe was saved",
         "search": "Search",
         "set_isCore": "Core recipe",
         "shopcart_tooltip": "Make shopping list",

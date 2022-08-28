@@ -9,12 +9,12 @@ import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateT
 //icon
 import Icon from "../Icon";
 //car
-import EditFueling from "./EditFueling";
+import AddFueling from "./AddFueling";
 //firebase
-import { ref, update } from "firebase/database";
+import { ref, update, remove } from "firebase/database";
 import { db } from "../../firebase-config";
 
-function CarFueling({ fuelingRow }) {
+function CarFueling({ fuelingRow, onDelete }) {
 
     //constants
     const DB_FUELING = 'car-fueling';
@@ -25,7 +25,7 @@ function CarFueling({ fuelingRow }) {
     //states
     const [editable, setEditable] = useState(false);
 
-    const editFueling = (fueling) => {
+    const updateFueling = (fueling) => {
         const updates = {};
         fueling["modified"] = getCurrentDateAsJson();
         updates[`${DB_FUELING}/${fuelingRow.id}`] = fueling;
@@ -50,13 +50,18 @@ function CarFueling({ fuelingRow }) {
                     <span style={{ float: 'right' }}>
                         <Icon name='edit' className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                             onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                        <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
+                            onClick={() => { if (window.confirm(t('delete_fueling_confirm_message'))) { onDelete(fuelingRow.id); } }} />
                     </span>
                 </Col>
             </Row>
             <Row>
                 <Col>
                     {editable &&
-                        <EditFueling ID={fuelingRow.id} onCloseEditFueling={() => setEditable(false)} onEditFueling={editFueling} />
+                        <AddFueling
+                            ID={fuelingRow.id}
+                            onClose={() => setEditable(false)}
+                            onSave={updateFueling} />
                     }
                 </Col>
             </Row>

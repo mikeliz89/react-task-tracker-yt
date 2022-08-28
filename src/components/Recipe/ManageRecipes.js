@@ -100,7 +100,7 @@ const ManageRecipes = () => {
   }
 
   function showSuccess() {
-    setMessage(t('recipe_save_successfull'));
+    setMessage(t('recipe_save_successful'));
     setShowMessage(true);
   }
 

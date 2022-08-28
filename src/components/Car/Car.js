@@ -1,6 +1,8 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
+//alert
+import Alert from '../Alert';
 //buttons
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
@@ -10,14 +12,27 @@ import AddInfo from './AddInfo';
 import CarFuelings from './CarFuelings';
 //firebase
 import { db } from '../../firebase-config';
-import { onValue, ref } from 'firebase/database';
+import { onValue, ref, push, remove } from 'firebase/database';
 //pagetitle
 import PageTitle from '../PageTitle';
+//utils
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+//auth
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function Car() {
 
     //constants
     const DB_FUELING = 'car-fueling';
+
+    //translation
+    const { t } = useTranslation('car', { keyPrefix: 'car' });
+
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
 
     //states
     const [loading, setLoading] = useState(true);
@@ -25,8 +40,8 @@ export default function Car() {
     const [showAddInfo, setShowAddInfo] = useState(false);
     const [carFuelings, setCarFuelings] = useState({});
 
-    //translation
-    const { t } = useTranslation('car', { keyPrefix: 'car' });
+    //user
+    const { currentUser } = useAuth();
 
     //load data
     useEffect(() => {
@@ -49,12 +64,37 @@ export default function Car() {
         })
     }
 
+    const addFueling = (fueling) => {
+        try {
+            fueling["created"] = getCurrentDateAsJson();
+            fueling["createdBy"] = currentUser.email;
+            const dbref = ref(db, DB_FUELING);
+            push(dbref, fueling);
+            setMessage(t('save_successful'));
+            setShowMessage(true);
+        } catch (ex) {
+            setError(t('save_exception'));
+            setShowError(true);
+            console.warn(ex);
+        }
+    }
+
+    const deleteFueling = async (id) => {
+        const dbref = ref(db, `${DB_FUELING}/${id}`);
+        remove(dbref)
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
         <div>
             <GoBackButton />
             <PageTitle title={t('car_title')} />
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
             <Button
                 color={showAddInfo ? 'red' : 'steelblue'}
                 onClick={() => setShowAddInfo(!showAddInfo)}
@@ -78,7 +118,9 @@ export default function Car() {
             {
                 showAddFueling ?
                     (<div>
-                        <AddFueling onClose={() => setShowAddFueling(false)} />
+                        <AddFueling
+                            onSave={addFueling}
+                            onClose={() => setShowAddFueling(false)} />
                     </div>
                     ) : ''
             }
@@ -86,7 +128,8 @@ export default function Car() {
             <div>
                 {
                     carFuelings != null && carFuelings.length > 0 ? (
-                        <CarFuelings carFuelings={carFuelings} />
+                        <CarFuelings
+                            carFuelings={carFuelings} onDelete={deleteFueling} />
                     ) : (
                         t('no_car_fuelings')
                     )

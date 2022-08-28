@@ -71,7 +71,7 @@ const ManageDrinkingProducts = () => {
             }
             const dbref = ref(db, DB_DRINKINGPRODUCTS);
             push(dbref, drinkingProduct);
-            setMessage(t('drinkingproduct_save_successfull'));
+            setMessage(t('drinkingproduct_save_successful'));
             setShowMessage(true);
         } catch (ex) {
             setError(t('drinkingproduct_save_exception'));

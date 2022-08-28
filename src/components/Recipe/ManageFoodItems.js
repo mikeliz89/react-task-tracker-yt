@@ -74,7 +74,7 @@ const ManageFoodItems = () => {
     }
 
     function showSuccess() {
-        setMessage(t('fooditem_save_successfull'));
+        setMessage(t('fooditem_save_successful'));
         setShowMessage(true);
     }
 

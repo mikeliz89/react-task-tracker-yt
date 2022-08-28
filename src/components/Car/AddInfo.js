@@ -153,7 +153,7 @@ const AddInfo = ({ onClose }) => {
     }
 
     function showSuccess() {
-        setMessage(t('save_successfull'));
+        setMessage(t('save_successful'));
         setShowMessage(true);
     }
 
