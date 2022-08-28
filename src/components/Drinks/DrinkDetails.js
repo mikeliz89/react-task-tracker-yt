@@ -380,7 +380,10 @@ export default function DrinkDetails() {
                             color={showAddGarnish ? 'red' : 'green'}
                             text={showAddGarnish ? t('button_close') : ''}
                             onClick={() => setShowAddGarnish(!showAddGarnish)} />
-                        {showAddGarnish && <AddGarnish drinkID={params.id} onAddGarnish={addGarnish} onClose={() => setShowAddGarnish(false)} />}
+                        {showAddGarnish &&
+                            <AddGarnish
+                                drinkID={params.id} onSave={addGarnish} onClose={() => setShowAddGarnish(false)} />
+                        }
                         {garnishes != null && garnishes.length > 0 ? (
                             <Garnishes
                                 drinkID={params.id}

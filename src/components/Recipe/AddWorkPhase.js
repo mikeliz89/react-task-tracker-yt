@@ -9,6 +9,8 @@ import { db } from '../../firebase-config';
 import Button from '../../components/Button';
 //proptypes
 import PropTypes from 'prop-types';
+//formtitle
+import FormTitle from '../FormTitle';
 
 export default function AddWorkPhase({ dbUrl, translation, workPhaseID, recipeID, onSave, onClose }) {
 
@@ -60,32 +62,37 @@ export default function AddWorkPhase({ dbUrl, translation, workPhaseID, recipeID
   }
 
   return (
-    <Form onSubmit={onSubmit}>
-      <Form.Group className="mb-3" controlId="addWorkPhaseFormName">
-        <Form.Label>{t('workphase_name')}</Form.Label>
-        <Form.Control
-          autoComplete="off"
-          type='text'
-          placeholder={t('workphase_name')}
-          value={name}
-          onChange={(e) => setName(e.target.value)} />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="addWorkPhaseFormEstimatedLength">
-        <Form.Label>{t('workphase_estimated_length')}</Form.Label>
-        <Form.Control
-          autoComplete="off"
-          type='number'
-          placeholder={t('workphase_estimated_length')}
-          value={estimatedLength || ''}
-          onChange={(e) => setEstimatedLength(e.target.value)} />
-      </Form.Group>
-      <Row>
-        <ButtonGroup>
-          <Button type='button' text={t('button_close')} onClick={() => onClose()} className='btn btn-block' />
-          <Button type='submit' text={t('button_save_workphase')} className='btn btn-block saveBtn' />
-        </ButtonGroup>
-      </Row>
-    </Form>
+    <>
+      {(workPhaseID === "" || workPhaseID === undefined) &&
+        <FormTitle iconName='hourglass-1' title={t('add_workphase_formtitle')} />
+      }
+      <Form onSubmit={onSubmit}>
+        <Form.Group className="mb-3" controlId="addWorkPhaseFormName">
+          <Form.Label>{t('workphase_name')}</Form.Label>
+          <Form.Control
+            autoComplete="off"
+            type='text'
+            placeholder={t('workphase_name')}
+            value={name}
+            onChange={(e) => setName(e.target.value)} />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="addWorkPhaseFormEstimatedLength">
+          <Form.Label>{t('workphase_estimated_length')}</Form.Label>
+          <Form.Control
+            autoComplete="off"
+            type='number'
+            placeholder={t('workphase_estimated_length')}
+            value={estimatedLength || ''}
+            onChange={(e) => setEstimatedLength(e.target.value)} />
+        </Form.Group>
+        <Row>
+          <ButtonGroup>
+            <Button type='button' text={t('button_close')} onClick={() => onClose()} className='btn btn-block' />
+            <Button type='submit' text={t('button_save_workphase')} className='btn btn-block saveBtn' />
+          </ButtonGroup>
+        </Row>
+      </Form>
+    </>
   )
 }
 

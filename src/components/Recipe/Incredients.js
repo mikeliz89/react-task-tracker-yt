@@ -29,12 +29,12 @@ export default function Incredients({ dbUrl, translation, incredients, recipeID,
   )
 }
 
-Incredient.defaultProps = {
+Incredients.defaultProps = {
   dbUrl: '/none',
   translation: '',
 }
 
-Incredient.propTypes = {
+Incredients.propTypes = {
   dbUrl: PropTypes.string,
   translation: PropTypes.string,
   recipeID: PropTypes.string,

@@ -1,17 +1,42 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 //buttons
 import Button from '../../components/Button';
+//firebase
+import { db } from '../../firebase-config';
+import { ref, get } from "firebase/database";
 
-export default function AddGarnish({ onAddGarnish, garnishID, drinkID, onClose }) {
+export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {
+
+    //constants
+    const DB_DRINK_GARNISHES = '/drink-garnishes';
 
     //translation
     const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
 
     //states
     const [name, setName] = useState('');
+
+    useEffect(() => {
+        if (drinkID != null) {
+            const getGarnish = async () => {
+                await fetchGarnishFromFirebase(drinkID);
+            }
+            getGarnish();
+        }
+    }, [drinkID]);
+
+    const fetchGarnishFromFirebase = async (drinkID) => {
+        const dbref = ref(db, `${DB_DRINK_GARNISHES}/${drinkID}/${garnishID}`);
+        get(dbref).then((snapshot) => {
+            if (snapshot.exists()) {
+                var val = snapshot.val();
+                setName(val["name"]);
+            }
+        });
+    }
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -21,7 +46,7 @@ export default function AddGarnish({ onAddGarnish, garnishID, drinkID, onClose }
             return;
         }
 
-        onAddGarnish(drinkID, { name })
+        onSave(drinkID, { name })
 
         if (garnishID == null) {
             clearForm();

@@ -5,21 +5,21 @@ import { Row, Col } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { update, ref } from "firebase/database";
 //drinks
-import EditGarnish from './EditGarnish';
+import AddGarnish from './AddGarnish';
 //icon
 import Icon from '../Icon';
 
 export const Garnish = ({ garnish, drinkID, onDelete }) => {
 
+    //constants
     const DB_DRINK_GARNISHES = '/drink-garnishes';
 
     //states
     const [editable, setEditable] = useState(false);
 
-    const editGarnish = (garnish) => {
-        //save
+    const updateGarnish = (drinkID, newGarnish) => {
         const updates = {};
-        updates[`${DB_DRINK_GARNISHES}/${drinkID}/${garnish.id}`] = garnish;
+        updates[`${DB_DRINK_GARNISHES}/${drinkID}/${garnish.id}`] = newGarnish;
         update(ref(db), updates);
         setEditable(false);
     }
@@ -42,10 +42,10 @@ export const Garnish = ({ garnish, drinkID, onDelete }) => {
                 </Col>
             </Row>
             {editable &&
-                <EditGarnish
+                <AddGarnish
                     garnishID={garnish.id}
                     drinkID={drinkID}
-                    onEditGarnish={editGarnish}
+                    onSave={updateGarnish}
                     onDelete={onDelete}
                     onCloseEditGarnish={() => setEditable(false)} />
             }

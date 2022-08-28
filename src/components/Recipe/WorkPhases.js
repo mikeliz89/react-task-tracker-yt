@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 export default function WorkPhases({ dbUrl, translation, workPhases, recipeID, onDelete }) {
 
+  //translation
   const { t } = useTranslation(translation, { keyPrefix: translation });
 
   return (
