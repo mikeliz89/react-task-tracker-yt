@@ -21,8 +21,9 @@ import AddIncredient from './AddIncredient';
 import AddWorkPhase from '../Recipe/AddWorkPhase';
 import DrinkHistories from './DrinkHistories';
 import Incredients from './Incredients';
-import WorkPhases from './WorkPhases';
 import Garnishes from './Garnishes';
+//recipe
+import WorkPhases from '../Recipe/WorkPhases';
 //StarRating
 import SetStarRating from '../StarRating/SetStarRating';
 import StarRating from '../StarRating/StarRating';
@@ -353,7 +354,9 @@ export default function DrinkDetails() {
                             onSave={addWorkPhase} onClose={() => setShowAddWorkPhase(false)} />}
                         {workPhases != null && workPhases.length > 0 ? (
                             <WorkPhases
-                                drinkID={params.id}
+                                dbUrl={DB_DRINK_WORKPHASES}
+                                translation={TRANSLATION}
+                                recipeID={params.id}
                                 workPhases={workPhases}
                                 onDelete={deleteWorkPhase}
                             />

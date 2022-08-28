@@ -9,28 +9,26 @@ import { db } from '../../firebase-config';
 import AddWorkPhase from './AddWorkPhase';
 //icon
 import Icon from '../Icon';
+//proptypes
+import PropTypes from 'prop-types';
 
-export default function WorkPhase({ workPhase, recipeID, onDeleteWorkPhase }) {
-
-    //constants
-    const DB_WORKPHASES = '/recipe-workphases';
-    const TRANSLATION = 'recipe';
+export default function WorkPhase({ dbUrl, translation, workPhase, recipeID, onDelete }) {
 
     //translation
-    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
+    const { t } = useTranslation(translation, { keyPrefix: translation });
 
     //states
     const [editable, setEditable] = useState(false);
 
     const updateWorkPhase = (recipeID, newWorkPhase) => {
         const updates = {};
-        updates[`${DB_WORKPHASES}/${recipeID}/${workPhase.id}`] = newWorkPhase;
+        updates[`${dbUrl}/${recipeID}/${workPhase.id}`] = newWorkPhase;
         update(ref(db), updates);
         setEditable(false);
     }
 
     return (
-        <div className={TRANSLATION}>
+        <div className={translation}>
             <Row>
                 <Col xs={9}>
                     <span style={{ fontWeight: 'bold' }}>{workPhase.name}</span>
@@ -41,7 +39,7 @@ export default function WorkPhase({ workPhase, recipeID, onDeleteWorkPhase }) {
                             <Icon name='edit' className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
-                                onClick={() => onDeleteWorkPhase(recipeID, workPhase.id)} />
+                                onClick={() => onDelete(recipeID, workPhase.id)} />
                         </span>
                     }
                 </Col>
@@ -51,8 +49,8 @@ export default function WorkPhase({ workPhase, recipeID, onDeleteWorkPhase }) {
             </Row>
             {editable &&
                 <AddWorkPhase
-                    dbUrl={DB_WORKPHASES}
-                    translation={TRANSLATION}
+                    dbUrl={dbUrl}
+                    translation={translation}
                     workPhaseID={workPhase.id}
                     recipeID={recipeID}
                     onSave={updateWorkPhase}
@@ -60,4 +58,16 @@ export default function WorkPhase({ workPhase, recipeID, onDeleteWorkPhase }) {
             }
         </div>
     )
+}
+
+WorkPhase.defaultProps = {
+    dbUrl: '/none',
+    translation: '',
+}
+
+WorkPhase.propTypes = {
+    dbUrl: PropTypes.string,
+    translation: PropTypes.string,
+    recipeID: PropTypes.string,
+    onDelete: PropTypes.func
 }

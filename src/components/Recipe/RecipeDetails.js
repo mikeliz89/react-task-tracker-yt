@@ -329,9 +329,11 @@ export default function RecipeDetails() {
                         {workPhases != null}
                         {workPhases != null && workPhases.length > 0 ? (
                             <WorkPhases
+                                dbUrl={DB_WORKPHASES}
+                                translation={TRANSLATION}
                                 recipeID={params.id}
                                 workPhases={workPhases}
-                                onDeleteWorkPhase={deleteWorkPhase}
+                                onDelete={deleteWorkPhase}
                             />
                         ) : (
                             <p> {t('no_workphases_to_show')} </p>
