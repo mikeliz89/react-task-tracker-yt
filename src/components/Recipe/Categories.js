@@ -107,6 +107,16 @@ export const RecipeCategories = [
         //jälkiruoka
         "id": 18,
         "name": "desert"
+    },
+    {
+        //wokki
+        "id": 19,
+        "name": "wok"
+    },
+    {
+        //lisuke
+        "id": 20,
+        "name": "sidedish"
     }
 ]
 
