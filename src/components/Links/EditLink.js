@@ -64,14 +64,14 @@ const EditLink = ({ linkID, objID, linkUrl, onEditLink, onCloseEditLink }) => {
 
     return (
         <Form onSubmit={onSubmit}>
-            <Form.Group className="mb-3" controlId="incredientAmount">
+            <Form.Group className="mb-3" controlId="editLinkForm-UrlText">
                 <Form.Control type='text'
                     autoComplete="off"
                     placeholder={t('urlText')}
                     value={urlText}
                     onChange={(e) => setUrlText(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="incredientUnit">
+            <Form.Group className="mb-3" controlId="editLinkForm-Url">
                 <Form.Control type='text'
                     autoComplete="off"
                     placeholder={t('url')}
