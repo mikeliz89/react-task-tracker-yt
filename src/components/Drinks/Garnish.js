@@ -47,7 +47,7 @@ export const Garnish = ({ garnish, drinkID, onDelete }) => {
                     drinkID={drinkID}
                     onSave={updateGarnish}
                     onDelete={onDelete}
-                    onCloseEditGarnish={() => setEditable(false)} />
+                    onClose={() => setEditable(false)} />
             }
         </div>
     )
