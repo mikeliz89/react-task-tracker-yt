@@ -7,11 +7,10 @@ import { useTranslation } from 'react-i18next';
 //icon
 import Icon from "../Icon";
 
-//Suora kopio DrinkHistory:stä. Todo: Yhdistä komponentiksi?
-function RecipeHistory({ recipeHistory, onDelete }) {
+function RecipeHistory({ translation, recipeHistory, onDelete }) {
 
     //translation
-    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+    const { t } = useTranslation(translation, { keyPrefix: translation });
 
     return (
         <div>
@@ -19,7 +18,11 @@ function RecipeHistory({ recipeHistory, onDelete }) {
                 {getJsonAsDateTimeString(recipeHistory.currentDateTime, i18n.language)}
                 &nbsp;
                 <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
-                    onClick={() => { if (window.confirm(t('delete_recipe_history_confirm_message'))) { onDelete(recipeHistory.id); } }} />
+                    onClick={() => {
+                        if (window.confirm(t('delete_recipe_history_confirm_message'))) {
+                            onDelete(recipeHistory.id);
+                        }
+                    }} />
             </span>
         </div>
     )

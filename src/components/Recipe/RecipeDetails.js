@@ -362,7 +362,10 @@ export default function RecipeDetails() {
                 <hr />
                 {
                     recipeHistory != null && recipeHistory.length > 0 ? (
-                        <RecipeHistories recipeHistories={recipeHistory} recipeID={params.id} />
+                        <RecipeHistories
+                            dbUrl={DB_RECIPE_HISTORY}
+                            translation={TRANSLATION}
+                            recipeHistories={recipeHistory} recipeID={params.id} />
                     ) : (
                         t('no_recipe_history')
                     )

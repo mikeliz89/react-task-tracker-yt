@@ -18,12 +18,12 @@ import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
 import AddDrink from './AddDrink';
 import AddGarnish from './AddGarnish';
 import AddWorkPhase from '../Recipe/AddWorkPhase';
-import DrinkHistories from './DrinkHistories';
 import Garnishes from './Garnishes';
 //recipe
 import AddIncredient from '../Recipe/AddIncredient';
 import WorkPhases from '../Recipe/WorkPhases';
 import Incredients from '../Recipe/Incredients';
+import RecipeHistories from '../Recipe/RecipeHistories';
 //StarRating
 import SetStarRating from '../StarRating/SetStarRating';
 import StarRating from '../StarRating/StarRating';
@@ -405,7 +405,11 @@ export default function DrinkDetails() {
                 <hr />
                 {
                     drinkHistory != null && drinkHistory.length > 0 ? (
-                        <DrinkHistories drinkHistories={drinkHistory} drinkID={params.id} />
+                        <RecipeHistories
+                            dbUrl={DB_DRINK_HISTORY}
+                            translation={TRANSLATION}
+                            recipeHistories={drinkHistory}
+                            recipeID={params.id} />
                     ) : (
                         t('no_drink_history')
                     )
