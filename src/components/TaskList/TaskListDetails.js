@@ -109,7 +109,7 @@ function TaskListDetails() {
     })
   }
 
-  const addTask = async (taskListID, task) => {
+  const updateTask = async (taskListID, task) => {
     task["created"] = getCurrentDateAsJson();
     task["createdBy"] = currentUser.email;
     const dbref = child(ref(db, DB_TASKS), taskListID);
@@ -153,7 +153,7 @@ function TaskListDetails() {
     });
   }
 
-  const addTaskList = async (taskList) => {
+  const updateTaskList = async (taskList) => {
     var taskListID = params.id;
     const updates = {};
     taskList["modified"] = getCurrentDateAsJson();
@@ -264,8 +264,8 @@ function TaskListDetails() {
 
       <div className="page-content">
         <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} iconName='square-check' />
-        {showEditTaskList && <AddTaskList onAddTaskList={addTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />}
-        {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onAddTask={addTask} />}
+        {showEditTaskList && <AddTaskList onSave={updateTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />}
+        {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onSave={updateTask} />}
 
         <SearchSortFilter
           useTextFiltering={true}

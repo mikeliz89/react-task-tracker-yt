@@ -23,7 +23,7 @@ const Gear = ({ gear, onDelete }) => {
     const [error] = useState('');
 
     return (
-        <div className='drink'>
+        <div className='drinks'>
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
