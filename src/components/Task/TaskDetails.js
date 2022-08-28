@@ -69,7 +69,7 @@ function TaskDetails() {
     })
   }
 
-  const addTask = async (taskListID, task) => {
+  const updateTask = async (taskListID, task) => {
     let taskID = params.id;
     const updates = {};
     task["modified"] = getCurrentDateAsJson()
@@ -110,7 +110,7 @@ function TaskDetails() {
       <div className={task.reminder === true ? 'task reminder' : ''}>
         <PageTitle title={task.text} />
         <p>{t('day_and_time')}: {task.day}</p>
-        {showEditTask && <AddTask onClose={() => setShowEditTask(false)} onAddTask={addTask} taskID={params.id} taskListID={params.tasklistid} />}
+        {showEditTask && <AddTask onClose={() => setShowEditTask(false)} onSave={updateTask} taskID={params.id} taskListID={params.tasklistid} />}
         <p>
           {t('created')}: {getJsonAsDateTimeString(task.created, i18n.language)}<br />
           {t('created_by')}: {task.createdBy}<br />

@@ -52,7 +52,7 @@ const Drink = ({ drink, onDelete }) => {
         } */
 
     return (
-        <div className='drink'>
+        <div className='drinks'>
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}

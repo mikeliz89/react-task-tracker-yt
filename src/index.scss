@@ -100,12 +100,12 @@ footer {
 
 /** Task End */
 
-/* Task Drink Recipe Exercise etc Start */
+/* Task Drinks Recipe Exercise etc Start */
 
 .task h5,
 .tasklist h5,
 .recipe h5,
-.drink h5,
+.drinks h5,
 .exercise h5 {
     display: flex;
     align-items: center;
@@ -113,7 +113,7 @@ footer {
 }
 
 .recipe,
-.drink,
+.drinks,
 .exercise {
     background: #faf1db;
     margin: 5px;
@@ -124,14 +124,14 @@ footer {
 
 .task p,
 .recipe p,
-.drink p,
+.drinks p,
 .recipe p,
 .exercise p {
     font-family: 'Poppins', sans-serif;
     margin-bottom: 0.5em;
 }
 
-/* Task Drink Recipe Exercise etc End */
+/* Task Drinks Recipe Exercise etc End */
 
 /** Recipe Start */
 

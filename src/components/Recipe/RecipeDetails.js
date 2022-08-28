@@ -41,12 +41,14 @@ import RecipeHistories from './RecipeHistories';
 
 export default function RecipeDetails() {
 
+    //constants
     const DB_RECIPES = '/recipes';
     const DB_INCREDIENTS = '/recipe-incredients';
     const DB_WORKPHASES = '/recipe-workphases';
     const DB_RECIPE_COMMENTS = '/recipe-comments';
     const DB_RECIPE_LINKS = '/recipe-links';
     const DB_RECIPE_HISTORY = '/recipehistory';
+    const TRANSLATION = 'recipe';
 
     //states
     const [loading, setLoading] = useState(true);
@@ -65,7 +67,7 @@ export default function RecipeDetails() {
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
 
     //params
     const params = useParams();
@@ -277,7 +279,6 @@ export default function RecipeDetails() {
                     <StarRating starCount={recipe.stars} />
                 </Col>
             </Row>
-            {/* Accordion end */}
             <div className="page-content">
 
                 <Alert message={message} showMessage={showMessage}
@@ -285,7 +286,8 @@ export default function RecipeDetails() {
                     variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
                 {/* <pre>{JSON.stringify(recipe)}</pre> */}
-                {showEditRecipe && <AddRecipe onClose={() => setShowEditRecipe(false)} onAddRecipe={addRecipe} recipeID={params.id} />}
+                {showEditRecipe && <AddRecipe
+                    onClose={() => setShowEditRecipe(false)} onAddRecipe={addRecipe} recipeID={params.id} />}
 
                 <Tabs defaultActiveKey="home"
                     id="recipeDetails-Tab"
@@ -316,7 +318,14 @@ export default function RecipeDetails() {
                             color={showAddWorkPhase ? 'red' : 'green'}
                             text={showAddWorkPhase ? t('button_close') : ''}
                             onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
-                        {showAddWorkPhase && <AddWorkPhase onAddWorkPhase={addWorkPhase} recipeID={params.id} onClose={() => setShowAddWorkPhase(false)} />}
+                        {showAddWorkPhase &&
+                            <AddWorkPhase
+                                dbUrl={DB_WORKPHASES}
+                                translation={TRANSLATION}
+                                onSave={addWorkPhase}
+                                recipeID={params.id}
+                                onClose={() => setShowAddWorkPhase(false)} />
+                        }
                         {workPhases != null}
                         {workPhases != null && workPhases.length > 0 ? (
                             <WorkPhases

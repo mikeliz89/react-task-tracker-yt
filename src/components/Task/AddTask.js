@@ -8,7 +8,10 @@ import { ref, get } from "firebase/database";
 //buttons
 import Button from '../../components/Button';
 
-const AddTask = ({ taskID, taskListID, onAddTask, onClose }) => {
+const AddTask = ({ taskID, taskListID, onSave, onClose }) => {
+
+    //constants 
+    const DB_TASKS = '/tasks';
 
     //translation
     const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
@@ -30,7 +33,7 @@ const AddTask = ({ taskID, taskListID, onAddTask, onClose }) => {
     }, [taskID, taskListID]);
 
     const fetchTaskFromFirebase = async (taskID, taskListID) => {
-        const dbref = ref(db, `/tasks/${taskListID}/${taskID}`);
+        const dbref = ref(db, `${DB_TASKS}/${taskListID}/${taskID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();
@@ -48,11 +51,11 @@ const AddTask = ({ taskID, taskListID, onAddTask, onClose }) => {
 
         //validation
         if (!text) {
-            alert(t('please_add_task'))
-            return
+            alert(t('please_add_task'));
+            return;
         }
 
-        onAddTask(taskListID, { created, createdBy, text, day, reminder })
+        onSave(taskListID, { created, createdBy, text, day, reminder });
 
         if (taskID == null) {
             clearForm();

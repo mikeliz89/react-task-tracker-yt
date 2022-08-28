@@ -18,7 +18,7 @@ import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
 import AddDrink from './AddDrink';
 import AddGarnish from './AddGarnish';
 import AddIncredient from './AddIncredient';
-import AddWorkPhase from './AddWorkPhase';
+import AddWorkPhase from '../Recipe/AddWorkPhase';
 import DrinkHistories from './DrinkHistories';
 import Incredients from './Incredients';
 import WorkPhases from './WorkPhases';
@@ -49,6 +49,7 @@ export default function DrinkDetails() {
     const DB_DRINK_COMMENTS = '/drink-comments';
     const DB_DRINK_LINKS = '/drink-links';
     const DB_DRINK_HISTORY = '/drinkhistory';
+    const TRANSLATION = 'drinks';
 
     //states
     const [loading, setLoading] = useState(true);
@@ -69,7 +70,7 @@ export default function DrinkDetails() {
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
+    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
 
     //params
     const params = useParams();
@@ -345,7 +346,11 @@ export default function DrinkDetails() {
                             color={showAddWorkPhase ? 'red' : 'green'}
                             text={showAddWorkPhase ? t('button_close') : ''}
                             onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
-                        {showAddWorkPhase && <AddWorkPhase drinkID={params.id} onAddWorkPhase={addWorkPhase} onClose={() => setShowAddWorkPhase(false)} />}
+                        {showAddWorkPhase && <AddWorkPhase
+                            dbUrl={DB_DRINK_WORKPHASES}
+                            translation={TRANSLATION}
+                            recipeID={params.id}
+                            onSave={addWorkPhase} onClose={() => setShowAddWorkPhase(false)} />}
                         {workPhases != null && workPhases.length > 0 ? (
                             <WorkPhases
                                 drinkID={params.id}

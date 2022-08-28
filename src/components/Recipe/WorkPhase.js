@@ -6,31 +6,31 @@ import { Row, Col } from 'react-bootstrap';
 import { update, ref } from "firebase/database";
 import { db } from '../../firebase-config';
 //recipes
-import EditWorkPhase from './EditWorkPhase';
+import AddWorkPhase from './AddWorkPhase';
+//icon
 import Icon from '../Icon';
 
 export default function WorkPhase({ workPhase, recipeID, onDeleteWorkPhase }) {
 
     //constants
     const DB_WORKPHASES = '/recipe-workphases';
+    const TRANSLATION = 'recipe';
 
     //translation
-    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
 
     //states
     const [editable, setEditable] = useState(false);
 
-    const editWorkPhase = (workPhase) => {
-        //save
+    const updateWorkPhase = (recipeID, newWorkPhase) => {
         const updates = {};
-        updates[`${DB_WORKPHASES}/${recipeID}/${workPhase.id}`] = workPhase;
+        updates[`${DB_WORKPHASES}/${recipeID}/${workPhase.id}`] = newWorkPhase;
         update(ref(db), updates);
-
         setEditable(false);
     }
 
     return (
-        <div className='recipe'>
+        <div className={TRANSLATION}>
             <Row>
                 <Col xs={9}>
                     <span style={{ fontWeight: 'bold' }}>{workPhase.name}</span>
@@ -50,11 +50,13 @@ export default function WorkPhase({ workPhase, recipeID, onDeleteWorkPhase }) {
                 <Col>{workPhase.estimatedLength ? workPhase.estimatedLength : 0} {t('in_minutes')}</Col>
             </Row>
             {editable &&
-                <EditWorkPhase
+                <AddWorkPhase
+                    dbUrl={DB_WORKPHASES}
+                    translation={TRANSLATION}
                     workPhaseID={workPhase.id}
                     recipeID={recipeID}
-                    onEditWorkPhase={editWorkPhase}
-                    onCloseEditWorkPhase={() => setEditable(false)} />
+                    onSave={updateWorkPhase}
+                    onClose={() => setEditable(false)} />
             }
         </div>
     )

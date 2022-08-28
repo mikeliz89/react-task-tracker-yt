@@ -105,7 +105,7 @@ export default function ManageTaskLists() {
         </ButtonGroup>
       </Row>
       <PageTitle title={t('manage_tasklists_title')} />
-      {showAddTaskList && <AddTaskList onClose={() => setShowAddTaskList(false)} onAddTaskList={addTaskList} />}
+      {showAddTaskList && <AddTaskList onClose={() => setShowAddTaskList(false)} onSaveTaskList={addTaskList} />}
       <div className="page-content">
         <SearchSortFilter
           useTitleFiltering={true}

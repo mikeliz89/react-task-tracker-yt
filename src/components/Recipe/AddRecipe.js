@@ -30,9 +30,9 @@ const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
    useEffect(() => {
       if (recipeID != null) {
          const getRecipe = async () => {
-            await fetchRecipeFromFirebase(recipeID)
+            await fetchRecipeFromFirebase(recipeID);
          }
-         getRecipe()
+         getRecipe();
       }
    }, [recipeID]);
 

@@ -12,11 +12,14 @@ import Icon from '../Icon';
 
 const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
 
+    //constants
+    const TRANSLATION = 'drinks';
+
     //states
     const [editable, setEditable] = useState(false);
 
     //translation
-    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
+    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
 
     const markHaveAtHome = () => {
         drinkingProduct["haveAtHome"] = true;
@@ -35,7 +38,7 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
 
     return (
 
-        <div className='drink'>
+        <div className={TRANSLATION}>
             <h5>
                 <span>
                     <Icon name='cocktail' color='gray' />

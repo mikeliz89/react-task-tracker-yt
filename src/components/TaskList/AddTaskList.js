@@ -8,7 +8,7 @@ import { ref, get } from "firebase/database";
 //buttons
 import Button from '../../components/Button';
 
-const AddTaskList = ({ taskListID, onAddTaskList, onClose }) => {
+const AddTaskList = ({ taskListID, onSave, onClose }) => {
 
     const DB_TASKLISTS = '/tasklists';
 
@@ -16,17 +16,17 @@ const AddTaskList = ({ taskListID, onAddTaskList, onClose }) => {
     const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
 
     //states
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [created, setCreated] = useState('')
-    const [createdBy, setCreatedBy] = useState('')
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [created, setCreated] = useState('');
+    const [createdBy, setCreatedBy] = useState('');
 
     useEffect(() => {
         if (taskListID != null) {
             const getTaskList = async () => {
-                await fetchTaskListFromFirebase(taskListID)
+                await fetchTaskListFromFirebase(taskListID);
             }
-            getTaskList()
+            getTaskList();
         }
     }, [taskListID]);
 
@@ -53,7 +53,7 @@ const AddTaskList = ({ taskListID, onAddTaskList, onClose }) => {
             return;
         }
 
-        onAddTaskList({ created, createdBy, title, description });
+        onSave({ created, createdBy, title, description });
 
         if (taskListID == null) {
             clearForm();
