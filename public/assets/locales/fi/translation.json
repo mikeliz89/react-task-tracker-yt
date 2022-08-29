@@ -32,7 +32,7 @@
     "backpacking": {
         "button_add_gear": "Lisää varuste",
         "button_close": "Sulje",
-        "button_manage_backpacking_ideas": "Ideat",
+        "button_manage_backpacking_lists": "Listat",
         "button_manage_gear": "Varusteeni",
         "button_save_gear": "Tallenna varuste",
         "coming_soon": "Tulossa pian...",
@@ -523,7 +523,7 @@
         "manage_tasklists_archive_title": "Arkisto",
         "manage_tasklists_title": "Tehtävälistat",
         "manage_programming_title": "Koodaus",
-        "manage_backpacking_title": "Retkeilyideat",
+        "manage_backpacking_title": "Retkeilylistat",
         "mark_all_tasks_done": "Merkkaa kaikki tehdyiksi",
         "modified": "Muokattu",
         "name": "Nimi",

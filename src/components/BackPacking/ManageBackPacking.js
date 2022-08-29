@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import GoBackButton from '../GoBackButton';
 //pagetitle
 import PageTitle from '../PageTitle';
+//icons
+import Icon from '../Icon';
 
 export default function ManageBackPacking() {
 
@@ -19,7 +21,10 @@ export default function ManageBackPacking() {
             <div className="page-content">
                 <Link to="/managegear" className='btn btn-primary'>{t('button_manage_gear')}</Link>
                 &nbsp;
-                <Link to="/managebackpackingideas" className='btn btn-primary'>{t('button_manage_backpacking_ideas')}</Link>
+                <Link to="/backpackinglists" className='btn btn-primary'>
+                    <Icon name='list-alt' color='white' />
+                    {t('button_manage_backpacking_lists')}
+                </Link>
             </div>
         </div>
     )
