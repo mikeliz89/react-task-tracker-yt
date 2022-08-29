@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
 //firebase
 import { db } from '../../firebase-config';
-import { push, ref, child, onValue, update, remove } from "firebase/database";
+import { push, ref, child, onValue, update } from "firebase/database";
 //buttons
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
@@ -29,6 +29,8 @@ import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
+//exercises
+import AddMovement from './AddMovement';
 
 export default function MovementDetails() {
 
@@ -124,7 +126,8 @@ export default function MovementDetails() {
                     <Accordion>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>
-                                <PageTitle title={movement.name} iconName='glass-martini' iconColor='gray' />
+                                { /* TODO: Lisää tähän icon name */}
+                                <PageTitle title={movement.name} iconColor='gray' />
                             </Accordion.Header>
                             <Accordion.Body>
                                 <Table striped bordered hover>
@@ -163,6 +166,10 @@ export default function MovementDetails() {
                 <Alert message={message} showMessage={showMessage}
                     error={error} showError={showError}
                     variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
+                {showEditMovement &&
+                    <AddMovement movementID={params.id} onClose={() => setShowEditMovement(false)} />
+                }
 
                 <SetStarRating starCount={movement.stars} onSaveStars={saveStars} />
                 <AddComment onSave={addCommentToMovement} />

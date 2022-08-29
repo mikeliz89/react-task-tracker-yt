@@ -70,7 +70,7 @@ function ManageMovements() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Link className="btn btn-primary" to={`/createmovement`}>{t('create_movement')}</Link>
+                    <Link className="btn btn-primary" to={`/addmovement`}>{t('add_movement')}</Link>
                 </ButtonGroup>
             </Row>
             <PageTitle title={t('manage_movements_title')} />

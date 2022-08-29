@@ -1,11 +1,11 @@
 //react
-import { Form, ButtonGroup } from 'react-bootstrap';
+import { Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 //firebase
 import { db } from '../../firebase-config';
-import { ref, push } from 'firebase/database';
+import { get, ref, push, update } from 'firebase/database';
 //buttons
 import Button from '../Button';
 import GoBackButton from '../GoBackButton';
@@ -20,7 +20,7 @@ import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
 
-const CreateMovement = () => {
+const AddMovement = ({ movementID, onClose }) => {
 
     const DB_MOVEMENTS = '/exercise-movements';
 
@@ -28,6 +28,8 @@ const CreateMovement = () => {
     const [category, setCategory] = useState();
     const [categories, setCategories] = useState(MovementCategories);
     const [name, setName] = useState('');
+    const [created, setCreated] = useState();
+    const [createdBy, setCreatedBy] = useState();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -48,6 +50,30 @@ const CreateMovement = () => {
         sortCategoriesByName();
     }, [ready]);
 
+    useEffect(() => {
+        if (movementID != null) {
+            const getMovement = async () => {
+                await fetchMovementFromFirebase(movementID);
+            }
+            getMovement();
+        }
+    }, [movementID]);
+
+
+    const fetchMovementFromFirebase = async (movementID) => {
+
+        const dbref = ref(db, `${DB_MOVEMENTS}/${movementID}`);
+        get(dbref).then((snapshot) => {
+            if (snapshot.exists()) {
+                var val = snapshot.val();
+                setName(val["name"]);
+                setCreated(val["created"]);
+                setCreatedBy(val["createdBy"]);
+                setCategory(val["category"]);
+            }
+        });
+    }
+
     const sortCategoriesByName = () => {
         const sortedCategories = [...categories].sort((a, b) => {
             const aName = t(`movementcategory_${a.name}`);
@@ -65,11 +91,15 @@ const CreateMovement = () => {
             return;
         }
 
-        saveMovement({ name, category });
+        const obj = { name, category };
+        if (movementID === undefined) {
+            addMovement(obj);
+        } else {
+            updateMovement(obj);
+        }
     }
 
-    /** Add Movement To Firebase */
-    const saveMovement = async (movement) => {
+    const addMovement = async (movement) => {
         try {
             movement["created"] = getCurrentDateAsJson();
             movement["createdBy"] = currentUser.email;
@@ -84,19 +114,26 @@ const CreateMovement = () => {
         }
     }
 
+    const updateMovement = async (movement) => {
+        const updates = {};
+        movement["modified"] = getCurrentDateAsJson();
+        updates[`${DB_MOVEMENTS}/${movementID}`] = movement;
+        update(ref(db), updates);
+    }
+
     return (
         <>
             <ButtonGroup>
                 <GoBackButton />
             </ButtonGroup>
-            <PageTitle title={t('create_movement')} />
+            <PageTitle title={movementID === undefined ? t('add_movement') : t('edit_movement')} />
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             <Form onSubmit={onSubmit}>
-                <Form.Group className="mb-3" controlId="createMovementForm-Category">
+                <Form.Group className="mb-3" controlId="addMovementForm-Category">
                     <Form.Label>{t('movementcategory')}</Form.Label>
                     <Form.Select
                         value={category}
@@ -106,7 +143,7 @@ const CreateMovement = () => {
                         ))}
                     </Form.Select>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="createMovementForm-Name">
+                <Form.Group className="mb-3" controlId="addMovementForm-Name">
                     <Form.Label>{t('name')}</Form.Label>
                     <Form.Control type='text'
                         autoComplete="off"
@@ -114,10 +151,21 @@ const CreateMovement = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
-                <Button type='submit' text={t('button_create_movement')} className='btn btn-block saveBtn' />
+                {movementID != undefined &&
+                    <Row>
+                        <ButtonGroup>
+                            <Button type='button' text={t('button_close')} onClick={() => onClose()} className='btn btn-block' />
+                            <Button type='submit' text={t('button_add_movement')} className='btn btn-block saveBtn' />
+                        </ButtonGroup>
+                    </Row>
+                }
+                {
+                    movementID === undefined &&
+                    <Button type='submit' text={t('button_add_movement')} className='btn btn-block saveBtn' />
+                }
             </Form>
         </>
     )
 }
 
-export default CreateMovement
+export default AddMovement
