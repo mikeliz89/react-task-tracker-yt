@@ -29,3 +29,17 @@ export const ListTypes = {
     /** Retkeily */
     BackPacking: 8
 }
+
+/* Listatyypit (kategoriat alasvetovalikossa) */
+export const ListTypesArray = [
+    {
+        //-ei mikään-
+        "id": 0,
+        "name": "none"
+    },
+    {
+        //-koodaus-
+        "id": 3,
+        "name": "programming"
+    }
+]

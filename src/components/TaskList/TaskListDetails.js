@@ -10,6 +10,7 @@ import GoBackButton from '../GoBackButton';
 import AddTask from '../Task/AddTask';
 import AddTaskList from '../TaskList/AddTaskList';
 import Tasks from '../Task/Tasks';
+import ChangeType from './ChangeType';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //firebase
@@ -45,6 +46,7 @@ function TaskListDetails() {
   const [showEditTaskList, setShowEditTaskList] = useState(false);
   const [tasks, setTasks] = useState();
   const [originalTasks, setOriginalTasks] = useState();
+  const [showChangeListType, setShowChangeListType] = useState(false);
 
   //counters
   const [taskCounter, setTaskCounter] = useState(0);
@@ -266,7 +268,19 @@ function TaskListDetails() {
       </Row>
 
       <div className="page-content">
-        <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} iconName='square-check' />
+
+        <div style={{ marginBottom: '10px' }}>
+          <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} iconName='square-check' /> &nbsp;
+          <Button onClick={() => setShowChangeListType(!showChangeListType)} text={t('change_list_type')} iconName='edit' />
+        </div>
+
+        {
+          showChangeListType &&
+          <ChangeType taskList={taskList}
+            onSave={updateTaskList}
+            onClose={() => setShowChangeListType(false)} />
+        }
+
         {showEditTaskList &&
           <AddTaskList onSave={updateTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />
         }
@@ -296,7 +310,7 @@ function TaskListDetails() {
         <AddLink onSaveLink={addLinkToTaskList} />
         <Links objID={params.id} url={'tasklist-links'} />
       </div>
-    </div>
+    </div >
   );
 };
 
