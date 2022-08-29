@@ -33,6 +33,7 @@ import MovementDetails from './components/Exercises/MovementDetails';
 import ManageFoodItems from './components/Recipe/ManageFoodItems';
 import ManageRecipes from './components/Recipe/ManageRecipes';
 import RecipeDetails from './components/Recipe/RecipeDetails';
+import ManageRecipeLists from './components/Recipe/ManageRecipeLists';
 //BMICalculator
 import BmiCalculator from './components/BmiCalculator/BmiCalculator';
 import WeightHistory from './components/BmiCalculator/WeightHistory';
@@ -128,6 +129,7 @@ function App() {
             <Route path='/recipe/:id' element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
             <Route path='/managerecipes' element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
             <Route path='/managefooditems' element={<PrivateRoute><ManageFoodItems /></PrivateRoute>} />
+            <Route path='/managerecipelists' element={<PrivateRoute><ManageRecipeLists /></PrivateRoute>} />
             {/* Recipe */}
             {/* Drinks */}
             <Route path='/managedrinks' element={<PrivateRoute><ManageDrinks /></PrivateRoute>} />

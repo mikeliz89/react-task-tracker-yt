@@ -108,7 +108,7 @@ export default function ManageTaskLists({ listType }) {
     const contentKey = getPageTitleContent(listType);
     return t(contentKey);
   }
-  
+
   const getPageTitleContent = (listType) => {
     switch (listType) {
       case ListTypes.Programming:
@@ -119,10 +119,12 @@ export default function ManageTaskLists({ listType }) {
         return 'manage_music_title';
       case ListTypes.Car:
         return 'manage_car_title';
+      case ListTypes.Food:
+        return 'manage_recipe_title';
       //TODO: Koodaa lisää caseja sitä mukaa kuin muistakin listatyypeistä on olemassa listasivu
       default: return 'manage_tasklists_title';
     }
-  } 
+  }
 
   return loading ? (
     <h3>{t('loading')}</h3>

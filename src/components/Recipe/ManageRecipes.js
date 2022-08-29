@@ -22,8 +22,10 @@ import PageTitle from '../PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 //alert
 import Alert from '../Alert';
-//import recipetypes
+//enums
 import { RecipeTypes } from '../../utils/Enums';
+//icon
+import Icon from '../Icon';
 
 const ManageRecipes = () => {
 
@@ -129,7 +131,15 @@ const ManageRecipes = () => {
       </Row>
       <PageTitle title={t('manage_recipes_title')} />
       <div className="page-content">
-        <Link to="/managefooditems" className='btn btn-primary'>{t('manage_fooditems_button')}</Link>
+
+        <div>
+          <Link to="/managefooditems" className='btn btn-primary'>{t('button_manage_fooditems')}</Link>
+          &nbsp;
+          <Link to="/managerecipelists" className='btn btn-primary'>
+            <Icon name='list-alt' color='white' />
+            {t('button_recipe_lists')}
+          </Link>
+        </div>
 
         <Alert message={message} showMessage={showMessage}
           error={error} showError={showError}
