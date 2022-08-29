@@ -70,6 +70,8 @@ import BandsSeenLive from './components/Music/BandsSeenLive';
 import Games from './components/Games/Games';
 //LinksList
 import LinksList from './components/Links/LinksList';
+//Programming
+import ManageProgramming from './components/Programming/ManageProgramming';
 
 //React icons: https://react-icons.github.io/react-icons/icons?name=fa
 //Icon instructions: https://fontawesome.com/v5/docs/web/use-with/react
@@ -170,6 +172,9 @@ function App() {
             {/* Demo */}
             <Route path='/Demo' element={<PrivateRoute><Demo /></PrivateRoute>} />
             {/* Demo */}
+            {/* Programming */}
+            <Route path='/manageprogramming' element={<PrivateRoute><ManageProgramming /></PrivateRoute>} />
+            {/* Programming */}
             {/* Links */}
             <Route path='/linkslist' element={<PrivateRoute><LinksList /></PrivateRoute>} />
             {/* Links */}

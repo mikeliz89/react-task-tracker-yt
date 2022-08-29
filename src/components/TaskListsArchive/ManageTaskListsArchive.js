@@ -11,7 +11,8 @@ import TaskLists from '../../components/TaskList/TaskLists';
 //pagetitle
 import PageTitle from '../PageTitle';
 
-const ManageTaskListsArchive = () => {
+/** TODO: ohjaa listaTypen mukaiseen arkistoon esim Programming osion listoilta */
+const ManageTaskListsArchive = ({ listType }) => {
 
   //constants
   const DB_TASKLIST_ARCHIVE = '/tasklist-archive';
@@ -36,11 +37,14 @@ const ManageTaskListsArchive = () => {
     const dbref = ref(db, DB_TASKLIST_ARCHIVE);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
-      const taskLists = [];
+      const fromDB = [];
       for (let id in snap) {
-        taskLists.push({ id, ...snap[id] });
+        const item = snap[id];
+        if (item["listType"] === listType) {
+          fromDB.push({ id, ...snap[id] });
+        }
       }
-      setTaskLists(taskLists);
+      setTaskLists(fromDB);
       setLoading(false);
     })
   }

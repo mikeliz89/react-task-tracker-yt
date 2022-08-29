@@ -74,13 +74,13 @@ export default function ManageDrinks() {
         const dbref = await ref(db, DB_DRINKS);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
-            const drinksFromDB = [];
+            const fromDB = [];
             for (let id in snap) {
-                drinksFromDB.push({ id, ...snap[id] });
+                fromDB.push({ id, ...snap[id] });
             }
             setLoading(false);
-            setDrinks(drinksFromDB);
-            setOriginalDrinks(drinksFromDB);
+            setDrinks(fromDB);
+            setOriginalDrinks(fromDB);
         })
     }
 

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Col, Row, ButtonGroup, Form } from 'react-bootstrap';
+import { Row, ButtonGroup } from 'react-bootstrap';
 //Firebase
 import { db } from '../../firebase-config';
 import { ref, onValue, push, child, remove } from "firebase/database";
@@ -20,8 +20,10 @@ import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../PageTitle';
 //SearchSortFilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+//enums
+import { ListTypes } from '../../utils/Enums';
 
-export default function ManageTaskLists() {
+export default function ManageTaskLists({ listType }) {
 
   //constants
   const DB_TASKLISTS = '/tasklists';
@@ -53,12 +55,15 @@ export default function ManageTaskLists() {
   }, [])
 
   const fetchTaskListsFromFireBase = async () => {
-    const dbref = ref(db, DB_TASKLISTS);
+    const dbref = ref(db, DB_TASKLISTS); //.orderByChild("listType").equalTo(Number(listType));;
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
       for (let id in snap) {
-        fromDB.push({ id, ...snap[id] });
+        const item = snap[id];
+        if (item["listType"] === listType) {
+          fromDB.push({ id, ...snap[id] });
+        }
       }
       setLoading(false);
       setTaskLists(fromDB);
@@ -69,6 +74,7 @@ export default function ManageTaskLists() {
   const addTaskList = async (taskList) => {
     taskList["created"] = getCurrentDateAsJson();
     taskList["createdBy"] = currentUser.email;
+    taskList["listType"] = listType;
     const dbref = ref(db, DB_TASKLISTS);
     push(dbref, taskList)
       .then((snap) => {
@@ -90,6 +96,15 @@ export default function ManageTaskLists() {
     navigate(DB_TASKLIST_ARCHIVE);
   }
 
+  const getPageTitle = (listType) => {
+    switch (listType) {
+      case ListTypes.Programming:
+        return t('manage_programming_title');
+      //TODO: Koodaa lisää caseja sitä mukaa kuin muistakin listatyypeistä on olemassa listasivu
+      default: return t('manage_tasklists_title');
+    }
+  }
+
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -104,8 +119,10 @@ export default function ManageTaskLists() {
           <Button text={t('button_goto_tasklist_archive')} color="#545454" onClick={() => gotoTaskListArchive()} />
         </ButtonGroup>
       </Row>
-      <PageTitle title={t('manage_tasklists_title')} />
-      {showAddTaskList && <AddTaskList onClose={() => setShowAddTaskList(false)} onSaveTaskList={addTaskList} />}
+      <PageTitle title={getPageTitle(listType)} />
+      {showAddTaskList &&
+        <AddTaskList onClose={() => setShowAddTaskList(false)} onSave={addTaskList} />
+      }
       <div className="page-content">
         <SearchSortFilter
           useTitleFiltering={true}

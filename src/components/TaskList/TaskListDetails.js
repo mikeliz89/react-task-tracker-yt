@@ -264,7 +264,9 @@ function TaskListDetails() {
 
       <div className="page-content">
         <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} iconName='square-check' />
-        {showEditTaskList && <AddTaskList onSave={updateTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />}
+        {showEditTaskList &&
+          <AddTaskList onSave={updateTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />
+        }
         {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onSave={updateTask} />}
 
         <SearchSortFilter

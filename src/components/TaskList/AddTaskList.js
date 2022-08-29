@@ -20,6 +20,7 @@ const AddTaskList = ({ taskListID, onSave, onClose }) => {
     const [description, setDescription] = useState('');
     const [created, setCreated] = useState('');
     const [createdBy, setCreatedBy] = useState('');
+    const [listType, setListType] = useState();
 
     useEffect(() => {
         if (taskListID != null) {
@@ -36,10 +37,11 @@ const AddTaskList = ({ taskListID, onSave, onClose }) => {
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();
-                setTitle(val["title"]);
-                setDescription(val["description"]);
                 setCreated(val["created"]);
                 setCreatedBy(val["createdBy"]);
+                setDescription(val["description"]);
+                setListType(val["listType"]);
+                setTitle(val["title"]);
             }
         });
     }
@@ -53,7 +55,7 @@ const AddTaskList = ({ taskListID, onSave, onClose }) => {
             return;
         }
 
-        onSave({ created, createdBy, title, description });
+        onSave({ created, createdBy, title, description, listType });
 
         if (taskListID == null) {
             clearForm();

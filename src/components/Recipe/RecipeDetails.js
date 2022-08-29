@@ -127,11 +127,11 @@ export default function RecipeDetails() {
         const dbref = await child(ref(db, DB_RECIPE_INCREDIENTS), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
-            const incredients = [];
+            const fromDB = [];
             for (let id in snap) {
-                incredients.push({ id, ...snap[id] });
+                fromDB.push({ id, ...snap[id] });
             }
-            setIncredients(incredients);
+            setIncredients(fromDB);
         })
     }
 
@@ -139,11 +139,11 @@ export default function RecipeDetails() {
         const dbref = await child(ref(db, DB_RECIPE_WORKPHASES), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
-            const workphases = [];
+            const fromDB = [];
             for (let id in snap) {
-                workphases.push({ id, ...snap[id] });
+                fromDB.push({ id, ...snap[id] });
             }
-            setWorkPhases(workphases);
+            setWorkPhases(fromDB);
         })
     }
 

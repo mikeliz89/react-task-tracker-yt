@@ -54,11 +54,11 @@ const WeightHistory = () => {
         const dbref = await ref(db, `${DB_WEIGHT_HISTORY}/${currentUser.uid}`);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
-            const historyRowsFromDB = [];
+            const fromDB = [];
             for (let id in snap) {
-                historyRowsFromDB.push({ id, ...snap[id] });
+                fromDB.push({ id, ...snap[id] });
             }
-            setHistoryRows(historyRowsFromDB);
+            setHistoryRows(fromDB);
         })
     }
 

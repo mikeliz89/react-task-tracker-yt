@@ -179,11 +179,11 @@ export default function DrinkDetails() {
         const dbref = await child(ref(db, DB_DRINK_INCREDIENTS), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
-            const incredients = [];
+            const fromDB = [];
             for (let id in snap) {
-                incredients.push({ id, ...snap[id] });
+                fromDB.push({ id, ...snap[id] });
             }
-            setIncredients(incredients);
+            setIncredients(fromDB);
         })
     }
 
