@@ -157,7 +157,6 @@ export default function DrinkDetails() {
     const addDrink = async (drink) => {
         try {
             var drinkID = params.id;
-            //save edited drink to firebase
             const updates = {};
             drink["modified"] = getCurrentDateAsJson();
             if (drink["glass"] === undefined) {
@@ -199,7 +198,6 @@ export default function DrinkDetails() {
 
     const saveStars = async (stars) => {
         const drinkID = params.id;
-        //save edited drink to firebase
         const updates = {};
         drink["modified"] = getCurrentDateAsJson()
         drink["stars"] = Number(stars);

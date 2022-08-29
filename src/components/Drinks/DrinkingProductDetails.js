@@ -95,11 +95,9 @@ export default function DrinkingProductDetails() {
         push(dbref, link);
     }
 
-    /** Add Drink To Firebase */
     const addDrinkingProduct = async (drinkingProduct) => {
         try {
             var drinkingProductID = params.id;
-            //save edited drink to firebase
             const updates = {};
             drinkingProduct["modified"] = getCurrentDateAsJson();
             updates[`${DB_DRINKINGPRODUCTS}/${drinkingProductID}`] = drinkingProduct;

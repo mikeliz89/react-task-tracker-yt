@@ -91,7 +91,6 @@ export default function ManageMyProfile() {
 
     const saveProfileToFirebase = async () => {
         let data = { name, height };
-        //save edited profile to firebase
         const updates = {};
         data["modified"] = getCurrentDateAsJson()
         updates[`${DB_PROFILES}/${currentUser.uid}`] = data;

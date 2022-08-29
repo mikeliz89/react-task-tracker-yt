@@ -70,7 +70,6 @@ const CreateExercise = () => {
         saveExercise({ date, time, category });
     }
 
-    /** Add Exercise To Firebase */
     const saveExercise = async (exercise) => {
         try {
             exercise["created"] = getCurrentDateAsJson();
