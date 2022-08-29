@@ -49,6 +49,7 @@ import ManageDrinkLists from './components/Drinks/ManageDrinkLists';
 import ManageBackPacking from './components/BackPacking/ManageBackPacking';
 import ManageGear from './components/BackPacking/ManageGear';
 import ManageBackPackingLists from './components/BackPacking/ManageBackPackingLists';
+import GearDetails from './components/BackPacking/GearDetails';
 //other components
 import PrivateRoute from './components/PrivateRoute';
 import Demo from './components/Demo/Demo';
@@ -165,6 +166,7 @@ function App() {
             <Route path='/managebackpacking' element={<PrivateRoute><ManageBackPacking /></PrivateRoute>} />
             <Route path='/managegear' element={<PrivateRoute><ManageGear /></PrivateRoute>} />
             <Route path='/managebackpackinglists' element={<PrivateRoute><ManageBackPackingLists /></PrivateRoute>} />
+            <Route path='/gear/:id' element={<PrivateRoute><GearDetails /></PrivateRoute>} />
             {/* Backpacking */}
             {/* Car */}
             <Route path='/car' element={<PrivateRoute><Car /></PrivateRoute>} />

@@ -28,9 +28,10 @@ export default function ManageGear() {
 
     //constants
     const DB_GEAR = "/backpacking-gear";
+    const TRANSLATION = 'backpacking';
 
     //translation
-    const { t } = useTranslation('backpacking', { keyPrefix: 'backpacking' });
+    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
 
     //states
     const [showAdd, setShowAdd] = useState(false);
