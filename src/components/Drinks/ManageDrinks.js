@@ -131,6 +131,7 @@ export default function ManageDrinks() {
                 {showAddDrink && <AddDrink onAddDrink={addDrink} onClose={() => setShowAddDrink(false)} />}
 
                 <SearchSortFilter
+                    showFilterCore={true}
                     useTitleFiltering={true}
                     onSet={setDrinks}
                     showFilterHaveRated={true}

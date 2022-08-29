@@ -92,7 +92,7 @@ const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
    return (
       <>
          <Form onSubmit={onSubmit}>
-            <Form.Group className="mb-3" controlId="addRecipeFormName">
+            <Form.Group className="mb-3" controlId="addRecipeForm-Name">
                <Form.Label>{t('recipe_name')}</Form.Label>
                <Form.Control type='text'
                   autoComplete="off"
@@ -100,7 +100,7 @@ const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="addRecipeFormDescription">
+            <Form.Group className="mb-3" controlId="addRecipeForm-Description">
                <Form.Label>{t('description')}</Form.Label>
                <Form.Control type='text'
                   autoComplete="off"
@@ -108,7 +108,7 @@ const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="addRecipeFormCategory">
+            <Form.Group className="mb-3" controlId="addRecipeForm-Category">
                <Form.Label>{t('category')}</Form.Label>
                <Form.Select
                   value={category}
@@ -118,7 +118,7 @@ const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
                   ))}
                </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="AddRecipeFormIsCore">
+            <Form.Group className="mb-3" controlId="addRecipeForm-IsCore">
                <Form.Check
                   type='checkbox'
                   label={t('set_isCore')}

@@ -141,6 +141,8 @@ const ManageRecipes = () => {
           onSet={setRecipes}
           showFilterCore={true}
           showSortByTitle={true}
+          showFilterHaveRated={true}
+          showFilterNotHaveRated={true}
           showSortByCreatedDate={true}
           showSortByStarRating={true}
           showSearchByDescription={true}

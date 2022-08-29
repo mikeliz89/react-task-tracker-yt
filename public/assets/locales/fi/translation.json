@@ -230,6 +230,7 @@
         "save_success": "Drinkin tallennus onnistui",
         "save_success_drinkinghistory": "Tallennus onnistui",
         "search": "Hae",
+        "set_isCore": "Core-drinkki",
         "shopcart_tooltip": "Tee ostoslistaksi",
         "shoppinglist": "Ostoslista",
         "show": "Näytä",

@@ -28,6 +28,7 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
    const [created, setCreated] = useState('');
    const [createdBy, setCreatedBy] = useState('');
    const [stars, setStars] = useState(0);
+   const [isCore, setIsCore] = useState(false);
 
    //load data
    useEffect(() => {
@@ -63,6 +64,7 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
             setCreatedBy(val["createdBy"]);
             setDescription(val["description"]);
             setGlass(val["glass"]);
+            setIsCore(val["isCore"]);
             setStars(val["stars"]);
             setTitle(val["title"]);
          }
@@ -79,7 +81,7 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
          return;
       }
 
-      onAddDrink({ created, createdBy, title, description, category, glass, stars });
+      onAddDrink({ created, createdBy, title, description, category, glass, stars, isCore });
 
       if (drinkID == null) {
          clearForm();
@@ -90,6 +92,7 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
       setTitle('');
       setDescription('');
       setGlass('');
+      setIsCore(false);
    }
 
    return (
@@ -128,6 +131,14 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
                      <option value={id} key={id}>{t(`category_${name}`)}</option>
                   ))}
                </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="AddDrinkForm-IsCore">
+               <Form.Check
+                  type='checkbox'
+                  label={t('set_isCore')}
+                  checked={isCore}
+                  value={isCore}
+                  onChange={(e) => setIsCore(e.currentTarget.checked)} />
             </Form.Group>
             <Row>
                <ButtonGroup>
