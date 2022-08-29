@@ -10,6 +10,8 @@ import Icon from '../Icon';
 import Alert from '../Alert';
 //categories
 import { getIconNameByCategory } from './Categories';
+//starrating
+import StarRating from '../StarRating/StarRating';
 
 const Gear = ({ gear, onDelete }) => {
 
@@ -44,6 +46,7 @@ const Gear = ({ gear, onDelete }) => {
             <p>
                 <Link className='btn btn-primary' to={`/gear/${gear.id}`}>{t('view_details')}</Link>
             </p>
+            <StarRating starCount={gear.stars} />
         </div>
     )
 }

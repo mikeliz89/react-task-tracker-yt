@@ -24,6 +24,7 @@ const AddGear = ({ gearID, onAddGear, onClose }) => {
     const [createdBy, setCreatedBy] = useState('');
     const [name, setName] = useState('');
     const [weightInGrams, setWeightInGrams] = useState(0);
+    const [stars, setStars] = useState(0);
 
     //load data
     useEffect(() => {
@@ -59,6 +60,7 @@ const AddGear = ({ gearID, onAddGear, onClose }) => {
                 setCreatedBy(val["createdBy"]);
                 setName(val["name"]);
                 setWeightInGrams(val["weightInGrams"]);
+                setStars(val["stars"]);
             }
         });
     }
@@ -72,7 +74,7 @@ const AddGear = ({ gearID, onAddGear, onClose }) => {
             return;
         }
 
-        onAddGear({ created, createdBy, name, category, weightInGrams });
+        onAddGear({ created, createdBy, name, category, weightInGrams, stars });
 
         if (gearID == null) {
             clearForm();
