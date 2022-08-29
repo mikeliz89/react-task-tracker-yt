@@ -155,6 +155,9 @@ function TaskListDetails() {
 
   const updateTaskList = async (taskList) => {
     var taskListID = params.id;
+    if (taskList["listType"] === undefined || taskList["listType"] === 0) {
+      delete taskList["listType"];
+    }
     const updates = {};
     taskList["modified"] = getCurrentDateAsJson();
     updates[`${DB_TASK_LISTS}/${taskListID}`] = taskList;

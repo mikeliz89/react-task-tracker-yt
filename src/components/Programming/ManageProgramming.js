@@ -1,10 +1,10 @@
-import TaskListContainer from "../TaskList/TaskListContainer";
+import ManageTaskLists from "../TaskList/ManageTaskLists";
 //enums
 import { ListTypes } from "../../utils/Enums";
 
 function ManageProgramming() {
     return (
-        <TaskListContainer listType={ListTypes.Programming} />
+        <ManageTaskLists listType={ListTypes.Programming} />
     )
 }
 

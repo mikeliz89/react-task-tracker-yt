@@ -22,6 +22,8 @@ import PageTitle from '../PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 //enums
 import { ListTypes } from '../../utils/Enums';
+//proptypes
+import PropTypes from 'prop-types';
 
 export default function ManageTaskLists({ listType }) {
 
@@ -61,7 +63,9 @@ export default function ManageTaskLists({ listType }) {
       const fromDB = [];
       for (let id in snap) {
         const item = snap[id];
-        if (item["listType"] === listType) {
+        if (item["listType"] === listType && listType > 0) {
+          fromDB.push({ id, ...snap[id] });
+        } else if (item["listType"] === undefined && listType === 0) {
           fromDB.push({ id, ...snap[id] });
         }
       }
@@ -74,7 +78,11 @@ export default function ManageTaskLists({ listType }) {
   const addTaskList = async (taskList) => {
     taskList["created"] = getCurrentDateAsJson();
     taskList["createdBy"] = currentUser.email;
-    taskList["listType"] = listType;
+    if (listType === undefined || listType === 0) {
+      delete taskList["listType"];
+    } else {
+      taskList["listType"] = listType;
+    }
     const dbref = ref(db, DB_TASKLISTS);
     push(dbref, taskList)
       .then((snap) => {
@@ -143,4 +151,13 @@ export default function ManageTaskLists({ listType }) {
       </div>
     </div>
   )
+}
+
+
+ManageTaskLists.defaultProps = {
+  listType: ListTypes.None
+}
+
+ManageTaskLists.propTypes = {
+  listType: PropTypes.any
 }
