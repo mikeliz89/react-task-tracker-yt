@@ -108,6 +108,8 @@ export default function ManageTaskLists({ listType }) {
     switch (listType) {
       case ListTypes.Programming:
         return t('manage_programming_title');
+      case ListTypes.BackPacking:
+        return t('manage_backpacking_title');
       //TODO: Koodaa lisää caseja sitä mukaa kuin muistakin listatyypeistä on olemassa listasivu
       default: return t('manage_tasklists_title');
     }

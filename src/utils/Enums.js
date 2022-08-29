@@ -38,8 +38,13 @@ export const ListTypesArray = [
         "name": "none"
     },
     {
-        //-koodaus-
+        //koodaus
         "id": 3,
         "name": "programming"
+    },
+    {
+        //retkeily
+        "id": 8,
+        "name": "backpacking"
     }
 ]

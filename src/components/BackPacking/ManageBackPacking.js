@@ -17,7 +17,9 @@ export default function ManageBackPacking() {
             <PageTitle title={t('manage_backpacking_title')} />
 
             <div className="page-content">
-                <Link to="/managegear" className='btn btn-primary'>{t('manage_gear_button')}</Link>
+                <Link to="/managegear" className='btn btn-primary'>{t('button_manage_gear')}</Link>
+                &nbsp;
+                <Link to="/managebackpackingideas" className='btn btn-primary'>{t('button_manage_backpacking_ideas')}</Link>
             </div>
         </div>
     )
