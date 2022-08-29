@@ -345,9 +345,10 @@
         "urlText": "linkin teksti"
     },
     "music": {
+        "button_bands_seen_live": "Nähdyt bändit",
+        "button_music_lists": "Listat",
         "bands_seen_live": "Nähdyt bändit",
         "music_title": "Musiikki",
-        "manage_bands_seen_live_button": "Nähdyt bändit",
         "coming_soon": "Tulossa pian..."
     },
     "myprofile": {
@@ -508,8 +509,10 @@
         "button_save_task": "Tallenna tehtävä",
         "category": "Listan kategoria",
         "category_none": "Tehtävälista",
-        "category_programming": "Koodaus",
         "category_backpacking": "Retkeily",
+        "category_car": "Auto",
+        "category_programming": "Koodaus",
+        "category_music": "Musiikki",
         "created": "Luotu",
         "created_by": "Luoja",
         "created_date": "Luontipvm",
@@ -524,6 +527,8 @@
         "manage_tasklists_title": "Tehtävälistat",
         "manage_programming_title": "Koodaus",
         "manage_backpacking_title": "Retkeilylistat",
+        "manage_music_title": "Musiikkilistat",
+        "manage_car_title": "Autolistat",
         "mark_all_tasks_done": "Merkkaa kaikki tehdyiksi",
         "modified": "Muokattu",
         "name": "Nimi",

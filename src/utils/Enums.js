@@ -43,6 +43,16 @@ export const ListTypesArray = [
         "name": "programming"
     },
     {
+        //musiikki
+        "id": 4,
+        "name": "music"
+    },
+    {
+        //auto
+        "id": 5,
+        "name": "car"
+    },
+    {
         //retkeily
         "id": 8,
         "name": "backpacking"

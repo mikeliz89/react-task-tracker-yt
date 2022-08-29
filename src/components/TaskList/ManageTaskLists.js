@@ -105,15 +105,24 @@ export default function ManageTaskLists({ listType }) {
   }
 
   const getPageTitle = (listType) => {
+    const contentKey = getPageTitleContent(listType);
+    return t(contentKey);
+  }
+  
+  const getPageTitleContent = (listType) => {
     switch (listType) {
       case ListTypes.Programming:
-        return t('manage_programming_title');
+        return 'manage_programming_title';
       case ListTypes.BackPacking:
-        return t('manage_backpacking_title');
+        return 'manage_backpacking_title';
+      case ListTypes.Music:
+        return 'manage_music_title';
+      case ListTypes.Car:
+        return 'manage_car_title';
       //TODO: Koodaa lisää caseja sitä mukaa kuin muistakin listatyypeistä on olemassa listasivu
-      default: return t('manage_tasklists_title');
+      default: return 'manage_tasklists_title';
     }
-  }
+  } 
 
   return loading ? (
     <h3>{t('loading')}</h3>
