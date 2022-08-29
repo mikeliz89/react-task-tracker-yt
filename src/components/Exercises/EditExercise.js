@@ -46,7 +46,6 @@ function EditExercise({ exerciseID, exercise, onClose }) {
     saveExercise(exerciseID, { date, time, endDate, endTime, created, createdBy, category });
   }
 
-  /** Add Exercise To Firebase */
   const saveExercise = async (exerciseID, exercise) => {
     try {
       const updates = {};
