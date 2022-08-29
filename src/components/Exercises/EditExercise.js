@@ -24,6 +24,7 @@ function EditExercise({ exerciseID, exercise, onClose }) {
   const [createdBy, setCreatedBy] = useState('');
   const [category, setCategory] = useState('');
   const [error, setError] = useState('');
+  const [stars, setStars] = useState(0);
 
   //translation
   const { t, ready } = useTranslation('exercises', { keyPrefix: 'exercises' });
@@ -37,13 +38,14 @@ function EditExercise({ exerciseID, exercise, onClose }) {
       setCreated(exercise.created);
       setCreatedBy(exercise.createdBy);
       setCategory(exercise.category);
+      setStars(exercise.stars);
     }
   }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    saveExercise(exerciseID, { date, time, endDate, endTime, created, createdBy, category });
+    saveExercise(exerciseID, { date, time, endDate, endTime, created, createdBy, category, stars });
   }
 
   const saveExercise = async (exerciseID, exercise) => {
