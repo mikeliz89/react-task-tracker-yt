@@ -329,6 +329,7 @@
     },
     "games": {
         "games_title": "Pelit",
+        "button_game_lists": "Listat",
         "coming_soon": "Tulossa pian..."
     },
     "header": {
@@ -536,6 +537,7 @@
         "manage_backpacking_title": "Retkeilylistat",
         "manage_car_title": "Autolistat",
         "manage_drinks_title": "Drinkkilistat",
+        "manage_games_title": "Pelilistat",
         "manage_music_title": "Musiikkilistat",
         "manage_programming_title": "Koodaus",
         "manage_recipe_title": "Reseptilistat",

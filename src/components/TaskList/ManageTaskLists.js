@@ -123,6 +123,8 @@ export default function ManageTaskLists({ listType }) {
         return 'manage_recipe_title';
       case ListTypes.Drink:
         return 'manage_drinks_title';
+      case ListTypes.Games:
+        return 'manage_games_title';
       //TODO: Koodaa lisää caseja sitä mukaa kuin muistakin listatyypeistä on olemassa listasivu
       default: return 'manage_tasklists_title';
     }

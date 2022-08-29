@@ -1,7 +1,11 @@
 //react
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 //buttons
 import GoBackButton from '../GoBackButton';
+//icon
+import Icon from '../Icon';
+//pagetitle
 import PageTitle from '../PageTitle';
 
 export default function Games() {
@@ -12,7 +16,12 @@ export default function Games() {
         <div>
             <GoBackButton />
             <PageTitle title={t('games_title')} />
-            <p className="text-center">{t('coming_soon')}</p>
+            <div>
+                <Link to="/managegamelists" className='btn btn-primary'>
+                    <Icon name='list-alt' color='white' />
+                    {t('button_game_lists')}
+                </Link>
+            </div>
         </div>
     )
 }

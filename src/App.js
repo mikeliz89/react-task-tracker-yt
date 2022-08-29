@@ -73,6 +73,7 @@ import ManageMusicLists from './components/Music/ManageMusicLists';
 import BandsSeenLive from './components/Music/BandsSeenLive';
 //Games
 import Games from './components/Games/Games';
+import ManageGameLists from './components/Games/ManageGameLists';
 //LinksList
 import LinksList from './components/Links/LinksList';
 //Programming
@@ -178,6 +179,7 @@ function App() {
             {/* Music */}
             {/* Games */}
             <Route path='/games' element={<PrivateRoute><Games /></PrivateRoute>} />
+            <Route path='/managegamelists' element={<PrivateRoute><ManageGameLists /></PrivateRoute>} />
             {/* Games */}
             {/* Demo */}
             <Route path='/Demo' element={<PrivateRoute><Demo /></PrivateRoute>} />
