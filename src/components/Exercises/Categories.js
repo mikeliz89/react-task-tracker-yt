@@ -102,6 +102,26 @@ export const MovementCategories = [
         "id": 7,
         "name": "other"
     },
+    {
+        //Olkapäät
+        "id": 8,
+        "name": "shoulders"
+    },
+    {
+        //Pakarat
+        "id": 9,
+        "name": "glutes"
+    },
+    {
+        //Lavat
+        "id": 10,
+        "name": "scapularis"
+    },
+    {
+        //Pohkeet
+        "id": 11,
+        "name": "calves"
+    }
 ]
 
 export function getTitleByCategory(category) {
