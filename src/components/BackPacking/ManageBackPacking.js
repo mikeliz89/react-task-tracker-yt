@@ -21,7 +21,7 @@ export default function ManageBackPacking() {
             <div className="page-content">
                 <Link to="/managegear" className='btn btn-primary'>{t('button_manage_gear')}</Link>
                 &nbsp;
-                <Link to="/backpackinglists" className='btn btn-primary'>
+                <Link to="/managebackpackinglists" className='btn btn-primary'>
                     <Icon name='list-alt' color='white' />
                     {t('button_manage_backpacking_lists')}
                 </Link>
