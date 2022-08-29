@@ -124,12 +124,13 @@
         }
     },
     "drinks": {
-        "button_close": "Close",
         "button_add_drinks": "Add Drink",
         "button_add_drinkingproduct": "Add Drinking Product",
         "button_add_incredient": "Add Incredient",
         "button_add_workphase": "Add Workphase",
+        "button_close": "Close",
         "button_edit": "Edit Drink",
+        "button_manage_drinkingproducts": "Drinking Products",
         "button_save_drink": "Save Drink",
         "category": "Category",
         "category_build": "Built",
@@ -175,7 +176,6 @@
         "incredient_save_button_text": "Save",
         "incredient_unit": "Unit",
         "manage_drinkingproducts_title": "Drinking Products",
-        "manage_drinkingproducts_button": "Drinking Products",
         "manage_drinks_title": "Drinks",
         "modified": "Modified",
         "name": "Name",

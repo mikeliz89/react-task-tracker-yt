@@ -25,6 +25,7 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import Alert from '../Alert';
 //recipetypes
 import { RecipeTypes } from '../../utils/Enums';
+import Icon from '../Icon';
 
 export default function ManageDrinks() {
 
@@ -122,7 +123,18 @@ export default function ManageDrinks() {
             </Row>
             <PageTitle title={t('manage_drinks_title')} />
             <div className="page-content">
-                <Link to="/managedrinkingproducts" className='btn btn-primary'>{t('manage_drinkingproducts_button')}</Link>
+                
+                <div>
+                    <Link to="/managedrinkingproducts" className='btn btn-primary'>
+                        <Icon name='wine-bottle' color='white' />
+                        {t('button_manage_drinkingproducts')}
+                    </Link>
+                    &nbsp;
+                    <Link to="/managedrinklists" className='btn btn-primary'>
+                        <Icon name='list-alt' color='white' />
+                        {t('button_drinklists')}
+                    </Link>
+                </div>
 
                 <Alert message={message} showMessage={showMessage}
                     error={error} showError={showError}

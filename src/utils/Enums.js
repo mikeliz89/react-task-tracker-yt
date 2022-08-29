@@ -43,6 +43,11 @@ export const ListTypesArray = [
         "name": "food"
     },
     {
+        //Juoma
+        "id": 2,
+        "name": "drink"
+    },
+    {
         //koodaus
         "id": 3,
         "name": "programming"
@@ -56,6 +61,11 @@ export const ListTypesArray = [
         //auto
         "id": 5,
         "name": "car"
+    },
+    {
+        //pelit
+        "id": 6,
+        "name": "games"
     },
     {
         //retkeily
