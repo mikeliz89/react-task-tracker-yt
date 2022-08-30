@@ -30,6 +30,7 @@ const AddMovement = ({ movementID, onClose }) => {
     const [name, setName] = useState('');
     const [created, setCreated] = useState();
     const [createdBy, setCreatedBy] = useState();
+    const [stars, setStars] = useState(0);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -70,6 +71,7 @@ const AddMovement = ({ movementID, onClose }) => {
                 setCreated(val["created"]);
                 setCreatedBy(val["createdBy"]);
                 setCategory(val["category"]);
+                setStars(val["stars"]);
             }
         });
     }
@@ -91,7 +93,7 @@ const AddMovement = ({ movementID, onClose }) => {
             return;
         }
 
-        const obj = { name, category };
+        const obj = { name, category, stars };
         if (movementID === undefined) {
             addMovement(obj);
         } else {

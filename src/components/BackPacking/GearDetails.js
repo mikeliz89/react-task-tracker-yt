@@ -7,9 +7,9 @@ import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from "i18next";
 //firebase
 import { db } from '../../firebase-config';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, child, push, update } from "firebase/database";
 //utils
-import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
 //buttons
 import GoBackButton from '../../components/GoBackButton';
@@ -24,11 +24,15 @@ import Comments from '../Comments/Comments';
 //Links
 import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
+//auth
+import { useAuth } from '../../contexts/AuthContext';
 
 function GearDetails() {
 
     //constants
     const DB_GEAR = "/backpacking-gear";
+    const DB_GEAR_COMMENTS = '/backpacking-gear-comments';
+    const DB_GEAR_LINKS = '/backpacking-gear-links';
     const TRANSLATION = 'backpacking';
 
     //translation
@@ -43,6 +47,9 @@ function GearDetails() {
 
     //navigation
     const navigate = useNavigate();
+
+    //auth
+    const { currentUser } = useAuth();
 
     //load data
     useEffect(() => {
@@ -62,6 +69,31 @@ function GearDetails() {
             setGear(data);
             setLoading(false);
         })
+    }
+
+    const saveStars = async (stars) => {
+        const id = params.id;
+        const updates = {};
+        gear["modified"] = getCurrentDateAsJson()
+        gear["stars"] = Number(stars);
+        updates[`${DB_GEAR}/${id}`] = gear;
+        update(ref(db), updates);
+    }
+
+    const addCommentToGear = (comment) => {
+        const id = params.id;
+        comment["created"] = getCurrentDateAsJson();
+        comment["createdBy"] = currentUser.email;
+        comment["creatorUserID"] = currentUser.uid;
+        const dbref = child(ref(db, DB_GEAR_COMMENTS), id);
+        push(dbref, comment);
+    }
+
+    const addLinkToGear = (link) => {
+        const id = params.id;
+        link["created"] = getCurrentDateAsJson();
+        const dbref = child(ref(db, DB_GEAR_LINKS), id);
+        push(dbref, link);
     }
 
     return loading ? (
@@ -115,10 +147,17 @@ function GearDetails() {
                     <StarRating starCount={gear.stars} />
                 </Col>
             </Row>
+            <Row>
+                <Col>
+                    <SetStarRating starCount={gear.stars} onSaveStars={saveStars} />
+                    <AddComment onSave={addCommentToGear} />
+                    <AddLink onSaveLink={addLinkToGear} />
+                </Col>
+            </Row>
             <div className="page-content">
                 <hr />
-                <Comments objID={params.id} url={'drink-comments'} />
-                <Links objID={params.id} url={'drink-links'} />
+                <Comments objID={params.id} url={'backpacking-gear-comments'} />
+                <Links objID={params.id} url={'backpacking-gear-links'} />
             </div>
         </div>
     )

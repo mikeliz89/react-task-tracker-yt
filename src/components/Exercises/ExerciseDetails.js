@@ -32,9 +32,13 @@ import i18n from "i18next";
 import PageTitle from "../PageTitle";
 //alert
 import Alert from "../Alert";
+//Links
+import AddLink from '../Links/AddLink';
+import Links from '../Links/Links';
 
 const ExerciseDetails = () => {
 
+    const DB_EXERCISE_LINKS = '/exercise-links';
     const DB_EXERCISE_COMMENTS = '/exercise-comments';
     const DB_EXERCISES = '/exercises';
 
@@ -99,6 +103,13 @@ const ExerciseDetails = () => {
         push(dbref, comment);
     }
 
+    const addLinkToExercise = (link) => {
+        const id = params.id;
+        link["created"] = getCurrentDateAsJson();
+        const dbref = child(ref(db, DB_EXERCISE_LINKS), id);
+        push(dbref, link);
+    }
+
     return (
         loading ? (
             <h3>{t('loading')}</h3>
@@ -160,8 +171,8 @@ const ExerciseDetails = () => {
                         variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
                     <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
-
                     <AddComment onSave={addCommentToExercise} />
+                    <AddLink onSaveLink={addLinkToExercise} />
 
                     <Row>
                         <Col>
@@ -190,6 +201,7 @@ const ExerciseDetails = () => {
                             iconName={getIconNameByCategory(exercise.category)} />
                     }
                     <Comments objID={params.id} url={'exercise-comments'} />
+                    <Links objID={params.id} url={'exercise-links'} />
                 </div>
             </div>
         )

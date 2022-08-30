@@ -1,7 +1,7 @@
 //react
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-//star rating
+//StarRating
 import StarRating from '../StarRating/StarRating';
 //exercises
 import { getIconNameByCategory } from './Categories';
