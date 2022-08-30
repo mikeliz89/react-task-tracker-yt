@@ -154,11 +154,14 @@ export default function DrinkDetails() {
         })
     }
 
-    const addDrink = async (drink) => {
+    const updateDrink = async (drink) => {
         try {
             var drinkID = params.id;
             const updates = {};
             drink["modified"] = getCurrentDateAsJson();
+            if (drink["isCore"] === undefined) {
+                drink["isCore"] = false;
+            }
             if (drink["glass"] === undefined) {
                 drink["glass"] = '';
             }
@@ -315,7 +318,9 @@ export default function DrinkDetails() {
                     error={error} showError={showError}
                     variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-                {showEditDrink && <AddDrink onAddDrink={addDrink} drinkID={params.id} onClose={() => setShowEditDrink(false)} />}
+                {showEditDrink &&
+                    <AddDrink onSave={updateDrink} drinkID={params.id} onClose={() => setShowEditDrink(false)} />
+                }
 
                 <Tabs defaultActiveKey="incredients"
                     id="drinkDetails-Tab"

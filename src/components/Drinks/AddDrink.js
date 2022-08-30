@@ -12,7 +12,7 @@ import { DrinkCategories } from './Categories';
 //link component
 // import AddLink from '../Links/AddLink';
 
-const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
+const AddDrink = ({ drinkID, onSave, onClose }) => {
 
    const DB_DRINKS = "/drinks";
 
@@ -81,7 +81,8 @@ const AddDrink = ({ drinkID, onAddDrink, onClose }) => {
          return;
       }
 
-      onAddDrink({ created, createdBy, title, description, category, glass, stars, isCore });
+      //add / update
+      onSave({ created, createdBy, title, description, category, glass, stars, isCore });
 
       if (drinkID == null) {
          clearForm();

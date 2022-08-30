@@ -89,6 +89,9 @@ export default function ManageDrinks() {
         try {
             drink["created"] = getCurrentDateAsJson();
             drink["createdBy"] = currentUser.email;
+            if (drink["isCore"] === undefined) {
+                drink["isCore"] = false;
+            }
             const dbref = ref(db, DB_DRINKS);
             push(dbref, drink)
                 .then((snap) => {
@@ -123,7 +126,7 @@ export default function ManageDrinks() {
             </Row>
             <PageTitle title={t('manage_drinks_title')} />
             <div className="page-content">
-                
+
                 <div>
                     <Link to="/managedrinkingproducts" className='btn btn-primary'>
                         <Icon name='wine-bottle' color='white' />
@@ -140,7 +143,9 @@ export default function ManageDrinks() {
                     error={error} showError={showError}
                     variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-                {showAddDrink && <AddDrink onAddDrink={addDrink} onClose={() => setShowAddDrink(false)} />}
+                {showAddDrink &&
+                    <AddDrink onSave={addDrink} onClose={() => setShowAddDrink(false)} />
+                }
 
                 <SearchSortFilter
                     showFilterCore={true}
