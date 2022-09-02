@@ -25,7 +25,7 @@ export default function Dashboard() {
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={`/manageshoppinglists`}>
-                        <BigButton imageName="shoppinglists.PNG" textcolor="black" color="#fcba03" text={t('shoppinglists')}
+                        <BigButton imageName="shoppinglists.png" textcolor="black" color="#fcba03" text={t('shoppinglists')}
                             iconName='check-square' />
                     </Link>
                 </Col>
