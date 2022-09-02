@@ -24,6 +24,12 @@ export default function Dashboard() {
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
+                    <Link to={`/manageshoppinglists`}>
+                        <BigButton imageName="shoppinglists.PNG" textcolor="black" color="#fcba03" text={t('shoppinglists')}
+                            iconName='check-square' />
+                    </Link>
+                </Col>
+                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={`/managetasklists`}>
                         <BigButton imageName="tasklists.PNG" textcolor="black" color="#fcba03" text={t('tasklists')}
                             iconName='check-square' />
@@ -35,14 +41,14 @@ export default function Dashboard() {
                             iconName='weight' />
                     </Link>
                 </Col>
+            </Row>
+            <Row>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={'/managedrinks'}>
                         <BigButton imageName="cocktail.jpg" textcolor="black" color="#f9a9d5" text={t('drinks')}
                             iconName='glass-martini' />
                     </Link>
                 </Col>
-            </Row>
-            <Row>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={'/manageexercises'}>
                         <BigButton imageName="exercises.PNG" textcolor="black" color="#ef7c1a" text={t('exercises')}
@@ -61,14 +67,14 @@ export default function Dashboard() {
                             iconName='car' />
                     </Link>
                 </Col>
+            </Row>
+            <Row>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={'/managebackpacking'}>
                         <BigButton imageName="backpacking.jpg" textcolor="black" color="#0cb058" text={t('backpacking')}
                             iconName='campground' />
                     </Link>
                 </Col>
-            </Row>
-            <Row>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={'/managemusic'}>
                         <BigButton imageName="music.jpg" textcolor="black" color="#0cb058" text={t('music')} />

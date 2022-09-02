@@ -25,7 +25,7 @@ import Alert from '../Alert';
 //proptypes
 import PropTypes from 'prop-types';
 //recipetypes
-import { RecipeTypes } from '../../utils/Enums';
+import { ListTypes, RecipeTypes } from '../../utils/Enums';
 
 const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
 
@@ -60,7 +60,7 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
         if (incredients && incredients.length > 0) {
             let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
             addTaskList({ title: `${t('shoppinglist')} ${currentDateTime}` }, incredients).then(() => {
-                navigate('/managetasklists')
+                navigate('/manageshoppinglists')
             });
         } else if (incredients && incredients.length <= 0) {
             setError("Ei yhtään ainesosaa. Ostoslistaa ei voitu luoda"); //todo: kieleistys
@@ -83,6 +83,8 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
     const addTaskList = async (taskList, incredients) => {
         taskList["created"] = getCurrentDateAsJson();
         taskList["createdBy"] = currentUser.email;
+        taskList["description"] = "";
+        taskList["listType"] = ListTypes.Shopping;
         const dbref = ref(db, DB_TASKLISTS);
 
         push(dbref, taskList)

@@ -160,6 +160,9 @@ function TaskListDetails() {
     if (taskList["listType"] === undefined || taskList["listType"] === 0) {
       delete taskList["listType"];
     }
+    if(taskList["description"] === undefined) {
+      taskList["description"] = "";
+    }
     const updates = {};
     taskList["modified"] = getCurrentDateAsJson();
     updates[`${DB_TASK_LISTS}/${taskListID}`] = taskList;

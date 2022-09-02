@@ -139,9 +139,10 @@
             "games": "Pelit",
             "links_list": "Linkit",
             "music": "Musiikki",
+            "programming": "Koodaus",
             "recipes": "Reseptit",
-            "tasklists": "Tehtävälistat",
-            "programming": "Koodaus"
+            "shoppinglists": "Ostoslistat",
+            "tasklists": "Tehtävälistat"
         }
     },
     "drinks": {
@@ -522,6 +523,7 @@
         "button_save_task": "Tallenna tehtävä",
         "category": "Listan kategoria",
         "category_none": "Tehtävälista",
+        "category_shopping": "Ostoslista",
         "category_backpacking": "Retkeily",
         "category_car": "Auto",
         "category_drink": "Juoma",
@@ -546,6 +548,7 @@
         "manage_music_title": "Musiikkilistat",
         "manage_programming_title": "Koodaus",
         "manage_recipe_title": "Reseptilistat",
+        "manage_shoppinglists_title": "Ostoslistat",
         "manage_tasklists_archive_title": "Arkisto",
         "manage_tasklists_title": "Tehtävälistat",
         "mark_all_tasks_done": "Merkkaa kaikki tehdyiksi",

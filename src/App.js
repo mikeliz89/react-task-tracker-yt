@@ -78,6 +78,8 @@ import ManageGameLists from './components/Games/ManageGameLists';
 import LinksList from './components/Links/LinksList';
 //Programming
 import ManageProgramming from './components/Programming/ManageProgramming';
+//ShoppingLists
+import ManageShoppingLists from './components/ShoppingList/ManageShoppingLists';
 
 //React icons: https://react-icons.github.io/react-icons/icons?name=fa
 //Icon instructions: https://fontawesome.com/v5/docs/web/use-with/react
@@ -190,6 +192,9 @@ function App() {
             {/* Links */}
             <Route path='/linkslist' element={<PrivateRoute><LinksList /></PrivateRoute>} />
             {/* Links */}
+            {
+              <Route path='/manageshoppinglists' element={<PrivateRoute><ManageShoppingLists /></PrivateRoute>} />
+            }
           </Routes>
           <Footer />
         </AuthProvider>

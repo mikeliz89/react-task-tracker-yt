@@ -27,7 +27,9 @@ export const ListTypes = {
     /** Liikunta */
     Exercises: 7,
     /** Retkeily */
-    BackPacking: 8
+    BackPacking: 8,
+    /** Kauppalista */
+    Shopping: 9,
 }
 
 /* Listatyypit (kategoriat alasvetovalikossa) */
@@ -71,5 +73,10 @@ export const ListTypesArray = [
         //retkeily
         "id": 8,
         "name": "backpacking"
+    },
+    {
+        //ostoslistat
+        "id": 9,
+        "name": "shopping"
     }
 ]
