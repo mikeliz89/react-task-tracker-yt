@@ -35,8 +35,8 @@ const BmiCalculator = () => {
 
     //states
     const [BMI, setBMI] = useState(0);
-    const [weight, setWeight] = useState(0);
-    const [height, setHeight] = useState(0);
+    const [height, setHeight] = useState();
+    const [weight, setWeight] = useState();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -137,12 +137,12 @@ const BmiCalculator = () => {
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="bmiCalculatorForm-Height">
                     <Form.Label>{t('height')}</Form.Label>
-                    <Form.Control type='number' placeholder={t('height')} value={height} 
+                    <Form.Control type='number' step='any' placeholder={t('height')} value={height} 
                     onChange={(e) => setHeight(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="bmiCalculatorForm-Weight">
                     <Form.Label>{t('weight')}</Form.Label>
-                    <Form.Control type='number' placeholder={t('weight')} value={weight} 
+                    <Form.Control type='number' step='any' placeholder={t('weight')} value={weight} 
                     onChange={(e) => setWeight(e.target.value)} />
                 </Form.Group>
                 <Button type='submit' text={t('calculate_bmi')} className='btn btn-block' />
