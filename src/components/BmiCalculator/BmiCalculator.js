@@ -35,8 +35,8 @@ const BmiCalculator = () => {
 
     //states
     const [BMI, setBMI] = useState(0);
-    const [weight, setWeight] = useState();
-    const [height, setHeight] = useState();
+    const [weight, setWeight] = useState(0);
+    const [height, setHeight] = useState(0);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
