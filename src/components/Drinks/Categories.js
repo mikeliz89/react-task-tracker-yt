@@ -44,6 +44,11 @@ export const DrinkCategories = [
         //booli
         "id": 8,
         "name": "bool"
+    },
+    {
+        //lämmin drinkki
+        "id": 9,
+        "name": "warm"
     }
 ]
 
