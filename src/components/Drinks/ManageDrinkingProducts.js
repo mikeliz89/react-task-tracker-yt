@@ -24,6 +24,7 @@ import Alert from '../Alert';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
 import Counter from '../Counter';
+import CenterWrapper from '../CenterWrapper';
 
 const ManageDrinkingProducts = () => {
 
@@ -157,7 +158,11 @@ const ManageDrinkingProducts = () => {
                             onEdit={editDrinkingProduct} />
                     </>
                 ) : (
-                    t('no_drinkingproducts_to_show')
+                    <>
+                        <CenterWrapper>
+                            {t('no_drinkingproducts_to_show')}
+                        </CenterWrapper>
+                    </>
                 )
             }
             <ScrollToTop />

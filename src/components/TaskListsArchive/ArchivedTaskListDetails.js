@@ -17,6 +17,7 @@ import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 //pagetitle
 import PageTitle from '../PageTitle';
 import PageContentWrapper from '../PageContentWrapper';
+import CenterWrapper from '../CenterWrapper';
 
 export default function ArchivedTaskListDetails() {
 
@@ -144,7 +145,11 @@ export default function ArchivedTaskListDetails() {
             tasks={tasks}
           />
         ) : (
-          t('no_tasks_to_show')
+          <>
+            <CenterWrapper>
+              {t('no_tasks_to_show')}
+            </CenterWrapper>
+          </>
         )}
       </PageContentWrapper>
     </div>

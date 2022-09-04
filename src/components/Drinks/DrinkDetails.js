@@ -40,6 +40,7 @@ import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
+import CenterWrapper from '../CenterWrapper';
 
 export default function DrinkDetails() {
 
@@ -350,7 +351,11 @@ export default function DrinkDetails() {
                                 onDelete={deleteIncredient}
                             />
                         ) : (
-                            <p> {t('no_incredients_to_show')} </p>
+                            <>
+                                <CenterWrapper>
+                                    {t('no_incredients_to_show')}
+                                </CenterWrapper>
+                            </>
                         )}
                     </Tab>
                     <Tab eventKey="workPhases" title={t('workphases_header')}>
@@ -374,7 +379,11 @@ export default function DrinkDetails() {
                                 onDelete={deleteWorkPhase}
                             />
                         ) : (
-                            <p> {t('no_workphases_to_show')} </p>
+                            <>
+                                <CenterWrapper>
+                                    {t('no_workphases_to_show')}
+                                </CenterWrapper>
+                            </>
                         )}
                     </Tab>
                     <Tab eventKey="garnishes" title={t('garnishes_header')}>
@@ -395,7 +404,11 @@ export default function DrinkDetails() {
                                 onDelete={deleteGarnish}
                             />
                         ) : (
-                            <p> {t('no_garnishes_to_show')} </p>
+                            <>
+                                <CenterWrapper>
+                                    {t('no_garnishes_to_show')}
+                                </CenterWrapper>
+                            </>
                         )}
                     </Tab>
                     <Tab eventKey="actions" title="Toiminnot">
@@ -418,7 +431,11 @@ export default function DrinkDetails() {
                             recipeHistories={drinkHistory}
                             recipeID={params.id} />
                     ) : (
-                        t('no_drink_history')
+                        <>
+                            <CenterWrapper>
+                                {t('no_drink_history')}
+                            </CenterWrapper>
+                        </>
                     )
                 }
                 <Comments objID={params.id} url={'drink-comments'} />

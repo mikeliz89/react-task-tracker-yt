@@ -39,6 +39,7 @@ import Alert from '../Alert';
 import StarRating from '../StarRating/StarRating';
 import RecipeHistories from './RecipeHistories';
 import PageContentWrapper from '../PageContentWrapper';
+import CenterWrapper from '../CenterWrapper';
 
 export default function RecipeDetails() {
 
@@ -318,7 +319,11 @@ export default function RecipeDetails() {
                                 onDelete={deleteIncredient}
                             />
                         ) : (
-                            <p> {t('no_incredients_to_show')} </p>
+                            <>
+                                <CenterWrapper>
+                                    {t('no_incredients_to_show')}
+                                </CenterWrapper>
+                            </>
                         )}
                     </Tab>
                     <Tab eventKey="workPhases" title={t('workphases_header')}>
@@ -346,7 +351,11 @@ export default function RecipeDetails() {
                                 onDelete={deleteWorkPhase}
                             />
                         ) : (
-                            <p> {t('no_workphases_to_show')} </p>
+                            <>
+                                <CenterWrapper>
+                                    {t('no_workphases_to_show')}
+                                </CenterWrapper>
+                            </>
                         )}
                     </Tab>
                     <Tab eventKey="actions" title="Toiminnot">

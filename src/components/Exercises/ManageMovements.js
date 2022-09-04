@@ -102,7 +102,11 @@ function ManageMovements() {
                                 onDelete={deleteMovement} />
                         </>
                     ) : (
-                        t('no_movements_to_show')
+                        <>
+                            <CenterWrapper>
+                                {t('no_movements_to_show')}
+                            </CenterWrapper>
+                        </>
                     )
                 }
             </PageContentWrapper>

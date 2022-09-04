@@ -24,6 +24,7 @@ import Alert from '../Alert';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
 import Counter from '../Counter';
+import CenterWrapper from '../CenterWrapper';
 
 const ManageFoodItems = () => {
 
@@ -155,7 +156,11 @@ const ManageFoodItems = () => {
                             onEdit={editFoodItem} />
                     </>
                 ) : (
-                    t('no_fooditems_to_show')
+                    <>
+                        <CenterWrapper>
+                            {t('no_fooditems_to_show')}
+                        </CenterWrapper>
+                    </>
                 )
             }
             <ScrollToTop />

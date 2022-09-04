@@ -19,6 +19,7 @@ import PageTitle from '../PageTitle';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+import CenterWrapper from '../CenterWrapper';
 
 export default function Car() {
 
@@ -131,7 +132,11 @@ export default function Car() {
                         <CarFuelings
                             carFuelings={carFuelings} onDelete={deleteFueling} />
                     ) : (
-                        t('no_car_fuelings')
+                        <>
+                            <CenterWrapper>
+                                {t('no_car_fuelings')}
+                            </CenterWrapper>
+                        </>
                     )
                 }
             </div>

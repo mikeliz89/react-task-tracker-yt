@@ -103,7 +103,11 @@ const ManageExercises = () => {
                 onDelete={deleteExercise} />
             </>
           ) : (
-            t('no_exercises_to_show')
+            <>
+              <CenterWrapper>
+                {t('no_exercises_to_show')}
+              </CenterWrapper>
+            </>
           )
         }
       </PageContentWrapper>

@@ -190,10 +190,8 @@ export const getCategoryContent = (recipeType, category) => {
     switch (recipeType) {
         case RecipeTypes.Food:
             return getRecipeCategoryNameByID(category);
-        //return '#' + t('category_' + getRecipeCategoryNameByID(category));
         case RecipeTypes.Drink:
             return getDrinkCategoryNameByID(category);
-        //return '#' + t('category_' + getDrinkCategoryNameByID(category));
         default: return '';
     }
 }

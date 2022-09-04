@@ -30,6 +30,7 @@ import Icon from '../Icon';
 import ScrollToTop from '../ScrollToTop';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
+import CenterWrapper from '../CenterWrapper';
 
 const ManageRecipes = () => {
 
@@ -176,7 +177,11 @@ const ManageRecipes = () => {
                 onDelete={deleteRecipe} />
             </>
           ) : (
-            t('no_recipes_to_show')
+            <>
+              <CenterWrapper>
+                {t('no_recipes_to_show')}
+              </CenterWrapper>
+            </>
           )
         }
         {/* { <pre>{JSON.stringify(recipes)}</pre> } */}

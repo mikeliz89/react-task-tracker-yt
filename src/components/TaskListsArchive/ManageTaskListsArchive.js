@@ -11,6 +11,7 @@ import TaskLists from '../../components/TaskList/TaskLists';
 //pagetitle
 import PageTitle from '../PageTitle';
 import PageContentWrapper from '../PageContentWrapper';
+import CenterWrapper from '../CenterWrapper';
 
 /** TODO: ohjaa listaTypen mukaiseen arkistoon esim Programming osion listoilta */
 const ManageTaskListsArchive = ({ listType }) => {
@@ -75,9 +76,11 @@ const ManageTaskListsArchive = ({ listType }) => {
             onDelete={deleteTaskList}
           />
         ) : (
-          <div>
-            {t('no_task_lists_to_show')}
-          </div>
+          <>
+            <CenterWrapper>
+              {t('no_task_lists_to_show')}
+            </CenterWrapper>
+          </>
         )
         }
       </PageContentWrapper>

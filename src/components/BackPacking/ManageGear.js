@@ -27,6 +27,7 @@ import Alert from '../Alert';
 import ScrollToTop from '../ScrollToTop';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
+import CenterWrapper from '../CenterWrapper';
 
 export default function ManageGear() {
 
@@ -145,7 +146,11 @@ export default function ManageGear() {
                                 onDelete={deleteGear} />
                         </>
                     ) : (
-                        t('no_gear_to_show')
+                        <>
+                            <CenterWrapper>
+                                {t('no_gear_to_show')}
+                            </CenterWrapper>
+                        </>
                     )
                 }
             </PageContentWrapper>

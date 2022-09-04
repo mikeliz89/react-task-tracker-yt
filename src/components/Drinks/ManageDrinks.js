@@ -30,6 +30,7 @@ import Icon from '../Icon';
 import ScrollToTop from '../ScrollToTop';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
+import CenterWrapper from '../CenterWrapper';
 
 export default function ManageDrinks() {
 
@@ -177,7 +178,11 @@ export default function ManageDrinks() {
                                 onDelete={deleteDrink} />
                         </>
                     ) : (
-                        t('no_drinks_to_show')
+                        <>
+                            <CenterWrapper>
+                                {t('no_drinks_to_show')}
+                            </CenterWrapper>
+                        </>
                     )
                 }
             </PageContentWrapper>

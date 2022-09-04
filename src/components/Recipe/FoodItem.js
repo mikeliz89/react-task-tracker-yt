@@ -11,11 +11,13 @@ import Icon from '../Icon';
 
 const FoodItem = ({ foodItem, onDelete, onEdit }) => {
 
+    const TRANSLATION = 'recipe';
+
     //states
     const [editable, setEditable] = useState(false);
 
     //translation
-    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
 
     const markHaveAtHome = () => {
         foodItem["haveAtHome"] = true;
@@ -34,7 +36,7 @@ const FoodItem = ({ foodItem, onDelete, onEdit }) => {
 
     return (
 
-        <div className='recipe'>
+        <div className={TRANSLATION}>
             <h5>
                 <span>
                     {foodItem.name}
@@ -48,7 +50,6 @@ const FoodItem = ({ foodItem, onDelete, onEdit }) => {
                 </span>
             </h5>
             <p>{t('fooditem_calories')}: {foodItem.calories}</p>
-
             <p>{t('fooditem_category')}: {
                 t('fooditem_category_' + getFoodItemCategoryNameByID(foodItem.category))
             }</p>
