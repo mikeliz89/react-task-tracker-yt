@@ -2,10 +2,16 @@
 import Button from "../Button";
 //react
 import { useTranslation } from 'react-i18next';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Row, Col, ButtonGroup } from "react-bootstrap";
+//firebase
+import { ref, get } from 'firebase/database';
+import { db } from '../../firebase-config';
 
-function AddPartsGymForm({ exerciseID, onAddPart, onClose }) {
+function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {
+
+    //constants
+    const DB_GYMPART = '/exercise-parts';
 
     //translation  
     const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
@@ -17,6 +23,30 @@ function AddPartsGymForm({ exerciseID, onAddPart, onClose }) {
     const [repeat, setRepeat] = useState(0); //toistot
     const [series, setSeries] = useState(1); //sarjoja
 
+    useEffect(() => {
+        console.log(gymPartID);
+        if (gymPartID != null) {
+            const getGymPart = async () => {
+                await fetchGymPartFromFirebase(gymPartID);
+            }
+            getGymPart();
+        }
+    }, [gymPartID]);
+
+    const fetchGymPartFromFirebase = async (gymPartID) => {
+
+        const dbref = ref(db, `${DB_GYMPART}/${exerciseID}/${gymPartID}`);
+        get(dbref).then((snapshot) => {
+            if (snapshot.exists()) {
+                var val = snapshot.val();
+                setName(val["name"]);
+                setWeight(val["weight"]);
+                setRepeat(val["repeat"]);
+                setSeries(val["series"]);
+            }
+        });
+    }
+
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -26,7 +56,7 @@ function AddPartsGymForm({ exerciseID, onAddPart, onClose }) {
             return;
         }
 
-        onAddPart(exerciseID, { name, weight, repeat, series })
+        onSave(exerciseID, { name, weight, repeat, series })
 
         clearForm();
     }

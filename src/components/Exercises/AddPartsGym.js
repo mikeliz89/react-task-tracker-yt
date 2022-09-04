@@ -35,7 +35,6 @@ const AddPartsGym = () => {
     getParts();
   }, [])
 
-
   const fetchPartsFromFirebase = async () => {
     const dbref = await child(ref(db, DB_EXERCISE_PARTS), params.id);
     onValue(dbref, (snapshot) => {
@@ -61,7 +60,9 @@ const AddPartsGym = () => {
         color={showAddGymPart ? 'red' : 'steelblue'}
         text={showAddGymPart ? t('close') : t('gym_parts_add_button')}
         onClick={() => setShowAddGymPart(!showAddGymPart)} />
-      {showAddGymPart && <AddPartsGymForm exerciseID={params.id} onAddPart={addPart} onClose={() => setShowAddGymPart(false)} />}
+      {showAddGymPart &&
+        <AddPartsGymForm exerciseID={params.id} onSave={addPart} onClose={() => setShowAddGymPart(false)} />
+      }
       {parts != null && parts.length > 0 ?
         (<div><GymParts exerciseID={params.id} parts={parts} /></div>) :
         (<div>{t('gym_no_parts')} </div>)

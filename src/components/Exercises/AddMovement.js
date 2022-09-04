@@ -60,7 +60,6 @@ const AddMovement = ({ movementID, onClose }) => {
         }
     }, [movementID]);
 
-
     const fetchMovementFromFirebase = async (movementID) => {
 
         const dbref = ref(db, `${DB_MOVEMENTS}/${movementID}`);
