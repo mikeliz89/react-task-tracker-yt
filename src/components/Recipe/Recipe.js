@@ -11,7 +11,6 @@ import { db } from '../../firebase-config';
 import { ref, push, child, onValue } from "firebase/database";
 //utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { getRecipeCategoryNameByID, getDrinkCategoryNameByID } from '../../utils/ListUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //i18n
@@ -19,7 +18,7 @@ import i18n from "i18next";
 //icon
 import Icon from '../Icon';
 //categories
-import { getIconNameByCategory } from './Categories';
+import { getCategoryContent, getIncredientsUrl, getIconName, getViewDetailsUrl } from './Categories';
 //alert
 import Alert from '../Alert';
 //proptypes
@@ -70,7 +69,7 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
 
     const fetchIncredientsFromFirebase = async (recipeID) => {
         const incredients = [];
-        const dbref = await child(ref(db, getIncredientsUrl()), recipeID);
+        const dbref = await child(ref(db, getIncredientsUrl(recipeType)), recipeID);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             for (let id in snap) {
@@ -111,51 +110,15 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
         push(dbref, task);
     }
 
-    const getIconName = (category) => {
-        switch (recipeType) {
-            case RecipeTypes.Food:
-                return getIconNameByCategory(category);
-            case RecipeTypes.Drink:
-                return 'glass-martini';
-            default: return '';
-        }
-    }
-
     const getCategory = (category) => {
-        switch (recipeType) {
-            case RecipeTypes.Food:
-                return '#' + t('category_' + getRecipeCategoryNameByID(category));
-            case RecipeTypes.Drink:
-                return '#' + t('category_' + getDrinkCategoryNameByID(category));
-            default: return '';
-        }
-    }
-
-    const getIncredientsUrl = () => {
-        switch (recipeType) {
-            case RecipeTypes.Food:
-                return '/recipe-incredients';
-            case RecipeTypes.Drink:
-                return '/drink-incredients';
-            default: return '';
-        }
-    }
-
-    const getViewDetailsUrl = () => {
-        switch (recipeType) {
-            case RecipeTypes.Food:
-                return '/recipe';
-            case RecipeTypes.Drink:
-                return '/drink';
-            default: return '';
-        }
+        return '#' + t('category_' + getCategoryContent(recipeType, category));
     }
 
     return (
         <div className={recipe.isCore === true ? `${translation} coreRecipe` : translation}>
             <h5>
                 <span>
-                    <Icon name={getIconName(recipe.category)} color='gray' />
+                    <Icon name={getIconName(recipeType, recipe.category)} color='gray' />
                     {recipe.title}
                 </span>
                 <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
@@ -171,7 +134,7 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
             ) : ('')}
             <p>{recipe.description}</p>
             <p>
-                <Link className='btn btn-primary' to={`${getViewDetailsUrl()}/${recipe.id}`}>{t('view_details')}</Link>
+                <Link className='btn btn-primary' to={`${getViewDetailsUrl(recipeType)}/${recipe.id}`}>{t('view_details')}</Link>
                 <OverlayTrigger
                     placement="right"
                     delay={{ show: 250, hide: 400 }}

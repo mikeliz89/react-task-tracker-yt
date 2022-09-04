@@ -1,3 +1,6 @@
+import { ListTypes, RecipeTypes } from '../../utils/Enums';
+import { getRecipeCategoryNameByID, getDrinkCategoryNameByID } from '../../utils/ListUtils';
+
 /** Categories */
 export const Categories = {
     /** -Ei mikään- */
@@ -170,5 +173,47 @@ export function getIconNameByCategory(category) {
         //todo: koodaa lisää ikoneita eri ruuille
         default:
             return 'utensils';
+    }
+}
+
+export const getIconName = (recipeType, category) => {
+    switch (recipeType) {
+        case RecipeTypes.Food:
+            return getIconNameByCategory(category);
+        case RecipeTypes.Drink:
+            return 'glass-martini';
+        default: return '';
+    }
+}
+
+export const getCategoryContent = (recipeType, category) => {
+    switch (recipeType) {
+        case RecipeTypes.Food:
+            return getRecipeCategoryNameByID(category);
+        //return '#' + t('category_' + getRecipeCategoryNameByID(category));
+        case RecipeTypes.Drink:
+            return getDrinkCategoryNameByID(category);
+        //return '#' + t('category_' + getDrinkCategoryNameByID(category));
+        default: return '';
+    }
+}
+
+export const getIncredientsUrl = (recipeType) => {
+    switch (recipeType) {
+        case RecipeTypes.Food:
+            return '/recipe-incredients';
+        case RecipeTypes.Drink:
+            return '/drink-incredients';
+        default: return '';
+    }
+}
+
+export const getViewDetailsUrl = (recipeType) => {
+    switch (recipeType) {
+        case RecipeTypes.Food:
+            return '/recipe';
+        case RecipeTypes.Drink:
+            return '/drink';
+        default: return '';
     }
 }
