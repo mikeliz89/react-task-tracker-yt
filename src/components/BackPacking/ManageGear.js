@@ -23,6 +23,8 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from '../SearchSortFilter/SortModes';
 //alert
 import Alert from '../Alert';
+//import ScrollToTop
+import ScrollToTop from '../ScrollToTop';
 
 export default function ManageGear() {
 
@@ -138,6 +140,7 @@ export default function ManageGear() {
                     )
                 }
             </div>
+            <ScrollToTop />
         </div>
     )
 }

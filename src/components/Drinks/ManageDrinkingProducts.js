@@ -21,6 +21,8 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
+//ScrollToTop
+import ScrollToTop from '../ScrollToTop';
 
 const ManageDrinkingProducts = () => {
 
@@ -150,6 +152,7 @@ const ManageDrinkingProducts = () => {
                     t('no_drinkingproducts_to_show')
                 )
             }
+            <ScrollToTop />
         </div>
     )
 }

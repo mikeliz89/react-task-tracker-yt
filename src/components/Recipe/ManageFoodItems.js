@@ -21,6 +21,8 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
+//ScrollToTop
+import ScrollToTop from '../ScrollToTop';
 
 const ManageFoodItems = () => {
 
@@ -148,6 +150,7 @@ const ManageFoodItems = () => {
                     t('no_fooditems_to_show')
                 )
             }
+            <ScrollToTop />
         </div>
     )
 }

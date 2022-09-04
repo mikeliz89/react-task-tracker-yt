@@ -14,6 +14,8 @@ import { db } from '../../firebase-config';
 import { onValue, ref, remove } from 'firebase/database';
 //exercises
 import Movements from './Movements';
+//ScrollToTop
+import ScrollToTop from '../ScrollToTop';
 
 function ManageMovements() {
 
@@ -92,6 +94,7 @@ function ManageMovements() {
                     )
                 }
             </div>
+            <ScrollToTop />
         </>
     )
 }

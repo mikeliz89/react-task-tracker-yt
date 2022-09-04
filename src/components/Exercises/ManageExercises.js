@@ -14,6 +14,8 @@ import { onValue, ref, remove } from 'firebase/database';
 import PageTitle from '../PageTitle';
 //searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+//ScrollToTop
+import ScrollToTop from '../ScrollToTop';
 
 const ManageExercises = () => {
 
@@ -92,7 +94,7 @@ const ManageExercises = () => {
           )
         }
       </div>
-
+      <ScrollToTop />
     </div>
   )
 }
