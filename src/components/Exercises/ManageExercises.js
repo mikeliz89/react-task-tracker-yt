@@ -26,6 +26,7 @@ const ManageExercises = () => {
 
   //states
   const [loading, setLoading] = useState(true);
+  const [counter, setCounter] = useState(0);
   const [exercises, setExercises] = useState();
   const [originalExercises, setOriginalExercises] = useState();
 
@@ -51,9 +52,12 @@ const ManageExercises = () => {
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
+      let counterTemp = 0;
       for (let id in snap) {
+        counterTemp++;
         fromDB.push({ id, ...snap[id] });
       }
+      setCounter(counterTemp);
       setExercises(fromDB);
       setOriginalExercises(fromDB);
       setLoading(false);
@@ -63,6 +67,13 @@ const ManageExercises = () => {
   const deleteExercise = async (id) => {
     const dbref = ref(db, `${DB_EXERCISES}/${id}`);
     remove(dbref)
+  }
+
+  const getCounterText = () => {
+    if (originalExercises === undefined) {
+      return;
+    }
+    return exercises.length < originalExercises.length ? exercises.length + '/' + counter : counter + '';
   }
 
   return loading ? (
@@ -87,8 +98,13 @@ const ManageExercises = () => {
           showSortByCreatedDate={true} />
         {
           exercises != null && exercises.length > 0 ? (
-            <Exercises exercises={exercises}
-              onDelete={deleteExercise} />
+            <>
+              <div className='text-center'>
+                {getCounterText()}
+              </div>
+              <Exercises exercises={exercises}
+                onDelete={deleteExercise} />
+            </>
           ) : (
             t('no_exercises_to_show')
           )

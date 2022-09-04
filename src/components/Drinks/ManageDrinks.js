@@ -47,6 +47,8 @@ export default function ManageDrinks() {
     const [showAddDrink, setShowAddDrink] = useState(false);
     const [drinks, setDrinks] = useState();
     const [originalDrinks, setOriginalDrinks] = useState();
+    const [counter, setCounter] = useState(0);
+
     //alert
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
@@ -78,9 +80,12 @@ export default function ManageDrinks() {
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
+            let counterTemp = 0;
             for (let id in snap) {
+                counterTemp++;
                 fromDB.push({ id, ...snap[id] });
             }
+            setCounter(counterTemp);
             setLoading(false);
             setDrinks(fromDB);
             setOriginalDrinks(fromDB);
@@ -111,6 +116,13 @@ export default function ManageDrinks() {
     const deleteDrink = (id) => {
         const dbref = ref(db, `${DB_DRINKS}/${id}`);
         remove(dbref);
+    }
+
+    const getCounterText = () => {
+        if (originalDrinks === undefined) {
+            return;
+        }
+        return drinks.length < originalDrinks.length ? drinks.length + '/' + counter : counter + '';
     }
 
     return loading ? (
@@ -162,11 +174,16 @@ export default function ManageDrinks() {
                     originalList={originalDrinks} />
                 {
                     drinks != null && drinks.length > 0 ? (
-                        <Recipes
-                            translation={TRANSLATION}
-                            recipes={drinks}
-                            recipeType={RecipeTypes.Drink}
-                            onDelete={deleteDrink} />
+                        <>
+                            <div className='text-center'>
+                                {getCounterText()}
+                            </div>
+                            <Recipes
+                                translation={TRANSLATION}
+                                recipes={drinks}
+                                recipeType={RecipeTypes.Drink}
+                                onDelete={deleteDrink} />
+                        </>
                     ) : (
                         t('no_drinks_to_show')
                     )

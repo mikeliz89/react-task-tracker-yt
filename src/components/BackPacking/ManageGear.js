@@ -40,6 +40,7 @@ export default function ManageGear() {
     const [gear, setGear] = useState();
     const [originalGear, setOriginalGear] = useState();
     const [loading, setLoading] = useState(true);
+    const [counter, setCounter] = useState(0);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -72,9 +73,12 @@ export default function ManageGear() {
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
+            let counterTemp = 0;
             for (let id in snap) {
+                counterTemp++;
                 fromDB.push({ id, ...snap[id] });
             }
+            setCounter(counterTemp);
             setLoading(false);
             setGear(fromDB);
             setOriginalGear(fromDB);
@@ -108,6 +112,13 @@ export default function ManageGear() {
         remove(dbref)
     }
 
+    const getCounterText = () => {
+        if (originalGear === undefined) {
+            return;
+        }
+        return gear.length < originalGear.length ? gear.length + '/' + counter : counter + '';
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -133,8 +144,13 @@ export default function ManageGear() {
                 <SearchSortFilter onSet={setGear} originalList={originalGear} useNameFiltering={true} showSortByName={true} defaultSort={SortMode.Name_DESC} />
                 {
                     gear != null && gear.length > 0 ? (
-                        <Gears gears={gear}
-                            onDelete={deleteGear} />
+                        <>
+                            <div className='text-center'>
+                                {getCounterText()}
+                            </div>
+                            <Gears gears={gear}
+                                onDelete={deleteGear} />
+                        </>
                     ) : (
                         t('no_gear_to_show')
                     )

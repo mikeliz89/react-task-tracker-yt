@@ -27,6 +27,7 @@ function ManageMovements() {
     //states
     const [loading, setLoading] = useState(true);
     const [movements, setMovements] = useState();
+    const [counter, setCounter] = useState(0);
     const [originalMovements, setOriginalMovements] = useState();
 
     //load data
@@ -51,9 +52,12 @@ function ManageMovements() {
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
+            let counterTemp = 0;
             for (let id in snap) {
+                counterTemp++;
                 fromDB.push({ id, ...snap[id] });
             }
+            setCounter(counterTemp);
             setMovements(fromDB);
             setOriginalMovements(fromDB);
             setLoading(false);
@@ -63,6 +67,13 @@ function ManageMovements() {
     const deleteMovement = async (id) => {
         const dbref = ref(db, `${DB_MOVEMENTS}/${id}`);
         remove(dbref)
+    }
+
+    const getCounterText = () => {
+        if (originalMovements === undefined) {
+            return;
+        }
+        return movements.length < originalMovements.length ? movements.length + '/' + counter : counter + '';
     }
 
     return loading ? (
@@ -87,8 +98,13 @@ function ManageMovements() {
                     showSortByName={true} />
                 {
                     movements != null && movements.length > 0 ? (
-                        <Movements movements={movements}
-                            onDelete={deleteMovement} />
+                        <>
+                            <div className='text-center'>
+                                {getCounterText()}
+                            </div>
+                            <Movements movements={movements}
+                                onDelete={deleteMovement} />
+                        </>
                     ) : (
                         t('no_movements_to_show')
                     )

@@ -39,6 +39,7 @@ const ManageDrinkingProducts = () => {
     const [showAddDrinkingProduct, setShowAddDrinkingProduct] = useState(false);
     const [drinkingProducts, setDrinkingProducts] = useState();
     const [originalDrinkingProducts, setOriginalDrinkingProducts] = useState();
+    const [counter, setCounter] = useState(0);
     const [loading, setLoading] = useState(true);
 
     //alert
@@ -102,13 +103,23 @@ const ManageDrinkingProducts = () => {
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
+            let counterTemp = 0;
             for (let id in snap) {
+                counterTemp++;
                 fromDB.push({ id, ...snap[id] });
             }
+            setCounter(counterTemp);
             setDrinkingProducts(fromDB);
             setOriginalDrinkingProducts(fromDB);
             setLoading(false);
         })
+    }
+
+    const getCounterText = () => {
+        if (originalDrinkingProducts === undefined) {
+            return;
+        }
+        return drinkingProducts.length < originalDrinkingProducts.length ? drinkingProducts.length + '/' + counter : counter + '';
     }
 
     return loading ? (
@@ -145,9 +156,14 @@ const ManageDrinkingProducts = () => {
                 originalList={originalDrinkingProducts} />
             {
                 drinkingProducts != null && drinkingProducts.length > 0 ? (
-                    <DrinkingProducts drinkingProducts={drinkingProducts}
-                        onDelete={deleteDrinkingProduct}
-                        onEdit={editDrinkingProduct} />
+                    <>
+                        <div className='text-center'>
+                            {getCounterText()}
+                        </div>
+                        <DrinkingProducts drinkingProducts={drinkingProducts}
+                            onDelete={deleteDrinkingProduct}
+                            onEdit={editDrinkingProduct} />
+                    </>
                 ) : (
                     t('no_drinkingproducts_to_show')
                 )

@@ -41,6 +41,7 @@ const ManageRecipes = () => {
   const [showAddRecipe, setShowAddRecipe] = useState(false);
   const [recipes, setRecipes] = useState();
   const [originalRecipes, setOriginalRecipes] = useState();
+  const [counter, setCounter] = useState(0);
 
   //alert
   const [message, setMessage] = useState('');
@@ -79,9 +80,12 @@ const ManageRecipes = () => {
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
+      let counterTemp = 0;
       for (let id in snap) {
+        counterTemp++;
         fromDB.push({ id, ...snap[id] });
       }
+      setCounter(counterTemp);
       setLoading(false);
       setRecipes(fromDB);
       setOriginalRecipes(fromDB);
@@ -116,6 +120,13 @@ const ManageRecipes = () => {
   const deleteRecipe = async (id) => {
     const dbref = ref(db, `${DB_RECIPES}/${id}`);
     remove(dbref)
+  }
+
+  const getCounterText = () => {
+    if (originalRecipes === undefined) {
+      return;
+    }
+    return recipes.length < originalRecipes.length ? recipes.length + '/' + counter : counter + '';
   }
 
   return loading ? (
@@ -161,11 +172,16 @@ const ManageRecipes = () => {
           originalList={originalRecipes} />
         {
           recipes != null && recipes.length > 0 ? (
-            <Recipes
-              recipeType={RecipeTypes.Food}
-              translation={TRANSLATION}
-              recipes={recipes}
-              onDelete={deleteRecipe} />
+            <>
+              <div className='text-center'>
+                {getCounterText()}
+              </div>
+              <Recipes
+                recipeType={RecipeTypes.Food}
+                translation={TRANSLATION}
+                recipes={recipes}
+                onDelete={deleteRecipe} />
+            </>
           ) : (
             t('no_recipes_to_show')
           )

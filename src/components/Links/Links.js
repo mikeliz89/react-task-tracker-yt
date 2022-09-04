@@ -18,51 +18,39 @@ const Links = ({ url, objID }) => {
     //states
     const [loading, setLoading] = useState(true);
     const [links, setLinks] = useState({});
-    const [linkCounter, setLinkCounter] = useState(0);
+    const [counter, setCounter] = useState(0);
 
     //load data
     useEffect(() => {
         const getLinks = async () => {
-            if (objID != null) {
-                await fetchLinksFromFireBase(objID);
-            } else {
-                await fetchLinksFromFirebaseWithoutID();
-            }
+            await fetchLink(objID);
         }
         if (url !== "") {
             getLinks();
         }
     }, []);
 
-    const fetchLinksFromFireBase = async (myObjID) => {
-        const dbref = await child(ref(db, url), myObjID);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let linkCounterTemp = 0;
-            for (let id in snap) {
-                linkCounterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setLinks(fromDB);
-            setLinkCounter(linkCounterTemp);
-            setLoading(false);
-        })
+    const fetchLink = async (myObjID) => {
+        let dbref;
+        if (myObjID) {
+            dbref = child(ref(db, url), myObjID);
+        } else {
+            dbref = ref(db, url);
+        }
+        fetchFromFirebase(dbref);
     }
 
-    const fetchLinksFromFirebaseWithoutID = async () => {
-
-        const dbref = ref(db, url);
+    const fetchFromFirebase = (dbref) => {
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
-            let linkCounterTemp = 0;
+            let counterTemp = 0;
             for (let id in snap) {
-                linkCounterTemp++;
+                counterTemp++;
                 fromDB.push({ id, ...snap[id] });
             }
             setLinks(fromDB);
-            setLinkCounter(linkCounterTemp);
+            setCounter(counterTemp);
             setLoading(false);
         })
     }
@@ -94,7 +82,7 @@ const Links = ({ url, objID }) => {
             {/* <pre>{JSON.stringify(links)}</pre> */}
             <h4>
                 <Icon name='external-link-alt' color='gray' />
-                {t('header')} {linkCounter > 0 ? '(' + linkCounter + ')' : ''}
+                {t('header')} {counter > 0 ? '(' + counter + ')' : ''}
             </h4>
             {
                 links != null && links.length > 0 ? (
