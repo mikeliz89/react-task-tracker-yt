@@ -23,6 +23,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
+import CenterWrapper from '../CenterWrapper';
 
 const ManageFoodItems = () => {
 
@@ -35,10 +36,11 @@ const ManageFoodItems = () => {
     const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
 
     //states
+    const [loading, setLoading] = useState(true);
     const [showAddFoodItem, setShowAddFoodItem] = useState(false);
+    const [counter, setCounter] = useState(0);
     const [foodItems, setFoodItems] = useState();
     const [originalFoodItems, setOriginalFoodItems] = useState();
-    const [loading, setLoading] = useState(true);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -103,13 +105,23 @@ const ManageFoodItems = () => {
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
+            let counterTemp = 0;
             for (let id in snap) {
+                counterTemp++;
                 fromDB.push({ id, ...snap[id] });
             }
+            setCounter(counterTemp);
             setFoodItems(fromDB);
             setOriginalFoodItems(fromDB);
             setLoading(false);
         })
+    }
+
+    const getCounterText = () => {
+        if (originalFoodItems === undefined) {
+            return;
+        }
+        return foodItems.length < originalFoodItems.length ? foodItems.length + '/' + counter : counter + '';
     }
 
     return loading ? (
@@ -143,9 +155,14 @@ const ManageFoodItems = () => {
                 originalList={originalFoodItems} />
             {
                 foodItems != null && foodItems.length > 0 ? (
-                    <FoodItems foodItems={foodItems}
-                        onDelete={deleteFoodItem}
-                        onEdit={editFoodItem} />
+                    <>
+                        <CenterWrapper>
+                            {getCounterText()}
+                        </CenterWrapper>
+                        <FoodItems foodItems={foodItems}
+                            onDelete={deleteFoodItem}
+                            onEdit={editFoodItem} />
+                    </>
                 ) : (
                     t('no_fooditems_to_show')
                 )
