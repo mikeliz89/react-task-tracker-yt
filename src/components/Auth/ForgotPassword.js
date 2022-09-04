@@ -11,6 +11,7 @@ import Button from '../../components/Button';
 import Alert from '../Alert';
 //pagetitle
 import PageTitle from '../PageTitle';
+import CenterWrapper from '../CenterWrapper';
 
 export default function ForgotPassword() {
 
@@ -76,12 +77,12 @@ export default function ForgotPassword() {
                 </Form.Group>
                 <Button disabled={loading} type='submit' text={t('reset_password')} className='btn btn-block' />
             </Form>
-            <div className="text-center">
+            <CenterWrapper>
                 <Link to="/login">{t('log_in')}</Link>
-            </div>
-            <div className="text-center">
+            </CenterWrapper>
+            <CenterWrapper>
                 {t('need_an_account')} <Link to="/signup">{t('sign_up')}</Link>
-            </div>
+            </CenterWrapper>
         </div>
     )
 }

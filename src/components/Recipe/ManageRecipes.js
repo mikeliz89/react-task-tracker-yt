@@ -28,6 +28,7 @@ import { RecipeTypes } from '../../utils/Enums';
 import Icon from '../Icon';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
+import CenterWrapper from '../CenterWrapper';
 
 const ManageRecipes = () => {
 
@@ -173,9 +174,9 @@ const ManageRecipes = () => {
         {
           recipes != null && recipes.length > 0 ? (
             <>
-              <div className='text-center'>
+              <CenterWrapper>
                 {getCounterText()}
-              </div>
+              </CenterWrapper>
               <Recipes
                 recipeType={RecipeTypes.Food}
                 translation={TRANSLATION}

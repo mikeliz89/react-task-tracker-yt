@@ -25,6 +25,7 @@ import { SortMode } from '../SearchSortFilter/SortModes';
 import Alert from '../Alert';
 //import ScrollToTop
 import ScrollToTop from '../ScrollToTop';
+import CenterWrapper from '../CenterWrapper';
 
 export default function ManageGear() {
 
@@ -145,9 +146,9 @@ export default function ManageGear() {
                 {
                     gear != null && gear.length > 0 ? (
                         <>
-                            <div className='text-center'>
+                            <CenterWrapper>
                                 {getCounterText()}
-                            </div>
+                            </CenterWrapper>
                             <Gears gears={gear}
                                 onDelete={deleteGear} />
                         </>

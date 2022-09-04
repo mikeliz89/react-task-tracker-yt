@@ -28,6 +28,7 @@ import { RecipeTypes } from '../../utils/Enums';
 import Icon from '../Icon';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
+import CenterWrapper from '../CenterWrapper';
 
 export default function ManageDrinks() {
 
@@ -175,9 +176,9 @@ export default function ManageDrinks() {
                 {
                     drinks != null && drinks.length > 0 ? (
                         <>
-                            <div className='text-center'>
+                            <CenterWrapper>
                                 {getCounterText()}
-                            </div>
+                            </CenterWrapper>
                             <Recipes
                                 translation={TRANSLATION}
                                 recipes={drinks}

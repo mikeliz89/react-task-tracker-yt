@@ -16,6 +16,7 @@ import { onValue, ref, remove } from 'firebase/database';
 import Movements from './Movements';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
+import CenterWrapper from '../CenterWrapper';
 
 function ManageMovements() {
 
@@ -88,7 +89,9 @@ function ManageMovements() {
             </Row>
             <PageTitle title={t('manage_movements_title')} />
             <div className="page-content">
-                <p className="text-center">{t('movements')}</p>
+                <CenterWrapper>
+                    {t('movements')}
+                </CenterWrapper>
                 <SearchSortFilter
                     onSet={setMovements}
                     originalList={originalMovements}
@@ -99,9 +102,9 @@ function ManageMovements() {
                 {
                     movements != null && movements.length > 0 ? (
                         <>
-                            <div className='text-center'>
+                            <CenterWrapper>
                                 {getCounterText()}
-                            </div>
+                            </CenterWrapper>
                             <Movements movements={movements}
                                 onDelete={deleteMovement} />
                         </>

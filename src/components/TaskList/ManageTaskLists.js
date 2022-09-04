@@ -26,6 +26,7 @@ import { ListTypes } from '../../utils/Enums';
 import PropTypes from 'prop-types';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
+import CenterWrapper from '../CenterWrapper';
 
 export default function ManageTaskLists({ listType }) {
 
@@ -172,9 +173,9 @@ export default function ManageTaskLists({ listType }) {
           originalList={originalTaskLists} />
         {taskLists != null && taskLists.length > 0 ? (
           <>
-            <div className='text-center'>
+            <CenterWrapper>
               {getCounterText()}
-            </div>
+            </CenterWrapper>
             <TaskLists
               taskLists={taskLists}
               onDelete={deleteTaskList}
@@ -182,9 +183,9 @@ export default function ManageTaskLists({ listType }) {
           </>
         ) : (
           <>
-            <div className='text-center'>
+            <CenterWrapper>
               {t('no_task_lists_to_show')}
-            </div>
+            </CenterWrapper>
           </>
         )
         }

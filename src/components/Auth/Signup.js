@@ -11,6 +11,7 @@ import Button from '../../components/Button';
 import Alert from '../Alert';
 //pagetitle
 import PageTitle from '../PageTitle';
+import CenterWrapper from '../CenterWrapper';
 
 export default function Signup() {
 
@@ -107,10 +108,9 @@ export default function Signup() {
                 </Form.Group>
                 <Button disabled={loading} type='submit' text={t('sign_up')} className='btn btn-block' />
             </Form>
-
-            <div className="text-center">
+            <CenterWrapper>
                 {t('already_have_an_account')} <Link to="/login">{t('log_in')}</Link>
-            </div>
+            </CenterWrapper>
         </div>
     )
 }

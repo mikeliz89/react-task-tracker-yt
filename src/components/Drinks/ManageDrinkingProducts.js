@@ -23,6 +23,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
+import CenterWrapper from '../CenterWrapper';
 
 const ManageDrinkingProducts = () => {
 
@@ -157,9 +158,9 @@ const ManageDrinkingProducts = () => {
             {
                 drinkingProducts != null && drinkingProducts.length > 0 ? (
                     <>
-                        <div className='text-center'>
+                        <CenterWrapper>
                             {getCounterText()}
-                        </div>
+                        </CenterWrapper>
                         <DrinkingProducts drinkingProducts={drinkingProducts}
                             onDelete={deleteDrinkingProduct}
                             onEdit={editDrinkingProduct} />

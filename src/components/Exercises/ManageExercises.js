@@ -16,6 +16,8 @@ import PageTitle from '../PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
+//center
+import CenterWrapper from '../CenterWrapper';
 
 const ManageExercises = () => {
 
@@ -89,7 +91,9 @@ const ManageExercises = () => {
       <PageTitle title={t('manage_exercises_title')} />
       <div className="page-content">
         <Link to="/managemovements" className='btn btn-primary'>{t('manage_movements_button')}</Link>
-        <p className="text-center">{t('exercises')}</p>
+        <CenterWrapper>
+          {t('exercises')}
+        </CenterWrapper>
         <SearchSortFilter
           onSet={setExercises}
           originalList={originalExercises}
@@ -99,9 +103,9 @@ const ManageExercises = () => {
         {
           exercises != null && exercises.length > 0 ? (
             <>
-              <div className='text-center'>
+              <CenterWrapper>
                 {getCounterText()}
-              </div>
+              </CenterWrapper>
               <Exercises exercises={exercises}
                 onDelete={deleteExercise} />
             </>

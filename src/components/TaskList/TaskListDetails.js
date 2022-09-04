@@ -29,6 +29,7 @@ import PageTitle from '../PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
+import CenterWrapper from '../CenterWrapper';
 
 function TaskListDetails() {
 
@@ -315,9 +316,9 @@ function TaskListDetails() {
 
         {tasks != null && tasks.length > 0 ? (
           <>
-            <div className='text-center'>
+            <CenterWrapper>
               {getCounterText()}
-            </div>
+            </CenterWrapper>
             <Tasks
               taskListID={params.id}
               tasks={tasks}
@@ -327,9 +328,9 @@ function TaskListDetails() {
           </>
         ) : (
           <>
-            <div className='text-center'>
+            <CenterWrapper>
               {t('no_tasks_to_show')}
-            </div>
+            </CenterWrapper>
           </>
         )}
         <Row />

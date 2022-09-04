@@ -41,9 +41,9 @@ const WeightHistory = () => {
             if (cancel) {
                 return;
             }
-            await fetchHistoryRowsFromFirebase()
+            await fetchHistoryRowsFromFirebase();
         }
-        getHistoryRows()
+        getHistoryRows();
 
         return () => {
             cancel = true;
