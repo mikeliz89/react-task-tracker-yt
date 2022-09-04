@@ -47,6 +47,7 @@ export default function ManageTaskLists({ listType }) {
   const [showAddTaskList, setShowAddTaskList] = useState(false);
   const [taskLists, setTaskLists] = useState();
   const [originalTaskLists, setOriginalTaskLists] = useState();
+  const [counter, setCounter] = useState(0);
 
   //load data
   useEffect(() => {
@@ -61,14 +62,16 @@ export default function ManageTaskLists({ listType }) {
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
+      let counterTemp = 0;
       for (let id in snap) {
         const item = snap[id];
-        if (item["listType"] === listType && listType > 0) {
-          fromDB.push({ id, ...snap[id] });
-        } else if (item["listType"] === undefined && listType === 0) {
+        if ((item["listType"] === listType && listType > 0) ||
+          (item["listType"] === undefined && listType === 0)) {
+          counterTemp++;
           fromDB.push({ id, ...snap[id] });
         }
       }
+      setCounter(counterTemp);
       setLoading(false);
       setTaskLists(fromDB);
       setOriginalTaskLists(fromDB);
@@ -125,11 +128,18 @@ export default function ManageTaskLists({ listType }) {
         return 'manage_drinks_title';
       case ListTypes.Games:
         return 'manage_games_title';
-      case ListTypes.Shopping: 
+      case ListTypes.Shopping:
         return 'manage_shoppinglists_title';
       //TODO: Koodaa lisää caseja sitä mukaa kuin muistakin listatyypeistä on olemassa listasivu
       default: return 'manage_tasklists_title';
     }
+  }
+
+  const getCounterText = () => {
+    if (originalTaskLists === undefined) {
+      return;
+    }
+    return taskLists.length < originalTaskLists.length ? taskLists.length + '/' + counter : counter + '';
   }
 
   return loading ? (
@@ -159,12 +169,21 @@ export default function ManageTaskLists({ listType }) {
           showSearchByDescription={true}
           originalList={originalTaskLists} />
         {taskLists != null && taskLists.length > 0 ? (
-          <TaskLists
-            taskLists={taskLists}
-            onDelete={deleteTaskList}
-          />
+          <>
+            <div className='text-center'>
+              {getCounterText()}
+            </div>
+            <TaskLists
+              taskLists={taskLists}
+              onDelete={deleteTaskList}
+            />
+          </>
         ) : (
-          t('no_task_lists_to_show')
+          <>
+            <div className='text-center'>
+              {t('no_task_lists_to_show')}
+            </div>
+          </>
         )
         }
       </div>

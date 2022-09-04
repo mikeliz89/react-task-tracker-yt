@@ -39,6 +39,7 @@ function TaskListDetails() {
 
   //translation
   const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
+
   //states
   const [loading, setLoading] = useState(true);
   const [taskList, setTaskList] = useState({});
@@ -51,10 +52,13 @@ function TaskListDetails() {
   //counters
   const [taskCounter, setTaskCounter] = useState(0);
   const [taskReadyCounter, setTaskReadyCounter] = useState(0);
+
   //params
   const params = useParams();
+
   //navigate
   const navigate = useNavigate();
+
   //user
   const { currentUser } = useAuth();
 
@@ -63,7 +67,9 @@ function TaskListDetails() {
     let cancel = false;
 
     const getTaskList = async () => {
-      if (cancel) return;
+      if (cancel) {
+        return;
+      }
       await fetchTaskListFromFirebase();
     }
     getTaskList();
@@ -160,7 +166,7 @@ function TaskListDetails() {
     if (taskList["listType"] === undefined || taskList["listType"] === 0) {
       delete taskList["listType"];
     }
-    if(taskList["description"] === undefined) {
+    if (taskList["description"] === undefined) {
       taskList["description"] = "";
     }
     const updates = {};
@@ -210,6 +216,13 @@ function TaskListDetails() {
     link["created"] = getCurrentDateAsJson();
     const dbref = child(ref(db, DB_TASK_LIST_LINKS), taskListID);
     push(dbref, link);
+  }
+
+  const getCounterText = () => {
+    if (originalTasks === undefined) {
+      return;
+    }
+    return tasks.length < originalTasks.length ? tasks.length + '/' + taskCounter : taskCounter + '';
   }
 
   return loading ? (
@@ -297,8 +310,12 @@ function TaskListDetails() {
           showSortByText={true}
           showSortByCreatedDate={true}
           originalList={originalTasks} />
+
         {tasks != null && tasks.length > 0 ? (
           <>
+            <div className='text-center'>
+              {getCounterText()}
+            </div>
             <Tasks
               taskListID={params.id}
               tasks={tasks}
@@ -307,7 +324,11 @@ function TaskListDetails() {
             />
           </>
         ) : (
-          t('no_tasks_to_show')
+          <>
+            <div className='text-center'>
+              {t('no_tasks_to_show')}
+            </div>
+          </>
         )}
         <Row />
         <AddLink onSaveLink={addLinkToTaskList} />
