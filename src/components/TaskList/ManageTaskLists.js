@@ -28,6 +28,7 @@ import PropTypes from 'prop-types';
 import ScrollToTop from '../ScrollToTop';
 import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
+import Counter from '../Counter';
 
 export default function ManageTaskLists({ listType }) {
 
@@ -139,13 +140,6 @@ export default function ManageTaskLists({ listType }) {
     }
   }
 
-  const getCounterText = () => {
-    if (originalTaskLists === undefined) {
-      return;
-    }
-    return taskLists.length < originalTaskLists.length ? taskLists.length + '/' + counter : counter + '';
-  }
-
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -174,9 +168,7 @@ export default function ManageTaskLists({ listType }) {
           originalList={originalTaskLists} />
         {taskLists != null && taskLists.length > 0 ? (
           <>
-            <CenterWrapper>
-              {getCounterText()}
-            </CenterWrapper>
+            <Counter list={taskLists} originalList={originalTaskLists} counter={counter} />
             <TaskLists
               taskLists={taskLists}
               onDelete={deleteTaskList}

@@ -31,6 +31,7 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import ScrollToTop from '../ScrollToTop';
 import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
+import Counter from '../Counter';
 
 function TaskListDetails() {
 
@@ -222,13 +223,6 @@ function TaskListDetails() {
     push(dbref, link);
   }
 
-  const getCounterText = () => {
-    if (originalTasks === undefined) {
-      return;
-    }
-    return tasks.length < originalTasks.length ? tasks.length + '/' + taskCounter : taskCounter + '';
-  }
-
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -317,9 +311,7 @@ function TaskListDetails() {
 
         {tasks != null && tasks.length > 0 ? (
           <>
-            <CenterWrapper>
-              {getCounterText()}
-            </CenterWrapper>
+            <Counter list={tasks} originalList={originalTasks} counter={taskCounter} />
             <Tasks
               taskListID={params.id}
               tasks={tasks}

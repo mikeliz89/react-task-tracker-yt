@@ -23,7 +23,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
-import CenterWrapper from '../CenterWrapper';
+import Counter from '../Counter';
 
 const ManageDrinkingProducts = () => {
 
@@ -116,13 +116,6 @@ const ManageDrinkingProducts = () => {
         })
     }
 
-    const getCounterText = () => {
-        if (originalDrinkingProducts === undefined) {
-            return;
-        }
-        return drinkingProducts.length < originalDrinkingProducts.length ? drinkingProducts.length + '/' + counter : counter + '';
-    }
-
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -158,9 +151,7 @@ const ManageDrinkingProducts = () => {
             {
                 drinkingProducts != null && drinkingProducts.length > 0 ? (
                     <>
-                        <CenterWrapper>
-                            {getCounterText()}
-                        </CenterWrapper>
+                        <Counter list={drinkingProducts} originalList={originalDrinkingProducts} counter={counter} />
                         <DrinkingProducts drinkingProducts={drinkingProducts}
                             onDelete={deleteDrinkingProduct}
                             onEdit={editDrinkingProduct} />

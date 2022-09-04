@@ -18,6 +18,7 @@ import Movements from './Movements';
 import ScrollToTop from '../ScrollToTop';
 import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
+import Counter from '../Counter';
 
 function ManageMovements() {
 
@@ -71,13 +72,6 @@ function ManageMovements() {
         remove(dbref)
     }
 
-    const getCounterText = () => {
-        if (originalMovements === undefined) {
-            return;
-        }
-        return movements.length < originalMovements.length ? movements.length + '/' + counter : counter + '';
-    }
-
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -103,9 +97,7 @@ function ManageMovements() {
                 {
                     movements != null && movements.length > 0 ? (
                         <>
-                            <CenterWrapper>
-                                {getCounterText()}
-                            </CenterWrapper>
+                            <Counter list={movements} originalList={originalMovements} counter={counter} />
                             <Movements movements={movements}
                                 onDelete={deleteMovement} />
                         </>

@@ -28,8 +28,8 @@ import { RecipeTypes } from '../../utils/Enums';
 import Icon from '../Icon';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
-import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
+import Counter from '../Counter';
 
 const ManageRecipes = () => {
 
@@ -124,13 +124,6 @@ const ManageRecipes = () => {
     remove(dbref)
   }
 
-  const getCounterText = () => {
-    if (originalRecipes === undefined) {
-      return;
-    }
-    return recipes.length < originalRecipes.length ? recipes.length + '/' + counter : counter + '';
-  }
-
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -175,9 +168,7 @@ const ManageRecipes = () => {
         {
           recipes != null && recipes.length > 0 ? (
             <>
-              <CenterWrapper>
-                {getCounterText()}
-              </CenterWrapper>
+              <Counter list={recipes} originalList={originalRecipes} counter={counter} />
               <Recipes
                 recipeType={RecipeTypes.Food}
                 translation={TRANSLATION}

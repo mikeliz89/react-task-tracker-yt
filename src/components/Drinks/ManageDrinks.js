@@ -28,8 +28,8 @@ import { RecipeTypes } from '../../utils/Enums';
 import Icon from '../Icon';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
-import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
+import Counter from '../Counter';
 
 export default function ManageDrinks() {
 
@@ -120,13 +120,6 @@ export default function ManageDrinks() {
         remove(dbref);
     }
 
-    const getCounterText = () => {
-        if (originalDrinks === undefined) {
-            return;
-        }
-        return drinks.length < originalDrinks.length ? drinks.length + '/' + counter : counter + '';
-    }
-
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -176,9 +169,7 @@ export default function ManageDrinks() {
                 {
                     drinks != null && drinks.length > 0 ? (
                         <>
-                            <CenterWrapper>
-                                {getCounterText()}
-                            </CenterWrapper>
+                            <Counter list={drinks} originalList={originalDrinks} counter={counter} />
                             <Recipes
                                 translation={TRANSLATION}
                                 recipes={drinks}

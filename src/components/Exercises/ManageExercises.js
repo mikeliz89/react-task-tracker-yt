@@ -19,6 +19,7 @@ import ScrollToTop from '../ScrollToTop';
 //center
 import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
+import Counter from '../Counter';
 
 const ManageExercises = () => {
 
@@ -72,13 +73,6 @@ const ManageExercises = () => {
     remove(dbref)
   }
 
-  const getCounterText = () => {
-    if (originalExercises === undefined) {
-      return;
-    }
-    return exercises.length < originalExercises.length ? exercises.length + '/' + counter : counter + '';
-  }
-
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -104,9 +98,7 @@ const ManageExercises = () => {
         {
           exercises != null && exercises.length > 0 ? (
             <>
-              <CenterWrapper>
-                {getCounterText()}
-              </CenterWrapper>
+              <Counter list={exercises} originalList={originalExercises} counter={counter} />
               <Exercises exercises={exercises}
                 onDelete={deleteExercise} />
             </>

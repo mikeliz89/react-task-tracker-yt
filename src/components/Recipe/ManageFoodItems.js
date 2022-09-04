@@ -23,7 +23,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
-import CenterWrapper from '../CenterWrapper';
+import Counter from '../Counter';
 
 const ManageFoodItems = () => {
 
@@ -117,13 +117,6 @@ const ManageFoodItems = () => {
         })
     }
 
-    const getCounterText = () => {
-        if (originalFoodItems === undefined) {
-            return;
-        }
-        return foodItems.length < originalFoodItems.length ? foodItems.length + '/' + counter : counter + '';
-    }
-
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -156,9 +149,7 @@ const ManageFoodItems = () => {
             {
                 foodItems != null && foodItems.length > 0 ? (
                     <>
-                        <CenterWrapper>
-                            {getCounterText()}
-                        </CenterWrapper>
+                        <Counter list={foodItems} originalList={originalFoodItems} counter={counter} />
                         <FoodItems foodItems={foodItems}
                             onDelete={deleteFoodItem}
                             onEdit={editFoodItem} />

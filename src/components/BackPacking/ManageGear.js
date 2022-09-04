@@ -25,8 +25,8 @@ import { SortMode } from '../SearchSortFilter/SortModes';
 import Alert from '../Alert';
 //import ScrollToTop
 import ScrollToTop from '../ScrollToTop';
-import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
+import Counter from '../Counter';
 
 export default function ManageGear() {
 
@@ -114,13 +114,6 @@ export default function ManageGear() {
         remove(dbref)
     }
 
-    const getCounterText = () => {
-        if (originalGear === undefined) {
-            return;
-        }
-        return gear.length < originalGear.length ? gear.length + '/' + counter : counter + '';
-    }
-
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -147,9 +140,7 @@ export default function ManageGear() {
                 {
                     gear != null && gear.length > 0 ? (
                         <>
-                            <CenterWrapper>
-                                {getCounterText()}
-                            </CenterWrapper>
+                            <Counter list={gear} originalList={originalGear} counter={counter} />
                             <Gears gears={gear}
                                 onDelete={deleteGear} />
                         </>
