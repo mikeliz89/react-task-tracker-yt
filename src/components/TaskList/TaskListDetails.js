@@ -27,6 +27,8 @@ import AddLink from '../Links/AddLink';
 import PageTitle from '../PageTitle';
 //SearchSortFilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+//ScrollToTop
+import ScrollToTop from '../ScrollToTop';
 
 function TaskListDetails() {
 
@@ -331,10 +333,11 @@ function TaskListDetails() {
           </>
         )}
         <Row />
+        <ScrollToTop />
         <AddLink onSaveLink={addLinkToTaskList} />
         <Links objID={params.id} url={'tasklist-links'} />
       </div>
-    </div >
+    </div>
   );
 };
 

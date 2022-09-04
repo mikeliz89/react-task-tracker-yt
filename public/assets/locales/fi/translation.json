@@ -486,6 +486,9 @@
         "workphases_header": "Työvaiheet",
         "yes": "Kyllä"
     },
+    "scrolltotop": {
+        "go_to_top": "Mene ylös"
+    },
     "searchsortfilter": {
         "created_date": "Luontipvm",
         "name": "Nimi",

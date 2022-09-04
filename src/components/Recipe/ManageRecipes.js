@@ -26,6 +26,8 @@ import Alert from '../Alert';
 import { RecipeTypes } from '../../utils/Enums';
 //icon
 import Icon from '../Icon';
+//ScrollToTop
+import ScrollToTop from '../ScrollToTop';
 
 const ManageRecipes = () => {
 
@@ -170,6 +172,7 @@ const ManageRecipes = () => {
         }
         {/* { <pre>{JSON.stringify(recipes)}</pre> } */}
       </div>
+      <ScrollToTop />
     </div>
   )
 }

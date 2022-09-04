@@ -24,6 +24,8 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { ListTypes } from '../../utils/Enums';
 //proptypes
 import PropTypes from 'prop-types';
+//ScrollToTop
+import ScrollToTop from '../ScrollToTop';
 
 export default function ManageTaskLists({ listType }) {
 
@@ -187,6 +189,7 @@ export default function ManageTaskLists({ listType }) {
         )
         }
       </div>
+      <ScrollToTop />
     </div>
   )
 }

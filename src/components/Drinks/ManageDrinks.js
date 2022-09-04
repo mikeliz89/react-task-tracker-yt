@@ -26,6 +26,8 @@ import Alert from '../Alert';
 //recipetypes
 import { RecipeTypes } from '../../utils/Enums';
 import Icon from '../Icon';
+//ScrollToTop
+import ScrollToTop from '../ScrollToTop';
 
 export default function ManageDrinks() {
 
@@ -170,6 +172,7 @@ export default function ManageDrinks() {
                     )
                 }
             </div>
+            <ScrollToTop />
         </div>
     )
 }
