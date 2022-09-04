@@ -35,6 +35,7 @@ import Alert from "../Alert";
 //Links
 import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
+import PageContentWrapper from "../PageContentWrapper";
 
 const ExerciseDetails = () => {
 
@@ -163,7 +164,7 @@ const ExerciseDetails = () => {
                         <StarRating starCount={exercise.stars} />
                     </Col>
                 </Row>
-                <div className='page-content'>
+                <PageContentWrapper>
                     {showEditExercise && <EditExercise exerciseID={params.id} exercise={exercise} onClose={() => setShowEditExercise(false)} />}
 
                     <Alert message={message} showMessage={showMessage}
@@ -202,7 +203,7 @@ const ExerciseDetails = () => {
                     }
                     <Comments objID={params.id} url={'exercise-comments'} />
                     <Links objID={params.id} url={'exercise-links'} />
-                </div>
+                </PageContentWrapper>
             </div>
         )
     )

@@ -26,6 +26,7 @@ import Alert from '../Alert';
 //import ScrollToTop
 import ScrollToTop from '../ScrollToTop';
 import CenterWrapper from '../CenterWrapper';
+import PageContentWrapper from '../PageContentWrapper';
 
 export default function ManageGear() {
 
@@ -140,7 +141,7 @@ export default function ManageGear() {
                 error={error} showError={showError}
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-            <div className="page-content">
+            <PageContentWrapper>
                 {showAdd && <AddGear onAddGear={addGear} onClose={() => setShowAdd(false)} />}
                 <SearchSortFilter onSet={setGear} originalList={originalGear} useNameFiltering={true} showSortByName={true} defaultSort={SortMode.Name_DESC} />
                 {
@@ -156,7 +157,7 @@ export default function ManageGear() {
                         t('no_gear_to_show')
                     )
                 }
-            </div>
+            </PageContentWrapper>
             <ScrollToTop />
         </div>
     )

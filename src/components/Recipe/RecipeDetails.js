@@ -38,6 +38,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import StarRating from '../StarRating/StarRating';
 import RecipeHistories from './RecipeHistories';
+import PageContentWrapper from '../PageContentWrapper';
 
 export default function RecipeDetails() {
 
@@ -279,7 +280,7 @@ export default function RecipeDetails() {
                     <StarRating starCount={recipe.stars} />
                 </Col>
             </Row>
-            <div className="page-content">
+            <PageContentWrapper>
 
                 <Alert message={message} showMessage={showMessage}
                     error={error} showError={showError}
@@ -372,7 +373,7 @@ export default function RecipeDetails() {
                 }
                 <Comments objID={params.id} url={'recipe-comments'} />
                 <Links objID={params.id} url={'recipe-links'} />
-            </div>
+            </PageContentWrapper>
         </div>
     )
 }

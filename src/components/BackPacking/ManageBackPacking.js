@@ -7,6 +7,7 @@ import GoBackButton from '../GoBackButton';
 import PageTitle from '../PageTitle';
 //icons
 import Icon from '../Icon';
+import PageContentWrapper from '../PageContentWrapper';
 
 export default function ManageBackPacking() {
 
@@ -17,15 +18,14 @@ export default function ManageBackPacking() {
         <div>
             <GoBackButton />
             <PageTitle title={t('manage_backpacking_title')} />
-
-            <div className="page-content">
+            <PageContentWrapper>
                 <Link to="/managegear" className='btn btn-primary'>{t('button_manage_gear')}</Link>
                 &nbsp;
                 <Link to="/managebackpackinglists" className='btn btn-primary'>
                     <Icon name='list-alt' color='white' />
                     {t('button_manage_backpacking_lists')}
                 </Link>
-            </div>
+            </PageContentWrapper>
         </div>
     )
 }

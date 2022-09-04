@@ -8,6 +8,7 @@ import { ref, push } from 'firebase/database';
 import { db } from '../../firebase-config';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import PageContentWrapper from '../PageContentWrapper';
 
 export default function LinksList() {
 
@@ -20,10 +21,10 @@ export default function LinksList() {
     return (
         <div>
             <GoBackButton />
-            <div className="page-content">
+            <PageContentWrapper>
                 <AddLink onSaveLink={addLink} />
                 <Links url={'links'} />
-            </div>
+            </PageContentWrapper>
         </div>
     )
 }

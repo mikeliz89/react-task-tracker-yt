@@ -17,6 +17,7 @@ import Movements from './Movements';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
 import CenterWrapper from '../CenterWrapper';
+import PageContentWrapper from '../PageContentWrapper';
 
 function ManageMovements() {
 
@@ -88,7 +89,7 @@ function ManageMovements() {
                 </ButtonGroup>
             </Row>
             <PageTitle title={t('manage_movements_title')} />
-            <div className="page-content">
+            <PageContentWrapper>
                 <CenterWrapper>
                     {t('movements')}
                 </CenterWrapper>
@@ -112,7 +113,7 @@ function ManageMovements() {
                         t('no_movements_to_show')
                     )
                 }
-            </div>
+            </PageContentWrapper>
             <ScrollToTop />
         </>
     )

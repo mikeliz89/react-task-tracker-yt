@@ -28,6 +28,7 @@ import AddDrinkingProduct from './AddDrinkingProduct';
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
+import PageContentWrapper from '../PageContentWrapper';
 
 export default function DrinkingProductDetails() {
 
@@ -157,8 +158,7 @@ export default function DrinkingProductDetails() {
                     </Accordion>
                 </Col>
             </Row>
-            <div className="page-content">
-
+            <PageContentWrapper>
                 <Alert message={message} showMessage={showMessage}
                     error={error} showError={showError}
                     variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
@@ -171,7 +171,7 @@ export default function DrinkingProductDetails() {
 
                 <Comments objID={params.id} url={'drinkingproduct-comments'} />
                 <Links objID={params.id} url={'drinkingproduct-links'} />
-            </div>
+            </PageContentWrapper>
         </div>
     )
 }

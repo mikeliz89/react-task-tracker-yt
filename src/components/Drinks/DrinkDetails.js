@@ -39,6 +39,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
+import PageContentWrapper from '../PageContentWrapper';
 
 export default function DrinkDetails() {
 
@@ -311,7 +312,7 @@ export default function DrinkDetails() {
                     <StarRating starCount={drink.stars} />
                 </Col>
             </Row>
-            <div className="page-content">
+            <PageContentWrapper>
                 {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}
 
                 <Alert message={message} showMessage={showMessage}
@@ -422,7 +423,7 @@ export default function DrinkDetails() {
                 }
                 <Comments objID={params.id} url={'drink-comments'} />
                 <Links objID={params.id} url={'drink-links'} />
-            </div>
+            </PageContentWrapper>
         </div>
     )
 }

@@ -4,6 +4,7 @@ import GoBackButton from './GoBackButton';
 import { useTranslation } from 'react-i18next';
 //pagetitle
 import PageTitle from './PageTitle';
+import PageContentWrapper from './PageContentWrapper';
 
 const About = () => {
 
@@ -14,10 +15,10 @@ const About = () => {
         <div>
             <GoBackButton />
             <PageTitle title={t('about_version') + ' 2.0.1'} />
-            <div className="page-content">
+            <PageContentWrapper>
                 <p>{t('version_upgraded')} 9.8.2022</p>
                 <p>{t('about_author')} Miika Kontio</p>
-            </div>
+            </PageContentWrapper>
         </div>
     )
 }

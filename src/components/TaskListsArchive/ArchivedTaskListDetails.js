@@ -16,6 +16,7 @@ import i18n from "i18next";
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 //pagetitle
 import PageTitle from '../PageTitle';
+import PageContentWrapper from '../PageContentWrapper';
 
 export default function ArchivedTaskListDetails() {
 
@@ -135,7 +136,7 @@ export default function ArchivedTaskListDetails() {
           </Accordion>
         </Col>
       </Row>
-      <div className="page-content">
+      <PageContentWrapper>
         {tasks != null && tasks.length > 0 ? (
           <Tasks
             archived={true}
@@ -145,7 +146,7 @@ export default function ArchivedTaskListDetails() {
         ) : (
           t('no_tasks_to_show')
         )}
-      </div>
+      </PageContentWrapper>
     </div>
   )
 }

@@ -10,6 +10,7 @@ import { ref, onValue, remove } from "firebase/database";
 import TaskLists from '../../components/TaskList/TaskLists';
 //pagetitle
 import PageTitle from '../PageTitle';
+import PageContentWrapper from '../PageContentWrapper';
 
 /** TODO: ohjaa listaTypen mukaiseen arkistoon esim Programming osion listoilta */
 const ManageTaskListsArchive = ({ listType }) => {
@@ -66,7 +67,7 @@ const ManageTaskListsArchive = ({ listType }) => {
     <div>
       <GoBackButton />
       <PageTitle title={t('manage_tasklists_archive_title')} />
-      <div className="page-content">
+      <PageContentWrapper>
         {taskLists != null && taskLists.length > 0 ? (
           <TaskLists
             archived={true}
@@ -79,7 +80,7 @@ const ManageTaskListsArchive = ({ listType }) => {
           </div>
         )
         }
-      </div>
+      </PageContentWrapper>
     </div>
   )
 }

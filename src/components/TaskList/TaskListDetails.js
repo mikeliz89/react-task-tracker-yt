@@ -30,6 +30,7 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
 import CenterWrapper from '../CenterWrapper';
+import PageContentWrapper from '../PageContentWrapper';
 
 function TaskListDetails() {
 
@@ -286,7 +287,7 @@ function TaskListDetails() {
         </Col>
       </Row>
 
-      <div className="page-content">
+      <PageContentWrapper>
 
         <div style={{ marginBottom: '10px' }}>
           <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} iconName='square-check' /> &nbsp;
@@ -337,8 +338,8 @@ function TaskListDetails() {
         <ScrollToTop />
         <AddLink onSaveLink={addLinkToTaskList} />
         <Links objID={params.id} url={'tasklist-links'} />
-      </div>
-    </div>
+      </PageContentWrapper>
+    </div >
   );
 };
 

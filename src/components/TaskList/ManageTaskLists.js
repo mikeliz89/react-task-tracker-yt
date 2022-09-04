@@ -27,6 +27,7 @@ import PropTypes from 'prop-types';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
 import CenterWrapper from '../CenterWrapper';
+import PageContentWrapper from '../PageContentWrapper';
 
 export default function ManageTaskLists({ listType }) {
 
@@ -163,7 +164,7 @@ export default function ManageTaskLists({ listType }) {
       {showAddTaskList &&
         <AddTaskList onClose={() => setShowAddTaskList(false)} onSave={addTaskList} />
       }
-      <div className="page-content">
+      <PageContentWrapper>
         <SearchSortFilter
           useTitleFiltering={true}
           onSet={setTaskLists}
@@ -189,7 +190,7 @@ export default function ManageTaskLists({ listType }) {
           </>
         )
         }
-      </div>
+      </PageContentWrapper>
       <ScrollToTop />
     </div>
   )

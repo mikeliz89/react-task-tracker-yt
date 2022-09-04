@@ -29,6 +29,7 @@ import Icon from '../Icon';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
 import CenterWrapper from '../CenterWrapper';
+import PageContentWrapper from '../PageContentWrapper';
 
 export default function ManageDrinks() {
 
@@ -140,8 +141,7 @@ export default function ManageDrinks() {
                 </ButtonGroup>
             </Row>
             <PageTitle title={t('manage_drinks_title')} />
-            <div className="page-content">
-
+            <PageContentWrapper>
                 <div>
                     <Link to="/managedrinkingproducts" className='btn btn-primary'>
                         <Icon name='wine-bottle' color='white' />
@@ -189,7 +189,7 @@ export default function ManageDrinks() {
                         t('no_drinks_to_show')
                     )
                 }
-            </div>
+            </PageContentWrapper>
             <ScrollToTop />
         </div>
     )

@@ -29,6 +29,7 @@ import Icon from '../Icon';
 //ScrollToTop
 import ScrollToTop from '../ScrollToTop';
 import CenterWrapper from '../CenterWrapper';
+import PageContentWrapper from '../PageContentWrapper';
 
 const ManageRecipes = () => {
 
@@ -144,7 +145,7 @@ const ManageRecipes = () => {
         </ButtonGroup>
       </Row>
       <PageTitle title={t('manage_recipes_title')} />
-      <div className="page-content">
+      <PageContentWrapper>
 
         <div>
           <Link to="/managefooditems" className='btn btn-primary'>{t('button_manage_fooditems')}</Link>
@@ -188,7 +189,7 @@ const ManageRecipes = () => {
           )
         }
         {/* { <pre>{JSON.stringify(recipes)}</pre> } */}
-      </div>
+      </PageContentWrapper>
       <ScrollToTop />
     </div>
   )

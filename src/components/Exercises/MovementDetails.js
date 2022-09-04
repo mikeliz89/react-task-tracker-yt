@@ -31,6 +31,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 //exercises
 import AddMovement from './AddMovement';
+import PageContentWrapper from '../PageContentWrapper';
 
 export default function MovementDetails() {
 
@@ -160,9 +161,7 @@ export default function MovementDetails() {
                     <StarRating starCount={movement.stars} />
                 </Col>
             </Row>
-
-            <div className="page-content">
-
+            <PageContentWrapper>
                 <Alert message={message} showMessage={showMessage}
                     error={error} showError={showError}
                     variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
@@ -177,7 +176,7 @@ export default function MovementDetails() {
 
                 <Comments objID={params.id} url={'exercise-movement-comments'} />
                 <Links objID={params.id} url={'exercise-movement-links'} />
-            </div>
+            </PageContentWrapper>
         </div>
     )
 }

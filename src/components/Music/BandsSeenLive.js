@@ -4,6 +4,7 @@ import GoBackButton from "../GoBackButton";
 import { useTranslation } from 'react-i18next';
 //pagetitle
 import PageTitle from "../PageTitle";
+import PageContentWrapper from "../PageContentWrapper";
 
 const BandsSeenLive = () => {
 
@@ -14,9 +15,9 @@ const BandsSeenLive = () => {
         <div>
             <GoBackButton />
             <PageTitle title={t('bands_seen_live')} />
-            <div className="page-content">
+            <PageContentWrapper>
                 <p>Bändit</p>
-            </div>
+            </PageContentWrapper>
         </div>
     )
 }
