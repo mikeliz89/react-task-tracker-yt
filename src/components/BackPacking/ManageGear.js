@@ -23,11 +23,12 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from '../SearchSortFilter/SortModes';
 //alert
 import Alert from '../Alert';
-//import ScrollToTop
-import ScrollToTop from '../ScrollToTop';
+//page
 import PageContentWrapper from '../PageContentWrapper';
-import Counter from '../Counter';
+//center
 import CenterWrapper from '../CenterWrapper';
+//counter
+import Counter from '../Counter';
 
 export default function ManageGear() {
 
@@ -118,7 +119,7 @@ export default function ManageGear() {
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
-        <div>
+        <PageContentWrapper>
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
@@ -135,26 +136,23 @@ export default function ManageGear() {
                 error={error} showError={showError}
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-            <PageContentWrapper>
-                {showAdd && <AddGear onAddGear={addGear} onClose={() => setShowAdd(false)} />}
-                <SearchSortFilter onSet={setGear} originalList={originalGear} useNameFiltering={true} showSortByName={true} defaultSort={SortMode.Name_DESC} />
-                {
-                    gear != null && gear.length > 0 ? (
-                        <>
-                            <Counter list={gear} originalList={originalGear} counter={counter} />
-                            <Gears gears={gear}
-                                onDelete={deleteGear} />
-                        </>
-                    ) : (
-                        <>
-                            <CenterWrapper>
-                                {t('no_gear_to_show')}
-                            </CenterWrapper>
-                        </>
-                    )
-                }
-            </PageContentWrapper>
-            <ScrollToTop />
-        </div>
+            {showAdd && <AddGear onAddGear={addGear} onClose={() => setShowAdd(false)} />}
+            <SearchSortFilter onSet={setGear} originalList={originalGear} useNameFiltering={true} showSortByName={true} defaultSort={SortMode.Name_DESC} />
+            {
+                gear != null && gear.length > 0 ? (
+                    <>
+                        <Counter list={gear} originalList={originalGear} counter={counter} />
+                        <Gears gears={gear}
+                            onDelete={deleteGear} />
+                    </>
+                ) : (
+                    <>
+                        <CenterWrapper>
+                            {t('no_gear_to_show')}
+                        </CenterWrapper>
+                    </>
+                )
+            }
+        </PageContentWrapper>
     )
 }

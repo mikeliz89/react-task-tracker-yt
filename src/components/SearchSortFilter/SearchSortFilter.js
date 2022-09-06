@@ -197,7 +197,7 @@ const SearchSortFilter = ({ onSet,
     }
 
     return (
-        <div>
+        <div className="searchSortFilter">
             <Form className='form-no-paddings'>
                 <Form.Group as={Row}>
                     <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>

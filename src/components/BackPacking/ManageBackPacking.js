@@ -15,17 +15,15 @@ export default function ManageBackPacking() {
     const { t } = useTranslation('backpacking', { keyPrefix: 'backpacking' });
 
     return (
-        <div>
+        <PageContentWrapper>
             <GoBackButton />
             <PageTitle title={t('manage_backpacking_title')} />
-            <PageContentWrapper>
-                <Link to="/managegear" className='btn btn-primary'>{t('button_manage_gear')}</Link>
-                &nbsp;
-                <Link to="/managebackpackinglists" className='btn btn-primary'>
-                    <Icon name='list-alt' color='white' />
-                    {t('button_manage_backpacking_lists')}
-                </Link>
-            </PageContentWrapper>
-        </div>
+            <Link to="/managegear" className='btn btn-primary'>{t('button_manage_gear')}</Link>
+            &nbsp;
+            <Link to="/managebackpackinglists" className='btn btn-primary'>
+                <Icon name='list-alt' color='white' />
+                {t('button_manage_backpacking_lists')}
+            </Link>
+        </PageContentWrapper>
     )
 }

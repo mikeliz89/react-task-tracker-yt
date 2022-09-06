@@ -25,6 +25,8 @@ import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 //pagetitle
 import PageTitle from '../PageTitle';
+//page
+import PageContentWrapper from '../PageContentWrapper';
 
 function TaskDetails() {
 
@@ -96,7 +98,7 @@ function TaskDetails() {
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
-    <div>
+    <PageContentWrapper>
       <Row>
         <ButtonGroup aria-label="Button group">
           <GoBackButton />
@@ -122,7 +124,7 @@ function TaskDetails() {
       <AddLink onSaveLink={addLinkToTask} />
       <Comments objID={params.id} url={'task-comments'} />
       <Links objID={params.id} url={'task-links'} />
-    </div>
+    </PageContentWrapper>
   );
 };
 

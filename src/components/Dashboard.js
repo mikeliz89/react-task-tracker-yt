@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { Row, Col } from 'react-bootstrap';
 //css
 import styles from './dashboard.module.css';
+//page
+import PageContentWrapper from './PageContentWrapper';
 
 export default function Dashboard() {
 
@@ -13,7 +15,7 @@ export default function Dashboard() {
     const { t } = useTranslation('dashboard', { keyPrefix: 'dashboard.buttons' });
 
     return (
-        <>
+        <PageContentWrapper>
             {/* Create New Row For Sets of 4 buttons  */}
             <Row>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
@@ -103,6 +105,6 @@ export default function Dashboard() {
                 <Link to={'/'}><BigButton text="button" /></Link>
                 <Link to={'/'}><BigButton text="button" /></Link>
                 <Link to={'/'}><BigButton text="button" /></Link> */}
-        </>
+        </PageContentWrapper>
     )
 }

@@ -35,6 +35,7 @@ import Alert from "../Alert";
 //Links
 import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
+//page
 import PageContentWrapper from "../PageContentWrapper";
 
 const ExerciseDetails = () => {
@@ -115,7 +116,7 @@ const ExerciseDetails = () => {
         loading ? (
             <h3>{t('loading')}</h3>
         ) : (
-            <div>
+            <PageContentWrapper>
                 <Row>
                     <ButtonGroup>
                         <GoBackButton />
@@ -164,47 +165,45 @@ const ExerciseDetails = () => {
                         <StarRating starCount={exercise.stars} />
                     </Col>
                 </Row>
-                <PageContentWrapper>
-                    {showEditExercise && <EditExercise exerciseID={params.id} exercise={exercise} onClose={() => setShowEditExercise(false)} />}
+                {showEditExercise && <EditExercise exerciseID={params.id} exercise={exercise} onClose={() => setShowEditExercise(false)} />}
 
-                    <Alert message={message} showMessage={showMessage}
-                        error={error} showError={showError}
-                        variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                <Alert message={message} showMessage={showMessage}
+                    error={error} showError={showError}
+                    variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-                    <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
-                    <AddComment onSave={addCommentToExercise} />
-                    <AddLink onSaveLink={addLinkToExercise} />
+                <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
+                <AddComment onSave={addCommentToExercise} />
+                <AddLink onSaveLink={addLinkToExercise} />
 
-                    <Row>
-                        <Col>
-                            {t('date_and_time')}: {exercise.date} {exercise.time} <br />
-                            {t('end_date')}: {exercise.endDate} {exercise.endTime} <br />
-                            {t('duration')} : {t('coming_soon')}<br />
-                        </Col>
-                    </Row>
-                    {
-                        Number(exercise.category) === Categories.Gym &&
-                        <AddPartsGym />
-                    }
-                    {
-                        Number(exercise.category) === Categories.Aerobics &&
-                        <AddPartsAerobics />
-                    }
-                    {
-                        (
-                            Number(exercise.category) === Categories.BikingInside ||
-                            Number(exercise.category) === Categories.Biking ||
-                            Number(exercise.category) === Categories.Kayaking ||
-                            Number(exercise.category) === Categories.Running ||
-                            Number(exercise.category) === Categories.Walking
-                        ) &&
-                        <AddPartsMoving title={getTitleByCategory(exercise.category)}
-                            iconName={getIconNameByCategory(exercise.category)} />
-                    }
-                    <Comments objID={params.id} url={'exercise-comments'} />
-                    <Links objID={params.id} url={'exercise-links'} />
-                </PageContentWrapper>
-            </div>
+                <Row>
+                    <Col>
+                        {t('date_and_time')}: {exercise.date} {exercise.time} <br />
+                        {t('end_date')}: {exercise.endDate} {exercise.endTime} <br />
+                        {t('duration')} : {t('coming_soon')}<br />
+                    </Col>
+                </Row>
+                {
+                    Number(exercise.category) === Categories.Gym &&
+                    <AddPartsGym />
+                }
+                {
+                    Number(exercise.category) === Categories.Aerobics &&
+                    <AddPartsAerobics />
+                }
+                {
+                    (
+                        Number(exercise.category) === Categories.BikingInside ||
+                        Number(exercise.category) === Categories.Biking ||
+                        Number(exercise.category) === Categories.Kayaking ||
+                        Number(exercise.category) === Categories.Running ||
+                        Number(exercise.category) === Categories.Walking
+                    ) &&
+                    <AddPartsMoving title={getTitleByCategory(exercise.category)}
+                        iconName={getIconNameByCategory(exercise.category)} />
+                }
+                <Comments objID={params.id} url={'exercise-comments'} />
+                <Links objID={params.id} url={'exercise-links'} />
+            </PageContentWrapper>
         )
     )
 }

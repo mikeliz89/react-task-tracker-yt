@@ -1,9 +1,13 @@
+import ScrollToTop from "./ScrollToTop"
 
 function PageContentWrapper(props) {
     return (
-        <div className='page-content'>
-            {props.children}
-        </div>
+        <>
+            <div className='page-content'>
+                {props.children}
+            </div>
+            <ScrollToTop />
+        </>
     )
 }
 

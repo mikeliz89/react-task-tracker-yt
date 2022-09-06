@@ -16,7 +16,9 @@ import i18n from "i18next";
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 //pagetitle
 import PageTitle from '../PageTitle';
+//page
 import PageContentWrapper from '../PageContentWrapper';
+//center
 import CenterWrapper from '../CenterWrapper';
 
 export default function ArchivedTaskListDetails() {
@@ -100,7 +102,7 @@ export default function ArchivedTaskListDetails() {
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
-    <div>
+    <PageContentWrapper>
       <GoBackButton />
       {/* TODO: Arkistoidun listan palautustoiminto -nappi */}
       <Row>
@@ -137,21 +139,19 @@ export default function ArchivedTaskListDetails() {
           </Accordion>
         </Col>
       </Row>
-      <PageContentWrapper>
-        {tasks != null && tasks.length > 0 ? (
-          <Tasks
-            archived={true}
-            taskListID={params.id}
-            tasks={tasks}
-          />
-        ) : (
-          <>
-            <CenterWrapper>
-              {t('no_tasks_to_show')}
-            </CenterWrapper>
-          </>
-        )}
-      </PageContentWrapper>
-    </div>
+      {tasks != null && tasks.length > 0 ? (
+        <Tasks
+          archived={true}
+          taskListID={params.id}
+          tasks={tasks}
+        />
+      ) : (
+        <>
+          <CenterWrapper>
+            {t('no_tasks_to_show')}
+          </CenterWrapper>
+        </>
+      )}
+    </PageContentWrapper>
   )
 }

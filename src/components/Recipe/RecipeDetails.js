@@ -227,7 +227,7 @@ export default function RecipeDetails() {
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
-        <div>
+        <PageContentWrapper>
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
@@ -281,108 +281,107 @@ export default function RecipeDetails() {
                     <StarRating starCount={recipe.stars} />
                 </Col>
             </Row>
-            <PageContentWrapper>
 
-                <Alert message={message} showMessage={showMessage}
-                    error={error} showError={showError}
-                    variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-                {/* <pre>{JSON.stringify(recipe)}</pre> */}
-                {showEditRecipe && <AddRecipe
-                    onClose={() => setShowEditRecipe(false)} onAddRecipe={addRecipe} recipeID={params.id} />}
+            {/* <pre>{JSON.stringify(recipe)}</pre> */}
+            {showEditRecipe && <AddRecipe
+                onClose={() => setShowEditRecipe(false)} onAddRecipe={addRecipe} recipeID={params.id} />}
 
-                <Tabs defaultActiveKey="home"
-                    id="recipeDetails-Tab"
-                    className="mb-3">
-                    <Tab eventKey="home" title={t('incredients_header')}>
-                        <Button
-                            iconName='plus'
-                            secondIconName='carrot'
-                            color={showAddIncredient ? 'red' : 'green'}
-                            text={showAddIncredient ? t('button_close') : ''}
-                            onClick={() => setShowAddIncredient(!showAddIncredient)} />
-                        {showAddIncredient &&
-                            <AddIncredient
-                                dbUrl={DB_RECIPE_INCREDIENTS}
-                                translation={TRANSLATION}
-                                onSave={addIncredient}
-                                recipeID={params.id}
-                                onClose={() => setShowAddIncredient(false)}
-                            />}
-                        {incredients != null}
-                        {incredients != null && incredients.length > 0 ? (
-                            <Incredients
-                                dbUrl={DB_RECIPE_INCREDIENTS}
-                                translation={TRANSLATION}
-                                recipeID={params.id}
-                                incredients={incredients}
-                                onDelete={deleteIncredient}
-                            />
-                        ) : (
-                            <>
-                                <CenterWrapper>
-                                    {t('no_incredients_to_show')}
-                                </CenterWrapper>
-                            </>
-                        )}
-                    </Tab>
-                    <Tab eventKey="workPhases" title={t('workphases_header')}>
-                        <Button
-                            iconName='plus'
-                            secondIconName='hourglass-1'
-                            color={showAddWorkPhase ? 'red' : 'green'}
-                            text={showAddWorkPhase ? t('button_close') : ''}
-                            onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
-                        {showAddWorkPhase &&
-                            <AddWorkPhase
-                                dbUrl={DB_RECIPE_WORKPHASES}
-                                translation={TRANSLATION}
-                                onSave={addWorkPhase}
-                                recipeID={params.id}
-                                onClose={() => setShowAddWorkPhase(false)} />
-                        }
-                        {workPhases != null}
-                        {workPhases != null && workPhases.length > 0 ? (
-                            <WorkPhases
-                                dbUrl={DB_RECIPE_WORKPHASES}
-                                translation={TRANSLATION}
-                                recipeID={params.id}
-                                workPhases={workPhases}
-                                onDelete={deleteWorkPhase}
-                            />
-                        ) : (
-                            <>
-                                <CenterWrapper>
-                                    {t('no_workphases_to_show')}
-                                </CenterWrapper>
-                            </>
-                        )}
-                    </Tab>
-                    <Tab eventKey="actions" title="Toiminnot">
-                        <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
-                        <AddComment onSave={addCommentToRecipe} />
-                        <AddLink onSaveLink={addLinkToRecipe} />
-                        <Button
-                            iconName='plus-square'
-                            text={t('do_recipe')}
-                            onClick={() => { if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); } }}
-                        />
-                    </Tab>
-                </Tabs>
-                <hr />
-                {
-                    recipeHistory != null && recipeHistory.length > 0 ? (
-                        <RecipeHistories
-                            dbUrl={DB_RECIPE_HISTORY}
+            <Tabs defaultActiveKey="home"
+                id="recipeDetails-Tab"
+                className="mb-3">
+                <Tab eventKey="home" title={t('incredients_header')}>
+                    <Button
+                        iconName='plus'
+                        secondIconName='carrot'
+                        color={showAddIncredient ? 'red' : 'green'}
+                        text={showAddIncredient ? t('button_close') : ''}
+                        onClick={() => setShowAddIncredient(!showAddIncredient)} />
+                    {showAddIncredient &&
+                        <AddIncredient
+                            dbUrl={DB_RECIPE_INCREDIENTS}
                             translation={TRANSLATION}
-                            recipeHistories={recipeHistory} recipeID={params.id} />
+                            onSave={addIncredient}
+                            recipeID={params.id}
+                            onClose={() => setShowAddIncredient(false)}
+                        />}
+                    {incredients != null}
+                    {incredients != null && incredients.length > 0 ? (
+                        <Incredients
+                            dbUrl={DB_RECIPE_INCREDIENTS}
+                            translation={TRANSLATION}
+                            recipeID={params.id}
+                            incredients={incredients}
+                            onDelete={deleteIncredient}
+                        />
                     ) : (
-                        t('no_recipe_history')
-                    )
-                }
-                <Comments objID={params.id} url={'recipe-comments'} />
-                <Links objID={params.id} url={'recipe-links'} />
-            </PageContentWrapper>
-        </div>
+                        <>
+                            <CenterWrapper>
+                                {t('no_incredients_to_show')}
+                            </CenterWrapper>
+                        </>
+                    )}
+                </Tab>
+                <Tab eventKey="workPhases" title={t('workphases_header')}>
+                    <Button
+                        iconName='plus'
+                        secondIconName='hourglass-1'
+                        color={showAddWorkPhase ? 'red' : 'green'}
+                        text={showAddWorkPhase ? t('button_close') : ''}
+                        onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
+                    {showAddWorkPhase &&
+                        <AddWorkPhase
+                            dbUrl={DB_RECIPE_WORKPHASES}
+                            translation={TRANSLATION}
+                            onSave={addWorkPhase}
+                            recipeID={params.id}
+                            onClose={() => setShowAddWorkPhase(false)} />
+                    }
+                    {workPhases != null}
+                    {workPhases != null && workPhases.length > 0 ? (
+                        <WorkPhases
+                            dbUrl={DB_RECIPE_WORKPHASES}
+                            translation={TRANSLATION}
+                            recipeID={params.id}
+                            workPhases={workPhases}
+                            onDelete={deleteWorkPhase}
+                        />
+                    ) : (
+                        <>
+                            <CenterWrapper>
+                                {t('no_workphases_to_show')}
+                            </CenterWrapper>
+                        </>
+                    )}
+                </Tab>
+                <Tab eventKey="actions" title="Toiminnot">
+                    <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
+                    <AddComment onSave={addCommentToRecipe} />
+                    <AddLink onSaveLink={addLinkToRecipe} />
+                    <Button
+                        iconName='plus-square'
+                        text={t('do_recipe')}
+                        onClick={() => { if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); } }}
+                    />
+                </Tab>
+            </Tabs>
+            <hr />
+            {
+                recipeHistory != null && recipeHistory.length > 0 ? (
+                    <RecipeHistories
+                        dbUrl={DB_RECIPE_HISTORY}
+                        translation={TRANSLATION}
+                        recipeHistories={recipeHistory} recipeID={params.id} />
+                ) : (
+                    t('no_recipe_history')
+                )
+            }
+            <Comments objID={params.id} url={'recipe-comments'} />
+            <Links objID={params.id} url={'recipe-links'} />
+
+        </PageContentWrapper>
     )
 }

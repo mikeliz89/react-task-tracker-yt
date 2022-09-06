@@ -26,9 +26,9 @@ import Alert from '../Alert';
 //recipetypes
 import { RecipeTypes } from '../../utils/Enums';
 import Icon from '../Icon';
-//ScrollToTop
-import ScrollToTop from '../ScrollToTop';
+//page
 import PageContentWrapper from '../PageContentWrapper';
+//counter
 import Counter from '../Counter';
 import CenterWrapper from '../CenterWrapper';
 
@@ -124,7 +124,7 @@ export default function ManageDrinks() {
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
-        <div>
+        <PageContentWrapper>
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
@@ -135,58 +135,56 @@ export default function ManageDrinks() {
                 </ButtonGroup>
             </Row>
             <PageTitle title={t('manage_drinks_title')} />
-            <PageContentWrapper>
-                <div>
-                    <Link to="/managedrinkingproducts" className='btn btn-primary'>
-                        <Icon name='wine-bottle' color='white' />
-                        {t('button_manage_drinkingproducts')}
-                    </Link>
-                    &nbsp;
-                    <Link to="/managedrinklists" className='btn btn-primary'>
-                        <Icon name='list-alt' color='white' />
-                        {t('button_drinklists')}
-                    </Link>
-                </div>
 
-                <Alert message={message} showMessage={showMessage}
-                    error={error} showError={showError}
-                    variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+            <div>
+                <Link to="/managedrinkingproducts" className='btn btn-primary'>
+                    <Icon name='wine-bottle' color='white' />
+                    {t('button_manage_drinkingproducts')}
+                </Link>
+                &nbsp;
+                <Link to="/managedrinklists" className='btn btn-primary'>
+                    <Icon name='list-alt' color='white' />
+                    {t('button_drinklists')}
+                </Link>
+            </div>
 
-                {showAddDrink &&
-                    <AddDrink onSave={addDrink} onClose={() => setShowAddDrink(false)} />
-                }
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-                <SearchSortFilter
-                    showFilterCore={true}
-                    useTitleFiltering={true}
-                    onSet={setDrinks}
-                    showFilterHaveRated={true}
-                    showFilterNotHaveRated={true}
-                    showSortByTitle={true}
-                    showSortByCreatedDate={true}
-                    showSortByStarRating={true}
-                    showSearchByDescription={true}
-                    originalList={originalDrinks} />
-                {
-                    drinks != null && drinks.length > 0 ? (
-                        <>
-                            <Counter list={drinks} originalList={originalDrinks} counter={counter} />
-                            <Recipes
-                                translation={TRANSLATION}
-                                recipes={drinks}
-                                recipeType={RecipeTypes.Drink}
-                                onDelete={deleteDrink} />
-                        </>
-                    ) : (
-                        <>
-                            <CenterWrapper>
-                                {t('no_drinks_to_show')}
-                            </CenterWrapper>
-                        </>
-                    )
-                }
-            </PageContentWrapper>
-            <ScrollToTop />
-        </div>
+            {showAddDrink &&
+                <AddDrink onSave={addDrink} onClose={() => setShowAddDrink(false)} />
+            }
+
+            <SearchSortFilter
+                showFilterCore={true}
+                useTitleFiltering={true}
+                onSet={setDrinks}
+                showFilterHaveRated={true}
+                showFilterNotHaveRated={true}
+                showSortByTitle={true}
+                showSortByCreatedDate={true}
+                showSortByStarRating={true}
+                showSearchByDescription={true}
+                originalList={originalDrinks} />
+            {
+                drinks != null && drinks.length > 0 ? (
+                    <>
+                        <Counter list={drinks} originalList={originalDrinks} counter={counter} />
+                        <Recipes
+                            translation={TRANSLATION}
+                            recipes={drinks}
+                            recipeType={RecipeTypes.Drink}
+                            onDelete={deleteDrink} />
+                    </>
+                ) : (
+                    <>
+                        <CenterWrapper>
+                            {t('no_drinks_to_show')}
+                        </CenterWrapper>
+                    </>
+                )
+            }
+        </PageContentWrapper>
     )
 }

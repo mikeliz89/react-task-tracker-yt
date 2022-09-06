@@ -28,6 +28,7 @@ import AddDrinkingProduct from './AddDrinkingProduct';
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
+//page
 import PageContentWrapper from '../PageContentWrapper';
 
 export default function DrinkingProductDetails() {
@@ -113,7 +114,7 @@ export default function DrinkingProductDetails() {
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
-        <div>
+        <PageContentWrapper>
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
@@ -158,20 +159,20 @@ export default function DrinkingProductDetails() {
                     </Accordion>
                 </Col>
             </Row>
-            <PageContentWrapper>
-                <Alert message={message} showMessage={showMessage}
-                    error={error} showError={showError}
-                    variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-                <AddComment onSave={addCommentToDrinkingProduct} />
-                <AddLink onSaveLink={addLinkToDrinkingProduct} />
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-                {showEditDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} drinkingProductID={params.id}
-                    onClose={() => setShowEditDrinkingProduct(false)} />}
+            <AddComment onSave={addCommentToDrinkingProduct} />
+            <AddLink onSaveLink={addLinkToDrinkingProduct} />
 
-                <Comments objID={params.id} url={'drinkingproduct-comments'} />
-                <Links objID={params.id} url={'drinkingproduct-links'} />
-            </PageContentWrapper>
-        </div>
+            {showEditDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} drinkingProductID={params.id}
+                onClose={() => setShowEditDrinkingProduct(false)} />}
+
+            <Comments objID={params.id} url={'drinkingproduct-comments'} />
+            <Links objID={params.id} url={'drinkingproduct-links'} />
+
+        </PageContentWrapper>
     )
 }

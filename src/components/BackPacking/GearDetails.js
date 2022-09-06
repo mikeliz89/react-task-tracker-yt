@@ -26,6 +26,7 @@ import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+//page
 import PageContentWrapper from '../PageContentWrapper';
 
 function GearDetails() {
@@ -100,7 +101,7 @@ function GearDetails() {
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
-        <div>
+        <PageContentWrapper>
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
@@ -155,14 +156,11 @@ function GearDetails() {
                     <AddLink onSaveLink={addLinkToGear} />
                 </Col>
             </Row>
-            <PageContentWrapper>
-                <hr />
-                <Comments objID={params.id} url={'backpacking-gear-comments'} />
-                <Links objID={params.id} url={'backpacking-gear-links'} />
-            </PageContentWrapper>
-        </div>
+            <hr />
+            <Comments objID={params.id} url={'backpacking-gear-comments'} />
+            <Links objID={params.id} url={'backpacking-gear-links'} />
+        </PageContentWrapper>
     )
-
 }
 
 export default GearDetails

@@ -14,11 +14,11 @@ import { onValue, ref, remove } from 'firebase/database';
 import PageTitle from '../PageTitle';
 //searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-//ScrollToTop
-import ScrollToTop from '../ScrollToTop';
 //center
 import CenterWrapper from '../CenterWrapper';
+//page
 import PageContentWrapper from '../PageContentWrapper';
+//counter
 import Counter from '../Counter';
 
 const ManageExercises = () => {
@@ -76,7 +76,7 @@ const ManageExercises = () => {
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
-    <div>
+    <PageContentWrapper>
       <Row>
         <ButtonGroup>
           <GoBackButton />
@@ -84,35 +84,33 @@ const ManageExercises = () => {
         </ButtonGroup>
       </Row>
       <PageTitle title={t('manage_exercises_title')} />
-      <PageContentWrapper>
-        <Link to="/managemovements" className='btn btn-primary'>{t('manage_movements_button')}</Link>
-        <CenterWrapper>
-          {t('exercises')}
-        </CenterWrapper>
-        <SearchSortFilter
-          onSet={setExercises}
-          originalList={originalExercises}
-          showSearch={false}
-          showSortByStarRating={true}
-          showSortByCreatedDate={true} />
-        {
-          exercises != null && exercises.length > 0 ? (
-            <>
-              <Counter list={exercises} originalList={originalExercises} counter={counter} />
-              <Exercises exercises={exercises}
-                onDelete={deleteExercise} />
-            </>
-          ) : (
-            <>
-              <CenterWrapper>
-                {t('no_exercises_to_show')}
-              </CenterWrapper>
-            </>
-          )
-        }
-      </PageContentWrapper>
-      <ScrollToTop />
-    </div>
+
+      <Link to="/managemovements" className='btn btn-primary'>{t('manage_movements_button')}</Link>
+      <CenterWrapper>
+        {t('exercises')}
+      </CenterWrapper>
+      <SearchSortFilter
+        onSet={setExercises}
+        originalList={originalExercises}
+        showSearch={false}
+        showSortByStarRating={true}
+        showSortByCreatedDate={true} />
+      {
+        exercises != null && exercises.length > 0 ? (
+          <>
+            <Counter list={exercises} originalList={originalExercises} counter={counter} />
+            <Exercises exercises={exercises}
+              onDelete={deleteExercise} />
+          </>
+        ) : (
+          <>
+            <CenterWrapper>
+              {t('no_exercises_to_show')}
+            </CenterWrapper>
+          </>
+        )
+      }
+    </PageContentWrapper>
   )
 }
 

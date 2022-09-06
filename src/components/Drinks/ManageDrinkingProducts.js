@@ -21,8 +21,9 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
-//ScrollToTop
-import ScrollToTop from '../ScrollToTop';
+//page
+import PageContentWrapper from '../PageContentWrapper';
+//counter
 import Counter from '../Counter';
 import CenterWrapper from '../CenterWrapper';
 
@@ -120,7 +121,7 @@ const ManageDrinkingProducts = () => {
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
-        <div>
+        <PageContentWrapper>
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
@@ -165,8 +166,7 @@ const ManageDrinkingProducts = () => {
                     </>
                 )
             }
-            <ScrollToTop />
-        </div>
+        </PageContentWrapper>
     )
 }
 

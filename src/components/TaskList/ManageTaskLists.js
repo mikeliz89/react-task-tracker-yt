@@ -25,10 +25,11 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { ListTypes } from '../../utils/Enums';
 //proptypes
 import PropTypes from 'prop-types';
-//ScrollToTop
-import ScrollToTop from '../ScrollToTop';
+//center
 import CenterWrapper from '../CenterWrapper';
+//page
 import PageContentWrapper from '../PageContentWrapper';
+//counter
 import Counter from '../Counter';
 
 export default function ManageTaskLists({ listType }) {
@@ -121,7 +122,7 @@ export default function ManageTaskLists({ listType }) {
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
-    <div>
+    <PageContentWrapper>
       <Row>
         <ButtonGroup>
           <GoBackButton />
@@ -136,33 +137,30 @@ export default function ManageTaskLists({ listType }) {
       {showAddTaskList &&
         <AddTaskList onClose={() => setShowAddTaskList(false)} onSave={addTaskList} />
       }
-      <PageContentWrapper>
-        <SearchSortFilter
-          useTitleFiltering={true}
-          onSet={setTaskLists}
-          showSortByTitle={true}
-          showSortByCreatedDate={true}
-          showSearchByDescription={true}
-          originalList={originalTaskLists} />
-        {taskLists != null && taskLists.length > 0 ? (
-          <>
-            <Counter list={taskLists} originalList={originalTaskLists} counter={counter} />
-            <TaskLists
-              taskLists={taskLists}
-              onDelete={deleteTaskList}
-            />
-          </>
-        ) : (
-          <>
-            <CenterWrapper>
-              {t('no_task_lists_to_show')}
-            </CenterWrapper>
-          </>
-        )
-        }
-      </PageContentWrapper>
-      <ScrollToTop />
-    </div>
+      <SearchSortFilter
+        useTitleFiltering={true}
+        onSet={setTaskLists}
+        showSortByTitle={true}
+        showSortByCreatedDate={true}
+        showSearchByDescription={true}
+        originalList={originalTaskLists} />
+      {taskLists != null && taskLists.length > 0 ? (
+        <>
+          <Counter list={taskLists} originalList={originalTaskLists} counter={counter} />
+          <TaskLists
+            taskLists={taskLists}
+            onDelete={deleteTaskList}
+          />
+        </>
+      ) : (
+        <>
+          <CenterWrapper>
+            {t('no_task_lists_to_show')}
+          </CenterWrapper>
+        </>
+      )
+      }
+    </PageContentWrapper>
   )
 }
 

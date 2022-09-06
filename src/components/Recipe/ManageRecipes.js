@@ -26,10 +26,11 @@ import Alert from '../Alert';
 import { RecipeTypes } from '../../utils/Enums';
 //icon
 import Icon from '../Icon';
-//ScrollToTop
-import ScrollToTop from '../ScrollToTop';
+//page
 import PageContentWrapper from '../PageContentWrapper';
+//counter
 import Counter from '../Counter';
+//center
 import CenterWrapper from '../CenterWrapper';
 
 const ManageRecipes = () => {
@@ -128,7 +129,7 @@ const ManageRecipes = () => {
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
-    <div>
+    <PageContentWrapper>
       <Row>
         <ButtonGroup>
           <GoBackButton />
@@ -139,55 +140,53 @@ const ManageRecipes = () => {
         </ButtonGroup>
       </Row>
       <PageTitle title={t('manage_recipes_title')} />
-      <PageContentWrapper>
 
-        <div>
-          <Link to="/managefooditems" className='btn btn-primary'>{t('button_manage_fooditems')}</Link>
-          &nbsp;
-          <Link to="/managerecipelists" className='btn btn-primary'>
-            <Icon name='list-alt' color='white' />
-            {t('button_recipe_lists')}
-          </Link>
-        </div>
 
-        <Alert message={message} showMessage={showMessage}
-          error={error} showError={showError}
-          variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+      <div>
+        <Link to="/managefooditems" className='btn btn-primary'>{t('button_manage_fooditems')}</Link>
+        &nbsp;
+        <Link to="/managerecipelists" className='btn btn-primary'>
+          <Icon name='list-alt' color='white' />
+          {t('button_recipe_lists')}
+        </Link>
+      </div>
 
-        {showAddRecipe && <AddRecipe onClose={() => setShowAddRecipe(false)} onAddRecipe={addRecipe} />}
-        <SearchSortFilter
-          useTitleFiltering={true}
-          onSet={setRecipes}
-          showFilterCore={true}
-          showSortByTitle={true}
-          showFilterHaveRated={true}
-          showFilterNotHaveRated={true}
-          showSortByCreatedDate={true}
-          showSortByStarRating={true}
-          showSearchByDescription={true}
-          originalList={originalRecipes} />
-        {
-          recipes != null && recipes.length > 0 ? (
-            <>
-              <Counter list={recipes} originalList={originalRecipes} counter={counter} />
-              <Recipes
-                recipeType={RecipeTypes.Food}
-                translation={TRANSLATION}
-                recipes={recipes}
-                onDelete={deleteRecipe} />
-            </>
-          ) : (
-            <>
-              <CenterWrapper>
-                {t('no_recipes_to_show')}
-              </CenterWrapper>
-            </>
-          )
-        }
-        {/* { <pre>{JSON.stringify(recipes)}</pre> } */}
-      </PageContentWrapper>
-      <ScrollToTop />
-    </div>
+      <Alert message={message} showMessage={showMessage}
+        error={error} showError={showError}
+        variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
+      {showAddRecipe && <AddRecipe onClose={() => setShowAddRecipe(false)} onAddRecipe={addRecipe} />}
+      <SearchSortFilter
+        useTitleFiltering={true}
+        onSet={setRecipes}
+        showFilterCore={true}
+        showSortByTitle={true}
+        showFilterHaveRated={true}
+        showFilterNotHaveRated={true}
+        showSortByCreatedDate={true}
+        showSortByStarRating={true}
+        showSearchByDescription={true}
+        originalList={originalRecipes} />
+      {
+        recipes != null && recipes.length > 0 ? (
+          <>
+            <Counter list={recipes} originalList={originalRecipes} counter={counter} />
+            <Recipes
+              recipeType={RecipeTypes.Food}
+              translation={TRANSLATION}
+              recipes={recipes}
+              onDelete={deleteRecipe} />
+          </>
+        ) : (
+          <>
+            <CenterWrapper>
+              {t('no_recipes_to_show')}
+            </CenterWrapper>
+          </>
+        )
+      }
+      {/* { <pre>{JSON.stringify(recipes)}</pre> } */}
+    </PageContentWrapper>
   )
 }
 

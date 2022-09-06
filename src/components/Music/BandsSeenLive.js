@@ -4,6 +4,7 @@ import GoBackButton from "../GoBackButton";
 import { useTranslation } from 'react-i18next';
 //pagetitle
 import PageTitle from "../PageTitle";
+//page
 import PageContentWrapper from "../PageContentWrapper";
 
 const BandsSeenLive = () => {
@@ -12,13 +13,11 @@ const BandsSeenLive = () => {
     const { t } = useTranslation('music', { keyPrefix: 'music' });
 
     return (
-        <div>
+        <PageContentWrapper>
             <GoBackButton />
             <PageTitle title={t('bands_seen_live')} />
-            <PageContentWrapper>
-                <p>Bändit</p>
-            </PageContentWrapper>
-        </div>
+            <p>Bändit</p>
+        </PageContentWrapper>
     )
 }
 

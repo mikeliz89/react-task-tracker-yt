@@ -14,10 +14,11 @@ import { db } from '../../firebase-config';
 import { onValue, ref, remove } from 'firebase/database';
 //exercises
 import Movements from './Movements';
-//ScrollToTop
-import ScrollToTop from '../ScrollToTop';
+//center
 import CenterWrapper from '../CenterWrapper';
+//page
 import PageContentWrapper from '../PageContentWrapper';
+//counter
 import Counter from '../Counter';
 
 function ManageMovements() {
@@ -75,7 +76,7 @@ function ManageMovements() {
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
-        <>
+        <PageContentWrapper>
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
@@ -83,35 +84,32 @@ function ManageMovements() {
                 </ButtonGroup>
             </Row>
             <PageTitle title={t('manage_movements_title')} />
-            <PageContentWrapper>
-                <CenterWrapper>
-                    {t('movements')}
-                </CenterWrapper>
-                <SearchSortFilter
-                    onSet={setMovements}
-                    originalList={originalMovements}
-                    showSearch={true}
-                    useNameFiltering={true}
-                    showSortByCreatedDate={true}
-                    showSortByName={true} />
-                {
-                    movements != null && movements.length > 0 ? (
-                        <>
-                            <Counter list={movements} originalList={originalMovements} counter={counter} />
-                            <Movements movements={movements}
-                                onDelete={deleteMovement} />
-                        </>
-                    ) : (
-                        <>
-                            <CenterWrapper>
-                                {t('no_movements_to_show')}
-                            </CenterWrapper>
-                        </>
-                    )
-                }
-            </PageContentWrapper>
-            <ScrollToTop />
-        </>
+            <CenterWrapper>
+                {t('movements')}
+            </CenterWrapper>
+            <SearchSortFilter
+                onSet={setMovements}
+                originalList={originalMovements}
+                showSearch={true}
+                useNameFiltering={true}
+                showSortByCreatedDate={true}
+                showSortByName={true} />
+            {
+                movements != null && movements.length > 0 ? (
+                    <>
+                        <Counter list={movements} originalList={originalMovements} counter={counter} />
+                        <Movements movements={movements}
+                            onDelete={deleteMovement} />
+                    </>
+                ) : (
+                    <>
+                        <CenterWrapper>
+                            {t('no_movements_to_show')}
+                        </CenterWrapper>
+                    </>
+                )
+            }
+        </PageContentWrapper>
     )
 }
 

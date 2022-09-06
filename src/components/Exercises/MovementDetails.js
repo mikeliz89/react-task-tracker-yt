@@ -31,6 +31,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 //exercises
 import AddMovement from './AddMovement';
+//page
 import PageContentWrapper from '../PageContentWrapper';
 
 export default function MovementDetails() {
@@ -111,7 +112,7 @@ export default function MovementDetails() {
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
-        <div>
+        <PageContentWrapper>
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
@@ -161,22 +162,20 @@ export default function MovementDetails() {
                     <StarRating starCount={movement.stars} />
                 </Col>
             </Row>
-            <PageContentWrapper>
-                <Alert message={message} showMessage={showMessage}
-                    error={error} showError={showError}
-                    variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-                {showEditMovement &&
-                    <AddMovement movementID={params.id} onClose={() => setShowEditMovement(false)} />
-                }
+            {showEditMovement &&
+                <AddMovement movementID={params.id} onClose={() => setShowEditMovement(false)} />
+            }
 
-                <SetStarRating starCount={movement.stars} onSaveStars={saveStars} />
-                <AddComment onSave={addCommentToMovement} />
-                <AddLink onSaveLink={addLinkToMovement} />
+            <SetStarRating starCount={movement.stars} onSaveStars={saveStars} />
+            <AddComment onSave={addCommentToMovement} />
+            <AddLink onSaveLink={addLinkToMovement} />
 
-                <Comments objID={params.id} url={'exercise-movement-comments'} />
-                <Links objID={params.id} url={'exercise-movement-links'} />
-            </PageContentWrapper>
-        </div>
+            <Comments objID={params.id} url={'exercise-movement-comments'} />
+            <Links objID={params.id} url={'exercise-movement-links'} />
+        </PageContentWrapper>
     )
 }

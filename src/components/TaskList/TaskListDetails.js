@@ -27,10 +27,11 @@ import AddLink from '../Links/AddLink';
 import PageTitle from '../PageTitle';
 //SearchSortFilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-//ScrollToTop
-import ScrollToTop from '../ScrollToTop';
-import CenterWrapper from '../CenterWrapper';
+//page
 import PageContentWrapper from '../PageContentWrapper';
+//center
+import CenterWrapper from '../CenterWrapper';
+//counter
 import Counter from '../Counter';
 
 function TaskListDetails() {
@@ -226,7 +227,7 @@ function TaskListDetails() {
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
-    <div>
+    <PageContentWrapper>
       {/* <pre>{JSON.stringify(taskList)}</pre> */}
       <Row>
         <ButtonGroup aria-label="Button group">
@@ -281,58 +282,54 @@ function TaskListDetails() {
         </Col>
       </Row>
 
-      <PageContentWrapper>
+      <div style={{ marginBottom: '10px' }}>
+        <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} iconName='square-check' /> &nbsp;
+        <Button onClick={() => setShowChangeListType(!showChangeListType)} text={t('change_list_type')} iconName='edit' />
+      </div>
 
-        <div style={{ marginBottom: '10px' }}>
-          <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} iconName='square-check' /> &nbsp;
-          <Button onClick={() => setShowChangeListType(!showChangeListType)} text={t('change_list_type')} iconName='edit' />
-        </div>
+      {
+        showChangeListType &&
+        <ChangeType taskList={taskList}
+          onSave={updateTaskList}
+          onClose={() => setShowChangeListType(false)} />
+      }
 
-        {
-          showChangeListType &&
-          <ChangeType taskList={taskList}
-            onSave={updateTaskList}
-            onClose={() => setShowChangeListType(false)} />
-        }
+      {showEditTaskList &&
+        <AddTaskList onSave={updateTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />
+      }
+      {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onSave={updateTask} />}
 
-        {showEditTaskList &&
-          <AddTaskList onSave={updateTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />
-        }
-        {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onSave={updateTask} />}
+      <SearchSortFilter
+        useTextFiltering={true}
+        showFilterReady={true}
+        showFilterNotReady={true}
+        onSet={setTasks}
+        showSortByText={true}
+        showSortByCreatedDate={true}
+        originalList={originalTasks} />
 
-        <SearchSortFilter
-          useTextFiltering={true}
-          showFilterReady={true}
-          showFilterNotReady={true}
-          onSet={setTasks}
-          showSortByText={true}
-          showSortByCreatedDate={true}
-          originalList={originalTasks} />
-
-        {tasks != null && tasks.length > 0 ? (
-          <>
-            <Counter list={tasks} originalList={originalTasks} counter={taskCounter} />
-            <Tasks
-              taskListID={params.id}
-              tasks={tasks}
-              onDelete={deleteTask}
-              onToggle={toggleReminder}
-            />
-          </>
-        ) : (
-          <>
-            <CenterWrapper>
-              {t('no_tasks_to_show')}
-            </CenterWrapper>
-          </>
-        )}
-        <Row />
-        <ScrollToTop />
-        <AddLink onSaveLink={addLinkToTaskList} />
-        <Links objID={params.id} url={'tasklist-links'} />
-      </PageContentWrapper>
-    </div >
-  );
-};
+      {tasks != null && tasks.length > 0 ? (
+        <>
+          <Counter list={tasks} originalList={originalTasks} counter={taskCounter} />
+          <Tasks
+            taskListID={params.id}
+            tasks={tasks}
+            onDelete={deleteTask}
+            onToggle={toggleReminder}
+          />
+        </>
+      ) : (
+        <>
+          <CenterWrapper>
+            {t('no_tasks_to_show')}
+          </CenterWrapper>
+        </>
+      )}
+      <Row />
+      <AddLink onSaveLink={addLinkToTaskList} />
+      <Links objID={params.id} url={'tasklist-links'} />
+    </PageContentWrapper>
+  )
+}
 
 export default TaskListDetails;

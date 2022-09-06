@@ -39,7 +39,9 @@ import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
+//page
 import PageContentWrapper from '../PageContentWrapper';
+//center
 import CenterWrapper from '../CenterWrapper';
 
 export default function DrinkDetails() {
@@ -259,7 +261,7 @@ export default function DrinkDetails() {
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
-        <div>
+        <PageContentWrapper>
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
@@ -313,134 +315,132 @@ export default function DrinkDetails() {
                     <StarRating starCount={drink.stars} />
                 </Col>
             </Row>
-            <PageContentWrapper>
-                {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}
+            {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}
 
-                <Alert message={message} showMessage={showMessage}
-                    error={error} showError={showError}
-                    variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-                {showEditDrink &&
-                    <AddDrink onSave={updateDrink} drinkID={params.id} onClose={() => setShowEditDrink(false)} />
-                }
+            {showEditDrink &&
+                <AddDrink onSave={updateDrink} drinkID={params.id} onClose={() => setShowEditDrink(false)} />
+            }
 
-                <Tabs defaultActiveKey="incredients"
-                    id="drinkDetails-Tab"
-                    className="mb-3">
-                    <Tab eventKey="incredients" title={t('incredients_header')}>
-                        <Button
-                            iconName='plus'
-                            secondIconName='carrot'
-                            color={showAddIncredient ? 'red' : 'green'}
-                            text={showAddIncredient ? t('button_close') : ''}
-                            onClick={() => setShowAddIncredient(!showAddIncredient)} />
-                        {showAddIncredient &&
-                            <AddIncredient
-                                dbUrl={DB_DRINK_INCREDIENTS}
-                                translation={TRANSLATION}
-                                recipeID={params.id}
-                                onSave={addIncredient}
-                                onClose={() => setShowAddIncredient(false)} />
-                        }
-                        {incredients != null && incredients.length > 0 ? (
-                            <Incredients
-                                dbUrl={DB_DRINK_INCREDIENTS}
-                                translation={TRANSLATION}
-                                recipeID={params.id}
-                                incredients={incredients}
-                                onDelete={deleteIncredient}
-                            />
-                        ) : (
-                            <>
-                                <CenterWrapper>
-                                    {t('no_incredients_to_show')}
-                                </CenterWrapper>
-                            </>
-                        )}
-                    </Tab>
-                    <Tab eventKey="workPhases" title={t('workphases_header')}>
-                        <Button
-                            iconName='plus'
-                            secondIconName='hourglass-1'
-                            color={showAddWorkPhase ? 'red' : 'green'}
-                            text={showAddWorkPhase ? t('button_close') : ''}
-                            onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
-                        {showAddWorkPhase && <AddWorkPhase
-                            dbUrl={DB_DRINK_WORKPHASES}
+            <Tabs defaultActiveKey="incredients"
+                id="drinkDetails-Tab"
+                className="mb-3">
+                <Tab eventKey="incredients" title={t('incredients_header')}>
+                    <Button
+                        iconName='plus'
+                        secondIconName='carrot'
+                        color={showAddIncredient ? 'red' : 'green'}
+                        text={showAddIncredient ? t('button_close') : ''}
+                        onClick={() => setShowAddIncredient(!showAddIncredient)} />
+                    {showAddIncredient &&
+                        <AddIncredient
+                            dbUrl={DB_DRINK_INCREDIENTS}
                             translation={TRANSLATION}
                             recipeID={params.id}
-                            onSave={addWorkPhase} onClose={() => setShowAddWorkPhase(false)} />}
-                        {workPhases != null && workPhases.length > 0 ? (
-                            <WorkPhases
-                                dbUrl={DB_DRINK_WORKPHASES}
-                                translation={TRANSLATION}
-                                recipeID={params.id}
-                                workPhases={workPhases}
-                                onDelete={deleteWorkPhase}
-                            />
-                        ) : (
-                            <>
-                                <CenterWrapper>
-                                    {t('no_workphases_to_show')}
-                                </CenterWrapper>
-                            </>
-                        )}
-                    </Tab>
-                    <Tab eventKey="garnishes" title={t('garnishes_header')}>
-                        <Button
-                            iconName='plus'
-                            secondIconName='lemon'
-                            color={showAddGarnish ? 'red' : 'green'}
-                            text={showAddGarnish ? t('button_close') : ''}
-                            onClick={() => setShowAddGarnish(!showAddGarnish)} />
-                        {showAddGarnish &&
-                            <AddGarnish
-                                drinkID={params.id} onSave={addGarnish} onClose={() => setShowAddGarnish(false)} />
-                        }
-                        {garnishes != null && garnishes.length > 0 ? (
-                            <Garnishes
-                                drinkID={params.id}
-                                garnishes={garnishes}
-                                onDelete={deleteGarnish}
-                            />
-                        ) : (
-                            <>
-                                <CenterWrapper>
-                                    {t('no_garnishes_to_show')}
-                                </CenterWrapper>
-                            </>
-                        )}
-                    </Tab>
-                    <Tab eventKey="actions" title="Toiminnot">
-                        <SetStarRating starCount={drink.stars} onSaveStars={saveStars} />
-                        <AddComment onSave={addCommentToDrink} />
-                        <AddLink onSaveLink={addLinkToDrink} />
-                        <Button
-                            iconName='plus-square'
-                            text={t('do_drink')}
-                            onClick={() => { if (window.confirm(t('do_drink_confirm'))) { saveDrinkHistory(params.id); } }}
-                        />
-                    </Tab>
-                </Tabs>
-                <hr />
-                {
-                    drinkHistory != null && drinkHistory.length > 0 ? (
-                        <RecipeHistories
-                            dbUrl={DB_DRINK_HISTORY}
+                            onSave={addIncredient}
+                            onClose={() => setShowAddIncredient(false)} />
+                    }
+                    {incredients != null && incredients.length > 0 ? (
+                        <Incredients
+                            dbUrl={DB_DRINK_INCREDIENTS}
                             translation={TRANSLATION}
-                            recipeHistories={drinkHistory}
-                            recipeID={params.id} />
+                            recipeID={params.id}
+                            incredients={incredients}
+                            onDelete={deleteIncredient}
+                        />
                     ) : (
                         <>
                             <CenterWrapper>
-                                {t('no_drink_history')}
+                                {t('no_incredients_to_show')}
                             </CenterWrapper>
                         </>
-                    )
-                }
-                <Comments objID={params.id} url={'drink-comments'} />
-                <Links objID={params.id} url={'drink-links'} />
-            </PageContentWrapper>
-        </div>
+                    )}
+                </Tab>
+                <Tab eventKey="workPhases" title={t('workphases_header')}>
+                    <Button
+                        iconName='plus'
+                        secondIconName='hourglass-1'
+                        color={showAddWorkPhase ? 'red' : 'green'}
+                        text={showAddWorkPhase ? t('button_close') : ''}
+                        onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
+                    {showAddWorkPhase && <AddWorkPhase
+                        dbUrl={DB_DRINK_WORKPHASES}
+                        translation={TRANSLATION}
+                        recipeID={params.id}
+                        onSave={addWorkPhase} onClose={() => setShowAddWorkPhase(false)} />}
+                    {workPhases != null && workPhases.length > 0 ? (
+                        <WorkPhases
+                            dbUrl={DB_DRINK_WORKPHASES}
+                            translation={TRANSLATION}
+                            recipeID={params.id}
+                            workPhases={workPhases}
+                            onDelete={deleteWorkPhase}
+                        />
+                    ) : (
+                        <>
+                            <CenterWrapper>
+                                {t('no_workphases_to_show')}
+                            </CenterWrapper>
+                        </>
+                    )}
+                </Tab>
+                <Tab eventKey="garnishes" title={t('garnishes_header')}>
+                    <Button
+                        iconName='plus'
+                        secondIconName='lemon'
+                        color={showAddGarnish ? 'red' : 'green'}
+                        text={showAddGarnish ? t('button_close') : ''}
+                        onClick={() => setShowAddGarnish(!showAddGarnish)} />
+                    {showAddGarnish &&
+                        <AddGarnish
+                            drinkID={params.id} onSave={addGarnish} onClose={() => setShowAddGarnish(false)} />
+                    }
+                    {garnishes != null && garnishes.length > 0 ? (
+                        <Garnishes
+                            drinkID={params.id}
+                            garnishes={garnishes}
+                            onDelete={deleteGarnish}
+                        />
+                    ) : (
+                        <>
+                            <CenterWrapper>
+                                {t('no_garnishes_to_show')}
+                            </CenterWrapper>
+                        </>
+                    )}
+                </Tab>
+                <Tab eventKey="actions" title="Toiminnot">
+                    <SetStarRating starCount={drink.stars} onSaveStars={saveStars} />
+                    <AddComment onSave={addCommentToDrink} />
+                    <AddLink onSaveLink={addLinkToDrink} />
+                    <Button
+                        iconName='plus-square'
+                        text={t('do_drink')}
+                        onClick={() => { if (window.confirm(t('do_drink_confirm'))) { saveDrinkHistory(params.id); } }}
+                    />
+                </Tab>
+            </Tabs>
+            <hr />
+            {
+                drinkHistory != null && drinkHistory.length > 0 ? (
+                    <RecipeHistories
+                        dbUrl={DB_DRINK_HISTORY}
+                        translation={TRANSLATION}
+                        recipeHistories={drinkHistory}
+                        recipeID={params.id} />
+                ) : (
+                    <>
+                        <CenterWrapper>
+                            {t('no_drink_history')}
+                        </CenterWrapper>
+                    </>
+                )
+            }
+            <Comments objID={params.id} url={'drink-comments'} />
+            <Links objID={params.id} url={'drink-links'} />
+        </PageContentWrapper>
     )
 }
