@@ -119,6 +119,15 @@ export default function ManageTaskLists({ listType }) {
     return t(contentKey);
   }
 
+  const copyToClipboard = () => {
+    let text = "";
+    taskLists.forEach(function (arrayItem) {
+      text += "" + arrayItem.title;
+      text += "\n";
+    });
+    navigator.clipboard.writeText(text);
+  }
+
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -134,6 +143,11 @@ export default function ManageTaskLists({ listType }) {
         </ButtonGroup>
       </Row>
       <PageTitle title={getPageTitle(listType)} />
+
+      <div style={{ marginBottom: '10px' }}>
+        <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName='copy' /> &nbsp;
+      </div>
+
       {showAddTaskList &&
         <AddTaskList onClose={() => setShowAddTaskList(false)} onSave={addTaskList} />
       }

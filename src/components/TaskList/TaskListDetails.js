@@ -224,6 +224,16 @@ function TaskListDetails() {
     push(dbref, link);
   }
 
+  const copyToClipboard = () => {
+    let text = "";
+    tasks.forEach(function (arrayItem) {
+      text += "*" + arrayItem.text.trim() + "*";
+      text += ": " + arrayItem.day;
+      text += "\n";
+    });
+    navigator.clipboard.writeText(text);
+  }
+
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -283,6 +293,7 @@ function TaskListDetails() {
       </Row>
 
       <div style={{ marginBottom: '10px' }}>
+        <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName='copy' /> &nbsp;
         <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} iconName='square-check' /> &nbsp;
         <Button onClick={() => setShowChangeListType(!showChangeListType)} text={t('change_list_type')} iconName='edit' />
       </div>
