@@ -29,7 +29,7 @@ export default function ForgotPassword() {
     const [error, setError] = useState('');
 
     async function onSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
 
         try {
             setLoading(true);
@@ -53,7 +53,7 @@ export default function ForgotPassword() {
 
     function showSuccess() {
         setMessage(t('check_your_inbox'));
-        setShowMessage();
+        setShowMessage(true);
     }
 
     function showFailure() {
