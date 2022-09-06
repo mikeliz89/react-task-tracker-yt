@@ -11,6 +11,7 @@ import { ref, onValue, child, push, update } from "firebase/database";
 //utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
+import * as Constants from '../../utils/Constants';
 //buttons
 import GoBackButton from '../../components/GoBackButton';
 //pagetitle
@@ -32,9 +33,6 @@ import PageContentWrapper from '../PageContentWrapper';
 function GearDetails() {
 
     //constants
-    const DB_GEAR = "/backpacking-gear";
-    const DB_GEAR_COMMENTS = '/backpacking-gear-comments';
-    const DB_GEAR_LINKS = '/backpacking-gear-links';
     const TRANSLATION = 'backpacking';
 
     //translation
@@ -62,7 +60,7 @@ function GearDetails() {
     }, [])
 
     const fetchGearFromFirebase = async () => {
-        const dbref = ref(db, `${DB_GEAR}/${params.id}`);
+        const dbref = ref(db, `${Constants.DB_GEAR}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
@@ -78,7 +76,7 @@ function GearDetails() {
         const updates = {};
         gear["modified"] = getCurrentDateAsJson()
         gear["stars"] = Number(stars);
-        updates[`${DB_GEAR}/${id}`] = gear;
+        updates[`${Constants.DB_GEAR}/${id}`] = gear;
         update(ref(db), updates);
     }
 
@@ -87,14 +85,14 @@ function GearDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, DB_GEAR_COMMENTS), id);
+        const dbref = child(ref(db, Constants.DB_GEAR_COMMENTS), id);
         push(dbref, comment);
     }
 
     const addLinkToGear = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, DB_GEAR_LINKS), id);
+        const dbref = child(ref(db, Constants.DB_GEAR_LINKS), id);
         push(dbref, link);
     }
 

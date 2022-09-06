@@ -50,6 +50,7 @@ import ManageBackPacking from './components/BackPacking/ManageBackPacking';
 import ManageGear from './components/BackPacking/ManageGear';
 import ManageBackPackingLists from './components/BackPacking/ManageBackPackingLists';
 import GearDetails from './components/BackPacking/GearDetails';
+import ManageGearMaintenance from './components/BackPacking/ManageGearMaintenance';
 //other components
 import PrivateRoute from './components/PrivateRoute';
 import Demo from './components/Demo/Demo';
@@ -170,6 +171,7 @@ function App() {
             {/* Backpacking */}
             <Route path='/managebackpacking' element={<PrivateRoute><ManageBackPacking /></PrivateRoute>} />
             <Route path='/managegear' element={<PrivateRoute><ManageGear /></PrivateRoute>} />
+            <Route path='/managegearmaintenance' element={<PrivateRoute><ManageGearMaintenance /></PrivateRoute>} />
             <Route path='/managebackpackinglists' element={<PrivateRoute><ManageBackPackingLists /></PrivateRoute>} />
             <Route path='/gear/:id' element={<PrivateRoute><GearDetails /></PrivateRoute>} />
             {/* Backpacking */}

@@ -12,6 +12,7 @@ import { db } from '../../firebase-config';
 import { ref, push, onValue, remove } from 'firebase/database';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from "../../utils/Constants";
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //backpacking
@@ -33,7 +34,6 @@ import Counter from '../Counter';
 export default function ManageGear() {
 
     //constants
-    const DB_GEAR = "/backpacking-gear";
     const TRANSLATION = 'backpacking';
 
     //translation
@@ -73,7 +73,7 @@ export default function ManageGear() {
     }, [])
 
     const fetchGearsFromFirebase = async () => {
-        const dbref = await ref(db, DB_GEAR);
+        const dbref = await ref(db, Constants.DB_GEAR);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -94,7 +94,7 @@ export default function ManageGear() {
             clearMessages();
             gear["created"] = getCurrentDateAsJson();
             gear["createdBy"] = currentUser.email;
-            const dbref = ref(db, DB_GEAR);
+            const dbref = ref(db, Constants.DB_GEAR);
             push(dbref, gear);
             setMessage(t('save_success'));
             setShowMessage(true);
@@ -112,7 +112,7 @@ export default function ManageGear() {
     }
 
     const deleteGear = (id) => {
-        const dbref = ref(db, `${DB_GEAR}/${id}`);
+        const dbref = ref(db, `${Constants.DB_GEAR}/${id}`);
         remove(dbref)
     }
 
@@ -124,6 +124,7 @@ export default function ManageGear() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
+                        iconName='plus'
                         color={showAdd ? 'red' : 'green'}
                         text={showAdd ? t('button_close') : t('button_add_gear')}
                         onClick={() => setShowAdd(!showAdd)} />
@@ -136,7 +137,10 @@ export default function ManageGear() {
                 error={error} showError={showError}
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-            {showAdd && <AddGear onAddGear={addGear} onClose={() => setShowAdd(false)} />}
+            {
+                showAdd && <AddGear onSave={addGear} onClose={() => setShowAdd(false)} />
+            }
+
             <SearchSortFilter onSet={setGear} originalList={originalGear} useNameFiltering={true} showSortByName={true} defaultSort={SortMode.Name_DESC} />
             {
                 gear != null && gear.length > 0 ? (

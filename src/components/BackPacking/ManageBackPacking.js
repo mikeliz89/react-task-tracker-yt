@@ -20,6 +20,10 @@ export default function ManageBackPacking() {
             <PageTitle title={t('manage_backpacking_title')} />
             <Link to="/managegear" className='btn btn-primary'>{t('button_manage_gear')}</Link>
             &nbsp;
+            <Link to="/managegearmaintenance" className='btn btn-primary'>
+                {t('button_manage_gear_maintenance')}
+            </Link>
+            &nbsp;
             <Link to="/managebackpackinglists" className='btn btn-primary'>
                 <Icon name='list-alt' color='white' />
                 {t('button_manage_backpacking_lists')}

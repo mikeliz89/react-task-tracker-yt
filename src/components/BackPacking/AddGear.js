@@ -9,10 +9,10 @@ import { ref, get } from "firebase/database";
 import Button from '../Button';
 //backpacking
 import { GearCategories } from './Categories';
+//utils
+import * as Constants from "../../utils/Constants";
 
-const AddGear = ({ gearID, onAddGear, onClose }) => {
-
-    const DB_GEAR = "/backpacking-gear";
+const AddGear = ({ gearID, onSave, onClose }) => {
 
     //translation
     const { t } = useTranslation('backpacking', { keyPrefix: 'backpacking' });
@@ -51,7 +51,7 @@ const AddGear = ({ gearID, onAddGear, onClose }) => {
 
     const fetchGearFromFirebase = async (gearID) => {
 
-        const dbref = ref(db, `${DB_GEAR}/${gearID}`);
+        const dbref = ref(db, `${Constants.DB_GEAR}/${gearID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();
@@ -74,7 +74,7 @@ const AddGear = ({ gearID, onAddGear, onClose }) => {
             return;
         }
 
-        onAddGear({ created, createdBy, name, category, weightInGrams, stars });
+        onSave({ created, createdBy, name, category, weightInGrams, stars });
 
         if (gearID == null) {
             clearForm();
