@@ -2,14 +2,15 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Accordion, Table, Row, Col } from 'react-bootstrap';
+import { Accordion, Table, Row, Col, ButtonGroup } from 'react-bootstrap';
 //firebase
-import { ref, onValue, child } from "firebase/database";
 import { db } from '../../firebase-config';
+import { ref, get, onValue, child, push, update } from "firebase/database";
 //tasks
 import Tasks from '../../components/Task/Tasks';
 //buttons
 import GoBackButton from '../GoBackButton';
+import Button from '../Button';
 //i18n
 import i18n from "i18next";
 //utils
@@ -20,11 +21,15 @@ import PageTitle from '../PageTitle';
 import PageContentWrapper from '../PageContentWrapper';
 //center
 import CenterWrapper from '../CenterWrapper';
+//counter
+import Counter from '../Counter';
 
 export default function ArchivedTaskListDetails() {
 
   const DB_TASKLIST_ARCHIVE = '/tasklist-archive';
   const DB_TASKLIST_ARCHIVE_TASKS = '/tasklist-archive-tasks';
+  const DB_TASKS = '/tasks';
+  const DB_TASKLISTS = '/tasklists'
 
   //params
   const params = useParams();
@@ -32,6 +37,7 @@ export default function ArchivedTaskListDetails() {
   //states
   const [loading, setLoading] = useState(true);
   const [taskList, setTaskList] = useState({});
+  const [originalTasks, setOriginalTasks] = useState();
   const [tasks, setTasks] = useState();
   //counters
   const [taskCounter, setTaskCounter] = useState(0);
@@ -57,7 +63,9 @@ export default function ArchivedTaskListDetails() {
     getTasks()
 
     const getTaskList = async () => {
-      if (cancel) return;
+      if (cancel) {
+        return;
+      }
       await fetchTaskListFromFirebase()
     }
     getTaskList()
@@ -72,9 +80,9 @@ export default function ArchivedTaskListDetails() {
     onValue(dbref, (snapshot) => {
       const data = snapshot.val();
       if (data === null) {
-        navigate('/')
+        navigate('/');
       }
-      setTaskList(data)
+      setTaskList(data);
       setLoading(false);
     })
   }
@@ -94,16 +102,66 @@ export default function ArchivedTaskListDetails() {
         fromDB.push({ id, ...snap[id] });
       }
       setTasks(fromDB);
+      setOriginalTasks(fromDB);
       setTaskCounter(taskCounterTemp);
       setTaskReadyCounter(taskReadyCounterTemp);
     })
+  }
+
+  const returnFromArchive = () => {
+    //1. add this tasklist-archive to taskLists
+    const dbref = ref(db, DB_TASKLISTS);
+    taskList["archived"] = "";
+    taskList["archivedBy"] = "";
+    let taskListID = push(dbref, taskList).key;
+
+    const archiveTaskListID = params.id;
+
+    //2. delete old archived task lists
+    const taskListArchiveRef = ref(db, `${DB_TASKLIST_ARCHIVE}/${archiveTaskListID}`);
+    get(taskListArchiveRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        let updates = {};
+        updates[`${DB_TASKLIST_ARCHIVE}/${archiveTaskListID}`] = null;
+        update(ref(db), updates);
+      } else {
+        console.log("No data available for archived taskLists");
+      }
+    })
+
+    //3. delete old archived tasks, create new tasklist-tasks
+    const tasksArchiveRef = ref(db, `${DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`);
+    get(tasksArchiveRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        var data = snapshot.val();
+        let updates = {};
+        updates[`${DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = null;
+        updates[`${DB_TASKS}/${taskListID}`] = data;
+        update(ref(db), updates);
+      } else {
+        console.log("No data available");
+      }
+    });
   }
 
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
     <PageContentWrapper>
-      <GoBackButton />
+
+      <Row>
+        <ButtonGroup>
+          <GoBackButton />
+          <Button color="#545454" iconName='archive'
+            onClick={() => {
+              if (window.confirm(t('return_from_archive_list_confirm_message'))) {
+                returnFromArchive(taskList);
+              }
+            }}
+          />
+        </ButtonGroup>
+      </Row>
+
       {/* TODO: Arkistoidun listan palautustoiminto -nappi */}
       <Row>
         <Col>
@@ -140,11 +198,14 @@ export default function ArchivedTaskListDetails() {
         </Col>
       </Row>
       {tasks != null && tasks.length > 0 ? (
-        <Tasks
-          archived={true}
-          taskListID={params.id}
-          tasks={tasks}
-        />
+        <>
+          <Counter list={tasks} originalList={originalTasks} counter={taskCounter} />
+          <Tasks
+            archived={true}
+            taskListID={params.id}
+            tasks={tasks}
+          />
+        </>
       ) : (
         <>
           <CenterWrapper>

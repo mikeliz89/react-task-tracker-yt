@@ -253,7 +253,11 @@ function TaskListDetails() {
             text={showAddTask ? t('button_close') : ''}
             onClick={() => setShowAddTask(!showAddTask)} />
           <Button color="#545454" iconName='archive'
-            onClick={() => { if (window.confirm(t('archive_list_confirm_message'))) { archiveTaskList(taskList); } }}
+            onClick={() => {
+              if (window.confirm(t('archive_list_confirm_message'))) {
+                archiveTaskList(taskList);
+              }
+            }}
           />
         </ButtonGroup>
       </Row>

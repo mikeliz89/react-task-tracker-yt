@@ -565,6 +565,7 @@
         "no_tasks_to_show": "Ei tehtäviä",
         "please_add_task": "Ole hyvä ja annan tehtävän nimi",
         "please_add_tasklist": "Ole hyvä ja anna tehtävälistan nimi",
+        "return_from_archive_list_confirm_message": "Palauta normaaliksi?",
         "search": "Hae",
         "set_reminder": "Tehtävä valmis",
         "show": "Näytä",
