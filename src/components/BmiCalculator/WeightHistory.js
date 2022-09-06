@@ -8,6 +8,7 @@ import { db } from '../../firebase-config';
 import { ref, onValue, remove } from "firebase/database";
 //utils
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //i18n
 import i18n from "i18next";
 //auth
@@ -23,11 +24,8 @@ import PageContentWrapper from '../PageContentWrapper';
 
 const WeightHistory = () => {
 
-    //constants
-    const DB_WEIGHT_HISTORY = '/weighthistory';
-
     //translation
-    const { t } = useTranslation('bmicalculator', { keyPrefix: 'bmicalculator' });
+    const { t } = useTranslation(Constants.TRANSLATION_BMICALCULATOR, { keyPrefix: Constants.TRANSLATION_BMICALCULATOR });
 
     //auth
     const { currentUser } = useAuth();
@@ -53,7 +51,7 @@ const WeightHistory = () => {
     }, [])
 
     const fetchHistoryRowsFromFirebase = async () => {
-        const dbref = await ref(db, `${DB_WEIGHT_HISTORY}/${currentUser.uid}`);
+        const dbref = await ref(db, `${Constants.DB_WEIGHT_HISTORY}/${currentUser.uid}`);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -65,7 +63,7 @@ const WeightHistory = () => {
     }
 
     const deleteHistoryRow = async (id) => {
-        const dbref = ref(db, `${DB_WEIGHT_HISTORY}/${currentUser.uid}/${id}`);
+        const dbref = ref(db, `${Constants.DB_WEIGHT_HISTORY}/${currentUser.uid}/${id}`);
         remove(dbref);
     }
 

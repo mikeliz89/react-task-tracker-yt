@@ -11,13 +11,13 @@ import Button from '../Button';
 import { DrinkCategories } from './Categories';
 //link component
 // import AddLink from '../Links/AddLink';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const AddDrink = ({ drinkID, onSave, onClose }) => {
 
-   const DB_DRINKS = "/drinks";
-
    //translation
-   const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
+   const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
    //states
    const [category, setCategory] = useState('');
@@ -55,7 +55,7 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
 
    const fetchDrinkFromFirebase = async (drinkID) => {
 
-      const dbref = ref(db, `${DB_DRINKS}/${drinkID}`);
+      const dbref = ref(db, `${Constants.DB_DRINKS}/${drinkID}`);
       get(dbref).then((snapshot) => {
          if (snapshot.exists()) {
             var val = snapshot.val();

@@ -20,13 +20,13 @@ import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
 //counter
 import Counter from '../Counter';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const ManageExercises = () => {
 
-  const DB_EXERCISES = '/exercises';
-
   //translation
-  const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
+  const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
   //states
   const [loading, setLoading] = useState(true);
@@ -52,7 +52,7 @@ const ManageExercises = () => {
   }, [])
 
   const fetchExercisesFromFirebase = async () => {
-    const dbref = await ref(db, DB_EXERCISES);
+    const dbref = await ref(db, Constants.DB_EXERCISES);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -69,7 +69,7 @@ const ManageExercises = () => {
   }
 
   const deleteExercise = async (id) => {
-    const dbref = ref(db, `${DB_EXERCISES}/${id}`);
+    const dbref = ref(db, `${Constants.DB_EXERCISES}/${id}`);
     remove(dbref)
   }
 

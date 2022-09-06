@@ -14,6 +14,7 @@ import i18n from "i18next";
 //utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
+import * as Constants from '../../utils/Constants';
 //Comment
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
@@ -33,11 +34,6 @@ import PageContentWrapper from '../PageContentWrapper';
 
 export default function DrinkingProductDetails() {
 
-    //constants
-    const DB_DRINKINGPRODUCTS = '/drinkingproducts';
-    const DB_DRINKINGPRODUCT_COMMENTS = '/drinkingproduct-comments';
-    const DB_DRINKINGPRODUCT_LINKS = '/drinkingproduct-links';
-
     //states
     const [loading, setLoading] = useState(true);
     const [drinkingProduct, setDrinkingProduct] = useState({});
@@ -50,7 +46,7 @@ export default function DrinkingProductDetails() {
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
+    const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
     //params
     const params = useParams();
@@ -70,7 +66,7 @@ export default function DrinkingProductDetails() {
     }, [])
 
     const fetchDrinkingProductFromFirebase = async () => {
-        const dbref = ref(db, `${DB_DRINKINGPRODUCTS}/${params.id}`);
+        const dbref = ref(db, `${Constants.DB_DRINKINGPRODUCTS}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
@@ -86,14 +82,14 @@ export default function DrinkingProductDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, DB_DRINKINGPRODUCT_COMMENTS), drinkID);
+        const dbref = child(ref(db, Constants.DB_DRINKINGPRODUCT_COMMENTS), drinkID);
         push(dbref, comment);
     }
 
     const addLinkToDrinkingProduct = (link) => {
         const drinkID = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, DB_DRINKINGPRODUCT_LINKS), drinkID);
+        const dbref = child(ref(db, Constants.DB_DRINKINGPRODUCT_LINKS), drinkID);
         push(dbref, link);
     }
 
@@ -102,7 +98,7 @@ export default function DrinkingProductDetails() {
             var drinkingProductID = params.id;
             const updates = {};
             drinkingProduct["modified"] = getCurrentDateAsJson();
-            updates[`${DB_DRINKINGPRODUCTS}/${drinkingProductID}`] = drinkingProduct;
+            updates[`${Constants.DB_DRINKINGPRODUCTS}/${drinkingProductID}`] = drinkingProduct;
             update(ref(db), updates);
         } catch (error) {
             console.log(error)

@@ -8,10 +8,13 @@ import cookies from 'js-cookie';
 //languages
 import './Language.css';
 import { Languages } from '../../Languages';
+//utils
+import * as Constants from '../../utils/Constants';
 
 export default function Language() {
 
-    const { t } = useTranslation('language', { keyPrefix: 'language' });
+    //translation
+    const { t } = useTranslation(Constants.TRANSLATION_LANGUAGE, { keyPrefix: Constants.TRANSLATION_LANGUAGE });
 
     const currentLanguageCode = cookies.get('i18next') || Languages.FI;
 

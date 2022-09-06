@@ -32,11 +32,8 @@ import PageContentWrapper from '../PageContentWrapper';
 
 function GearDetails() {
 
-    //constants
-    const TRANSLATION = 'backpacking';
-
     //translation
-    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
+    const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
 
     //states
     const [loading, setLoading] = useState(true);

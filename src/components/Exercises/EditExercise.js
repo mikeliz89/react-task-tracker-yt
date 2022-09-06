@@ -9,11 +9,9 @@ import { update, ref } from 'firebase/database';
 import Button from '../Button';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 
 function EditExercise({ exerciseID, exercise, onClose }) {
-
-  //constants
-  const DB_EXERCISES = '/exercises';
 
   //states
   const [date, setDate] = useState(''); //todo: laita oletuksena nykypvm
@@ -27,7 +25,7 @@ function EditExercise({ exerciseID, exercise, onClose }) {
   const [stars, setStars] = useState(0);
 
   //translation
-  const { t, ready } = useTranslation('exercises', { keyPrefix: 'exercises' });
+  const { t, ready } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
   useEffect(() => {
     if (exercise != null) {
@@ -52,7 +50,7 @@ function EditExercise({ exerciseID, exercise, onClose }) {
     try {
       const updates = {};
       exercise["modified"] = getCurrentDateAsJson();
-      updates[`${DB_EXERCISES}/${exerciseID}`] = exercise;
+      updates[`${Constants.DB_EXERCISES}/${exerciseID}`] = exercise;
       update(ref(db), updates);
     } catch (ex) {
       setError(t('exercise_save_exception'));

@@ -13,6 +13,7 @@ import AddDrinkingProduct from './AddDrinkingProduct';
 import DrinkingProducts from './DrinkingProducts';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //searchsortfilter
@@ -25,18 +26,16 @@ import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 //counter
 import Counter from '../Counter';
+//center
 import CenterWrapper from '../CenterWrapper';
 
 const ManageDrinkingProducts = () => {
-
-    //constants
-    const DB_DRINKINGPRODUCTS = '/drinkingproducts';
 
     //user
     const { currentUser } = useAuth();
 
     //translation
-    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
+    const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
     //states
     const [showAddDrinkingProduct, setShowAddDrinkingProduct] = useState(false);
@@ -75,7 +74,7 @@ const ManageDrinkingProducts = () => {
             if (drinkingProduct["abv"] === undefined) {
                 drinkingProduct["abv"] = 0;
             }
-            const dbref = ref(db, DB_DRINKINGPRODUCTS);
+            const dbref = ref(db, Constants.DB_DRINKINGPRODUCTS);
             push(dbref, drinkingProduct);
             setMessage(t('drinkingproduct_save_successful'));
             setShowMessage(true);
@@ -86,7 +85,7 @@ const ManageDrinkingProducts = () => {
     }
 
     const deleteDrinkingProduct = (id) => {
-        const dbref = ref(db, `${DB_DRINKINGPRODUCTS}/${id}`);
+        const dbref = ref(db, `${Constants.DB_DRINKINGPRODUCTS}/${id}`);
         remove(dbref);
     }
 
@@ -97,12 +96,12 @@ const ManageDrinkingProducts = () => {
         if (drinkingProduct["abv"] === undefined) {
             drinkingProduct["abv"] = 0;
         }
-        updates[`${DB_DRINKINGPRODUCTS}/${id}`] = drinkingProduct;
+        updates[`${Constants.DB_DRINKINGPRODUCTS}/${id}`] = drinkingProduct;
         update(ref(db), updates);
     }
 
     const fetchDrinkingProductsFromFirebase = async () => {
-        const dbref = await ref(db, DB_DRINKINGPRODUCTS);
+        const dbref = await ref(db, Constants.DB_DRINKINGPRODUCTS);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];

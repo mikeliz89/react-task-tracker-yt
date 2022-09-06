@@ -8,6 +8,8 @@ import { useAuth } from '../../contexts/AuthContext';
 import Button from '../../components/Button';
 //alert
 import Alert from '../Alert';
+//utils
+import * as Constants from '../../utils/Constants';
 
 export default function Logout() {
 
@@ -18,7 +20,7 @@ export default function Logout() {
     const navigate = useNavigate();
 
     //translation
-    const { t } = useTranslation('auth', { keyPrefix: 'auth' });
+    const { t } = useTranslation(Constants.TRANSLATION_AUTH, { keyPrefix: Constants.TRANSLATION_AUTH });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);

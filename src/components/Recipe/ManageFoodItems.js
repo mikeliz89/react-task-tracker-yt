@@ -13,6 +13,7 @@ import AddFoodItem from './AddFoodItem';
 import FoodItems from './FoodItems';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //searchsortfilter
@@ -30,13 +31,11 @@ import CenterWrapper from '../CenterWrapper';
 
 const ManageFoodItems = () => {
 
-    const DB_FOODITEMS = '/fooditems';
-
     //user
     const { currentUser } = useAuth();
 
     //translation
-    const { t } = useTranslation('recipe', { keyPrefix: 'recipe' });
+    const { t } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
 
     //states
     const [loading, setLoading] = useState(true);
@@ -72,7 +71,7 @@ const ManageFoodItems = () => {
         try {
             foodItem["created"] = getCurrentDateAsJson();
             foodItem["createdBy"] = currentUser.email;
-            const dbref = ref(db, DB_FOODITEMS);
+            const dbref = ref(db, Constants.DB_FOODITEMS);
             push(dbref, foodItem);
             showSuccess();
         } catch (ex) {
@@ -91,7 +90,7 @@ const ManageFoodItems = () => {
     }
 
     const deleteFoodItem = (id) => {
-        const dbref = ref(db, `${DB_FOODITEMS}/${id}`);
+        const dbref = ref(db, `${Constants.DB_FOODITEMS}/${id}`);
         remove(dbref);
     }
 
@@ -99,12 +98,12 @@ const ManageFoodItems = () => {
         const id = foodItem.id;
         //save
         const updates = {};
-        updates[`${DB_FOODITEMS}/${id}`] = foodItem;
+        updates[`${Constants.DB_FOODITEMS}/${id}`] = foodItem;
         update(ref(db), updates);
     }
 
     const fetchFoodItemsFromFirebase = async () => {
-        const dbref = await ref(db, DB_FOODITEMS);
+        const dbref = await ref(db, Constants.DB_FOODITEMS);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];

@@ -5,11 +5,13 @@ import { useTranslation } from "react-i18next";
 import PageTitle from "../PageTitle";
 //car
 import CarFueling from "./CarFueling";
+//utils
+import * as Constants from '../../utils/Constants';
 
 const CarFuelings = ({ carFuelings, onDelete }) => {
 
     //translation
-    const { t } = useTranslation('car', { keyPrefix: 'car' });
+    const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
 
     return (
         <>

@@ -4,11 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Col, Form, Row } from 'react-bootstrap';
 //buttons
 import Button from '../Button';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const AddLink = ({ onSaveLink }) => {
 
     //translation
-    const { t } = useTranslation('links', { keyPrefix: 'links' });
+    const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
 
     //states
     const [url, setUrl] = useState('');

@@ -7,14 +7,13 @@ import { Form, Row, Col, ButtonGroup } from "react-bootstrap";
 //firebase
 import { ref, get } from 'firebase/database';
 import { db } from '../../firebase-config';
+//utils
+import * as Constants from '../../utils/Constants';
 
 function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {
 
-    //constants
-    const DB_GYMPART = '/exercise-parts';
-
     //translation  
-    const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
+    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     //states
     const [name, setName] = useState('');
@@ -35,7 +34,7 @@ function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {
 
     const fetchGymPartFromFirebase = async (gymPartID) => {
 
-        const dbref = ref(db, `${DB_GYMPART}/${exerciseID}/${gymPartID}`);
+        const dbref = ref(db, `${Constants.DB_EXERCISE_PARTS}/${exerciseID}/${gymPartID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

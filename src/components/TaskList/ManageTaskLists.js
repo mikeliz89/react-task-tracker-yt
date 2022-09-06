@@ -15,6 +15,7 @@ import Button from '../Button';
 //Utils
 import { getPageTitleContent } from '../../utils/ListUtils';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //Context
 import { useAuth } from '../../contexts/AuthContext';
 //PageTitle
@@ -34,12 +35,6 @@ import Counter from '../Counter';
 
 export default function ManageTaskLists({ listType }) {
 
-  //constants
-  const DB_TASKLISTS = '/tasklists';
-  const DB_TASKLIST = '/tasklist';
-  const DB_TASKS = '/tasks';
-  const DB_TASKLIST_ARCHIVE = '/tasklistarchive';
-
   //navigate
   const navigate = useNavigate();
 
@@ -47,7 +42,7 @@ export default function ManageTaskLists({ listType }) {
   const { currentUser } = useAuth();
 
   //translation
-  const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
+  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
   //states
   const [loading, setLoading] = useState(true);
@@ -65,7 +60,7 @@ export default function ManageTaskLists({ listType }) {
   }, [])
 
   const fetchTaskListsFromFireBase = async () => {
-    const dbref = ref(db, DB_TASKLISTS); //.orderByChild("listType").equalTo(Number(listType));;
+    const dbref = ref(db, Constants.DB_TASKLISTS); //.orderByChild("listType").equalTo(Number(listType));;
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -93,25 +88,25 @@ export default function ManageTaskLists({ listType }) {
     } else {
       taskList["listType"] = listType;
     }
-    const dbref = ref(db, DB_TASKLISTS);
+    const dbref = ref(db, Constants.DB_TASKLISTS);
     push(dbref, taskList)
       .then((snap) => {
         const key = snap.key;
-        navigate(`${DB_TASKLIST}/${key}`);
+        navigate(`${Constants.NAVIGATION_TASKLIST}/${key}`);
       })
   }
 
   const deleteTaskList = async (id) => {
     //delete tasks
-    const dbrefTasks = ref(db, `${DB_TASKS}/${id}`);
+    const dbrefTasks = ref(db, `${Constants.DB_TASKS}/${id}`);
     remove(dbrefTasks);
     //delete task list
-    const dbref = child(ref(db, DB_TASKLISTS), id);
+    const dbref = child(ref(db, Constants.DB_TASKLISTS), id);
     remove(dbref);
   }
 
   function gotoTaskListArchive() {
-    navigate(DB_TASKLIST_ARCHIVE);
+    navigate(Constants.NAVIGATION_TASKLIST_ARCHIVE);
   }
 
   const getPageTitle = (listType) => {

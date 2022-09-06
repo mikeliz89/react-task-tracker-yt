@@ -7,12 +7,15 @@ import GoBackButton from '../GoBackButton';
 import PageTitle from '../PageTitle';
 //icons
 import Icon from '../Icon';
+//page
 import PageContentWrapper from '../PageContentWrapper';
+//utils 
+import * as Constants from '../../utils/Constants';
 
 export default function ManageBackPacking() {
 
     //translation
-    const { t } = useTranslation('backpacking', { keyPrefix: 'backpacking' });
+    const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
 
     return (
         <PageContentWrapper>

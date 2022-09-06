@@ -6,21 +6,19 @@ import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 //utils
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //icon
 import Icon from "../Icon";
 //car
 import AddFueling from "./AddFueling";
 //firebase
-import { ref, update, remove } from "firebase/database";
+import { ref, update } from "firebase/database";
 import { db } from "../../firebase-config";
 
 function CarFueling({ fuelingRow, onDelete }) {
 
-    //constants
-    const DB_FUELING = 'car-fueling';
-
     //translation
-    const { t } = useTranslation('car', { keyPrefix: 'car' });
+    const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
 
     //states
     const [editable, setEditable] = useState(false);
@@ -28,7 +26,7 @@ function CarFueling({ fuelingRow, onDelete }) {
     const updateFueling = (fueling) => {
         const updates = {};
         fueling["modified"] = getCurrentDateAsJson();
-        updates[`${DB_FUELING}/${fuelingRow.id}`] = fueling;
+        updates[`${Constants.DB_CAR_FUELING}/${fuelingRow.id}`] = fueling;
         update(ref(db), updates);
         setEditable(false);
     }

@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 //button
 import Button from "./Button";
+//utils
+import * as Constants from '../utils/Constants';
 
 export default function ScrollToTop() {
 
     //translation  
-    const { t } = useTranslation('scrolltotop', { keyPrefix: 'scrolltotop' });
+    const { t } = useTranslation(Constants.TRANSLATION_SCROLL_TO_TOP, { keyPrefix: Constants.TRANSLATION_SCROLL_TO_TOP });
 
     //states
     const [isVisible, setIsVisible] = useState(false);

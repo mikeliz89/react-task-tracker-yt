@@ -9,13 +9,13 @@ import { ref, get } from "firebase/database";
 import Button from '../Button';
 //recipe
 import { FoodItemCategories } from './Categories';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
 
-    const DB_FOODITEMS = '/fooditems';
-
     //translation
-    const { t, ready } = useTranslation('recipe', { keyPrefix: 'recipe' });
+    const { t, ready } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
 
     //states
     const [category, setCategory] = useState('');
@@ -58,7 +58,7 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
     }
 
     const fetchFoodItemFromFirebase = async (id) => {
-        const dbref = ref(db, `${DB_FOODITEMS}/${id}`);
+        const dbref = ref(db, `${Constants.DB_FOODITEMS}/${id}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

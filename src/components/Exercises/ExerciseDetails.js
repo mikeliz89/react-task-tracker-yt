@@ -26,6 +26,7 @@ import { useAuth } from '../../contexts/AuthContext';
 //utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
+import * as Constants from '../../utils/Constants';
 //i18n
 import i18n from "i18next";
 //pagetitle
@@ -39,10 +40,6 @@ import Links from '../Links/Links';
 import PageContentWrapper from "../PageContentWrapper";
 
 const ExerciseDetails = () => {
-
-    const DB_EXERCISE_LINKS = '/exercise-links';
-    const DB_EXERCISE_COMMENTS = '/exercise-comments';
-    const DB_EXERCISES = '/exercises';
 
     //params
     const params = useParams();
@@ -62,7 +59,7 @@ const ExerciseDetails = () => {
     const [error] = useState('');
 
     //translation
-    const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
+    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     //auth
     const { currentUser } = useAuth();
@@ -76,7 +73,7 @@ const ExerciseDetails = () => {
     }, [])
 
     const fetchExerciseFromFirebase = async () => {
-        const dbref = ref(db, `${DB_EXERCISES}/${params.id}`);
+        const dbref = ref(db, `${Constants.DB_EXERCISES}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
@@ -92,7 +89,7 @@ const ExerciseDetails = () => {
         const updates = {};
         exercise["modified"] = getCurrentDateAsJson()
         exercise["stars"] = Number(stars);
-        updates[`${DB_EXERCISES}/${exerciseID}`] = exercise;
+        updates[`${Constants.DB_EXERCISES}/${exerciseID}`] = exercise;
         update(ref(db), updates);
     }
 
@@ -101,14 +98,14 @@ const ExerciseDetails = () => {
         comment["created"] = getCurrentDateAsJson()
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, DB_EXERCISE_COMMENTS), id);
+        const dbref = child(ref(db, Constants.DB_EXERCISE_COMMENTS), id);
         push(dbref, comment);
     }
 
     const addLinkToExercise = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, DB_EXERCISE_LINKS), id);
+        const dbref = child(ref(db, Constants.DB_EXERCISE_LINKS), id);
         push(dbref, link);
     }
 

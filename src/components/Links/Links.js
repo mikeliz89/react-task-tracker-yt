@@ -9,11 +9,13 @@ import { ref, onValue, child, remove, update } from "firebase/database";
 import LinksInner from './LinksInner';
 //icon
 import Icon from '../Icon';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const Links = ({ url, objID }) => {
 
     //translation
-    const { t } = useTranslation('links', { keyPrefix: 'links' });
+    const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
 
     //states
     const [loading, setLoading] = useState(true);

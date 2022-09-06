@@ -11,11 +11,14 @@ import Button from '../../components/Button';
 import Alert from '../Alert';
 //pagetitle
 import PageTitle from '../PageTitle';
+//center
 import CenterWrapper from '../CenterWrapper';
+//utils
+import * as Constants from '../../utils/Constants';
 
 export default function Login() {
 
-    const { t } = useTranslation('auth', { keyPrefix: 'auth' });
+    const { t } = useTranslation(Constants.TRANSLATION_AUTH, { keyPrefix: Constants.TRANSLATION_AUTH });
 
     //states
     const [loading, setLoading] = useState(false);

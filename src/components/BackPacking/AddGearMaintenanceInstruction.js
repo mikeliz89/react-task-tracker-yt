@@ -13,7 +13,7 @@ import * as Constants from "../../utils/Constants";
 const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, onClose }) => {
 
     //translation
-    const { t } = useTranslation('backpacking', { keyPrefix: 'backpacking' });
+    const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
 
     //states
     const [created, setCreated] = useState('');

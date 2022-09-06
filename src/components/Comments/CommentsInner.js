@@ -1,5 +1,6 @@
 //utils
 import { getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
+import * as Constants from '../../utils/Constants';
 //i18n
 import i18n from "i18next";
 //react
@@ -10,7 +11,7 @@ import Icon from "../Icon";
 const CommentsInner = ({ comments, onDelete }) => {
 
     //translation
-    const { t } = useTranslation('comments', { keyPrefix: 'comments' });
+    const { t } = useTranslation(Constants.TRANSLATION_COMMENTS, { keyPrefix: Constants.TRANSLATION_COMMENTS });
 
     return (
         <div>

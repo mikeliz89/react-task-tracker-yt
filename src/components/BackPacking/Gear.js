@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 //utils
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
+import * as Constants from "../../utils/Constants";
 //icons
 import Icon from '../Icon';
 //alert
@@ -16,7 +17,7 @@ import StarRating from '../StarRating/StarRating';
 const Gear = ({ gear, onDelete }) => {
 
     //translation
-    const { t } = useTranslation('backpacking', { keyPrefix: 'backpacking' });
+    const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);

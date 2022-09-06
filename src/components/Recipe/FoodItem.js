@@ -6,18 +6,17 @@ import { useTranslation } from 'react-i18next';
 import AddFoodItem from './AddFoodItem';
 //utils
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
+import * as Constants from '../../utils/Constants';
 //icon
 import Icon from '../Icon';
 
 const FoodItem = ({ foodItem, onDelete, onEdit }) => {
 
-    const TRANSLATION = 'recipe';
-
     //states
     const [editable, setEditable] = useState(false);
 
     //translation
-    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
+    const { t } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
 
     const markHaveAtHome = () => {
         foodItem["haveAtHome"] = true;
@@ -36,7 +35,7 @@ const FoodItem = ({ foodItem, onDelete, onEdit }) => {
 
     return (
 
-        <div className={TRANSLATION}>
+        <div className={Constants.TRANSLATION_RECIPE}>
             <h5>
                 <span>
                     {foodItem.name}

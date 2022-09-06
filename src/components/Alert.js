@@ -5,10 +5,12 @@ import { Alert as BootstrapAlert } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 //button
 import Button from './Button';
+//utils
+import * as Constants from '../utils/Constants';
 
 function Alert({ message, showMessage, showError, error, onClose, variant }) {
 
-    const { t } = useTranslation('alert', { keyPrefix: 'alert' });
+    const { t } = useTranslation(Constants.TRANSLATION_ALERT, { keyPrefix: Constants.TRANSLATION_ALERT });
 
     return (
         <>

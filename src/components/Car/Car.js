@@ -23,14 +23,13 @@ import { useAuth } from '../../contexts/AuthContext';
 import CenterWrapper from '../CenterWrapper';
 //page
 import PageContentWrapper from '../PageContentWrapper';
+//utils
+import * as Constants from '../../utils/Constants';
 
 export default function Car() {
 
-    //constants
-    const DB_FUELING = 'car-fueling';
-
     //translation
-    const { t } = useTranslation('car', { keyPrefix: 'car' });
+    const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -56,7 +55,7 @@ export default function Car() {
     }, []);
 
     const fetchCarFuelingsFromFirebase = async () => {
-        const dbref = await ref(db, `${DB_FUELING}`);
+        const dbref = await ref(db, `${Constants.DB_CAR_FUELING}`);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -72,7 +71,7 @@ export default function Car() {
         try {
             fueling["created"] = getCurrentDateAsJson();
             fueling["createdBy"] = currentUser.email;
-            const dbref = ref(db, DB_FUELING);
+            const dbref = ref(db, Constants.DB_CAR_FUELING);
             push(dbref, fueling);
             setMessage(t('save_successful'));
             setShowMessage(true);
@@ -84,7 +83,7 @@ export default function Car() {
     }
 
     const deleteFueling = async (id) => {
-        const dbref = ref(db, `${DB_FUELING}/${id}`);
+        const dbref = ref(db, `${Constants.DB_CAR_FUELING}/${id}`);
         remove(dbref)
     }
 

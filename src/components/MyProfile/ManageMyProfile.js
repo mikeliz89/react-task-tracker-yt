@@ -12,6 +12,7 @@ import { db, uploadProfilePic } from '../../firebase-config';
 import { ref, onValue, update } from "firebase/database";
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //pagetitle
 import PageTitle from '../PageTitle';
 //alert
@@ -21,14 +22,12 @@ import PageContentWrapper from '../PageContentWrapper';
 
 export default function ManageMyProfile() {
 
-    const DB_PROFILES = '/profiles';
-
     //avatar
     const imageName = 'defaultavatar.png';
     const defaultPhotoUrl = `/images/${imageName}`;
 
     //translation
-    const { t } = useTranslation('myprofile', { keyPrefix: 'myprofile' });
+    const { t } = useTranslation(Constants.TRANSLATION_MYPROFILE, { keyPrefix: Constants.TRANSLATION_MYPROFILE });
 
     //user
     const { currentUser } = useAuth();
@@ -64,7 +63,7 @@ export default function ManageMyProfile() {
     }, [currentUser]);
 
     const fetchProfileFromFirebase = async () => {
-        const dbref = ref(db, `${DB_PROFILES}/${currentUser.uid}`);
+        const dbref = ref(db, `${Constants.DB_PROFILES}/${currentUser.uid}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
@@ -94,7 +93,7 @@ export default function ManageMyProfile() {
         let data = { name, height };
         const updates = {};
         data["modified"] = getCurrentDateAsJson()
-        updates[`${DB_PROFILES}/${currentUser.uid}`] = data;
+        updates[`${Constants.DB_PROFILES}/${currentUser.uid}`] = data;
         update(ref(db), updates);
     }
 

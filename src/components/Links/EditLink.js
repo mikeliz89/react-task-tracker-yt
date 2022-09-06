@@ -7,12 +7,13 @@ import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
 //buttons
 import Button from '../../components/Button'
-
+//utils
+import * as Constants from '../../utils/Constants';
 
 const EditLink = ({ linkID, objID, linkUrl, onEditLink, onCloseEditLink }) => {
 
     //translation
-    const { t } = useTranslation('links', { keyPrefix: 'links' });
+    const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
 
     //states
     const [url, setUrl] = useState('');

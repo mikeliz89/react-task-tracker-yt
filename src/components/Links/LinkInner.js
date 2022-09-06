@@ -6,11 +6,13 @@ import { useTranslation } from 'react-i18next';
 import EditLink from "./EditLink";
 //icon
 import Icon from "../Icon";
+//utils
+import * as Constants from '../../utils/Constants';
 
 const LinkInner = ({ link, objID, linkUrl, onEdit, onDelete }) => {
 
     //translation
-    const { t } = useTranslation('links', { keyPrefix: 'links' });
+    const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
 
     //states
     const [editable, setEditable] = useState(false);

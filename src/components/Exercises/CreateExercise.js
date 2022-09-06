@@ -13,6 +13,7 @@ import GoBackButton from '../GoBackButton';
 import { useAuth } from '../../contexts/AuthContext';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //Categories
 import { ExerciseCategories } from './Categories';
 //pagetitle
@@ -23,9 +24,6 @@ import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 
 const CreateExercise = () => {
-
-    //constants
-    const DB_EXERCISES = '/exercises';
 
     //states
     const [category, setCategory] = useState();
@@ -40,7 +38,7 @@ const CreateExercise = () => {
     const [error, setError] = useState('');
 
     //translation
-    const { t, ready } = useTranslation('exercises', { keyPrefix: 'exercises' });
+    const { t, ready } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     //auth
     const { currentUser } = useAuth();
@@ -76,7 +74,7 @@ const CreateExercise = () => {
         try {
             exercise["created"] = getCurrentDateAsJson();
             exercise["createdBy"] = currentUser.email;
-            const dbref = ref(db, DB_EXERCISES);
+            const dbref = ref(db, Constants.DB_EXERCISES);
             push(dbref, exercise).then((snap) => {
                 const key = snap.key;
                 navigate('/exercise/' + key);

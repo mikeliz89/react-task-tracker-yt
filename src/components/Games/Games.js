@@ -9,10 +9,13 @@ import Icon from '../Icon';
 import PageContentWrapper from '../PageContentWrapper';
 //pagetitle
 import PageTitle from '../PageTitle';
+//utils
+import * as Constants from '../../utils/Constants';
 
 export default function Games() {
 
-    const { t } = useTranslation('games', { keyPrefix: 'games' });
+    //translation
+    const { t } = useTranslation(Constants.TRANSLATION_GAMES, { keyPrefix: Constants.TRANSLATION_GAMES });
 
     return (
         <PageContentWrapper>

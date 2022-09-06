@@ -7,19 +7,17 @@ import { Link } from 'react-router-dom';
 import AddDrinkingProduct from './AddDrinkingProduct';
 //utils
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
+import * as Constants from '../../utils/Constants';
 //icons
 import Icon from '../Icon';
 
 const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
 
-    //constants
-    const TRANSLATION = 'drinks';
-
     //states
     const [editable, setEditable] = useState(false);
 
     //translation
-    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
+    const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
     const markHaveAtHome = () => {
         drinkingProduct["haveAtHome"] = true;
@@ -37,7 +35,7 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
     }
 
     return (
-        <div className={TRANSLATION}>
+        <div className={Constants.TRANSLATION_DRINKS}>
             <h5>
                 <span>
                     <Icon name='cocktail' color='gray' />

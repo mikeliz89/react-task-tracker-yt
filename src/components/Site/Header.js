@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 import Language from '../Language/Language';
 //profile
 import MyProfile from '../MyProfile/MyProfile';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const Header = ({ title }) => {
 
@@ -18,7 +20,7 @@ const Header = ({ title }) => {
     const navigate = useNavigate();
 
     //translation
-    const { t } = useTranslation('header', { keyPrefix: 'header' });
+    const { t } = useTranslation(Constants.TRANSLATION_HEADER, { keyPrefix: Constants.TRANSLATION_HEADER });
 
     //user
     const { currentUser } = useAuth()

@@ -8,18 +8,17 @@ import { update, ref } from "firebase/database";
 import AddGarnish from './AddGarnish';
 //icon
 import Icon from '../Icon';
+//utils
+import * as Constants from '../../utils/Constants';
 
 export const Garnish = ({ garnish, drinkID, onDelete }) => {
-
-    //constants
-    const DB_DRINK_GARNISHES = '/drink-garnishes';
 
     //states
     const [editable, setEditable] = useState(false);
 
     const updateGarnish = (drinkID, newGarnish) => {
         const updates = {};
-        updates[`${DB_DRINK_GARNISHES}/${drinkID}/${garnish.id}`] = newGarnish;
+        updates[`${Constants.DB_DRINK_GARNISHES}/${drinkID}/${garnish.id}`] = newGarnish;
         update(ref(db), updates);
         setEditable(false);
     }

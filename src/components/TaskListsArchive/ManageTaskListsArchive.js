@@ -16,16 +16,14 @@ import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
 //counter
 import Counter from '../Counter';
+//utils
+import * as Constants from '../../utils/Constants';
 
 /** TODO: ohjaa listaTypen mukaiseen arkistoon esim Programming osion listoilta */
 const ManageTaskListsArchive = ({ listType }) => {
 
-  //constants
-  const DB_TASKLIST_ARCHIVE = '/tasklist-archive';
-  const DB_TASKLIST_ARCHIVE_TASKS = '/tasklist-archive-tasks';
-
   //translation
-  const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
+  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
   //states
   const [loading, setLoading] = useState(true);
@@ -42,7 +40,7 @@ const ManageTaskListsArchive = ({ listType }) => {
   }, [])
 
   const fetchTaskListsFromFireBase = async () => {
-    const dbref = ref(db, DB_TASKLIST_ARCHIVE);
+    const dbref = ref(db, Constants.DB_TASKLIST_ARCHIVE);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -64,11 +62,11 @@ const ManageTaskListsArchive = ({ listType }) => {
   const deleteTaskList = async (id) => {
 
     //delete tasks
-    const dbrefTasks = ref(db, `${DB_TASKLIST_ARCHIVE_TASKS}/${id}`);
+    const dbrefTasks = ref(db, `${Constants.DB_TASKLIST_ARCHIVE_TASKS}/${id}`);
     remove(dbrefTasks);
 
     //delete task list
-    const dbref = ref(db, `${DB_TASKLIST_ARCHIVE}/${id}`);
+    const dbref = ref(db, `${Constants.DB_TASKLIST_ARCHIVE}/${id}`);
     remove(dbref)
   }
 

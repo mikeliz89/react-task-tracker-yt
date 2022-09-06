@@ -26,7 +26,7 @@ function ManageGearMaintenance() {
     const [showAdd, setShowAdd] = useState(false);
 
     //translation
-    const { t } = useTranslation('backpacking', { keyPrefix: 'backpacking' });
+    const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
 
     //user
     const { currentUser } = useAuth();

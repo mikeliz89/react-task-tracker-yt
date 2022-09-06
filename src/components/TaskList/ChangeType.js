@@ -6,15 +6,19 @@ import { Row, Form, ButtonGroup } from "react-bootstrap";
 import Button from "../Button";
 //enums
 import { ListTypesArray } from "../../utils/Enums";
+//utils
+import * as Constants from '../../utils/Constants';
 
 function ChangeType({ taskList, onSave, onClose }) {
 
     //translation
-    const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
+    const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
+    //states
     const [category, setCategory] = useState('');
     const [categories, setCategories] = useState(ListTypesArray);
 
+    //load data
     useEffect(() => {
         sortCategoriesByName();
     }, []);

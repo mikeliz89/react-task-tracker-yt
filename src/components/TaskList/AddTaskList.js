@@ -7,13 +7,13 @@ import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
 //buttons
 import Button from '../../components/Button';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const AddTaskList = ({ taskListID, onSave, onClose }) => {
 
-    const DB_TASKLISTS = '/tasklists';
-
     //translation
-    const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
+    const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
     //states
     const [title, setTitle] = useState('');
@@ -33,7 +33,7 @@ const AddTaskList = ({ taskListID, onSave, onClose }) => {
 
     const fetchTaskListFromFirebase = async (taskListID) => {
 
-        const dbref = ref(db, `${DB_TASKLISTS}/${taskListID}`);
+        const dbref = ref(db, `${Constants.DB_TASKLISTS}/${taskListID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

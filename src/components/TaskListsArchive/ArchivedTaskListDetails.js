@@ -15,6 +15,7 @@ import Button from '../Button';
 import i18n from "i18next";
 //utils
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //pagetitle
 import PageTitle from '../PageTitle';
 //page
@@ -25,11 +26,6 @@ import CenterWrapper from '../CenterWrapper';
 import Counter from '../Counter';
 
 export default function ArchivedTaskListDetails() {
-
-  const DB_TASKLIST_ARCHIVE = '/tasklist-archive';
-  const DB_TASKLIST_ARCHIVE_TASKS = '/tasklist-archive-tasks';
-  const DB_TASKS = '/tasks';
-  const DB_TASKLISTS = '/tasklists'
 
   //params
   const params = useParams();
@@ -47,7 +43,7 @@ export default function ArchivedTaskListDetails() {
   const navigate = useNavigate();
 
   //translation
-  const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
+  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
   //load data
   useEffect(() => {
@@ -76,7 +72,7 @@ export default function ArchivedTaskListDetails() {
   }, [])
 
   const fetchTaskListFromFirebase = async () => {
-    const dbref = ref(db, `${DB_TASKLIST_ARCHIVE}/${params.id}`);
+    const dbref = ref(db, `${Constants.DB_TASKLIST_ARCHIVE}/${params.id}`);
     onValue(dbref, (snapshot) => {
       const data = snapshot.val();
       if (data === null) {
@@ -88,7 +84,7 @@ export default function ArchivedTaskListDetails() {
   }
 
   const fetchTasksFromFirebase = async () => {
-    const dbref = await child(ref(db, DB_TASKLIST_ARCHIVE_TASKS), params.id);
+    const dbref = await child(ref(db, Constants.DB_TASKLIST_ARCHIVE_TASKS), params.id);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -110,7 +106,7 @@ export default function ArchivedTaskListDetails() {
 
   const returnFromArchive = () => {
     //1. add this tasklist-archive to taskLists
-    const dbref = ref(db, DB_TASKLISTS);
+    const dbref = ref(db, Constants.DB_TASKLISTS);
     taskList["archived"] = "";
     taskList["archivedBy"] = "";
     let taskListID = push(dbref, taskList).key;
@@ -118,11 +114,11 @@ export default function ArchivedTaskListDetails() {
     const archiveTaskListID = params.id;
 
     //2. delete old archived task lists
-    const taskListArchiveRef = ref(db, `${DB_TASKLIST_ARCHIVE}/${archiveTaskListID}`);
+    const taskListArchiveRef = ref(db, `${Constants.DB_TASKLIST_ARCHIVE}/${archiveTaskListID}`);
     get(taskListArchiveRef).then((snapshot) => {
       if (snapshot.exists()) {
         let updates = {};
-        updates[`${DB_TASKLIST_ARCHIVE}/${archiveTaskListID}`] = null;
+        updates[`${Constants.DB_TASKLIST_ARCHIVE}/${archiveTaskListID}`] = null;
         update(ref(db), updates);
       } else {
         console.log("No data available for archived taskLists");
@@ -130,13 +126,13 @@ export default function ArchivedTaskListDetails() {
     })
 
     //3. delete old archived tasks, create new tasklist-tasks
-    const tasksArchiveRef = ref(db, `${DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`);
+    const tasksArchiveRef = ref(db, `${Constants.DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`);
     get(tasksArchiveRef).then((snapshot) => {
       if (snapshot.exists()) {
         var data = snapshot.val();
         let updates = {};
-        updates[`${DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = null;
-        updates[`${DB_TASKS}/${taskListID}`] = data;
+        updates[`${Constants.DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = null;
+        updates[`${Constants.DB_TASKS}/${taskListID}`] = data;
         update(ref(db), updates);
       } else {
         console.log("No data available");

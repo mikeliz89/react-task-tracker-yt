@@ -11,6 +11,7 @@ import { db } from '../../firebase-config';
 import { ref, push, child, onValue } from "firebase/database";
 //utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //i18n
@@ -27,10 +28,6 @@ import PropTypes from 'prop-types';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
 
 const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
-
-    //constants
-    const DB_TASKS = '/tasks';
-    const DB_TASKLISTS = '/tasklists';
 
     //navigate
     const navigate = useNavigate();
@@ -84,7 +81,7 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
         taskList["createdBy"] = currentUser.email;
         taskList["description"] = "";
         taskList["listType"] = ListTypes.Shopping;
-        const dbref = ref(db, DB_TASKLISTS);
+        const dbref = ref(db, Constants.DB_TASKLISTS);
 
         push(dbref, taskList)
             .then((snap) => {
@@ -106,7 +103,7 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
     const addTask = async (taskListID, task) => {
         task["created"] = getCurrentDateAsJson()
         task["createdBy"] = currentUser.email;
-        const dbref = child(ref(db, DB_TASKS), taskListID);
+        const dbref = child(ref(db, Constants.DB_TASKS), taskListID);
         push(dbref, task);
     }
 

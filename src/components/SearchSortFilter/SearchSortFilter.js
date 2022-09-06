@@ -7,6 +7,8 @@ import Button from '../Button';
 import { SortMode } from './SortModes';
 //proptypes
 import PropTypes from 'prop-types';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const SearchSortFilter = ({ onSet,
     originalList,
@@ -60,7 +62,7 @@ const SearchSortFilter = ({ onSet,
     const [_showOnlyNotReady, _setShowOnlyNotReady] = useState(showFilterNotReady);
 
     //translation
-    const { t } = useTranslation('searchsortfilter', { keyPrefix: 'searchsortfilter' });
+    const { t } = useTranslation(Constants.TRANSLATION_SEARCHSORTFILTER, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
 
     //componentDidMount
     useEffect(() => {

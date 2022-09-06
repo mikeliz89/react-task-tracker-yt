@@ -9,21 +9,20 @@ import AddPartsGymForm from './AddPartsGymForm';
 //firebase
 import { ref, update } from 'firebase/database';
 import { db } from '../../firebase-config';
+//utils
+import * as Constants from '../../utils/Constants';
 
 function GymPart({ exerciseID, gymPart, onDelete }) {
 
-    //constants
-    const DB_GYMPART = '/exercise-parts';
-
     //translation
-    const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
+    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     //states
     const [editable, setEditable] = useState(false);
 
     const updateGymPart = (exerciseID, newGymPart) => {
         const updates = {};
-        updates[`${DB_GYMPART}/${exerciseID}/${gymPart.id}`] = newGymPart;
+        updates[`${Constants.DB_EXERCISE_PARTS}/${exerciseID}/${gymPart.id}`] = newGymPart;
         update(ref(db), updates);
         setEditable(false);
     }

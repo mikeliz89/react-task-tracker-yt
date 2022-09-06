@@ -7,12 +7,15 @@ import { db } from '../../firebase-config';
 import { ref, onValue, child, remove } from "firebase/database";
 //comments
 import CommentsInner from './CommentsInner';
+//icon
 import Icon from '../Icon';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const Comments = ({ url, objID }) => {
 
     //translation
-    const { t } = useTranslation('comments', { keyPrefix: 'comments' });
+    const { t } = useTranslation(Constants.TRANSLATION_COMMENTS, { keyPrefix: Constants.TRANSLATION_COMMENTS });
 
     //states
     const [comments, setComments] = useState({});

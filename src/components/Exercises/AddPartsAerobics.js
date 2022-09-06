@@ -12,12 +12,11 @@ import { push, ref, child, update, onValue } from 'firebase/database';
 import { useAuth } from '../../contexts/AuthContext';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //pagetitle
 import PageTitle from '../PageTitle';
 
 const AddPartsAerobics = () => {
-
-  const DB_EXERCISE_PARTS = '/exercise-parts';
 
   //states
   const [time, setTime] = useState(0);
@@ -31,7 +30,7 @@ const AddPartsAerobics = () => {
   const params = useParams();
 
   //translation  
-  const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
+  const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
   //load data
   useEffect(() => {
@@ -42,7 +41,7 @@ const AddPartsAerobics = () => {
   }, [])
 
   const fetchExercisePartFromFirebase = async () => {
-    const dbref = child(ref(db, DB_EXERCISE_PARTS), params.id);
+    const dbref = child(ref(db, Constants.DB_EXERCISE_PARTS), params.id);
     onValue(dbref, (snapshot) => {
       const val = snapshot.val();
       const fromDB = [];
@@ -77,7 +76,7 @@ const AddPartsAerobics = () => {
     const exerciseID = params.id;
     const updates = {};
     moving["modified"] = getCurrentDateAsJson();
-    updates[`${DB_EXERCISE_PARTS}/${exerciseID}/${partID}`] = moving;
+    updates[`${Constants.DB_EXERCISE_PARTS}/${exerciseID}/${partID}`] = moving;
     update(ref(db), updates);
   }
 
@@ -85,7 +84,7 @@ const AddPartsAerobics = () => {
     const exerciseID = params.id;
     moving["created"] = getCurrentDateAsJson();
     moving["createdBy"] = currentUser.email;
-    const dbref = child(ref(db, DB_EXERCISE_PARTS), exerciseID);
+    const dbref = child(ref(db, Constants.DB_EXERCISE_PARTS), exerciseID);
     push(dbref, moving);
   }
 

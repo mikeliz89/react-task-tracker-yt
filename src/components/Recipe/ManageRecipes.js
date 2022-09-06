@@ -14,6 +14,7 @@ import { db } from '../../firebase-config';
 import { ref, push, onValue, remove } from "firebase/database";
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //title
@@ -35,11 +36,6 @@ import CenterWrapper from '../CenterWrapper';
 
 const ManageRecipes = () => {
 
-  //constants
-  const DB_RECIPES = '/recipes';
-  const NAVIGATION_RECIPE = '/recipe';
-  const TRANSLATION = 'recipe';
-
   //states
   const [loading, setLoading] = useState(true);
   const [showAddRecipe, setShowAddRecipe] = useState(false);
@@ -54,7 +50,7 @@ const ManageRecipes = () => {
   const [error, setError] = useState('');
 
   //translation
-  const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
+  const { t } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
 
   //user
   const { currentUser } = useAuth();
@@ -80,7 +76,7 @@ const ManageRecipes = () => {
   }, [])
 
   const fetchRecipesFromFirebase = async () => {
-    const dbref = await ref(db, DB_RECIPES);
+    const dbref = await ref(db, Constants.DB_RECIPES);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -100,10 +96,10 @@ const ManageRecipes = () => {
     try {
       recipe["created"] = getCurrentDateAsJson();
       recipe["createdBy"] = currentUser.email;
-      const dbref = ref(db, DB_RECIPES);
+      const dbref = ref(db, Constants.DB_RECIPES);
       push(dbref, recipe).then((snap) => {
         const key = snap.key;
-        navigate(`${NAVIGATION_RECIPE}/${key}`);
+        navigate(`${Constants.NAVIGATION_RECIPE}/${key}`);
       })
       showSuccess();
     } catch (ex) {
@@ -122,7 +118,7 @@ const ManageRecipes = () => {
   }
 
   const deleteRecipe = async (id) => {
-    const dbref = ref(db, `${DB_RECIPES}/${id}`);
+    const dbref = ref(db, `${Constants.DB_RECIPES}/${id}`);
     remove(dbref)
   }
 
@@ -173,7 +169,7 @@ const ManageRecipes = () => {
             <Counter list={recipes} originalList={originalRecipes} counter={counter} />
             <Recipes
               recipeType={RecipeTypes.Food}
-              translation={TRANSLATION}
+              translation={Constants.TRANSLATION_RECIPE}
               recipes={recipes}
               onDelete={deleteRecipe} />
           </>

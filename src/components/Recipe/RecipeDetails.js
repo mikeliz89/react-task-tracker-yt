@@ -22,6 +22,7 @@ import i18n from "i18next";
 //utils
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
+import * as Constants from '../../utils/Constants';
 //StarRating
 import SetStarRating from '../StarRating/SetStarRating';
 //Links
@@ -43,14 +44,6 @@ import CenterWrapper from '../CenterWrapper';
 
 export default function RecipeDetails() {
 
-    //constants
-    const DB_RECIPES = '/recipes';
-    const DB_RECIPE_INCREDIENTS = '/recipe-incredients';
-    const DB_RECIPE_WORKPHASES = '/recipe-workphases';
-    const DB_RECIPE_COMMENTS = '/recipe-comments';
-    const DB_RECIPE_LINKS = '/recipe-links';
-    const DB_RECIPE_HISTORY = '/recipehistory';
-    const TRANSLATION = 'recipe';
 
     //states
     const [loading, setLoading] = useState(true);
@@ -69,7 +62,7 @@ export default function RecipeDetails() {
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
+    const { t } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
 
     //params
     const params = useParams();
@@ -101,7 +94,7 @@ export default function RecipeDetails() {
     }, [])
 
     const fetchRecipeFromFirebase = async () => {
-        const dbref = ref(db, `${DB_RECIPES}/${params.id}`);
+        const dbref = ref(db, `${Constants.DB_RECIPES}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
@@ -114,7 +107,7 @@ export default function RecipeDetails() {
 
 
     const fetchRecipeHistoryFromFirebase = async () => {
-        const dbref = await child(ref(db, DB_RECIPE_HISTORY), params.id);
+        const dbref = await child(ref(db, Constants.DB_RECIPE_HISTORY), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -126,7 +119,7 @@ export default function RecipeDetails() {
     }
 
     const fetchIncredientsFromFirebase = async () => {
-        const dbref = await child(ref(db, DB_RECIPE_INCREDIENTS), params.id);
+        const dbref = await child(ref(db, Constants.DB_RECIPE_INCREDIENTS), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -138,7 +131,7 @@ export default function RecipeDetails() {
     }
 
     const fetchWorkPhasesFromFirebase = async () => {
-        const dbref = await child(ref(db, DB_RECIPE_WORKPHASES), params.id);
+        const dbref = await child(ref(db, Constants.DB_RECIPE_WORKPHASES), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -150,22 +143,22 @@ export default function RecipeDetails() {
     }
 
     const addIncredient = async (recipeID, incredient) => {
-        const dbref = child(ref(db, DB_RECIPE_INCREDIENTS), recipeID);
+        const dbref = child(ref(db, Constants.DB_RECIPE_INCREDIENTS), recipeID);
         push(dbref, incredient);
     }
 
     const deleteIncredient = async (recipeID, id) => {
-        const dbref = ref(db, `${DB_RECIPE_INCREDIENTS}/${recipeID}/${id}`);
+        const dbref = ref(db, `${Constants.DB_RECIPE_INCREDIENTS}/${recipeID}/${id}`);
         remove(dbref)
     }
 
     const addWorkPhase = async (recipeID, workPhase) => {
-        const dbref = child(ref(db, DB_RECIPE_WORKPHASES), recipeID);
+        const dbref = child(ref(db, Constants.DB_RECIPE_WORKPHASES), recipeID);
         push(dbref, workPhase);
     }
 
     const deleteWorkPhase = async (recipeID, id) => {
-        const dbref = ref(db, `${DB_RECIPE_WORKPHASES}/${recipeID}/${id}`);
+        const dbref = ref(db, `${Constants.DB_RECIPE_WORKPHASES}/${recipeID}/${id}`);
         remove(dbref);
     }
 
@@ -180,7 +173,7 @@ export default function RecipeDetails() {
             if (recipe["isCore"] === undefined) {
                 recipe["isCore"] = false;
             }
-            updates[`${DB_RECIPES}/${recipeID}`] = recipe;
+            updates[`${Constants.DB_RECIPES}/${recipeID}`] = recipe;
             update(ref(db), updates);
         } catch (error) {
             console.log(error)
@@ -194,7 +187,7 @@ export default function RecipeDetails() {
         const updates = {};
         recipe["modified"] = getCurrentDateAsJson()
         recipe["stars"] = Number(stars);
-        updates[`${DB_RECIPES}/${recipeID}`] = recipe;
+        updates[`${Constants.DB_RECIPES}/${recipeID}`] = recipe;
         update(ref(db), updates);
     }
 
@@ -203,19 +196,19 @@ export default function RecipeDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, DB_RECIPE_COMMENTS), recipeID);
+        const dbref = child(ref(db, Constants.DB_RECIPE_COMMENTS), recipeID);
         push(dbref, comment);
     }
 
     const addLinkToRecipe = (link) => {
         const recipeID = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, DB_RECIPE_LINKS), recipeID);
+        const dbref = child(ref(db, Constants.DB_RECIPE_LINKS), recipeID);
         push(dbref, link);
     }
 
     const saveRecipeHistory = async (recipeID) => {
-        const dbref = ref(db, `${DB_RECIPE_HISTORY}/${recipeID}`);
+        const dbref = ref(db, `${Constants.DB_RECIPE_HISTORY}/${recipeID}`);
         const currentDateTime = getCurrentDateAsJson();
         const userID = currentUser.uid;
         push(dbref, { currentDateTime, userID });
@@ -302,8 +295,8 @@ export default function RecipeDetails() {
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
                     {showAddIncredient &&
                         <AddIncredient
-                            dbUrl={DB_RECIPE_INCREDIENTS}
-                            translation={TRANSLATION}
+                            dbUrl={Constants.DB_RECIPE_INCREDIENTS}
+                            translation={Constants.TRANSLATION_RECIPE}
                             onSave={addIncredient}
                             recipeID={params.id}
                             onClose={() => setShowAddIncredient(false)}
@@ -311,8 +304,8 @@ export default function RecipeDetails() {
                     {incredients != null}
                     {incredients != null && incredients.length > 0 ? (
                         <Incredients
-                            dbUrl={DB_RECIPE_INCREDIENTS}
-                            translation={TRANSLATION}
+                            dbUrl={Constants.DB_RECIPE_INCREDIENTS}
+                            translation={Constants.TRANSLATION_RECIPE}
                             recipeID={params.id}
                             incredients={incredients}
                             onDelete={deleteIncredient}
@@ -334,8 +327,8 @@ export default function RecipeDetails() {
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                     {showAddWorkPhase &&
                         <AddWorkPhase
-                            dbUrl={DB_RECIPE_WORKPHASES}
-                            translation={TRANSLATION}
+                            dbUrl={Constants.DB_RECIPE_WORKPHASES}
+                            translation={Constants.TRANSLATION_RECIPE}
                             onSave={addWorkPhase}
                             recipeID={params.id}
                             onClose={() => setShowAddWorkPhase(false)} />
@@ -343,8 +336,8 @@ export default function RecipeDetails() {
                     {workPhases != null}
                     {workPhases != null && workPhases.length > 0 ? (
                         <WorkPhases
-                            dbUrl={DB_RECIPE_WORKPHASES}
-                            translation={TRANSLATION}
+                            dbUrl={Constants.DB_RECIPE_WORKPHASES}
+                            translation={Constants.TRANSLATION_RECIPE}
                             recipeID={params.id}
                             workPhases={workPhases}
                             onDelete={deleteWorkPhase}
@@ -372,8 +365,8 @@ export default function RecipeDetails() {
             {
                 recipeHistory != null && recipeHistory.length > 0 ? (
                     <RecipeHistories
-                        dbUrl={DB_RECIPE_HISTORY}
-                        translation={TRANSLATION}
+                        dbUrl={Constants.DB_RECIPE_HISTORY}
+                        translation={Constants.TRANSLATION_RECIPE}
                         recipeHistories={recipeHistory} recipeID={params.id} />
                 ) : (
                     t('no_recipe_history')

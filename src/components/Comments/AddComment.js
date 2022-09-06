@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '../Button';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 
 function AddComment({ onSave }) {
 
@@ -15,7 +16,7 @@ function AddComment({ onSave }) {
     const [loading, setLoading] = useState(false);
 
     //translation
-    const { t } = useTranslation('comments', { keyPrefix: 'comments' });
+    const { t } = useTranslation(Constants.TRANSLATION_COMMENTS, { keyPrefix: Constants.TRANSLATION_COMMENTS });
 
     /** Add Task Form Submit */
     const onSubmit = (e) => {

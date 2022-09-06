@@ -11,6 +11,7 @@ import { onValue, ref, push, update } from "firebase/database";
 import { db } from "../../firebase-config";
 //utils
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateTimeUtils";
+import * as Constants from '../../utils/Constants';
 //i18n
 import i18n from "i18next";
 //pagetitle
@@ -19,9 +20,6 @@ import PageTitle from "../PageTitle";
 import Alert from "../Alert";
 
 const AddInfo = ({ onClose }) => {
-
-    //constants
-    const DB_INFO = 'car-info';
 
     //user
     const { currentUser } = useAuth();
@@ -43,7 +41,7 @@ const AddInfo = ({ onClose }) => {
     const [modified, setModified] = useState('');
 
     //translation
-    const { t } = useTranslation('car', { keyPrefix: 'car' });
+    const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
 
     //load data
     useEffect(() => {
@@ -57,7 +55,7 @@ const AddInfo = ({ onClose }) => {
     }, []);
 
     const fetchCarInfoFromFirebase = async () => {
-        const dbref = ref(db, `${DB_INFO}`);
+        const dbref = ref(db, `${Constants.DB_CAR_INFO}`);
         onValue(dbref, (snapshot) => {
             snapshot.forEach(function (child) {
                 const key = child.key;
@@ -124,7 +122,7 @@ const AddInfo = ({ onClose }) => {
         try {
             const updates = {};
             info["modified"] = getCurrentDateAsJson()
-            updates[`${DB_INFO}/${carId}`] = info;
+            updates[`${Constants.DB_CAR_INFO}/${carId}`] = info;
             update(ref(db), updates);
             showSuccess();
         } catch (ex) {
@@ -139,7 +137,7 @@ const AddInfo = ({ onClose }) => {
             }
             info["created"] = getCurrentDateAsJson();
             info["createdBy"] = currentUser.email;
-            const dbref = ref(db, DB_INFO);
+            const dbref = ref(db, Constants.DB_CAR_INFO);
             push(dbref, info);
             showSuccess();
         } catch (ex) {

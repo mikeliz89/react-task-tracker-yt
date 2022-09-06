@@ -15,7 +15,7 @@ import * as Constants from "../../utils/Constants";
 const AddGear = ({ gearID, onSave, onClose }) => {
 
     //translation
-    const { t } = useTranslation('backpacking', { keyPrefix: 'backpacking' });
+    const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
 
     //states
     const [category, setCategory] = useState('');

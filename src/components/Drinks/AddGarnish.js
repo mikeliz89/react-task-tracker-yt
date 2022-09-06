@@ -7,14 +7,13 @@ import Button from '../../components/Button';
 //firebase
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
+//utils
+import * as Constants from '../../utils/Constants';
 
 export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {
 
-    //constants
-    const DB_DRINK_GARNISHES = '/drink-garnishes';
-
     //translation
-    const { t } = useTranslation('drinks', { keyPrefix: 'drinks' });
+    const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
     //states
     const [name, setName] = useState('');
@@ -29,7 +28,7 @@ export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {
     }, [drinkID]);
 
     const fetchGarnishFromFirebase = async (drinkID) => {
-        const dbref = ref(db, `${DB_DRINK_GARNISHES}/${drinkID}/${garnishID}`);
+        const dbref = ref(db, `${Constants.DB_DRINK_GARNISHES}/${drinkID}/${garnishID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

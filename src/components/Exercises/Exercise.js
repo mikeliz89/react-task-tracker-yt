@@ -9,11 +9,12 @@ import { getIconNameByCategory } from './Categories';
 import Icon from '../Icon';
 //utils
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
+import * as Constants from '../../utils/Constants';
 
 const Exercise = ({ exercise, onDelete }) => {
 
     //translation
-    const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
+    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     return (
         <div className='exercise'>

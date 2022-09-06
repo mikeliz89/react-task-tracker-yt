@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 //icon
 import Icon from '../Icon';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const Task = ({ taskListID, archived, task, onDelete, onToggle }) => {
 
     //translation
-    const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
+    const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
     return (
         <div

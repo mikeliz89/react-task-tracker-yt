@@ -3,20 +3,18 @@ import { useTranslation } from 'react-i18next';
 //firebase
 import { ref, remove } from 'firebase/database';
 import { db } from '../../firebase-config';
-
 //exercises
 import GymPart from './GymPart';
+//utils
+import * as Constants from '../../utils/Constants';
 
 function GymParts({ exerciseID, parts }) {
 
-    //constants
-    const DB_EXERCISE_PARTS = '/exercise-parts';
-
     //translation
-    const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
+    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     const deleteGymPart = (exerciseID, gymPartID) => {
-        const dbref = ref(db, `${DB_EXERCISE_PARTS}/${exerciseID}/${gymPartID}`);
+        const dbref = ref(db, `${Constants.DB_EXERCISE_PARTS}/${exerciseID}/${gymPartID}`);
         remove(dbref);
     }
 

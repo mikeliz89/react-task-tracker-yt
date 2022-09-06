@@ -8,11 +8,13 @@ import { Row, Col } from 'react-bootstrap';
 import styles from './dashboard.module.css';
 //page
 import PageContentWrapper from './PageContentWrapper';
+//utils
+import * as Constants from '../utils/Constants';
 
 export default function Dashboard() {
 
     //translation
-    const { t } = useTranslation('dashboard', { keyPrefix: 'dashboard.buttons' });
+    const { t } = useTranslation(Constants.TRANSLATION_DASHBOARD, { keyPrefix: Constants.TRANSLATION_DASHBOARD_BUTTONS });
 
     return (
         <PageContentWrapper>

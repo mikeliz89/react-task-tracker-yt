@@ -13,6 +13,7 @@ import GoBackButton from '../GoBackButton';
 import { useAuth } from '../../contexts/AuthContext';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //Categories
 import { MovementCategories } from './Categories';
 //pagetitle
@@ -21,8 +22,6 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 
 const AddMovement = ({ movementID, onClose }) => {
-
-    const DB_MOVEMENTS = '/exercise-movements';
 
     //states
     const [category, setCategory] = useState();
@@ -39,7 +38,7 @@ const AddMovement = ({ movementID, onClose }) => {
     const [error, setError] = useState('');
 
     //translation
-    const { t, ready } = useTranslation('exercises', { keyPrefix: 'exercises' });
+    const { t, ready } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     //auth
     const { currentUser } = useAuth();
@@ -62,7 +61,7 @@ const AddMovement = ({ movementID, onClose }) => {
 
     const fetchMovementFromFirebase = async (movementID) => {
 
-        const dbref = ref(db, `${DB_MOVEMENTS}/${movementID}`);
+        const dbref = ref(db, `${Constants.DB_EXERCISE_MOVEMENTS}/${movementID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();
@@ -104,7 +103,7 @@ const AddMovement = ({ movementID, onClose }) => {
         try {
             movement["created"] = getCurrentDateAsJson();
             movement["createdBy"] = currentUser.email;
-            const dbref = ref(db, DB_MOVEMENTS);
+            const dbref = ref(db, Constants.DB_EXERCISE_MOVEMENTS);
             push(dbref, movement).then((snap) => {
                 const key = snap.key;
                 navigate('/movement/' + key);
@@ -118,7 +117,7 @@ const AddMovement = ({ movementID, onClose }) => {
     const updateMovement = async (movement) => {
         const updates = {};
         movement["modified"] = getCurrentDateAsJson();
-        updates[`${DB_MOVEMENTS}/${movementID}`] = movement;
+        updates[`${Constants.DB_EXERCISE_MOVEMENTS}/${movementID}`] = movement;
         update(ref(db), updates);
     }
 

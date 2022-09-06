@@ -7,14 +7,13 @@ import Button from "../Button";
 //firebase
 import { onValue, ref } from "firebase/database";
 import { db } from "../../firebase-config";
+//utils
+import * as Constants from '../../utils/Constants';
 
 const AddFueling = ({ ID, onClose, onSave }) => {
 
-    //constants
-    const DB_FUELING = 'car-fueling';
-
     //translation
-    const { t } = useTranslation('car', { keyPrefix: 'car' });
+    const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
 
     //states
     const [loading, setLoading] = useState(false);
@@ -40,7 +39,7 @@ const AddFueling = ({ ID, onClose, onSave }) => {
     }, [ID]);
 
     const fetchFuelingFromFirebase = async (ID) => {
-        const dbref = ref(db, `${DB_FUELING}/${ID}`);
+        const dbref = ref(db, `${Constants.DB_CAR_FUELING}/${ID}`);
         onValue(dbref, (snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

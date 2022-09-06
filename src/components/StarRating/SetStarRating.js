@@ -6,7 +6,9 @@ import { useTranslation } from 'react-i18next';
 import Button from '../Button';
 import StarRating from './StarRating';
 //props
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const SetStarRating = ({ starCount, onSaveStars }) => {
 
@@ -16,7 +18,7 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
     const [loading, setLoading] = useState(false);
 
     //translation
-    const { t } = useTranslation('starrating', { keyPrefix: 'starrating' });
+    const { t } = useTranslation(Constants.TRANSLATION_STAR_RATING, { keyPrefix: Constants.TRANSLATION_STAR_RATING });
 
     async function onSubmit(e) {
         e.preventDefault();

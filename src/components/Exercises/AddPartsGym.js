@@ -12,16 +12,16 @@ import { onValue, push, child, ref } from 'firebase/database';
 import { db } from '../../firebase-config';
 //pagetitle
 import PageTitle from '../PageTitle';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const AddPartsGym = () => {
-
-  const DB_EXERCISE_PARTS = '/exercise-parts';
 
   //params
   const params = useParams();
 
   //translation  
-  const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
+  const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
   //states
   const [showAddGymPart, setShowAddGymPart] = useState(false);
@@ -36,7 +36,7 @@ const AddPartsGym = () => {
   }, [])
 
   const fetchPartsFromFirebase = async () => {
-    const dbref = await child(ref(db, DB_EXERCISE_PARTS), params.id);
+    const dbref = await child(ref(db, Constants.DB_EXERCISE_PARTS), params.id);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -48,7 +48,7 @@ const AddPartsGym = () => {
   }
 
   const addPart = async (exerciseID, part) => {
-    const dbref = child(ref(db, DB_EXERCISE_PARTS), exerciseID);
+    const dbref = child(ref(db, Constants.DB_EXERCISE_PARTS), exerciseID);
     push(dbref, part);
   }
 

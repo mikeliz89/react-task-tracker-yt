@@ -14,6 +14,7 @@ import i18n from "i18next";
 //utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
+import * as Constants from '../../utils/Constants';
 //Drinks
 import AddDrink from './AddDrink';
 import AddGarnish from './AddGarnish';
@@ -46,16 +47,6 @@ import CenterWrapper from '../CenterWrapper';
 
 export default function DrinkDetails() {
 
-    //constants
-    const DB_DRINKS = '/drinks';
-    const DB_DRINK_GARNISHES = '/drink-garnishes';
-    const DB_DRINK_INCREDIENTS = '/drink-incredients';
-    const DB_DRINK_WORKPHASES = '/drink-workphases';
-    const DB_DRINK_COMMENTS = '/drink-comments';
-    const DB_DRINK_LINKS = '/drink-links';
-    const DB_DRINK_HISTORY = '/drinkhistory';
-    const TRANSLATION = 'drinks';
-
     //states
     const [loading, setLoading] = useState(true);
     const [drink, setDrink] = useState({});
@@ -75,7 +66,7 @@ export default function DrinkDetails() {
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
+    const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
     //params
     const params = useParams();
@@ -111,7 +102,7 @@ export default function DrinkDetails() {
     }, [])
 
     const fetchWorkPhasesFromFirebase = async () => {
-        const dbref = await child(ref(db, DB_DRINK_WORKPHASES), params.id);
+        const dbref = await child(ref(db, Constants.DB_DRINK_WORKPHASES), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -123,7 +114,7 @@ export default function DrinkDetails() {
     }
 
     const fetchGarnishesFromFirebase = async () => {
-        const dbref = await child(ref(db, DB_DRINK_GARNISHES), params.id);
+        const dbref = await child(ref(db, Constants.DB_DRINK_GARNISHES), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -135,7 +126,7 @@ export default function DrinkDetails() {
     }
 
     const fetchDrinkHistoryFromFirebase = async () => {
-        const dbref = await child(ref(db, DB_DRINK_HISTORY), params.id);
+        const dbref = await child(ref(db, Constants.DB_DRINK_HISTORY), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -147,7 +138,7 @@ export default function DrinkDetails() {
     }
 
     const fetchDrinkFromFirebase = async () => {
-        const dbref = ref(db, `${DB_DRINKS}/${params.id}`);
+        const dbref = ref(db, `${Constants.DB_DRINKS}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
@@ -172,7 +163,7 @@ export default function DrinkDetails() {
             if (drink["stars"] === undefined) {
                 drink["stars"] = 0;
             }
-            updates[`${DB_DRINKS}/${drinkID}`] = drink;
+            updates[`${Constants.DB_DRINKS}/${drinkID}`] = drink;
             update(ref(db), updates);
         } catch (error) {
             setError(t('failed_to_save_drink'));
@@ -182,7 +173,7 @@ export default function DrinkDetails() {
     }
 
     const fetchIncredientsFromFirebase = async () => {
-        const dbref = await child(ref(db, DB_DRINK_INCREDIENTS), params.id);
+        const dbref = await child(ref(db, Constants.DB_DRINK_INCREDIENTS), params.id);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -194,12 +185,12 @@ export default function DrinkDetails() {
     }
 
     const deleteIncredient = async (drinkID, id) => {
-        const dbref = ref(db, `${DB_DRINK_INCREDIENTS}/${drinkID}/${id}`);
+        const dbref = ref(db, `${Constants.DB_DRINK_INCREDIENTS}/${drinkID}/${id}`);
         remove(dbref);
     }
 
     const addIncredient = async (drinkID, incredient) => {
-        const dbref = child(ref(db, DB_DRINK_INCREDIENTS), drinkID);
+        const dbref = child(ref(db, Constants.DB_DRINK_INCREDIENTS), drinkID);
         push(dbref, incredient);
     }
 
@@ -208,7 +199,7 @@ export default function DrinkDetails() {
         const updates = {};
         drink["modified"] = getCurrentDateAsJson()
         drink["stars"] = Number(stars);
-        updates[`${DB_DRINKS}/${drinkID}`] = drink;
+        updates[`${Constants.DB_DRINKS}/${drinkID}`] = drink;
         update(ref(db), updates);
     }
 
@@ -217,39 +208,39 @@ export default function DrinkDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, DB_DRINK_COMMENTS), drinkID);
+        const dbref = child(ref(db, Constants.DB_DRINK_COMMENTS), drinkID);
         push(dbref, comment);
     }
 
     const addLinkToDrink = (link) => {
         const drinkID = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, DB_DRINK_LINKS), drinkID);
+        const dbref = child(ref(db, Constants.DB_DRINK_LINKS), drinkID);
         push(dbref, link);
     }
 
     const addWorkPhase = async (drinkID, workPhase) => {
-        const dbref = child(ref(db, DB_DRINK_WORKPHASES), drinkID);
+        const dbref = child(ref(db, Constants.DB_DRINK_WORKPHASES), drinkID);
         push(dbref, workPhase);
     }
 
     const addGarnish = async (drinkID, garnish) => {
-        const dbref = child(ref(db, DB_DRINK_GARNISHES), drinkID);
+        const dbref = child(ref(db, Constants.DB_DRINK_GARNISHES), drinkID);
         push(dbref, garnish);
     }
 
     const deleteWorkPhase = async (drinkID, id) => {
-        const dbref = ref(db, `${DB_DRINK_WORKPHASES}/${drinkID}/${id}`);
+        const dbref = ref(db, `${Constants.DB_DRINK_WORKPHASES}/${drinkID}/${id}`);
         remove(dbref);
     }
 
     const deleteGarnish = async (drinkID, id) => {
-        const dbref = ref(db, `${DB_DRINK_GARNISHES}/${drinkID}/${id}`);
+        const dbref = ref(db, `${Constants.DB_DRINK_GARNISHES}/${drinkID}/${id}`);
         remove(dbref);
     }
 
     const saveDrinkHistory = async (drinkID) => {
-        const dbref = ref(db, `${DB_DRINK_HISTORY}/${drinkID}`);
+        const dbref = ref(db, `${Constants.DB_DRINK_HISTORY}/${drinkID}`);
         const currentDateTime = getCurrentDateAsJson();
         const userID = currentUser.uid;
         push(dbref, { currentDateTime, userID });
@@ -337,16 +328,16 @@ export default function DrinkDetails() {
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
                     {showAddIncredient &&
                         <AddIncredient
-                            dbUrl={DB_DRINK_INCREDIENTS}
-                            translation={TRANSLATION}
+                            dbUrl={Constants.DB_DRINK_INCREDIENTS}
+                            translation={Constants.TRANSLATION_DRINKS}
                             recipeID={params.id}
                             onSave={addIncredient}
                             onClose={() => setShowAddIncredient(false)} />
                     }
                     {incredients != null && incredients.length > 0 ? (
                         <Incredients
-                            dbUrl={DB_DRINK_INCREDIENTS}
-                            translation={TRANSLATION}
+                            dbUrl={Constants.DB_DRINK_INCREDIENTS}
+                            translation={Constants.TRANSLATION_DRINKS}
                             recipeID={params.id}
                             incredients={incredients}
                             onDelete={deleteIncredient}
@@ -367,14 +358,14 @@ export default function DrinkDetails() {
                         text={showAddWorkPhase ? t('button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                     {showAddWorkPhase && <AddWorkPhase
-                        dbUrl={DB_DRINK_WORKPHASES}
-                        translation={TRANSLATION}
+                        dbUrl={Constants.DB_DRINK_WORKPHASES}
+                        translation={Constants.TRANSLATION_DRINKS}
                         recipeID={params.id}
                         onSave={addWorkPhase} onClose={() => setShowAddWorkPhase(false)} />}
                     {workPhases != null && workPhases.length > 0 ? (
                         <WorkPhases
-                            dbUrl={DB_DRINK_WORKPHASES}
-                            translation={TRANSLATION}
+                            dbUrl={Constants.DB_DRINK_WORKPHASES}
+                            translation={Constants.TRANSLATION_DRINKS}
                             recipeID={params.id}
                             workPhases={workPhases}
                             onDelete={deleteWorkPhase}
@@ -427,8 +418,8 @@ export default function DrinkDetails() {
             {
                 drinkHistory != null && drinkHistory.length > 0 ? (
                     <RecipeHistories
-                        dbUrl={DB_DRINK_HISTORY}
-                        translation={TRANSLATION}
+                        dbUrl={Constants.DB_DRINK_HISTORY}
+                        translation={Constants.TRANSLATION_DRINKS}
                         recipeHistories={drinkHistory}
                         recipeID={params.id} />
                 ) : (

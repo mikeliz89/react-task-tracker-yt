@@ -20,13 +20,13 @@ import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
 //counter
 import Counter from '../Counter';
+//utils
+import * as Constants from '../../utils/Constants';
 
 function ManageMovements() {
 
-    const DB_MOVEMENTS = '/exercise-movements';
-
     //translation
-    const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
+    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     //states
     const [loading, setLoading] = useState(true);
@@ -52,7 +52,7 @@ function ManageMovements() {
     }, [])
 
     const fetchMovementsFromFirebase = async () => {
-        const dbref = await ref(db, DB_MOVEMENTS);
+        const dbref = await ref(db, Constants.DB_EXERCISE_MOVEMENTS);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -69,7 +69,7 @@ function ManageMovements() {
     }
 
     const deleteMovement = async (id) => {
-        const dbref = ref(db, `${DB_MOVEMENTS}/${id}`);
+        const dbref = ref(db, `${Constants.DB_EXERCISE_MOVEMENTS}/${id}`);
         remove(dbref)
     }
 

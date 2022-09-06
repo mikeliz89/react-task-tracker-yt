@@ -6,11 +6,13 @@ import { useTranslation } from 'react-i18next';
 import PageTitle from '../PageTitle';
 //page
 import PageContentWrapper from '../PageContentWrapper';
+//utils
+import * as Constants from '../../utils/Constants';
 
 const About = () => {
 
     //translation
-    const { t } = useTranslation('about', { keyPrefix: 'about' });
+    const { t } = useTranslation(Constants.TRANSLATION_ABOUT, { keyPrefix: Constants.TRANSLATION_ABOUT });
 
     return (
         <PageContentWrapper>

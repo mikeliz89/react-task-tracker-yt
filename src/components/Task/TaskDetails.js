@@ -16,6 +16,7 @@ import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
 //utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //i18n
 import i18n from "i18next";
 //auth
@@ -30,12 +31,8 @@ import PageContentWrapper from '../PageContentWrapper';
 
 function TaskDetails() {
 
-  const DB_TASKS = '/tasks';
-  const DB_TASK_COMMENTS = '/task-comments';
-  const DB_TASK_LINKS = '/task-links';
-
-  //translation
-  const { t } = useTranslation('tasklist', { keyPrefix: 'tasklist' });
+  //translation  
+  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
   //states
   const [showEditTask, setShowEditTask] = useState(false);
@@ -60,7 +57,7 @@ function TaskDetails() {
   }, []);
 
   const fetchTaskFromFirebase = async () => {
-    const dbref = ref(db, `${DB_TASKS}/${params.tasklistid}/${params.id}`);
+    const dbref = ref(db, `${Constants.DB_TASKS}/${params.tasklistid}/${params.id}`);
     onValue(dbref, (snapshot) => {
       const data = snapshot.val();
       if (data === null) {
@@ -75,7 +72,7 @@ function TaskDetails() {
     let taskID = params.id;
     const updates = {};
     task["modified"] = getCurrentDateAsJson()
-    updates[`${DB_TASKS}/${taskListID}/${taskID}`] = task;
+    updates[`${Constants.DB_TASKS}/${taskListID}/${taskID}`] = task;
     update(ref(db), updates);
   }
 
@@ -84,14 +81,14 @@ function TaskDetails() {
     comment["created"] = getCurrentDateAsJson()
     comment["createdBy"] = currentUser.email;
     comment["creatorUserID"] = currentUser.uid;
-    const dbref = child(ref(db, DB_TASK_COMMENTS), taskID);
+    const dbref = child(ref(db, Constants.DB_TASK_COMMENTS), taskID);
     push(dbref, comment);
   }
 
   const addLinkToTask = (link) => {
     const taskID = params.id;
     link["created"] = getCurrentDateAsJson();
-    const dbref = child(ref(db, DB_TASK_LINKS), taskID);
+    const dbref = child(ref(db, Constants.DB_TASK_LINKS), taskID);
     push(dbref, link);
   }
 

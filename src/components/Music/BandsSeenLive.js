@@ -6,11 +6,13 @@ import { useTranslation } from 'react-i18next';
 import PageTitle from "../PageTitle";
 //page
 import PageContentWrapper from "../PageContentWrapper";
+//utils
+import * as Constants from '../../utils/Constants';
 
 const BandsSeenLive = () => {
 
     //translation
-    const { t } = useTranslation('music', { keyPrefix: 'music' });
+    const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
 
     return (
         <PageContentWrapper>

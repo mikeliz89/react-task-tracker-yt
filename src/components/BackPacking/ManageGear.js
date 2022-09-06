@@ -33,11 +33,8 @@ import Counter from '../Counter';
 
 export default function ManageGear() {
 
-    //constants
-    const TRANSLATION = 'backpacking';
-
     //translation
-    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
+    const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
 
     //states
     const [showAdd, setShowAdd] = useState(false);

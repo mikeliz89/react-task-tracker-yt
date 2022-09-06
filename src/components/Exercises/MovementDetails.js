@@ -14,6 +14,7 @@ import i18n from "i18next";
 //utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
+import * as Constants from '../../utils/Constants';
 //StarRating
 import SetStarRating from '../StarRating/SetStarRating';
 import StarRating from '../StarRating/StarRating';
@@ -36,11 +37,6 @@ import PageContentWrapper from '../PageContentWrapper';
 
 export default function MovementDetails() {
 
-    //constants
-    const DB_MOVEMENTS = '/exercise-movements';
-    const DB_MOVEMENT_COMMENTS = '/exercise-movement-comments';
-    const DB_MOVEMENT_LINKS = '/exercise-movement-links';
-
     //states
     const [loading, setLoading] = useState(true);
     const [movement, setMovement] = useState({});
@@ -53,7 +49,7 @@ export default function MovementDetails() {
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
+    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     //params
     const params = useParams();
@@ -73,7 +69,7 @@ export default function MovementDetails() {
     }, [])
 
     const fetchMovementFromFirebase = async () => {
-        const dbref = ref(db, `${DB_MOVEMENTS}/${params.id}`);
+        const dbref = ref(db, `${Constants.DB_EXERCISE_MOVEMENTS}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
@@ -89,7 +85,7 @@ export default function MovementDetails() {
         const updates = {};
         movement["modified"] = getCurrentDateAsJson();
         movement["stars"] = Number(stars);
-        updates[`${DB_MOVEMENTS}/${movementID}`] = movement;
+        updates[`${Constants.DB_EXERCISE_MOVEMENTS}/${movementID}`] = movement;
         update(ref(db), updates);
     }
 
@@ -98,14 +94,14 @@ export default function MovementDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, DB_MOVEMENT_COMMENTS), movementID);
+        const dbref = child(ref(db, Constants.DB_MOVEMENT_COMMENTS), movementID);
         push(dbref, comment);
     }
 
     const addLinkToMovement = (link) => {
         const movementID = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, DB_MOVEMENT_LINKS), movementID);
+        const dbref = child(ref(db, Constants.DB_MOVEMENT_LINKS), movementID);
         push(dbref, link);
     }
 

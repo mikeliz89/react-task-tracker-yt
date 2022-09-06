@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
 //utils
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
+import * as Constants from '../../utils/Constants';
 //icon
 import Icon from '../Icon';
 
 const Movement = ({ movement, onDelete }) => {
 
     //translation
-    const { t } = useTranslation('exercises', { keyPrefix: 'exercises' });
+    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     return (
         <div className='exercise'>

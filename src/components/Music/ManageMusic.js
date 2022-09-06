@@ -9,11 +9,13 @@ import Icon from '../Icon';
 import PageContentWrapper from '../PageContentWrapper';
 //pagetitle
 import PageTitle from '../PageTitle';
+//utils
+import * as Constants from '../../utils/Constants';
 
 export default function ManageMusic() {
 
     //translation
-    const { t } = useTranslation('music', { keyPrefix: 'music' });
+    const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
 
     return (
         <PageContentWrapper>

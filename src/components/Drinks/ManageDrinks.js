@@ -15,6 +15,7 @@ import GoBackButton from '../GoBackButton';
 import Button from '../Button';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
 //pagetitle
@@ -34,13 +35,8 @@ import CenterWrapper from '../CenterWrapper';
 
 export default function ManageDrinks() {
 
-    //constants
-    const DB_DRINKS = '/drinks';
-    const DB_DRINK = '/drink';
-    const TRANSLATION = 'drinks';
-
     //translation
-    const { t } = useTranslation(TRANSLATION, { keyPrefix: TRANSLATION });
+    const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
     //navigate
     const navigate = useNavigate();
@@ -79,7 +75,7 @@ export default function ManageDrinks() {
     }, [])
 
     const fetchDrinksFromFirebase = async () => {
-        const dbref = await ref(db, DB_DRINKS);
+        const dbref = await ref(db, Constants.DB_DRINKS);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -102,11 +98,11 @@ export default function ManageDrinks() {
             if (drink["isCore"] === undefined) {
                 drink["isCore"] = false;
             }
-            const dbref = ref(db, DB_DRINKS);
+            const dbref = ref(db, Constants.DB_DRINKS);
             push(dbref, drink)
                 .then((snap) => {
                     const key = snap.key;
-                    navigate(`${DB_DRINK}/${key}`);
+                    navigate(`${Constants.NAVIGATION_DRINK}/${key}`);
                 })
             setMessage(t('save_success'));
             setShowMessage(true);
@@ -117,7 +113,7 @@ export default function ManageDrinks() {
     }
 
     const deleteDrink = (id) => {
-        const dbref = ref(db, `${DB_DRINKS}/${id}`);
+        const dbref = ref(db, `${Constants.DB_DRINKS}/${id}`);
         remove(dbref);
     }
 
@@ -172,7 +168,7 @@ export default function ManageDrinks() {
                     <>
                         <Counter list={drinks} originalList={originalDrinks} counter={counter} />
                         <Recipes
-                            translation={TRANSLATION}
+                            translation={Constants.TRANSLATION_DRINKS}
                             recipes={drinks}
                             recipeType={RecipeTypes.Drink}
                             onDelete={deleteDrink} />

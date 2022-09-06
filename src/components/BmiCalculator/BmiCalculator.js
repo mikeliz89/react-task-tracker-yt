@@ -13,6 +13,7 @@ import Button from '../Button';
 import { useAuth } from '../../contexts/AuthContext';
 //utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import * as Constants from '../../utils/Constants';
 //pagetitle
 import PageTitle from '../PageTitle';
 //alert
@@ -22,12 +23,8 @@ import PageContentWrapper from '../PageContentWrapper';
 
 const BmiCalculator = () => {
 
-    //constants
-    const DB_PROFILES = '/profiles';
-    const DB_WEIGHT_HISTORY = '/weighthistory';
-
     //translation
-    const { t } = useTranslation('bmicalculator', { keyPrefix: 'bmicalculator' });
+    const { t } = useTranslation(Constants.TRANSLATION_BMICALCULATOR, { keyPrefix: Constants.TRANSLATION_BMICALCULATOR });
 
     //navigation
     const navigate = useNavigate();
@@ -59,7 +56,7 @@ const BmiCalculator = () => {
     }, [])
 
     const fetchProfileFromFirebase = async () => {
-        const dbref = ref(db, `${DB_PROFILES}/${currentUser.uid}`);
+        const dbref = ref(db, `${Constants.DB_PROFILES}/${currentUser.uid}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
@@ -110,7 +107,7 @@ const BmiCalculator = () => {
     }
 
     const saveWeightToFirebase = async (weight, bmi) => {
-        const dbref = ref(db, `${DB_WEIGHT_HISTORY}/${currentUser.uid}`);
+        const dbref = ref(db, `${Constants.DB_WEIGHT_HISTORY}/${currentUser.uid}`);
         let currentDateTime = getCurrentDateAsJson();
         push(dbref, { weight, currentDateTime, bmi });
     }

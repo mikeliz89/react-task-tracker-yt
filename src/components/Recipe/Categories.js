@@ -1,5 +1,6 @@
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
 import { getRecipeCategoryNameByID, getDrinkCategoryNameByID } from '../../utils/ListUtils';
+import * as Constants from '../../utils/Constants';
 
 /** Categories */
 export const Categories = {
@@ -201,7 +202,7 @@ export const getIncredientsUrl = (recipeType) => {
         case RecipeTypes.Food:
             return '/recipe-incredients';
         case RecipeTypes.Drink:
-            return '/drink-incredients';
+            return Constants.DB_DRINK_INCREDIENTS;
         default: return '';
     }
 }
