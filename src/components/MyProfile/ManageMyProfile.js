@@ -39,7 +39,6 @@ export default function ManageMyProfile() {
     const [photoUrl, setPhotoUrl] = useState(defaultPhotoUrl);
     const [photo, setPhoto] = useState(null);
     const [loading, setLoading] = useState(true);
-
     //alert
     const [showMessage, setShowMessage] = useState(false);
     const [message, setMessage] = useState('');
@@ -50,8 +49,9 @@ export default function ManageMyProfile() {
     useEffect(() => {
         let isMounted = true;
         const getProfile = async () => {
-            if (isMounted)
+            if (isMounted) {
                 await fetchProfileFromFirebase();
+            }
         }
         getProfile()
         return () => { isMounted = false };
@@ -70,7 +70,6 @@ export default function ManageMyProfile() {
             if (data != null) {
                 setName(data["name"]);
                 setHeight(data["height"]);
-                setLoading(false);
             }
         })
     }
@@ -123,9 +122,7 @@ export default function ManageMyProfile() {
         setMessage(t('saving_done'));
     }
 
-    return loading ? (
-        <h3>{t('loading')}</h3>
-    ) : (
+    return (
         <PageContentWrapper>
             <GoBackButton />
             <PageTitle title={t('title')} />
