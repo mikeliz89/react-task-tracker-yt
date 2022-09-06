@@ -23,7 +23,8 @@ function Alert({ message, showMessage, showError, error, onClose, variant }) {
                         className='btn btn-success'
                         text={t('button_close')} />
                 </div>
-            </BootstrapAlert>}
+            </BootstrapAlert>
+            }
             {
                 message &&
                 <BootstrapAlert show={showMessage} variant={variant}>
