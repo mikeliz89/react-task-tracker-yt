@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import GoBackButton from '../GoBackButton';
 //icon
 import Icon from '../Icon';
+//page
+import PageContentWrapper from '../PageContentWrapper';
 //pagetitle
 import PageTitle from '../PageTitle';
 
@@ -13,7 +15,7 @@ export default function Games() {
     const { t } = useTranslation('games', { keyPrefix: 'games' });
 
     return (
-        <div>
+        <PageContentWrapper>
             <GoBackButton />
             <PageTitle title={t('games_title')} />
             <div>
@@ -22,6 +24,6 @@ export default function Games() {
                     {t('button_game_lists')}
                 </Link>
             </div>
-        </div>
+        </PageContentWrapper>
     )
 }

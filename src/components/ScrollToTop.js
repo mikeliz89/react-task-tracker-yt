@@ -14,7 +14,7 @@ export default function ScrollToTop() {
 
     // Show button when page is scorlled upto given distance
     const toggleVisibility = () => {
-        if (window.pageYOffset > 300) {
+        if (window.pageYOffset > 200) {
             setIsVisible(true);
         } else {
             setIsVisible(false);

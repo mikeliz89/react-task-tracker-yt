@@ -16,6 +16,8 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
+//page
+import PageContentWrapper from '../PageContentWrapper';
 
 export default function ManageMyProfile() {
 
@@ -124,7 +126,7 @@ export default function ManageMyProfile() {
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
-        <div>
+        <PageContentWrapper>
             <GoBackButton />
             <PageTitle title={t('title')} />
 
@@ -158,6 +160,6 @@ export default function ManageMyProfile() {
                 </Form.Group>
                 <Button type='submit' text={t('savebutton')} className='btn btn-block saveBtn' />
             </Form>
-        </div>
+        </PageContentWrapper>
     )
 }

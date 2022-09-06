@@ -17,6 +17,8 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
+//page
+import PageContentWrapper from '../PageContentWrapper';
 
 const BmiCalculator = () => {
 
@@ -75,12 +77,12 @@ const BmiCalculator = () => {
         setMessage('');
 
         //validation
-        if(height <= 0) {
+        if (height <= 0 || height === undefined) {
             setShowError(true);
             setError(t('please_give_height'));
             return;
         }
-        if (weight <= 0) {
+        if (weight <= 0 || weight === undefined) {
             setShowError(true);
             setError(t('please_give_weight'));
             return;
@@ -89,9 +91,7 @@ const BmiCalculator = () => {
         let bmi = calculateBMI();
         setBMI(bmi);
 
-        console.log("bmi", bmi);
-
-        if (bmi === 0) {
+        if (bmi === 0 || isNaN(bmi)) {
             setError(t('bmi_is_zero'));
             setShowError(true);
         } else {
@@ -116,7 +116,7 @@ const BmiCalculator = () => {
     }
 
     return (
-        <div>
+        <PageContentWrapper>
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
@@ -137,13 +137,13 @@ const BmiCalculator = () => {
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="bmiCalculatorForm-Height">
                     <Form.Label>{t('height')}</Form.Label>
-                    <Form.Control type='number' step='any' placeholder={t('height')} value={height} 
-                    onChange={(e) => setHeight(e.target.value)} />
+                    <Form.Control type='number' step='any' placeholder={t('height')} value={height}
+                        onChange={(e) => setHeight(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="bmiCalculatorForm-Weight">
                     <Form.Label>{t('weight')}</Form.Label>
-                    <Form.Control type='number' step='any' placeholder={t('weight')} value={weight} 
-                    onChange={(e) => setWeight(e.target.value)} />
+                    <Form.Control type='number' step='any' placeholder={t('weight')} value={weight}
+                        onChange={(e) => setWeight(e.target.value)} />
                 </Form.Group>
                 <Button type='submit' text={t('calculate_bmi')} className='btn btn-block' />
             </Form>
@@ -184,7 +184,7 @@ const BmiCalculator = () => {
                     </tr>
                 </tbody>
             </Table>
-        </div>
+        </PageContentWrapper>
     )
 }
 

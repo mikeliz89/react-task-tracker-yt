@@ -19,6 +19,8 @@ import { ExerciseCategories } from './Categories';
 import PageTitle from '../PageTitle';
 //alert
 import Alert from '../Alert';
+//page
+import PageContentWrapper from '../PageContentWrapper';
 
 const CreateExercise = () => {
 
@@ -86,7 +88,7 @@ const CreateExercise = () => {
     }
 
     return (
-        <>
+        <PageContentWrapper>
             <ButtonGroup>
                 <GoBackButton />
             </ButtonGroup>
@@ -119,7 +121,7 @@ const CreateExercise = () => {
                 </Row>
                 <Button type='submit' text={t('button_create_exercise')} className='btn btn-block saveBtn' />
             </Form>
-        </>
+        </PageContentWrapper>
     )
 }
 

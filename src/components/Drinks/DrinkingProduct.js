@@ -37,7 +37,6 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
     }
 
     return (
-
         <div className={TRANSLATION}>
             <h5>
                 <span>

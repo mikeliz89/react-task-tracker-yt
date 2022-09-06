@@ -18,6 +18,8 @@ import WeightChart from './WeightChart';
 import PageTitle from '../PageTitle';
 //icon
 import Icon from '../Icon';
+//page
+import PageContentWrapper from '../PageContentWrapper';
 
 const WeightHistory = () => {
 
@@ -68,7 +70,7 @@ const WeightHistory = () => {
     }
 
     return (
-        <div>
+        <PageContentWrapper>
             <GoBackButton />
             <PageTitle title={t('weighthistory')} iconName='weight' iconColor='gray' />
             <WeightChart data={historyRows} />
@@ -85,7 +87,7 @@ const WeightHistory = () => {
                     </div>
                 ) : '-'
             }
-        </div>
+        </PageContentWrapper>
     )
 }
 

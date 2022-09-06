@@ -1,8 +1,8 @@
-import React from 'react'
+import PageContentWrapper from "../PageContentWrapper";
 
 const RecordsIOwn = () => {
   return (
-    <div>RecordsIOwn</div>
+    <PageContentWrapper>RecordsIOwn</PageContentWrapper>
   )
 }
 

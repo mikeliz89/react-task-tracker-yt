@@ -19,7 +19,10 @@ import PageTitle from '../PageTitle';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 //auth
 import { useAuth } from '../../contexts/AuthContext';
+//center
 import CenterWrapper from '../CenterWrapper';
+//page
+import PageContentWrapper from '../PageContentWrapper';
 
 export default function Car() {
 
@@ -88,7 +91,7 @@ export default function Car() {
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
-        <div>
+        <PageContentWrapper>
             <GoBackButton />
             <PageTitle title={t('car_title')} />
 
@@ -140,6 +143,6 @@ export default function Car() {
                     )
                 }
             </div>
-        </div>
+        </PageContentWrapper>
     )
 }
