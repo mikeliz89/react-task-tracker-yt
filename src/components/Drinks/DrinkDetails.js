@@ -29,7 +29,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
-import { pushToFirebase, pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function DrinkDetails() {
 

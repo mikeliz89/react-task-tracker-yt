@@ -5,7 +5,7 @@ import { Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { db } from '../../firebase-config';
-import { push, child, remove, ref, onValue, update } from "firebase/database";
+import { push, child, ref, onValue, update } from "firebase/database";
 import GoBackButton from '../GoBackButton';
 import Button from '../../components/Button';
 import AddIncredient from './AddIncredient';
@@ -29,9 +29,9 @@ import StarRating from '../StarRating/StarRating';
 import RecipeHistories from './RecipeHistories';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
+import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function RecipeDetails() {
-
 
     //states
     const [loading, setLoading] = useState(true);
@@ -135,19 +135,17 @@ export default function RecipeDetails() {
         push(dbref, incredient);
     }
 
-    const deleteIncredient = async (recipeID, id) => {
-        const dbref = ref(db, `${Constants.DB_RECIPE_INCREDIENTS}/${recipeID}/${id}`);
-        remove(dbref)
-    }
-
     const addWorkPhase = async (recipeID, workPhase) => {
         const dbref = child(ref(db, Constants.DB_RECIPE_WORKPHASES), recipeID);
         push(dbref, workPhase);
     }
 
+    const deleteIncredient = async (recipeID, id) => {
+        removeFromFirebaseByIdAndSubId(Constants.DB_RECIPE_INCREDIENTS, recipeID, id);
+    }
+
     const deleteWorkPhase = async (recipeID, id) => {
-        const dbref = ref(db, `${Constants.DB_RECIPE_WORKPHASES}/${recipeID}/${id}`);
-        remove(dbref);
+        removeFromFirebaseByIdAndSubId(Constants.DB_RECIPE_WORKPHASES, recipeID, id);
     }
 
     const addRecipe = async (recipe) => {

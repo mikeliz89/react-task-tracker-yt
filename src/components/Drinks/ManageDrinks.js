@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { ref, push, onValue, remove } from "firebase/database";
+import { ref, push, onValue } from "firebase/database";
 import { db } from '../../firebase-config';
 import Recipes from '../Recipe/Recipes';
 import AddDrink from './AddDrink';
@@ -19,6 +19,7 @@ import Icon from '../Icon';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
 import CenterWrapper from '../CenterWrapper';
+import { removeFromFirebaseById } from '../../datatier/datatier';
 
 export default function ManageDrinks() {
 
@@ -100,8 +101,7 @@ export default function ManageDrinks() {
     }
 
     const deleteDrink = (id) => {
-        const dbref = ref(db, `${Constants.DB_DRINKS}/${id}`);
-        remove(dbref);
+        removeFromFirebaseById(Constants.DB_DRINKS, id);
     }
 
     return loading ? (

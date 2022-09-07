@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Exercises from './Exercises';
 import { db } from '../../firebase-config';
-import { onValue, ref, remove } from 'firebase/database';
+import { onValue, ref } from 'firebase/database';
 import PageTitle from '../PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
 import * as Constants from '../../utils/Constants';
+import { removeFromFirebaseById } from '../../datatier/datatier';
 
 const ManageExercises = () => {
 
@@ -59,8 +60,7 @@ const ManageExercises = () => {
   }
 
   const deleteExercise = async (id) => {
-    const dbref = ref(db, `${Constants.DB_EXERCISES}/${id}`);
-    remove(dbref)
+    removeFromFirebaseById(Constants.DB_EXERCISES, id);
   }
 
   return loading ? (

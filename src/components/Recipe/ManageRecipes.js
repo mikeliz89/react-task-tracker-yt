@@ -7,7 +7,7 @@ import Button from '../Button';
 import AddRecipe from './AddRecipe';
 import Recipes from './Recipes';
 import { db } from '../../firebase-config';
-import { ref, push, onValue, remove } from "firebase/database";
+import { ref, push, onValue } from "firebase/database";
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
@@ -19,6 +19,7 @@ import Icon from '../Icon';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
 import CenterWrapper from '../CenterWrapper';
+import { removeFromFirebaseById } from '../../datatier/datatier';
 
 const ManageRecipes = () => {
 
@@ -104,8 +105,7 @@ const ManageRecipes = () => {
   }
 
   const deleteRecipe = async (id) => {
-    const dbref = ref(db, `${Constants.DB_RECIPES}/${id}`);
-    remove(dbref)
+    removeFromFirebaseById(Constants.DB_RECIPES, id);
   }
 
   return loading ? (

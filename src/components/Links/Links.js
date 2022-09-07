@@ -2,10 +2,11 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
-import { ref, onValue, child, remove, update } from "firebase/database";
+import { ref, onValue, child, update } from "firebase/database";
 import LinksInner from './LinksInner';
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
+import { removeFromFirebaseById, removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 const Links = ({ url, objID }) => {
 
@@ -54,11 +55,9 @@ const Links = ({ url, objID }) => {
 
     const deleteLink = (linkID) => {
         if (objID != null) {
-            const dbref = ref(db, `${url}/${objID}/${linkID}`);
-            remove(dbref);
+            removeFromFirebaseByIdAndSubId(url, objID, linkID);
         } else {
-            const dbref = ref(db, `${url}/${linkID}`);
-            remove(dbref);
+            removeFromFirebaseById(url, linkID);
         }
     }
 

@@ -1,10 +1,11 @@
 import RecipeHistory from "./RecipeHistory";
 import { db } from '../../firebase-config';
-import { ref, remove } from "firebase/database";
+import { ref, } from "firebase/database";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import Icon from "../Icon";
 import PropTypes from 'prop-types';
+import { removeFromFirebaseByIdAndSubId } from "../../datatier/datatier";
 
 function RecipeHistories({ dbUrl, translation, recipeHistories, recipeID }) {
 
@@ -20,8 +21,7 @@ function RecipeHistories({ dbUrl, translation, recipeHistories, recipeID }) {
     }, []);
 
     const deleteRecipeHistory = (recipeHistoryID) => {
-        const dbref = ref(db, `${dbUrl}/${recipeID}/${recipeHistoryID}`);
-        remove(dbref);
+        removeFromFirebaseByIdAndSubId(dbUrl, recipeID, recipeHistoryID);
     }
 
     return (

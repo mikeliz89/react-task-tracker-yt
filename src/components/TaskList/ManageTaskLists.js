@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { ref, onValue, push, child, remove } from "firebase/database";
+import { ref, onValue, push, child } from "firebase/database";
 import AddTaskList from '../../components/TaskList/AddTaskList';
 import TaskLists from '../../components/TaskList/TaskLists';
 import GoBackButton from '../GoBackButton';
@@ -19,6 +19,7 @@ import PropTypes from 'prop-types';
 import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
+import { removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
 
 export default function ManageTaskLists({ listType }) {
 
@@ -85,11 +86,9 @@ export default function ManageTaskLists({ listType }) {
 
   const deleteTaskList = async (id) => {
     //delete tasks
-    const dbrefTasks = ref(db, `${Constants.DB_TASKS}/${id}`);
-    remove(dbrefTasks);
+    removeFromFirebaseById(Constants.DB_TASKS, id);
     //delete task list
-    const dbref = child(ref(db, Constants.DB_TASKLISTS), id);
-    remove(dbref);
+    removeFromFirebaseChild(Constants.DB_TASKLISTS, id);
   }
 
   function gotoTaskListArchive() {

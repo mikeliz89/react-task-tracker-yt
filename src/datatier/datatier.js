@@ -11,6 +11,11 @@ export const removeFromFirebaseByIdAndSubId = async (path, mainID, subID) => {
     remove(dbref);
 }
 
+export const removeFromFirebaseChild = async (path, id) => {
+    const dbref = child(ref(db, path), id);
+    remove(dbref);
+}
+
 export const pushToFirebase = async (path, object) => {
     const dbref = ref(db, path);
     return push(dbref, object).key;

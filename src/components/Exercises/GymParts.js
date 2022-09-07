@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { ref, remove } from 'firebase/database';
+import { ref } from 'firebase/database';
 import { db } from '../../firebase-config';
 import GymPart from './GymPart';
 import * as Constants from '../../utils/Constants';
+import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 function GymParts({ exerciseID, parts }) {
 
@@ -10,8 +11,7 @@ function GymParts({ exerciseID, parts }) {
     const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     const deleteGymPart = (exerciseID, gymPartID) => {
-        const dbref = ref(db, `${Constants.DB_EXERCISE_PARTS}/${exerciseID}/${gymPartID}`);
-        remove(dbref);
+        removeFromFirebaseByIdAndSubId(Constants.DB_EXERCISE_PARTS, exerciseID, gymPartID);
     }
 
     return (

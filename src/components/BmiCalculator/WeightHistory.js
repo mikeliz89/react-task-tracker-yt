@@ -2,7 +2,7 @@ import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react'
 import { db } from '../../firebase-config';
-import { ref, onValue, remove } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import i18n from "i18next";
@@ -11,6 +11,7 @@ import WeightChart from './WeightChart';
 import PageTitle from '../PageTitle';
 import Icon from '../Icon';
 import PageContentWrapper from '../PageContentWrapper';
+import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 const WeightHistory = () => {
 
@@ -53,8 +54,7 @@ const WeightHistory = () => {
     }
 
     const deleteHistoryRow = async (id) => {
-        const dbref = ref(db, `${Constants.DB_WEIGHT_HISTORY}/${currentUser.uid}/${id}`);
-        remove(dbref);
+        removeFromFirebaseByIdAndSubId(Constants.DB_WEIGHT_HISTORY, currentUser.uid, id);
     }
 
     return (

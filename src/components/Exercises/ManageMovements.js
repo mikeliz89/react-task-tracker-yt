@@ -6,12 +6,13 @@ import GoBackButton from '../GoBackButton';
 import PageTitle from '../PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { db } from '../../firebase-config';
-import { onValue, ref, remove } from 'firebase/database';
+import { onValue, ref } from 'firebase/database';
 import Movements from './Movements';
 import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
 import * as Constants from '../../utils/Constants';
+import { removeFromFirebaseById } from '../../datatier/datatier';
 
 function ManageMovements() {
 
@@ -59,8 +60,7 @@ function ManageMovements() {
     }
 
     const deleteMovement = async (id) => {
-        const dbref = ref(db, `${Constants.DB_EXERCISE_MOVEMENTS}/${id}`);
-        remove(dbref)
+        removeFromFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, id);
     }
 
     return loading ? (
