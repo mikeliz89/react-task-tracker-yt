@@ -40,3 +40,10 @@ export const updateToFirebaseById = async (path, id, object) => {
     updates[`${path}/${id}`] = object;
     update(ref(db), updates);
 }
+
+export const updateToFirebaseByIdAndSubId = async (path, mainID, subID, object) => {
+    const updates = {};
+    updates[`${path}/${mainID}/${subID}`] = object;
+    update(ref(db), updates);
+}
+

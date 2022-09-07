@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import Button from "../Button";
 import { useAuth } from '../../contexts/AuthContext';
-import { onValue, ref, update } from "firebase/database";
+import { onValue, ref } from "firebase/database";
 import { db } from "../../firebase-config";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 import * as Constants from '../../utils/Constants';
 import i18n from "i18next";
 import PageTitle from "../PageTitle";
 import Alert from "../Alert";
-import { pushToFirebase } from "../../datatier/datatier";
+import { pushToFirebase, updateToFirebaseById } from "../../datatier/datatier";
 
 const AddInfo = ({ onClose }) => {
 
@@ -113,10 +113,8 @@ const AddInfo = ({ onClose }) => {
 
     const updateInfo = (info) => {
         try {
-            const updates = {};
-            info["modified"] = getCurrentDateAsJson()
-            updates[`${Constants.DB_CAR_INFO}/${carId}`] = info;
-            update(ref(db), updates);
+            info["modified"] = getCurrentDateAsJson();
+            updateToFirebaseById(Constants.DB_CAR_INFO, carId, info);
             showSuccess();
         } catch (ex) {
             showException(ex);

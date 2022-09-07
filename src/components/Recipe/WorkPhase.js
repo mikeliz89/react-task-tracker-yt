@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { update, ref } from "firebase/database";
-import { db } from '../../firebase-config';
 import AddWorkPhase from './AddWorkPhase';
 import Icon from '../Icon';
 import PropTypes from 'prop-types';
+import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function WorkPhase({ dbUrl, translation, workPhase, recipeID, onDelete }) {
 
@@ -16,9 +15,8 @@ export default function WorkPhase({ dbUrl, translation, workPhase, recipeID, onD
     const [editable, setEditable] = useState(false);
 
     const updateWorkPhase = (recipeID, newWorkPhase) => {
-        const updates = {};
-        updates[`${dbUrl}/${recipeID}/${workPhase.id}`] = newWorkPhase;
-        update(ref(db), updates);
+        updateToFirebaseByIdAndSubId(dbUrl, recipeID, workPhase.id, newWorkPhase);
+        //close
         setEditable(false);
     }
 

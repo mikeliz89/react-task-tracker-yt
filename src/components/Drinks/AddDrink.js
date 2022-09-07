@@ -74,7 +74,6 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
          return;
       }
 
-      //add / update
       onSave({ created, createdBy, title, description, category, glass, stars, isCore });
 
       if (drinkID == null) {
