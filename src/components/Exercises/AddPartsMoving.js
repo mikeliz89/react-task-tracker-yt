@@ -5,11 +5,12 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Button from '../Button';
 import { db } from '../../firebase-config';
-import { push, ref, child, update, onValue } from 'firebase/database';
+import { ref, child, update, onValue } from 'firebase/database';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import PageTitle from '../PageTitle';
+import { pushToFirebaseChild } from '../../datatier/datatier';
 
 const AddPartsMoving = ({ title, iconName }) => {
 
@@ -81,8 +82,7 @@ const AddPartsMoving = ({ title, iconName }) => {
     const exerciseID = params.id;
     moving["created"] = getCurrentDateAsJson();
     moving["createdBy"] = currentUser.email;
-    const dbref = child(ref(db, Constants.DB_EXERCISE_PARTS), exerciseID);
-    push(dbref, moving);
+    pushToFirebaseChild(Constants.DB_EXERCISE_PARTS, exerciseID, moving);
   }
 
   return (

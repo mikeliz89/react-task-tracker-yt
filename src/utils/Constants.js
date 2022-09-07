@@ -23,16 +23,15 @@ export const DB_DRINK_HISTORY = '/drinkhistory';
 export const DB_DRINKINGPRODUCTS = '/drinkingproducts';
 export const DB_DRINKINGPRODUCT_COMMENTS = '/drinkingproduct-comments';
 export const DB_DRINKINGPRODUCT_LINKS = '/drinkingproduct-links';
-export const NAVIGATION_DRINK = '/drink';
 export const DB_PROFILES = '/profiles';
 export const DB_FOODITEMS = '/fooditems';
+export const DB_LINKS = '/links';
 export const DB_RECIPES = '/recipes';
 export const DB_RECIPE_INCREDIENTS = '/recipe-incredients';
 export const DB_RECIPE_COMMENTS = '/recipe-comments';
 export const DB_RECIPE_LINKS = '/recipe-links';
 export const DB_RECIPE_WORKPHASES = '/recipe-workphases';
 export const DB_RECIPE_HISTORY = '/recipehistory';
-export const NAVIGATION_RECIPE = '/recipe';
 export const DB_TASKLIST_ARCHIVE = '/tasklist-archive';
 export const DB_TASKLIST_ARCHIVE_TASKS = '/tasklist-archive-tasks';
 export const DB_TASKLIST_LINKS = '/tasklist-links';
@@ -42,6 +41,8 @@ export const DB_TASK_COMMENTS = '/task-comments';
 export const DB_TASK_LINKS = '/task-links';
 
 //NAVIGATION
+export const NAVIGATION_DRINK = '/drink';
+export const NAVIGATION_RECIPE = '/recipe';
 export const NAVIGATION_TASKLIST = '/tasklist';
 export const NAVIGATION_TASKLIST_ARCHIVE = '/tasklistarchive';
 

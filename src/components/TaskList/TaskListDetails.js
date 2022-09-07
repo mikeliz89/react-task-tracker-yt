@@ -167,10 +167,6 @@ function TaskListDetails() {
 
     let archiveTaskListID  = await pushToFirebase(Constants.DB_TASKLIST_ARCHIVE, taskList);
 
-    console.log("archive", archiveTaskListID);
-   // const dbref = ref(db, Constants.DB_TASKLIST_ARCHIVE);
-   // let archiveTaskListID = push(dbref, taskList).key;
-
     const taskListID = params.id;
 
     //2. delete old task lists

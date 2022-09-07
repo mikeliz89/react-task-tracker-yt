@@ -15,6 +15,7 @@ import { getCategoryContent, getIncredientsUrl, getIconName, getViewDetailsUrl }
 import Alert from '../Alert';
 import PropTypes from 'prop-types';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
+import { pushToFirebaseChild } from '../../datatier/datatier';
 
 const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
 
@@ -72,10 +73,9 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
         taskList["listType"] = ListTypes.Shopping;
         const dbref = ref(db, Constants.DB_TASKLISTS);
 
-        push(dbref, taskList)
-            .then((snap) => {
-                addTasksToTaskList(snap.key, incredients)
-            })
+        push(dbref, taskList).then((snap) => {
+            addTasksToTaskList(snap.key, incredients)
+        })
     }
 
     const addTasksToTaskList = async (tasklistID, incredients) => {
@@ -92,8 +92,7 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
     const addTask = async (taskListID, task) => {
         task["created"] = getCurrentDateAsJson()
         task["createdBy"] = currentUser.email;
-        const dbref = child(ref(db, Constants.DB_TASKS), taskListID);
-        push(dbref, task);
+        pushToFirebaseChild(Constants.DB_TASKS, taskListID, task);
     }
 
     const getCategory = (category) => {

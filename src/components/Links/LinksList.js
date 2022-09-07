@@ -1,17 +1,16 @@
 import GoBackButton from '../GoBackButton';
 import AddLink from './AddLink';
 import Links from './Links';
-import { ref, push } from 'firebase/database';
-import { db } from '../../firebase-config';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import PageContentWrapper from '../PageContentWrapper';
+import { pushToFirebase } from '../../datatier/datatier';
+import * as Constants from '../../utils/Constants';
 
 export default function LinksList() {
 
     const addLink = (link) => {
         link["created"] = getCurrentDateAsJson();
-        const dbref = ref(db, '/links');
-        push(dbref, link);
+        pushToFirebase(Constants.DB_LINKS, link);
     }
 
     return (

@@ -87,11 +87,10 @@ export default function ManageDrinks() {
                 drink["isCore"] = false;
             }
             const dbref = ref(db, Constants.DB_DRINKS);
-            push(dbref, drink)
-                .then((snap) => {
-                    const key = snap.key;
-                    navigate(`${Constants.NAVIGATION_DRINK}/${key}`);
-                })
+            push(dbref, drink).then((snap) => {
+                const key = snap.key;
+                navigate(`${Constants.NAVIGATION_DRINK}/${key}`);
+            })
             setMessage(t('save_success'));
             setShowMessage(true);
         } catch (ex) {

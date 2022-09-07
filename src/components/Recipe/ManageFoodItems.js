@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { ref, push, onValue, update } from "firebase/database";
+import { ref, onValue, update } from "firebase/database";
 import { db } from '../../firebase-config';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
@@ -16,7 +16,7 @@ import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
 import CenterWrapper from '../CenterWrapper';
-import { removeFromFirebaseById } from '../../datatier/datatier';
+import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 
 const ManageFoodItems = () => {
 
@@ -60,8 +60,7 @@ const ManageFoodItems = () => {
         try {
             foodItem["created"] = getCurrentDateAsJson();
             foodItem["createdBy"] = currentUser.email;
-            const dbref = ref(db, Constants.DB_FOODITEMS);
-            push(dbref, foodItem);
+            pushToFirebase(Constants.DB_FOODITEMS, foodItem);
             showSuccess();
         } catch (ex) {
             showFailure();
