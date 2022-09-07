@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from "i18next";
 import { db } from '../../firebase-config';
-import { ref, onValue, child, push, update } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
@@ -18,6 +18,7 @@ import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 import { useAuth } from '../../contexts/AuthContext';
 import PageContentWrapper from '../PageContentWrapper';
+import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 
 function GearDetails() {
 
@@ -59,11 +60,9 @@ function GearDetails() {
 
     const saveStars = async (stars) => {
         const id = params.id;
-        const updates = {};
         gear["modified"] = getCurrentDateAsJson()
         gear["stars"] = Number(stars);
-        updates[`${Constants.DB_GEAR}/${id}`] = gear;
-        update(ref(db), updates);
+        updateToFirebaseById(Constants.DB_GEAR, id, gear);
     }
 
     const addCommentToGear = (comment) => {
@@ -71,15 +70,13 @@ function GearDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, Constants.DB_GEAR_COMMENTS), id);
-        push(dbref, comment);
+        pushToFirebaseChild(Constants.DB_GEAR_COMMENTS, id, comment);
     }
 
     const addLinkToGear = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, Constants.DB_GEAR_LINKS), id);
-        push(dbref, link);
+        pushToFirebaseChild(Constants.DB_GEAR_LINKS, id, link);
     }
 
     return loading ? (

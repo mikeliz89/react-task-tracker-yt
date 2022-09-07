@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { push, ref, child, onValue, update } from "firebase/database";
+import { ref, onValue, update } from "firebase/database";
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
 import i18n from "i18next";
@@ -19,6 +19,7 @@ import AddDrinkingProduct from './AddDrinkingProduct';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
+import { pushToFirebaseChild } from '../../datatier/datatier';
 
 export default function DrinkingProductDetails() {
 
@@ -70,15 +71,13 @@ export default function DrinkingProductDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, Constants.DB_DRINKINGPRODUCT_COMMENTS), drinkID);
-        push(dbref, comment);
+        pushToFirebaseChild(Constants.DB_DRINKINGPRODUCT_COMMENTS, drinkID, comment);
     }
 
     const addLinkToDrinkingProduct = (link) => {
         const drinkID = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, Constants.DB_DRINKINGPRODUCT_LINKS), drinkID);
-        push(dbref, link);
+        pushToFirebaseChild(Constants.DB_DRINKINGPRODUCT_LINKS, drinkID, link);
     }
 
     const addDrinkingProduct = async (drinkingProduct) => {

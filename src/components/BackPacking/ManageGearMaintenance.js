@@ -2,7 +2,7 @@ import { Row, ButtonGroup } from "react-bootstrap";
 import { useTranslation } from 'react-i18next';
 import { useState } from "react";
 import { db } from '../../firebase-config';
-import { ref, push } from 'firebase/database';
+import { ref } from 'firebase/database';
 import Button from "../Button";
 import GoBackButton from "../GoBackButton";
 import PageContentWrapper from "../PageContentWrapper";
@@ -11,6 +11,7 @@ import AddGearMaintenanceInstruction from "./AddGearMaintenanceInstruction";
 import * as Constants from "../../utils/Constants";
 import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebase } from "../../datatier/datatier";
 
 function ManageGearMaintenance() {
 
@@ -28,8 +29,7 @@ function ManageGearMaintenance() {
             // clearMessages();
             maintenanceInstruction["created"] = getCurrentDateAsJson();
             maintenanceInstruction["createdBy"] = currentUser.email;
-            const dbref = ref(db, Constants.DB_GEAR_MAINTENANCE_INSTRUCTIONS);
-            push(dbref, maintenanceInstruction);
+            pushToFirebase(Constants.DB_GEAR_MAINTENANCE_INSTRUCTIONS, maintenanceInstruction);
             //setMessage(t('save_success'));
             //setShowMessage(true);
         } catch (ex) {

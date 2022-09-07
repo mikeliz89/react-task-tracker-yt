@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { push, ref, child, onValue, update } from "firebase/database";
+import { ref, onValue, update } from "firebase/database";
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
 import i18n from "i18next";
@@ -21,6 +21,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import AddMovement from './AddMovement';
 import PageContentWrapper from '../PageContentWrapper';
+import { pushToFirebaseChild } from '../../datatier/datatier';
 
 export default function MovementDetails() {
 
@@ -81,15 +82,13 @@ export default function MovementDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, Constants.DB_MOVEMENT_COMMENTS), movementID);
-        push(dbref, comment);
+        pushToFirebaseChild(Constants.DB_MOVEMENT_COMMENTS, movementID, comment);
     }
 
     const addLinkToMovement = (link) => {
         const movementID = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, Constants.DB_MOVEMENT_LINKS), movementID);
-        push(dbref, link);
+        pushToFirebaseChild(Constants.DB_MOVEMENT_LINKS, movementID, link);
     }
 
     return loading ? (

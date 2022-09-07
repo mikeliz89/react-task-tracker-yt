@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
 import { db } from '../../firebase-config';
-import { ref, onValue, update, push, child } from "firebase/database";
+import { ref, onValue, update } from "firebase/database";
 import AddTask from './AddTask';
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
@@ -17,6 +17,7 @@ import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 import PageTitle from '../PageTitle';
 import PageContentWrapper from '../PageContentWrapper';
+import { pushToFirebaseChild } from '../../datatier/datatier';
 
 function TaskDetails() {
 
@@ -70,15 +71,13 @@ function TaskDetails() {
     comment["created"] = getCurrentDateAsJson()
     comment["createdBy"] = currentUser.email;
     comment["creatorUserID"] = currentUser.uid;
-    const dbref = child(ref(db, Constants.DB_TASK_COMMENTS), taskID);
-    push(dbref, comment);
+    pushToFirebaseChild(Constants.DB_TASK_COMMENTS, taskID, comment);
   }
 
   const addLinkToTask = (link) => {
     const taskID = params.id;
     link["created"] = getCurrentDateAsJson();
-    const dbref = child(ref(db, Constants.DB_TASK_LINKS), taskID);
-    push(dbref, link);
+    pushToFirebaseChild(Constants.DB_TASK_LINKS, taskID, link);
   }
 
   return loading ? (

@@ -4,10 +4,11 @@ import { useParams } from 'react-router-dom';
 import Button from '../Button';
 import AddPartsGymForm from './AddPartsGymForm';
 import GymParts from './GymParts';
-import { onValue, push, child, ref } from 'firebase/database';
+import { onValue, child, ref } from 'firebase/database';
 import { db } from '../../firebase-config';
 import PageTitle from '../PageTitle';
 import * as Constants from '../../utils/Constants';
+import { pushToFirebaseChild } from '../../datatier/datatier';
 
 const AddPartsGym = () => {
 
@@ -42,8 +43,7 @@ const AddPartsGym = () => {
   }
 
   const addPart = async (exerciseID, part) => {
-    const dbref = child(ref(db, Constants.DB_EXERCISE_PARTS), exerciseID);
-    push(dbref, part);
+    pushToFirebaseChild(Constants.DB_EXERCISE_PARTS, exerciseID, part);
   }
 
   return (

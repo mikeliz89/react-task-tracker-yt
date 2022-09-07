@@ -1,6 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { ref } from 'firebase/database';
-import { db } from '../../firebase-config';
 import GymPart from './GymPart';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';

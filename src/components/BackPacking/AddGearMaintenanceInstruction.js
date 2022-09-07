@@ -15,6 +15,7 @@ const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, o
     const [created, setCreated] = useState('');
     const [createdBy, setCreatedBy] = useState('');
     const [name, setName] = useState('');
+    const [text, setText] = useState('');
     const [stars, setStars] = useState(0);
 
     //load data
@@ -37,6 +38,7 @@ const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, o
                 setCreatedBy(val["createdBy"]);
                 setName(val["name"]);
                 setStars(val["stars"]);
+                setText(val["text"]);
             }
         });
     }
@@ -50,7 +52,7 @@ const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, o
             return;
         }
 
-        onSave({ created, createdBy, name, stars });
+        onSave({ created, createdBy, name, stars, text });
 
         if (gearMaintenanceInstructionID == null) {
             clearForm();
@@ -59,6 +61,7 @@ const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, o
 
     const clearForm = () => {
         setName('');
+        setText('');
     }
 
     return (
@@ -74,7 +77,7 @@ const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, o
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addGearMaintenanceInstructionForm-textArea">
                     <Form.Label>{t('gear_maintenance_instruction_text')}</Form.Label>
-                    <Form.Control as="textarea" rows={3} />
+                    <Form.Control as="textarea" rows={3} value={text} onChange={(e) => setText(e.target.value)} />
                 </Form.Group>
                 <Row>
                     <ButtonGroup>

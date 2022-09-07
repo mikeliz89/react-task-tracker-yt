@@ -3,7 +3,7 @@ import { Form, Table, ButtonGroup, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase-config';
-import { ref, push, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
 import { useAuth } from '../../contexts/AuthContext';
@@ -12,6 +12,7 @@ import * as Constants from '../../utils/Constants';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
+import { pushToFirebaseById } from '../../datatier/datatier';
 
 const BmiCalculator = () => {
 
@@ -99,9 +100,8 @@ const BmiCalculator = () => {
     }
 
     const saveWeightToFirebase = async (weight, bmi) => {
-        const dbref = ref(db, `${Constants.DB_WEIGHT_HISTORY}/${currentUser.uid}`);
         let currentDateTime = getCurrentDateAsJson();
-        push(dbref, { weight, currentDateTime, bmi });
+        pushToFirebaseById(Constants.DB_WEIGHT_HISTORY, currentUser.uid, { weight, currentDateTime, bmi });
     }
 
     return (

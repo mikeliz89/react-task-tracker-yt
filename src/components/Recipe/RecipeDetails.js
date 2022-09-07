@@ -5,7 +5,7 @@ import { Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { db } from '../../firebase-config';
-import { push, child, ref, onValue, update } from "firebase/database";
+import { child, ref, onValue, update } from "firebase/database";
 import GoBackButton from '../GoBackButton';
 import Button from '../../components/Button';
 import AddIncredient from './AddIncredient';
@@ -29,7 +29,7 @@ import StarRating from '../StarRating/StarRating';
 import RecipeHistories from './RecipeHistories';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
-import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function RecipeDetails() {
 
@@ -130,16 +130,6 @@ export default function RecipeDetails() {
         })
     }
 
-    const addIncredient = async (recipeID, incredient) => {
-        const dbref = child(ref(db, Constants.DB_RECIPE_INCREDIENTS), recipeID);
-        push(dbref, incredient);
-    }
-
-    const addWorkPhase = async (recipeID, workPhase) => {
-        const dbref = child(ref(db, Constants.DB_RECIPE_WORKPHASES), recipeID);
-        push(dbref, workPhase);
-    }
-
     const deleteIncredient = async (recipeID, id) => {
         removeFromFirebaseByIdAndSubId(Constants.DB_RECIPE_INCREDIENTS, recipeID, id);
     }
@@ -177,27 +167,33 @@ export default function RecipeDetails() {
         update(ref(db), updates);
     }
 
+    const addIncredient = async (recipeID, incredient) => {
+        pushToFirebaseChild(Constants.DB_RECIPE_INCREDIENTS, recipeID, incredient);
+    }
+
+    const addWorkPhase = async (recipeID, workPhase) => {
+        pushToFirebaseChild(Constants.DB_RECIPE_WORKPHASES, recipeID, workPhase);
+    }
+
     const addCommentToRecipe = (comment) => {
         const recipeID = params.id;
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, Constants.DB_RECIPE_COMMENTS), recipeID);
-        push(dbref, comment);
+        pushToFirebaseChild(Constants.DB_RECIPE_COMMENTS, recipeID, comment);
     }
 
     const addLinkToRecipe = (link) => {
         const recipeID = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, Constants.DB_RECIPE_LINKS), recipeID);
-        push(dbref, link);
+        pushToFirebaseChild(Constants.DB_RECIPE_LINKS, recipeID, link);
     }
 
     const saveRecipeHistory = async (recipeID) => {
-        const dbref = ref(db, `${Constants.DB_RECIPE_HISTORY}/${recipeID}`);
         const currentDateTime = getCurrentDateAsJson();
         const userID = currentUser.uid;
-        push(dbref, { currentDateTime, userID });
+
+        pushToFirebaseById(Constants.DB_RECIPE_HISTORY, recipeID, { currentDateTime, userID });
 
         setShowMessage(true);
         setMessage(t('save_success_recipehistoryhistory'));

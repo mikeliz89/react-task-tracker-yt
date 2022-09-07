@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Row, Col, ButtonGroup, Accordion, Table } from "react-bootstrap";
-import { child, push, ref, onValue, update } from "firebase/database";
+import { ref, onValue, update } from "firebase/database";
 import { db } from "../../firebase-config";
 import GoBackButton from "../GoBackButton";
 import Button from "../Button";
@@ -25,6 +25,7 @@ import Alert from "../Alert";
 import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 import PageContentWrapper from "../PageContentWrapper";
+import { pushToFirebaseChild } from "../../datatier/datatier";
 
 const ExerciseDetails = () => {
 
@@ -85,15 +86,13 @@ const ExerciseDetails = () => {
         comment["created"] = getCurrentDateAsJson()
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, Constants.DB_EXERCISE_COMMENTS), id);
-        push(dbref, comment);
+        pushToFirebaseChild(Constants.DB_EXERCISE_COMMENTS, id, comment);
     }
 
     const addLinkToExercise = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, Constants.DB_EXERCISE_LINKS), id);
-        push(dbref, link);
+        pushToFirebaseChild(Constants.DB_EXERCISE_LINKS, id, link);
     }
 
     return (

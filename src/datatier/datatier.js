@@ -21,16 +21,22 @@ export const pushToFirebase = async (path, object) => {
     return push(dbref, object).key;
 }
 
-export const pushToFirebaseById = async (path, mainID, object) => {
-    const dbref = ref(db, `${path}/${mainID}`);
-    push(dbref, object);
+export const pushToFirebaseById = async (path, id, object) => {
+    const dbref = ref(db, `${path}/${id}`);
+    return push(dbref, object).key;
 }
 
-export const pushToFirebaseChild = async (path, mainID, object) => {
-    const dbref = child(ref(db, path), mainID);
+export const pushToFirebaseChild = async (path, id, object) => {
+    const dbref = child(ref(db, path), id);
     return push(dbref, object).key;
 }
 
 export const updateToFirebase = async (updates) => {
+    update(ref(db), updates);
+}
+
+export const updateToFirebaseById = async (path, id, object) => {
+    const updates = {};
+    updates[`${path}/${id}`] = object;
     update(ref(db), updates);
 }

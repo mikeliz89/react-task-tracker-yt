@@ -5,7 +5,7 @@ import Button from '../Button';
 import GoBackButton from '../GoBackButton';
 import AddGear from './AddGear';
 import { db } from '../../firebase-config';
-import { ref, push, onValue } from 'firebase/database';
+import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from "../../utils/Constants";
 import { useAuth } from '../../contexts/AuthContext';
@@ -17,7 +17,7 @@ import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
 import Counter from '../Counter';
-import { removeFromFirebaseById } from '../../datatier/datatier';
+import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 
 export default function ManageGear() {
 
@@ -79,8 +79,7 @@ export default function ManageGear() {
             clearMessages();
             gear["created"] = getCurrentDateAsJson();
             gear["createdBy"] = currentUser.email;
-            const dbref = ref(db, Constants.DB_GEAR);
-            push(dbref, gear);
+            pushToFirebase(Constants.DB_GEAR, gear);
             setMessage(t('save_success'));
             setShowMessage(true);
         } catch (ex) {
