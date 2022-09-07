@@ -82,6 +82,7 @@ import ManageProgramming from './components/Programming/ManageProgramming';
 //ShoppingLists
 import ManageShoppingLists from './components/ShoppingList/ManageShoppingLists';
 
+//ICONIT
 //React icons: https://react-icons.github.io/react-icons/icons?name=fa
 //Icon instructions: https://fontawesome.com/v5/docs/web/use-with/react
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -90,13 +91,13 @@ import {
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
   faFish, faUserAlt, faHistory, faPlus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
-  faCopy
+  faCopy, faShoePrints, faWater
 } from '@fortawesome/free-solid-svg-icons';
 library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
   faFish, faUserAlt, faHistory, faPlus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
-  faCopy
+  faCopy, faShoePrints, faWater
 );
 
 //languagization

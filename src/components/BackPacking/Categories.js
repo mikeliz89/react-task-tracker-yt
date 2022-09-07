@@ -17,7 +17,11 @@ export const Categories = {
     /** Tulenteko */
     FireCreation: 7,
     /** Muu */
-    Other: 8
+    Other: 8,
+    /** Kengät */
+    Shoes: 9,
+    /** Vesi */
+    Water: 10
 }
 
 // TODO: Tällä hetkellä vain kovakoodatut drinkki-kategoriat
@@ -65,6 +69,14 @@ export const GearCategories = [
     {
         "id": 8,
         "name": "other"
+    },
+    {
+        "id": 9,
+        "name": "shoes"
+    },
+    {
+        "id": 10,
+        "name": "water"
     }
 ]
 
@@ -84,6 +96,10 @@ export function getIconNameByCategory(category) {
             return 'utensils';
         case Categories.Hygiene:
             return 'hands-wash';
+        case Categories.Shoes:
+            return 'shoe-prints';
+        case Categories.Water:
+            return 'water';
         default: return '';
     }
 }
