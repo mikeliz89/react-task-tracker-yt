@@ -1,6 +1,4 @@
-//props
 import PropTypes from 'prop-types';
-//react
 import { FaStarHalfAlt, FaStar, FaRegStar } from 'react-icons/fa';
 
 export default function StarRating({ starCount }) {

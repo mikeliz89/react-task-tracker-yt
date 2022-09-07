@@ -1,14 +1,9 @@
-//react
 import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-//i18n
 import i18n from 'i18next';
-//js-cookie
 import cookies from 'js-cookie';
-//languages
 import './Language.css';
 import { Languages } from '../../Languages';
-//utils
 import * as Constants from '../../utils/Constants';
 
 export default function Language() {

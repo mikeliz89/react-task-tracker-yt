@@ -1,13 +1,9 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-//buttons
 import Button from '../../components/Button';
-//firebase
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
-//utils
 import * as Constants from '../../utils/Constants';
 
 export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {

@@ -1,15 +1,10 @@
 
-//react
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
-//Firebase
 import { db } from '../../firebase-config';
 import { ref, onValue, child, remove, update } from "firebase/database";
-//links
 import LinksInner from './LinksInner';
-//icon
 import Icon from '../Icon';
-//utils
 import * as Constants from '../../utils/Constants';
 
 const Links = ({ url, objID }) => {

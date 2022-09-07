@@ -1,17 +1,11 @@
-//proptypes
 import PropTypes from 'prop-types';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
 import Logout from '../Auth/Logout';
-//react
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-//language
 import Language from '../Language/Language';
-//profile
 import MyProfile from '../MyProfile/MyProfile';
-//utils
 import * as Constants from '../../utils/Constants';
 
 const Header = ({ title }) => {

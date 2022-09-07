@@ -1,34 +1,21 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-//buttons
 import Button from '../Button';
 import GoBackButton from '../GoBackButton';
-//backpacking
 import AddGear from './AddGear';
-//firebase
 import { db } from '../../firebase-config';
 import { ref, push, onValue, remove } from 'firebase/database';
-//utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from "../../utils/Constants";
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//backpacking
 import Gears from './Gears';
-//pagetitle
 import PageTitle from '../PageTitle';
-//searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from '../SearchSortFilter/SortModes';
-//alert
 import Alert from '../Alert';
-//page
 import PageContentWrapper from '../PageContentWrapper';
-//center
 import CenterWrapper from '../CenterWrapper';
-//counter
 import Counter from '../Counter';
 
 export default function ManageGear() {

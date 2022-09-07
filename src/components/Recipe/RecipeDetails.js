@@ -1,41 +1,29 @@
-//react
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-//firebase
 import { db } from '../../firebase-config';
 import { push, child, remove, ref, onValue, update } from "firebase/database";
-//Buttons
 import GoBackButton from '../GoBackButton';
 import Button from '../../components/Button';
-//Recipe
 import AddIncredient from './AddIncredient';
 import AddWorkPhase from './AddWorkPhase';
 import Incredients from './Incredients';
 import WorkPhases from './WorkPhases';
 import AddRecipe from './AddRecipe';
-//i18n
 import i18n from "i18next";
-//utils
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
-//StarRating
 import SetStarRating from '../StarRating/SetStarRating';
-//Links
 import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
-//Comments
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//pagetitle
 import PageTitle from '../PageTitle';
-//alert
 import Alert from '../Alert';
 import StarRating from '../StarRating/StarRating';
 import RecipeHistories from './RecipeHistories';

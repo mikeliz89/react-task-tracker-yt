@@ -1,15 +1,10 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { Form, ButtonGroup, Row } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-//firebase
 import { ref, get } from "firebase/database";
 import { db } from '../../firebase-config';
-//buttons
 import Button from '../../components/Button';
-//proptypes
 import PropTypes from 'prop-types';
-//formtitle
 import FormTitle from '../FormTitle';
 
 export default function AddWorkPhase({ dbUrl, translation, workPhaseID, recipeID, onSave, onClose }) {

@@ -1,42 +1,29 @@
-//react
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Row, Col, ButtonGroup, Accordion, Table } from "react-bootstrap";
-//firebase
 import { child, push, ref, onValue, update } from "firebase/database";
 import { db } from "../../firebase-config";
-//buttons
 import GoBackButton from "../GoBackButton";
 import Button from "../Button";
-//exercises
 import AddPartsGym from "./AddPartsGym";
 import AddPartsMoving from "./AddPartsMoving";
 import AddPartsAerobics from "./AddPartsAerobics";
 import EditExercise from "./EditExercise";
 import { Categories, getTitleByCategory, getIconNameByCategory } from './Categories';
-//star rating
 import SetStarRating from "../StarRating/SetStarRating";
 import StarRating from "../StarRating/StarRating";
-//comment
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
 import * as Constants from '../../utils/Constants';
-//i18n
 import i18n from "i18next";
-//pagetitle
 import PageTitle from "../PageTitle";
-//alert
 import Alert from "../Alert";
-//Links
 import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
-//page
 import PageContentWrapper from "../PageContentWrapper";
 
 const ExerciseDetails = () => {

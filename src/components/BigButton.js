@@ -1,6 +1,4 @@
-//proptypes
 import PropTypes from 'prop-types';
-//react
 import { useTranslation } from 'react-i18next';
 import Icon from './Icon';
 

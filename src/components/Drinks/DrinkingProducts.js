@@ -1,4 +1,3 @@
-//drinks
 import DrinkingProduct from './DrinkingProduct';
 
 export default function DrinkingProducts({ drinkingProducts, onDelete, onEdit }) {

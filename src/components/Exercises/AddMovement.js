@@ -1,24 +1,16 @@
-//react
 import { Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-//firebase
 import { db } from '../../firebase-config';
 import { get, ref, push, update } from 'firebase/database';
-//buttons
 import Button from '../Button';
 import GoBackButton from '../GoBackButton';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-//Categories
 import { MovementCategories } from './Categories';
-//pagetitle
 import PageTitle from '../PageTitle';
-//alert
 import Alert from '../Alert';
 
 const AddMovement = ({ movementID, onClose }) => {

@@ -1,13 +1,9 @@
-//react
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-//firebase
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
-//buttons
 import Button from '../../components/Button'
-//utils
 import * as Constants from '../../utils/Constants';
 
 const EditLink = ({ linkID, objID, linkUrl, onEditLink, onCloseEditLink }) => {

@@ -1,6 +1,4 @@
-//proptypes
 import PropTypes from 'prop-types';
-//icon
 import Icon from './Icon';
 
 function FormTitle({ iconName, title }) {

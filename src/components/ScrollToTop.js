@@ -1,9 +1,6 @@
-//react
 import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
-//button
 import Button from "./Button";
-//utils
 import * as Constants from '../utils/Constants';
 
 export default function ScrollToTop() {

@@ -1,12 +1,8 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-//star rating
 import StarRating from '../StarRating/StarRating';
-//utils
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
-//icon
 import Icon from '../Icon';
 
 const Movement = ({ movement, onDelete }) => {

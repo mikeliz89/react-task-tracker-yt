@@ -1,19 +1,12 @@
-//react
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//buttons
 import Button from '../../components/Button';
-//alert
 import Alert from '../Alert';
-//pagetitle
 import PageTitle from '../PageTitle';
-//center
 import CenterWrapper from '../CenterWrapper';
-//utils
 import * as Constants from '../../utils/Constants';
 
 export default function ForgotPassword() {

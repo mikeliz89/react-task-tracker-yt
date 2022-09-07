@@ -1,35 +1,23 @@
-//react
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
-//firebase
 import { db } from '../../firebase-config';
 import { push, ref, child, onValue, update } from "firebase/database";
-//buttons
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
-//i18n
 import i18n from "i18next";
-//utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
-//Comment
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
-//Links
 import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//drinks
 import AddDrinkingProduct from './AddDrinkingProduct';
-//pagetitle
 import PageTitle from '../PageTitle';
-//alert
 import Alert from '../Alert';
-//page
 import PageContentWrapper from '../PageContentWrapper';
 
 export default function DrinkingProductDetails() {

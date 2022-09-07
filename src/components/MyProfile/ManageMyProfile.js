@@ -1,23 +1,15 @@
-//buttons
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
-//react
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//firebase
 import { db, uploadProfilePic } from '../../firebase-config';
 import { ref, onValue, update } from "firebase/database";
-//utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-//pagetitle
 import PageTitle from '../PageTitle';
-//alert
 import Alert from '../Alert';
-//page
 import PageContentWrapper from '../PageContentWrapper';
 
 export default function ManageMyProfile() {

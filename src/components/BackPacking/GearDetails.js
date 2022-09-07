@@ -1,33 +1,22 @@
-//react
 import { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
-//i18n
 import i18n from "i18next";
-//firebase
 import { db } from '../../firebase-config';
 import { ref, onValue, child, push, update } from "firebase/database";
-//utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
-//buttons
 import GoBackButton from '../../components/GoBackButton';
-//pagetitle
 import PageTitle from '../PageTitle';
-//StarRating
 import SetStarRating from '../StarRating/SetStarRating';
 import StarRating from '../StarRating/StarRating';
-//Comment
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
-//Links
 import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//page
 import PageContentWrapper from '../PageContentWrapper';
 
 function GearDetails() {

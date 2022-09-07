@@ -1,6 +1,4 @@
-//react
 import { useNavigate } from 'react-router-dom';
-//buttons
 import Button from '../components/Button';
 
 const GoBackButton = () => {

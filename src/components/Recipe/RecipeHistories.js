@@ -1,14 +1,9 @@
-//recipe
 import RecipeHistory from "./RecipeHistory";
-//Firebase
 import { db } from '../../firebase-config';
 import { ref, remove } from "firebase/database";
-//react
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
-//icon
 import Icon from "../Icon";
-//proptypes
 import PropTypes from 'prop-types';
 
 function RecipeHistories({ dbUrl, translation, recipeHistories, recipeID }) {

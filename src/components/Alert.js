@@ -1,11 +1,7 @@
-//proptypes
 import PropTypes from 'prop-types';
-//react
 import { Alert as BootstrapAlert } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-//button
 import Button from './Button';
-//utils
 import * as Constants from '../utils/Constants';
 
 function Alert({ message, showMessage, showError, error, onClose, variant }) {

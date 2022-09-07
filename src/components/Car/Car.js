@@ -1,29 +1,18 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
-//alert
 import Alert from '../Alert';
-//buttons
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
-//car
 import AddFueling from './AddFueling';
 import AddInfo from './AddInfo';
 import CarFuelings from './CarFuelings';
-//firebase
 import { db } from '../../firebase-config';
 import { onValue, ref, push, remove } from 'firebase/database';
-//pagetitle
 import PageTitle from '../PageTitle';
-//utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//center
 import CenterWrapper from '../CenterWrapper';
-//page
 import PageContentWrapper from '../PageContentWrapper';
-//utils
 import * as Constants from '../../utils/Constants';
 
 export default function Car() {

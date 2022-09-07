@@ -1,10 +1,7 @@
-//react
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Col, Form, Row } from 'react-bootstrap';
-//buttons
 import Button from '../Button';
-//utils
 import * as Constants from '../../utils/Constants';
 
 const AddLink = ({ onSaveLink }) => {

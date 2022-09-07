@@ -1,15 +1,9 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-//buttons
 import GoBackButton from '../GoBackButton';
-//icon
 import Icon from '../Icon';
-//page
 import PageContentWrapper from '../PageContentWrapper';
-//pagetitle
 import PageTitle from '../PageTitle';
-//utils
 import * as Constants from '../../utils/Constants';
 
 export default function ManageMusic() {

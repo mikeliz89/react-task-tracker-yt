@@ -1,13 +1,9 @@
-//react
 import { useState, useEffect } from 'react';
 import { Col, Row, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-//buttons
 import Button from '../Button';
 import { SortMode } from './SortModes';
-//proptypes
 import PropTypes from 'prop-types';
-//utils
 import * as Constants from '../../utils/Constants';
 
 const SearchSortFilter = ({ onSet,

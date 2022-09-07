@@ -1,15 +1,10 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-//firebase
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
-//buttons
 import Button from '../../components/Button';
-//proptypes
 import PropTypes from 'prop-types';
-//formtitle
 import FormTitle from '../FormTitle';
 
 export default function AddIncredient({ dbUrl, translation, onSave, incredientID, recipeID, onClose }) {

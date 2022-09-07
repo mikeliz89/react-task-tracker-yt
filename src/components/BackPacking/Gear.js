@@ -1,17 +1,11 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-//utils
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from "../../utils/Constants";
-//icons
 import Icon from '../Icon';
-//alert
 import Alert from '../Alert';
-//categories
 import { getIconNameByCategory } from './Categories';
-//starrating
 import StarRating from '../StarRating/StarRating';
 
 const Gear = ({ gear, onDelete }) => {

@@ -1,6 +1,4 @@
-//proptypes
 import PropTypes from 'prop-types';
-//react
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 //https://fontawesome.com/v5/docs/web/use-with/react

@@ -1,11 +1,7 @@
-//utils
 import { getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import * as Constants from '../../utils/Constants';
-//i18n
 import i18n from "i18next";
-//react
 import { useTranslation } from 'react-i18next';
-//icon
 import Icon from "../Icon";
 
 const CommentsInner = ({ comments, onDelete }) => {

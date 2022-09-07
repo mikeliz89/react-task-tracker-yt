@@ -1,11 +1,7 @@
 
-//react
 import { useTranslation } from "react-i18next";
-//pagetitle
 import PageTitle from "../PageTitle";
-//car
 import CarFueling from "./CarFueling";
-//utils
 import * as Constants from '../../utils/Constants';
 
 const CarFuelings = ({ carFuelings, onDelete }) => {

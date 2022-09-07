@@ -1,25 +1,15 @@
-//buttons
 import GoBackButton from '../GoBackButton';
-//react
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react'
-//firebase
 import { db } from '../../firebase-config';
 import { ref, onValue, remove } from "firebase/database";
-//utils
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-//i18n
 import i18n from "i18next";
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//bmicalculator
 import WeightChart from './WeightChart';
-//pagetitle
 import PageTitle from '../PageTitle';
-//icon
 import Icon from '../Icon';
-//page
 import PageContentWrapper from '../PageContentWrapper';
 
 const WeightHistory = () => {

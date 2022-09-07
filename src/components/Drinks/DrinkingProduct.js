@@ -1,14 +1,10 @@
-//react
 import { FaCheckSquare } from 'react-icons/fa';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-//drinking product
 import AddDrinkingProduct from './AddDrinkingProduct';
-//utils
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
-//icons
 import Icon from '../Icon';
 
 const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {

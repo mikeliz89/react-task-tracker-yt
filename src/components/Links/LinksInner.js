@@ -1,4 +1,3 @@
-//links
 import LinkInner from "./LinkInner";
 
 const LinksInner = ({ links, objID, linkUrl, onDelete, onEdit }) => {

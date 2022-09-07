@@ -1,4 +1,4 @@
-import { ListTypes, RecipeTypes } from '../../utils/Enums';
+import { RecipeTypes } from '../../utils/Enums';
 import { getRecipeCategoryNameByID, getDrinkCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 

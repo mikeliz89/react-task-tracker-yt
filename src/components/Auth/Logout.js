@@ -1,14 +1,9 @@
-//react
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//button
 import Button from '../../components/Button';
-//alert
 import Alert from '../Alert';
-//utils
 import * as Constants from '../../utils/Constants';
 
 export default function Logout() {

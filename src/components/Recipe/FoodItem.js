@@ -1,13 +1,9 @@
-//react
 import { FaCheckSquare } from 'react-icons/fa';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-//recipe
 import AddFoodItem from './AddFoodItem';
-//utils
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
-//icon
 import Icon from '../Icon';
 
 const FoodItem = ({ foodItem, onDelete, onEdit }) => {

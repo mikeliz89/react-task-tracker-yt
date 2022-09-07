@@ -1,10 +1,6 @@
-//i18n
 import i18n from "i18next";
-//utils
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-//react
 import { useTranslation } from 'react-i18next';
-//icon
 import Icon from "../Icon";
 
 function RecipeHistory({ translation, recipeHistory, onDelete }) {

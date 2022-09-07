@@ -1,32 +1,21 @@
-//react
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ButtonGroup, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-//Buttons
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
-//Firebase
 import { db } from '../../firebase-config';
 import { ref, onValue, update, push, child } from "firebase/database";
-//task
 import AddTask from './AddTask';
-//comment
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
-//utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-//i18n
 import i18n from "i18next";
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//links
 import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
-//pagetitle
 import PageTitle from '../PageTitle';
-//page
 import PageContentWrapper from '../PageContentWrapper';
 
 function TaskDetails() {

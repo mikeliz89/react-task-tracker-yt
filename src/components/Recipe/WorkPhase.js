@@ -1,15 +1,10 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-//firebase
 import { update, ref } from "firebase/database";
 import { db } from '../../firebase-config';
-//recipes
 import AddWorkPhase from './AddWorkPhase';
-//icon
 import Icon from '../Icon';
-//proptypes
 import PropTypes from 'prop-types';
 
 export default function WorkPhase({ dbUrl, translation, workPhase, recipeID, onDelete }) {

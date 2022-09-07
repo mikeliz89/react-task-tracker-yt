@@ -1,26 +1,17 @@
-//react
 import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-//firebase
 import { db } from '../../firebase-config';
 import { ref, push } from 'firebase/database';
-//buttons
 import Button from '../Button';
 import GoBackButton from '../GoBackButton';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-//Categories
 import { ExerciseCategories } from './Categories';
-//pagetitle
 import PageTitle from '../PageTitle';
-//alert
 import Alert from '../Alert';
-//page
 import PageContentWrapper from '../PageContentWrapper';
 
 const CreateExercise = () => {

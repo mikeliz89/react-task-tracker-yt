@@ -1,26 +1,16 @@
-//buttons
 import GoBackButton from '../GoBackButton';
-//react
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-//exercises
 import Exercises from './Exercises';
-//firebase
 import { db } from '../../firebase-config';
 import { onValue, ref, remove } from 'firebase/database';
-//pagetitle
 import PageTitle from '../PageTitle';
-//searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-//center
 import CenterWrapper from '../CenterWrapper';
-//page
 import PageContentWrapper from '../PageContentWrapper';
-//counter
 import Counter from '../Counter';
-//utils
 import * as Constants from '../../utils/Constants';
 
 const ManageExercises = () => {

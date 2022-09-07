@@ -1,8 +1,5 @@
-//recipe
 import Recipe from './Recipe';
-//proptypes
 import PropTypes from 'prop-types';
-//recipetypes
 import { RecipeTypes } from '../../utils/Enums';
 
 const Recipes = ({ recipeType, translation, recipes, onDelete }) => {

@@ -1,13 +1,8 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-//StarRating
 import StarRating from '../StarRating/StarRating';
-//exercises
 import { getIconNameByCategory } from './Categories';
-//icon
 import Icon from '../Icon';
-//utils
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 

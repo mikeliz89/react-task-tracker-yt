@@ -1,23 +1,15 @@
-//react
 import { Row, ButtonGroup } from "react-bootstrap";
 import { useTranslation } from 'react-i18next';
 import { useState } from "react";
-//firebase
 import { db } from '../../firebase-config';
 import { ref, push } from 'firebase/database';
-//buttons
 import Button from "../Button";
 import GoBackButton from "../GoBackButton";
-//page
 import PageContentWrapper from "../PageContentWrapper";
-//pagetitle
 import PageTitle from "../PageTitle";
-//backpacking
 import AddGearMaintenanceInstruction from "./AddGearMaintenanceInstruction";
-//utils
 import * as Constants from "../../utils/Constants";
 import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
-//auth
 import { useAuth } from '../../contexts/AuthContext';
 
 function ManageGearMaintenance() {

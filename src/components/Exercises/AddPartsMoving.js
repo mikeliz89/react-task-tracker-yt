@@ -1,21 +1,14 @@
-//proptypes
 import PropTypes from 'prop-types';
-//react
 import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-//buttons
 import Button from '../Button';
-//firebase
 import { db } from '../../firebase-config';
 import { push, ref, child, update, onValue } from 'firebase/database';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-//pagetitle
 import PageTitle from '../PageTitle';
 
 const AddPartsMoving = ({ title, iconName }) => {

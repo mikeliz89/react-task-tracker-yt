@@ -1,13 +1,9 @@
-//buttons
 import Button from "../Button";
-//react
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from "react";
 import { Form, Row, Col, ButtonGroup } from "react-bootstrap";
-//firebase
 import { ref, get } from 'firebase/database';
 import { db } from '../../firebase-config';
-//utils
 import * as Constants from '../../utils/Constants';
 
 function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {

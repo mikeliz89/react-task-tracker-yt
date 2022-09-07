@@ -1,17 +1,11 @@
-//react
 import { Row, Col } from "react-bootstrap";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-//i18n
 import i18n from "i18next";
-//utils
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-//icon
 import Icon from "../Icon";
-//car
 import AddFueling from "./AddFueling";
-//firebase
 import { ref, update } from "firebase/database";
 import { db } from "../../firebase-config";
 

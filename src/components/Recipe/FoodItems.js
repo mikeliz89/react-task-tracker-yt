@@ -1,4 +1,3 @@
-//recipe
 import FoodItem from './FoodItem';
 
 export default function FoodItems({ foodItems, onDelete, onEdit }) {

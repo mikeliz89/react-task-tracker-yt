@@ -1,12 +1,8 @@
-//react
 import { Col, Row } from "react-bootstrap";
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
-//links
 import EditLink from "./EditLink";
-//icon
 import Icon from "../Icon";
-//utils
 import * as Constants from '../../utils/Constants';
 
 const LinkInner = ({ link, objID, linkUrl, onEdit, onDelete }) => {

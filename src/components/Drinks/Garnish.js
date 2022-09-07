@@ -1,14 +1,9 @@
-//react
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-//firebase
 import { db } from '../../firebase-config';
 import { update, ref } from "firebase/database";
-//drinks
 import AddGarnish from './AddGarnish';
-//icon
 import Icon from '../Icon';
-//utils
 import * as Constants from '../../utils/Constants';
 
 export const Garnish = ({ garnish, drinkID, onDelete }) => {

@@ -1,14 +1,9 @@
-//buttons
 import BigButton from '../components/BigButton';
-//react
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Row, Col } from 'react-bootstrap';
-//css
 import styles from './dashboard.module.css';
-//page
 import PageContentWrapper from './PageContentWrapper';
-//utils
 import * as Constants from '../utils/Constants';
 
 export default function Dashboard() {

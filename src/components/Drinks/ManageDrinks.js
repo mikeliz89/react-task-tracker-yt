@@ -1,35 +1,22 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-//firebase
 import { ref, push, onValue, remove } from "firebase/database";
 import { db } from '../../firebase-config';
-//recipes
 import Recipes from '../Recipe/Recipes';
-//drinks
 import AddDrink from './AddDrink';
-//buttons
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
-//utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//pagetitle
 import PageTitle from '../PageTitle';
-//searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-//alert
 import Alert from '../Alert';
-//recipetypes
 import { RecipeTypes } from '../../utils/Enums';
 import Icon from '../Icon';
-//page
 import PageContentWrapper from '../PageContentWrapper';
-//counter
 import Counter from '../Counter';
 import CenterWrapper from '../CenterWrapper';
 

@@ -1,9 +1,6 @@
-//Buttons
 import Button from '../../components/Button';
-//react
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
-//utils
 import * as Constants from "../../utils/Constants";
 
 export default function MyProfile() {

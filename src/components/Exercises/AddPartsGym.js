@@ -1,18 +1,12 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-//buttons
 import Button from '../Button';
-//exercise
 import AddPartsGymForm from './AddPartsGymForm';
 import GymParts from './GymParts';
-//firebase
 import { onValue, push, child, ref } from 'firebase/database';
 import { db } from '../../firebase-config';
-//pagetitle
 import PageTitle from '../PageTitle';
-//utils
 import * as Constants from '../../utils/Constants';
 
 const AddPartsGym = () => {

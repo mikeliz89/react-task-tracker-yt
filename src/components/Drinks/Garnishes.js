@@ -1,10 +1,6 @@
-//react
 import { useTranslation } from 'react-i18next';
-//Drinks
 import { Garnish } from './Garnish';
-//Icon
 import Icon from '../Icon';
-//utils
 import * as Constants from '../../utils/Constants'
 
 export default function Garnishes({ garnishes, drinkID, onDelete }) {

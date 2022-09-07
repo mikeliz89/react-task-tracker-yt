@@ -1,13 +1,9 @@
-//react
 import { ButtonGroup, Form, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-//buttons
 import Button from "../Button";
-//firebase
 import { onValue, ref } from "firebase/database";
 import { db } from "../../firebase-config";
-//utils
 import * as Constants from '../../utils/Constants';
 
 const AddFueling = ({ ID, onClose, onSave }) => {

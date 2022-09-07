@@ -1,28 +1,18 @@
-//react
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Accordion, Table, Row, Col, ButtonGroup } from 'react-bootstrap';
-//firebase
 import { db } from '../../firebase-config';
 import { ref, get, onValue, child, push, update } from "firebase/database";
-//tasks
 import Tasks from '../../components/Task/Tasks';
-//buttons
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
-//i18n
 import i18n from "i18next";
-//utils
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-//pagetitle
 import PageTitle from '../PageTitle';
-//page
 import PageContentWrapper from '../PageContentWrapper';
-//center
 import CenterWrapper from '../CenterWrapper';
-//counter
 import Counter from '../Counter';
 
 export default function ArchivedTaskListDetails() {

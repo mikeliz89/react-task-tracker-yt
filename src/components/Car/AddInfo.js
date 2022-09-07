@@ -1,22 +1,14 @@
-//react
 import { Form, ButtonGroup, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
-//buttons
 import Button from "../Button";
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//firebase
 import { onValue, ref, push, update } from "firebase/database";
 import { db } from "../../firebase-config";
-//utils
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 import * as Constants from '../../utils/Constants';
-//i18n
 import i18n from "i18next";
-//pagetitle
 import PageTitle from "../PageTitle";
-//alert
 import Alert from "../Alert";
 
 const AddInfo = ({ onClose }) => {

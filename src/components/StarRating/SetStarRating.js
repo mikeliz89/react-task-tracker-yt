@@ -1,13 +1,9 @@
-//react
 import { Row, Col, Form, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-//buttons
 import Button from '../Button';
 import StarRating from './StarRating';
-//props
 import PropTypes from 'prop-types';
-//utils
 import * as Constants from '../../utils/Constants';
 
 const SetStarRating = ({ starCount, onSaveStars }) => {

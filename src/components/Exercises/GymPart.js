@@ -1,15 +1,10 @@
-//react
 import { useTranslation } from 'react-i18next';
 import { Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
-//icon
 import Icon from '../Icon';
-//exercises
 import AddPartsGymForm from './AddPartsGymForm';
-//firebase
 import { ref, update } from 'firebase/database';
 import { db } from '../../firebase-config';
-//utils
 import * as Constants from '../../utils/Constants';
 
 function GymPart({ exerciseID, gymPart, onDelete }) {

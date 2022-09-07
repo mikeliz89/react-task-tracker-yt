@@ -1,17 +1,10 @@
-//react
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
-//firebase
 import { db } from '../../firebase-config';
 import { ref, get } from "firebase/database";
-//buttons
 import Button from '../Button';
-//drink
 import { DrinkCategories } from './Categories';
-//link component
-// import AddLink from '../Links/AddLink';
-//utils
 import * as Constants from '../../utils/Constants';
 
 const AddDrink = ({ drinkID, onSave, onClose }) => {

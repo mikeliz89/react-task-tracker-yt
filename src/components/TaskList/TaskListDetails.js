@@ -1,38 +1,25 @@
-//react
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-//buttons
 import Button from '../Button';
 import GoBackButton from '../GoBackButton';
-//tasklist and task
 import AddTask from '../Task/AddTask';
 import AddTaskList from '../TaskList/AddTaskList';
 import Tasks from '../Task/Tasks';
 import ChangeType from './ChangeType';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//firebase
 import { db } from '../../firebase-config';
 import { update, ref, onValue, push, child, remove, get } from "firebase/database";
-//utils
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-//i18n
 import i18n from "i18next";
-//Links
 import Links from '../Links/Links';
 import AddLink from '../Links/AddLink';
-//pagetitle
 import PageTitle from '../PageTitle';
-//SearchSortFilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-//page
 import PageContentWrapper from '../PageContentWrapper';
-//center
 import CenterWrapper from '../CenterWrapper';
-//counter
 import Counter from '../Counter';
 
 function TaskListDetails() {

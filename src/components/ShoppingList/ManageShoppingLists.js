@@ -1,5 +1,4 @@
 import ManageTaskLists from "../TaskList/ManageTaskLists";
-//enum
 import { ListTypes } from "../../utils/Enums";
 
 function ManageShoppingLists() {

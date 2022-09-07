@@ -1,11 +1,7 @@
-//react
 import { useTranslation } from 'react-i18next';
-//firebase
 import { ref, remove } from 'firebase/database';
 import { db } from '../../firebase-config';
-//exercises
 import GymPart from './GymPart';
-//utils
 import * as Constants from '../../utils/Constants';
 
 function GymParts({ exerciseID, parts }) {

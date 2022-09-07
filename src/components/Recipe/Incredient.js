@@ -1,14 +1,9 @@
-//react
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-//firebase
 import { db } from '../../firebase-config';
 import { update, ref } from "firebase/database";
-//recipe
 import AddIncredient from './AddIncredient';
-//icon
 import Icon from '../Icon';
-//proptypes
 import PropTypes from 'prop-types';
 
 export const Incredient = ({ dbUrl, translation, incredient, recipeID, onDelete }) => {

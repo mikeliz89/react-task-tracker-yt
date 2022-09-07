@@ -1,12 +1,7 @@
-//buttons
 import GoBackButton from '../GoBackButton';
-//react
 import { useTranslation } from 'react-i18next';
-//pagetitle
 import PageTitle from '../PageTitle';
-//page
 import PageContentWrapper from '../PageContentWrapper';
-//utils
 import * as Constants from '../../utils/Constants';
 
 const About = () => {

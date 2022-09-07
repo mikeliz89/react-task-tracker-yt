@@ -1,8 +1,5 @@
-//react
 import { useTranslation } from 'react-i18next';
-//recipes
 import WorkPhase from './WorkPhase';
-//proptypes
 import PropTypes from 'prop-types';
 
 export default function WorkPhases({ dbUrl, translation, workPhases, recipeID, onDelete }) {

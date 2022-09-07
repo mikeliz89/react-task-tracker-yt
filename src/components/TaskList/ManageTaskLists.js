@@ -1,36 +1,23 @@
-//React
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Row, ButtonGroup } from 'react-bootstrap';
-//Firebase
 import { db } from '../../firebase-config';
 import { ref, onValue, push, child, remove } from "firebase/database";
-//TaskList components
 import AddTaskList from '../../components/TaskList/AddTaskList';
 import TaskLists from '../../components/TaskList/TaskLists';
-//Buttons
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
-//Utils
 import { getPageTitleContent } from '../../utils/ListUtils';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-//Context
 import { useAuth } from '../../contexts/AuthContext';
-//PageTitle
 import PageTitle from '../PageTitle';
-//SearchSortFilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-//enums
 import { ListTypes } from '../../utils/Enums';
-//proptypes
 import PropTypes from 'prop-types';
-//center
 import CenterWrapper from '../CenterWrapper';
-//page
 import PageContentWrapper from '../PageContentWrapper';
-//counter
 import Counter from '../Counter';
 
 export default function ManageTaskLists({ listType }) {

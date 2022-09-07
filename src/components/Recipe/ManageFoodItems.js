@@ -1,32 +1,20 @@
-//react
 import { useState, useEffect } from 'react';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-//firebase
 import { ref, push, onValue, remove, update } from "firebase/database";
 import { db } from '../../firebase-config';
-//button
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
-//recipe
 import AddFoodItem from './AddFoodItem';
 import FoodItems from './FoodItems';
-//utils
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-//auth
 import { useAuth } from '../../contexts/AuthContext';
-//searchsortfilter
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-//pagetitle
 import PageTitle from '../PageTitle';
-//alert
 import Alert from '../Alert';
-//page
 import PageContentWrapper from '../PageContentWrapper';
-//counter
 import Counter from '../Counter';
-//center
 import CenterWrapper from '../CenterWrapper';
 
 const ManageFoodItems = () => {
