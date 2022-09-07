@@ -30,6 +30,8 @@ export const ListTypes = {
     BackPacking: 8,
     /** Kauppalista */
     Shopping: 9,
+    /** Leffat */
+    Movies: 10
 }
 
 /* Listatyypit (kategoriat alasvetovalikossa) */
@@ -78,5 +80,10 @@ export const ListTypesArray = [
         //ostoslistat
         "id": 9,
         "name": "shopping"
+    },
+    {
+        //leffat
+        "id": 10,
+        "name": "movies"
     }
 ]

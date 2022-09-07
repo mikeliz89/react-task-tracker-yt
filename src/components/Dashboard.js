@@ -95,6 +95,13 @@ export default function Dashboard() {
                     </Link>
                 </Col>
             </Row>
+            <Row>
+            <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
+                    <Link to={'/movies'}>
+                        <BigButton imageName="movies.jpg" textcolor="black" color="#0cb058" text={t('movies')} /* comingsoon */ />
+                    </Link>
+                </Col>
+            </Row>
             {/* <Link to={'/'}><BigButton text="button" /></Link>
                 <Link to={'/'}><BigButton text="button" /></Link>
                 <Link to={'/'}><BigButton text="button" /></Link>

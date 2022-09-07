@@ -67,6 +67,7 @@ export const TRANSLATION_GAMES = 'games';
 export const TRANSLATION_HEADER = 'header';
 export const TRANSLATION_LANGUAGE = 'language';
 export const TRANSLATION_LINKS = 'links';
+export const TRANSLATION_MOVIES = 'movies';
 export const TRANSLATION_MUSIC = 'music';
 export const TRANSLATION_MYPROFILE = 'myprofile';
 export const TRANSLATION_RECIPE = 'recipe';

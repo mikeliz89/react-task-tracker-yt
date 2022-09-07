@@ -75,6 +75,9 @@ import BandsSeenLive from './components/Music/BandsSeenLive';
 //Games
 import Games from './components/Games/Games';
 import ManageGameLists from './components/Games/ManageGameLists';
+//Movies
+import Movies from './components/Movies/Movies';
+import ManageMovieLists from './components/Movies/ManageMovieLists';
 //LinksList
 import LinksList from './components/Links/LinksList';
 //Programming
@@ -188,6 +191,10 @@ function App() {
             <Route path='/games' element={<PrivateRoute><Games /></PrivateRoute>} />
             <Route path='/managegamelists' element={<PrivateRoute><ManageGameLists /></PrivateRoute>} />
             {/* Games */}
+            {/* Movies */}
+            <Route path='/movies' element={<PrivateRoute><Movies /></PrivateRoute>} />
+            <Route path='/managemovielists' element={<PrivateRoute><ManageMovieLists /></PrivateRoute>} />
+            {/* Movies */}
             {/* Demo */}
             <Route path='/Demo' element={<PrivateRoute><Demo /></PrivateRoute>} />
             {/* Demo */}

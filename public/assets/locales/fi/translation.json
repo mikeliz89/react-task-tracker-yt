@@ -39,7 +39,6 @@
         "button_save_gear": "Tallenna varuste",
         "button_save_gear_maintenance_instruction": "Tallenna",
         "category": "Kategoria",
-        "coming_soon": "Tulossa pian...",
         "created": "Luotu",
         "created_by": "Luoja",
         "created_date": "Luontipvm",
@@ -100,7 +99,6 @@
         "add_info_title": "Ajoneuvon tiedot",
         "button_close": "Sulje",
         "car_title": "Auto",
-        "coming_soon": "Tulossa pian...",
         "delete_fueling_confirm_message": "Oletko varma?",
         "failed_to_add_info": "Infon tallennus epäonnistui",
         "failed_to_add_fueling": "Tankkauksen tallennus epäonnistui",
@@ -145,6 +143,7 @@
             "exercises": "Liikunta",
             "games": "Pelit",
             "links_list": "Linkit",
+            "movies": "Leffat",
             "music": "Musiikki",
             "programming": "Koodaus",
             "recipes": "Reseptit",
@@ -178,7 +177,6 @@
         "category_shake": "Ravistettava",
         "category_shot": "Shotti",
         "category_stir": "Sekoitettava",
-        "coming_soon": "Tulossa pian...",
         "create_shoppinglist_confirm_message": "Haluatko varmasti luoda ostoslistan?",
         "created": "Luotu",
         "created_by": "Luoja",
@@ -344,8 +342,7 @@
     },
     "games": {
         "games_title": "Pelit",
-        "button_game_lists": "Listat",
-        "coming_soon": "Tulossa pian..."
+        "button_game_lists": "Listat"
     },
     "header": {
         "header_logged_in_as_text": "Kirjautunut käyttäjä: "
@@ -356,7 +353,6 @@
     "links": {
         "add_link": "Lisää linkki",
         "button_close": "Sulje",
-        "coming_soon": "Tulossa pian...",
         "delete_link_confirm": "Poista linkki?",
         "header": "Linkit",
         "links_list_title": "Linkit",
@@ -366,12 +362,15 @@
         "url": "url-osoite",
         "urlText": "linkin teksti"
     },
+    "movies": {
+        "button_movie_lists": "Leffalistat",
+        "movies_title": "Leffat"
+    },
     "music": {
         "button_bands_seen_live": "Nähdyt bändit",
         "button_music_lists": "Listat",
         "bands_seen_live": "Nähdyt bändit",
-        "music_title": "Musiikki",
-        "coming_soon": "Tulossa pian..."
+        "music_title": "Musiikki"
     },
     "myprofile": {
         "button_close": "Sulje",
@@ -541,6 +540,7 @@
         "category_drink": "Juoma",
         "category_food": "Ruoka",
         "category_games": "Pelit",
+        "category_movies": "Leffat",
         "category_programming": "Koodaus",
         "category_music": "Musiikki",
         "change_list_type": "Muuta tyyppiä",
@@ -558,6 +558,7 @@
         "manage_car_title": "Autolistat",
         "manage_drinks_title": "Drinkkilistat",
         "manage_games_title": "Pelilistat",
+        "manage_movies_title": "Leffalistat",
         "manage_music_title": "Musiikkilistat",
         "manage_programming_title": "Koodaus",
         "manage_recipe_title": "Reseptilistat",
