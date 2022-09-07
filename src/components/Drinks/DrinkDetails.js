@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col, Tabs, Tab } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { push, ref, child, onValue, update, remove } from "firebase/database";
+import { ref, child, onValue, update } from "firebase/database";
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
 import i18n from "i18next";
@@ -29,6 +29,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
+import { pushToFirebase, pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function DrinkDetails() {
 
@@ -170,13 +171,15 @@ export default function DrinkDetails() {
     }
 
     const deleteIncredient = async (drinkID, id) => {
-        const dbref = ref(db, `${Constants.DB_DRINK_INCREDIENTS}/${drinkID}/${id}`);
-        remove(dbref);
+        removeFromFirebaseByIdAndSubId(Constants.DB_DRINK_INCREDIENTS, drinkID, id);
     }
 
-    const addIncredient = async (drinkID, incredient) => {
-        const dbref = child(ref(db, Constants.DB_DRINK_INCREDIENTS), drinkID);
-        push(dbref, incredient);
+    const deleteWorkPhase = async (drinkID, id) => {
+        removeFromFirebaseByIdAndSubId(Constants.DB_DRINK_WORKPHASES, drinkID, id);
+    }
+
+    const deleteGarnish = async (drinkID, id) => {
+        removeFromFirebaseByIdAndSubId(Constants.DB_DRINK_GARNISHES, drinkID, id);
     }
 
     const saveStars = async (stars) => {
@@ -193,42 +196,33 @@ export default function DrinkDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        const dbref = child(ref(db, Constants.DB_DRINK_COMMENTS), drinkID);
-        push(dbref, comment);
+
+        pushToFirebaseChild(Constants.DB_DRINK_COMMENTS, drinkID, comment);
     }
 
     const addLinkToDrink = (link) => {
         const drinkID = params.id;
         link["created"] = getCurrentDateAsJson();
-        const dbref = child(ref(db, Constants.DB_DRINK_LINKS), drinkID);
-        push(dbref, link);
+        pushToFirebaseChild(Constants.DB_DRINK_LINKS, drinkID, link);
+    }
+
+    const addIncredient = async (drinkID, incredient) => {
+        pushToFirebaseChild(Constants.DB_DRINK_INCREDIENTS, drinkID, incredient);
     }
 
     const addWorkPhase = async (drinkID, workPhase) => {
-        const dbref = child(ref(db, Constants.DB_DRINK_WORKPHASES), drinkID);
-        push(dbref, workPhase);
+        pushToFirebaseChild(Constants.DB_DRINK_WORKPHASES, drinkID, workPhase);
     }
 
     const addGarnish = async (drinkID, garnish) => {
-        const dbref = child(ref(db, Constants.DB_DRINK_GARNISHES), drinkID);
-        push(dbref, garnish);
-    }
-
-    const deleteWorkPhase = async (drinkID, id) => {
-        const dbref = ref(db, `${Constants.DB_DRINK_WORKPHASES}/${drinkID}/${id}`);
-        remove(dbref);
-    }
-
-    const deleteGarnish = async (drinkID, id) => {
-        const dbref = ref(db, `${Constants.DB_DRINK_GARNISHES}/${drinkID}/${id}`);
-        remove(dbref);
+        pushToFirebaseChild(Constants.DB_DRINK_GARNISHES, drinkID, garnish);
     }
 
     const saveDrinkHistory = async (drinkID) => {
-        const dbref = ref(db, `${Constants.DB_DRINK_HISTORY}/${drinkID}`);
         const currentDateTime = getCurrentDateAsJson();
         const userID = currentUser.uid;
-        push(dbref, { currentDateTime, userID });
+        
+        pushToFirebaseById(Constants.DB_DRINK_HISTORY, drinkID, { currentDateTime, userID });
 
         setShowMessage(true);
         setMessage(t('save_success_drinkinghistory'));

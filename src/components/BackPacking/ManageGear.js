@@ -5,7 +5,7 @@ import Button from '../Button';
 import GoBackButton from '../GoBackButton';
 import AddGear from './AddGear';
 import { db } from '../../firebase-config';
-import { ref, push, onValue, remove } from 'firebase/database';
+import { ref, push, onValue } from 'firebase/database';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from "../../utils/Constants";
 import { useAuth } from '../../contexts/AuthContext';
@@ -17,6 +17,7 @@ import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
 import Counter from '../Counter';
+import { removeFromFirebaseById } from '../../datatier/datatier';
 
 export default function ManageGear() {
 
@@ -96,8 +97,7 @@ export default function ManageGear() {
     }
 
     const deleteGear = (id) => {
-        const dbref = ref(db, `${Constants.DB_GEAR}/${id}`);
-        remove(dbref)
+        removeFromFirebaseById(Constants.DB_GEAR, id);
     }
 
     return loading ? (

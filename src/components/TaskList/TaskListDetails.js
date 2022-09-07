@@ -10,7 +10,7 @@ import Tasks from '../Task/Tasks';
 import ChangeType from './ChangeType';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase-config';
-import { update, ref, onValue, push, child, remove, get } from "firebase/database";
+import { ref, onValue, child, get } from "firebase/database";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import i18n from "i18next";
@@ -21,6 +21,7 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
 import Counter from '../Counter';
+import { removeFromFirebaseByIdAndSubId, pushToFirebaseChild, pushToFirebase, updateToFirebase } from '../../datatier/datatier';
 
 function TaskListDetails() {
 
@@ -107,13 +108,11 @@ function TaskListDetails() {
   const updateTask = async (taskListID, task) => {
     task["created"] = getCurrentDateAsJson();
     task["createdBy"] = currentUser.email;
-    const dbref = child(ref(db, Constants.DB_TASKS), taskListID);
-    push(dbref, task);
+    pushToFirebaseChild(Constants.DB_TASKS, taskListID, task);
   }
 
   const deleteTask = async (taskListID, id) => {
-    const dbref = ref(db, `${Constants.DB_TASKS}/${taskListID}/${id}`);
-    remove(dbref);
+    removeFromFirebaseByIdAndSubId(Constants.DB_TASKS, taskListID, id);
   }
 
   /** Toggle Reminder Of A Task At Firebase */
@@ -124,7 +123,7 @@ function TaskListDetails() {
         const updates = {};
         const oldReminder = snapshot.val()["reminder"];
         updates[`${Constants.DB_TASKS}/${taskListID}/${id}/reminder`] = !oldReminder;
-        update(ref(db), updates);
+        updateToFirebase(updates);
       } else {
         console.log("No data available");
       }
@@ -137,10 +136,9 @@ function TaskListDetails() {
       if (snapshot.exists()) {
         //update each snapshot data separately (child)
         snapshot.forEach((data) => {
-          //console.log(data.val());
           const updates = {};
           updates[`${Constants.DB_TASKS}/${taskListID}/${data.key}/reminder`] = true;
-          update(ref(db), updates);
+          updateToFirebase(updates);
         });
       } else {
         console.log("No data available");
@@ -156,18 +154,22 @@ function TaskListDetails() {
     if (taskList["description"] === undefined) {
       taskList["description"] = "";
     }
-    const updates = {};
     taskList["modified"] = getCurrentDateAsJson();
+    const updates = {};
     updates[`${Constants.DB_TASKLISTS}/${taskListID}`] = taskList;
-    update(ref(db), updates);
+    updateToFirebase(updates);
   }
 
-  function archiveTaskList(taskList) {
+  async function archiveTaskList(taskList) {
     //1. add this taskList to tasklist-archive
-    const dbref = ref(db, Constants.DB_TASKLIST_ARCHIVE);
     taskList["archived"] = getCurrentDateAsJson();
     taskList["archivedBy"] = currentUser.email;
-    let archiveTaskListID = push(dbref, taskList).key;
+
+    let archiveTaskListID  = await pushToFirebase(Constants.DB_TASKLIST_ARCHIVE, taskList);
+
+    console.log("archive", archiveTaskListID);
+   // const dbref = ref(db, Constants.DB_TASKLIST_ARCHIVE);
+   // let archiveTaskListID = push(dbref, taskList).key;
 
     const taskListID = params.id;
 
@@ -177,7 +179,7 @@ function TaskListDetails() {
       if (snapshot.exists()) {
         let updates = {};
         updates[`${Constants.DB_TASKLISTS}/${taskListID}`] = null;
-        update(ref(db), updates);
+        updateToFirebase(updates);
       } else {
         console.log("No data available for taskLists");
       }
@@ -191,7 +193,7 @@ function TaskListDetails() {
         let updates = {};
         updates[`${Constants.DB_TASKS}/${taskListID}`] = null;
         updates[`${Constants.DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = data;
-        update(ref(db), updates);
+        updateToFirebase(updates);
       } else {
         console.log("No data available");
       }
@@ -201,8 +203,7 @@ function TaskListDetails() {
   const addLinkToTaskList = (link) => {
     const taskListID = params.id;
     link["created"] = getCurrentDateAsJson();
-    const dbref = child(ref(db, Constants.DB_TASKLIST_LINKS), taskListID);
-    push(dbref, link);
+    pushToFirebaseChild(Constants.DB_TASKLIST_LINKS, taskListID, link);
   }
 
   const copyToClipboard = () => {

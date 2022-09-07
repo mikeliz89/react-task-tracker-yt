@@ -7,13 +7,14 @@ import AddFueling from './AddFueling';
 import AddInfo from './AddInfo';
 import CarFuelings from './CarFuelings';
 import { db } from '../../firebase-config';
-import { onValue, ref, push, remove } from 'firebase/database';
+import { onValue, ref } from 'firebase/database';
 import PageTitle from '../PageTitle';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
 import * as Constants from '../../utils/Constants';
+import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 
 export default function Car() {
 
@@ -60,8 +61,7 @@ export default function Car() {
         try {
             fueling["created"] = getCurrentDateAsJson();
             fueling["createdBy"] = currentUser.email;
-            const dbref = ref(db, Constants.DB_CAR_FUELING);
-            push(dbref, fueling);
+            pushToFirebase(Constants.DB_CAR_FUELING, fueling);
             setMessage(t('save_successful'));
             setShowMessage(true);
         } catch (ex) {
@@ -72,8 +72,7 @@ export default function Car() {
     }
 
     const deleteFueling = async (id) => {
-        const dbref = ref(db, `${Constants.DB_CAR_FUELING}/${id}`);
-        remove(dbref)
+        removeFromFirebaseById(Constants.DB_CAR_FUELING, id);
     }
 
     return loading ? (

@@ -2,10 +2,11 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
-import { ref, onValue, child, remove } from "firebase/database";
+import { ref, onValue, child } from "firebase/database";
 import CommentsInner from './CommentsInner';
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
+import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 const Comments = ({ url, objID }) => {
 
@@ -42,8 +43,7 @@ const Comments = ({ url, objID }) => {
     }
 
     const deleteComment = (commentID) => {
-        const dbref = ref(db, `${url}/${objID}/${commentID}`);
-        remove(dbref);
+        removeFromFirebaseByIdAndSubId(url, objID, commentID);
     }
 
     return (
