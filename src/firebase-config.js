@@ -1,9 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-import { getAuth, updateProfile } from "firebase/auth";
-import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { initializeApp } from 'firebase/app';
+import { getDatabase } from 'firebase/database';
+import { getAuth, updateProfile } from 'firebase/auth';
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 //import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries

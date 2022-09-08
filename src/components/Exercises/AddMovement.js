@@ -2,8 +2,6 @@ import { Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../firebase-config';
-import { get, ref, push } from 'firebase/database';
 import Button from '../Button';
 import GoBackButton from '../GoBackButton';
 import { useAuth } from '../../contexts/AuthContext';
@@ -12,7 +10,7 @@ import * as Constants from '../../utils/Constants';
 import { MovementCategories } from './Categories';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
-import { updateToFirebaseById } from '../../datatier/datatier';
+import { getFromFirebaseById, pushToFirebase, updateToFirebaseById } from '../../datatier/datatier';
 
 const AddMovement = ({ movementID, onClose }) => {
 
@@ -53,17 +51,12 @@ const AddMovement = ({ movementID, onClose }) => {
     }, [movementID]);
 
     const fetchMovementFromFirebase = async (movementID) => {
-
-        const dbref = ref(db, `${Constants.DB_EXERCISE_MOVEMENTS}/${movementID}`);
-        get(dbref).then((snapshot) => {
-            if (snapshot.exists()) {
-                var val = snapshot.val();
-                setName(val["name"]);
-                setCreated(val["created"]);
-                setCreatedBy(val["createdBy"]);
-                setCategory(val["category"]);
-                setStars(val["stars"]);
-            }
+        getFromFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, movementID).then((val) => {
+            setName(val["name"]);
+            setCreated(val["created"]);
+            setCreatedBy(val["createdBy"]);
+            setCategory(val["category"]);
+            setStars(val["stars"]);
         });
     }
 
@@ -96,11 +89,8 @@ const AddMovement = ({ movementID, onClose }) => {
         try {
             movement["created"] = getCurrentDateAsJson();
             movement["createdBy"] = currentUser.email;
-            const dbref = ref(db, Constants.DB_EXERCISE_MOVEMENTS);
-            push(dbref, movement).then((snap) => {
-                const key = snap.key;
-                navigate('/movement/' + key);
-            })
+            const key = await pushToFirebase(Constants.DB_EXERCISE_MOVEMENTS, movement);
+            navigate(`/movement/${key}`); //TODO: Constants.Navigation.
         } catch (ex) {
             setError(t('movement_save_exception'));
             setShowError(true);

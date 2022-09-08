@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { Form, ButtonGroup, Row } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { ref, get } from "firebase/database";
-import { db } from '../../firebase-config';
 import Button from '../../components/Button';
 import PropTypes from 'prop-types';
 import FormTitle from '../FormTitle';
+import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function AddWorkPhase({ dbUrl, translation, workPhaseID, recipeID, onSave, onClose }) {
 
@@ -26,13 +25,9 @@ export default function AddWorkPhase({ dbUrl, translation, workPhaseID, recipeID
   }, [recipeID, workPhaseID]);
 
   const fetchWorkPhaseFromFirebase = async (recipeID, workPhaseID) => {
-    const dbref = ref(db, `${dbUrl}/${recipeID}/${workPhaseID}`);
-    get(dbref).then((snapshot) => {
-      if (snapshot.exists()) {
-        var val = snapshot.val();
-        setName(val["name"]);
-        setEstimatedLength(val["estimatedLength"]);
-      }
+    getFromFirebaseByIdAndSubId(dbUrl, recipeID, workPhaseID).then((val) => {
+      setName(val["name"]);
+      setEstimatedLength(val["estimatedLength"]);
     });
   }
 

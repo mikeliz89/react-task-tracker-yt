@@ -3,7 +3,7 @@ import { Form, Table, ButtonGroup, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase-config';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue } from 'firebase/database';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
 import { useAuth } from '../../contexts/AuthContext';

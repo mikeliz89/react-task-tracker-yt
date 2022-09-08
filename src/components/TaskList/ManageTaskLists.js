@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { ref, onValue, push } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import AddTaskList from '../../components/TaskList/AddTaskList';
 import TaskLists from '../../components/TaskList/TaskLists';
 import GoBackButton from '../GoBackButton';
@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
 import CenterWrapper from '../CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
-import { removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
+import { pushToFirebase, removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
 
 export default function ManageTaskLists({ listType }) {
 
@@ -76,11 +76,8 @@ export default function ManageTaskLists({ listType }) {
     } else {
       taskList["listType"] = listType;
     }
-    const dbref = ref(db, Constants.DB_TASKLISTS);
-    push(dbref, taskList).then((snap) => {
-      const key = snap.key;
-      navigate(`${Constants.NAVIGATION_TASKLIST}/${key}`);
-    })
+    const key = await pushToFirebase(Constants.DB_TASKLISTS, taskList);
+    navigate(`${Constants.NAVIGATION_TASKLIST}/${key}`);
   }
 
   const deleteTaskList = async (id) => {

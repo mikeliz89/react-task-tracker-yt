@@ -5,7 +5,7 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useState } from 'react'
 import StarRating from '../StarRating/StarRating';
 import { db } from '../../firebase-config';
-import { ref, push, child, onValue } from "firebase/database";
+import { ref, child, onValue } from "firebase/database";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
@@ -15,7 +15,7 @@ import { getCategoryContent, getIncredientsUrl, getIconName, getViewDetailsUrl }
 import Alert from '../Alert';
 import PropTypes from 'prop-types';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
-import { pushToFirebaseChild } from '../../datatier/datatier';
+import { pushToFirebase, pushToFirebaseChild } from '../../datatier/datatier';
 
 const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
 
@@ -71,11 +71,9 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
         taskList["createdBy"] = currentUser.email;
         taskList["description"] = "";
         taskList["listType"] = ListTypes.Shopping;
-        const dbref = ref(db, Constants.DB_TASKLISTS);
 
-        push(dbref, taskList).then((snap) => {
-            addTasksToTaskList(snap.key, incredients)
-        })
+        const key = await pushToFirebase(Constants.DB_TASKLISTS, taskList);
+        addTasksToTaskList(key, incredients);
     }
 
     const addTasksToTaskList = async (tasklistID, incredients) => {

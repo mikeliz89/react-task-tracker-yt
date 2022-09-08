@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
 import Button from '../Button';
 import { RecipeCategories } from './Categories';
 import * as Constants from '../../utils/Constants';
+import { getFromFirebaseById } from '../../datatier/datatier';
 
 const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
 
@@ -36,19 +35,14 @@ const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
    }, []);
 
    const fetchRecipeFromFirebase = async (recipeID) => {
-
-      const dbref = ref(db, `${Constants.DB_RECIPES}/${recipeID}`);
-      get(dbref).then((snapshot) => {
-         if (snapshot.exists()) {
-            var val = snapshot.val();
-            setTitle(val["title"]);
-            setDescription(val["description"]);
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setIsCore(val["isCore"]);
-            setCategory(val["category"]);
-            setStars(val["stars"]);
-         }
+      getFromFirebaseById(Constants.DB_RECIPES, recipeID).then((val) => {
+         setTitle(val["title"]);
+         setDescription(val["description"]);
+         setCreated(val["created"]);
+         setCreatedBy(val["createdBy"]);
+         setIsCore(val["isCore"]);
+         setCategory(val["category"]);
+         setStars(val["stars"]);
       });
    }
 

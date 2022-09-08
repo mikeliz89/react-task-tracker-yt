@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Accordion, Table, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { ref, get, onValue, child, push } from "firebase/database";
+import { ref, onValue, child } from "firebase/database";
 import Tasks from '../../components/Task/Tasks';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
@@ -14,7 +14,7 @@ import PageTitle from '../PageTitle';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
 import Counter from '../Counter';
-import { updateToFirebase, updateToFirebaseById } from '../../datatier/datatier';
+import { getFromFirebaseById, pushToFirebase, updateToFirebase, updateToFirebaseById } from '../../datatier/datatier';
 
 export default function ArchivedTaskListDetails() {
 
@@ -95,39 +95,26 @@ export default function ArchivedTaskListDetails() {
     })
   }
 
-  const returnFromArchive = () => {
+  const returnFromArchive = async () => {
     //1. add this tasklist-archive to taskLists
-    const dbref = ref(db, Constants.DB_TASKLISTS);
     taskList["archived"] = "";
     taskList["archivedBy"] = "";
 
-    //TODO: datatier.pushToFirebase
-    let taskListID = push(dbref, taskList).key;
+    let taskListID = await pushToFirebase(Constants.DB_TASKLISTS, taskList);
 
     const archiveTaskListID = params.id;
 
     //2. delete old archived task lists
-    const taskListArchiveRef = ref(db, `${Constants.DB_TASKLIST_ARCHIVE}/${archiveTaskListID}`);
-    get(taskListArchiveRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        updateToFirebaseById(Constants.DB_TASKLIST_ARCHIVE, archiveTaskListID, null);
-      } else {
-        console.log("No data available for archived taskLists");
-      }
+    getFromFirebaseById(Constants.DB_TASKLIST_ARCHIVE, archiveTaskListID).then((val) => {
+      updateToFirebaseById(Constants.DB_TASKLIST_ARCHIVE, archiveTaskListID, null);
     })
 
     //3. delete old archived tasks, create new tasklist-tasks
-    const tasksArchiveRef = ref(db, `${Constants.DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`);
-    get(tasksArchiveRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        var data = snapshot.val();
-        let updates = {};
-        updates[`${Constants.DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = null;
-        updates[`${Constants.DB_TASKS}/${taskListID}`] = data;
-        updateToFirebase(updates);
-      } else {
-        console.log("No data available");
-      }
+    getFromFirebaseById(Constants.DB_TASKLIST_ARCHIVE_TASKS, archiveTaskListID).then((val) => {
+      let updates = {};
+      updates[`${Constants.DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = null;
+      updates[`${Constants.DB_TASKS}/${taskListID}`] = val;
+      updateToFirebase(updates);
     });
   }
 

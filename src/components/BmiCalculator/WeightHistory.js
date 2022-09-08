@@ -2,10 +2,10 @@ import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react'
 import { db } from '../../firebase-config';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue } from 'firebase/database';
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-import i18n from "i18next";
+import i18n from 'i18next';
 import { useAuth } from '../../contexts/AuthContext';
 import WeightChart from './WeightChart';
 import PageTitle from '../PageTitle';

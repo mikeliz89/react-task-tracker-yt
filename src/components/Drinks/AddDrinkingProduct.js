@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
 import Button from '../Button';
 import { DrinkingProductCategories } from './Categories';
 import * as Constants from '../../utils/Constants';
+import { getFromFirebaseById } from '../../datatier/datatier';
 
 const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }) => {
 
@@ -48,20 +47,16 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
    }
 
    const fetchDrinkingProductFromFirebase = async (id) => {
-      const dbref = ref(db, `${Constants.DB_DRINKINGPRODUCTS}/${id}`);
-      get(dbref).then((snapshot) => {
-         if (snapshot.exists()) {
-            var val = snapshot.val();
-            setName(val["name"]);
-            setDescription(val["description"]);
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setCategory(val["category"]);
-            setManufacturer(val["manufacturer"]);
-            setHaveAtHome(val["haveAtHome"]);
-            setAbv(val["abv"]);
-            setAmount(val["amount"]);
-         }
+      getFromFirebaseById(Constants.DB_DRINKINGPRODUCTS, id).then((val) => {
+         setName(val["name"]);
+         setDescription(val["description"]);
+         setCreated(val["created"]);
+         setCreatedBy(val["createdBy"]);
+         setCategory(val["category"]);
+         setManufacturer(val["manufacturer"]);
+         setHaveAtHome(val["haveAtHome"]);
+         setAbv(val["abv"]);
+         setAmount(val["amount"]);
       });
    }
 

@@ -2,8 +2,6 @@ import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../firebase-config';
-import { ref, push } from 'firebase/database';
 import Button from '../Button';
 import GoBackButton from '../GoBackButton';
 import { useAuth } from '../../contexts/AuthContext';
@@ -13,6 +11,7 @@ import { ExerciseCategories } from './Categories';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
+import { pushToFirebase } from '../../datatier/datatier';
 
 const CreateExercise = () => {
 
@@ -65,11 +64,8 @@ const CreateExercise = () => {
         try {
             exercise["created"] = getCurrentDateAsJson();
             exercise["createdBy"] = currentUser.email;
-            const dbref = ref(db, Constants.DB_EXERCISES);
-            push(dbref, exercise).then((snap) => {
-                const key = snap.key;
-                navigate('/exercise/' + key);
-            });
+            const key = await pushToFirebase(Constants.DB_EXERCISES, exercise);
+            navigate('/exercise/' + key);
         } catch (ex) {
             setError(t('exercise_save_exception'));
             setShowError(true);

@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
 import Button from '../Button';
 import { GearCategories } from './Categories';
 import * as Constants from "../../utils/Constants";
+import { getFromFirebaseById } from '../../datatier/datatier';
 
 const AddGear = ({ gearID, onSave, onClose }) => {
 
@@ -45,18 +44,13 @@ const AddGear = ({ gearID, onSave, onClose }) => {
     }
 
     const fetchGearFromFirebase = async (gearID) => {
-
-        const dbref = ref(db, `${Constants.DB_GEAR}/${gearID}`);
-        get(dbref).then((snapshot) => {
-            if (snapshot.exists()) {
-                var val = snapshot.val();
-                setCategory(val["category"]);
-                setCreated(val["created"]);
-                setCreatedBy(val["createdBy"]);
-                setName(val["name"]);
-                setWeightInGrams(val["weightInGrams"]);
-                setStars(val["stars"]);
-            }
+        getFromFirebaseById(Constants.DB_GEAR, gearID).then((val) => {
+            setCategory(val["category"]);
+            setCreated(val["created"]);
+            setCreatedBy(val["createdBy"]);
+            setName(val["name"]);
+            setWeightInGrams(val["weightInGrams"]);
+            setStars(val["stars"]);
         });
     }
 

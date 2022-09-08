@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
 import Button from '../Button';
 import * as Constants from "../../utils/Constants";
+import { getFromFirebaseById } from '../../datatier/datatier';
 
 const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, onClose }) => {
 
@@ -30,17 +29,14 @@ const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, o
 
     const fetchGearFromFirebase = async (gearMaintenanceInstructionID) => {
 
-        const dbref = ref(db, `${Constants.DB_GEAR_MAINTENANCE_INSTRUCTIONS}/${gearMaintenanceInstructionID}`);
-        get(dbref).then((snapshot) => {
-            if (snapshot.exists()) {
-                var val = snapshot.val();
+        getFromFirebaseById(Constants.DB_GEAR_MAINTENANCE_INSTRUCTIONS, gearMaintenanceInstructionID)
+            .then((val) => {
                 setCreated(val["created"]);
                 setCreatedBy(val["createdBy"]);
                 setName(val["name"]);
                 setStars(val["stars"]);
                 setText(val["text"]);
-            }
-        });
+            });
     }
 
     const onSubmit = (e) => {

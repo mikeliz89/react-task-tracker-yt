@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
-import i18n from "i18next";
+import i18n from 'i18next';
 import { db } from '../../firebase-config';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';

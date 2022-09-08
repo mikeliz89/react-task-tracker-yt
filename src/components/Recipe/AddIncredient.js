@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
 import Button from '../../components/Button';
 import PropTypes from 'prop-types';
 import FormTitle from '../FormTitle';
+import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function AddIncredient({ dbUrl, translation, onSave, incredientID, recipeID, onClose }) {
 
@@ -28,14 +27,10 @@ export default function AddIncredient({ dbUrl, translation, onSave, incredientID
   }, [recipeID]);
 
   const fetchIncredientFromFirebase = async (recipeID) => {
-    const dbref = ref(db, `${dbUrl}/${recipeID}/${incredientID}`);
-    get(dbref).then((snapshot) => {
-      if (snapshot.exists()) {
-        var val = snapshot.val();
-        setName(val["name"]);
-        setUnit(val["unit"]);
-        setAmount(val["amount"]);
-      }
+    getFromFirebaseByIdAndSubId(dbUrl, recipeID, incredientID).then((val) => {
+      setName(val["name"]);
+      setUnit(val["unit"]);
+      setAmount(val["amount"]);
     });
   }
 

@@ -28,7 +28,7 @@ const AddTaskList = ({ taskListID, onSave, onClose }) => {
     }, [taskListID]);
 
     const fetchTaskListFromFirebase = async (taskListID) => {
-
+        
         const dbref = ref(db, `${Constants.DB_TASKLISTS}/${taskListID}`);
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {

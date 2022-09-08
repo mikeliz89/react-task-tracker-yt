@@ -1,8 +1,6 @@
 import { Row, ButtonGroup } from "react-bootstrap";
 import { useTranslation } from 'react-i18next';
 import { useState } from "react";
-import { db } from '../../firebase-config';
-import { ref } from 'firebase/database';
 import Button from "../Button";
 import GoBackButton from "../GoBackButton";
 import PageContentWrapper from "../PageContentWrapper";

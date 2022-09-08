@@ -47,3 +47,28 @@ export const updateToFirebaseByIdAndSubId = async (path, mainID, subID, object) 
     update(ref(db), updates);
 }
 
+export const getFromFirebaseById = async (path, id) => {
+    const dbref = ref(db, `${path}/${id}`);
+    return new Promise(function (resolve, reject) {
+        get(dbref).then((snapshot) => {
+            if (snapshot.exists()) {
+                var val = snapshot.val();
+                return resolve(val);
+            }
+            return reject();
+        });
+    });
+}
+
+export const getFromFirebaseByIdAndSubId = async (path, mainID, subID) => {
+    const dbref = ref(db, `${path}/${mainID}/${subID}`);
+    return new Promise(function (resolve, reject) {
+        get(dbref).then((snapshot) => {
+            if (snapshot.exists()) {
+                var val = snapshot.val();
+                return resolve(val);
+            }
+            return reject();
+        });
+    });
+}

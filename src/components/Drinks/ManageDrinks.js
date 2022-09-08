@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { ref, push, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { db } from '../../firebase-config';
 import Recipes from '../Recipe/Recipes';
 import AddDrink from './AddDrink';
@@ -19,7 +19,7 @@ import Icon from '../Icon';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
 import CenterWrapper from '../CenterWrapper';
-import { removeFromFirebaseById } from '../../datatier/datatier';
+import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 
 export default function ManageDrinks() {
 
@@ -86,11 +86,8 @@ export default function ManageDrinks() {
             if (drink["isCore"] === undefined) {
                 drink["isCore"] = false;
             }
-            const dbref = ref(db, Constants.DB_DRINKS);
-            push(dbref, drink).then((snap) => {
-                const key = snap.key;
-                navigate(`${Constants.NAVIGATION_DRINK}/${key}`);
-            })
+            const key = await pushToFirebase(Constants.DB_DRINKS, drink);
+            navigate(`${Constants.NAVIGATION_DRINK}/${key}`);
             setMessage(t('save_success'));
             setShowMessage(true);
         } catch (ex) {

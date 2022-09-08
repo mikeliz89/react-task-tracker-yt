@@ -7,7 +7,7 @@ import Button from '../Button';
 import AddRecipe from './AddRecipe';
 import Recipes from './Recipes';
 import { db } from '../../firebase-config';
-import { ref, push, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
@@ -19,7 +19,7 @@ import Icon from '../Icon';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
 import CenterWrapper from '../CenterWrapper';
-import { removeFromFirebaseById } from '../../datatier/datatier';
+import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 
 const ManageRecipes = () => {
 
@@ -83,11 +83,8 @@ const ManageRecipes = () => {
     try {
       recipe["created"] = getCurrentDateAsJson();
       recipe["createdBy"] = currentUser.email;
-      const dbref = ref(db, Constants.DB_RECIPES);
-      push(dbref, recipe).then((snap) => {
-        const key = snap.key;
-        navigate(`${Constants.NAVIGATION_RECIPE}/${key}`);
-      })
+      const key = await pushToFirebase(Constants.DB_RECIPES, recipe);
+      navigate(`${Constants.NAVIGATION_RECIPE}/${key}`);
       showSuccess();
     } catch (ex) {
       showFailure();

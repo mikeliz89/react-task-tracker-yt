@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
 import Button from '../Button';
 import { FoodItemCategories } from './Categories';
 import * as Constants from '../../utils/Constants';
+import { getFromFirebaseById } from '../../datatier/datatier';
 
 const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
 
@@ -53,23 +52,19 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
     }
 
     const fetchFoodItemFromFirebase = async (id) => {
-        const dbref = ref(db, `${Constants.DB_FOODITEMS}/${id}`);
-        get(dbref).then((snapshot) => {
-            if (snapshot.exists()) {
-                var val = snapshot.val();
-                setCalories(val["calories"]);
-                setCarbs(val["carbs"]);
-                setCategory(val["category"]);
-                setCreated(val["created"]);
-                setCreatedBy(val["createdBy"]);
-                setFat(val["fat"]);
-                setFiber(val["fiber"]);
-                setHaveAtHome(val["haveAtHome"]);
-                setName(val["name"]);
-                setProtein(val["protein"]);
-                setSalt(val["salt"]);
-                setSugars(val["sugars"]);
-            }
+        getFromFirebaseById(Constants.DB_FOODITEMS, id).then((val) => {
+            setCalories(val["calories"]);
+            setCarbs(val["carbs"]);
+            setCategory(val["category"]);
+            setCreated(val["created"]);
+            setCreatedBy(val["createdBy"]);
+            setFat(val["fat"]);
+            setFiber(val["fiber"]);
+            setHaveAtHome(val["haveAtHome"]);
+            setName(val["name"]);
+            setProtein(val["protein"]);
+            setSalt(val["salt"]);
+            setSugars(val["sugars"]);
         });
     }
 

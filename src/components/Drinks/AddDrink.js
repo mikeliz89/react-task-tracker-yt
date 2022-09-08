@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
 import Button from '../Button';
 import { DrinkCategories } from './Categories';
 import * as Constants from '../../utils/Constants';
+import { getFromFirebaseById } from '../../datatier/datatier';
 
 const AddDrink = ({ drinkID, onSave, onClose }) => {
 
@@ -47,11 +46,8 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
    }
 
    const fetchDrinkFromFirebase = async (drinkID) => {
-
-      const dbref = ref(db, `${Constants.DB_DRINKS}/${drinkID}`);
-      get(dbref).then((snapshot) => {
-         if (snapshot.exists()) {
-            var val = snapshot.val();
+      getFromFirebaseById(Constants.DB_DRINKS, drinkID)
+         .then((val) => {
             setCategory(val["category"]);
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
@@ -60,8 +56,7 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
             setIsCore(val["isCore"]);
             setStars(val["stars"]);
             setTitle(val["title"]);
-         }
-      });
+         });
    }
 
    /** Drink Form Submit */
