@@ -5,7 +5,7 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useState } from 'react'
 import StarRating from '../StarRating/StarRating';
 import { db } from '../../firebase-config';
-import { ref, child, onValue } from "firebase/database";
+import { ref, child, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';

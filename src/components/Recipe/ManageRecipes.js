@@ -7,7 +7,7 @@ import Button from '../Button';
 import AddRecipe from './AddRecipe';
 import Recipes from './Recipes';
 import { db } from '../../firebase-config';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';

@@ -2,9 +2,8 @@ import Button from "../Button";
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from "react";
 import { Form, Row, Col, ButtonGroup } from "react-bootstrap";
-import { ref, get } from 'firebase/database';
-import { db } from '../../firebase-config';
 import * as Constants from '../../utils/Constants';
+import { getFromFirebaseByIdAndSubId } from "../../datatier/datatier";
 
 function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {
 
@@ -30,15 +29,12 @@ function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {
 
     const fetchGymPartFromFirebase = async (gymPartID) => {
 
-        const dbref = ref(db, `${Constants.DB_EXERCISE_PARTS}/${exerciseID}/${gymPartID}`);
-        get(dbref).then((snapshot) => {
-            if (snapshot.exists()) {
-                var val = snapshot.val();
-                setName(val["name"]);
-                setWeight(val["weight"]);
-                setRepeat(val["repeat"]);
-                setSeries(val["series"]);
-            }
+
+        getFromFirebaseByIdAndSubId(Constants.DB_EXERCISE_PARTS, exerciseID, gymPartID).then((val) => {
+            setName(val["name"]);
+            setWeight(val["weight"]);
+            setRepeat(val["repeat"]);
+            setSeries(val["series"]);
         });
     }
 

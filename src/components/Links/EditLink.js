@@ -1,10 +1,9 @@
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
 import Button from '../../components/Button'
 import * as Constants from '../../utils/Constants';
+import { getFromFirebaseById, getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 const EditLink = ({ linkID, objID, linkUrl, onEditLink, onCloseEditLink }) => {
 
@@ -16,37 +15,26 @@ const EditLink = ({ linkID, objID, linkUrl, onEditLink, onCloseEditLink }) => {
     const [urlText, setUrlText] = useState('');
 
     useEffect(() => {
-
         if (linkID != null) {
             const getLink = async () => {
                 if (objID != null) {
-                    await fetchLinkFromFirebase(linkID, objID);
+                    const val = await getFromFirebaseByIdAndSubId(linkUrl, objID, linkID);
+                    setValues(val);
                 } else {
-                    await fetchLinkFromFirebaseWithoutObjID(linkID);
+                    const val = await getFromFirebaseById(linkUrl, linkID);
+                    setValues(val);
                 }
             }
-            getLink()
+            getLink();
         }
     }, [linkID]);
 
-    const fetchLinkFromFirebaseWithoutObjID = async (linkID) => {
-        const dbref = ref(db, `${linkUrl}/${linkID}`);
-        fetch(dbref);
-    }
-
-    const fetchLinkFromFirebase = async (linkID, objID) => {
-        const dbref = ref(db, `${linkUrl}/${objID}/${linkID}`);
-        fetch(dbref);
-    }
-
-    const fetch = async (dbref) => {
-        get(dbref).then((snapshot) => {
-            if (snapshot.exists()) {
-                var val = snapshot.val();
-                setUrl(val["url"]);
-                setUrlText(val["urlText"]);
-            }
-        });
+    const setValues = (val) => {
+        if (val === null) {
+            return;
+        }
+        setUrl(val["url"]);
+        setUrlText(val["urlText"]);
     }
 
     const onSubmit = (e) => {

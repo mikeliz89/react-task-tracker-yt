@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue } from 'firebase/database';
 import { db } from '../../firebase-config';
 import Recipes from '../Recipe/Recipes';
 import AddDrink from './AddDrink';

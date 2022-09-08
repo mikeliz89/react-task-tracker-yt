@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { ref, get } from "firebase/database";
 import Button from '../../components/Button';
 import * as Constants from '../../utils/Constants';
+import { getFromFirebaseById } from '../../datatier/datatier';
 
 const AddTaskList = ({ taskListID, onSave, onClose }) => {
 
@@ -28,17 +27,12 @@ const AddTaskList = ({ taskListID, onSave, onClose }) => {
     }, [taskListID]);
 
     const fetchTaskListFromFirebase = async (taskListID) => {
-        
-        const dbref = ref(db, `${Constants.DB_TASKLISTS}/${taskListID}`);
-        get(dbref).then((snapshot) => {
-            if (snapshot.exists()) {
-                var val = snapshot.val();
-                setCreated(val["created"]);
-                setCreatedBy(val["createdBy"]);
-                setDescription(val["description"]);
-                setListType(val["listType"]);
-                setTitle(val["title"]);
-            }
+        getFromFirebaseById(Constants.DB_TASKLISTS, taskListID).then((val) => {
+            setCreated(val["created"]);
+            setCreatedBy(val["createdBy"]);
+            setDescription(val["description"]);
+            setListType(val["listType"]);
+            setTitle(val["title"]);
         });
     }
 

@@ -1,5 +1,5 @@
 import { db } from '../firebase-config';
-import { update, ref, onValue, push, child, remove, get } from "firebase/database";
+import { update, ref, push, child, remove, get } from 'firebase/database';
 
 export const removeFromFirebaseById = async (path, id) => {
     const dbref = ref(db, `${path}/${id}`);

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
 import { db } from '../../firebase-config';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue } from 'firebase/database';
 import AddTask from './AddTask';
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';

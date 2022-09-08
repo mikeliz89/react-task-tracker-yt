@@ -1,6 +1,4 @@
 import RecipeHistory from "./RecipeHistory";
-import { db } from '../../firebase-config';
-import { ref, } from "firebase/database";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import Icon from "../Icon";

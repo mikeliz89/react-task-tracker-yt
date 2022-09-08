@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Accordion, Table, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { ref, onValue, child } from "firebase/database";
+import { ref, onValue, child } from 'firebase/database';
 import Tasks from '../../components/Task/Tasks';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';

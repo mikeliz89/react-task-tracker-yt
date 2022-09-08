@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue } from 'firebase/database';
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
 import i18n from "i18next";

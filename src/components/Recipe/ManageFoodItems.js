@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue } from 'firebase/database';
 import { db } from '../../firebase-config';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';

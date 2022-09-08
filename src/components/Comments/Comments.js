@@ -2,7 +2,7 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
-import { ref, onValue, child } from "firebase/database";
+import { ref, onValue, child } from 'firebase/database';
 import CommentsInner from './CommentsInner';
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
