@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col, Tabs, Tab } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { ref, child, onValue, update } from "firebase/database";
+import { ref, child, onValue } from "firebase/database";
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
 import i18n from "i18next";
@@ -29,7 +29,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
-import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById } from '../../datatier/datatier';
 
 export default function DrinkDetails() {
 
@@ -138,7 +138,6 @@ export default function DrinkDetails() {
     const updateDrink = async (drink) => {
         try {
             var drinkID = params.id;
-            const updates = {};
             drink["modified"] = getCurrentDateAsJson();
             if (drink["isCore"] === undefined) {
                 drink["isCore"] = false;
@@ -149,8 +148,7 @@ export default function DrinkDetails() {
             if (drink["stars"] === undefined) {
                 drink["stars"] = 0;
             }
-            updates[`${Constants.DB_DRINKS}/${drinkID}`] = drink;
-            update(ref(db), updates);
+            updateToFirebaseById(Constants.DB_DRINKS, drinkID, drink);
         } catch (error) {
             setError(t('failed_to_save_drink'));
             setShowError(true);
@@ -184,11 +182,9 @@ export default function DrinkDetails() {
 
     const saveStars = async (stars) => {
         const drinkID = params.id;
-        const updates = {};
         drink["modified"] = getCurrentDateAsJson()
         drink["stars"] = Number(stars);
-        updates[`${Constants.DB_DRINKS}/${drinkID}`] = drink;
-        update(ref(db), updates);
+        updateToFirebaseById(Constants.DB_DRINKS, drinkID, drink);
     }
 
     const addCommentToDrink = (comment) => {
@@ -221,7 +217,7 @@ export default function DrinkDetails() {
     const saveDrinkHistory = async (drinkID) => {
         const currentDateTime = getCurrentDateAsJson();
         const userID = currentUser.uid;
-        
+
         pushToFirebaseById(Constants.DB_DRINK_HISTORY, drinkID, { currentDateTime, userID });
 
         setShowMessage(true);

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Row, Col, ButtonGroup, Accordion, Table } from "react-bootstrap";
-import { ref, onValue, update } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { db } from "../../firebase-config";
 import GoBackButton from "../GoBackButton";
 import Button from "../Button";
@@ -25,7 +25,7 @@ import Alert from "../Alert";
 import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 import PageContentWrapper from "../PageContentWrapper";
-import { pushToFirebaseChild } from "../../datatier/datatier";
+import { pushToFirebaseChild, updateToFirebaseById } from "../../datatier/datatier";
 
 const ExerciseDetails = () => {
 
@@ -74,11 +74,9 @@ const ExerciseDetails = () => {
 
     const saveStars = async (stars) => {
         const exerciseID = params.id;
-        const updates = {};
         exercise["modified"] = getCurrentDateAsJson()
         exercise["stars"] = Number(stars);
-        updates[`${Constants.DB_EXERCISES}/${exerciseID}`] = exercise;
-        update(ref(db), updates);
+        updateToFirebaseById(Constants.DB_EXERCISES, exerciseID, exercise);
     }
 
     const addCommentToExercise = async (comment) => {

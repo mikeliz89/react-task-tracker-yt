@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Accordion, Table, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { ref, get, onValue, child, push, update } from "firebase/database";
+import { ref, get, onValue, child, push } from "firebase/database";
 import Tasks from '../../components/Task/Tasks';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
@@ -14,6 +14,7 @@ import PageTitle from '../PageTitle';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
 import Counter from '../Counter';
+import { updateToFirebase, updateToFirebaseById } from '../../datatier/datatier';
 
 export default function ArchivedTaskListDetails() {
 
@@ -44,17 +45,17 @@ export default function ArchivedTaskListDetails() {
       if (cancel) {
         return;
       }
-      await fetchTasksFromFirebase()
+      await fetchTasksFromFirebase();
     }
-    getTasks()
+    getTasks();
 
     const getTaskList = async () => {
       if (cancel) {
         return;
       }
-      await fetchTaskListFromFirebase()
+      await fetchTaskListFromFirebase();
     }
-    getTaskList()
+    getTaskList();
 
     return () => {
       cancel = true;
@@ -109,9 +110,7 @@ export default function ArchivedTaskListDetails() {
     const taskListArchiveRef = ref(db, `${Constants.DB_TASKLIST_ARCHIVE}/${archiveTaskListID}`);
     get(taskListArchiveRef).then((snapshot) => {
       if (snapshot.exists()) {
-        let updates = {};
-        updates[`${Constants.DB_TASKLIST_ARCHIVE}/${archiveTaskListID}`] = null;
-        update(ref(db), updates);
+        updateToFirebaseById(Constants.DB_TASKLIST_ARCHIVE, archiveTaskListID, null);
       } else {
         console.log("No data available for archived taskLists");
       }
@@ -125,7 +124,7 @@ export default function ArchivedTaskListDetails() {
         let updates = {};
         updates[`${Constants.DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = null;
         updates[`${Constants.DB_TASKS}/${taskListID}`] = data;
-        update(ref(db), updates);
+        updateToFirebase(updates);
       } else {
         console.log("No data available");
       }

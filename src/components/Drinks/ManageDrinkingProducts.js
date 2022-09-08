@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { ref, onValue, update } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { db } from '../../firebase-config';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
@@ -16,7 +16,7 @@ import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
 import CenterWrapper from '../CenterWrapper';
-import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 
 const ManageDrinkingProducts = () => {
 
@@ -79,12 +79,10 @@ const ManageDrinkingProducts = () => {
     const editDrinkingProduct = (drinkingProduct) => {
         const id = drinkingProduct.id;
         //save
-        const updates = {};
         if (drinkingProduct["abv"] === undefined) {
             drinkingProduct["abv"] = 0;
         }
-        updates[`${Constants.DB_DRINKINGPRODUCTS}/${id}`] = drinkingProduct;
-        update(ref(db), updates);
+        updateToFirebaseById(Constants.DB_DRINKINGPRODUCTS, id, drinkingProduct);
     }
 
     const fetchDrinkingProductsFromFirebase = async () => {

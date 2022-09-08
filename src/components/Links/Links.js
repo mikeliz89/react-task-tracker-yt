@@ -2,11 +2,11 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
-import { ref, onValue, child, update } from "firebase/database";
+import { ref, onValue, child } from "firebase/database";
 import LinksInner from './LinksInner';
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
-import { removeFromFirebaseById, removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import { removeFromFirebaseById, removeFromFirebaseByIdAndSubId, updateToFirebaseById, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 const Links = ({ url, objID }) => {
 
@@ -62,13 +62,11 @@ const Links = ({ url, objID }) => {
     }
 
     const editLink = (link) => {
-        const updates = {};
         if (objID != null) {
-            updates[`${url}/${objID}/${link.id}`] = link;
+            updateToFirebaseByIdAndSubId(url, objID, link.id, link);
         } else {
-            updates[`${url}/${link.id}`] = link;
+            updateToFirebaseById(url, link.id, link);
         }
-        update(ref(db), updates);
     }
 
     return loading ? (

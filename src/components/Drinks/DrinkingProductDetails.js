@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { ref, onValue, update } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
 import i18n from "i18next";
@@ -19,7 +19,7 @@ import AddDrinkingProduct from './AddDrinkingProduct';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
-import { pushToFirebaseChild } from '../../datatier/datatier';
+import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 
 export default function DrinkingProductDetails() {
 
@@ -83,10 +83,8 @@ export default function DrinkingProductDetails() {
     const addDrinkingProduct = async (drinkingProduct) => {
         try {
             var drinkingProductID = params.id;
-            const updates = {};
             drinkingProduct["modified"] = getCurrentDateAsJson();
-            updates[`${Constants.DB_DRINKINGPRODUCTS}/${drinkingProductID}`] = drinkingProduct;
-            update(ref(db), updates);
+            updateToFirebaseById(Constants.DB_DRINKINGPRODUCTS, drinkingProductID, drinkingProduct);
         } catch (error) {
             console.log(error)
             setError(t('failed_to_save_drink'));

@@ -5,12 +5,13 @@ import { Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { db, uploadProfilePic } from '../../firebase-config';
-import { ref, onValue, update } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
+import { updateToFirebaseById } from '../../datatier/datatier';
 
 export default function ManageMyProfile() {
 
@@ -83,10 +84,8 @@ export default function ManageMyProfile() {
 
     const saveProfileToFirebase = async () => {
         let data = { name, height };
-        const updates = {};
-        data["modified"] = getCurrentDateAsJson()
-        updates[`${Constants.DB_PROFILES}/${currentUser.uid}`] = data;
-        update(ref(db), updates);
+        data["modified"] = getCurrentDateAsJson();
+        updateToFirebaseById(Constants.DB_PROFILES, currentUser.uid, data);
     }
 
     const handleChange = (e) => {

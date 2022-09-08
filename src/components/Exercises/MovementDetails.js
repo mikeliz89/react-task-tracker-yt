@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
 import { db } from '../../firebase-config';
-import { ref, onValue, update } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import Button from '../../components/Button';
 import GoBackButton from '../../components/GoBackButton';
 import i18n from "i18next";
@@ -21,7 +21,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import AddMovement from './AddMovement';
 import PageContentWrapper from '../PageContentWrapper';
-import { pushToFirebaseChild } from '../../datatier/datatier';
+import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 
 export default function MovementDetails() {
 
@@ -70,11 +70,9 @@ export default function MovementDetails() {
 
     const saveStars = async (stars) => {
         const movementID = params.id;
-        const updates = {};
         movement["modified"] = getCurrentDateAsJson();
         movement["stars"] = Number(stars);
-        updates[`${Constants.DB_EXERCISE_MOVEMENTS}/${movementID}`] = movement;
-        update(ref(db), updates);
+        updateToFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, movementID, movement);
     }
 
     const addCommentToMovement = (comment) => {

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
 import { db } from '../../firebase-config';
-import { ref, onValue, update } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import AddTask from './AddTask';
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
@@ -17,7 +17,7 @@ import AddLink from '../Links/AddLink';
 import Links from '../Links/Links';
 import PageTitle from '../PageTitle';
 import PageContentWrapper from '../PageContentWrapper';
-import { pushToFirebaseChild } from '../../datatier/datatier';
+import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 function TaskDetails() {
 
@@ -60,10 +60,8 @@ function TaskDetails() {
 
   const updateTask = async (taskListID, task) => {
     let taskID = params.id;
-    const updates = {};
-    task["modified"] = getCurrentDateAsJson()
-    updates[`${Constants.DB_TASKS}/${taskListID}/${taskID}`] = task;
-    update(ref(db), updates);
+    task["modified"] = getCurrentDateAsJson();
+    updateToFirebaseByIdAndSubId(Constants.DB_TASKS, taskListID, taskID, task);
   }
 
   const addCommentToTask = async (comment) => {

@@ -5,12 +5,12 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Button from '../Button';
 import { db } from '../../firebase-config';
-import { ref, child, update, onValue } from 'firebase/database';
+import { ref, child, onValue } from 'firebase/database';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import PageTitle from '../PageTitle';
-import { pushToFirebaseChild } from '../../datatier/datatier';
+import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 const AddPartsMoving = ({ title, iconName }) => {
 
@@ -72,10 +72,8 @@ const AddPartsMoving = ({ title, iconName }) => {
 
   const updateMoving = async (moving, partID) => {
     const exerciseID = params.id;
-    const updates = {};
-    moving["modified"] = getCurrentDateAsJson()
-    updates[`${Constants.DB_EXERCISE_PARTS}/${exerciseID}/${partID}`] = moving;
-    update(ref(db), updates);
+    moving["modified"] = getCurrentDateAsJson();
+    updateToFirebaseByIdAndSubId(Constants.DB_EXERCISE_PARTS, exerciseID, partID, moving);
   }
 
   const save = async (moving) => {

@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { update, ref } from "firebase/database";
 import AddGarnish from './AddGarnish';
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
+import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export const Garnish = ({ garnish, drinkID, onDelete }) => {
 
@@ -12,9 +11,7 @@ export const Garnish = ({ garnish, drinkID, onDelete }) => {
     const [editable, setEditable] = useState(false);
 
     const updateGarnish = (drinkID, newGarnish) => {
-        const updates = {};
-        updates[`${Constants.DB_DRINK_GARNISHES}/${drinkID}/${garnish.id}`] = newGarnish;
-        update(ref(db), updates);
+        updateToFirebaseByIdAndSubId(Constants.DB_DRINK_GARNISHES, drinkID, garnish.id, newGarnish);
         setEditable(false);
     }
 

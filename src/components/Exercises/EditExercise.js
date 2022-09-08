@@ -1,11 +1,10 @@
 import { Col, Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { db } from '../../firebase-config';
-import { update, ref } from 'firebase/database';
 import Button from '../Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
+import { updateToFirebaseById } from '../../datatier/datatier';
 
 function EditExercise({ exerciseID, exercise, onClose }) {
 
@@ -38,16 +37,13 @@ function EditExercise({ exerciseID, exercise, onClose }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
     saveExercise(exerciseID, { date, time, endDate, endTime, created, createdBy, category, stars });
   }
 
   const saveExercise = async (exerciseID, exercise) => {
     try {
-      const updates = {};
       exercise["modified"] = getCurrentDateAsJson();
-      updates[`${Constants.DB_EXERCISES}/${exerciseID}`] = exercise;
-      update(ref(db), updates);
+      updateToFirebaseById(Constants.DB_EXERCISES, exerciseID, exercise);
     } catch (ex) {
       setError(t('exercise_save_exception'));
     }

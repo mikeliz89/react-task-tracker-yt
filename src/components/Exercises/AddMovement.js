@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase-config';
-import { get, ref, push, update } from 'firebase/database';
+import { get, ref, push } from 'firebase/database';
 import Button from '../Button';
 import GoBackButton from '../GoBackButton';
 import { useAuth } from '../../contexts/AuthContext';
@@ -12,6 +12,7 @@ import * as Constants from '../../utils/Constants';
 import { MovementCategories } from './Categories';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
+import { updateToFirebaseById } from '../../datatier/datatier';
 
 const AddMovement = ({ movementID, onClose }) => {
 
@@ -107,10 +108,8 @@ const AddMovement = ({ movementID, onClose }) => {
     }
 
     const updateMovement = async (movement) => {
-        const updates = {};
         movement["modified"] = getCurrentDateAsJson();
-        updates[`${Constants.DB_EXERCISE_MOVEMENTS}/${movementID}`] = movement;
-        update(ref(db), updates);
+        updateToFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, movementID, movement);
     }
 
     return (

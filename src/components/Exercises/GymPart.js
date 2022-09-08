@@ -3,9 +3,8 @@ import { Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import Icon from '../Icon';
 import AddPartsGymForm from './AddPartsGymForm';
-import { ref, update } from 'firebase/database';
-import { db } from '../../firebase-config';
 import * as Constants from '../../utils/Constants';
+import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 function GymPart({ exerciseID, gymPart, onDelete }) {
 
@@ -16,9 +15,7 @@ function GymPart({ exerciseID, gymPart, onDelete }) {
     const [editable, setEditable] = useState(false);
 
     const updateGymPart = (exerciseID, newGymPart) => {
-        const updates = {};
-        updates[`${Constants.DB_EXERCISE_PARTS}/${exerciseID}/${gymPart.id}`] = newGymPart;
-        update(ref(db), updates);
+        updateToFirebaseByIdAndSubId(Constants.DB_EXERCISE_PARTS, exerciseID, gymPart.id, newGymPart);
         setEditable(false);
     }
 

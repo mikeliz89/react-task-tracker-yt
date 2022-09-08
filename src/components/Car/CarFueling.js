@@ -6,8 +6,7 @@ import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateT
 import * as Constants from '../../utils/Constants';
 import Icon from "../Icon";
 import AddFueling from "./AddFueling";
-import { ref, update } from "firebase/database";
-import { db } from "../../firebase-config";
+import { updateToFirebaseById } from "../../datatier/datatier";
 
 function CarFueling({ fuelingRow, onDelete }) {
 
@@ -18,10 +17,8 @@ function CarFueling({ fuelingRow, onDelete }) {
     const [editable, setEditable] = useState(false);
 
     const updateFueling = (fueling) => {
-        const updates = {};
         fueling["modified"] = getCurrentDateAsJson();
-        updates[`${Constants.DB_CAR_FUELING}/${fuelingRow.id}`] = fueling;
-        update(ref(db), updates);
+        updateToFirebaseById(Constants.DB_CAR_FUELING, fuelingRow.id, fueling);
         setEditable(false);
     }
 

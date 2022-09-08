@@ -5,7 +5,7 @@ import { Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { db } from '../../firebase-config';
-import { child, ref, onValue, update } from "firebase/database";
+import { child, ref, onValue } from "firebase/database";
 import GoBackButton from '../GoBackButton';
 import Button from '../../components/Button';
 import AddIncredient from './AddIncredient';
@@ -29,7 +29,7 @@ import StarRating from '../StarRating/StarRating';
 import RecipeHistories from './RecipeHistories';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
-import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById } from '../../datatier/datatier';
 
 export default function RecipeDetails() {
 
@@ -141,7 +141,6 @@ export default function RecipeDetails() {
     const addRecipe = async (recipe) => {
         try {
             const recipeID = params.id;
-            const updates = {};
             recipe["modified"] = getCurrentDateAsJson();
             if (recipe["stars"] === undefined) {
                 recipe["stars"] = 0;
@@ -149,8 +148,7 @@ export default function RecipeDetails() {
             if (recipe["isCore"] === undefined) {
                 recipe["isCore"] = false;
             }
-            updates[`${Constants.DB_RECIPES}/${recipeID}`] = recipe;
-            update(ref(db), updates);
+            updateToFirebaseById(Constants.DB_RECIPES, recipeID, recipe);
         } catch (error) {
             console.log(error)
             setError(t('failed_to_save_recipe'));
@@ -160,11 +158,9 @@ export default function RecipeDetails() {
 
     const saveStars = async (stars) => {
         const recipeID = params.id;
-        const updates = {};
         recipe["modified"] = getCurrentDateAsJson()
         recipe["stars"] = Number(stars);
-        updates[`${Constants.DB_RECIPES}/${recipeID}`] = recipe;
-        update(ref(db), updates);
+        updateToFirebaseById(Constants.DB_RECIPES, recipeID, recipe);
     }
 
     const addIncredient = async (recipeID, incredient) => {

@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { update, ref } from "firebase/database";
 import AddIncredient from './AddIncredient';
 import Icon from '../Icon';
 import PropTypes from 'prop-types';
+import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export const Incredient = ({ dbUrl, translation, incredient, recipeID, onDelete }) => {
 
@@ -12,9 +11,7 @@ export const Incredient = ({ dbUrl, translation, incredient, recipeID, onDelete 
     const [editable, setEditable] = useState(false);
 
     const updateIncredient = (recipeID, newIncredient) => {
-        const updates = {};
-        updates[`${dbUrl}/${recipeID}/${incredient.id}`] = newIncredient;
-        update(ref(db), updates);
+        updateToFirebaseByIdAndSubId(dbUrl, recipeID, incredient.id, newIncredient);
         setEditable(false);
     }
 
