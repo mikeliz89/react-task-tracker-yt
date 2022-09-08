@@ -15,6 +15,7 @@ import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
 import Counter from '../Counter';
 import { getFromFirebaseById, pushToFirebase, updateToFirebase, updateToFirebaseById } from '../../datatier/datatier';
+import { getPageTitleContent } from '../../utils/ListUtils';
 
 export default function ArchivedTaskListDetails() {
 
@@ -163,6 +164,10 @@ export default function ArchivedTaskListDetails() {
                     <tr>
                       <td>{t('tasks_ready_counter')}</td>
                       <td>{taskReadyCounter}/{taskCounter}</td>
+                    </tr>
+                    <tr>
+                      <td>{t('category')}</td>
+                      <td>{t(getPageTitleContent(taskList.listType))}</td>
                     </tr>
                   </tbody>
                 </Table>

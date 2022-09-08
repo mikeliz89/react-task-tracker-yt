@@ -88,7 +88,11 @@ export default function ManageTaskLists({ listType }) {
   }
 
   function gotoTaskListArchive() {
-    navigate(Constants.NAVIGATION_TASKLIST_ARCHIVE);
+    navigate(Constants.NAVIGATION_TASKLIST_ARCHIVE, {
+      state: {
+        listType: listType
+      }
+    });
   }
 
   const getPageTitle = (listType) => {

@@ -1,6 +1,7 @@
 import GoBackButton from '../GoBackButton';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import TaskLists from '../../components/TaskList/TaskLists';
@@ -12,10 +13,12 @@ import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
 
 /** TODO: ohjaa listaTypen mukaiseen arkistoon esim Programming osion listoilta */
-const ManageTaskListsArchive = ({ listType }) => {
+const ManageTaskListsArchive = () => {
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+
+  const location = useLocation();
 
   //states
   const [loading, setLoading] = useState(true);
@@ -39,7 +42,9 @@ const ManageTaskListsArchive = ({ listType }) => {
       let counterTemp = 0;
       for (let id in snap) {
         const item = snap[id];
-        if (item["listType"] === listType) {
+        const myListType = location.state.listType;
+        if ((item["listType"] === myListType && myListType > 0) ||
+          (item["listType"] === undefined && myListType === 0)) {
           counterTemp++;
           fromDB.push({ id, ...snap[id] });
         }
