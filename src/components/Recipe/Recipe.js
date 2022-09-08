@@ -46,7 +46,7 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
         if (incredients && incredients.length > 0) {
             let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
             addTaskList({ title: `${t('shoppinglist')} ${currentDateTime}` }, incredients).then(() => {
-                navigate('/manageshoppinglists')
+                navigate(Constants.NAVIGATION_MANAGE_SHOPPINGLISTS)
             });
         } else if (incredients && incredients.length <= 0) {
             setError("Ei yhtään ainesosaa. Ostoslistaa ei voitu luoda"); //todo: kieleistys

@@ -113,7 +113,7 @@ const BmiCalculator = () => {
                         iconName='weight'
                         color="#545454"
                         text={t('button_weight_history')}
-                        onClick={() => navigate('/weighthistory')} />
+                        onClick={() => navigate(Constants.NAVIGATION_WEIGHTHISTORY)} />
                 </ButtonGroup>
             </Row>
 

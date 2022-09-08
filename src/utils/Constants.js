@@ -42,9 +42,15 @@ export const DB_TASK_LINKS = '/task-links';
 
 //NAVIGATION
 export const NAVIGATION_DRINK = '/drink';
+export const NAVIGATION_EXERCISE = '/exercise';
+export const NAVIGATION_LOGIN = '/login';
+export const NAVIGATION_MANAGE_SHOPPINGLISTS = '/manageshoppinglists';
+export const NAVIGATION_MANAGE_MY_PROFILE = '/managemyprofile';
+export const NAVIGATION_MOVEMENT = '/movement';
 export const NAVIGATION_RECIPE = '/recipe';
 export const NAVIGATION_TASKLIST = '/tasklist';
 export const NAVIGATION_TASKLIST_ARCHIVE = '/tasklistarchive';
+export const NAVIGATION_WEIGHTHISTORY = '/weighthistory';
 
 //TRANSLATIONS
 export const TRANSLATION_ABOUT = 'about';

@@ -15,8 +15,8 @@ export default function MyProfile() {
     const location = useLocation();
 
     const navigateTo = () => {
-        if (location.pathname !== '/managemyprofile') {
-            navigate('/managemyprofile');
+        if (location.pathname !== Constants.NAVIGATION_MANAGE_MY_PROFILE) {
+            navigate(Constants.NAVIGATION_MANAGE_MY_PROFILE);
         }
     }
 

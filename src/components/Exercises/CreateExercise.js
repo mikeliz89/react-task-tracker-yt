@@ -65,7 +65,7 @@ const CreateExercise = () => {
             exercise["created"] = getCurrentDateAsJson();
             exercise["createdBy"] = currentUser.email;
             const key = await pushToFirebase(Constants.DB_EXERCISES, exercise);
-            navigate('/exercise/' + key);
+            navigate(`${Constants.NAVIGATION_EXERCISE}/${key}`);
         } catch (ex) {
             setError(t('exercise_save_exception'));
             setShowError(true);

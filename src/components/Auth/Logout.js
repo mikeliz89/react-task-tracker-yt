@@ -27,7 +27,7 @@ export default function Logout() {
         try {
             clearMessages();
             await logout();
-            navigate('/login');
+            navigate(Constants.NAVIGATION_LOGIN);
         } catch (error) {
             console.log(error);
             setError(t('failed_to_log_out'));

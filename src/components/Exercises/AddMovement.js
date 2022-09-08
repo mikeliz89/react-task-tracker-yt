@@ -90,7 +90,7 @@ const AddMovement = ({ movementID, onClose }) => {
             movement["created"] = getCurrentDateAsJson();
             movement["createdBy"] = currentUser.email;
             const key = await pushToFirebase(Constants.DB_EXERCISE_MOVEMENTS, movement);
-            navigate(`/movement/${key}`); //TODO: Constants.Navigation.
+            navigate(`${Constants.NAVIGATION_MOVEMENT}/${key}`); //TODO: Constants.Navigation.
         } catch (ex) {
             setError(t('movement_save_exception'));
             setShowError(true);
