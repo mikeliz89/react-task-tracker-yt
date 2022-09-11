@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { storage } from "../firebase-config";
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { pushToFirebaseById } from "../datatier/datatier";
+import { getCurrentDateAsJson } from "../utils/DateTimeUtils";
+import * as Constants from '../utils/Constants'
 
 //based on tutorial https://www.youtube.com/watch?v=vUe91uOx7R0
-const useStorage = (file) => {
+const useStorage = (file, objectID) => {
 
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState(0);
@@ -25,6 +28,9 @@ const useStorage = (file) => {
         }, async () => {
             const url = await getDownloadURL(storageRef);
             setUrl(url);
+
+            //TODO: UploadType, jonka mukaan eri url!
+            pushToFirebaseById(Constants.DB_RECIPE_IMAGES, objectID, { url: url, created: getCurrentDateAsJson() });
         })
     }, [file]);
 

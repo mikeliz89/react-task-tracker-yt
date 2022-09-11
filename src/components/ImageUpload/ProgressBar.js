@@ -2,10 +2,12 @@ import useStorage from "../../hooks/useStorage";
 import { useEffect } from "react";
 import styles from './progressbar.module.css';
 
-function ProgressBar({ file, setFile }) {
+function ProgressBar({ file, setFile, objectID }) {
 
-  const { url, progress } = useStorage(file);
-  console.log(progress, url);
+  const { url, progress } = useStorage(file, objectID);
+
+  //for debugging
+  //console.log(progress, url);
 
   useEffect(() => {
     if (url) {

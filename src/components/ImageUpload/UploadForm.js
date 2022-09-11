@@ -6,7 +6,7 @@ import * as Constants from '../../utils/Constants';
 import ProgressBar from './ProgressBar';
 import CenterWrapper from '../CenterWrapper';
 
-function UploadForm() {
+function UploadForm({ objectID }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_UPLOAD_IMAGES, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
@@ -53,7 +53,7 @@ function UploadForm() {
                     file && <div> {file.name}</div>
                 }
                 {
-                    file && <ProgressBar file={file} setFile={setFile} />
+                    file && <ProgressBar file={file} setFile={setFile} objectID={objectID} />
                 }
             </CenterWrapper>
         </>

@@ -27,6 +27,7 @@ export const DB_LINKS = '/links';
 export const DB_PROFILES = '/profiles';
 export const DB_RECIPES = '/recipes';
 export const DB_RECIPE_INCREDIENTS = '/recipe-incredients';
+export const DB_RECIPE_IMAGES = '/recipe-images';
 export const DB_RECIPE_COMMENTS = '/recipe-comments';
 export const DB_RECIPE_LINKS = '/recipe-links';
 export const DB_RECIPE_WORKPHASES = '/recipe-workphases';

@@ -344,7 +344,7 @@ export default function RecipeDetails() {
                             onClick={() => { if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); } }}
                         />
                         &nbsp;
-                        <AddImage />
+                        <AddImage objectID={params.id} />
                     </>
                 </Tab>
             </Tabs>
