@@ -32,6 +32,7 @@ import CenterWrapper from '../CenterWrapper';
 import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
     from '../../datatier/datatier';
 import AddImage from '../ImageUpload/AddImage';
+import ImageGrid from '../ImageUpload/ImageGrid';
 
 export default function RecipeDetails() {
 
@@ -349,6 +350,9 @@ export default function RecipeDetails() {
                 </Tab>
             </Tabs>
             <hr />
+            {
+                <ImageGrid objectID={params.id} />
+            }
             {
                 recipeHistory != null && recipeHistory.length > 0 ? (
                     <RecipeHistories

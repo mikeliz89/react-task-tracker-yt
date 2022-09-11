@@ -592,6 +592,7 @@
     "uploadimages": {
         "add_image": "Lisää kuva",
         "button_close": "Sulje",
+        "images": "Kuvat",
         "load_image": "Lataa kuva",
         "please_use_correct_format": "Ole hyvä ja lataa kuvatiedosto (png tai jpeg)"
     }

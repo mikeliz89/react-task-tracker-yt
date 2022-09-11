@@ -95,13 +95,13 @@ import {
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
   faFish, faUserAlt, faHistory, faPlus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
-  faCopy, faShoePrints, faWater
+  faCopy, faShoePrints, faWater, faImages
 } from '@fortawesome/free-solid-svg-icons';
 library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
   faFish, faUserAlt, faHistory, faPlus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
-  faCopy, faShoePrints, faWater
+  faCopy, faShoePrints, faWater, faImages
 );
 
 //languagization
