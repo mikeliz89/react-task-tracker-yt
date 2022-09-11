@@ -10,7 +10,7 @@ function RecipeHistory({ translation, recipeHistory, onDelete }) {
 
     return (
         <div>
-            <span>
+            <p>
                 {getJsonAsDateTimeString(recipeHistory.currentDateTime, i18n.language)}
                 &nbsp;
                 <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
@@ -19,7 +19,7 @@ function RecipeHistory({ translation, recipeHistory, onDelete }) {
                             onDelete(recipeHistory.id);
                         }
                     }} />
-            </span>
+            </p>
         </div>
     )
 }

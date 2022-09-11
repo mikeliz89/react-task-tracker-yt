@@ -20,7 +20,7 @@ const Gear = ({ gear, onDelete }) => {
     const [error] = useState('');
 
     return (
-        <div className='drinks'>
+        <div className='listContainer'>
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
@@ -39,7 +39,7 @@ const Gear = ({ gear, onDelete }) => {
             ) : ('')}
             <p>{t('gear_weight')}: {gear.weightInGrams} g</p>
             <p>
-                <Link className='btn btn-primary' to={`/gear/${gear.id}`}>{t('view_details')}</Link>
+                <Link className='btn btn-primary' to={`${Constants.NAVIGATION_GEAR}/${gear.id}`}>{t('view_details')}</Link>
             </p>
             <StarRating starCount={gear.stars} />
         </div>

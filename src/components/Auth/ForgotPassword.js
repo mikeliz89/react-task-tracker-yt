@@ -74,10 +74,10 @@ export default function ForgotPassword() {
                 <Button disabled={loading} type='submit' text={t('reset_password')} className='btn btn-block' />
             </Form>
             <CenterWrapper>
-                <Link to="/login">{t('log_in')}</Link>
+                <Link to={Constants.NAVIGATION_LOGIN}>{t('log_in')}</Link>
             </CenterWrapper>
             <CenterWrapper>
-                {t('need_an_account')} <Link to="/signup">{t('sign_up')}</Link>
+                {t('need_an_account')} <Link to={Constants.NAVIGATION_SIGNUP}>{t('sign_up')}</Link>
             </CenterWrapper>
         </div>
     )

@@ -11,7 +11,7 @@ const Movement = ({ movement, onDelete }) => {
     const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     return (
-        <div className='exercise'>
+        <div className='listContainer'>
             <h5>
                 <span>
                     {movement.name}

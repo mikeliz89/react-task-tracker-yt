@@ -75,7 +75,7 @@ const ManageExercises = () => {
       </Row>
       <PageTitle title={t('manage_exercises_title')} />
 
-      <Link to="/managemovements" className='btn btn-primary'>{t('manage_movements_button')}</Link>
+      <Link to={Constants.NAVIGATION_MANAGE_MOVEMENTS} className='btn btn-primary'>{t('manage_movements_button')}</Link>
       <CenterWrapper>
         {t('exercises')}
       </CenterWrapper>

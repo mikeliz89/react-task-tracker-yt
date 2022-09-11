@@ -16,7 +16,7 @@ export const Garnish = ({ garnish, drinkID, onDelete }) => {
     }
 
     return (
-        <div className='drinks'>
+        <div className='listContainer'>
             <Row>
                 <Col xs={9}>
                     <span style={{ fontWeight: 'bold' }}>{garnish.name}</span>

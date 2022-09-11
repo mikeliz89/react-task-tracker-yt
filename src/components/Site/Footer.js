@@ -9,7 +9,7 @@ const Footer = () => {
     return (
         <footer>
             <p>{t('copyright')} &copy; 2022</p>
-            <Link to="/about">{t('about')}</Link>
+            <Link to={Constants.NAVIGATION_ABOUT}>{t('about')}</Link>
         </footer>
     )
 }

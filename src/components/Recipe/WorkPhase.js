@@ -21,7 +21,7 @@ export default function WorkPhase({ dbUrl, translation, workPhase, recipeID, onD
     }
 
     return (
-        <div className={translation}>
+        <div className='listContainer'>
             <Row>
                 <Col xs={9}>
                     <span style={{ fontWeight: 'bold' }}>{workPhase.name}</span>

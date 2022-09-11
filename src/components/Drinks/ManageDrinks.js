@@ -116,12 +116,12 @@ export default function ManageDrinks() {
             <PageTitle title={t('manage_drinks_title')} />
 
             <div>
-                <Link to="/managedrinkingproducts" className='btn btn-primary'>
+                <Link to={Constants.NAVIGATION_MANAGE_DRINKINPRODUCTS} className='btn btn-primary'>
                     <Icon name='wine-bottle' color='white' />
                     {t('button_manage_drinkingproducts')}
                 </Link>
                 &nbsp;
-                <Link to="/managedrinklists" className='btn btn-primary'>
+                <Link to={Constants.NAVIGATION_MANAGE_DRINKLISTS} className='btn btn-primary'>
                     <Icon name='list-alt' color='white' />
                     {t('button_drinklists')}
                 </Link>

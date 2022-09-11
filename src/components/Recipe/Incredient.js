@@ -16,7 +16,7 @@ export const Incredient = ({ dbUrl, translation, incredient, recipeID, onDelete 
     }
 
     return (
-        <div className={translation}>
+        <div className='listContainer'>
             <Row>
                 <Col xs={9}>
                     <span style={{ fontWeight: 'bold' }}>{incredient.name}</span>

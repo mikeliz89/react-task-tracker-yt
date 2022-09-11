@@ -11,7 +11,7 @@ const Task = ({ taskListID, archived, task, onDelete, onToggle }) => {
     return (
         <div
             onDoubleClick={() => archived ? null : onToggle(taskListID, task.id)}
-            className={`task ${task.reminder ? 'reminder' : ''}`}>
+            className={`listContainer clickable ${task.reminder ? 'reminder' : ''}`}>
             <h5>
                 - {task.text}
                 {archived ? null :

@@ -92,7 +92,7 @@ function TaskDetails() {
             onClick={() => setShowEditTask(!showEditTask)} />
         </ButtonGroup>
       </Row>
-      <div className={task.reminder === true ? 'task reminder' : ''}>
+      <div className={task.reminder === true ? 'listContainer reminder' : ''}>
         <PageTitle title={task.text} />
         <p>{t('day_and_time')}: {task.day}</p>
         {showEditTask && <AddTask onClose={() => setShowEditTask(false)} onSave={updateTask} taskID={params.id} taskListID={params.tasklistid} />}

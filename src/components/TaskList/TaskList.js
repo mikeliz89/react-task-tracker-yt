@@ -9,7 +9,7 @@ const TaskList = ({ taskList, archived, onDelete }) => {
     const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
     return (
-        <div className='tasklist'>
+        <div className='listContainer'>
             <h5>
                 <span>
                     <Icon name='list-alt' color='gray' />
@@ -21,7 +21,9 @@ const TaskList = ({ taskList, archived, onDelete }) => {
             <p>{taskList.description}</p>
             <p>
                 <Link className="btn btn-primary"
-                    to={archived ? `/tasklistarchive/${taskList.id}` : `/tasklist/${taskList.id}`}>{t('view_details')}</Link>
+                    to={archived ? `/tasklistarchive/${taskList.id}` : `/tasklist/${taskList.id}`}>
+                    {t('view_details')}
+                </Link>
             </p>
         </div>
     )

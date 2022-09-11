@@ -20,8 +20,8 @@ const Header = ({ title }) => {
     const { currentUser } = useAuth()
 
     return (
-        <div className="headerbox">
-            <header className="header">
+        <div className="headerContainer">
+            <header>
                 <h1 className='deleteBtn' onClick={() => navigate('/')}>{title}</h1>
             </header>
             <p className="loggedin-user">

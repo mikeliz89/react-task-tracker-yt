@@ -12,7 +12,7 @@ const Exercise = ({ exercise, onDelete }) => {
     const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     return (
-        <div className='exercise'>
+        <div className='listContainer'>
             <h5>
                 <span>
                     <Icon name={getIconNameByCategory(exercise.category)} />
@@ -31,7 +31,7 @@ const Exercise = ({ exercise, onDelete }) => {
                     }</span>) : ('')}
             </p>
             <p>
-                <Link className='btn btn-primary' to={`/exercise/${exercise.id}`}>{t('view_details')}</Link>
+                <Link className='btn btn-primary' to={`${Constants.NAVIGATION_EXERCISE}/${exercise.id}`}>{t('view_details')}</Link>
             </p>
             <StarRating starCount={exercise.stars} />
         </div>

@@ -98,7 +98,7 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
     }
 
     return (
-        <div className={recipe.isCore === true ? `${translation} coreRecipe` : translation}>
+        <div className={recipe.isCore === true ? `listContainer coreRecipe` : 'listContainer'}>
             <h5>
                 <span>
                     <Icon name={getIconName(recipeType, recipe.category)} color='gray' />

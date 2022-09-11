@@ -69,7 +69,11 @@ const WeightHistory = () => {
                         <p>
                             {getJsonAsDateTimeString(row.currentDateTime, i18n.language)}<br /> - {row.weight} kg, BMI: {row.bmi}
 
-                            <Icon className='btn deleteBtn' name='times' color='red' fontSize='1.2em' cursor='pointer'
+                            <Icon className='btn deleteBtn'
+                                name='times'
+                                color='red'
+                                fontSize='1.2em'
+                                cursor='pointer'
                                 onClick={() => { if (window.confirm(t('delete_weighthistory_confirm_message'))) { deleteHistoryRow(row.id) } }} />
                         </p>
                     </div>

@@ -20,7 +20,7 @@ function GymPart({ exerciseID, gymPart, onDelete }) {
     }
 
     return (
-        <div className='exercise'>
+        <div className='listContainer'>
 
             <Row>
                 <Col xs={9}>

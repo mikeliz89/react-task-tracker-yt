@@ -15,9 +15,7 @@ export default function ManageMusic() {
         <PageContentWrapper>
             <GoBackButton />
             <PageTitle title={t('music_title')} />
-            {/* <Link to="/bandsseenlive" className='btn btn-primary'>{t('button_bands_seen_live')}</Link>
-                &nbsp; */}
-            <Link to="/managemusiclists" className='btn btn-primary'>
+            <Link to={Constants.NAVIGATION_MANAGE_MUSICLISTS} className='btn btn-primary'>
                 <Icon name='list-alt' color='white' />
                 {t('button_music_lists')}
             </Link>

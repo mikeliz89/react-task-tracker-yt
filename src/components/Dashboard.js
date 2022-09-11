@@ -16,26 +16,26 @@ export default function Dashboard() {
             {/* Create New Row For Sets of 4 buttons  */}
             <Row>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={`/managerecipes`}>
+                    <Link to={Constants.NAVIGATION_MANAGE_RECIPES}>
                         <BigButton imageName="recipes.png" textcolor="black" color="#b37401" text={t('recipes')}
                             iconName='utensils'
                         />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={`/manageshoppinglists`}>
+                    <Link to={Constants.NAVIGATION_MANAGE_SHOPPINGLISTS}>
                         <BigButton imageName="shoppinglists.png" textcolor="black" color="#fcba03" text={t('shoppinglists')}
                             iconName='check-square' />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={`/managetasklists`}>
+                    <Link to={Constants.NAVIGATION_MANAGE_TASKLISTS}>
                         <BigButton imageName="tasklists.PNG" textcolor="black" color="#fcba03" text={t('tasklists')}
                             iconName='check-square' />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/bmicalculator'}>
+                    <Link to={Constants.NAVIGATION_BMICALCULATOR}>
                         <BigButton imageName="calculator.PNG" textcolor="black" text={t('bmi_calculator')}
                             iconName='weight' />
                     </Link>
@@ -43,25 +43,25 @@ export default function Dashboard() {
             </Row>
             <Row>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/managedrinks'}>
+                    <Link to={Constants.NAVIGATION_MANAGE_DRINKS}>
                         <BigButton imageName="cocktail.jpg" textcolor="black" color="#f9a9d5" text={t('drinks')}
                             iconName='glass-martini' />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/manageexercises'}>
+                    <Link to={Constants.NAVIGATION_MANAGE_EXERCISES}>
                         <BigButton imageName="exercises.PNG" textcolor="black" color="#ef7c1a" text={t('exercises')}
                             iconName='running' />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/linkslist'}>
+                    <Link to={Constants.NAVIGATION_LINKSLIST}>
                         <BigButton imageName="links.jpg" textcolor="black" color="white" text={t('links_list')}
                             iconName='external-link-alt' />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/car'}>
+                    <Link to={Constants.NAVIGATION_CAR}>
                         <BigButton imageName="car.jpg" textcolor="black" color="#0cb058" text={t('car')}
                             iconName='car' />
                     </Link>
@@ -69,46 +69,34 @@ export default function Dashboard() {
             </Row>
             <Row>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/managebackpacking'}>
+                    <Link to={Constants.NAVIGATION_MANAGE_BACKPACKING}>
                         <BigButton imageName="backpacking.jpg" textcolor="black" color="#0cb058" text={t('backpacking')}
                             iconName='campground' />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/managemusic'}>
+                    <Link to={Constants.NAVIGATION_MANAGE_MUSIC}>
                         <BigButton imageName="music.jpg" textcolor="black" color="#0cb058" text={t('music')} />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/manageprogramming'}>
+                    <Link to={Constants.NAVIGATION_MANAGE_PROGRAMMING}>
                         <BigButton imageName="programming.jpg" textcolor="black" color="#0cb058" text={t('programming')} />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/games'}>
-                        <BigButton imageName="games.jpg" textcolor="black" color="#0cb058" text={t('games')} /* comingsoon */ />
+                    <Link to={Constants.NAVIGATION_GAMES}>
+                        <BigButton imageName="games.jpg" textcolor="black" color="#0cb058" text={t('games')} />
                     </Link>
                 </Col>
             </Row>
             <Row>
-            <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={'/movies'}>
-                        <BigButton imageName="movies.jpg" textcolor="black" color="#0cb058" text={t('movies')} /* comingsoon */ />
+                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
+                    <Link to={Constants.NAVIGATION_MOVIES}>
+                        <BigButton imageName="movies.jpg" textcolor="black" color="#0cb058" text={t('movies')} />
                     </Link>
                 </Col>
             </Row>
-            {/* <Link to={'/'}><BigButton text="button" /></Link>
-                <Link to={'/'}><BigButton text="button" /></Link>
-                <Link to={'/'}><BigButton text="button" /></Link>
-                <Link to={'/'}><BigButton text="button" /></Link>
-                <Link to={'/'}><BigButton text="button" /></Link>
-                <Link to={'/'}><BigButton text="button" /></Link>
-                <Link to={'/'}><BigButton text="button" /></Link>
-                <Link to={'/'}><BigButton text="button" /></Link>
-                <Link to={'/'}><BigButton text="button" /></Link>
-                <Link to={'/'}><BigButton text="button" /></Link>
-                <Link to={'/'}><BigButton text="button" /></Link>
-                <Link to={'/'}><BigButton text="button" /></Link> */}
         </PageContentWrapper>
     )
 }

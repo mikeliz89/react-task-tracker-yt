@@ -105,7 +105,7 @@ export default function Signup() {
                 <Button disabled={loading} type='submit' text={t('sign_up')} className='btn btn-block' />
             </Form>
             <CenterWrapper>
-                {t('already_have_an_account')} <Link to="/login">{t('log_in')}</Link>
+                {t('already_have_an_account')} <Link to={Constants.NAVIGATION_LOGIN}>{t('log_in')}</Link>
             </CenterWrapper>
         </div>
     )

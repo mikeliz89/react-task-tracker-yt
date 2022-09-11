@@ -16,7 +16,7 @@ export default function Games() {
             <GoBackButton />
             <PageTitle title={t('games_title')} />
             <div>
-                <Link to="/managegamelists" className='btn btn-primary'>
+                <Link to={Constants.NAVIGATION_MANAGE_GAMELISTS} className='btn btn-primary'>
                     <Icon name='list-alt' color='white' />
                     {t('button_game_lists')}
                 </Link>

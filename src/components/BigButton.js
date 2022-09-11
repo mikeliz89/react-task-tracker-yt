@@ -18,7 +18,7 @@ const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor,
                 style={imageName === "" ?
                     { backgroundColor: color, color: textcolor } :
                     { backgroundColor: 'rgba(0, 0, 0, 0)', color: textcolor }}
-                className='bigbtn'>
+                className='bigBtn'>
                 <div style={{ backgroundColor: textBackgroundColor, paddingTop: '5px', paddingBottom: '5px' }}>
                     <span style={comingsoon ? { color: 'gray' } : {}}>
                         <b>

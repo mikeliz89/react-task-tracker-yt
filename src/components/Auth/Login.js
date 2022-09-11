@@ -76,10 +76,10 @@ export default function Login() {
                 <Button disabled={loading} type='submit' text={t('log_in')} className='btn btn-block' />
             </Form>
             <CenterWrapper>
-                <Link to="/forgot-password">{t('forgot_password')}</Link>
+                <Link to={Constants.NAVIGATION_FORGOT_PASSWORD}>{t('forgot_password')}</Link>
             </CenterWrapper>
             <CenterWrapper>
-                {t('need_an_account')} <Link to="/signup">{t('sign_up')}</Link>
+                {t('need_an_account')} <Link to={Constants.NAVIGATION_SIGNUP}>{t('sign_up')}</Link>
             </CenterWrapper>
         </div>
     )

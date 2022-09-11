@@ -21,6 +21,10 @@ a {
     font-family: 'Poppins', sans-serif;
 }
 
+p {
+    font-family: 'Poppins', sans-serif;
+}
+
 .container {
     margin: 10px auto;
     overflow: auto;
@@ -32,13 +36,13 @@ a {
     border-radius: 5px;
 }
 
-.header {
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.headerbox {
+.headerContainer {
     margin-bottom: 10px;
     border-bottom: 3px solid #e0e0e0;
 }
@@ -75,46 +79,20 @@ footer {
 
 /** Common End */
 
-/** Task Start */
+/* ListContainer Start */
 
-.task {
-    background: #f4f4f4;
-    margin: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    /* 2.6.2022 lisätty borderit */
-    border: 1px solid #e3e3e3;
-}
-
-.tasklist {
-    background: #f4f4f4;
-    margin: 5px;
-    padding: 10px 20px;
-    /* 2.6.2022 lisätty borderit */
-    border: 1px solid #e3e3e3;
-}
-
-.task.reminder {
+.listContainer.reminder, 
+.listContainer.coreRecipe {
     border-left: 5px solid green;
 }
 
-/** Task End */
-
-/* Task Drinks Recipe Exercise etc Start */
-
-.task h5,
-.tasklist h5,
-.recipe h5,
-.drinks h5,
-.exercise h5 {
+.listContainer h5 {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.recipe,
-.drinks,
-.exercise {
+.listContainer {
     background: #faf1db;
     margin: 5px;
     padding: 10px 20px;
@@ -122,25 +100,11 @@ footer {
     border: 1px solid #e3e3e3;
 }
 
-.task p,
-.recipe p,
-.drinks p,
-.recipe p,
-.exercise p {
-    font-family: 'Poppins', sans-serif;
+.listContainer p {
     margin-bottom: 0.5em;
 }
 
-/* Task Drinks Recipe Exercise etc End */
-
-/** Recipe Start */
-
-.recipe.coreRecipe,
-.drinks.coreRecipe {
-    border-left: 5px solid green;
-}
-
-/** Recipe End */
+/* ListContainer End */
 
 /** Form Start */
 
@@ -171,6 +135,10 @@ form {
 
 /* Custom Start */
 
+.clickable {
+    cursor: pointer;
+}
+
 .editBtn:hover,
 .deleteBtn:hover {
     font-style: bold;
@@ -195,7 +163,7 @@ form {
     border-radius: 5px;
 }
 
-.bigbtn {
+.bigBtn {
     width: 100%;
     height: 220px;
     color: #fff;

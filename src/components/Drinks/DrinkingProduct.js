@@ -56,7 +56,7 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
                     drinkingProductID={drinkingProduct.id} />
             }
             <p>
-                <Link className='btn btn-primary' to={`/drinkingproduct/${drinkingProduct.id}`}>{t('view_details')}</Link>
+                <Link className='btn btn-primary' to={`${Constants.NAVIGATION_DRINKINGPRODUCT}/${drinkingProduct.id}`}>{t('view_details')}</Link>
                 {
                     drinkingProduct.haveAtHome &&
                     <span

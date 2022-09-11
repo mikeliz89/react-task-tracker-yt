@@ -41,15 +41,43 @@ export const DB_TASK_LINKS = '/task-links';
 export const DB_WEIGHT_HISTORY = '/weighthistory';
 
 //NAVIGATION
+export const NAVIGATION_ABOUT = '/about';
+export const NAVIGATION_BMICALCULATOR = '/bmicalculator';
+export const NAVIGATION_CAR = '/car';
 export const NAVIGATION_DRINK = '/drink';
+export const NAVIGATION_DRINKINGPRODUCT = '/drinkingproduct';
 export const NAVIGATION_EXERCISE = '/exercise';
+export const NAVIGATION_MANAGE_FOODITEMS = '/managefooditems';
+export const NAVIGATION_FORGOT_PASSWORD = '/forgot-password';
+export const NAVIGATION_GAMES = '/games';
+export const NAVIGATION_GEAR = '/gear';
+export const NAVIGATION_LINKSLIST = '/linkslist';
 export const NAVIGATION_LOGIN = '/login';
-export const NAVIGATION_MANAGE_SHOPPINGLISTS = '/manageshoppinglists';
+export const NAVIGATION_MANAGE_BACKPACKING = '/managebackpacking';
+export const NAVIGATION_MANAGE_BACKPACKINGLISTS = '/managebackpackinglists';
+export const NAVIGATION_MANAGE_DRINKS = '/managedrinks';
+export const NAVIGATION_MANAGE_DRINKLISTS = '/managedrinklists';
+export const NAVIGATION_MANAGE_DRINKINPRODUCTS = '/managedrinkingproducts';
+export const NAVIGATION_MANAGE_EXERCISES = '/manageexercises';
+export const NAVIGATION_MANAGE_GAMELISTS = '/managegamelists';
+export const NAVIGATION_MANAGE_GEAR = '/managegear';
+export const NAVIGATION_MANAGE_GEAR_MAINTENANCE = '/managegearmaintenance';
+export const NAVIGATION_MANAGE_MOVEMENTS = '/managemovements';
+export const NAVIGATION_MANAGE_MOVIELISTS = '/managemovielists';
+export const NAVIGATION_MANAGE_MUSIC = '/managemusic';
+export const NAVIGATION_MANAGE_MUSICLISTS = '/managemusiclists';
 export const NAVIGATION_MANAGE_MY_PROFILE = '/managemyprofile';
+export const NAVIGATION_MANAGE_PROGRAMMING = '/manageprogramming';
+export const NAVIGATION_MANAGE_RECIPES = '/managerecipes';
+export const NAVIGATION_MANAGE_RECIPELISTS = '/managerecipelists';
+export const NAVIGATION_MANAGE_SHOPPINGLISTS = '/manageshoppinglists';
+export const NAVIGATION_MANAGE_TASKLISTS = '/managetasklists';
 export const NAVIGATION_MOVEMENT = '/movement';
+export const NAVIGATION_MOVIES = '/movies';
 export const NAVIGATION_RECIPE = '/recipe';
 export const NAVIGATION_TASKLIST = '/tasklist';
 export const NAVIGATION_TASKLIST_ARCHIVE = '/tasklistarchive';
+export const NAVIGATION_SIGNUP = '/signup';
 export const NAVIGATION_WEIGHTHISTORY = '/weighthistory';
 
 //TRANSLATIONS
