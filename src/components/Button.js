@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Icon from './Icon';
 
 const Button = ({ disabled, color, text, onClick, className,
-    secondIconName, type, iconName, iconColor
+    secondIconName, type, iconName, iconColor, disableStyle
 }) => {
     return (
         <button
@@ -10,7 +10,7 @@ const Button = ({ disabled, color, text, onClick, className,
             type={type}
             onClick={onClick}
             //jos class saveBtn niin ei styleä
-            style={className.includes('saveBtn') ? {} : { backgroundColor: color, color: 'white' }}
+            style={className.includes('saveBtn') || disableStyle ? {} : { backgroundColor: color, color: 'white' }}
             className={className}>
             <Icon name={iconName} color={iconColor} />
             <Icon name={secondIconName} color={iconColor} />
@@ -28,7 +28,8 @@ Button.defaultProps = {
     iconColor: '',
     secondIconName: '',
     //other
-    disabled: false
+    disabled: false,
+    disableStyle: false
 }
 
 Button.propTypes = {
@@ -43,6 +44,7 @@ Button.propTypes = {
     secondIconName: PropTypes.string,
     //other
     disabled: PropTypes.bool,
+    disableStyle: PropTypes.bool,
     onClick: PropTypes.func
 }
 

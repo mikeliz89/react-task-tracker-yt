@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Language from '../Language/Language';
 import MyProfile from '../MyProfile/MyProfile';
 import * as Constants from '../../utils/Constants';
+import ThemeToggler from './ThemeToggler';
 
 const Header = ({ title }) => {
 
@@ -31,6 +32,7 @@ const Header = ({ title }) => {
                 <ButtonGroup>
                     <Language />
                     {currentUser && <MyProfile />}
+                    <ThemeToggler />
                     {currentUser && <Logout />}
                 </ButtonGroup>
             </Row>

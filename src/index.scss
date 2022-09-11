@@ -81,7 +81,7 @@ footer {
 
 /* ListContainer Start */
 
-.listContainer.reminder, 
+.listContainer.reminder,
 .listContainer.coreRecipe {
     border-left: 5px solid green;
 }
@@ -213,3 +213,70 @@ form {
 }
 
 /* Avatar end */
+
+/* Theme start */
+
+#light {
+    background-color: white;
+}
+
+#dark {
+    background-color: #212529;
+}
+
+#dark body,
+#dark header,
+#dark p,
+#dark h3,
+#dark h4,
+#dark label,
+#dark div {
+    color: rgb(209, 209, 209);
+}
+
+#dark .listContainer {
+    background-color: #333333;
+}
+
+#dark .accordion-header .accordion-button {
+    background-color: black;
+}
+
+#dark .bigBtn div {
+    color: black;
+}
+
+#dark .table-striped>tbody>tr:nth-of-type(even)>* {
+    color: rgb(179, 179, 179);
+    background-color: rgb(65, 65, 65);
+}
+
+#dark .table-striped>tbody>tr:nth-of-type(odd)>* {
+    color: white;
+    background-color: rgb(31, 30, 30);
+}
+
+#dark .accordion-body,
+#dark .accordion-item {
+    background-color: black;
+}
+
+#dark .btn-primary {
+    background-color: #0c479f;
+}
+
+#dark .form-control,
+#dark select {
+    background-color: rgb(117, 117, 117);
+    color: white;
+}
+
+#dark ::placeholder {
+    color: rgb(182, 182, 182);
+}
+
+#dark .linkContainer {
+    border: 0.2rem solid #535353;
+}
+
+/* Theme end */

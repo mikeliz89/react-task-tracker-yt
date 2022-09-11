@@ -329,14 +329,19 @@ export default function RecipeDetails() {
                     )}
                 </Tab>
                 <Tab eventKey="actions" title="Toiminnot">
-                    <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
-                    <AddComment onSave={addCommentToRecipe} />
-                    <AddLink onSaveLink={addLinkToRecipe} />
-                    <Button
-                        iconName='plus-square'
-                        text={t('do_recipe')}
-                        onClick={() => { if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); } }}
-                    />
+                    <>
+                        <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
+                        &nbsp;
+                        <AddComment onSave={addCommentToRecipe} />
+                        &nbsp;
+                        <AddLink onSaveLink={addLinkToRecipe} />
+                        &nbsp;
+                        <Button
+                            iconName='plus-square'
+                            text={t('do_recipe')}
+                            onClick={() => { if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); } }}
+                        />
+                    </>
                 </Tab>
             </Tabs>
             <hr />

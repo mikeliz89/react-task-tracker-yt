@@ -584,5 +584,8 @@
         "tasks_ready_counter": "Tehtäviä valmiina",
         "view_details": "Katso lisätiedot",
         "yes": "Kyllä"
+    },
+    "theme": {
+        "title": "Teema"
     }
 }

@@ -132,9 +132,13 @@ function GearDetails() {
             </Row>
             <Row>
                 <Col>
-                    <SetStarRating starCount={gear.stars} onSaveStars={saveStars} />
-                    <AddComment onSave={addCommentToGear} />
-                    <AddLink onSaveLink={addLinkToGear} />
+                    <>
+                        <SetStarRating starCount={gear.stars} onSaveStars={saveStars} />
+                        &nbsp;
+                        <AddComment onSave={addCommentToGear} />
+                        &nbsp;
+                        <AddLink onSaveLink={addLinkToGear} />
+                    </>
                 </Col>
             </Row>
             <hr />

@@ -41,7 +41,8 @@ const AddLink = ({ onSaveLink }) => {
             <Button
                 iconName='external-link-alt'
                 type='button'
-                color={showForm ? 'red' : '#0d6efd'}
+                disableStyle={true}
+                className={showForm ? 'btn btn-danger' : 'btn btn-primary'}
                 text={showForm ? t('button_close') : t('add_link')}
                 onClick={() => setShowForm(!showForm)} />
             {

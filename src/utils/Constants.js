@@ -105,3 +105,4 @@ export const TRANSLATION_SCROLL_TO_TOP = 'scrolltotop';
 export const TRANSLATION_SEARCHSORTFILTER = 'searchsortfilter';
 export const TRANSLATION_STAR_RATING = 'starrating';
 export const TRANSLATION_TASKLIST = 'tasklist';
+export const TRANSLATION_THEME = 'theme';

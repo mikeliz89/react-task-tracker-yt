@@ -379,14 +379,19 @@ export default function DrinkDetails() {
                     )}
                 </Tab>
                 <Tab eventKey="actions" title="Toiminnot">
-                    <SetStarRating starCount={drink.stars} onSaveStars={saveStars} />
-                    <AddComment onSave={addCommentToDrink} />
-                    <AddLink onSaveLink={addLinkToDrink} />
-                    <Button
-                        iconName='plus-square'
-                        text={t('do_drink')}
-                        onClick={() => { if (window.confirm(t('do_drink_confirm'))) { saveDrinkHistory(params.id); } }}
-                    />
+                    <>
+                        <SetStarRating starCount={drink.stars} onSaveStars={saveStars} />
+                        &nbsp;
+                        <AddComment onSave={addCommentToDrink} />
+                        &nbsp;
+                        <AddLink onSaveLink={addLinkToDrink} />
+                        &nbsp;
+                        <Button
+                            iconName='plus-square'
+                            text={t('do_drink')}
+                            onClick={() => { if (window.confirm(t('do_drink_confirm'))) { saveDrinkHistory(params.id); } }}
+                        />
+                    </>
                 </Tab>
             </Tabs>
             <hr />

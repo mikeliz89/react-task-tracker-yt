@@ -150,9 +150,13 @@ export default function MovementDetails() {
                 <AddMovement movementID={params.id} onClose={() => setShowEditMovement(false)} />
             }
 
-            <SetStarRating starCount={movement.stars} onSaveStars={saveStars} />
-            <AddComment onSave={addCommentToMovement} />
-            <AddLink onSaveLink={addLinkToMovement} />
+            <>
+                <SetStarRating starCount={movement.stars} onSaveStars={saveStars} />
+                &nbsp;
+                <AddComment onSave={addCommentToMovement} />
+                &nbsp;
+                <AddLink onSaveLink={addLinkToMovement} />
+            </>
 
             <Comments objID={params.id} url={'exercise-movement-comments'} />
             <Links objID={params.id} url={'exercise-movement-links'} />

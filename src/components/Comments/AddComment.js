@@ -42,7 +42,8 @@ function AddComment({ onSave }) {
             <Button type="button"
                 iconName='comments'
                 disabled={loading}
-                color={showAddComment ? 'red' : '#0d6efd'}
+                disableStyle={true}
+                className={showAddComment ? 'btn btn-danger' : 'btn btn-primary'}
                 text={
                     showAddComment ? t('button_close') : t('add_comment')
                 }

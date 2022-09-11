@@ -54,7 +54,7 @@ import ManageGearMaintenance from './components/BackPacking/ManageGearMaintenanc
 //other components
 import PrivateRoute from './components/PrivateRoute';
 import Demo from './components/Demo/Demo';
-//AuthProvider
+//Contexts
 import { AuthProvider } from './contexts/AuthContext';
 //Language
 import i18n from 'i18next';
@@ -84,6 +84,7 @@ import LinksList from './components/Links/LinksList';
 import ManageProgramming from './components/Programming/ManageProgramming';
 //ShoppingLists
 import ManageShoppingLists from './components/ShoppingList/ManageShoppingLists';
+import { useTheme } from './contexts/ThemeContext';
 
 //ICONIT
 //React icons: https://react-icons.github.io/react-icons/icons?name=fa
@@ -124,8 +125,10 @@ i18n
 //app
 function App() {
 
+  const { theme } = useTheme();
+
   return (
-    <Container>
+    <Container id={theme}>
       <Router>
         <AuthProvider>
           <Header title="Lifesaver App" />

@@ -152,9 +152,13 @@ const ExerciseDetails = () => {
                     error={error} showError={showError}
                     variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-                <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
-                <AddComment onSave={addCommentToExercise} />
-                <AddLink onSaveLink={addLinkToExercise} />
+                <>
+                    <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
+                    &nbsp;
+                    <AddComment onSave={addCommentToExercise} />
+                    &nbsp;
+                    <AddLink onSaveLink={addLinkToExercise} />
+                </>
 
                 <Row>
                     <Col>
