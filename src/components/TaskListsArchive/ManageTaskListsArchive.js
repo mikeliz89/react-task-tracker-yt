@@ -12,7 +12,6 @@ import Counter from '../Counter';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
 
-/** TODO: ohjaa listaTypen mukaiseen arkistoon esim Programming osion listoilta */
 const ManageTaskListsArchive = () => {
 
   //translation

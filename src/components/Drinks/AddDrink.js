@@ -59,7 +59,6 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
          });
    }
 
-   /** Drink Form Submit */
    const onSubmit = (e) => {
       e.preventDefault();
 

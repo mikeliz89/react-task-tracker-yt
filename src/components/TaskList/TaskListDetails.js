@@ -115,7 +115,6 @@ function TaskListDetails() {
     removeFromFirebaseByIdAndSubId(Constants.DB_TASKS, taskListID, id);
   }
 
-  /** Toggle Reminder Of A Task At Firebase */
   const toggleReminder = async (taskListID, id) => {
     getFromFirebaseByIdAndSubId(Constants.DB_TASKS, taskListID, id).then((val) => {
       const updates = {};

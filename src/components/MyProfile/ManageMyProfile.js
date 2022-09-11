@@ -66,7 +66,6 @@ export default function ManageMyProfile() {
         })
     }
 
-    /** Form Submit */
     const onSubmit = (e) => {
         e.preventDefault()
 

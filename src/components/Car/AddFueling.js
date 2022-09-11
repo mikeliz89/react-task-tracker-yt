@@ -5,6 +5,7 @@ import Button from "../Button";
 import { onValue, ref } from "firebase/database";
 import { db } from "../../firebase-config";
 import * as Constants from '../../utils/Constants';
+import FormTitle from '../FormTitle';
 
 const AddFueling = ({ ID, onClose, onSave }) => {
 
@@ -78,7 +79,7 @@ const AddFueling = ({ ID, onClose, onSave }) => {
 
     return (
         <div>
-            <h5>{t('add_fueling_title')}</h5>
+            <FormTitle title={t('add_fueling_title')} />
 
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addFuelingForm-LiterAmount">

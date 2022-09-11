@@ -15,7 +15,6 @@ function AddComment({ onSave }) {
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_COMMENTS, { keyPrefix: Constants.TRANSLATION_COMMENTS });
 
-    /** Add Task Form Submit */
     const onSubmit = (e) => {
         e.preventDefault();
 
