@@ -6,6 +6,7 @@ export const DB_BACKPACKING_GEAR_LINKS = '/backpacking-gear-links';
 export const DB_CAR_FUELING = '/car-fueling';
 export const DB_CAR_INFO = '/car-info';
 export const DB_DRINKS = '/drinks';
+export const DB_DRINK_IMAGES = '/drink-images';
 export const DB_DRINK_GARNISHES = '/drink-garnishes';
 export const DB_DRINK_INCREDIENTS = '/drink-incredients';
 export const DB_DRINK_WORKPHASES = '/drink-workphases';

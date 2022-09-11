@@ -5,9 +5,9 @@ import styles from './imagegrid.module.css';
 import { useTranslation } from "react-i18next";
 import * as Constants from '../../utils/Constants';
 
-const ImageGrid = ({ objectID, setSelectedImage }) => {
+const ImageGrid = ({ objectID, url, setSelectedImage }) => {
 
-    const { docs } = useFirestore([], objectID);
+    const { docs } = useFirestore([], url, objectID);
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_UPLOAD_IMAGES, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
@@ -25,6 +25,9 @@ const ImageGrid = ({ objectID, setSelectedImage }) => {
                         <img src={doc.url} alt="uploaded pic" />
                     </div>
                 ))
+                }
+                {
+                    !docs || docs.length === 0 ? t('no_images') : ''
                 }
             </div>
         </>

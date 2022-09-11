@@ -348,14 +348,14 @@ export default function RecipeDetails() {
                             onClick={() => { if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); } }}
                         />
                         &nbsp;
-                        <AddImage objectID={params.id} />
+                        <AddImage objectID={params.id} imagesUrl={Constants.DB_RECIPE_IMAGES} />
                     </>
                 </Tab>
             </Tabs>
             <hr />
             {
                 <>
-                    <ImageGrid objectID={params.id} setSelectedImage={setSelectedImage} />
+                    <ImageGrid url={Constants.DB_RECIPE_IMAGES} objectID={params.id} setSelectedImage={setSelectedImage} />
                     {selectedImage && <Modal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
                 </>
             }

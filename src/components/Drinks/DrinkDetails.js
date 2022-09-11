@@ -30,6 +30,9 @@ import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
 import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById } from '../../datatier/datatier';
+import AddImage from '../ImageUpload/AddImage';
+import ImageGrid from '../ImageUpload/ImageGrid';
+import Modal from '../ImageUpload/Modal';
 
 export default function DrinkDetails() {
 
@@ -44,6 +47,8 @@ export default function DrinkDetails() {
     const [incredients, setIncredients] = useState({});
     const [workPhases, setWorkPhases] = useState({});
     const [garnishes, setGarnishes] = useState({});
+
+    const [selectedImage, setSelectedImage] = useState(null);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -391,10 +396,18 @@ export default function DrinkDetails() {
                             text={t('do_drink')}
                             onClick={() => { if (window.confirm(t('do_drink_confirm'))) { saveDrinkHistory(params.id); } }}
                         />
+                        &nbsp;
+                        <AddImage objectID={params.id} imagesUrl={Constants.DB_DRINK_IMAGES} />
                     </>
                 </Tab>
             </Tabs>
             <hr />
+            {
+                <>
+                    <ImageGrid url={Constants.DB_DRINK_IMAGES} objectID={params.id} setSelectedImage={setSelectedImage} />
+                    {selectedImage && <Modal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
+                </>
+            }
             {
                 drinkHistory != null && drinkHistory.length > 0 ? (
                     <RecipeHistories

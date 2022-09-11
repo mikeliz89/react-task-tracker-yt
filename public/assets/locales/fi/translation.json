@@ -188,7 +188,6 @@
         "description": "Kuvaus",
         "do_drink": "Tee juoma",
         "do_drink_confirm": "Oletko varma?",
-        "drinkhistory_title": "Drinkkihistoria",
         "drinkingproduct_abv": "Alkoholi-%",
         "drinkingproduct_amount": "Määrä (cl)",
         "drinkingproduct_category": "Tuotekategoria",
@@ -594,6 +593,7 @@
         "button_close": "Sulje",
         "images": "Kuvat",
         "load_image": "Lataa kuva",
+        "no_images": "Ei kuvia",
         "please_use_correct_format": "Ole hyvä ja lataa kuvatiedosto (png tai jpeg)"
     }
 }

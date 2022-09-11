@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import * as Constants from '../utils/Constants';
 import { onValue, ref } from "firebase/database";
 import { db } from '../firebase-config';
 
-const useFireStore = (collection, objectID) => {
+const useFireStore = (collection, url, objectID) => {
 
     const [docs, setDocs] = useState([]);
     const [counter, setCounter] = useState(0);
@@ -15,17 +14,17 @@ const useFireStore = (collection, objectID) => {
             if (cancel) {
                 return;
             }
-            await fetchImagesFromFirebase();
+            await fetchImagesFromFirebase(url);
         }
         getImages();
 
         return () => {
             cancel = true;
         }
-    }, collection, objectID);
+    }, collection, url, objectID);
 
-    const fetchImagesFromFirebase = async () => {
-        const dbref = await ref(db, `${Constants.DB_RECIPE_IMAGES}/${objectID}`);
+    const fetchImagesFromFirebase = async (url) => {
+        const dbref = await ref(db, `${url}/${objectID}`);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];

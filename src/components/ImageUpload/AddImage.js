@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import * as Constants from '../../utils/Constants';
 import Button from "../Button";
 
-function AddImage({ objectID }) {
+function AddImage({ objectID, imagesUrl }) {
 
     //states
     const [showAddImage, setShowAddImage] = useState(false);
@@ -23,7 +23,7 @@ function AddImage({ objectID }) {
                 onClick={() => setShowAddImage(!showAddImage)} />
             {showAddImage &&
                 <>
-                    <UploadForm objectID={objectID} />
+                    <UploadForm objectID={objectID} imagesUrl={imagesUrl} />
                 </>
             }
         </>
