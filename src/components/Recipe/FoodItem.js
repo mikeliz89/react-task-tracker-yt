@@ -31,7 +31,7 @@ const FoodItem = ({ foodItem, onDelete, onEdit }) => {
 
     return (
 
-        <div className={Constants.TRANSLATION_RECIPE}>
+        <div className='listContainer'>
             <h5>
                 <span>
                     {foodItem.name}

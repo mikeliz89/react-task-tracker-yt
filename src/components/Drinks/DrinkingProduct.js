@@ -31,7 +31,7 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
     }
 
     return (
-        <div className={Constants.TRANSLATION_DRINKS}>
+        <div className='listContainer'>
             <h5>
                 <span>
                     <Icon name='cocktail' color='gray' />
