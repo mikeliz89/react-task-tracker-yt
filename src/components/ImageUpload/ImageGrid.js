@@ -5,7 +5,7 @@ import styles from './imagegrid.module.css';
 import { useTranslation } from "react-i18next";
 import * as Constants from '../../utils/Constants';
 
-const ImageGrid = ({ objectID }) => {
+const ImageGrid = ({ objectID, setSelectedImage }) => {
 
     const { docs } = useFirestore([], objectID);
 
@@ -20,7 +20,8 @@ const ImageGrid = ({ objectID }) => {
             </h4>
             <div className={styles.imgGrid}>
                 {docs && docs.map(doc => (
-                    <div className={styles.imgWrap} key={doc.id}>
+                    <div className={styles.imgWrap} key={doc.id}
+                        onClick={() => setSelectedImage(doc.url)}>
                         <img src={doc.url} alt="uploaded pic" />
                     </div>
                 ))

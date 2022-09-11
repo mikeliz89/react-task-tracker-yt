@@ -33,6 +33,7 @@ import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId
     from '../../datatier/datatier';
 import AddImage from '../ImageUpload/AddImage';
 import ImageGrid from '../ImageUpload/ImageGrid';
+import Modal from '../ImageUpload/Modal';
 
 export default function RecipeDetails() {
 
@@ -45,6 +46,8 @@ export default function RecipeDetails() {
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
     const [incredients, setIncredients] = useState();
     const [workPhases, setWorkPhases] = useState();
+
+    const [selectedImage, setSelectedImage] = useState(null);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -351,7 +354,10 @@ export default function RecipeDetails() {
             </Tabs>
             <hr />
             {
-                <ImageGrid objectID={params.id} />
+                <>
+                    <ImageGrid objectID={params.id} setSelectedImage={setSelectedImage} />
+                    {selectedImage && <Modal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
+                </>
             }
             {
                 recipeHistory != null && recipeHistory.length > 0 ? (
