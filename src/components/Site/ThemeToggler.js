@@ -14,10 +14,13 @@ function ThemeToggler() {
         <div className='btn btn-secondary' onClick={() => {
             toggleTheme();
             const rootElement = document.getElementById("root");
+            const htmlElement = document.documentElement;
             if (theme === 'light') {
                 rootElement.style.backgroundColor = 'black';
+                htmlElement.style.backgroundColor = 'black';
             } else {
                 rootElement.style.backgroundColor = 'white';
+                htmlElement.style.backgroundColor = 'white';
             }
         }}>{t('title')}: {theme}</div>
     )

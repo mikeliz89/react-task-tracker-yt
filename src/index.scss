@@ -279,4 +279,14 @@ form {
     border: 0.2rem solid #535353;
 }
 
+#dark .nav-tabs .nav-link {
+    background-color:rgb(65, 65, 65);
+    color:rgb(209, 209, 209);
+}
+
+#dark .nav-link.active {
+    background-color: rgb(139, 139, 139);
+    color: black;
+}
+
 /* Theme end */
