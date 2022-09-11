@@ -11,7 +11,15 @@ function ThemeToggler() {
     const { toggleTheme, theme } = useTheme();
 
     return (
-        <div className='btn btn-secondary' onClick={() => toggleTheme()}>Teema: {theme}</div>
+        <div className='btn btn-secondary' onClick={() => {
+            toggleTheme();
+            const rootElement = document.getElementById("root");
+            if (theme === 'light') {
+                rootElement.style.backgroundColor = 'black';
+            } else {
+                rootElement.style.backgroundColor = 'white';
+            }
+        }}>{t('title')}: {theme}</div>
     )
 }
 
