@@ -21,7 +21,11 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
 import Counter from '../Counter';
-import { removeFromFirebaseByIdAndSubId, pushToFirebaseChild, pushToFirebase, updateToFirebase, getFromFirebaseByIdAndSubId, getFromFirebaseById } from '../../datatier/datatier';
+import {
+  removeFromFirebaseByIdAndSubId, pushToFirebaseChild, pushToFirebase,
+  updateToFirebase, getFromFirebaseByIdAndSubId, getFromFirebaseById
+} from '../../datatier/datatier';
+import { getPageTitleContent } from '../../utils/ListUtils';
 
 function TaskListDetails() {
 
@@ -249,6 +253,10 @@ function TaskListDetails() {
                       <td>{t('tasks_ready_counter')}</td>
                       <td>{taskReadyCounter}/{taskCounter}</td>
                     </tr>
+                    <tr>
+                      <td>{t('category')}</td>
+                      <td>{t(getPageTitleContent(taskList.listType))}</td>
+                    </tr>
                   </tbody>
                 </Table>
               </Accordion.Body>
@@ -259,7 +267,7 @@ function TaskListDetails() {
 
       <div style={{ marginBottom: '10px' }}>
         <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName='copy' /> &nbsp;
-        <Button onClick={() => markAllTasksDone(params.id)} text={t('mark_all_tasks_done')} iconName='square-check' /> &nbsp;
+        <Button onClick={() => { if (window.confirm(t('mark_all_tasks_done_confirm_message'))) { markAllTasksDone(params.id) } }} text={t('mark_all_tasks_done')} iconName='square-check' /> &nbsp;
         <Button onClick={() => setShowChangeListType(!showChangeListType)} text={t('change_list_type')} iconName='edit' />
       </div>
 
