@@ -4,6 +4,7 @@ import AddGarnish from './AddGarnish';
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
+import RightWrapper from '../RightWrapper';
 
 export const Garnish = ({ garnish, drinkID, onDelete }) => {
 
@@ -23,12 +24,12 @@ export const Garnish = ({ garnish, drinkID, onDelete }) => {
                 </Col>
                 <Col xs={3}>
                     {
-                        <span style={{ float: 'right' }}>
+                        <RightWrapper>
                             <Icon name='edit' className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => onDelete(drinkID, garnish.id)} />
-                        </span>
+                        </RightWrapper>
                     }
                 </Col>
             </Row>

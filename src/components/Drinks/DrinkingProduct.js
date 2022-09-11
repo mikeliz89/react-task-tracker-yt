@@ -6,6 +6,7 @@ import AddDrinkingProduct from './AddDrinkingProduct';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import Icon from '../Icon';
+import RightWrapper from '../RightWrapper';
 
 const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
 
@@ -37,12 +38,12 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
                     <Icon name='cocktail' color='gray' />
                     {drinkingProduct.name}
                 </span>
-                <span style={{ float: 'right' }}>
+                <RightWrapper>
                     <Icon name='edit' className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => editable ? setEditable(false) : setEditable(true)} />
                     <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => { if (window.confirm(t('delete_drinkingproduct_confirm_message'))) { onDelete(drinkingProduct.id); } }} />
-                </span>
+                </RightWrapper>
             </h5>
             <p>{t('drinkingproduct_manufacturer')}: {drinkingProduct.manufacturer}</p>
             <p>{t('drinkingproduct_description')}: {drinkingProduct.description}</p>

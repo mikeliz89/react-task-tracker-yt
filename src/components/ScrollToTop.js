@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import Button from "./Button";
 import * as Constants from '../utils/Constants';
+import RightWrapper from "./RightWrapper";
 
 export default function ScrollToTop() {
 
@@ -34,9 +35,9 @@ export default function ScrollToTop() {
     }, []);
 
     return (
-        <div className="scroll-to-top" style={{ float: 'right' }}>
+        <RightWrapper>
             {isVisible &&
                 <Button onClick={scrollToTop} iconName='arrow-up' text={t('go_to_top')} />}
-        </div>
+        </RightWrapper>
     );
 }

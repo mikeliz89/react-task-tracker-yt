@@ -7,6 +7,7 @@ import * as Constants from '../../utils/Constants';
 import Icon from "../Icon";
 import AddFueling from "./AddFueling";
 import { updateToFirebaseById } from "../../datatier/datatier";
+import RightWrapper from "../RightWrapper";
 
 function CarFueling({ fuelingRow, onDelete }) {
 
@@ -35,13 +36,12 @@ function CarFueling({ fuelingRow, onDelete }) {
                     {t('fuel_price_simple')} {fuelingRow.fuelPricePerLiter} €/L<br />
                     {t('purchase_location')}: {fuelingRow.purchaseLocation}<br />
                     {t('fueler_name')}: {fuelingRow.fuelerName}
-
-                    <span style={{ float: 'right' }}>
+                    <RightWrapper>
                         <Icon name='edit' className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                             onClick={() => editable ? setEditable(false) : setEditable(true)} />
                         <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                             onClick={() => { if (window.confirm(t('delete_fueling_confirm_message'))) { onDelete(fuelingRow.id); } }} />
-                    </span>
+                    </RightWrapper>
                 </Col>
             </Row>
             <Row>

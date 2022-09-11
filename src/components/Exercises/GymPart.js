@@ -5,6 +5,7 @@ import Icon from '../Icon';
 import AddPartsGymForm from './AddPartsGymForm';
 import * as Constants from '../../utils/Constants';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
+import RightWrapper from '../RightWrapper';
 
 function GymPart({ exerciseID, gymPart, onDelete }) {
 
@@ -28,12 +29,12 @@ function GymPart({ exerciseID, gymPart, onDelete }) {
                 </Col>
                 <Col xs={3}>
                     {
-                        <span style={{ float: 'right' }}>
+                        <RightWrapper>
                             <Icon name='edit' className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => { if (window.confirm(t('delete_gympart_confirm_message'))) { onDelete(exerciseID, gymPart.id); } }} />
-                        </span>
+                        </RightWrapper>
                     }
                 </Col>
             </Row>

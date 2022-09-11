@@ -5,6 +5,7 @@ import AddWorkPhase from './AddWorkPhase';
 import Icon from '../Icon';
 import PropTypes from 'prop-types';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
+import RightWrapper from '../RightWrapper';
 
 export default function WorkPhase({ dbUrl, translation, workPhase, recipeID, onDelete }) {
 
@@ -28,12 +29,12 @@ export default function WorkPhase({ dbUrl, translation, workPhase, recipeID, onD
                 </Col>
                 <Col xs={3}>
                     {
-                        <span style={{ float: 'right' }}>
+                        <RightWrapper>
                             <Icon name='edit' className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => onDelete(recipeID, workPhase.id)} />
-                        </span>
+                        </RightWrapper>
                     }
                 </Col>
             </Row>
