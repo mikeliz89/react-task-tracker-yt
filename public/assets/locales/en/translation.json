@@ -318,10 +318,10 @@
         "yes": "Yes"
     },
     "searchsortfilter": {
-        "created_date": "Created at", 
+        "created_date": "Created at",
         "name": "Name",
         "sorting": "Sort by",
-        "search": "Search", 
+        "search": "Search",
         "title": "Title"
     },
     "starrating": {
@@ -369,5 +369,9 @@
         "tasks_ready_counter": "Tasks ready",
         "view_details": "View Details",
         "yes": "Yes"
+    },
+    "uploadimages": {
+        "load_image": "Load image",
+        "please_use_correct_format": "Please select an image file (png or jpeg)"
     }
 }

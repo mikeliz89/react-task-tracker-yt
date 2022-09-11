@@ -29,7 +29,9 @@ import StarRating from '../StarRating/StarRating';
 import RecipeHistories from './RecipeHistories';
 import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
-import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById } from '../../datatier/datatier';
+import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
+    from '../../datatier/datatier';
+import AddImage from '../ImageUpload/AddImage';
 
 export default function RecipeDetails() {
 
@@ -341,6 +343,8 @@ export default function RecipeDetails() {
                             text={t('do_recipe')}
                             onClick={() => { if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); } }}
                         />
+                        &nbsp;
+                        <AddImage />
                     </>
                 </Tab>
             </Tabs>
