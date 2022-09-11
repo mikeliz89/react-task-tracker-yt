@@ -58,7 +58,7 @@ export default function ManageGear() {
     }, [])
 
     const fetchGearsFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_GEAR);
+        const dbref = await ref(db, Constants.DB_BACKPACKING_GEAR);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -79,7 +79,7 @@ export default function ManageGear() {
             clearMessages();
             gear["created"] = getCurrentDateAsJson();
             gear["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_GEAR, gear);
+            pushToFirebase(Constants.DB_BACKPACKING_GEAR, gear);
             setMessage(t('save_success'));
             setShowMessage(true);
         } catch (ex) {
@@ -96,7 +96,7 @@ export default function ManageGear() {
     }
 
     const deleteGear = (id) => {
-        removeFromFirebaseById(Constants.DB_GEAR, id);
+        removeFromFirebaseById(Constants.DB_BACKPACKING_GEAR, id);
     }
 
     return loading ? (

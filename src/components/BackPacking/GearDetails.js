@@ -47,7 +47,7 @@ function GearDetails() {
     }, [])
 
     const fetchGearFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_GEAR}/${params.id}`);
+        const dbref = ref(db, `${Constants.DB_BACKPACKING_GEAR}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
@@ -62,7 +62,7 @@ function GearDetails() {
         const id = params.id;
         gear["modified"] = getCurrentDateAsJson()
         gear["stars"] = Number(stars);
-        updateToFirebaseById(Constants.DB_GEAR, id, gear);
+        updateToFirebaseById(Constants.DB_BACKPACKING_GEAR, id, gear);
     }
 
     const addCommentToGear = (comment) => {
@@ -70,13 +70,13 @@ function GearDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_GEAR_COMMENTS, id, comment);
+        pushToFirebaseChild(Constants.DB_BACKPACKING_GEAR_COMMENTS, id, comment);
     }
 
     const addLinkToGear = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_GEAR_LINKS, id, link);
+        pushToFirebaseChild(Constants.DB_BACKPACKING_GEAR_LINKS, id, link);
     }
 
     return loading ? (

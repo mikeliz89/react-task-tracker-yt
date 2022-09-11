@@ -29,7 +29,7 @@ const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, o
 
     const fetchGearFromFirebase = async (gearMaintenanceInstructionID) => {
 
-        getFromFirebaseById(Constants.DB_GEAR_MAINTENANCE_INSTRUCTIONS, gearMaintenanceInstructionID)
+        getFromFirebaseById(Constants.DB_BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS, gearMaintenanceInstructionID)
             .then((val) => {
                 setCreated(val["created"]);
                 setCreatedBy(val["createdBy"]);

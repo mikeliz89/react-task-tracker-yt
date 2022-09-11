@@ -80,13 +80,13 @@ export default function MovementDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_MOVEMENT_COMMENTS, movementID, comment);
+        pushToFirebaseChild(Constants.DB_EXERCISE_MOVEMENT_COMMENTS, movementID, comment);
     }
 
     const addLinkToMovement = (link) => {
         const movementID = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_MOVEMENT_LINKS, movementID, link);
+        pushToFirebaseChild(Constants.DB_EXERCISE_MOVEMENT_LINKS, movementID, link);
     }
 
     return loading ? (

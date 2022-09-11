@@ -27,7 +27,7 @@ function ManageGearMaintenance() {
             // clearMessages();
             maintenanceInstruction["created"] = getCurrentDateAsJson();
             maintenanceInstruction["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_GEAR_MAINTENANCE_INSTRUCTIONS, maintenanceInstruction);
+            pushToFirebase(Constants.DB_BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS, maintenanceInstruction);
             //setMessage(t('save_success'));
             //setShowMessage(true);
         } catch (ex) {

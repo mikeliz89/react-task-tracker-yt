@@ -44,7 +44,7 @@ const AddGear = ({ gearID, onSave, onClose }) => {
     }
 
     const fetchGearFromFirebase = async (gearID) => {
-        getFromFirebaseById(Constants.DB_GEAR, gearID).then((val) => {
+        getFromFirebaseById(Constants.DB_BACKPACKING_GEAR, gearID).then((val) => {
             setCategory(val["category"]);
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
