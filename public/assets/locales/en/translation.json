@@ -117,9 +117,16 @@
         "buttons": {
             "backpacking": "Backpacking",
             "bmi_calculator": "BMI Calculator",
+            "car": "Car",
             "drinks": "Drinks",
             "exercises": "Exercises",
+            "games": "Games",
+            "links_list": "Links",
+            "movies": "Movies",
+            "music": "Music",
+            "programming": "Programming",
             "recipes": "Recipes",
+            "shoppinglists": "Shopping Lists",
             "tasklists": "Task Lists"
         }
     },
@@ -305,6 +312,7 @@
         "recipe_name": "Recipe Name",
         "recipe_save_exception": "Recipe save encountered an error",
         "recipe_save_successful": "Recipe was saved",
+        "recipehistory_title": "Recipe history",
         "search": "Search",
         "set_isCore": "Core recipe",
         "shopcart_tooltip": "Make shopping list",
@@ -317,14 +325,30 @@
         "workphases_header": "Work Phases",
         "yes": "Yes"
     },
+    "scrolltotop": {
+        "go_to_top": "Go up"
+    },
     "searchsortfilter": {
         "created_date": "Created at",
         "name": "Name",
-        "sorting": "Sort by",
+        "placeholder_name": "Name",
+        "placeholder_description": "Description",
         "search": "Search",
+        "show": "Näytä",
+        "show_only_have_at_home": "Have at home",
+        "show_only_not_have_at_home": "Don't have at home",
+        "show_only_have_rated": "Only rated",
+        "show_only_not_have_rated": "Only non rated",
+        "show_only_core": "Only core",
+        "show_only_ready": "Only ready",
+        "show_only_not_ready": "Only non ready",
+        "sorting": "Sort By",
+        "star_rating": "Rating",
+        "text": "Title",
         "title": "Title"
     },
     "starrating": {
+        "button_close": "Close",
         "rate": "Rate",
         "save_rating": "Save rating",
         "stars": "Stars"
@@ -344,12 +368,14 @@
         "created": "Created",
         "created_by": "Created by",
         "created_date": "Created",
+        "copy_to_clipboard": "Copy",
         "day_and_time": "Day & Time",
         "delete_list_confirm_message": "Delete List?",
         "description": "Description",
         "edit_description": "Edit Description",
         "edit_task_list": "Edit Task List",
         "loading": "Loading...",
+        "manage_shoppinglists_title": "Shopping lists",
         "manage_tasklists_archive_title": "Task List Archive",
         "manage_tasklists_title": "Task Lists",
         "modified": "Modified",
@@ -370,8 +396,15 @@
         "view_details": "View Details",
         "yes": "Yes"
     },
+    "theme": {
+        "title": "Theme"
+    },
     "uploadimages": {
+        "add_image": "Add image",
+        "button_close": "Close",
+        "images": "Images",
         "load_image": "Load image",
+        "no_images": "No images",
         "please_use_correct_format": "Please select an image file (png or jpeg)"
     }
 }

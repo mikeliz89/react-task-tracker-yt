@@ -277,7 +277,7 @@ const SearchSortFilter = ({ onSet,
                                     id="inputSearchString"
                                     aria-describedby="searchHelpBlock"
                                     onChange={(e) => setSearchString(e.target.value)}
-                                    placeholder='nimi'
+                                    placeholder={t('placeholder_name')}
                                 />
                             </Col>
                         </Form.Group>
@@ -295,7 +295,7 @@ const SearchSortFilter = ({ onSet,
                                     id="inputSearchStringDescription"
                                     aria-describedby="searchHelpBlock"
                                     onChange={(e) => setSearchStringDescription(e.target.value)}
-                                    placeholder='kuvaus'
+                                    placeholder={t('placeholder_description')}
                                 />
                             </Col>
                         </Form.Group>

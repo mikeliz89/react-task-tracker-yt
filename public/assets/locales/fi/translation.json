@@ -499,6 +499,8 @@
     "searchsortfilter": {
         "created_date": "Luontipvm",
         "name": "Nimi",
+        "placeholder_name": "Nimi",
+        "placeholder_description": "Kuvaus",
         "search": "Hae",
         "show": "Näytä",
         "show_only_have_at_home": "Minulla on tätä",
