@@ -1,9 +1,8 @@
-
-import Icon from "../Icon";
 import useFirestore from '../../hooks/useFirestore';
 import styles from './imagegrid.module.css';
 import { useTranslation } from "react-i18next";
 import * as Constants from '../../utils/Constants';
+import PageTitle from "../PageTitle";
 
 const ImageGrid = ({ objectID, url, setSelectedImage }) => {
 
@@ -14,10 +13,8 @@ const ImageGrid = ({ objectID, url, setSelectedImage }) => {
 
     return (
         <>
-            <h4>
-                <Icon name='images' />
-                {t('images')}
-            </h4>
+            <PageTitle iconName='images' title={t('images') + (docs.length > 0 ? ' (' + docs.length + ')' : '')} isSubTitle={true} />
+
             <div className={styles.imgGrid}>
                 {docs && docs.map(doc => (
                     <div className={styles.imgWrap} key={doc.id}

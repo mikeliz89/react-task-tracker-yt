@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
 import { ref, onValue, child } from 'firebase/database';
 import CommentsInner from './CommentsInner';
-import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import PageTitle from '../PageTitle';
 
 const Comments = ({ url, objID }) => {
 
@@ -49,10 +49,8 @@ const Comments = ({ url, objID }) => {
     return (
         <div>
             {/* <pre>{JSON.stringify(comments)}</pre> */}
-            <h4>
-                <Icon name='comments' color='gray' />
-                {t('header')} {commentCounter > 0 ? '(' + commentCounter + ')' : ''}
-            </h4>
+            <PageTitle title={t('header') + (commentCounter > 0 ? ' (' + commentCounter + ')' : '')}
+                iconName='comments' iconColor='gray' isSubTitle={true} />
             {
                 comments != null && comments.length > 0 ? (
                     <CommentsInner onDelete={deleteComment} comments={comments} />

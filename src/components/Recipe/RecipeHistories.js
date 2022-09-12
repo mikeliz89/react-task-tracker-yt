@@ -1,9 +1,9 @@
 import RecipeHistory from "./RecipeHistory";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
-import Icon from "../Icon";
 import PropTypes from 'prop-types';
 import { removeFromFirebaseByIdAndSubId } from "../../datatier/datatier";
+import PageTitle from "../PageTitle";
 
 function RecipeHistories({ dbUrl, translation, recipeHistories, recipeID }) {
 
@@ -24,10 +24,9 @@ function RecipeHistories({ dbUrl, translation, recipeHistories, recipeID }) {
 
     return (
         <div>
-            <h4>
-                <Icon name='history' />
-                {t('recipehistory_title')} {counter > 0 ? '(' + counter + ')' : ''}
-            </h4>
+            <PageTitle iconName='history' iconColor='gray'
+                isSubTitle={true}
+                title={t('recipehistory_title') + (counter > 0 ? ' (' + counter + ')' : '')} />
             {recipeHistories.map((recipeHistory) => (
                 <RecipeHistory
                     dbUrl={dbUrl}

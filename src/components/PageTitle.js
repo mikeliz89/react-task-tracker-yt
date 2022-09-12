@@ -1,17 +1,30 @@
 import PropTypes from 'prop-types';
 import Icon from './Icon';
 
-function PageTitle({ title, iconName, iconColor }) {
+function PageTitle({ title, iconName, iconColor, isSubTitle }) {
     return (
-        <h3 className='page-title'>
-            <Icon name={iconName} color={iconColor} />
-            {title}
-        </h3>
+        <>
+            {
+                !isSubTitle &&
+                <h3 className='page-title'>
+                    <Icon name={iconName} color={iconColor} />
+                    {title}
+                </h3>
+            }
+            {
+                isSubTitle &&
+                <h4 className='page-title'>
+                    <Icon name={iconName} color={iconColor} />
+                    {title}
+                </h4>
+            }
+        </>
     )
 }
 
 PageTitle.defaultProps = {
     title: '',
+    isSubTitle: false,
     //Icons
     iconName: '',
     iconColor: ''
@@ -19,6 +32,7 @@ PageTitle.defaultProps = {
 
 PageTitle.propTypes = {
     title: PropTypes.string,
+    isSubTitle: PropTypes.bool,
     //icons
     iconName: PropTypes.string,
     iconColor: PropTypes.string
