@@ -29,7 +29,7 @@ const useStorage = (file, imagesUrl, objectID) => {
             setUrl(url);
             pushToFirebaseById(imagesUrl, objectID, { url: url, created: getCurrentDateAsJson() });
         })
-    }, [file]);
+    }, [file, imagesUrl, objectID]);
 
     return { progress, url, error }
 }
