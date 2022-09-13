@@ -43,6 +43,7 @@
         "created_by": "Luoja",
         "created_date": "Luontipvm",
         "delete_gear_confirm_message": "Oletko varma, että haluat poistaa varusteen?",
+        "failed_to_save_gear": "Varusteen tallennus epäonnistui",
         "gear_category": "Varustekategoria",
         "gear_category_clothing": "Vaate",
         "gear_category_cooking": "Ruuanlaitto",

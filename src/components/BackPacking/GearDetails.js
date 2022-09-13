@@ -19,15 +19,25 @@ import Links from '../Links/Links';
 import { useAuth } from '../../contexts/AuthContext';
 import PageContentWrapper from '../PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import Button from '../Button';
+import AddGear from './AddGear';
+import Alert from '../Alert';
 
 function GearDetails() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
 
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
+
     //states
     const [loading, setLoading] = useState(true);
     const [gear, setGear] = useState({});
+    const [showEdit, setShowEdit] = useState(false);
 
     //params
     const params = useParams();
@@ -65,6 +75,18 @@ function GearDetails() {
         updateToFirebaseById(Constants.DB_BACKPACKING_GEAR, id, gear);
     }
 
+    const updateGear = async (gear) => {
+        try {
+            var gearID = params.id;
+            gear["modified"] = getCurrentDateAsJson();
+            updateToFirebaseById(Constants.DB_BACKPACKING_GEAR, gearID, gear);
+        } catch (error) {
+            setError(t('failed_to_save_gear'));
+            setShowError(true);
+            console.log(error);
+        }
+    }
+
     const addCommentToGear = (comment) => {
         const id = params.id;
         comment["created"] = getCurrentDateAsJson();
@@ -86,6 +108,11 @@ function GearDetails() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
+                    <Button
+                        iconName='edit'
+                        text={showEdit ? t('button_close') : ''}
+                        color={showEdit ? 'red' : 'orange'}
+                        onClick={() => setShowEdit(!showEdit)} />
                 </ButtonGroup>
             </Row>
             <Row>
@@ -130,6 +157,14 @@ function GearDetails() {
                     <StarRating starCount={gear.stars} />
                 </Col>
             </Row>
+
+            <Alert message={message} showMessage={showMessage}
+                error={error} showError={showError}
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+
+            {showEdit &&
+                <AddGear onSave={updateGear} gearID={params.id} onClose={() => setShowEdit(false)} />
+            }
             <Row>
                 <Col>
                     <>
