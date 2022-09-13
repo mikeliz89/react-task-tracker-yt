@@ -27,6 +27,9 @@ const Movement = ({ movement, onDelete }) => {
                     }</span>) : ('')}
             </p>
             <p>
+                {movement.description}
+            </p>
+            <p>
                 <Link className='btn btn-primary' to={`/movement/${movement.id}`}>{t('view_movement_details')}</Link>
             </p>
             <StarRating starCount={movement.stars} />

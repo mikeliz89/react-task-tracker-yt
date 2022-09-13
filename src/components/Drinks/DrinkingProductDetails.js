@@ -114,7 +114,6 @@ export default function DrinkingProductDetails() {
                                 <PageTitle title={drinkingProduct.name} iconName='cocktail' iconColor='gray' />
                             </Accordion.Header>
                             <Accordion.Body>
-                                {t('description')}: {drinkingProduct.description}<br />
                                 <Table striped bordered hover>
                                     <tbody>
                                         <tr>
@@ -138,6 +137,12 @@ export default function DrinkingProductDetails() {
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
+                </Col>
+            </Row>
+
+            <Row>
+                <Col>
+                    {t('description') + ': '}{drinkingProduct.description}
                 </Col>
             </Row>
 

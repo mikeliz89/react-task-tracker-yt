@@ -220,7 +220,6 @@ export default function RecipeDetails() {
                                 <PageTitle title={recipe.title} iconName='utensils' iconColor='gray' />
                             </Accordion.Header>
                             <Accordion.Body>
-                                {t('description')}: {recipe.description}<br />
                                 <Table striped bordered hover>
                                     <tbody>
                                         <tr>
@@ -248,6 +247,11 @@ export default function RecipeDetails() {
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    {t('description' + ': ')}{recipe.description}
                 </Col>
             </Row>
             <Row>

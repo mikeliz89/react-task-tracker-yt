@@ -139,6 +139,11 @@ export default function MovementDetails() {
             </Row>
             <Row>
                 <Col>
+                    {t('description') + ': '}{movement.description}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                     <StarRating starCount={movement.stars} />
                 </Col>
             </Row>

@@ -21,6 +21,7 @@ const AddMovement = ({ movementID, onClose }) => {
     const [created, setCreated] = useState();
     const [createdBy, setCreatedBy] = useState();
     const [stars, setStars] = useState(0);
+    const [description, setDescription] = useState('');
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -52,10 +53,11 @@ const AddMovement = ({ movementID, onClose }) => {
 
     const fetchMovementFromFirebase = async (movementID) => {
         getFromFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, movementID).then((val) => {
-            setName(val["name"]);
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
             setCategory(val["category"]);
+            setDescription(val["description"]);
+            setName(val["name"]);
             setStars(val["stars"]);
         });
     }
@@ -77,7 +79,7 @@ const AddMovement = ({ movementID, onClose }) => {
             return;
         }
 
-        const obj = { name, category, stars };
+        const obj = { name, category, stars, description };
         if (movementID === undefined) {
             addMovement(obj);
         } else {
@@ -131,6 +133,14 @@ const AddMovement = ({ movementID, onClose }) => {
                         placeholder={t('name')}
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addMovementForm-Description">
+                    <Form.Label>{t('description')}</Form.Label>
+                    <Form.Control type='text'
+                        autoComplete="off"
+                        placeholder={t('description')}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)} />
                 </Form.Group>
                 {movementID != undefined &&
                     <Row>

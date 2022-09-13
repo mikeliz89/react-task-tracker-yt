@@ -231,7 +231,6 @@ function TaskListDetails() {
                 <PageTitle title={taskList.title} iconName='list-alt' iconColor='gray' />
               </Accordion.Header>
               <Accordion.Body>
-                {t('description')}: {taskList.description}<br />
                 <Table striped bordered hover>
                   <tbody>
                     <tr>
@@ -259,6 +258,12 @@ function TaskListDetails() {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          {t('description' + ': ')}{taskList.description}
         </Col>
       </Row>
 
