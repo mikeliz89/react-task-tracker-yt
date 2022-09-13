@@ -24,7 +24,7 @@ export function getJsonAsDateTimeString(json, language) {
 export function getDateAndTimeAsDateTimeString(date, time, language) {
 
     let hasNoTime = false;
-    if(time === "") {
+    if (time === "") {
         time = "00:00";
         hasNoTime = true;
     }
@@ -32,7 +32,7 @@ export function getDateAndTimeAsDateTimeString(date, time, language) {
     const jsonDate = date + 'T' + time + ':00.000Z';
     const datePart = getDateString(jsonDate, language);
 
-    if(hasNoTime) {
+    if (hasNoTime) {
         return datePart;
     }
     const timePart = getTimeString(jsonDate, language);

@@ -148,9 +148,6 @@ export default function RecipeDetails() {
         try {
             const recipeID = params.id;
             recipe["modified"] = getCurrentDateAsJson();
-            if (recipe["stars"] === undefined) {
-                recipe["stars"] = 0;
-            }
             if (recipe["isCore"] === undefined) {
                 recipe["isCore"] = false;
             }

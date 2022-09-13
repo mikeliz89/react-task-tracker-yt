@@ -18,26 +18,28 @@ function EditExercise({ exerciseID, exercise, onClose }) {
   const [category, setCategory] = useState('');
   const [error, setError] = useState('');
   const [stars, setStars] = useState(0);
+  const [description, setDescription] = useState('');
 
   //translation
   const { t, ready } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
   useEffect(() => {
     if (exercise != null) {
-      setDate(exercise.date);
-      setTime(exercise.time);
-      setEndDate(exercise.endDate);
-      setEndTime(exercise.endTime);
+      setCategory(exercise.category);
       setCreated(exercise.created);
       setCreatedBy(exercise.createdBy);
-      setCategory(exercise.category);
+      setDate(exercise.date);
+      setDescription(exercise.description);
+      setEndDate(exercise.endDate);
+      setEndTime(exercise.endTime);
       setStars(exercise.stars);
+      setTime(exercise.time);
     }
   }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    saveExercise(exerciseID, { date, time, endDate, endTime, created, createdBy, category, stars });
+    saveExercise(exerciseID, { category, created, createdBy, date, description, endDate, endTime, stars, time });
   }
 
   const saveExercise = async (exerciseID, exercise) => {
@@ -71,6 +73,14 @@ function EditExercise({ exerciseID, exercise, onClose }) {
           <Form.Control type="time" name='time' value={endTime} onChange={(e) => setEndTime(e.target.value)} />
         </Form.Group>
       </Row>
+      <Form.Group className="mb-3" controlId="addDrinkForm-Description">
+        <Form.Label>{t('description')}</Form.Label>
+        <Form.Control type='text'
+          autoComplete="off"
+          placeholder={t('description')}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)} />
+      </Form.Group>
       <Row>
         <ButtonGroup>
           <Button type='button' text={t('close')} className='btn btn-block' onClick={() => onClose()} />

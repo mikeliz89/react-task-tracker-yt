@@ -31,6 +31,9 @@ const Exercise = ({ exercise, onDelete }) => {
                     }</span>) : ('')}
             </p>
             <p>
+                {exercise.description}
+            </p>
+            <p>
                 <Link className='btn btn-primary' to={`${Constants.NAVIGATION_EXERCISE}/${exercise.id}`}>{t('view_details')}</Link>
             </p>
             <StarRating starCount={exercise.stars} />

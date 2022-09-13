@@ -18,31 +18,45 @@ export const removeFromFirebaseChild = async (path, id) => {
 
 export const pushToFirebase = async (path, object) => {
     const dbref = ref(db, path);
+    fixObject(object);
     return push(dbref, object).key;
 }
 
 export const pushToFirebaseById = async (path, id, object) => {
     const dbref = ref(db, `${path}/${id}`);
+    fixObject(object);
     return push(dbref, object).key;
 }
 
 export const pushToFirebaseChild = async (path, id, object) => {
     const dbref = child(ref(db, path), id);
+    fixObject(object);
     return push(dbref, object).key;
 }
 
-export const updateToFirebase = async (updates) => {
-    update(ref(db), updates);
+export const updateToFirebase = async (object) => {
+    fixObject(object);
+    update(ref(db), object);
 }
 
 export const updateToFirebaseById = async (path, id, object) => {
     const updates = {};
+    fixObject(object);
     updates[`${path}/${id}`] = object;
     update(ref(db), updates);
 }
 
+const fixObject = (obj) => {
+    for (var i in obj) {
+        if (obj[i] === undefined) {
+            obj[i] = null;
+        }
+    }
+}
+
 export const updateToFirebaseByIdAndSubId = async (path, mainID, subID, object) => {
     const updates = {};
+    fixObject(object);
     updates[`${path}/${mainID}/${subID}`] = object;
     update(ref(db), updates);
 }

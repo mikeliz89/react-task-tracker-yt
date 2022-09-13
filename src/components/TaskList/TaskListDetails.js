@@ -149,9 +149,6 @@ function TaskListDetails() {
     if (taskList["listType"] === undefined || taskList["listType"] === 0) {
       delete taskList["listType"];
     }
-    if (taskList["description"] === undefined) {
-      taskList["description"] = "";
-    }
     taskList["modified"] = getCurrentDateAsJson();
     const updates = {};
     updates[`${Constants.DB_TASKLISTS}/${taskListID}`] = taskList;

@@ -160,13 +160,23 @@ const ExerciseDetails = () => {
                     <AddLink onSaveLink={addLinkToExercise} />
                 </>
 
-                <Row>
-                    <Col>
-                        {t('date_and_time')}: {exercise.date} {exercise.time} <br />
-                        {t('end_date')}: {exercise.endDate} {exercise.endTime} <br />
-                        {t('duration')} : {t('coming_soon')}<br />
-                    </Col>
-                </Row>
+                <Table>
+                    <tbody>
+                        <tr>
+                            <td>{t('date_and_time')}: {exercise.date} {exercise.time} </td>
+                        </tr>
+                        <tr>
+                            <td>{t('end_date')}: {exercise.endDate} {exercise.endTime}</td>
+                        </tr>
+                        <tr>
+                            <td>{t('duration')} : {t('coming_soon')}</td>
+                        </tr>
+                        <tr>
+                            <td>{t('description')} : {exercise.description}</td>
+                        </tr>
+                    </tbody>
+                </Table>
+
                 {
                     Number(exercise.category) === Categories.Gym &&
                     <AddPartsGym />
@@ -188,7 +198,7 @@ const ExerciseDetails = () => {
                 }
                 <Comments objID={params.id} url={'exercise-comments'} />
                 <Links objID={params.id} url={'exercise-links'} />
-            </PageContentWrapper>
+            </PageContentWrapper >
         )
     )
 }

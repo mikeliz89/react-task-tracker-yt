@@ -147,12 +147,6 @@ export default function DrinkDetails() {
             if (drink["isCore"] === undefined) {
                 drink["isCore"] = false;
             }
-            if (drink["glass"] === undefined) {
-                drink["glass"] = '';
-            }
-            if (drink["stars"] === undefined) {
-                drink["stars"] = 0;
-            }
             updateToFirebaseById(Constants.DB_DRINKS, drinkID, drink);
         } catch (error) {
             setError(t('failed_to_save_drink'));

@@ -280,6 +280,7 @@
         "date_and_time": "Ajankohta",
         "delete_exercise_confirm_message": "Oletko varma?",
         "delete_gympart_confirm_message": "Oletko varma, että haluat poistaa liikkeen harjoituksesta?",
+        "description": "Kuvaus",
         "distance": "Matka (km)",
         "duration": "Kesto",
         "edit_movement": "Muokkaa liikettä",

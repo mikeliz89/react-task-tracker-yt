@@ -60,9 +60,6 @@ const ManageDrinkingProducts = () => {
         try {
             drinkingProduct["created"] = getCurrentDateAsJson();
             drinkingProduct["createdBy"] = currentUser.email;
-            if (drinkingProduct["abv"] === undefined) {
-                drinkingProduct["abv"] = 0;
-            }
             pushToFirebase(Constants.DB_DRINKINGPRODUCTS, drinkingProduct);
             setMessage(t('drinkingproduct_save_successful'));
             setShowMessage(true);
@@ -78,10 +75,6 @@ const ManageDrinkingProducts = () => {
 
     const editDrinkingProduct = (drinkingProduct) => {
         const id = drinkingProduct.id;
-        //save
-        if (drinkingProduct["abv"] === undefined) {
-            drinkingProduct["abv"] = 0;
-        }
         updateToFirebaseById(Constants.DB_DRINKINGPRODUCTS, id, drinkingProduct);
     }
 
