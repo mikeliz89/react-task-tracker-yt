@@ -551,7 +551,6 @@
         "created_by": "Luoja",
         "created_date": "Luontipvm",
         "copy_to_clipboard": "Kopioi",
-        "day_and_time": "Päivä ja aika",
         "delete_list_confirm_message": "Poista lista?",
         "description": "Kuvaus",
         "edit_description": "Muokkaa kuvausta",
@@ -585,6 +584,7 @@
         "task_list": "Listan nimi",
         "task_name": "Tehtävän nimi",
         "task_ready": "Tehtävä valmis",
+        "task_text": "Teksti",
         "tasks_ready_counter": "Tehtäviä valmiina",
         "view_details": "Katso lisätiedot",
         "yes": "Kyllä"

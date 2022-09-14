@@ -453,7 +453,7 @@
         "created_by": "Created by",
         "created_date": "Created",
         "copy_to_clipboard": "Copy",
-        "day_and_time": "Day & Time",
+        
         "delete_list_confirm_message": "Delete List?",
         "description": "Description",
         "edit_description": "Edit Description",
@@ -478,6 +478,7 @@
         "task_list": "Task List",
         "task_name": "Task",
         "task_ready": "Task ready",
+        "task_text": "Text",
         "tasks_ready_counter": "Tasks ready",
         "view_details": "View Details",
         "yes": "Yes"

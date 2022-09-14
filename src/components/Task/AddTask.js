@@ -70,11 +70,11 @@ const AddTask = ({ taskID, taskListID, onSave, onClose }) => {
                     onChange={(e) => setText(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addTaskFormDayAndTime">
-                <Form.Label>{t('day_and_time')}</Form.Label>
+                <Form.Label>{t('task_text')}</Form.Label>
                 <Form.Control
                     autoComplete="off"
                     type='text'
-                    placeholder={t('day_and_time')}
+                    placeholder={t('task_text')}
                     value={day}
                     onChange={(e) => setDay(e.target.value)} />
             </Form.Group>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ButtonGroup, Row } from 'react-bootstrap';
+import { ButtonGroup, Row, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
@@ -94,14 +94,24 @@ function TaskDetails() {
       </Row>
       <div className={task.reminder === true ? 'listContainer reminder' : ''}>
         <PageTitle title={task.text} />
-        <p>{t('day_and_time')}: {task.day}</p>
+        <p>{t('task_text')}: {task.day}</p>
         {showEditTask && <AddTask onClose={() => setShowEditTask(false)} onSave={updateTask} taskID={params.id} taskListID={params.tasklistid} />}
-        <p>
-          {t('created')}: {getJsonAsDateTimeString(task.created, i18n.language)}<br />
-          {t('created_by')}: {task.createdBy}<br />
-          {t('modified')}: {getJsonAsDateTimeString(task.modified, i18n.language)}
-        </p>
-        <p>{t('set_reminder')}: {task.reminder === true ? t('yes') : t('no')}</p>
+        <Table>
+          <tbody>
+            <tr>
+              <td>{t('created')}: {getJsonAsDateTimeString(task.created, i18n.language)}</td>
+            </tr>
+            <tr>
+              <td>{t('created_by')}: {task.createdBy}</td>
+            </tr>
+            <tr>
+              <td>{t('modified')}: {getJsonAsDateTimeString(task.modified, i18n.language)}</td>
+            </tr>
+            <tr>
+              <td>{t('set_reminder')}: {task.reminder === true ? t('yes') : t('no')}</td>
+            </tr>
+          </tbody>
+        </Table>
       </div>
       <AddComment onSave={addCommentToTask} />
       <AddLink onSaveLink={addLinkToTask} />
