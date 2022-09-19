@@ -17,6 +17,7 @@ export const DB_DRINK_HISTORY = '/drinkhistory';
 export const DB_DRINKINGPRODUCTS = '/drinkingproducts';
 export const DB_DRINKINGPRODUCT_COMMENTS = '/drinkingproduct-comments';
 export const DB_DRINKINGPRODUCT_LINKS = '/drinkingproduct-links';
+export const DB_DRINKINGPRODUCT_IMAGES = '/drinkingproduct-images';
 export const DB_EXERCISES = '/exercises';
 export const DB_EXERCISE_COMMENTS = '/exercise-comments';
 export const DB_EXERCISE_LINKS = '/exercise-links';
