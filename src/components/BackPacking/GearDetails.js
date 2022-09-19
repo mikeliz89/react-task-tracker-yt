@@ -22,6 +22,9 @@ import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datati
 import Button from '../Button';
 import AddGear from './AddGear';
 import Alert from '../Alert';
+import ImageGrid from '../ImageUpload/ImageGrid';
+import Modal from '../ImageUpload/Modal';
+import AddImage from '../ImageUpload/AddImage';
 
 function GearDetails() {
 
@@ -38,6 +41,7 @@ function GearDetails() {
     const [loading, setLoading] = useState(true);
     const [gear, setGear] = useState({});
     const [showEdit, setShowEdit] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     //params
     const params = useParams();
@@ -173,10 +177,18 @@ function GearDetails() {
                         <AddComment onSave={addCommentToGear} />
                         &nbsp;
                         <AddLink onSaveLink={addLinkToGear} />
+                        &nbsp;
+                        <AddImage objectID={params.id} imagesUrl={Constants.DB_BACKPACKING_GEAR_IMAGES} />
                     </>
                 </Col>
             </Row>
             <hr />
+            {
+                <>
+                    <ImageGrid url={Constants.DB_BACKPACKING_GEAR_IMAGES} objectID={params.id} setSelectedImage={setSelectedImage} />
+                    {selectedImage && <Modal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
+                </>
+            }
             <Comments objID={params.id} url={'backpacking-gear-comments'} />
             <Links objID={params.id} url={'backpacking-gear-links'} />
         </PageContentWrapper>

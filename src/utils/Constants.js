@@ -2,6 +2,7 @@
 export const DB_BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS = '/backpacking-gear-maintenance-instructions';
 export const DB_BACKPACKING_GEAR = '/backpacking-gear';
 export const DB_BACKPACKING_GEAR_COMMENTS = '/backpacking-gear-comments';
+export const DB_BACKPACKING_GEAR_IMAGES = '/backpacking-gear-images';
 export const DB_BACKPACKING_GEAR_LINKS = '/backpacking-gear-links';
 export const DB_CAR_FUELING = '/car-fueling';
 export const DB_CAR_INFO = '/car-info';
