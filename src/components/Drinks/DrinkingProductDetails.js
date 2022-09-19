@@ -115,7 +115,8 @@ export default function DrinkingProductDetails() {
                     <Accordion>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>
-                                <PageTitle title={drinkingProduct.name} iconName='cocktail' iconColor='gray' />
+                                <PageTitle title={drinkingProduct.name + (drinkingProduct.abv > 0 ? ' (' + drinkingProduct.abv + '%)' : '')}
+                                    iconName='cocktail' iconColor='gray' />
                             </Accordion.Header>
                             <Accordion.Body>
                                 <Table striped bordered hover>
@@ -135,6 +136,10 @@ export default function DrinkingProductDetails() {
                                         <tr>
                                             <td>{t('category')}</td>
                                             <td>{t('drinkingproduct_category_' + getDrinkingProductCategoryNameByID(drinkingProduct.category))}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{t('drinkingproduct_amount')}</td>
+                                            <td>{drinkingProduct.amount}</td>
                                         </tr>
                                     </tbody>
                                 </Table>
