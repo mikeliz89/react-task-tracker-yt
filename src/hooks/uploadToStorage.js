@@ -5,14 +5,14 @@ import { pushToFirebaseById } from "../datatier/datatier";
 import { getCurrentDateAsJson } from "../utils/DateTimeUtils";
 
 //based on tutorial https://www.youtube.com/watch?v=vUe91uOx7R0
-const useStorage = (file, imagesUrl, objectID) => {
+const UploadToStorage = (file, imagesUrl, objectID) => {
 
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState(0);
     const [url, setUrl] = useState(null);
 
     //do everytime file changes
-    useEffect(() => {
+    useEffect(() => { 
         //references
         const storageRef = ref(storage, file.name);
 
@@ -34,4 +34,4 @@ const useStorage = (file, imagesUrl, objectID) => {
     return { progress, url, error }
 }
 
-export default useStorage;
+export default UploadToStorage;
