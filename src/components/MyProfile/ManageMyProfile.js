@@ -12,6 +12,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 import { updateToFirebaseById } from '../../datatier/datatier';
+import Modal from '../ImageUpload/Modal';
 
 export default function ManageMyProfile() {
 
@@ -31,6 +32,7 @@ export default function ManageMyProfile() {
     const [photoUrl, setPhotoUrl] = useState(defaultPhotoUrl);
     const [photo, setPhoto] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [selectedImage, setSelectedImage] = useState(null);
     //alert
     const [showMessage, setShowMessage] = useState(false);
     const [message, setMessage] = useState('');
@@ -121,7 +123,10 @@ export default function ManageMyProfile() {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             {/* <p>PhotoUrl: {photoUrl}</p> */}
-            <img src={photoUrl} alt='avatar' className='avatar' />
+            <img src={photoUrl} alt='avatar' className='avatar' onClick={() => setSelectedImage(photoUrl)} />
+
+            {selectedImage && <Modal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
+
             <Form onSubmit={onSubmit}>
                 <Form.Group>
                     <Form.Control type="file" onChange={handleChange} />
