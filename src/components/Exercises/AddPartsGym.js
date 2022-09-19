@@ -67,7 +67,7 @@ const AddPartsGym = () => {
         (
           <div>
             <GymParts exerciseID={params.id} parts={parts} />
-            <Button text='Kopioi viimeisin' onClick={copyLast} />
+            <Button text={t('copy_last')} onClick={copyLast} />
           </div>
         ) :
         (
