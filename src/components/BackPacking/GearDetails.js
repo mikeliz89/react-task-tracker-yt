@@ -158,6 +158,11 @@ function GearDetails() {
             </Row>
             <Row>
                 <Col>
+                    {gear.description}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                     <StarRating starCount={gear.stars} />
                 </Col>
             </Row>

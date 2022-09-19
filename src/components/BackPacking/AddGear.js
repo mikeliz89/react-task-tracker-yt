@@ -19,6 +19,7 @@ const AddGear = ({ gearID, onSave, onClose }) => {
     const [name, setName] = useState('');
     const [weightInGrams, setWeightInGrams] = useState(0);
     const [stars, setStars] = useState(0);
+    const [description, setDescription] = useState('');
 
     //load data
     useEffect(() => {
@@ -48,6 +49,7 @@ const AddGear = ({ gearID, onSave, onClose }) => {
             setCategory(val["category"]);
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
+            setDescription(val["description"]);
             setName(val["name"]);
             setWeightInGrams(val["weightInGrams"]);
             setStars(val["stars"]);
@@ -63,7 +65,7 @@ const AddGear = ({ gearID, onSave, onClose }) => {
             return;
         }
 
-        onSave({ created, createdBy, name, category, weightInGrams, stars });
+        onSave({ created, createdBy, description, name, category, weightInGrams, stars });
 
         if (gearID == null) {
             clearForm();
@@ -71,8 +73,9 @@ const AddGear = ({ gearID, onSave, onClose }) => {
     }
 
     const clearForm = () => {
-        setName('');
         setCategory('');
+        setDescription('');
+        setName('');
         setWeightInGrams(0);
     }
 
@@ -83,9 +86,17 @@ const AddGear = ({ gearID, onSave, onClose }) => {
                     <Form.Label>{t('gear_name')}</Form.Label>
                     <Form.Control type='text'
                         autoComplete="off"
-                        placeholder={gearID == null ? t('gear_name') : t('gear_name')}
+                        placeholder={t('gear_name')}
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addGearForm-Name">
+                    <Form.Label>{t('gear_description')}</Form.Label>
+                    <Form.Control type='text'
+                        autoComplete="off"
+                        placeholder={t('gear_description')}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addGearForm-WeightInGrams">
                     <Form.Label>{t('gear_weight_in_grams')}</Form.Label>
