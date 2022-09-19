@@ -1,10 +1,10 @@
-import uploadToStorage from "../../hooks/uploadToStorage";
+import useUploadToStorage from "../../hooks/useUploadToStorage";
 import { useEffect } from "react";
 import styles from './progressbar.module.css';
 
 function ProgressBar({ file, setFile, objectID, imagesUrl }) {
 
-  const { url, progress } = uploadToStorage(file, imagesUrl, objectID);
+  const { url, progress } = useUploadToStorage(file, imagesUrl, objectID);
 
   //for debugging
   //console.log(progress, url);

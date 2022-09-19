@@ -596,6 +596,7 @@
     "uploadimages": {
         "add_image": "Lisää kuva",
         "button_close": "Sulje",
+        "delete_image_confirm_message": "Haluatko varmasti poistaa tämän kuvan?",
         "images": "Kuvat",
         "load_image": "Lataa kuva",
         "no_images": "Ei kuvia",

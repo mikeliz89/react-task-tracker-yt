@@ -5,7 +5,7 @@ import { pushToFirebaseById } from "../datatier/datatier";
 import { getCurrentDateAsJson } from "../utils/DateTimeUtils";
 
 //based on tutorial https://www.youtube.com/watch?v=vUe91uOx7R0
-const UploadToStorage = (file, imagesUrl, objectID) => {
+const useUploadToStorage = (file, imagesUrl, objectID) => {
 
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState(0);
@@ -34,4 +34,4 @@ const UploadToStorage = (file, imagesUrl, objectID) => {
     return { progress, url, error }
 }
 
-export default UploadToStorage;
+export default useUploadToStorage;
