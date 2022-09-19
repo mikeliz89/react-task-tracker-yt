@@ -138,5 +138,10 @@ export const DrinkingProductCategories = [
         //shampanja
         "id": 16,
         "name": "champagne"
+    },
+    {
+        //absintti
+        "id": 17,
+        "name": "absinthe"
     }
 ]

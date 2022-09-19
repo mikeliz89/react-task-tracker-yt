@@ -36,7 +36,7 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
             <h5>
                 <span>
                     <Icon name='cocktail' color='gray' />
-                    {drinkingProduct.name}
+                    {drinkingProduct.name + (drinkingProduct.abv > 0 ? ' (' + drinkingProduct.abv + '%)' : '')}
                 </span>
                 <RightWrapper>
                     <Icon name='edit' className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
