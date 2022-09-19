@@ -22,6 +22,9 @@ import Alert from '../Alert';
 import AddMovement from './AddMovement';
 import PageContentWrapper from '../PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import AddImage from '../ImageUpload/AddImage';
+import ImageGrid from '../ImageUpload/ImageGrid';
+import Modal from '../ImageUpload/Modal';
 
 export default function MovementDetails() {
 
@@ -29,6 +32,7 @@ export default function MovementDetails() {
     const [loading, setLoading] = useState(true);
     const [movement, setMovement] = useState({});
     const [showEditMovement, setShowEditMovement] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -161,7 +165,17 @@ export default function MovementDetails() {
                 <AddComment onSave={addCommentToMovement} />
                 &nbsp;
                 <AddLink onSaveLink={addLinkToMovement} />
+                &nbsp;
+                <AddImage objectID={params.id} imagesUrl={Constants.DB_EXERCISE_MOVEMENT_IMAGES} />
             </>
+
+            <hr />
+            {
+                <>
+                    <ImageGrid url={Constants.DB_EXERCISE_MOVEMENT_IMAGES} objectID={params.id} setSelectedImage={setSelectedImage} />
+                    {selectedImage && <Modal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
+                </>
+            }
 
             <Comments objID={params.id} url={'exercise-movement-comments'} />
             <Links objID={params.id} url={'exercise-movement-links'} />

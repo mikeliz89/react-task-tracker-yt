@@ -23,6 +23,7 @@ export const DB_EXERCISE_COMMENTS = '/exercise-comments';
 export const DB_EXERCISE_LINKS = '/exercise-links';
 export const DB_EXERCISE_MOVEMENTS = '/exercise-movements';
 export const DB_EXERCISE_MOVEMENT_COMMENTS = '/exercise-movement-comments';
+export const DB_EXERCISE_MOVEMENT_IMAGES = '/exercise-movement-images';
 export const DB_EXERCISE_MOVEMENT_LINKS = '/exercise-movement-links';
 export const DB_EXERCISE_PARTS = '/exercise-parts';
 export const DB_FOODITEMS = '/fooditems';
