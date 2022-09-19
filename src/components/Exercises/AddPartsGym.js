@@ -46,6 +46,12 @@ const AddPartsGym = () => {
     pushToFirebaseChild(Constants.DB_EXERCISE_PARTS, exerciseID, part);
   }
 
+  const copyLast = () => {
+    const lastPart = parts[parts.length - 1];
+    delete (lastPart["id"]);
+    addPart(params.id, lastPart);
+  }
+
   return (
     <div>
       <PageTitle title={t('title_gym')} iconName='dumbbell' />
@@ -58,8 +64,15 @@ const AddPartsGym = () => {
         <AddPartsGymForm exerciseID={params.id} onSave={addPart} onClose={() => setShowAddGymPart(false)} />
       }
       {parts != null && parts.length > 0 ?
-        (<div><GymParts exerciseID={params.id} parts={parts} /></div>) :
-        (<div>{t('gym_no_parts')} </div>)
+        (
+          <div>
+            <GymParts exerciseID={params.id} parts={parts} />
+            <Button text='Kopioi viimeisin' onClick={copyLast} />
+          </div>
+        ) :
+        (
+          <div>{t('gym_no_parts')} </div>
+        )
       }
     </div>
   )
