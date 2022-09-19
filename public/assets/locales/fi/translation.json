@@ -106,6 +106,7 @@
         "failed_to_add_fueling": "Tankkauksen tallennus epäonnistui",
         "fuel_price": "Bensan hinta €/L",
         "fuel_price_simple": "Bensan hinta",
+        "fuel_price_chart": "Bensan hinnan kehitys",
         "fuelings": "Tankkaukset",
         "fueler_name": "Tankkaaja",
         "last_modified": "Muokattu viimeksi",

@@ -86,16 +86,20 @@ export default function Car() {
                 error={error} showError={showError}
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-            <Button
-                color={showAddInfo ? 'red' : 'steelblue'}
-                onClick={() => setShowAddInfo(!showAddInfo)}
-                text={showAddInfo ? t('button_close') : t('add_info')}
-                iconName={'car'} />
-            <Button
-                color={showAddFueling ? 'red' : 'steelblue'}
-                onClick={() => setShowAddFueling(!showAddFueling)}
-                text={showAddFueling ? t('button_close') : t('add_fueling')}
-                iconName={'gas-pump'} />
+            <>
+                <Button
+                    color={showAddInfo ? 'red' : 'steelblue'}
+                    onClick={() => setShowAddInfo(!showAddInfo)}
+                    text={showAddInfo ? t('button_close') : t('add_info')}
+                    iconName={'car'} />
+                &nbsp;
+                <Button
+                    color={showAddFueling ? 'red' : 'steelblue'}
+                    onClick={() => setShowAddFueling(!showAddFueling)}
+                    text={showAddFueling ? t('button_close') : t('add_fueling')}
+                    iconName={'gas-pump'} />
+            </>
+
             {/* Info Start */}
             {
                 showAddInfo ?
