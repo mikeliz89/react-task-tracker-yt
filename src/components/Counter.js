@@ -1,10 +1,9 @@
-import { useState } from "react";
 import CenterWrapper from "./CenterWrapper";
 
 function Counter({ counter, list, originalList }) {
 
     const getCounterText = () => {
-        if (originalList === undefined) {
+        if (originalList === undefined || originalList === null) {
             return;
         }
         return list.length < originalList.length ? list.length + '/' + counter : counter + '';
