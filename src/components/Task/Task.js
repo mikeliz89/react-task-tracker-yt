@@ -2,23 +2,40 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
+import RightWrapper from '../RightWrapper';
+import { useState } from 'react';
+import AddTask from './AddTask';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 const Task = ({ taskListID, archived, task, onDelete, onToggle }) => {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
+    //states
+    const [editable, setEditable] = useState(false);
+
+    const updateTask = (updateTaskListID, object) => {
+        object["modified"] = getCurrentDateAsJson();
+        updateToFirebaseByIdAndSubId(Constants.DB_TASKS, updateTaskListID, task.id, object);
+        setEditable(false);
+    }
+
     return (
         <div
             onDoubleClick={() => archived ? null : onToggle(taskListID, task.id)}
             className={`listContainer clickable ${task.reminder ? 'reminder' : ''}`}>
             <h5>
-                - {task.text}
+                {task.text}
                 {archived ? null :
-                    <> <Icon name='times' className="deleteBtn"
-                        style={{ color: 'red', cursor: 'pointer', fontSize: '1.4em' }}
-                        onClick={() => onDelete(taskListID, task.id)} />
-                    </>
+                    <RightWrapper>
+                        <Icon name='edit' className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
+                            onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                        <Icon name='times' className="deleteBtn"
+                            style={{ color: 'red', cursor: 'pointer', fontSize: '1.4em' }}
+                            onClick={() => onDelete(taskListID, task.id)} />
+                    </RightWrapper>
                 }
             </h5>
             <p>{task.day}</p>
@@ -30,6 +47,15 @@ const Task = ({ taskListID, archived, task, onDelete, onToggle }) => {
                         </p>
                     </>
             }
+
+            {
+                editable && <AddTask
+                    taskID={task.id}
+                    taskListID={taskListID}
+                    onClose={() => setEditable(false)}
+                    onSave={updateTask} />
+            }
+
         </div>
     )
 }
