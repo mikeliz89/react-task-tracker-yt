@@ -38,6 +38,7 @@ export const DB_RECIPE_WORKPHASES = '/recipe-workphases';
 export const DB_RECIPE_HISTORY = '/recipehistory';
 export const DB_TASKLIST_ARCHIVE = '/tasklist-archive';
 export const DB_TASKLIST_ARCHIVE_TASKS = '/tasklist-archive-tasks';
+export const DB_TASKLIST_COMMENTS = '/tasklist-comments';
 export const DB_TASKLIST_LINKS = '/tasklist-links';
 export const DB_TASKLISTS = '/tasklists';
 export const DB_TASKS = '/tasks';

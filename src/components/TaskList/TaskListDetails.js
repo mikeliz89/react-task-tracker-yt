@@ -25,6 +25,7 @@ import {
 } from '../../datatier/datatier';
 import { getPageTitleContent } from '../../utils/ListUtils';
 import LinkComponent from '../Links/LinkComponent';
+import CommentComponent from '../Comments/CommentComponent';
 
 function TaskListDetails() {
 
@@ -179,6 +180,14 @@ function TaskListDetails() {
     });
   }
 
+  const addCommentToTaskList = async (comment) => {
+    const taskListID = params.id;
+    comment["created"] = getCurrentDateAsJson()
+    comment["createdBy"] = currentUser.email;
+    comment["creatorUserID"] = currentUser.uid;
+    pushToFirebaseChild(Constants.DB_TASKLIST_COMMENTS, taskListID, comment);
+  }
+
   const addLinkToTaskList = (link) => {
     const taskListID = params.id;
     link["created"] = getCurrentDateAsJson();
@@ -321,6 +330,9 @@ function TaskListDetails() {
         </Tab>
         <Tab eventKey="links" title={t('tabheader_links')}>
           <LinkComponent objID={params.id} url={Constants.DB_TASKLIST_LINKS} onSaveLink={addLinkToTaskList} />
+        </Tab>
+        <Tab eventKey="comments" title={t('tabheader_comments')}>
+          <CommentComponent objID={params.id} url={Constants.DB_TASKLIST_COMMENTS} onSave={addCommentToTaskList} />
         </Tab>
         <Tab eventKey="actions" title={t('tabheader_actions')}>
           <div style={{ marginBottom: '10px' }}>
