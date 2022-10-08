@@ -261,8 +261,9 @@ export default function RecipeDetails() {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             {/* <pre>{JSON.stringify(recipe)}</pre> */}
-            {showEditRecipe && <AddRecipe
-                onClose={() => setShowEditRecipe(false)} onAddRecipe={addRecipe} recipeID={params.id} />}
+            {showEditRecipe &&
+                <AddRecipe
+                    onClose={() => setShowEditRecipe(false)} onSave={addRecipe} recipeID={params.id} />}
 
             <Tabs defaultActiveKey="home"
                 id="recipeDetails-Tab"

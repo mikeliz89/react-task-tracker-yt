@@ -22,7 +22,7 @@ export default function ManageBackPacking() {
             </Link>
             &nbsp;
             <Link to={Constants.NAVIGATION_MANAGE_BACKPACKINGLISTS} className='btn btn-primary'>
-                <Icon name='list-alt' color='white' />
+                <Icon name={Constants.ICON_LIST_ALT} color='white' />
                 {t('button_manage_backpacking_lists')}
             </Link>
         </PageContentWrapper>

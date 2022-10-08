@@ -16,7 +16,7 @@ const Movement = ({ movement, onDelete }) => {
                 <span>
                     {movement.name}
                 </span>
-                <Icon className='deleteBtn' name='times' color='red' fontSize='1.2em' cursor='pointer'
+                <Icon className='deleteBtn' name={Constants.ICON_DELETE} color='red' fontSize='1.2em' cursor='pointer'
                     onClick={() => { if (window.confirm(t('delete_exercise_confirm_message'))) { onDelete(movement.id); } }} />
 
             </h5>

@@ -122,7 +122,7 @@ export default function ManageDrinks() {
                 </Link>
                 &nbsp;
                 <Link to={Constants.NAVIGATION_MANAGE_DRINKLISTS} className='btn btn-primary'>
-                    <Icon name='list-alt' color='white' />
+                    <Icon name={Constants.ICON_LIST_ALT} color='white' />
                     {t('button_drinklists')}
                 </Link>
             </div>

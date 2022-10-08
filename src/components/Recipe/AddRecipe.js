@@ -6,7 +6,7 @@ import { RecipeCategories } from './Categories';
 import * as Constants from '../../utils/Constants';
 import { getFromFirebaseById } from '../../datatier/datatier';
 
-const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
+const AddRecipe = ({ recipeID, onSave, onClose }) => {
 
    //translation
    const { t } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
@@ -64,7 +64,7 @@ const AddRecipe = ({ recipeID, onAddRecipe, onClose }) => {
          return
       }
 
-      onAddRecipe({ created, createdBy, title, description, category, isCore, stars });
+      onSave({ created, createdBy, title, description, category, isCore, stars });
 
       if (recipeID == null) {
          clearForm();

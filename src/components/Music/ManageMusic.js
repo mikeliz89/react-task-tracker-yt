@@ -16,7 +16,7 @@ export default function ManageMusic() {
             <GoBackButton />
             <PageTitle title={t('music_title')} />
             <Link to={Constants.NAVIGATION_MANAGE_MUSICLISTS} className='btn btn-primary'>
-                <Icon name='list-alt' color='white' />
+                <Icon name={Constants.ICON_LIST_ALT} color='white' />
                 {t('button_music_lists')}
             </Link>
         </PageContentWrapper>

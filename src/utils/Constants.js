@@ -46,6 +46,18 @@ export const DB_TASK_COMMENTS = '/task-comments';
 export const DB_TASK_LINKS = '/task-links';
 export const DB_WEIGHT_HISTORY = '/weighthistory';
 
+//ICONS
+export const ICON_CHECK_SQUARE = 'check-square';
+export const ICON_DELETE = 'times';
+export const ICON_EDIT = 'edit';
+export const ICON_FISH = 'fish';
+export const ICON_GLASS_MARTINI = 'glass-martini';
+export const ICON_LIST_ALT = 'list-alt';
+export const ICON_HAMBURGER = 'hamburger';
+export const ICON_PIZZA = 'pizza-slice';
+export const ICON_UTENSILS = 'utensils';
+export const ICON_WEIGHT = 'weight';
+
 //NAVIGATION
 export const NAVIGATION_ABOUT = '/about';
 export const NAVIGATION_BMICALCULATOR = '/bmicalculator';

@@ -30,7 +30,7 @@ const ImageGrid = ({ objectID, url, setSelectedImage }) => {
                         </div>
                         <Card.Body>
                             <RightWrapper>
-                                <Button iconName='times' color='red' text='Poista' onClick={() => {
+                                <Button iconName={Constants.ICON_DELETE} color='red' text='Poista' onClick={() => {
                                     if (window.confirm(t('delete_image_confirm_message'))) { setDeleted(doc.url); }
                                 }} />
                                 {(deleted === doc.url && deleted != null) && <ImageGridDeletion url={url} mainID={objectID}

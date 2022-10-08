@@ -18,26 +18,26 @@ export default function Dashboard() {
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={Constants.NAVIGATION_MANAGE_RECIPES}>
                         <BigButton imageName="recipes.png" textcolor="black" color="#b37401" text={t('recipes')}
-                            iconName='utensils'
+                            iconName={Constants.ICON_UTENSILS}
                         />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={Constants.NAVIGATION_MANAGE_SHOPPINGLISTS}>
                         <BigButton imageName="shoppinglists.png" textcolor="black" color="#fcba03" text={t('shoppinglists')}
-                            iconName='check-square' />
+                            iconName={Constants.ICON_CHECK_SQUARE} />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={Constants.NAVIGATION_MANAGE_TASKLISTS}>
                         <BigButton imageName="tasklists.PNG" textcolor="black" color="#fcba03" text={t('tasklists')}
-                            iconName='check-square' />
+                            iconName={Constants.ICON_CHECK_SQUARE} />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={Constants.NAVIGATION_BMICALCULATOR}>
                         <BigButton imageName="calculator.PNG" textcolor="black" text={t('bmi_calculator')}
-                            iconName='weight' />
+                            iconName={Constants.ICON_WEIGHT} />
                     </Link>
                 </Col>
             </Row>

@@ -17,7 +17,7 @@ export default function Games() {
             <PageTitle title={t('movies_title')} />
             <div>
                 <Link to={Constants.NAVIGATION_MANAGE_MOVIELISTS} className='btn btn-primary'>
-                    <Icon name='list-alt' color='white' />
+                    <Icon name={Constants.ICON_LIST_ALT} color='white' />
                     {t('button_movie_lists')}
                 </Link>
             </div>

@@ -2,6 +2,7 @@ import i18n from "i18next";
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { useTranslation } from 'react-i18next';
 import Icon from "../Icon";
+import * as Constants from '../../utils/Constants';
 
 function RecipeHistory({ translation, recipeHistory, onDelete }) {
 
@@ -13,7 +14,8 @@ function RecipeHistory({ translation, recipeHistory, onDelete }) {
             <p>
                 {getJsonAsDateTimeString(recipeHistory.currentDateTime, i18n.language)}
                 &nbsp;
-                <Icon name='times' className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
+                <Icon name={Constants.ICON_DELETE}
+                    className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
                     onClick={() => {
                         if (window.confirm(t('delete_recipe_history_confirm_message'))) {
                             onDelete(recipeHistory.id);

@@ -238,7 +238,7 @@ function TaskListDetails() {
           <Accordion>
             <Accordion.Item eventKey="0">
               <Accordion.Header>
-                <PageTitle title={taskList.title} iconName='list-alt' iconColor='gray' />
+                <PageTitle title={taskList.title} iconName={Constants.ICON_LIST_ALT} iconColor='gray' />
               </Accordion.Header>
               <Accordion.Body>
                 <Table striped bordered hover>

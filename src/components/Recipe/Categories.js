@@ -162,18 +162,17 @@ export const FoodItemCategories = [
     }
 ]
 
-
 export function getIconNameByCategory(category) {
     switch (Number(category)) {
         case Categories.Burger:
-            return 'hamburger';
+            return Constants.ICON_HAMBURGER;
         case Categories.Pizza:
-            return 'pizza-slice';
+            return Constants.ICON_PIZZA;
         case Categories.Fish:
-            return 'fish';
+            return Constants.ICON_FISH;
         //todo: koodaa lisää ikoneita eri ruuille
         default:
-            return 'utensils';
+            return Constants.ICON_UTENSILS;
     }
 }
 
@@ -182,7 +181,7 @@ export const getIconName = (recipeType, category) => {
         case RecipeTypes.Food:
             return getIconNameByCategory(category);
         case RecipeTypes.Drink:
-            return 'glass-martini';
+            return Constants.ICON_GLASS_MARTINI;
         default: return '';
     }
 }
@@ -200,7 +199,7 @@ export const getCategoryContent = (recipeType, category) => {
 export const getIncredientsUrl = (recipeType) => {
     switch (recipeType) {
         case RecipeTypes.Food:
-            return '/recipe-incredients';
+            return Constants.DB_RECIPE_INCREDIENTS;
         case RecipeTypes.Drink:
             return Constants.DB_DRINK_INCREDIENTS;
         default: return '';
@@ -210,9 +209,19 @@ export const getIncredientsUrl = (recipeType) => {
 export const getViewDetailsUrl = (recipeType) => {
     switch (recipeType) {
         case RecipeTypes.Food:
-            return '/recipe';
+            return Constants.NAVIGATION_RECIPE;
         case RecipeTypes.Drink:
-            return '/drink';
+            return Constants.NAVIGATION_DRINK;
+        default: return '';
+    }
+}
+
+export const getUrl = (recipeType) => {
+    switch (recipeType) {
+        case RecipeTypes.Food:
+            return Constants.DB_RECIPES;
+        case RecipeTypes.Drink:
+            return Constants.DB_DRINKS;
         default: return '';
     }
 }

@@ -70,7 +70,7 @@ const WeightHistory = () => {
                             {getJsonAsDateTimeString(row.currentDateTime, i18n.language)}<br /> - {row.weight} kg, BMI: {row.bmi}
 
                             <Icon className='btn deleteBtn'
-                                name='times'
+                                name={Constants.ICON_DELETE}
                                 color='red'
                                 fontSize='1.2em'
                                 cursor='pointer'
