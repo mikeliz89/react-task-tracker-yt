@@ -1,10 +1,9 @@
 import GoBackButton from '../GoBackButton';
-import AddLink from './AddLink';
-import Links from './Links';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import PageContentWrapper from '../PageContentWrapper';
 import { pushToFirebase } from '../../datatier/datatier';
 import * as Constants from '../../utils/Constants';
+import LinkComponent from './LinkComponent';
 
 export default function LinksList() {
 
@@ -16,8 +15,7 @@ export default function LinksList() {
     return (
         <PageContentWrapper>
             <GoBackButton />
-            <AddLink onSaveLink={addLink} />
-            <Links url={'links'} />
+            <LinkComponent onSaveLink={addLink} url={Constants.DB_LINKS} />
         </PageContentWrapper>
     )
 }

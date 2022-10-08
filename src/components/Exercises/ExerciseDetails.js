@@ -22,10 +22,9 @@ import * as Constants from '../../utils/Constants';
 import i18n from "i18next";
 import PageTitle from "../PageTitle";
 import Alert from "../Alert";
-import AddLink from '../Links/AddLink';
-import Links from '../Links/Links';
 import PageContentWrapper from "../PageContentWrapper";
 import { pushToFirebaseChild, updateToFirebaseById } from "../../datatier/datatier";
+import LinkComponent from "../Links/LinkComponent";
 
 const ExerciseDetails = () => {
 
@@ -156,8 +155,6 @@ const ExerciseDetails = () => {
                     <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
                     &nbsp;
                     <AddComment onSave={addCommentToExercise} />
-                    &nbsp;
-                    <AddLink onSaveLink={addLinkToExercise} />
                 </>
 
                 <Table>
@@ -197,7 +194,7 @@ const ExerciseDetails = () => {
                         iconName={getIconNameByCategory(exercise.category)} />
                 }
                 <Comments objID={params.id} url={'exercise-comments'} />
-                <Links objID={params.id} url={'exercise-links'} />
+                <LinkComponent objID={params.id} url={Constants.DB_EXERCISE_LINKS} onSaveLink={addLinkToExercise} />
             </PageContentWrapper >
         )
     )

@@ -50,7 +50,6 @@ const AddLink = ({ onSaveLink }) => {
                     <>
                         <Row>
                             <Col>
-                                {/* <LinkComponent /> */}
                                 <Form onSubmit={onSubmit}>
                                     <Form.Group className="mb-3" controlId="addLinkForm-UrlText">
                                         <Form.Control type='text'

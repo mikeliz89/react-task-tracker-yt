@@ -16,8 +16,6 @@ import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateT
 import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import SetStarRating from '../StarRating/SetStarRating';
-import AddLink from '../Links/AddLink';
-import Links from '../Links/Links';
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
 import { useAuth } from '../../contexts/AuthContext';
@@ -32,6 +30,7 @@ import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId
 import AddImage from '../ImageUpload/AddImage';
 import ImageGrid from '../ImageUpload/ImageGrid';
 import Modal from '../ImageUpload/Modal';
+import LinkComponent from '../Links/LinkComponent';
 
 export default function RecipeDetails() {
 
@@ -339,8 +338,6 @@ export default function RecipeDetails() {
                         &nbsp;
                         <AddComment onSave={addCommentToRecipe} />
                         &nbsp;
-                        <AddLink onSaveLink={addLinkToRecipe} />
-                        &nbsp;
                         <Button
                             iconName='plus-square'
                             text={t('do_recipe')}
@@ -369,7 +366,8 @@ export default function RecipeDetails() {
                 )
             }
             <Comments objID={params.id} url={'recipe-comments'} />
-            <Links objID={params.id} url={'recipe-links'} />
+
+            <LinkComponent objID={params.id} url={'recipe-links'} onSaveLink={addLinkToRecipe} />
 
         </PageContentWrapper>
     )

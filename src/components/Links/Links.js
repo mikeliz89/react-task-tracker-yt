@@ -6,9 +6,8 @@ import { ref, onValue, child } from 'firebase/database';
 import LinksInner from './LinksInner';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById, removeFromFirebaseByIdAndSubId, updateToFirebaseById, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import PageTitle from '../PageTitle';
 
-const Links = ({ url, objID }) => {
+const Links = ({ url, objID, onCounterChange }) => {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
@@ -49,6 +48,7 @@ const Links = ({ url, objID }) => {
             }
             setLinks(fromDB);
             setCounter(counterTemp);
+            onCounterChange(counterTemp);
             setLoading(false);
         })
     }
@@ -74,9 +74,6 @@ const Links = ({ url, objID }) => {
     ) : (
         <div>
             {/* <pre>{JSON.stringify(links)}</pre> */}
-            <PageTitle iconName={'external-link-alt'} iconColor='gray'
-                title={t('header') + (counter > 0 ? ' (' + counter + ')' : '')}
-                isSubTitle={true} />
             {
                 links != null && links.length > 0 ? (
                     <LinksInner objID={objID} linkUrl={url} links={links} onDelete={deleteLink} onEdit={editLink} />

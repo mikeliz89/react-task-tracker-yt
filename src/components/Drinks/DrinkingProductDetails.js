@@ -12,8 +12,6 @@ import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
-import AddLink from '../Links/AddLink';
-import Links from '../Links/Links';
 import { useAuth } from '../../contexts/AuthContext';
 import AddDrinkingProduct from './AddDrinkingProduct';
 import PageTitle from '../PageTitle';
@@ -23,6 +21,7 @@ import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datati
 import AddImage from '../ImageUpload/AddImage';
 import ImageGrid from '../ImageUpload/ImageGrid';
 import Modal from '../ImageUpload/Modal';
+import LinkComponent from '../Links/LinkComponent';
 
 export default function DrinkingProductDetails() {
 
@@ -162,8 +161,6 @@ export default function DrinkingProductDetails() {
             <>
                 <AddComment onSave={addCommentToDrinkingProduct} />
                 &nbsp;
-                <AddLink onSaveLink={addLinkToDrinkingProduct} />
-                &nbsp;
                 <AddImage objectID={params.id} imagesUrl={Constants.DB_DRINKINGPRODUCT_IMAGES} />
             </>
 
@@ -179,7 +176,8 @@ export default function DrinkingProductDetails() {
             }
 
             <Comments objID={params.id} url={'drinkingproduct-comments'} />
-            <Links objID={params.id} url={'drinkingproduct-links'} />
+
+            <LinkComponent objID={params.id} url={Constants.DB_DRINKINGPRODUCT_LINKS} onSaveLink={addLinkToDrinkingProduct} />
 
         </PageContentWrapper>
     )

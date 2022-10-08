@@ -14,8 +14,6 @@ import { ref, onValue, child, get } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import i18n from "i18next";
-import Links from '../Links/Links';
-import AddLink from '../Links/AddLink';
 import PageTitle from '../PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageContentWrapper from '../PageContentWrapper';
@@ -26,6 +24,7 @@ import {
   updateToFirebase, getFromFirebaseByIdAndSubId, getFromFirebaseById
 } from '../../datatier/datatier';
 import { getPageTitleContent } from '../../utils/ListUtils';
+import LinkComponent from '../Links/LinkComponent';
 
 function TaskListDetails() {
 
@@ -321,8 +320,7 @@ function TaskListDetails() {
           )}
         </Tab>
         <Tab eventKey="links" title={t('tabheader_links')}>
-          <Links objID={params.id} url={'tasklist-links'} />
-          <AddLink onSaveLink={addLinkToTaskList} />
+          <LinkComponent objID={params.id} url={Constants.DB_TASKLIST_LINKS} onSaveLink={addLinkToTaskList} />
         </Tab>
         <Tab eventKey="actions" title={t('tabheader_actions')}>
           <div style={{ marginBottom: '10px' }}>

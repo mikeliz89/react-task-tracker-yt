@@ -14,8 +14,6 @@ import SetStarRating from '../StarRating/SetStarRating';
 import StarRating from '../StarRating/StarRating';
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
-import AddLink from '../Links/AddLink';
-import Links from '../Links/Links';
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
@@ -25,6 +23,7 @@ import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datati
 import AddImage from '../ImageUpload/AddImage';
 import ImageGrid from '../ImageUpload/ImageGrid';
 import Modal from '../ImageUpload/Modal';
+import LinkComponent from '../Links/LinkComponent';
 
 export default function MovementDetails() {
 
@@ -164,8 +163,6 @@ export default function MovementDetails() {
                 &nbsp;
                 <AddComment onSave={addCommentToMovement} />
                 &nbsp;
-                <AddLink onSaveLink={addLinkToMovement} />
-                &nbsp;
                 <AddImage objectID={params.id} imagesUrl={Constants.DB_EXERCISE_MOVEMENT_IMAGES} />
             </>
 
@@ -178,7 +175,7 @@ export default function MovementDetails() {
             }
 
             <Comments objID={params.id} url={'exercise-movement-comments'} />
-            <Links objID={params.id} url={'exercise-movement-links'} />
+            <LinkComponent objID={params.id} url={Constants.DB_EXERCISE_MOVEMENT_LINKS} onSaveLink={addLinkToMovement} />
         </PageContentWrapper>
     )
 }

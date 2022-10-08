@@ -13,11 +13,10 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import * as Constants from '../../utils/Constants';
 import i18n from "i18next";
 import { useAuth } from '../../contexts/AuthContext';
-import AddLink from '../Links/AddLink';
-import Links from '../Links/Links';
 import PageTitle from '../PageTitle';
 import PageContentWrapper from '../PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
+import LinkComponent from '../Links/LinkComponent';
 
 function TaskDetails() {
 
@@ -114,9 +113,10 @@ function TaskDetails() {
         </Table>
       </div>
       <AddComment onSave={addCommentToTask} />
-      <AddLink onSaveLink={addLinkToTask} />
+
       <Comments objID={params.id} url={'task-comments'} />
-      <Links objID={params.id} url={'task-links'} />
+
+      <LinkComponent objID={params.id} url={Constants.DB_TASK_LINKS} onSaveLink={addLinkToTask} />
     </PageContentWrapper>
   );
 };

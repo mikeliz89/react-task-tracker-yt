@@ -14,8 +14,6 @@ import SetStarRating from '../StarRating/SetStarRating';
 import StarRating from '../StarRating/StarRating';
 import AddComment from '../Comments/AddComment';
 import Comments from '../Comments/Comments';
-import AddLink from '../Links/AddLink';
-import Links from '../Links/Links';
 import { useAuth } from '../../contexts/AuthContext';
 import PageContentWrapper from '../PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
@@ -25,6 +23,7 @@ import Alert from '../Alert';
 import ImageGrid from '../ImageUpload/ImageGrid';
 import Modal from '../ImageUpload/Modal';
 import AddImage from '../ImageUpload/AddImage';
+import LinkComponent from '../Links/LinkComponent';
 
 function GearDetails() {
 
@@ -181,8 +180,6 @@ function GearDetails() {
                         &nbsp;
                         <AddComment onSave={addCommentToGear} />
                         &nbsp;
-                        <AddLink onSaveLink={addLinkToGear} />
-                        &nbsp;
                         <AddImage objectID={params.id} imagesUrl={Constants.DB_BACKPACKING_GEAR_IMAGES} />
                     </>
                 </Col>
@@ -195,7 +192,7 @@ function GearDetails() {
                 </>
             }
             <Comments objID={params.id} url={'backpacking-gear-comments'} />
-            <Links objID={params.id} url={'backpacking-gear-links'} />
+            <LinkComponent objID={params.id} url={Constants.DB_BACKPACKING_GEAR_LINKS} onSaveLink={addLinkToGear} />
         </PageContentWrapper>
     )
 }
