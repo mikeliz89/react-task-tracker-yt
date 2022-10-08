@@ -12,7 +12,7 @@ const GoBackButton = () => {
   const navigate = useNavigate();
 
   return (
-    <Button iconName='arrow-left' onClick={() => navigate(-1)} title={t('go_back_button_alt')} />
+    <Button iconName={Constants.ICON_ARROW_LEFT} onClick={() => navigate(-1)} title={t('go_back_button_alt')} />
   )
 }
 

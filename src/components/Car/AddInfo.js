@@ -147,7 +147,7 @@ const AddInfo = ({ onClose }) => {
 
     return (
         <div>
-            <PageTitle title={t('add_info_title')} iconName='car' />
+            <PageTitle title={t('add_info_title')} iconName={Constants.ICON_CAR} />
             {modified !== '' && <p style={{ marginBottom: '0' }}>{t('last_modified')}: {getJsonAsDateTimeString(modified, i18n.language)} &nbsp;</p>}
 
             <Alert message={message} showMessage={showMessage}

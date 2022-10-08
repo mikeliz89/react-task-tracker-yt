@@ -117,7 +117,7 @@ export default function ManageDrinks() {
 
             <div>
                 <Link to={Constants.NAVIGATION_MANAGE_DRINKINPRODUCTS} className='btn btn-primary'>
-                    <Icon name='wine-bottle' color='white' />
+                    <Icon name={Constants.ICON_WINE} color='white' />
                     {t('button_manage_drinkingproducts')}
                 </Link>
                 &nbsp;

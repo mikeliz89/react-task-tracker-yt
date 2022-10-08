@@ -37,7 +37,7 @@ export default function ScrollToTop() {
     return (
         <RightWrapper>
             {isVisible &&
-                <Button onClick={scrollToTop} iconName='arrow-up' text={t('go_to_top')} />}
+                <Button onClick={scrollToTop} iconName={Constants.ICON_ARROW_UP} text={t('go_to_top')} />}
         </RightWrapper>
     );
 }

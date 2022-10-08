@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { removeFromFirebaseByIdAndSubId } from "../../datatier/datatier";
 import PageTitle from "../PageTitle";
+import * as Constants from '../../utils/Constants';
 
 function RecipeHistories({ dbUrl, translation, recipeHistories, recipeID }) {
 
@@ -24,7 +25,7 @@ function RecipeHistories({ dbUrl, translation, recipeHistories, recipeID }) {
 
     return (
         <div>
-            <PageTitle iconName='history' iconColor='gray'
+            <PageTitle iconName={Constants.ICON_HISTORY} iconColor='gray'
                 isSubTitle={true}
                 title={t('recipehistory_title') + (counter > 0 ? ' (' + counter + ')' : '')} />
             {recipeHistories.map((recipeHistory) => (

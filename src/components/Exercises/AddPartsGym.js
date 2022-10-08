@@ -54,9 +54,9 @@ const AddPartsGym = () => {
 
   return (
     <div>
-      <PageTitle title={t('title_gym')} iconName='dumbbell' />
+      <PageTitle title={t('title_gym')} iconName={Constants.ICON_DUMBBELL} />
       <Button
-        iconName='burn'
+        iconName={Constants.ICON_BURN}
         color={showAddGymPart ? 'red' : 'steelblue'}
         text={showAddGymPart ? t('close') : t('gym_parts_add_button')}
         onClick={() => setShowAddGymPart(!showAddGymPart)} />

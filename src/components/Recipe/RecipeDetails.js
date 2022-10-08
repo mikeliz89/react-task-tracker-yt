@@ -202,7 +202,7 @@ export default function RecipeDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName='edit'
+                        iconName={Constants.ICON_EDIT}
                         text={showEditRecipe ? t('button_close') : ''}
                         color={showEditRecipe ? 'red' : 'orange'}
                         onClick={() => setShowEditRecipe(!showEditRecipe)} />
@@ -213,7 +213,7 @@ export default function RecipeDetails() {
                     <Accordion>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>
-                                <PageTitle title={recipe.title} iconName='utensils' iconColor='gray' />
+                                <PageTitle title={recipe.title} iconName={Constants.ICON_UTENSILS} iconColor='gray' />
                             </Accordion.Header>
                             <Accordion.Body>
                                 <Table striped bordered hover>
@@ -270,8 +270,8 @@ export default function RecipeDetails() {
                 className="mb-3">
                 <Tab eventKey="home" title={t('incredients_header')}>
                     <Button
-                        iconName='plus'
-                        secondIconName='carrot'
+                        iconName={Constants.ICON_PLUS}
+                        secondIconName={Constants.ICON_CARROT}
                         color={showAddIncredient ? 'red' : 'green'}
                         text={showAddIncredient ? t('button_close') : ''}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
@@ -302,8 +302,8 @@ export default function RecipeDetails() {
                 </Tab>
                 <Tab eventKey="workPhases" title={t('workphases_header')}>
                     <Button
-                        iconName='plus'
-                        secondIconName='hourglass-1'
+                        iconName={Constants.ICON_PLUS}
+                        secondIconName={Constants.ICON_HOURGLASS_1}
                         color={showAddWorkPhase ? 'red' : 'green'}
                         text={showAddWorkPhase ? t('button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
@@ -332,12 +332,12 @@ export default function RecipeDetails() {
                         </>
                     )}
                 </Tab>
-                <Tab eventKey="actions" title="Toiminnot">
+                <Tab eventKey="actions" title={t('tabheader_actions')}>
                     <>
                         <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
                         &nbsp;
                         <Button
-                            iconName='plus-square'
+                            iconName={Constants.ICON_PLUS_SQUARE}
                             text={t('do_recipe')}
                             onClick={() => { if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); } }}
                         />

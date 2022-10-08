@@ -45,25 +45,25 @@ export default function Dashboard() {
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={Constants.NAVIGATION_MANAGE_DRINKS}>
                         <BigButton imageName="cocktail.jpg" textcolor="black" color="#f9a9d5" text={t('drinks')}
-                            iconName='glass-martini' />
+                            iconName={Constants.ICON_GLASS_MARTINI} />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={Constants.NAVIGATION_MANAGE_EXERCISES}>
                         <BigButton imageName="exercises.PNG" textcolor="black" color="#ef7c1a" text={t('exercises')}
-                            iconName='running' />
+                            iconName={Constants.ICON_RUNNING} />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={Constants.NAVIGATION_LINKSLIST}>
                         <BigButton imageName="links.jpg" textcolor="black" color="white" text={t('links_list')}
-                            iconName='external-link-alt' />
+                            iconName={Constants.ICON_EXTERNAL_LINK_ALT} />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={Constants.NAVIGATION_CAR}>
                         <BigButton imageName="car.jpg" textcolor="black" color="#0cb058" text={t('car')}
-                            iconName='car' />
+                            iconName={Constants.ICON_CAR} />
                     </Link>
                 </Col>
             </Row>
@@ -71,7 +71,7 @@ export default function Dashboard() {
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
                     <Link to={Constants.NAVIGATION_MANAGE_BACKPACKING}>
                         <BigButton imageName="backpacking.jpg" textcolor="black" color="#0cb058" text={t('backpacking')}
-                            iconName='campground' />
+                            iconName={Constants.ICON_CAMPGROUND} />
                     </Link>
                 </Col>
                 <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>

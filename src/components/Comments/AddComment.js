@@ -40,7 +40,7 @@ function AddComment({ onSave }) {
     return (
         <>
             <Button type="button"
-                iconName='comments'
+                iconName={Constants.ICON_COMMENTS}
                 disabled={loading}
                 disableStyle={true}
                 className={showAddComment ? 'btn btn-danger' : 'btn btn-primary'}

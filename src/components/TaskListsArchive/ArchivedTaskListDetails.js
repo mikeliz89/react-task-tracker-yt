@@ -127,7 +127,7 @@ export default function ArchivedTaskListDetails() {
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <Button color="#545454" iconName='archive'
+          <Button color="#545454" iconName={Constants.ICON_ARCHIVE}
             onClick={() => {
               if (window.confirm(t('return_from_archive_list_confirm_message'))) {
                 returnFromArchive(taskList);
@@ -143,7 +143,7 @@ export default function ArchivedTaskListDetails() {
           <Accordion>
             <Accordion.Item>
               <Accordion.Header>
-                <PageTitle title={taskList.title} iconName='list-alt' />
+                <PageTitle title={taskList.title} iconName={Constants.ICON_LIST_ALT} />
               </Accordion.Header>
               <Accordion.Body>
                 {t('description')}: {taskList.description}<br />

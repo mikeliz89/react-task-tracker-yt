@@ -111,7 +111,7 @@ export default function DrinkingProductDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName='edit'
+                        iconName={Constants.ICON_EDIT}
                         text={showEditDrinkingProduct ? t('button_close') : ''}
                         color={showEditDrinkingProduct ? 'red' : 'orange'}
                         onClick={() => setShowEditDrinkingProduct(!showEditDrinkingProduct)} />
@@ -123,7 +123,7 @@ export default function DrinkingProductDetails() {
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>
                                 <PageTitle title={drinkingProduct.name + (drinkingProduct.abv > 0 ? ' (' + drinkingProduct.abv + '%)' : '')}
-                                    iconName='cocktail' iconColor='gray' />
+                                    iconName={Constants.ICON_COCKTAIL} iconColor='gray' />
                             </Accordion.Header>
                             <Accordion.Body>
                                 <Table striped bordered hover>

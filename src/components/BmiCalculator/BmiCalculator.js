@@ -110,7 +110,7 @@ const BmiCalculator = () => {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName='weight'
+                        iconName={Constants.ICON_WEIGHT}
                         color="#545454"
                         text={t('button_weight_history')}
                         onClick={() => navigate(Constants.NAVIGATION_WEIGHTHISTORY)} />

@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 import PropTypes from 'prop-types';
 import FormTitle from '../FormTitle';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import * as Constants from '../../utils/Constants';
 
 export default function AddIncredient({ dbUrl, translation, onSave, incredientID, recipeID, onClose }) {
 
@@ -58,7 +59,7 @@ export default function AddIncredient({ dbUrl, translation, onSave, incredientID
   return (
     <>
       {(incredientID === "" || incredientID === undefined) &&
-        <FormTitle iconName='carrot' title={t('add_incredient_formtitle')} />
+        <FormTitle iconName={Constants.ICON_CARROT} title={t('add_incredient_formtitle')} />
       }
       <Form onSubmit={onSubmit}>
         <Form.Group className="mb-3" controlId="addIncredientFormName">

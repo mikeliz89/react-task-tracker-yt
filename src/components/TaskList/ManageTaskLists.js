@@ -122,7 +122,7 @@ export default function ManageTaskLists({ listType }) {
       <PageTitle title={getPageTitle(listType)} />
 
       <div style={{ marginBottom: '10px' }}>
-        <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName='copy' /> &nbsp;
+        <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={Constants.ICON_COPY} /> &nbsp;
       </div>
 
       <SearchSortFilter

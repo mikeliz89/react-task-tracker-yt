@@ -29,7 +29,7 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
     return (
         <>
             <Button
-                iconName='star'
+                iconName={Constants.ICON_STAR}
                 disableStyle={true}
                 className={showStarRating ? 'btn btn-danger' : 'btn btn-primary'}
                 text={showStarRating ? t('button_close') : t('rate')}

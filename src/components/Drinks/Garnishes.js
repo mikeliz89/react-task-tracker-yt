@@ -11,7 +11,7 @@ export default function Garnishes({ garnishes, drinkID, onDelete }) {
   return (
     <>
       <h5>
-        <Icon name='lemon' />
+        <Icon name={Constants.ICON_LEMON} />
         {t('garnishes_header')}
       </h5>
 

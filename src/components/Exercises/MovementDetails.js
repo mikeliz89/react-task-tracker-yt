@@ -99,7 +99,7 @@ export default function MovementDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName='edit'
+                        iconName={Constants.ICON_EDIT}
                         text={showEditMovement ? t('button_close') : ''}
                         color={showEditMovement ? 'red' : 'orange'}
                         onClick={() => setShowEditMovement(!showEditMovement)} />

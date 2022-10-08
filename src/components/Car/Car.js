@@ -91,13 +91,13 @@ export default function Car() {
                     color={showAddInfo ? 'red' : 'steelblue'}
                     onClick={() => setShowAddInfo(!showAddInfo)}
                     text={showAddInfo ? t('button_close') : t('add_info')}
-                    iconName={'car'} />
+                    iconName={Constants.ICON_CAR} />
                 &nbsp;
                 <Button
                     color={showAddFueling ? 'red' : 'steelblue'}
                     onClick={() => setShowAddFueling(!showAddFueling)}
                     text={showAddFueling ? t('button_close') : t('add_fueling')}
-                    iconName={'gas-pump'} />
+                    iconName={Constants.ICON_GAS_PUMP} />
             </>
 
             {/* Info Start */}

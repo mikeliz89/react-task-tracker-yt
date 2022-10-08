@@ -17,7 +17,7 @@ const CarFuelings = ({ carFuelings, onDelete }) => {
 
     return (
         <>
-            <PageTitle title={t('fuelings')} iconName='gas-pump' />
+            <PageTitle title={t('fuelings')} iconName={Constants.ICON_GAS_PUMP} />
             {carFuelings.map((fuelingRow) => (
                 <CarFueling key={fuelingRow.id} fuelingRow={fuelingRow} onDelete={onDelete} />
             ))}

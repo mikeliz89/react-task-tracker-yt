@@ -103,8 +103,8 @@ const ManageDrinkingProducts = () => {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName='plus'
-                        secondIconName='wine-bottle'
+                        iconName={Constants.ICON_PLUS}
+                        secondIconName={Constants.ICON_WINE}
                         color={showAddDrinkingProduct ? 'red' : 'green'}
                         text={showAddDrinkingProduct ? t('button_close') : t('button_add_drinkingproduct')}
                         onClick={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)} />

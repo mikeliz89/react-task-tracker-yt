@@ -87,7 +87,7 @@ function ManageGearMaintenance() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName='plus'
+                        iconName={Constants.ICON_PLUS}
                         color={showAdd ? 'red' : 'green'}
                         text={t('button_add_maintenance_instructions')} className='btn btn-primary'
                         onClick={() => setShowAdd(!showAdd)} />

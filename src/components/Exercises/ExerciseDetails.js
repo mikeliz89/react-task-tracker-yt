@@ -100,7 +100,7 @@ const ExerciseDetails = () => {
                     <ButtonGroup>
                         <GoBackButton />
                         <Button
-                            iconName='edit'
+                            iconName={Constants.ICON_EDIT}
                             onClick={() => setShowEditExercise(!showEditExercise)}
                             color={showEditExercise ? 'red' : 'orange'}
                             text={showEditExercise ? t('close') : t('button_edit')} />

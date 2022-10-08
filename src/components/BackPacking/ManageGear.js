@@ -107,7 +107,7 @@ export default function ManageGear() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName='plus'
+                        iconName={Constants.ICON_PLUS}
                         color={showAdd ? 'red' : 'green'}
                         text={showAdd ? t('button_close') : t('button_add_gear')}
                         onClick={() => setShowAdd(!showAdd)} />

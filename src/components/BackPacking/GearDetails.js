@@ -111,7 +111,7 @@ function GearDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName='edit'
+                        iconName={Constants.ICON_EDIT}
                         text={showEdit ? t('button_close') : ''}
                         color={showEdit ? 'red' : 'orange'}
                         onClick={() => setShowEdit(!showEdit)} />
@@ -188,7 +188,7 @@ function GearDetails() {
                     {selectedImage && <Modal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
                 </>
             }
-            <CommentComponent objID={params.id} url={'backpacking-gear-comments'} onSave={addCommentToGear} />
+            <CommentComponent objID={params.id} url={Constants.DB_BACKPACKING_GEAR_COMMENTS} onSave={addCommentToGear} />
             <LinkComponent objID={params.id} url={Constants.DB_BACKPACKING_GEAR_LINKS} onSaveLink={addLinkToGear} />
         </PageContentWrapper>
     )

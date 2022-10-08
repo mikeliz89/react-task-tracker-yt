@@ -47,16 +47,42 @@ export const DB_TASK_LINKS = '/task-links';
 export const DB_WEIGHT_HISTORY = '/weighthistory';
 
 //ICONS
+export const ICON_ARCHIVE = 'archive';
+export const ICON_ARROW_LEFT = 'arrow-left';
+export const ICON_ARROW_UP = 'arrow-up';
+export const ICON_BURN = 'burn';
+export const ICON_CAMPGROUND = 'campground';
+export const ICON_CAR = 'car';
+export const ICON_CARROT = 'carrot';
 export const ICON_CHECK_SQUARE = 'check-square';
+export const ICON_CHILD = 'child';
+export const ICON_COCKTAIL = 'cocktail';
+export const ICON_COMMENTS = 'comments';
+export const ICON_COPY = 'copy';
 export const ICON_DELETE = 'times';
+export const ICON_DUMBBELL = 'dumbbell';
 export const ICON_EDIT = 'edit';
+export const ICON_EXTERNAL_LINK_ALT = 'external-link-alt';
 export const ICON_FISH = 'fish';
+export const ICON_GAS_PUMP = 'gas-pump';
 export const ICON_GLASS_MARTINI = 'glass-martini';
+export const ICON_HISTORY = 'history';
+export const ICON_HOURGLASS_1 = 'hourglass-1';
+export const ICON_IMAGES = 'images';
+export const ICON_LEMON = 'lemon';
 export const ICON_LIST_ALT = 'list-alt';
 export const ICON_HAMBURGER = 'hamburger';
 export const ICON_PIZZA = 'pizza-slice';
+export const ICON_PLUS = 'plus';
+export const ICON_PLUS_SQUARE = 'plus-square';
+export const ICON_RUNNING = 'running';
+export const ICON_SIGN_OUT_ALT = 'sign-out-alt';
+export const ICON_SQUARE_CHECK = 'square-check';
+export const ICON_STAR = 'star';
+export const ICON_USER_ALT = 'user-alt';
 export const ICON_UTENSILS = 'utensils';
 export const ICON_WEIGHT = 'weight';
+export const ICON_WINE = 'wine-bottle';
 
 //NAVIGATION
 export const NAVIGATION_ABOUT = '/about';

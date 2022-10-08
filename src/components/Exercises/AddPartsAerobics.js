@@ -85,7 +85,7 @@ const AddPartsAerobics = () => {
       <h3>{t('loading')}</h3>
     ) : (
       <div>
-        <PageTitle title={t('title_aerobics')} iconName='child' />
+        <PageTitle title={t('title_aerobics')} iconName={Constants.ICON_CHILD} />
         <Form onSubmit={onSubmit}>
           <Form.Group>
             <Form.Label>{t('time')}</Form.Label>

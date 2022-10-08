@@ -20,7 +20,7 @@ const ImageGrid = ({ objectID, url, setSelectedImage }) => {
 
     return (
         <>
-            <PageTitle iconName='images' title={t('images') + (docs.length > 0 ? ' (' + docs.length + ')' : '')} isSubTitle={true} />
+            <PageTitle iconName={Constants.ICON_IMAGES} title={t('images') + (docs.length > 0 ? ' (' + docs.length + ')' : '')} isSubTitle={true} />
 
             <div className={styles.imgGrid}>
                 {docs && docs.map(doc => (

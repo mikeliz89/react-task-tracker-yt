@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 import PropTypes from 'prop-types';
 import FormTitle from '../FormTitle';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import * as Constants from '../../utils/Constants';
 
 export default function AddWorkPhase({ dbUrl, translation, workPhaseID, recipeID, onSave, onClose }) {
 
@@ -54,7 +55,7 @@ export default function AddWorkPhase({ dbUrl, translation, workPhaseID, recipeID
   return (
     <>
       {(workPhaseID === "" || workPhaseID === undefined) &&
-        <FormTitle iconName='hourglass-1' title={t('add_workphase_formtitle')} />
+        <FormTitle iconName={Constants.ICON_HOURGLASS_1} title={t('add_workphase_formtitle')} />
       }
       <Form onSubmit={onSubmit}>
         <Form.Group className="mb-3" controlId="addWorkPhaseFormName">

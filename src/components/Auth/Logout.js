@@ -49,7 +49,7 @@ export default function Logout() {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             <Button
-                iconName='sign-out-alt'
+                iconName={Constants.ICON_SIGN_OUT_ALT}
                 onClick={() => handleLogout()}
                 text={t('log_out')}
                 color="gray"

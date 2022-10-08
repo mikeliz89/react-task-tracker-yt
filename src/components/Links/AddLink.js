@@ -39,7 +39,7 @@ const AddLink = ({ onSaveLink }) => {
     return (
         <>
             <Button
-                iconName='external-link-alt'
+                iconName={Constants.ICON_EXTERNAL_LINK_ALT}
                 type='button'
                 disableStyle={true}
                 className={showForm ? 'btn btn-danger' : 'btn btn-primary'}

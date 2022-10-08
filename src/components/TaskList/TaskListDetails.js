@@ -220,11 +220,11 @@ function TaskListDetails() {
         <ButtonGroup aria-label="Button group">
           <GoBackButton />
           <Button
-            iconName='edit'
+            iconName={Constants.ICON_EDIT}
             text={showEditTaskList ? t('button_close') : ''}
             color={showEditTaskList ? 'red' : 'orange'}
             onClick={() => setShowEditTaskList(!showEditTaskList)} />
-          <Button color="#545454" iconName='archive'
+          <Button color="#545454" iconName={Constants.ICON_ARCHIVE}
             onClick={() => {
               if (window.confirm(t('archive_list_confirm_message'))) {
                 archiveTaskList(taskList);
@@ -303,7 +303,7 @@ function TaskListDetails() {
 
           <CenterWrapper>
             <Button
-              iconName='plus'
+              iconName={Constants.ICON_PLUS}
               color={showAddTask ? 'red' : 'green'}
               text={showAddTask ? t('button_close') : t('button_add_task')}
               onClick={() => setShowAddTask(!showAddTask)} />
@@ -336,9 +336,13 @@ function TaskListDetails() {
         </Tab>
         <Tab eventKey="actions" title={t('tabheader_actions')}>
           <div style={{ marginBottom: '10px' }}>
-            <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName='copy' /> &nbsp;
-            <Button onClick={() => { if (window.confirm(t('mark_all_tasks_done_confirm_message'))) { markAllTasksDone(params.id) } }} text={t('mark_all_tasks_done')} iconName='square-check' /> &nbsp;
-            <Button onClick={() => setShowChangeListType(!showChangeListType)} text={t('change_list_type')} iconName='edit' />
+            <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={Constants.ICON_COPY} /> &nbsp;
+            <Button onClick={() => {
+              if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
+                markAllTasksDone(params.id)
+              }
+            }} text={t('mark_all_tasks_done')} iconName={Constants.ICON_SQUARE_CHECK} /> &nbsp;
+            <Button onClick={() => setShowChangeListType(!showChangeListType)} text={t('change_list_type')} iconName={Constants.ICON_EDIT} />
           </div>
         </Tab>
       </Tabs>

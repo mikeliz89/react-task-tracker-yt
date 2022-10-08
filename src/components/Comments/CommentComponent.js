@@ -16,7 +16,7 @@ function CommentComponent({ objID, url, onSave }) {
     return (
         <>
             <PageTitle title={t('header') + (counter > 0 ? ' (' + counter + ')' : '')}
-                iconName='comments' iconColor='gray' isSubTitle={true} />
+                iconName={Constants.ICON_COMMENTS} iconColor='gray' isSubTitle={true} />
             <AddComment onSave={onSave} />
             <Comments objID={objID} url={url} onCounterChange={setCounter} />
         </>
