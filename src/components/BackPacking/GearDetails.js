@@ -79,7 +79,7 @@ function GearDetails() {
 
     const updateGear = async (gear) => {
         try {
-            var gearID = params.id;
+            const gearID = params.id;
             gear["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(Constants.DB_BACKPACKING_GEAR, gearID, gear);
         } catch (error) {

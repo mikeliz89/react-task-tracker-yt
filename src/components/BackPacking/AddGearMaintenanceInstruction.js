@@ -15,7 +15,6 @@ const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, o
     const [createdBy, setCreatedBy] = useState('');
     const [name, setName] = useState('');
     const [text, setText] = useState('');
-    const [stars, setStars] = useState(0);
 
     //load data
     useEffect(() => {
@@ -34,7 +33,6 @@ const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, o
                 setCreated(val["created"]);
                 setCreatedBy(val["createdBy"]);
                 setName(val["name"]);
-                setStars(val["stars"]);
                 setText(val["text"]);
             });
     }
@@ -48,7 +46,7 @@ const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, o
             return;
         }
 
-        onSave({ created, createdBy, name, stars, text });
+        onSave({ created, createdBy, name, text });
 
         if (gearMaintenanceInstructionID == null) {
             clearForm();

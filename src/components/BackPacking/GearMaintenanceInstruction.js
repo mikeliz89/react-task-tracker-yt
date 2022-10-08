@@ -56,10 +56,6 @@ const GearMaintenanceInstruction = ({ instruction, onDelete }) => {
                     onClose={() => setEditable(false)}
                     onSave={updateInstruction} />
             }
-            {/* <p>
-                <Link className='btn btn-primary' to={`${Constants.NAVIGATION_GEAR}/${gear.id}`}>{t('view_details')}</Link>
-            </p> */}
-            {/* <StarRating starCount={gear.stars} /> */}
         </div>
     )
 }

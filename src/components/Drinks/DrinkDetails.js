@@ -189,7 +189,6 @@ export default function DrinkDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-
         pushToFirebaseChild(Constants.DB_DRINK_COMMENTS, drinkID, comment);
     }
 

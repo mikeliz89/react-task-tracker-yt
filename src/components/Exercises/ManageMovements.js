@@ -83,7 +83,9 @@ function ManageMovements() {
                 showSearch={true}
                 useNameFiltering={true}
                 showSortByCreatedDate={true}
+                showSortByStarRating={true}
                 showSortByName={true} />
+
             {
                 movements != null && movements.length > 0 ? (
                     <>

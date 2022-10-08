@@ -68,7 +68,11 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
          return;
       }
 
-      onSave({ created, createdBy, title, description, category, glass, stars, isCore });
+      onSave({
+         category, created, createdBy,
+         description, glass, isCore, stars,
+         title
+      });
 
       if (drinkID == null) {
          clearForm();

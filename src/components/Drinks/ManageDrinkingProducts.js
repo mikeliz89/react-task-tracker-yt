@@ -117,16 +117,20 @@ const ManageDrinkingProducts = () => {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             {showAddDrinkingProduct &&
-                <AddDrinkingProduct onClose={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)} onAddDrinkingProduct={addDrinkingProduct} />}
+                <AddDrinkingProduct onClose={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)} onAddDrinkingProduct={addDrinkingProduct} />
+            }
+
             <SearchSortFilter
                 useNameFiltering={true}
                 onSet={setDrinkingProducts}
                 showFilterHaveAtHome={true}
                 showFilterNotHaveAtHome={true}
-                showSortByName={true}
                 showSortByCreatedDate={true}
+                showSortByName={true}
+                showSortByStarRating={true}
                 showSearchByDescription={true}
                 originalList={originalDrinkingProducts} />
+
             {
                 drinkingProducts != null && drinkingProducts.length > 0 ? (
                     <>

@@ -7,6 +7,7 @@ import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import Icon from '../Icon';
 import RightWrapper from '../RightWrapper';
+import StarRating from '../StarRating/StarRating';
 
 const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
 
@@ -77,6 +78,7 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
                     </span>
                 }
             </p>
+            <StarRating starCount={drinkingProduct.stars} />
         </div>
     )
 }

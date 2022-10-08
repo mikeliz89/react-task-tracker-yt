@@ -21,6 +21,8 @@ import ImageGrid from '../ImageUpload/ImageGrid';
 import Modal from '../ImageUpload/Modal';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
+import SetStarRating from '../StarRating/SetStarRating';
+import StarRating from '../StarRating/StarRating';
 
 export default function DrinkingProductDetails() {
 
@@ -84,7 +86,7 @@ export default function DrinkingProductDetails() {
 
     const addDrinkingProduct = async (drinkingProduct) => {
         try {
-            var drinkingProductID = params.id;
+            const drinkingProductID = params.id;
             drinkingProduct["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(Constants.DB_DRINKINGPRODUCTS, drinkingProductID, drinkingProduct);
         } catch (error) {
@@ -92,6 +94,13 @@ export default function DrinkingProductDetails() {
             setError(t('failed_to_save_drink'));
             setShowError(true);
         }
+    }
+
+    const saveStars = async (stars) => {
+        const drinkingProductID = params.id;
+        drinkingProduct["modified"] = getCurrentDateAsJson();
+        drinkingProduct["stars"] = Number(stars);
+        updateToFirebaseById(Constants.DB_DRINKINGPRODUCTS, drinkingProductID, drinkingProduct);
     }
 
     return loading ? (
@@ -153,11 +162,19 @@ export default function DrinkingProductDetails() {
                 </Col>
             </Row>
 
+            <Row>
+                <Col>
+                    <StarRating starCount={drinkingProduct.stars} />
+                </Col>
+            </Row>
+
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             <>
+                <SetStarRating starCount={drinkingProduct.stars} onSaveStars={saveStars} />
+                &nbsp;
                 <AddImage objectID={params.id} imagesUrl={Constants.DB_DRINKINGPRODUCT_IMAGES} />
             </>
 

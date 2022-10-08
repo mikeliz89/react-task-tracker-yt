@@ -21,6 +21,7 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
    const [createdBy, setCreatedBy] = useState('');
    const [haveAtHome, setHaveAtHome] = useState('');
    const [abv, setAbv] = useState(0);
+   const [stars, setStars] = useState(0);
    const [amount, setAmount] = useState(0);
 
    //load data
@@ -48,15 +49,16 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
 
    const fetchDrinkingProductFromFirebase = async (id) => {
       getFromFirebaseById(Constants.DB_DRINKINGPRODUCTS, id).then((val) => {
-         setName(val["name"]);
-         setDescription(val["description"]);
-         setCreated(val["created"]);
-         setCreatedBy(val["createdBy"]);
-         setCategory(val["category"]);
-         setManufacturer(val["manufacturer"]);
-         setHaveAtHome(val["haveAtHome"]);
          setAbv(val["abv"]);
          setAmount(val["amount"]);
+         setCategory(val["category"]);
+         setCreated(val["created"]);
+         setCreatedBy(val["createdBy"]);
+         setDescription(val["description"]);
+         setHaveAtHome(val["haveAtHome"]);
+         setManufacturer(val["manufacturer"]);
+         setName(val["name"]);
+         setStars(val["stars"]);
       });
    }
 
@@ -70,9 +72,10 @@ const AddDrinkingProduct = ({ drinkingProductID, onAddDrinkingProduct, onClose }
       }
 
       onAddDrinkingProduct({
-         created, createdBy, name,
-         description, category, manufacturer,
-         haveAtHome, abv, amount
+         abv, amount, category,
+         created, createdBy, description,
+         haveAtHome, manufacturer, name,
+         stars
       });
 
       if (drinkingProductID == null) {
