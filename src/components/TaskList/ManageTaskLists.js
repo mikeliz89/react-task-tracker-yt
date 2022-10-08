@@ -116,10 +116,6 @@ export default function ManageTaskLists({ listType }) {
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <Button
-            color={showAddTaskList ? 'red' : 'green'}
-            text={showAddTaskList ? t('button_close') : t('button_add_list')}
-            onClick={() => setShowAddTaskList(!showAddTaskList)} />
           <Button text={t('button_goto_tasklist_archive')} color="#545454" onClick={() => gotoTaskListArchive()} />
         </ButtonGroup>
       </Row>
@@ -129,9 +125,6 @@ export default function ManageTaskLists({ listType }) {
         <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName='copy' /> &nbsp;
       </div>
 
-      {showAddTaskList &&
-        <AddTaskList onClose={() => setShowAddTaskList(false)} onSave={addTaskList} />
-      }
       <SearchSortFilter
         useTitleFiltering={true}
         onSet={setTaskLists}
@@ -139,9 +132,21 @@ export default function ManageTaskLists({ listType }) {
         showSortByCreatedDate={true}
         showSearchByDescription={true}
         originalList={originalTaskLists} />
+
+      <CenterWrapper>
+        <Button
+          color={showAddTaskList ? 'red' : 'green'}
+          text={showAddTaskList ? t('button_close') : t('button_add_list')}
+          onClick={() => setShowAddTaskList(!showAddTaskList)} />
+      </CenterWrapper>
+
+      {showAddTaskList &&
+        <AddTaskList onClose={() => setShowAddTaskList(false)} onSave={addTaskList} />
+      }
+
       {taskLists != null && taskLists.length > 0 ? (
         <>
-          <Counter list={taskLists} originalList={originalTaskLists} counter={counter} />
+          <Counter list={taskLists} originalList={originalTaskLists} counter={counter} text={t('tasklists')} />
           <TaskLists
             taskLists={taskLists}
             onDelete={deleteTaskList}

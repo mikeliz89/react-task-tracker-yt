@@ -190,7 +190,14 @@ function TaskListDetails() {
     let text = "";
     tasks.forEach(function (arrayItem) {
       text += "*" + arrayItem.text.trim() + "*";
-      text += ": " + arrayItem.day;
+      if (arrayItem.day) {
+        text += ": " + arrayItem.day;
+      }
+      if (arrayItem.reminder) {
+        text += "" + ' [x]';
+      } else {
+        text += "" + ' [ ]';
+      }
       text += "\n";
     });
     navigator.clipboard.writeText(text);
