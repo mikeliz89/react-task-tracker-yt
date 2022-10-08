@@ -10,8 +10,6 @@ import i18n from "i18next";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
-import AddComment from '../Comments/AddComment';
-import Comments from '../Comments/Comments';
 import { useAuth } from '../../contexts/AuthContext';
 import AddDrinkingProduct from './AddDrinkingProduct';
 import PageTitle from '../PageTitle';
@@ -22,6 +20,7 @@ import AddImage from '../ImageUpload/AddImage';
 import ImageGrid from '../ImageUpload/ImageGrid';
 import Modal from '../ImageUpload/Modal';
 import LinkComponent from '../Links/LinkComponent';
+import CommentComponent from '../Comments/CommentComponent';
 
 export default function DrinkingProductDetails() {
 
@@ -159,8 +158,6 @@ export default function DrinkingProductDetails() {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             <>
-                <AddComment onSave={addCommentToDrinkingProduct} />
-                &nbsp;
                 <AddImage objectID={params.id} imagesUrl={Constants.DB_DRINKINGPRODUCT_IMAGES} />
             </>
 
@@ -175,7 +172,7 @@ export default function DrinkingProductDetails() {
                 </>
             }
 
-            <Comments objID={params.id} url={'drinkingproduct-comments'} />
+            <CommentComponent objID={params.id} url={Constants.DB_DRINKINGPRODUCT_COMMENTS} onSave={addCommentToDrinkingProduct} />
 
             <LinkComponent objID={params.id} url={Constants.DB_DRINKINGPRODUCT_LINKS} onSaveLink={addLinkToDrinkingProduct} />
 

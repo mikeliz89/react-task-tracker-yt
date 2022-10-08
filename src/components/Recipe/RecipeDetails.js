@@ -16,8 +16,6 @@ import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateT
 import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import SetStarRating from '../StarRating/SetStarRating';
-import AddComment from '../Comments/AddComment';
-import Comments from '../Comments/Comments';
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
@@ -31,6 +29,7 @@ import AddImage from '../ImageUpload/AddImage';
 import ImageGrid from '../ImageUpload/ImageGrid';
 import Modal from '../ImageUpload/Modal';
 import LinkComponent from '../Links/LinkComponent';
+import CommentComponent from '../Comments/CommentComponent';
 
 export default function RecipeDetails() {
 
@@ -336,8 +335,6 @@ export default function RecipeDetails() {
                     <>
                         <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
                         &nbsp;
-                        <AddComment onSave={addCommentToRecipe} />
-                        &nbsp;
                         <Button
                             iconName='plus-square'
                             text={t('do_recipe')}
@@ -365,9 +362,10 @@ export default function RecipeDetails() {
                     t('no_recipe_history')
                 )
             }
-            <Comments objID={params.id} url={'recipe-comments'} />
 
-            <LinkComponent objID={params.id} url={'recipe-links'} onSaveLink={addLinkToRecipe} />
+            <CommentComponent objID={params.id} url={Constants.DB_RECIPE_COMMENTS} onSave={addCommentToRecipe} />
+
+            <LinkComponent objID={params.id} url={Constants.DB_RECIPE_LINKS} onSaveLink={addLinkToRecipe} />
 
         </PageContentWrapper>
     )

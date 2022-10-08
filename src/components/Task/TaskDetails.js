@@ -7,8 +7,6 @@ import Button from '../Button';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import AddTask from './AddTask';
-import AddComment from '../Comments/AddComment';
-import Comments from '../Comments/Comments';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import i18n from "i18next";
@@ -17,6 +15,7 @@ import PageTitle from '../PageTitle';
 import PageContentWrapper from '../PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import LinkComponent from '../Links/LinkComponent';
+import CommentComponent from '../Comments/CommentComponent';
 
 function TaskDetails() {
 
@@ -112,9 +111,8 @@ function TaskDetails() {
           </tbody>
         </Table>
       </div>
-      <AddComment onSave={addCommentToTask} />
 
-      <Comments objID={params.id} url={'task-comments'} />
+      <CommentComponent objID={params.id} url={Constants.DB_TASK_COMMENTS} onSave={addCommentToTask} />
 
       <LinkComponent objID={params.id} url={Constants.DB_TASK_LINKS} onSaveLink={addLinkToTask} />
     </PageContentWrapper>

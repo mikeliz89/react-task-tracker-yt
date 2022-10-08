@@ -20,8 +20,6 @@ import Incredients from '../Recipe/Incredients';
 import RecipeHistories from '../Recipe/RecipeHistories';
 import SetStarRating from '../StarRating/SetStarRating';
 import StarRating from '../StarRating/StarRating';
-import AddComment from '../Comments/AddComment';
-import Comments from '../Comments/Comments';
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
@@ -32,6 +30,7 @@ import AddImage from '../ImageUpload/AddImage';
 import ImageGrid from '../ImageUpload/ImageGrid';
 import Modal from '../ImageUpload/Modal';
 import LinkComponent from '../Links/LinkComponent';
+import CommentComponent from '../Comments/CommentComponent';
 
 export default function DrinkDetails() {
 
@@ -384,8 +383,6 @@ export default function DrinkDetails() {
                     <>
                         <SetStarRating starCount={drink.stars} onSaveStars={saveStars} />
                         &nbsp;
-                        <AddComment onSave={addCommentToDrink} />
-                        &nbsp;
                         <Button
                             iconName='plus-square'
                             text={t('do_drink')}
@@ -418,7 +415,7 @@ export default function DrinkDetails() {
                     </>
                 )
             }
-            <Comments objID={params.id} url={'drink-comments'} />
+            <CommentComponent objID={params.id} url={Constants.DB_DRINK_COMMENTS} onSave={addCommentToDrink} />
 
             <LinkComponent objID={params.id} url={Constants.DB_DRINK_LINKS} onSaveLink={addLinkToDrink} />
         </PageContentWrapper>

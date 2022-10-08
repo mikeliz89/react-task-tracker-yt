@@ -15,7 +15,6 @@ const Links = ({ url, objID, onCounterChange }) => {
     //states
     const [loading, setLoading] = useState(true);
     const [links, setLinks] = useState({});
-    const [counter, setCounter] = useState(0);
 
     //load data
     useEffect(() => {
@@ -47,7 +46,6 @@ const Links = ({ url, objID, onCounterChange }) => {
                 fromDB.push({ id, ...snap[id] });
             }
             setLinks(fromDB);
-            setCounter(counterTemp);
             onCounterChange(counterTemp);
             setLoading(false);
         })

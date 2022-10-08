@@ -12,8 +12,6 @@ import { getMovementCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import SetStarRating from '../StarRating/SetStarRating';
 import StarRating from '../StarRating/StarRating';
-import AddComment from '../Comments/AddComment';
-import Comments from '../Comments/Comments';
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
@@ -24,6 +22,7 @@ import AddImage from '../ImageUpload/AddImage';
 import ImageGrid from '../ImageUpload/ImageGrid';
 import Modal from '../ImageUpload/Modal';
 import LinkComponent from '../Links/LinkComponent';
+import CommentComponent from '../Comments/CommentComponent';
 
 export default function MovementDetails() {
 
@@ -161,8 +160,6 @@ export default function MovementDetails() {
             <>
                 <SetStarRating starCount={movement.stars} onSaveStars={saveStars} />
                 &nbsp;
-                <AddComment onSave={addCommentToMovement} />
-                &nbsp;
                 <AddImage objectID={params.id} imagesUrl={Constants.DB_EXERCISE_MOVEMENT_IMAGES} />
             </>
 
@@ -174,7 +171,7 @@ export default function MovementDetails() {
                 </>
             }
 
-            <Comments objID={params.id} url={'exercise-movement-comments'} />
+            <CommentComponent objID={params.id} url={Constants.DB_EXERCISE_MOVEMENT_COMMENTS} onSave={addCommentToMovement} />
             <LinkComponent objID={params.id} url={Constants.DB_EXERCISE_MOVEMENT_LINKS} onSaveLink={addLinkToMovement} />
         </PageContentWrapper>
     )

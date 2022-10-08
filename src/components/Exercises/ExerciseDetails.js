@@ -13,9 +13,8 @@ import EditExercise from "./EditExercise";
 import { Categories, getTitleByCategory, getIconNameByCategory } from './Categories';
 import SetStarRating from "../StarRating/SetStarRating";
 import StarRating from "../StarRating/StarRating";
-import AddComment from '../Comments/AddComment';
-import Comments from '../Comments/Comments';
 import { useAuth } from '../../contexts/AuthContext';
+import CommentComponent from "../Comments/CommentComponent";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
 import * as Constants from '../../utils/Constants';
@@ -153,8 +152,6 @@ const ExerciseDetails = () => {
 
                 <>
                     <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
-                    &nbsp;
-                    <AddComment onSave={addCommentToExercise} />
                 </>
 
                 <Table>
@@ -193,7 +190,7 @@ const ExerciseDetails = () => {
                     <AddPartsMoving title={getTitleByCategory(exercise.category)}
                         iconName={getIconNameByCategory(exercise.category)} />
                 }
-                <Comments objID={params.id} url={'exercise-comments'} />
+                <CommentComponent objID={params.id} url={Constants.DB_EXERCISE_COMMENTS} onSave={addCommentToExercise} />
                 <LinkComponent objID={params.id} url={Constants.DB_EXERCISE_LINKS} onSaveLink={addLinkToExercise} />
             </PageContentWrapper >
         )
