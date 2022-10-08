@@ -1,6 +1,15 @@
 import CenterWrapper from "./CenterWrapper";
+import PropTypes from 'prop-types';
 
-function Counter({ counter, list, originalList }) {
+function Counter({ counter, list, originalList, text }) {
+
+    const getText = () => {
+        if (text === undefined || text == '') {
+            return '';
+        } else {
+            return text + ':';
+        }
+    }
 
     const getCounterText = () => {
         if (originalList === undefined || originalList === null) {
@@ -11,9 +20,21 @@ function Counter({ counter, list, originalList }) {
 
     return (
         <CenterWrapper>
-            {getCounterText()}
+            {getText()} {getCounterText()}
         </CenterWrapper>
     )
+}
+
+Counter.defaultProps = {
+    //strings
+    text: '',
+}
+
+Counter.propTypes = {
+    //strings
+    text: PropTypes.string,
+    //numbers
+    counter: PropTypes.number
 }
 
 export default Counter

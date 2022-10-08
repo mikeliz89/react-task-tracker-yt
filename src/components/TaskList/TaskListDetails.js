@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
+import { Col, Row, ButtonGroup, Accordion, Table, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Button from '../Button';
 import GoBackButton from '../GoBackButton';
@@ -209,11 +209,6 @@ function TaskListDetails() {
             text={showEditTaskList ? t('button_close') : ''}
             color={showEditTaskList ? 'red' : 'orange'}
             onClick={() => setShowEditTaskList(!showEditTaskList)} />
-          <Button
-            iconName='plus'
-            color={showAddTask ? 'red' : 'green'}
-            text={showAddTask ? t('button_close') : ''}
-            onClick={() => setShowAddTask(!showAddTask)} />
           <Button color="#545454" iconName='archive'
             onClick={() => {
               if (window.confirm(t('archive_list_confirm_message'))) {
@@ -267,12 +262,6 @@ function TaskListDetails() {
         </Col>
       </Row>
 
-      <div style={{ marginBottom: '10px' }}>
-        <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName='copy' /> &nbsp;
-        <Button onClick={() => { if (window.confirm(t('mark_all_tasks_done_confirm_message'))) { markAllTasksDone(params.id) } }} text={t('mark_all_tasks_done')} iconName='square-check' /> &nbsp;
-        <Button onClick={() => setShowChangeListType(!showChangeListType)} text={t('change_list_type')} iconName='edit' />
-      </div>
-
       {
         showChangeListType &&
         <ChangeType taskList={taskList}
@@ -283,37 +272,63 @@ function TaskListDetails() {
       {showEditTaskList &&
         <AddTaskList onSave={updateTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />
       }
-      {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onSave={updateTask} />}
 
-      <SearchSortFilter
-        useTextFiltering={true}
-        showFilterReady={true}
-        showFilterNotReady={true}
-        onSet={setTasks}
-        showSortByText={true}
-        showSortByCreatedDate={true}
-        originalList={originalTasks} />
+      <Tabs defaultActiveKey="home"
+        id="taskListDetails-Tab"
+        className="mb-3">
+        <Tab eventKey="home" title={t('tabheader_tasks')}>
+          <SearchSortFilter
+            useTextFiltering={true}
+            showFilterReady={true}
+            showFilterNotReady={true}
+            onSet={setTasks}
+            showSortByText={true}
+            showSortByCreatedDate={true}
+            originalList={originalTasks} />
 
-      {tasks != null && tasks.length > 0 ? (
-        <>
-          <Counter list={tasks} originalList={originalTasks} counter={taskCounter} />
-          <Tasks
-            taskListID={params.id}
-            tasks={tasks}
-            onDelete={deleteTask}
-            onToggle={toggleReminder}
-          />
-        </>
-      ) : (
-        <>
           <CenterWrapper>
-            {t('no_tasks_to_show')}
+            <Button
+              iconName='plus'
+              color={showAddTask ? 'red' : 'green'}
+              text={showAddTask ? t('button_close') : t('button_add_task')}
+              onClick={() => setShowAddTask(!showAddTask)} />
           </CenterWrapper>
-        </>
-      )}
+          {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onSave={updateTask} />}
+
+          {tasks != null && tasks.length > 0 ? (
+            <>
+              <Counter list={tasks} originalList={originalTasks} counter={taskCounter} text={t('tasks')} />
+              <Tasks
+                taskListID={params.id}
+                tasks={tasks}
+                onDelete={deleteTask}
+                onToggle={toggleReminder}
+              />
+            </>
+          ) : (
+            <>
+              <CenterWrapper>
+                {t('no_tasks_to_show')}
+              </CenterWrapper>
+            </>
+          )}
+        </Tab>
+        <Tab eventKey="links" title={t('tabheader_links')}>
+          <Links objID={params.id} url={'tasklist-links'} />
+          <AddLink onSaveLink={addLinkToTaskList} />
+        </Tab>
+        <Tab eventKey="actions" title={t('tabheader_actions')}>
+          <div style={{ marginBottom: '10px' }}>
+            <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName='copy' /> &nbsp;
+            <Button onClick={() => { if (window.confirm(t('mark_all_tasks_done_confirm_message'))) { markAllTasksDone(params.id) } }} text={t('mark_all_tasks_done')} iconName='square-check' /> &nbsp;
+            <Button onClick={() => setShowChangeListType(!showChangeListType)} text={t('change_list_type')} iconName='edit' />
+          </div>
+        </Tab>
+      </Tabs>
+
+
       <Row />
-      <AddLink onSaveLink={addLinkToTaskList} />
-      <Links objID={params.id} url={'tasklist-links'} />
+
     </PageContentWrapper>
   )
 }

@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import Icon from './Icon';
 
 const Button = ({ disabled, color, text, onClick, className,
-    secondIconName, type, iconName, iconColor, disableStyle
+    secondIconName, type, iconName, iconColor, disableStyle,
+    title
 }) => {
     return (
         <button
+            title={title}
             disabled={disabled}
             type={type}
             onClick={onClick}
@@ -23,6 +25,7 @@ Button.defaultProps = {
     color: 'steelblue',
     textcolor: 'white',
     className: 'btn',
+    title: '',
     //icons
     iconName: '',
     iconColor: '',
@@ -34,6 +37,7 @@ Button.defaultProps = {
 
 Button.propTypes = {
     //strings
+    title: PropTypes.string,
     text: PropTypes.string,
     color: PropTypes.string,
     className: PropTypes.string,

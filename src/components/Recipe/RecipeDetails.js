@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+import { Tab, Tabs, Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { child, ref, onValue } from 'firebase/database';
 import GoBackButton from '../GoBackButton';
