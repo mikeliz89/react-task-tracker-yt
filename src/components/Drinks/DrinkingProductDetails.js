@@ -16,13 +16,11 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import AddImage from '../ImageUpload/AddImage';
-import ImageGrid from '../ImageUpload/ImageGrid';
-import Modal from '../ImageUpload/Modal';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import SetStarRating from '../StarRating/SetStarRating';
 import StarRating from '../StarRating/StarRating';
+import ImageComponent from '../ImageUpload/ImageComponent';
 
 export default function DrinkingProductDetails() {
 
@@ -30,7 +28,6 @@ export default function DrinkingProductDetails() {
     const [loading, setLoading] = useState(true);
     const [drinkingProduct, setDrinkingProduct] = useState({});
     const [showEditDrinkingProduct, setShowEditDrinkingProduct] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -174,20 +171,14 @@ export default function DrinkingProductDetails() {
 
             <>
                 <SetStarRating starCount={drinkingProduct.stars} onSaveStars={saveStars} />
-                &nbsp;
-                <AddImage objectID={params.id} imagesUrl={Constants.DB_DRINKINGPRODUCT_IMAGES} />
             </>
 
             {showEditDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} drinkingProductID={params.id}
                 onClose={() => setShowEditDrinkingProduct(false)} />}
 
             <hr />
-            {
-                <>
-                    <ImageGrid url={Constants.DB_DRINKINGPRODUCT_IMAGES} objectID={params.id} setSelectedImage={setSelectedImage} />
-                    {selectedImage && <Modal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
-                </>
-            }
+
+            <ImageComponent url={Constants.DB_DRINKINGPRODUCT_IMAGES} objID={params.id} />
 
             <CommentComponent objID={params.id} url={Constants.DB_DRINKINGPRODUCT_COMMENTS} onSave={addCommentToDrinkingProduct} />
 

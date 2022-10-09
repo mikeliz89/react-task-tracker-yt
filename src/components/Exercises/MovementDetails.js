@@ -18,11 +18,9 @@ import Alert from '../Alert';
 import AddMovement from './AddMovement';
 import PageContentWrapper from '../PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import AddImage from '../ImageUpload/AddImage';
-import ImageGrid from '../ImageUpload/ImageGrid';
-import Modal from '../ImageUpload/Modal';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
+import ImageComponent from '../ImageUpload/ImageComponent';
 
 export default function MovementDetails() {
 
@@ -30,7 +28,6 @@ export default function MovementDetails() {
     const [loading, setLoading] = useState(true);
     const [movement, setMovement] = useState({});
     const [showEditMovement, setShowEditMovement] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -159,18 +156,11 @@ export default function MovementDetails() {
 
             <>
                 <SetStarRating starCount={movement.stars} onSaveStars={saveStars} />
-                &nbsp;
-                <AddImage objectID={params.id} imagesUrl={Constants.DB_EXERCISE_MOVEMENT_IMAGES} />
             </>
 
             <hr />
-            {
-                <>
-                    <ImageGrid url={Constants.DB_EXERCISE_MOVEMENT_IMAGES} objectID={params.id} setSelectedImage={setSelectedImage} />
-                    {selectedImage && <Modal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
-                </>
-            }
 
+            <ImageComponent url={Constants.DB_EXERCISE_MOVEMENT_IMAGES} objID={params.id} />
             <CommentComponent objID={params.id} url={Constants.DB_EXERCISE_MOVEMENT_COMMENTS} onSave={addCommentToMovement} />
             <LinkComponent objID={params.id} url={Constants.DB_EXERCISE_MOVEMENT_LINKS} onSaveLink={addLinkToMovement} />
         </PageContentWrapper>

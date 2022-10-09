@@ -19,10 +19,8 @@ import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datati
 import Button from '../Button';
 import AddGear from './AddGear';
 import Alert from '../Alert';
-import ImageGrid from '../ImageUpload/ImageGrid';
-import Modal from '../ImageUpload/Modal';
-import AddImage from '../ImageUpload/AddImage';
 import LinkComponent from '../Links/LinkComponent';
+import ImageComponent from '../ImageUpload/ImageComponent';
 
 function GearDetails() {
 
@@ -39,7 +37,6 @@ function GearDetails() {
     const [loading, setLoading] = useState(true);
     const [gear, setGear] = useState({});
     const [showEdit, setShowEdit] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
 
     //params
     const params = useParams();
@@ -176,18 +173,11 @@ function GearDetails() {
                 <Col>
                     <>
                         <SetStarRating starCount={gear.stars} onSaveStars={saveStars} />
-                        &nbsp;
-                        <AddImage objectID={params.id} imagesUrl={Constants.DB_BACKPACKING_GEAR_IMAGES} />
                     </>
                 </Col>
             </Row>
             <hr />
-            {
-                <>
-                    <ImageGrid url={Constants.DB_BACKPACKING_GEAR_IMAGES} objectID={params.id} setSelectedImage={setSelectedImage} />
-                    {selectedImage && <Modal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
-                </>
-            }
+            <ImageComponent url={Constants.DB_BACKPACKING_GEAR_IMAGES} objID={params.id} />
             <CommentComponent objID={params.id} url={Constants.DB_BACKPACKING_GEAR_COMMENTS} onSave={addCommentToGear} />
             <LinkComponent objID={params.id} url={Constants.DB_BACKPACKING_GEAR_LINKS} onSaveLink={addLinkToGear} />
         </PageContentWrapper>

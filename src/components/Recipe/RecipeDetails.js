@@ -25,9 +25,7 @@ import PageContentWrapper from '../PageContentWrapper';
 import CenterWrapper from '../CenterWrapper';
 import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
     from '../../datatier/datatier';
-import AddImage from '../ImageUpload/AddImage';
-import ImageGrid from '../ImageUpload/ImageGrid';
-import Modal from '../ImageUpload/Modal';
+import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 
@@ -42,8 +40,6 @@ export default function RecipeDetails() {
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
     const [incredients, setIncredients] = useState();
     const [workPhases, setWorkPhases] = useState();
-
-    const [selectedImage, setSelectedImage] = useState(null);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -94,7 +90,6 @@ export default function RecipeDetails() {
             setLoading(false);
         })
     }
-
 
     const fetchRecipeHistoryFromFirebase = async () => {
         const dbref = await child(ref(db, Constants.DB_RECIPE_HISTORY), params.id);
@@ -341,18 +336,10 @@ export default function RecipeDetails() {
                             text={t('do_recipe')}
                             onClick={() => { if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); } }}
                         />
-                        &nbsp;
-                        <AddImage objectID={params.id} imagesUrl={Constants.DB_RECIPE_IMAGES} />
                     </>
                 </Tab>
             </Tabs>
             <hr />
-            {
-                <>
-                    <ImageGrid url={Constants.DB_RECIPE_IMAGES} objectID={params.id} setSelectedImage={setSelectedImage} />
-                    {selectedImage && <Modal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
-                </>
-            }
             {
                 recipeHistory != null && recipeHistory.length > 0 ? (
                     <RecipeHistories
@@ -363,6 +350,8 @@ export default function RecipeDetails() {
                     t('no_recipe_history')
                 )
             }
+
+            <ImageComponent objID={params.id} url={Constants.DB_RECIPE_IMAGES} />
 
             <CommentComponent objID={params.id} url={Constants.DB_RECIPE_COMMENTS} onSave={addCommentToRecipe} />
 
