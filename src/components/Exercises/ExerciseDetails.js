@@ -24,6 +24,7 @@ import Alert from "../Alert";
 import PageContentWrapper from "../PageContentWrapper";
 import { pushToFirebaseChild, updateToFirebaseById } from "../../datatier/datatier";
 import LinkComponent from "../Links/LinkComponent";
+import ImageComponent from "../ImageUpload/ImageComponent";
 
 const ExerciseDetails = () => {
 
@@ -190,6 +191,7 @@ const ExerciseDetails = () => {
                     <AddPartsMoving title={getTitleByCategory(exercise.category)}
                         iconName={getIconNameByCategory(exercise.category)} />
                 }
+                <ImageComponent objID={params.id} url={Constants.DB_EXERCISE_IMAGES} />
                 <CommentComponent objID={params.id} url={Constants.DB_EXERCISE_COMMENTS} onSave={addCommentToExercise} />
                 <LinkComponent objID={params.id} url={Constants.DB_EXERCISE_LINKS} onSaveLink={addLinkToExercise} />
             </PageContentWrapper >

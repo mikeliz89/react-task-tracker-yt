@@ -20,6 +20,7 @@ export const DB_DRINKINGPRODUCT_LINKS = '/drinkingproduct-links';
 export const DB_DRINKINGPRODUCT_IMAGES = '/drinkingproduct-images';
 export const DB_EXERCISES = '/exercises';
 export const DB_EXERCISE_COMMENTS = '/exercise-comments';
+export const DB_EXERCISE_IMAGES = '/exercise-images';
 export const DB_EXERCISE_LINKS = '/exercise-links';
 export const DB_EXERCISE_MOVEMENTS = '/exercise-movements';
 export const DB_EXERCISE_MOVEMENT_COMMENTS = '/exercise-movement-comments';

@@ -7,7 +7,7 @@ import GoBackButton from '../GoBackButton';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-import { ExerciseCategories } from './Categories';
+import { Categories, ExerciseCategories } from './Categories';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
@@ -18,8 +18,8 @@ const CreateExercise = () => {
     //states
     const [category, setCategory] = useState();
     const [categories, setCategories] = useState(ExerciseCategories);
-    const [date, setDate] = useState(''); //todo: laita oletuksena nykypvm
-    const [time, setTime] = useState(''); //todo: laita oletuksena nykyinen kellonaika
+    const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState(new Date());
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -38,7 +38,23 @@ const CreateExercise = () => {
 
     useEffect(() => {
         sortCategoriesByName();
-    }, [ready]);
+        setDefaultCategory();
+    }, [ready])
+
+    useEffect(() => {
+        const date = new Date();
+        //set default date to current date
+        setDate(date.toLocaleDateString('en-CA'));
+        var currentTime = date.getHours() + ':' + date.getMinutes();
+        //set default time to current time
+        setTime(currentTime);
+    });
+
+    const setDefaultCategory = () => {
+        //set default category to gym
+        let obj = categories.find(x => x.id === Categories.Gym);
+        setCategory(obj.id);
+    }
 
     const sortCategoriesByName = () => {
         const sortedCategories = [...categories].sort((a, b) => {
