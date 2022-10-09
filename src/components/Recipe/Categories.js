@@ -121,6 +121,11 @@ export const RecipeCategories = [
         //lisuke
         "id": 20,
         "name": "sidedish"
+    },
+    {
+        //smoothie
+        "id": 21,
+        "name": "smoothie"
     }
 ]
 
