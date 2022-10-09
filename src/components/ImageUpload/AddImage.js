@@ -16,6 +16,7 @@ function AddImage({ objectID, imagesUrl }) {
         <>
             <Button type="button"
                 disableStyle={true}
+                iconName={Constants.ICON_IMAGES}
                 className={showAddImage ? 'btn btn-danger' : 'btn btn-primary'}
                 text={
                     showAddImage ? t('button_close') : t('add_image')
