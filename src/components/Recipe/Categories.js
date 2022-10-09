@@ -164,6 +164,26 @@ export const FoodItemCategories = [
         //liha
         "id": 6,
         "name": "meat"
+    },
+    {
+        //kala
+        "id": 7,
+        "name": "fish"
+    },
+    {
+        //pähkinä
+        "id": 8,
+        "name": "nut"
+    },
+    {
+        //maustekastike
+        "id": 9,
+        "name": "sauce"
+    },
+    {
+        //muu
+        "id": 10,
+        "name": "other"
     }
 ]
 
