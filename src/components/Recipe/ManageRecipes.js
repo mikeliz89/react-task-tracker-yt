@@ -134,7 +134,7 @@ const ManageRecipes = () => {
         error={error} showError={showError}
         variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-      {showAddRecipe && <AddRecipe onClose={() => setShowAddRecipe(false)} onAddRecipe={addRecipe} />}
+      {showAddRecipe && <AddRecipe onClose={() => setShowAddRecipe(false)} onSave={addRecipe} />}
       <SearchSortFilter
         useTitleFiltering={true}
         onSet={setRecipes}
