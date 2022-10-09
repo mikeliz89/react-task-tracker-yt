@@ -18,7 +18,6 @@ const ImageGrid = ({ objectID, url, setSelectedImage, onCounterChange }) => {
     const { t } = useTranslation(Constants.TRANSLATION_UPLOAD_IMAGES, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
 
     useEffect(() => {
-        console.log(docs);
         onCounterChange(docs.length);
     }, [docs]);
 
