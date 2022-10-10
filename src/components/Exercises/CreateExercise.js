@@ -41,14 +41,16 @@ const CreateExercise = () => {
         setDefaultCategory();
     }, [ready])
 
-    useEffect(() => {
+    const getCurrentDate = () => {
         const date = new Date();
         //set default date to current date
-        setDate(date.toLocaleDateString('en-CA'));
-        //set default time to current time
-        var currentTime = date.toTimeString().split(' ')[0];
-        setTime(currentTime);
-    });
+        return date.toLocaleDateString('en-CA');
+    }
+
+    const getCurrentTime = () => {
+        const date = new Date();
+        return date.toTimeString().split(' ')[0];
+    }
 
     const setDefaultCategory = () => {
         //set default category to gym
@@ -113,11 +115,11 @@ const CreateExercise = () => {
                 <Row>
                     <Form.Group as={Col} className="mb-3">
                         <Form.Label>{t('date_and_time')}</Form.Label>
-                        <Form.Control type="date" name='date' value={date} onChange={(e) => setDate(e.target.value)} />
+                        <Form.Control type="date" name='date' onChange={(e) => setDate(e.target.value)} value={date} />
                     </Form.Group>
                     <Form.Group as={Col} className="mb-3">
                         <Form.Label>{t('date_and_time')}</Form.Label>
-                        <Form.Control type="time" name='time' value={time} onChange={(e) => setTime(e.target.value)} />
+                        <Form.Control type="time" name='time' onChange={(e) => setTime(e.target.value)} value={time} />
                     </Form.Group>
                 </Row>
                 <Button type='submit' text={t('button_create_exercise')} className='btn btn-block saveBtn' />
