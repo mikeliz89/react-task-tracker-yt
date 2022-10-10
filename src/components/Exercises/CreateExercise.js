@@ -45,8 +45,8 @@ const CreateExercise = () => {
         const date = new Date();
         //set default date to current date
         setDate(date.toLocaleDateString('en-CA'));
-        var currentTime = date.getHours() + ':' + date.getMinutes();
         //set default time to current time
+        var currentTime = date.toTimeString().split(' ')[0];
         setTime(currentTime);
     });
 
