@@ -5,6 +5,10 @@ import { useTranslation } from 'react-i18next';
 
 function ThemeToggler() {
 
+    const LIGHT = 'light';
+    const BLACK = 'black';
+    const WHITE = 'white';
+
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_THEME, { keyPrefix: Constants.TRANSLATION_THEME });
 
@@ -15,12 +19,12 @@ function ThemeToggler() {
             toggleTheme();
             const rootElement = document.getElementById("root");
             const htmlElement = document.documentElement;
-            if (theme === 'light') {
-                rootElement.style.backgroundColor = 'black';
-                htmlElement.style.backgroundColor = 'black';
+            if (theme === LIGHT) {
+                rootElement.style.backgroundColor = BLACK;
+                htmlElement.style.backgroundColor = BLACK;
             } else {
-                rootElement.style.backgroundColor = 'white';
-                htmlElement.style.backgroundColor = 'white';
+                rootElement.style.backgroundColor = WHITE;
+                htmlElement.style.backgroundColor = WHITE;
             }
         }}>{t('title')}: {theme}</div>
     )
