@@ -141,6 +141,7 @@
     },
     "dashboard": {
         "buttons": {
+            "add_new": "Lisää uusi",
             "backpacking": "Retkeily",
             "bmi_calculator": "Painoindeksi-laskuri",
             "car": "Auto",

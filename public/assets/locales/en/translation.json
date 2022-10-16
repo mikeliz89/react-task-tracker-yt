@@ -129,6 +129,7 @@
     },
     "dashboard": {
         "buttons": {
+            "add_new": "Add new",
             "backpacking": "Backpacking",
             "bmi_calculator": "BMI Calculator",
             "car": "Car",
