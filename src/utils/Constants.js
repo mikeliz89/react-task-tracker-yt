@@ -80,6 +80,7 @@ export const ICON_RUNNING = 'running';
 export const ICON_SIGN_OUT_ALT = 'sign-out-alt';
 export const ICON_SQUARE_CHECK = 'square-check';
 export const ICON_STAR = 'star';
+export const ICON_SYNC = 'sync';
 export const ICON_USER_ALT = 'user-alt';
 export const ICON_UTENSILS = 'utensils';
 export const ICON_WEIGHT = 'weight';

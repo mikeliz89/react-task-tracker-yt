@@ -141,6 +141,7 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
                 <p> {getCategory(recipe.category)}</p>
             ) : ('')}
             <p>{recipe.description}</p>
+            <p>{recipe.incredients}</p>
             <p>
                 <Link className='btn btn-primary' to={`${getViewDetailsUrl(recipeType)}/${recipe.id}`}>{t('view_details')}</Link>
                 <OverlayTrigger
@@ -155,7 +156,6 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
                 </OverlayTrigger>
             </p>
             <StarRating starCount={recipe.stars} />
-
             {
                 editable && (
                     recipeType === RecipeTypes.Food && (
