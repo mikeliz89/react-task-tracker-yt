@@ -4,7 +4,7 @@ import AddIncredient from './AddIncredient';
 import Icon from '../Icon';
 import PropTypes from 'prop-types';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import RightWrapper from '../RightWrapper';
+import RightWrapper from '../Site/RightWrapper';
 import * as Constants from '../../utils/Constants';
 
 export const Incredient = ({ dbUrl, translation, incredient, recipeID, onDelete }) => {

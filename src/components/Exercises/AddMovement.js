@@ -8,7 +8,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { MovementCategories } from './Categories';
-import PageTitle from '../PageTitle';
+import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
 import { getFromFirebaseById, pushToFirebase, updateToFirebaseById } from '../../datatier/datatier';
 

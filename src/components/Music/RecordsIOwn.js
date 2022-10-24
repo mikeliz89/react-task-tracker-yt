@@ -1,4 +1,4 @@
-import PageContentWrapper from "../PageContentWrapper";
+import PageContentWrapper from "../Site/PageContentWrapper";
 
 const RecordsIOwn = () => {
   return (

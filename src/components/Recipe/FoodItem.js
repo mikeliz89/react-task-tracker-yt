@@ -5,7 +5,7 @@ import AddFoodItem from './AddFoodItem';
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import Icon from '../Icon';
-import RightWrapper from '../RightWrapper';
+import RightWrapper from '../Site/RightWrapper';
 
 const FoodItem = ({ foodItem, onDelete, onEdit }) => {
 

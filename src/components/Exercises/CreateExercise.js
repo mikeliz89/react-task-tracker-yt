@@ -8,9 +8,9 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { Categories, ExerciseCategories } from './Categories';
-import PageTitle from '../PageTitle';
+import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
-import PageContentWrapper from '../PageContentWrapper';
+import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebase } from '../../datatier/datatier';
 
 const CreateExercise = () => {

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { removeFromFirebaseByIdAndSubId } from "../../datatier/datatier";
-import PageTitle from "../PageTitle";
+import PageTitle from '../Site/PageTitle';
 import * as Constants from '../../utils/Constants';
 
 function RecipeHistories({ dbUrl, translation, recipeHistories, recipeID }) {

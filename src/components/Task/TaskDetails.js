@@ -11,8 +11,8 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import * as Constants from '../../utils/Constants';
 import i18n from "i18next";
 import { useAuth } from '../../contexts/AuthContext';
-import PageTitle from '../PageTitle';
-import PageContentWrapper from '../PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
+import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';

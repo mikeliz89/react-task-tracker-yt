@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AddComment from "./AddComment";
 import Comments from "./Comments";
-import PageTitle from "../PageTitle";
+import PageTitle from '../Site/PageTitle';
 import { useTranslation } from "react-i18next";
 import * as Constants from '../../utils/Constants';
 

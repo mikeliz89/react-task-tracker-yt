@@ -3,7 +3,7 @@ import styles from './imagegrid.module.css';
 import { useTranslation } from "react-i18next";
 import * as Constants from '../../utils/Constants';
 import { Card } from 'react-bootstrap';
-import RightWrapper from '../RightWrapper';
+import RightWrapper from '../Site/RightWrapper';
 import Button from '../Button';
 import { useState, useEffect } from 'react';
 import ImageGridDeletion from './ImageGridDeletion';

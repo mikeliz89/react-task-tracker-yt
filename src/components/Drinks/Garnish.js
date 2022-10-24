@@ -4,7 +4,7 @@ import AddGarnish from './AddGarnish';
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import RightWrapper from '../RightWrapper';
+import RightWrapper from '../Site/RightWrapper';
 
 export const Garnish = ({ garnish, drinkID, onDelete }) => {
 

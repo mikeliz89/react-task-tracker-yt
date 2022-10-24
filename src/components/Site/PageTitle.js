@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Icon from './Icon';
+import Icon from '../Icon';
 
 function PageTitle({ title, iconName, iconColor, isSubTitle }) {
     return (

@@ -7,7 +7,7 @@ import * as Constants from '../../utils/Constants';
 import Icon from "../Icon";
 import AddFueling from "./AddFueling";
 import { updateToFirebaseById } from "../../datatier/datatier";
-import RightWrapper from "../RightWrapper";
+import RightWrapper from "../Site/RightWrapper";
 
 function CarFueling({ fuelingRow, onDelete }) {
 

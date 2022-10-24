@@ -9,12 +9,12 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import GoBackButton from '../../components/GoBackButton';
-import PageTitle from '../PageTitle';
+import PageTitle from '../Site/PageTitle';
 import SetStarRating from '../StarRating/SetStarRating';
 import StarRating from '../StarRating/StarRating';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
-import PageContentWrapper from '../PageContentWrapper';
+import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import Button from '../Button';
 import AddGear from './AddGear';

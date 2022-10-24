@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
-import RightWrapper from '../RightWrapper';
+import RightWrapper from '../Site/RightWrapper';
 import { useState } from 'react';
 import AddTask from './AddTask';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';

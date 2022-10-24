@@ -8,11 +8,11 @@ import AddInfo from './AddInfo';
 import CarFuelings from './CarFuelings';
 import { db } from '../../firebase-config';
 import { onValue, ref } from 'firebase/database';
-import PageTitle from '../PageTitle';
+import PageTitle from '../Site/PageTitle';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 import CenterWrapper from '../Site/CenterWrapper';
-import PageContentWrapper from '../PageContentWrapper';
+import PageContentWrapper from '../Site/PageContentWrapper';
 import * as Constants from '../../utils/Constants';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 

@@ -9,7 +9,7 @@ import { ref, child, onValue } from 'firebase/database';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-import PageTitle from '../PageTitle';
+import PageTitle from '../Site/PageTitle';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 const AddPartsMoving = ({ title, iconName }) => {

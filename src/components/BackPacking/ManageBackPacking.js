@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import GoBackButton from '../GoBackButton';
-import PageTitle from '../PageTitle';
+import PageTitle from '../Site/PageTitle';
 import Icon from '../Icon';
-import PageContentWrapper from '../PageContentWrapper';
+import PageContentWrapper from '../Site/PageContentWrapper';
 import * as Constants from '../../utils/Constants';
 
 export default function ManageBackPacking() {

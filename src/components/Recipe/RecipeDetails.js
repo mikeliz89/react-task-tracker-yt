@@ -17,11 +17,11 @@ import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import SetStarRating from '../StarRating/SetStarRating';
 import { useAuth } from '../../contexts/AuthContext';
-import PageTitle from '../PageTitle';
+import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
 import StarRating from '../StarRating/StarRating';
 import RecipeHistories from './RecipeHistories';
-import PageContentWrapper from '../PageContentWrapper';
+import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
     from '../../datatier/datatier';

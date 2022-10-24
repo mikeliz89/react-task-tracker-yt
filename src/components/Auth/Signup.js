@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import Button from '../../components/Button';
 import Alert from '../Alert';
-import PageTitle from '../PageTitle';
+import PageTitle from '../Site/PageTitle';
 import CenterWrapper from '../Site/CenterWrapper';
 import * as Constants from '../../utils/Constants';
 

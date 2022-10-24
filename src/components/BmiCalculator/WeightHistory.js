@@ -8,9 +8,9 @@ import * as Constants from '../../utils/Constants';
 import i18n from 'i18next';
 import { useAuth } from '../../contexts/AuthContext';
 import WeightChart from './WeightChart';
-import PageTitle from '../PageTitle';
+import PageTitle from '../Site/PageTitle';
 import Icon from '../Icon';
-import PageContentWrapper from '../PageContentWrapper';
+import PageContentWrapper from '../Site/PageContentWrapper';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 const WeightHistory = () => {

@@ -12,12 +12,12 @@ import { getPageTitleContent } from '../../utils/ListUtils';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
-import PageTitle from '../PageTitle';
+import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { ListTypes } from '../../utils/Enums';
 import PropTypes from 'prop-types';
 import CenterWrapper from '../Site/CenterWrapper';
-import PageContentWrapper from '../PageContentWrapper';
+import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Counter';
 import { pushToFirebase, removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
 

@@ -5,7 +5,7 @@ import Icon from '../Icon';
 import AddPartsGymForm from './AddPartsGymForm';
 import * as Constants from '../../utils/Constants';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import RightWrapper from '../RightWrapper';
+import RightWrapper from '../Site/RightWrapper';
 
 function GymPart({ exerciseID, gymPart, onDelete }) {
 

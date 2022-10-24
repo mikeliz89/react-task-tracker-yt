@@ -4,7 +4,7 @@ import * as Constants from '../../utils/Constants';
 import AddImage from './AddImage';
 import ImageGrid from './ImageGrid';
 import Modal from './Modal';
-import PageTitle from "../PageTitle";
+import PageTitle from '../Site/PageTitle';
 
 function ImageComponent({ objID, url }) {
 

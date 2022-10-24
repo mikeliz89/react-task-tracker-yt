@@ -1,6 +1,6 @@
 import GoBackButton from '../GoBackButton';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import PageContentWrapper from '../PageContentWrapper';
+import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebase } from '../../datatier/datatier';
 import * as Constants from '../../utils/Constants';
 import LinkComponent from './LinkComponent';

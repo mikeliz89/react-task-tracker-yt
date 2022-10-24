@@ -6,7 +6,7 @@ import AddPartsGymForm from './AddPartsGymForm';
 import GymParts from './GymParts';
 import { onValue, child, ref } from 'firebase/database';
 import { db } from '../../firebase-config';
-import PageTitle from '../PageTitle';
+import PageTitle from '../Site/PageTitle';
 import * as Constants from '../../utils/Constants';
 import { pushToFirebaseChild } from '../../datatier/datatier';
 

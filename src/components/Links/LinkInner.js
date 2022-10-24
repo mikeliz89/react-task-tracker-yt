@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import EditLink from "./EditLink";
 import Icon from "../Icon";
 import * as Constants from '../../utils/Constants';
-import RightWrapper from "../RightWrapper";
+import RightWrapper from "../Site/RightWrapper";
 
 const LinkInner = ({ link, objID, linkUrl, onEdit, onDelete }) => {
 

@@ -1,7 +1,7 @@
 import GoBackButton from "../GoBackButton";
 import { useTranslation } from 'react-i18next';
-import PageTitle from "../PageTitle";
-import PageContentWrapper from "../PageContentWrapper";
+import PageTitle from '../Site/PageTitle';
+import PageContentWrapper from "../Site/PageContentWrapper";
 import * as Constants from '../../utils/Constants';
 
 const BandsSeenLive = () => {

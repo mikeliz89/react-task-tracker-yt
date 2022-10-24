@@ -5,7 +5,7 @@ import AddWorkPhase from './AddWorkPhase';
 import Icon from '../Icon';
 import PropTypes from 'prop-types';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import RightWrapper from '../RightWrapper';
+import RightWrapper from '../Site/RightWrapper';
 import * as Constants from '../../utils/Constants';
 
 export default function WorkPhase({ dbUrl, translation, workPhase, recipeID, onDelete }) {

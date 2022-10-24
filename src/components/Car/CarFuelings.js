@@ -1,6 +1,6 @@
 
 import { useTranslation } from "react-i18next";
-import PageTitle from "../PageTitle";
+import PageTitle from '../Site/PageTitle';
 import CarFueling from "./CarFueling";
 import * as Constants from '../../utils/Constants';
 import GasPriceChart from './GasPriceChart';

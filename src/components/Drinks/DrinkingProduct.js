@@ -6,7 +6,7 @@ import AddDrinkingProduct from './AddDrinkingProduct';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import Icon from '../Icon';
-import RightWrapper from '../RightWrapper';
+import RightWrapper from '../Site/RightWrapper';
 import StarRating from '../StarRating/StarRating';
 
 const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {

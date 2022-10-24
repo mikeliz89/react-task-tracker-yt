@@ -3,7 +3,7 @@ import { useState } from 'react';
 import * as Constants from "../../utils/Constants";
 import Icon from '../Icon';
 import Alert from '../Alert';
-import RightWrapper from '../RightWrapper';
+import RightWrapper from '../Site/RightWrapper';
 import AddGearMaintenanceInstruction from './AddGearMaintenanceInstruction';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';

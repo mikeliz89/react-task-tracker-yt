@@ -1,5 +1,5 @@
 import StarRatings from "./StarRatings";
-import PageContentWrapper from "../PageContentWrapper";
+import PageContentWrapper from "../Site/PageContentWrapper";
 
 function Demo() {
   return (

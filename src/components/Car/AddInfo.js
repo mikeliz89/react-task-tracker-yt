@@ -8,7 +8,7 @@ import { db } from "../../firebase-config";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 import * as Constants from '../../utils/Constants';
 import i18n from "i18next";
-import PageTitle from "../PageTitle";
+import PageTitle from '../Site/PageTitle';
 import Alert from "../Alert";
 import { pushToFirebase, updateToFirebaseById } from "../../datatier/datatier";
 

@@ -19,9 +19,9 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateT
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
 import * as Constants from '../../utils/Constants';
 import i18n from "i18next";
-import PageTitle from "../PageTitle";
+import PageTitle from '../Site/PageTitle';
 import Alert from "../Alert";
-import PageContentWrapper from "../PageContentWrapper";
+import PageContentWrapper from "../Site/PageContentWrapper";
 import { pushToFirebaseChild, updateToFirebaseById } from "../../datatier/datatier";
 import LinkComponent from "../Links/LinkComponent";
 import ImageComponent from "../ImageUpload/ImageComponent";

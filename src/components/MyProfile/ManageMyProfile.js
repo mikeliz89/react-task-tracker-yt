@@ -8,9 +8,9 @@ import { db, uploadProfilePic } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-import PageTitle from '../PageTitle';
+import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
-import PageContentWrapper from '../PageContentWrapper';
+import PageContentWrapper from '../Site/PageContentWrapper';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import Modal from '../ImageUpload/Modal';
 

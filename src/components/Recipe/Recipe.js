@@ -16,7 +16,7 @@ import Alert from '../Alert';
 import PropTypes from 'prop-types';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
 import { pushToFirebase, pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import RightWrapper from '../RightWrapper';
+import RightWrapper from '../Site/RightWrapper';
 import AddRecipe from './AddRecipe';
 import AddDrink from '../Drinks/AddDrink';
 
