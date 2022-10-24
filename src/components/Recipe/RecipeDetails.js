@@ -22,7 +22,7 @@ import Alert from '../Alert';
 import StarRating from '../StarRating/StarRating';
 import RecipeHistories from './RecipeHistories';
 import PageContentWrapper from '../PageContentWrapper';
-import CenterWrapper from '../CenterWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
     from '../../datatier/datatier';
 import ImageComponent from '../ImageUpload/ImageComponent';

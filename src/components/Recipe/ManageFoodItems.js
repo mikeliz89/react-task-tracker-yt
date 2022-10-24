@@ -15,7 +15,7 @@ import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
-import CenterWrapper from '../CenterWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 
 const ManageFoodItems = () => {

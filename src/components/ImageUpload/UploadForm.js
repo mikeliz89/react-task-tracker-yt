@@ -4,7 +4,7 @@ import Alert from '../Alert';
 import { useTranslation } from 'react-i18next';
 import * as Constants from '../../utils/Constants';
 import ProgressBar from './ProgressBar';
-import CenterWrapper from '../CenterWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 
 function UploadForm({ objectID, imagesUrl }) {
 

@@ -11,7 +11,7 @@ import { onValue, ref } from 'firebase/database';
 import PageTitle from '../PageTitle';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
-import CenterWrapper from '../CenterWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
 import * as Constants from '../../utils/Constants';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';

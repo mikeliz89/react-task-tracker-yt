@@ -7,7 +7,7 @@ import { ref, onValue } from 'firebase/database';
 import TaskLists from '../../components/TaskList/TaskLists';
 import PageTitle from '../PageTitle';
 import PageContentWrapper from '../PageContentWrapper';
-import CenterWrapper from '../CenterWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Counter';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';

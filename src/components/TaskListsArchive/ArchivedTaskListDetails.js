@@ -12,7 +12,7 @@ import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import PageTitle from '../PageTitle';
 import PageContentWrapper from '../PageContentWrapper';
-import CenterWrapper from '../CenterWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Counter';
 import { getFromFirebaseById, pushToFirebase, updateToFirebase, updateToFirebaseById } from '../../datatier/datatier';
 import { getPageTitleContent } from '../../utils/ListUtils';

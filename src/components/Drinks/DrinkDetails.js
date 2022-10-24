@@ -24,7 +24,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../PageContentWrapper';
-import CenterWrapper from '../CenterWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById } from '../../datatier/datatier';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';

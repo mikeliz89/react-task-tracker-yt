@@ -18,7 +18,7 @@ import { RecipeTypes } from '../../utils/Enums';
 import Icon from '../Icon';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
-import CenterWrapper from '../CenterWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 
 export default function ManageDrinks() {

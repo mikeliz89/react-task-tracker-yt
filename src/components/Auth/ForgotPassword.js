@@ -6,7 +6,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import Button from '../../components/Button';
 import Alert from '../Alert';
 import PageTitle from '../PageTitle';
-import CenterWrapper from '../CenterWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 import * as Constants from '../../utils/Constants';
 
 export default function ForgotPassword() {

@@ -8,7 +8,7 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { db } from '../../firebase-config';
 import { onValue, ref } from 'firebase/database';
 import Movements from './Movements';
-import CenterWrapper from '../CenterWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
 import * as Constants from '../../utils/Constants';

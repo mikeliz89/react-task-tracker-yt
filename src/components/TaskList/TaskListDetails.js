@@ -17,7 +17,7 @@ import i18n from "i18next";
 import PageTitle from '../PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageContentWrapper from '../PageContentWrapper';
-import CenterWrapper from '../CenterWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Counter';
 import {
   removeFromFirebaseByIdAndSubId, pushToFirebaseChild, pushToFirebase,

@@ -16,7 +16,7 @@ import PageTitle from '../PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { ListTypes } from '../../utils/Enums';
 import PropTypes from 'prop-types';
-import CenterWrapper from '../CenterWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../PageContentWrapper';
 import Counter from '../Counter';
 import { pushToFirebase, removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
