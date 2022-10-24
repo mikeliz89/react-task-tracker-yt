@@ -1,6 +1,9 @@
 import { createContext, useContext, useState } from 'react';
 
-const ThemeContext = createContext("light");
+const THEME_LIGHT = 'light';
+const THEME_DARK = 'dark';
+
+const ThemeContext = createContext(THEME_LIGHT);
 
 export function useTheme() {
     return useContext(ThemeContext);
@@ -9,10 +12,10 @@ export function useTheme() {
 export function ThemeProvider({ children }) {
 
     //states
-    const [theme, setTheme] = useState("light"); //default = light
+    const [theme, setTheme] = useState(THEME_LIGHT); //default = light
 
     const toggleTheme = () => {
-        setTheme((curr) => curr === "light" ? "dark" : "light")
+        setTheme((curr) => curr === THEME_LIGHT ? THEME_DARK : THEME_LIGHT)
     }
 
     const value = { theme, toggleTheme };

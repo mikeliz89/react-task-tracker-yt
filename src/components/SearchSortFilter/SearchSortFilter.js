@@ -18,6 +18,7 @@ const SearchSortFilter = ({ onSet,
     //searching
     showSearch,
     showSearchByDescription,
+    showSearchByIncredients,
     //filtering
     showFilterHaveAtHome,
     showFilterNotHaveAtHome,
@@ -34,6 +35,7 @@ const SearchSortFilter = ({ onSet,
     //states
     const [searchString, setSearchString] = useState('');
     const [searchStringDescription, setSearchStringDescription] = useState('');
+    const [searchStringIncredients, setSearchStringIncredients] = useState('');
     const [sortBy, setSortBy] = useState(defaultSort);
     const [showOnlyHaveAtHome, setShowOnlyHaveAtHome] = useState(false);
     const [showOnlyNotHaveAtHome, setShowOnlyNotHaveAtHome] = useState(false);
@@ -67,7 +69,9 @@ const SearchSortFilter = ({ onSet,
 
     useEffect(() => {
         filterAndSort();
-    }, [sortBy, searchString, searchStringDescription,
+    }, [sortBy,
+        searchString, searchStringDescription,
+        searchStringIncredients,
         showOnlyHaveAtHome, showOnlyNotHaveAtHome,
         showOnlyHaveRated, showOnlyNotHaveRated,
         showOnlyCore,
@@ -93,11 +97,14 @@ const SearchSortFilter = ({ onSet,
                 newList = newList.filter(x => x.title != null && x.title.toLowerCase().includes(searchString.toLowerCase()));
             }
             if (useTextFiltering) {
-                newList = newList.filter(x => x.text.toLowerCase().includes(searchString.toLowerCase()));
+                newList = newList.filter(x => x.text != null && x.text.toLowerCase().includes(searchString.toLowerCase()));
             }
         }
+        if (searchStringIncredients !== "") {
+            newList = newList.filter(x => x.incredients != null && x.incredients.toLowerCase().includes(searchStringIncredients.toLowerCase()));
+        }
         if (searchStringDescription !== "") {
-            newList = newList.filter(x => x.description.toLowerCase().includes(searchStringDescription.toLowerCase()));
+            newList = newList.filter(x => x.description != null && x.description.toLowerCase().includes(searchStringDescription.toLowerCase()));
         }
         return newList;
     }
@@ -302,6 +309,24 @@ const SearchSortFilter = ({ onSet,
                     </>
                 }
                 {
+                    showSearchByIncredients &&
+                    <>
+                        <Form.Group as={Row}>
+                            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
+                            <Col xs={9} sm={10}>
+                                <Form.Control
+                                    autoComplete='off'
+                                    type="text"
+                                    id="inputSearchStringIncredients"
+                                    aria-describedby="searchHelpBlock"
+                                    onChange={(e) => setSearchStringIncredients(e.target.value)}
+                                    placeholder={t('placeholder_incredients')}
+                                />
+                            </Col>
+                        </Form.Group>
+                    </>
+                }
+                {
                     showFilterHaveAtHome &&
                     <>
                         <Form.Group as={Row} controlId='searchSortFilter-OnlyHaveAtHome'>
@@ -415,6 +440,7 @@ SearchSortFilter.defaultProps = {
     //searching
     showSearch: true,
     showSearchByDescription: false,
+    showSearchByIncredients: false,
     //filtering
     showFilterHaveAtHome: false,
     showFilterNotHaveAtHome: false,
@@ -439,6 +465,7 @@ SearchSortFilter.propTypes = {
     //searching
     showSearch: PropTypes.bool,
     showSearchByDescription: PropTypes.bool,
+    showSearchByIncredients: PropTypes.bool,
     //filtering
     showFilterHaveAtHome: PropTypes.bool,
     showFilterNotHaveAtHome: PropTypes.bool,

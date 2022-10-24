@@ -189,6 +189,25 @@ export default function RecipeDetails() {
         setMessage(t('save_success_recipehistoryhistory'));
     }
 
+    const updateRecipeIncredients = async () => {
+        var recipeID = params.id;
+        recipe["incredients"] = getIncredientsAsText();
+        updateToFirebaseById(Constants.DB_RECIPES, recipeID, recipe);
+    }
+
+    const getIncredientsAsText = () => {
+        //hakee kaikki namet taulukoksi
+        var names = incredients.map(function (item) {
+            return item['name'];
+        });
+        //korvataan pilkut pilkku-välilyönneillä
+        const search = ',';
+        const replaceWith = ', ';
+        const result = names.toString().split(search).join(replaceWith);
+        //muutetaan lopuksi vielä stringiksi
+        return result.toString();
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -242,7 +261,12 @@ export default function RecipeDetails() {
             </Row>
             <Row>
                 <Col>
-                    {t('description' + ': ')}{recipe.description}
+                    {t('description') + ': '} {recipe.description}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    {t('incredients') + ': '} {recipe.incredients}
                 </Col>
             </Row>
             <Row>
@@ -280,13 +304,16 @@ export default function RecipeDetails() {
                         />}
                     {incredients != null}
                     {incredients != null && incredients.length > 0 ? (
-                        <Incredients
-                            dbUrl={Constants.DB_RECIPE_INCREDIENTS}
-                            translation={Constants.TRANSLATION_RECIPE}
-                            recipeID={params.id}
-                            incredients={incredients}
-                            onDelete={deleteIncredient}
-                        />
+                        <>
+                            <Button iconName={Constants.ICON_SYNC} onClick={updateRecipeIncredients} />
+                            <Incredients
+                                dbUrl={Constants.DB_RECIPE_INCREDIENTS}
+                                translation={Constants.TRANSLATION_RECIPE}
+                                recipeID={params.id}
+                                incredients={incredients}
+                                onDelete={deleteIncredient}
+                            />
+                        </>
                     ) : (
                         <>
                             <CenterWrapper>

@@ -14,13 +14,14 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
    //states
    const [category, setCategory] = useState('');
    const [categories, setCategories] = useState(DrinkCategories);
-   const [title, setTitle] = useState('');
-   const [description, setDescription] = useState('');
-   const [glass, setGlass] = useState('');
    const [created, setCreated] = useState('');
    const [createdBy, setCreatedBy] = useState('');
-   const [stars, setStars] = useState(0);
+   const [description, setDescription] = useState('');
+   const [glass, setGlass] = useState('');
+   const [incredients, setIncredients] = useState('');
    const [isCore, setIsCore] = useState(false);
+   const [stars, setStars] = useState(0);
+   const [title, setTitle] = useState('');
 
    //load data
    useEffect(() => {
@@ -53,6 +54,7 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
             setCreatedBy(val["createdBy"]);
             setDescription(val["description"]);
             setGlass(val["glass"]);
+            setIncredients(val["incredients"]);
             setIsCore(val["isCore"]);
             setStars(val["stars"]);
             setTitle(val["title"]);
@@ -70,8 +72,8 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
 
       onSave({
          category, created, createdBy,
-         description, glass, isCore, stars,
-         title
+         description, glass, isCore, incredients,
+         stars, title
       });
 
       if (drinkID == null) {

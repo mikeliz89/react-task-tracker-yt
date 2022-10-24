@@ -145,6 +145,7 @@ const ManageRecipes = () => {
         showSortByCreatedDate={true}
         showSortByStarRating={true}
         showSearchByDescription={true}
+        showSearchByIncredients={true}
         originalList={originalRecipes} />
       {
         recipes != null && recipes.length > 0 ? (

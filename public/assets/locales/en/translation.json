@@ -129,6 +129,7 @@
     },
     "dashboard": {
         "buttons": {
+            "add_new": "Add new",
             "backpacking": "Backpacking",
             "bmi_calculator": "BMI Calculator",
             "car": "Car",
@@ -377,6 +378,7 @@
         "fooditem_save_successful": "Saving food item was successful",
         "fooditem_save_exception": "Failed to save the food item",
         "in_minutes": "minutes",
+        "incredients": "Incredients",
         "incredient_amount": "Incredient Amount",
         "incredient_name": "Incredient Name",
         "incredient_save_button_text": "Save",

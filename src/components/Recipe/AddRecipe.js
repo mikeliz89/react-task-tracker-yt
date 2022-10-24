@@ -20,6 +20,11 @@ const AddRecipe = ({ recipeID, onSave, onClose }) => {
    const [createdBy, setCreatedBy] = useState('');
    const [isCore, setIsCore] = useState(false);
    const [stars, setStars] = useState(0);
+   const [incredients, setIncredients] = useState('');
+
+   useEffect(() => {
+      sortCategoriesByName();
+   }, []);
 
    useEffect(() => {
       if (recipeID != null) {
@@ -30,19 +35,16 @@ const AddRecipe = ({ recipeID, onSave, onClose }) => {
       }
    }, [recipeID]);
 
-   useEffect(() => {
-      sortCategoriesByName();
-   }, []);
-
    const fetchRecipeFromFirebase = async (recipeID) => {
       getFromFirebaseById(Constants.DB_RECIPES, recipeID).then((val) => {
-         setTitle(val["title"]);
-         setDescription(val["description"]);
+         setCategory(val["category"]);
          setCreated(val["created"]);
          setCreatedBy(val["createdBy"]);
+         setDescription(val["description"]);
+         setIncredients(val["incredients"]);
          setIsCore(val["isCore"]);
-         setCategory(val["category"]);
          setStars(val["stars"]);
+         setTitle(val["title"]);
       });
    }
 
@@ -64,7 +66,7 @@ const AddRecipe = ({ recipeID, onSave, onClose }) => {
          return
       }
 
-      onSave({ created, createdBy, title, description, category, isCore, stars });
+      onSave({ category, created, createdBy, description, incredients, isCore, stars, title });
 
       if (recipeID == null) {
          clearForm();

@@ -1,10 +1,10 @@
 import BigButton from '../components/BigButton';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Row, Col } from 'react-bootstrap';
-import styles from './dashboard.module.css';
+import { Row, Tabs } from 'react-bootstrap';
 import PageContentWrapper from './PageContentWrapper';
 import * as Constants from '../utils/Constants';
+import DashboardItem from './DashboardItem';
+import { Tab } from 'bootstrap';
 
 export default function Dashboard() {
 
@@ -13,90 +13,130 @@ export default function Dashboard() {
 
     return (
         <PageContentWrapper>
-            {/* Create New Row For Sets of 4 buttons  */}
-            <Row>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_MANAGE_RECIPES}>
-                        <BigButton imageName="recipes.png" textcolor="black" color="#b37401" text={t('recipes')}
-                            iconName={Constants.ICON_UTENSILS}
-                        />
-                    </Link>
-                </Col>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_MANAGE_SHOPPINGLISTS}>
-                        <BigButton imageName="shoppinglists.png" textcolor="black" color="#fcba03" text={t('shoppinglists')}
-                            iconName={Constants.ICON_CHECK_SQUARE} />
-                    </Link>
-                </Col>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_MANAGE_TASKLISTS}>
-                        <BigButton imageName="tasklists.PNG" textcolor="black" color="#fcba03" text={t('tasklists')}
-                            iconName={Constants.ICON_CHECK_SQUARE} />
-                    </Link>
-                </Col>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_BMICALCULATOR}>
-                        <BigButton imageName="calculator.PNG" textcolor="black" text={t('bmi_calculator')}
-                            iconName={Constants.ICON_WEIGHT} />
-                    </Link>
-                </Col>
-            </Row>
-            <Row>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_MANAGE_DRINKS}>
-                        <BigButton imageName="cocktail.jpg" textcolor="black" color="#f9a9d5" text={t('drinks')}
-                            iconName={Constants.ICON_GLASS_MARTINI} />
-                    </Link>
-                </Col>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_MANAGE_EXERCISES}>
-                        <BigButton imageName="exercises.PNG" textcolor="black" color="#ef7c1a" text={t('exercises')}
-                            iconName={Constants.ICON_RUNNING} />
-                    </Link>
-                </Col>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_LINKSLIST}>
-                        <BigButton imageName="links.jpg" textcolor="black" color="white" text={t('links_list')}
-                            iconName={Constants.ICON_EXTERNAL_LINK_ALT} />
-                    </Link>
-                </Col>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_CAR}>
-                        <BigButton imageName="car.jpg" textcolor="black" color="#0cb058" text={t('car')}
-                            iconName={Constants.ICON_CAR} />
-                    </Link>
-                </Col>
-            </Row>
-            <Row>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_MANAGE_BACKPACKING}>
-                        <BigButton imageName="backpacking.jpg" textcolor="black" color="#0cb058" text={t('backpacking')}
-                            iconName={Constants.ICON_CAMPGROUND} />
-                    </Link>
-                </Col>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_MANAGE_MUSIC}>
-                        <BigButton imageName="music.jpg" textcolor="black" color="#0cb058" text={t('music')} />
-                    </Link>
-                </Col>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_MANAGE_PROGRAMMING}>
-                        <BigButton imageName="programming.jpg" textcolor="black" color="#0cb058" text={t('programming')} />
-                    </Link>
-                </Col>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_GAMES}>
-                        <BigButton imageName="games.jpg" textcolor="black" color="#0cb058" text={t('games')} />
-                    </Link>
-                </Col>
-            </Row>
-            <Row>
-                <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
-                    <Link to={Constants.NAVIGATION_MOVIES}>
-                        <BigButton imageName="movies.jpg" textcolor="black" color="#0cb058" text={t('movies')} />
-                    </Link>
-                </Col>
-            </Row>
+
+            <Tabs defaultActiveKey="actions" id="dashboard-Tab"
+                className="mb-3">
+                <Tab eventKey="actions" title="Toiminnot">
+                    {/* Create New Row For Sets of 4 buttons  */}
+                    <Row>
+                        <DashboardItem link={Constants.NAVIGATION_CAR}>
+                            <BigButton
+                                imageName="car.jpg"
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('car')}
+                                iconName={Constants.ICON_CAR} />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_DRINKS}>
+                            <BigButton
+                                imageName="cocktail.jpg"
+                                textcolor="black"
+                                color="#f9a9d5"
+                                text={t('drinks')}
+                                iconName={Constants.ICON_GLASS_MARTINI} />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_EXERCISES}>
+                            <BigButton
+                                imageName="exercises.PNG"
+                                textcolor="black"
+                                color="#ef7c1a"
+                                text={t('exercises')}
+                                iconName={Constants.ICON_RUNNING} />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_LINKSLIST}>
+                            <BigButton
+                                imageName="links.jpg"
+                                textcolor="black"
+                                color="white"
+                                text={t('links_list')}
+                                iconName={Constants.ICON_EXTERNAL_LINK_ALT} />
+                        </DashboardItem>
+                    </Row>
+                    <Row>
+                        <DashboardItem link={Constants.NAVIGATION_BMICALCULATOR}>
+                            <BigButton
+                                imageName="calculator.PNG"
+                                textcolor="black"
+                                text={t('bmi_calculator')}
+                                iconName={Constants.ICON_WEIGHT} />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_RECIPES}>
+                            <BigButton
+                                imageName="recipes.png"
+                                textcolor="black"
+                                color="#b37401"
+                                text={t('recipes')}
+                                iconName={Constants.ICON_UTENSILS}
+                            />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_BACKPACKING}>
+                            <BigButton
+                                imageName="backpacking.jpg"
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('backpacking')}
+                                iconName={Constants.ICON_CAMPGROUND} />
+                        </DashboardItem>
+                    </Row>
+                </Tab>
+                <Tab eventKey="lists" title="Listat">
+                    <Row>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_PROGRAMMING}>
+                            <BigButton
+                                imageName="programming.jpg"
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('programming')} />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MOVIES}>
+                            <BigButton
+                                imageName="movies.jpg"
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('movies')} />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MUSIC}>
+                            <BigButton
+                                imageName="music.jpg"
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('music')} />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_GAMES}>
+                            <BigButton
+                                imageName="games.jpg"
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('games')} />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_SHOPPINGLISTS}>
+                            <BigButton
+                                imageName="shoppinglists.png"
+                                textcolor="black"
+                                color="#fcba03"
+                                text={t('shoppinglists')}
+                                iconName={Constants.ICON_CHECK_SQUARE} />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_TASKLISTS}>
+                            <BigButton
+                                imageName="tasklists.PNG"
+                                textcolor="black"
+                                color="#fcba03"
+                                text={t('tasklists')}
+                                iconName={Constants.ICON_CHECK_SQUARE} />
+                        </DashboardItem>
+                        {/* <DashboardItem link={Constants.NAVIGATION_MOVIES}>
+                            <BigButton
+                                textcolor="black"
+                                color="white"
+                                iconName='add'
+                                text={t('add_new')} />
+                        </DashboardItem> */}
+                    </Row>
+                </Tab>
+            </Tabs>
+
+
         </PageContentWrapper>
     )
 }

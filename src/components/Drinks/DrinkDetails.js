@@ -134,19 +134,38 @@ export default function DrinkDetails() {
         })
     }
 
-    const updateDrink = async (drink) => {
+    const updateDrink = async (drinkToUpdate) => {
         try {
             var drinkID = params.id;
-            drink["modified"] = getCurrentDateAsJson();
-            if (drink["isCore"] === undefined) {
-                drink["isCore"] = false;
+            drinkToUpdate["modified"] = getCurrentDateAsJson();
+            if (drinkToUpdate["isCore"] === undefined) {
+                drinkToUpdate["isCore"] = false;
             }
-            updateToFirebaseById(Constants.DB_DRINKS, drinkID, drink);
+            updateToFirebaseById(Constants.DB_DRINKS, drinkID, drinkToUpdate);
         } catch (error) {
             setError(t('failed_to_save_drink'));
             setShowError(true);
             console.log(error)
         }
+    }
+
+    const updateDrinkIncredients = async () => {
+        var drinkID = params.id;
+        drink["incredients"] = getIncredientsAsText();
+        updateToFirebaseById(Constants.DB_DRINKS, drinkID, drink);
+    }
+
+    const getIncredientsAsText = () => {
+        //hakee kaikki namet taulukoksi
+        var names = incredients.map(function (item) {
+            return item['name'];
+        });
+        //korvataan pilkut pilkku-välilyönneillä
+        const search = ',';
+        const replaceWith = ', ';
+        const result = names.toString().split(search).join(replaceWith);
+        //muutetaan lopuksi vielä stringiksi
+        return result.toString();
     }
 
     const fetchIncredientsFromFirebase = async () => {
@@ -195,7 +214,7 @@ export default function DrinkDetails() {
     }
 
     const addIncredient = async (drinkID, incredient) => {
-        pushToFirebaseChild(Constants.DB_DRINK_INCREDIENTS, drinkID, incredient);
+        await pushToFirebaseChild(Constants.DB_DRINK_INCREDIENTS, drinkID, incredient);
     }
 
     const addWorkPhase = async (drinkID, workPhase) => {
@@ -209,9 +228,7 @@ export default function DrinkDetails() {
     const saveDrinkHistory = async (drinkID) => {
         const currentDateTime = getCurrentDateAsJson();
         const userID = currentUser.uid;
-
         pushToFirebaseById(Constants.DB_DRINK_HISTORY, drinkID, { currentDateTime, userID });
-
         setShowMessage(true);
         setMessage(t('save_success_drinkinghistory'));
     }
@@ -274,6 +291,11 @@ export default function DrinkDetails() {
             </Row>
             <Row>
                 <Col>
+                    {t('incredients') + ': '}{drink.incredients}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                     <StarRating starCount={drink.stars} />
                 </Col>
             </Row>
@@ -306,13 +328,16 @@ export default function DrinkDetails() {
                             onClose={() => setShowAddIncredient(false)} />
                     }
                     {incredients != null && incredients.length > 0 ? (
-                        <Incredients
-                            dbUrl={Constants.DB_DRINK_INCREDIENTS}
-                            translation={Constants.TRANSLATION_DRINKS}
-                            recipeID={params.id}
-                            incredients={incredients}
-                            onDelete={deleteIncredient}
-                        />
+                        <>
+                            <Button iconName={Constants.ICON_SYNC} onClick={updateDrinkIncredients} />
+                            <Incredients
+                                dbUrl={Constants.DB_DRINK_INCREDIENTS}
+                                translation={Constants.TRANSLATION_DRINKS}
+                                recipeID={params.id}
+                                incredients={incredients}
+                                onDelete={deleteIncredient}
+                            />
+                        </>
                     ) : (
                         <>
                             <CenterWrapper>
