@@ -14,7 +14,7 @@ import { db } from "../../firebase-config";
 import { onValue, ref } from "firebase/database";
 import GearMaintenanceInstructions from "./GearMaintenanceInstructions";
 import { removeFromFirebaseById } from "../../datatier/datatier";
-import Counter from "../Counter";
+import Counter from "../Site/Counter";
 import CenterWrapper from '../Site/CenterWrapper';
 
 function ManageGearMaintenance() {

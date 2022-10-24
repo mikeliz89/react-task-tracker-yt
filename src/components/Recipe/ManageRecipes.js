@@ -17,7 +17,7 @@ import Alert from '../Alert';
 import { RecipeTypes } from '../../utils/Enums';
 import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
-import Counter from '../Counter';
+import Counter from '../Site/Counter';
 import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 

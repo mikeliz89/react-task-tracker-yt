@@ -1,4 +1,4 @@
-import CenterWrapper from "./Site/CenterWrapper";
+import CenterWrapper from "./CenterWrapper";
 import PropTypes from 'prop-types';
 
 function Counter({ counter, list, originalList, text }) {

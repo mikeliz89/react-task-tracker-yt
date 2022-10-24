@@ -10,7 +10,7 @@ import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
-import Counter from '../Counter';
+import Counter from '../Site/Counter';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
 

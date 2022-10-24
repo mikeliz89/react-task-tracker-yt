@@ -18,7 +18,7 @@ import { ListTypes } from '../../utils/Enums';
 import PropTypes from 'prop-types';
 import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
-import Counter from '../Counter';
+import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
 
 export default function ManageTaskLists({ listType }) {

@@ -14,7 +14,7 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
-import Counter from '../Counter';
+import Counter from '../Site/Counter';
 import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 

@@ -16,7 +16,7 @@ import { SortMode } from '../SearchSortFilter/SortModes';
 import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
-import Counter from '../Counter';
+import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 
 export default function ManageGear() {

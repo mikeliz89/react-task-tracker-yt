@@ -13,7 +13,7 @@ import * as Constants from '../../utils/Constants';
 import PageTitle from '../Site/PageTitle';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
-import Counter from '../Counter';
+import Counter from '../Site/Counter';
 import { getFromFirebaseById, pushToFirebase, updateToFirebase, updateToFirebaseById } from '../../datatier/datatier';
 import { getPageTitleContent } from '../../utils/ListUtils';
 
