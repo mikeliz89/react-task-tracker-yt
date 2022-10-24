@@ -3,7 +3,7 @@ import { Form, ButtonGroup, Row } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Button from '../../components/Button';
 import PropTypes from 'prop-types';
-import FormTitle from '../FormTitle';
+import FormTitle from '../Site/FormTitle';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 import * as Constants from '../../utils/Constants';
 
