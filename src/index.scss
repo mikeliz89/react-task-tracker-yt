@@ -25,6 +25,20 @@ p {
     font-family: 'Poppins', sans-serif;
 }
 
+#logo {
+    width: 350px;
+    height: 85px;
+}
+
+@media screen and (max-width: 768px) {
+    #logo {
+        width: 190px;
+        height: 50px;
+    }
+}
+
+
+
 .container {
     margin: 10px auto;
     overflow: auto;
@@ -44,7 +58,6 @@ header {
 
 .headerContainer {
     margin-bottom: 10px;
-    border-bottom: 3px solid #e0e0e0;
 }
 
 .btn:focus {
@@ -139,6 +152,7 @@ form {
     cursor: pointer;
 }
 
+.titleBtn:hover,
 .editBtn:hover,
 .deleteBtn:hover {
     font-style: bold;

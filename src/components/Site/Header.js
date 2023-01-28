@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import { useAuth } from '../../contexts/AuthContext';
-import Logout from '../Auth/Logout';
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import Language from '../Language/Language';
-import MyProfile from '../MyProfile/MyProfile';
+import { useNavigate, useLocation } from 'react-router-dom';
 import * as Constants from '../../utils/Constants';
-import ThemeToggler from './ThemeToggler';
+import RightWrapper from './RightWrapper';
+import Button from '../Button';
+import LeftWrapper from './LeftWrapper';
+import { Col, Row } from 'react-bootstrap';
+import Logo from './Logo';
 
-const Header = ({ title }) => {
+const Header = () => {
 
     //navigation
     const navigate = useNavigate();
@@ -18,23 +18,37 @@ const Header = ({ title }) => {
     const { t } = useTranslation(Constants.TRANSLATION_HEADER, { keyPrefix: Constants.TRANSLATION_HEADER });
 
     //user
-    const { currentUser } = useAuth()
+    const { currentUser } = useAuth();
+
+    //location
+    const location = useLocation();
+
+    const navigateTo = () => {
+        if (location.pathname !== Constants.NAVIGATION_MANAGE_MY_PROFILE) {
+            navigate(Constants.NAVIGATION_MANAGE_MY_PROFILE);
+        }
+    }
 
     return (
         <div className="headerContainer">
-            <header>
-                <h1 className='deleteBtn' onClick={() => navigate('/')}>{title}</h1>
-            </header>
-            <p className="loggedin-user">
-                {currentUser && t('header_logged_in_as_text') + currentUser.email}
-            </p>
             <Row>
-                <ButtonGroup>
-                    <Language />
-                    {currentUser && <MyProfile />}
-                    <ThemeToggler />
-                    {currentUser && <Logout />}
-                </ButtonGroup>
+                <Col>
+                    <LeftWrapper>
+                        <Logo />
+                    </LeftWrapper>
+                    <RightWrapper>
+                        <Button
+                            iconName={Constants.ICON_GEAR}
+                            onClick={() => navigateTo()} />
+                    </RightWrapper>
+                </Col>
+            </Row>
+            <Row className="loggedin-user">
+                <Col>
+                    <RightWrapper>
+                        {currentUser && '' + currentUser.email}
+                    </RightWrapper>
+                </Col>
             </Row>
         </div>
     )

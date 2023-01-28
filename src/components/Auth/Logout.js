@@ -48,12 +48,11 @@ export default function Logout() {
                 error={error} showError={showError}
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-            <Button
-                iconName={Constants.ICON_SIGN_OUT_ALT}
-                onClick={() => handleLogout()}
-                text={t('log_out')}
-                color="gray"
-                className="btn" />
+                <Button
+                    iconName={Constants.ICON_SIGN_OUT_ALT}
+                    onClick={() => handleLogout()}
+                    color="gray"
+                    className="btn" />
         </>
     )
 }

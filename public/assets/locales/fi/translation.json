@@ -355,7 +355,8 @@
         "button_game_lists": "Listat"
     },
     "header": {
-        "header_logged_in_as_text": "Kirjautunut käyttäjä: "
+        "header_logged_in_as_text": "Kirjautunut käyttäjä",
+        "button_myprofile": "Oma profiili"
     },
     "language": {
         "language": "Kieli"
@@ -384,7 +385,6 @@
     },
     "myprofile": {
         "button_close": "Sulje",
-        "button_myprofile": "Oma profiili",
         "height": "Pituus",
         "loading": "Lataa...",
         "name": "Nimi",

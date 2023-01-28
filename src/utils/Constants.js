@@ -66,6 +66,7 @@ export const ICON_EDIT = 'edit';
 export const ICON_EXTERNAL_LINK_ALT = 'external-link-alt';
 export const ICON_FISH = 'fish';
 export const ICON_GAS_PUMP = 'gas-pump';
+export const ICON_GEAR = 'gear';
 export const ICON_GLASS_MARTINI = 'glass-martini';
 export const ICON_HISTORY = 'history';
 export const ICON_HOURGLASS_1 = 'hourglass-1';

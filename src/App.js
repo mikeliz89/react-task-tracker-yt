@@ -95,13 +95,13 @@ import {
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
   faFish, faUserAlt, faHistory, faPlus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
-  faCopy, faShoePrints, faWater, faImages, faSync
+  faCopy, faShoePrints, faWater, faImages, faSync, faGear
 } from '@fortawesome/free-solid-svg-icons';
 library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
   faFish, faUserAlt, faHistory, faPlus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
-  faCopy, faShoePrints, faWater, faImages, faSync
+  faCopy, faShoePrints, faWater, faImages, faSync, faGear
 );
 
 //languagization
@@ -131,7 +131,7 @@ function App() {
     <Container id={theme}>
       <Router>
         <AuthProvider>
-          <Header title="Lifesaver App" />
+          <Header />
           <Routes>
             <Route exact path='/' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path='/about' element={<About />} />

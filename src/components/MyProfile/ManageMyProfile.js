@@ -13,6 +13,10 @@ import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import Modal from '../ImageUpload/Modal';
+import Logout from '../Auth/Logout';
+import RightWrapper from '../Site/RightWrapper';
+import Language from '../Language/Language';
+import ThemeToggler from '../Site/ThemeToggler';
 
 export default function ManageMyProfile() {
 
@@ -116,7 +120,14 @@ export default function ManageMyProfile() {
     return (
         <PageContentWrapper>
             <GoBackButton />
+            
             <PageTitle title={t('title')} />
+
+            <RightWrapper>
+                <Language />
+                <ThemeToggler />
+                <Logout />
+            </RightWrapper>
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
@@ -129,6 +140,7 @@ export default function ManageMyProfile() {
 
             <Form onSubmit={onSubmit}>
                 <Form.Group>
+                    <Form.Label>{t('profilepic')}</Form.Label>
                     <Form.Control type="file" onChange={handleChange} />
                     <Button disabled={loading || !photo} type='button' text={t('upload')}
                         className='btn btn-block'

@@ -281,7 +281,8 @@
         "copyright": "Copyright"
     },
     "header": {
-        "header_logged_in_as_text": "Logged in as: "
+        "header_logged_in_as_text": "Logged in as",
+        "button_myprofile": "My Profile"
     },
     "language": {
         "language": "Language"
@@ -300,10 +301,10 @@
     },
     "myprofile": {
         "button_close": "Close",
-        "button_myprofile": "My Profile",
         "title": "My Profile",
         "name": "Name",
         "height": "Height",
+        "profilepic": "Profile picture",
         "savebutton": "Save",
         "saving_done": "Saving was successful",
         "upload": "Upload"
