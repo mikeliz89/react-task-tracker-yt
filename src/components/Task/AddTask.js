@@ -4,8 +4,9 @@ import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../../components/Button';
 import * as Constants from '../../utils/Constants';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import PropTypes from 'prop-types';
 
-const AddTask = ({ taskID, taskListID, onSave, onClose }) => {
+const AddTask = ({ taskID, taskListID, onSave, onClose, showLabels }) => {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
@@ -58,23 +59,33 @@ const AddTask = ({ taskID, taskListID, onSave, onClose }) => {
         setReminder(false);
     }
 
+    const getTaskName = () => {
+        //TODO: Different text if listtype = tasklist or other
+        return t('task_name');
+    }
+
+    const getTaskText = () => {
+        //TODO: Different text if listtype = tasklist or other
+        return t('task_text');
+    }
+
     return (
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="addTaskFormTaskName">
-                <Form.Label>{t('task_name')}</Form.Label>
+                {showLabels && <Form.Label>{getTaskName()}</Form.Label>}
                 <Form.Control
                     autoComplete="off"
                     type='text'
-                    placeholder={t('task_name')}
+                    placeholder={getTaskName()}
                     value={text}
                     onChange={(e) => setText(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addTaskFormDayAndTime">
-                <Form.Label>{t('task_text')}</Form.Label>
+                {showLabels && <Form.Label>{getTaskText()}</Form.Label>}
                 <Form.Control
                     autoComplete="off"
                     type='text'
-                    placeholder={t('task_text')}
+                    placeholder={getTaskText()}
                     value={day}
                     onChange={(e) => setDay(e.target.value)} />
             </Form.Group>
@@ -97,6 +108,14 @@ const AddTask = ({ taskID, taskListID, onSave, onClose }) => {
             </Row>
         </Form>
     )
+}
+
+AddTask.defaultProps = {
+    showLabels: true
+}
+
+AddTask.propTypes = {
+    showLabels: PropTypes.bool
 }
 
 export default AddTask

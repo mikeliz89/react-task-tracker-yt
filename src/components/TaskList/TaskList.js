@@ -24,28 +24,31 @@ const TaskList = ({ taskList, archived, onDelete }) => {
 
     return (
         <div className='listContainer'>
-            <h5>
-                <span>
-                    <Icon name={Constants.ICON_LIST_ALT} color='gray' />
-                    {taskList.title}
-                </span>
-                <RightWrapper>
-                    <Icon name={Constants.ICON_EDIT} className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
-                        onClick={() => editable ? setEditable(false) : setEditable(true)} />
-                    <Icon name={Constants.ICON_DELETE} className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
-                        onClick={() => { if (window.confirm(t('delete_list_confirm_message'))) { onDelete(taskList.id); } }} />
-                </RightWrapper>
-            </h5>
-            <p>{taskList.description}</p>
-            <p>
-                <Link className="btn btn-primary"
-                    to={archived ? `/tasklistarchive/${taskList.id}` : `/tasklist/${taskList.id}`}>
-                    {t('view_details')}
-                </Link>
-            </p>
-
+            {!editable &&
+                <>
+                    <h5>
+                        <span>
+                            <Icon name={Constants.ICON_LIST_ALT} color='gray' />
+                            {taskList.title}
+                        </span>
+                        <RightWrapper>
+                            <Icon name={Constants.ICON_EDIT} className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
+                                onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                            <Icon name={Constants.ICON_DELETE} className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
+                                onClick={() => { if (window.confirm(t('delete_list_confirm_message'))) { onDelete(taskList.id); } }} />
+                        </RightWrapper>
+                    </h5>
+                    <p>{taskList.description}</p>
+                    <p>
+                        <Link className="btn btn-primary"
+                            to={archived ? `/tasklistarchive/${taskList.id}` : `/tasklist/${taskList.id}`}>
+                            {t('view_details')}
+                        </Link>
+                    </p>
+                </>
+            }
             {
-                editable && <AddTaskList taskListID={taskList.id} onClose={() => setEditable(false)} onSave={updateTaskList} />
+                editable && <AddTaskList taskListID={taskList.id} onClose={() => setEditable(false)} onSave={updateTaskList} showLabels={false} />
             }
         </div>
     )

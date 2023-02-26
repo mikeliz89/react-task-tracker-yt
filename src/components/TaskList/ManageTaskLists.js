@@ -141,7 +141,7 @@ export default function ManageTaskLists({ listType }) {
       </CenterWrapper>
 
       {showAddTaskList &&
-        <AddTaskList onClose={() => setShowAddTaskList(false)} onSave={addTaskList} />
+        <AddTaskList onClose={() => setShowAddTaskList(false)} onSave={addTaskList} showLabels={true} />
       }
 
       {taskLists != null && taskLists.length > 0 ? (

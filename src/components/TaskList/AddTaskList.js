@@ -4,8 +4,9 @@ import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../../components/Button';
 import * as Constants from '../../utils/Constants';
 import { getFromFirebaseById } from '../../datatier/datatier';
+import PropTypes from 'prop-types';
 
-const AddTaskList = ({ taskListID, onSave, onClose }) => {
+const AddTaskList = ({ taskListID, onSave, onClose, showLabels }) => {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
@@ -60,7 +61,7 @@ const AddTaskList = ({ taskListID, onSave, onClose }) => {
     return (
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="formBasicTaskListName">
-                <Form.Label>{t('task_list')}</Form.Label>
+                {showLabels && <Form.Label>{t('task_list')}</Form.Label>}
                 <Form.Control type='text'
                     autoComplete="off"
                     placeholder={taskListID == null ? t('task_list') : t('edit_task_list')}
@@ -68,7 +69,7 @@ const AddTaskList = ({ taskListID, onSave, onClose }) => {
                     onChange={(e) => setTitle(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicTaskListDescription">
-                <Form.Label>{t('description')}</Form.Label>
+                {showLabels && <Form.Label>{t('description')}</Form.Label>}
                 <Form.Control type='text'
                     autoComplete="off"
                     placeholder={taskListID == null ? t('add_description') : t('edit_description')}
@@ -84,6 +85,14 @@ const AddTaskList = ({ taskListID, onSave, onClose }) => {
             </Row>
         </Form>
     )
+}
+
+AddTaskList.defaultProps = {
+    showLabels: true
+}
+
+AddTaskList.propTypes = {
+    showLabels: PropTypes.bool
 }
 
 export default AddTaskList

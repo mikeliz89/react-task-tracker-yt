@@ -271,11 +271,13 @@ function TaskListDetails() {
         </Col>
       </Row>
 
-      <Row>
-        <Col>
-          {t('description' + ': ')}{taskList.description}
-        </Col>
-      </Row>
+      {!showEditTaskList &&
+        <Row>
+          <Col>
+            {t('description' + ': ')}{taskList.description}
+          </Col>
+        </Row>
+      }
 
       {
         showChangeListType &&

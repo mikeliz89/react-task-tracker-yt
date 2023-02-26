@@ -25,22 +25,27 @@ const Task = ({ taskListID, archived, task, onDelete, onToggle }) => {
     return (
         <div
             onDoubleClick={() => archived ? null : onToggle(taskListID, task.id)}
-            className={`listContainer clickable ${task.reminder ? 'reminder' : ''}`}>
-            <h5>
-                {task.text}
-                {archived ? null :
-                    <RightWrapper>
-                        <Icon name={Constants.ICON_EDIT} className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
-                            onClick={() => editable ? setEditable(false) : setEditable(true)} />
-                        <Icon name={Constants.ICON_DELETE}  className="deleteBtn"
-                            style={{ color: 'red', cursor: 'pointer', fontSize: '1.4em' }}
-                            onClick={() => onDelete(taskListID, task.id)} />
-                    </RightWrapper>
-                }
-            </h5>
-            <p>{task.day}</p>
+            className={`listContainer ${archived ? '' : 'clickable'} ${task.reminder ? 'reminder' : ''}`}>
+            {
+                !editable &&
+                <>
+                    <h5>
+                        {task.text}
+                        {archived ? null :
+                            <RightWrapper>
+                                <Icon name={Constants.ICON_EDIT} className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
+                                    onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                                <Icon name={Constants.ICON_DELETE} className="deleteBtn"
+                                    style={{ color: 'red', cursor: 'pointer', fontSize: '1.4em' }}
+                                    onClick={() => onDelete(taskListID, task.id)} />
+                            </RightWrapper>
+                        }
+                    </h5>
+                    <p>{task.day}</p>
+                </>
+            }
             { /* TODO: Rakenna view details arkiston taskin katselulle? */
-                archived ? null :
+                archived ? null : !editable &&
                     <>
                         <p>
                             <Link className="btn btn-primary" to={`/task/${task.id}/${taskListID}`}>{t('view_details')}</Link>
@@ -53,7 +58,8 @@ const Task = ({ taskListID, archived, task, onDelete, onToggle }) => {
                     taskID={task.id}
                     taskListID={taskListID}
                     onClose={() => setEditable(false)}
-                    onSave={updateTask} />
+                    onSave={updateTask}
+                    showLabels={false} />
             }
 
         </div>
