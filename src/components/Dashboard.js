@@ -84,6 +84,7 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_PROGRAMMING}>
                             <BigButton
                                 imageName="programming.jpg"
+                                iconName={Constants.ICON_LAPTOP}
                                 textcolor="black"
                                 color="#0cb058"
                                 text={t('programming')} />
@@ -91,6 +92,7 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_MOVIES}>
                             <BigButton
                                 imageName="movies.jpg"
+                                iconName={Constants.ICON_MOVIE}
                                 textcolor="black"
                                 color="#0cb058"
                                 text={t('movies')} />
@@ -98,6 +100,7 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_MUSIC}>
                             <BigButton
                                 imageName="music.jpg"
+                                iconName={Constants.ICON_MUSIC}
                                 textcolor="black"
                                 color="#0cb058"
                                 text={t('music')} />
@@ -105,6 +108,7 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_GAMES}>
                             <BigButton
                                 imageName="games.jpg"
+                                iconName={Constants.ICON_GAMEPAD}
                                 textcolor="black"
                                 color="#0cb058"
                                 text={t('games')} />
@@ -132,6 +136,12 @@ export default function Dashboard() {
                                 iconName='add'
                                 text={t('add_new')} />
                         </DashboardItem> */}
+                        {<DashboardItem link={Constants.NAVIGATION_MANAGE_LISTS}>
+                            <BigButton
+                                textcolor="black"
+                                color="white"
+                                text={t('other_lists')} />
+                        </DashboardItem>}
                     </Row>
                 </Tab>
             </Tabs>

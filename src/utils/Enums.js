@@ -31,7 +31,9 @@ export const ListTypes = {
     /** Kauppalista */
     Shopping: 9,
     /** Leffat */
-    Movies: 10
+    Movies: 10,
+    /** Muut listat */
+    Other: 11
 }
 
 /* Listatyypit (kategoriat alasvetovalikossa) */
@@ -85,5 +87,10 @@ export const ListTypesArray = [
         //leffat
         "id": 10,
         "name": "movies"
+    },
+    {
+        //muut listat
+        "id": 11,
+        "name": "other"
     }
 ]

@@ -85,6 +85,9 @@ import ManageProgramming from './components/Programming/ManageProgramming';
 //ShoppingLists
 import ManageShoppingLists from './components/ShoppingList/ManageShoppingLists';
 import { useTheme } from './contexts/ThemeContext';
+//Other lists
+import Lists from './components/Lists/Lists';
+import ManageLists from './components/Lists/ManageLists';
 
 //ICONIT
 //React icons: https://react-icons.github.io/react-icons/icons?name=fa
@@ -95,13 +98,13 @@ import {
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
   faFish, faUserAlt, faHistory, faPlus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
-  faCopy, faShoePrints, faWater, faImages, faSync, faGear
+  faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm
 } from '@fortawesome/free-solid-svg-icons';
 library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
   faFish, faUserAlt, faHistory, faPlus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
-  faCopy, faShoePrints, faWater, faImages, faSync, faGear
+  faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm
 );
 
 //languagization
@@ -204,6 +207,10 @@ function App() {
             {/* Programming */}
             <Route path='/manageprogramming' element={<PrivateRoute><ManageProgramming /></PrivateRoute>} />
             {/* Programming */}
+            {/* Other lists */}
+            <Route path='/lists' element={<PrivateRoute><Lists /></PrivateRoute>} />
+            <Route path='/managelists' element={<PrivateRoute><ManageLists /></PrivateRoute>} />
+            {/* Other lists */}
             {/* Links */}
             <Route path='/linkslist' element={<PrivateRoute><LinksList /></PrivateRoute>} />
             {/* Links */}

@@ -154,7 +154,8 @@
             "programming": "Koodaus",
             "recipes": "Reseptit",
             "shoppinglists": "Ostoslistat",
-            "tasklists": "Tehtävälistat"
+            "tasklists": "Tehtävälistat",
+            "other_lists": "Muut listat"
         }
     },
     "drinks": {
@@ -561,6 +562,7 @@
         "category_food": "Ruoka",
         "category_games": "Pelit",
         "category_movies": "Leffat",
+        "category_other": "Muut listat",
         "category_programming": "Koodaus",
         "category_music": "Musiikki",
         "change_list_type": "Muuta tyyppiä",
@@ -578,6 +580,7 @@
         "manage_drinks_title": "Drinkkilistat",
         "manage_games_title": "Pelilistat",
         "manage_movies_title": "Leffalistat",
+        "manage_other_lists_title": "Muut listat",
         "manage_music_title": "Musiikkilistat",
         "manage_programming_title": "Koodaus",
         "manage_recipe_title": "Reseptilistat",

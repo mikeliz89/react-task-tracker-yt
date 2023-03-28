@@ -64,6 +64,8 @@ export const getPageTitleContent = (listType) => {
             return 'manage_shoppinglists_title';
         case ListTypes.Movies:
             return 'manage_movies_title';
+        case ListTypes.Other:
+            return 'manage_other_lists_title';
         //TODO: Koodaa lisää caseja sitä mukaa kuin muistakin listatyypeistä on olemassa listasivu
         default: return 'manage_tasklists_title';
     }
