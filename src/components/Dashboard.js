@@ -43,6 +43,16 @@ export default function Dashboard() {
                                 text={t('exercises')}
                                 iconName={Constants.ICON_RUNNING} />
                         </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_PEOPLE}>
+                            <BigButton
+                                imageName="personlist.jpg"
+                                textcolor="black"
+                                color="white"
+                                text={t('personlist')}
+                                iconName={Constants.ICON_USER_ALT} />
+                        </DashboardItem>
+                    </Row>
+                    <Row>
                         <DashboardItem link={Constants.NAVIGATION_LINKSLIST}>
                             <BigButton
                                 imageName="links.jpg"
@@ -51,8 +61,6 @@ export default function Dashboard() {
                                 text={t('links_list')}
                                 iconName={Constants.ICON_EXTERNAL_LINK_ALT} />
                         </DashboardItem>
-                    </Row>
-                    <Row>
                         <DashboardItem link={Constants.NAVIGATION_BMICALCULATOR}>
                             <BigButton
                                 imageName="calculator.PNG"

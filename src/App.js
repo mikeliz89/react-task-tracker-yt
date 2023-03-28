@@ -88,6 +88,9 @@ import { useTheme } from './contexts/ThemeContext';
 //Other lists
 import Lists from './components/Lists/Lists';
 import ManageLists from './components/Lists/ManageLists';
+//People / person
+import ManagePeople from './components/People/ManagePeople';
+import PersonDetails from './components/People/PersonDetails';
 
 //ICONIT
 //React icons: https://react-icons.github.io/react-icons/icons?name=fa
@@ -214,6 +217,10 @@ function App() {
             {/* Links */}
             <Route path='/linkslist' element={<PrivateRoute><LinksList /></PrivateRoute>} />
             {/* Links */}
+            {/* People / person */}
+            <Route path='/managepeople' element={<PrivateRoute><ManagePeople /></PrivateRoute>} />
+            <Route path='/person/:id' element={<PrivateRoute><PersonDetails /></PrivateRoute>} />
+            {/* People  / person */}
             {
               <Route path='/manageshoppinglists' element={<PrivateRoute><ManageShoppingLists /></PrivateRoute>} />
             }

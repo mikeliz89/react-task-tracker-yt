@@ -90,7 +90,7 @@ const AddGear = ({ gearID, onSave, onClose }) => {
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addGearForm-Name">
+                <Form.Group className="mb-3" controlId="addGearForm-Description">
                     <Form.Label>{t('gear_description')}</Form.Label>
                     <Form.Control type='text'
                         autoComplete="off"

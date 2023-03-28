@@ -151,6 +151,7 @@
             "links_list": "Linkit",
             "movies": "Leffat",
             "music": "Musiikki",
+            "personlist": "Ihmiset",
             "programming": "Koodaus",
             "recipes": "Reseptit",
             "shoppinglists": "Ostoslistat",
@@ -395,6 +396,22 @@
         "title": "Oma profiili",
         "upload": "Lähetä"
     },
+    "people": {
+        "birthday": "Syntymäpäivä",
+        "button_add_person": "Lisää ihminen",
+        "button_close": "Sulje",
+        "button_save_person": "Tallenna",
+        "created": "Luotu",
+        "created_by": "Luoja",
+        "delete_person_confirm_message": "Haluatko varmasti poistaa henkilön?",
+        "description": "Kuvaus",
+        "modified": "Muokattu",
+        "name": "Nimi",
+        "no_people_to_show": "Ei ihmisiä",
+        "save_success": "Henkilön tallennus onnistui",
+        "title": "Ihmiset",
+        "view_details": "Katso henkilön tiedot"
+    },
     "recipe": {
         "add_description": "Lisää kuvaus",
         "add_workphase_formtitle": "Työvaiheen lisäys",
@@ -521,6 +538,7 @@
         "placeholder_name": "Nimi",
         "placeholder_description": "Kuvaus",
         "placeholder_incredients": "Ainesosat",
+        "placeholder_day": "Teksti",
         "search": "Hae",
         "show": "Näytä",
         "show_only_have_at_home": "Minulla on tätä",
