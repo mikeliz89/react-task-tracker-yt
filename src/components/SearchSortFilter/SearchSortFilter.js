@@ -18,6 +18,7 @@ const SearchSortFilter = ({ onSet,
     //searching
     showSearch,
     showSearchByDescription,
+    showSearchByDay,
     showSearchByIncredients,
     //filtering
     showFilterHaveAtHome,
@@ -35,6 +36,7 @@ const SearchSortFilter = ({ onSet,
     //states
     const [searchString, setSearchString] = useState('');
     const [searchStringDescription, setSearchStringDescription] = useState('');
+    const [searchStringDay, setSearchStringDay] = useState('');
     const [searchStringIncredients, setSearchStringIncredients] = useState('');
     const [sortBy, setSortBy] = useState(defaultSort);
     const [showOnlyHaveAtHome, setShowOnlyHaveAtHome] = useState(false);
@@ -71,7 +73,7 @@ const SearchSortFilter = ({ onSet,
         filterAndSort();
     }, [sortBy,
         searchString, searchStringDescription,
-        searchStringIncredients,
+        searchStringIncredients, searchStringDay,
         showOnlyHaveAtHome, showOnlyNotHaveAtHome,
         showOnlyHaveRated, showOnlyNotHaveRated,
         showOnlyCore,
@@ -105,6 +107,9 @@ const SearchSortFilter = ({ onSet,
         }
         if (searchStringDescription !== "") {
             newList = newList.filter(x => x.description != null && x.description.toLowerCase().includes(searchStringDescription.toLowerCase()));
+        }
+        if (searchStringDay !== "") {
+            newList = newList.filter(x => x.day != null && x.day.toLowerCase().includes(searchStringDay.toLowerCase()));
         }
         return newList;
     }
@@ -309,6 +314,24 @@ const SearchSortFilter = ({ onSet,
                     </>
                 }
                 {
+                    showSearchByDay &&
+                    <>
+                        <Form.Group as={Row}>
+                            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
+                            <Col xs={9} sm={10}>
+                                <Form.Control
+                                    autoComplete='off'
+                                    type="text"
+                                    id="inputSearchStringDay"
+                                    aria-describedby="searchHelpBlock"
+                                    onChange={(e) => setSearchStringDay(e.target.value)}
+                                    placeholder={t('placeholder_day')}
+                                />
+                            </Col>
+                        </Form.Group>
+                    </>
+                }
+                {
                     showSearchByIncredients &&
                     <>
                         <Form.Group as={Row}>
@@ -441,6 +464,7 @@ SearchSortFilter.defaultProps = {
     showSearch: true,
     showSearchByDescription: false,
     showSearchByIncredients: false,
+    showSearchByDay: false,
     //filtering
     showFilterHaveAtHome: false,
     showFilterNotHaveAtHome: false,
@@ -466,6 +490,7 @@ SearchSortFilter.propTypes = {
     showSearch: PropTypes.bool,
     showSearchByDescription: PropTypes.bool,
     showSearchByIncredients: PropTypes.bool,
+    showSearchByDay: PropTypes.bool,
     //filtering
     showFilterHaveAtHome: PropTypes.bool,
     showFilterNotHaveAtHome: PropTypes.bool,

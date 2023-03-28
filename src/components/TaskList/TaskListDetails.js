@@ -300,6 +300,7 @@ function TaskListDetails() {
             showFilterNotReady={true}
             onSet={setTasks}
             showSortByText={true}
+            showSearchByDay={true}
             showSortByCreatedDate={true}
             originalList={originalTasks} />
 
