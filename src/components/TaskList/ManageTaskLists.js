@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
+import i18n from "i18next";
 import { useNavigate } from 'react-router-dom';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { db } from '../../firebase-config';
@@ -9,7 +10,7 @@ import TaskLists from '../../components/TaskList/TaskLists';
 import GoBackButton from '../GoBackButton';
 import Button from '../Button';
 import { getPageTitleContent } from '../../utils/ListUtils';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../Site/PageTitle';
@@ -109,6 +110,33 @@ export default function ManageTaskLists({ listType }) {
     navigator.clipboard.writeText(text);
   }
 
+  const getDefaultTitle = (listType) => {
+    if (listType === ListTypes.Shopping) {
+      let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
+      return t('shoppinglist') + ' ' + currentDateTime;
+    }
+    return "";
+  }
+
+  const getCounterText = (listType) => {
+    if (listType === ListTypes.Shopping) {
+      return t('countertext_shoppinglists');
+    } else if (listType === ListTypes.Drink) {
+      return t('countertext_drinklists');
+    } else if (listType === ListTypes.Programming) {
+      return t('countertext_programminglists');
+    } else if(listType === ListTypes.Food) {
+      return t('countertext_recipelists');
+    } else if(listType === ListTypes.Music) {
+      return t('countertext_musiclists');
+    } else if(listType === ListTypes.Games) {
+      return t('countertext_gamelists');
+    } else if(listType === ListTypes.Movies) {
+      return t('countertext_movielists');
+    }
+    return t('countertext_tasklists');
+  }
+
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -141,12 +169,12 @@ export default function ManageTaskLists({ listType }) {
       </CenterWrapper>
 
       {showAddTaskList &&
-        <AddTaskList onClose={() => setShowAddTaskList(false)} onSave={addTaskList} showLabels={true} />
+        <AddTaskList onClose={() => setShowAddTaskList(false)} onSave={addTaskList} showLabels={true} defaultTitle={getDefaultTitle(listType)} />
       }
 
       {taskLists != null && taskLists.length > 0 ? (
         <>
-          <Counter list={taskLists} originalList={originalTaskLists} counter={counter} text={t('tasklists')} />
+          <Counter list={taskLists} originalList={originalTaskLists} counter={counter} text={getCounterText(listType)} />
           <TaskLists
             taskLists={taskLists}
             onDelete={deleteTaskList}
