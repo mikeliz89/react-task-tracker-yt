@@ -35,14 +35,6 @@ export default function Dashboard() {
                                 text={t('drinks')}
                                 iconName={Constants.ICON_GLASS_MARTINI} />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_EXERCISES}>
-                            <BigButton
-                                imageName="exercises.PNG"
-                                textcolor="black"
-                                color="#ef7c1a"
-                                text={t('exercises')}
-                                iconName={Constants.ICON_RUNNING} />
-                        </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_PEOPLE}>
                             <BigButton
                                 imageName="personlist.jpg"
@@ -50,6 +42,14 @@ export default function Dashboard() {
                                 color="white"
                                 text={t('personlist')}
                                 iconName={Constants.ICON_USER_ALT} />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_EXERCISES}>
+                            <BigButton
+                                imageName="exercises.PNG"
+                                textcolor="black"
+                                color="#ef7c1a"
+                                text={t('exercises')}
+                                iconName={Constants.ICON_RUNNING} />
                         </DashboardItem>
                     </Row>
                     <Row>
