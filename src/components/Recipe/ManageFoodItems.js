@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../firebase-config';
 import GoBackButton from '../GoBackButton';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import AddFoodItem from './AddFoodItem';
 import FoodItems from './FoodItems';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';

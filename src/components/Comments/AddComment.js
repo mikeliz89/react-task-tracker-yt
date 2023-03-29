@@ -1,7 +1,7 @@
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 

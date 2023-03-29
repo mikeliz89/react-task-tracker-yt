@@ -5,7 +5,7 @@ import { Row, Col, ButtonGroup, Accordion, Table } from "react-bootstrap";
 import { ref, onValue } from 'firebase/database';
 import { db } from "../../firebase-config";
 import GoBackButton from "../GoBackButton";
-import Button from "../Button";
+import Button from '../Buttons/Button';
 import AddPartsGym from "./AddPartsGym";
 import AddPartsMoving from "./AddPartsMoving";
 import AddPartsAerobics from "./AddPartsAerobics";

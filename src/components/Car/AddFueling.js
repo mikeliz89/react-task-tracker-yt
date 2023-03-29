@@ -1,7 +1,7 @@
 import { ButtonGroup, Form, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import Button from "../Button";
+import Button from '../Buttons/Button';
 import { onValue, ref } from "firebase/database";
 import { db } from "../../firebase-config";
 import * as Constants from '../../utils/Constants';

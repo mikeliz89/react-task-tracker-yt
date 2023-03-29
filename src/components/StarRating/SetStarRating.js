@@ -1,7 +1,7 @@
 import { Row, Col, Form, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import StarRating from './StarRating';
 import PropTypes from 'prop-types';
 import * as Constants from '../../utils/Constants';

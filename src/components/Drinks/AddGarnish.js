@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import Button from '../../components/Button';
+import Button from '../Buttons/Button';
 import * as Constants from '../../utils/Constants';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 

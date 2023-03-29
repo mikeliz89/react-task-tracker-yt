@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import Alert from '../Alert';
 import GoBackButton from '../GoBackButton';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import AddFueling from './AddFueling';
 import AddInfo from './AddInfo';
 import CarFuelings from './CarFuelings';

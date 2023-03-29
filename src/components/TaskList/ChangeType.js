@@ -1,8 +1,8 @@
-import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
-import { Row, Form, ButtonGroup } from "react-bootstrap";
-import Button from "../Button";
-import { ListTypesArray } from "../../utils/Enums";
+import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
+import { Row, Form, ButtonGroup } from 'react-bootstrap';
+import Button from '../Buttons/Button';
+import { ListTypesArray } from '../../utils/Enums';
 import * as Constants from '../../utils/Constants';
 
 function ChangeType({ taskList, onSave, onClose }) {

@@ -1,4 +1,4 @@
-import Button from "../Button";
+import Button from '../Buttons/Button';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from "react";
 import { Form, Row, Col, ButtonGroup } from "react-bootstrap";

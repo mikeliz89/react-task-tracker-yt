@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as Constants from '../../utils/Constants';
 import RightWrapper from './RightWrapper';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import LeftWrapper from './LeftWrapper';
 import { Col, Row } from 'react-bootstrap';
 import Logo from './Logo';

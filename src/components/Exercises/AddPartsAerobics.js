@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import { db } from '../../firebase-config';
 import { ref, child, onValue } from 'firebase/database';
 import { useAuth } from '../../contexts/AuthContext';

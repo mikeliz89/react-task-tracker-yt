@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import GoBackButton from '../GoBackButton';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';

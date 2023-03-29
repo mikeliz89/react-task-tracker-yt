@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Col, Row, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import { SortMode } from './SortModes';
 import PropTypes from 'prop-types';
 import * as Constants from '../../utils/Constants';

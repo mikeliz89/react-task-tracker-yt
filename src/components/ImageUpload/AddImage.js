@@ -2,7 +2,7 @@ import { useState } from "react"
 import UploadForm from "./UploadForm";
 import { useTranslation } from "react-i18next";
 import * as Constants from '../../utils/Constants';
-import Button from "../Button";
+import Button from '../Buttons/Button';
 
 function AddImage({ objectID, imagesUrl }) {
 

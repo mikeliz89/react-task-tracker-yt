@@ -1,7 +1,7 @@
 import { Row, ButtonGroup } from "react-bootstrap";
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from "react";
-import Button from "../Button";
+import Button from '../Buttons/Button';
 import GoBackButton from "../GoBackButton";
 import PageContentWrapper from "../Site/PageContentWrapper";
 import PageTitle from '../Site/PageTitle';

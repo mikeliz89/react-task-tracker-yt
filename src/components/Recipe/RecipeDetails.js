@@ -5,7 +5,7 @@ import { Tab, Tabs, Col, Row, ButtonGroup, Accordion, Table } from 'react-bootst
 import { db } from '../../firebase-config';
 import { child, ref, onValue } from 'firebase/database';
 import GoBackButton from '../GoBackButton';
-import Button from '../../components/Button';
+import Button from '../Buttons/Button';
 import AddIncredient from './AddIncredient';
 import AddWorkPhase from './AddWorkPhase';
 import Incredients from './Incredients';

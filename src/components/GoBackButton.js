@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import Button from '../components/Button';
+import Button from './Buttons/Button';
 import { useTranslation } from 'react-i18next';
 import * as Constants from '../utils/Constants';
 

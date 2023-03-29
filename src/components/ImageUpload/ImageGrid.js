@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import * as Constants from '../../utils/Constants';
 import { Card } from 'react-bootstrap';
 import RightWrapper from '../Site/RightWrapper';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import { useState, useEffect } from 'react';
 import ImageGridDeletion from './ImageGridDeletion';
 

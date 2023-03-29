@@ -6,7 +6,7 @@ import { db } from '../../firebase-config';
 import { ref, onValue, child } from 'firebase/database';
 import Tasks from '../../components/Task/Tasks';
 import GoBackButton from '../GoBackButton';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import i18n from "i18next";
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';

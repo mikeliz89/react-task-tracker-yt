@@ -3,7 +3,7 @@ import { ButtonGroup, Row } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import GoBackButton from '../GoBackButton';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import AddRecipe from './AddRecipe';
 import Recipes from './Recipes';
 import { db } from '../../firebase-config';

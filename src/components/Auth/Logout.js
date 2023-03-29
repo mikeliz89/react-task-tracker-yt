@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/AuthContext';
-import Button from '../../components/Button';
+import Button from '../Buttons/Button';
 import Alert from '../Alert';
 import * as Constants from '../../utils/Constants';
 

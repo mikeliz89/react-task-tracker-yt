@@ -13,7 +13,7 @@ import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import AddPeople from './AddPeople';
 import Alert from '../Alert';
 import LinkComponent from '../Links/LinkComponent';

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import AddPartsGymForm from './AddPartsGymForm';
 import GymParts from './GymParts';
 import { onValue, child, ref } from 'firebase/database';

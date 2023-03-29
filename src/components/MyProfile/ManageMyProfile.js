@@ -1,5 +1,5 @@
 import GoBackButton from '../GoBackButton';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';

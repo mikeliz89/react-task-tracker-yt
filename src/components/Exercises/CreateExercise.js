@@ -2,7 +2,7 @@ import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import GoBackButton from '../GoBackButton';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson, getCurrentDate, getCurrentTime } from '../../utils/DateTimeUtils';

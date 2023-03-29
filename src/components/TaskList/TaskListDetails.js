@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Col, Row, ButtonGroup, Accordion, Table, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import Button from '../Button';
+import Button from '../Buttons/Button';
 import GoBackButton from '../GoBackButton';
 import AddTask from '../Task/AddTask';
 import AddTaskList from '../TaskList/AddTaskList';

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from "../Button";
+import Button from '../Buttons/Button';
 import * as Constants from '../../utils/Constants';
-import RightWrapper from "../Site/RightWrapper";
+import RightWrapper from '../Site/RightWrapper';
 
 export default function ScrollToTop() {
 

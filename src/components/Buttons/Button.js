@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Icon from './Icon';
+import Icon from '../Icon';
 
 const Button = ({ disabled, color, text, onClick, className,
     secondIconName, type, iconName, iconColor, disableStyle,
