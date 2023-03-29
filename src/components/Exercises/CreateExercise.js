@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../Button';
 import GoBackButton from '../GoBackButton';
 import { useAuth } from '../../contexts/AuthContext';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getCurrentDateAsJson, getCurrentDate, getCurrentTime } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { Categories, ExerciseCategories } from './Categories';
 import PageTitle from '../Site/PageTitle';
@@ -40,17 +40,6 @@ const CreateExercise = () => {
         sortCategoriesByName();
         setDefaultCategory();
     }, [ready])
-
-    const getCurrentDate = () => {
-        const date = new Date();
-        //set default date to current date
-        return date.toLocaleDateString('en-CA');
-    }
-
-    const getCurrentTime = () => {
-        const date = new Date();
-        return date.toTimeString().split(' ')[0];
-    }
 
     const setDefaultCategory = () => {
         //set default category to gym

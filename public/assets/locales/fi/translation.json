@@ -408,6 +408,7 @@
         "modified": "Muokattu",
         "name": "Nimi",
         "no_people_to_show": "Ei ihmisiä",
+        "please_add_name": "Ole hyvä ja anna nimi",
         "save_success": "Henkilön tallennus onnistui",
         "title": "Ihmiset",
         "view_details": "Katso henkilön tiedot"

@@ -6,6 +6,19 @@ export function getCurrentDateAsJson() {
     return newDate.toJSON();
 }
 
+/** Get current date */
+export function getCurrentDate() {
+    const date = new Date();
+    //set default date to current date
+    return date.toLocaleDateString('en-CA');
+}
+
+/** Get current time */
+export function getCurrentTime() {
+    const date = new Date();
+    return date.toTimeString().split(' ')[0];
+}
+
 /** Get only time part from Json datetime */
 export function getJsonAsTimeString(json, language) {
     return getTimeString(json, language);

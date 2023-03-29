@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Form } from 'react-bootstrap';
+import { Row, ButtonGroup, Form, Col } from 'react-bootstrap';
 import Button from '../Button';
 import * as Constants from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
@@ -15,6 +15,7 @@ const AddPeople = ({ personID, onSave, onClose }) => {
     const [createdBy, setCreatedBy] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [birthday, setBirthday] = useState(new Date());
 
     //load data
     useEffect(() => {
@@ -32,6 +33,7 @@ const AddPeople = ({ personID, onSave, onClose }) => {
             setCreatedBy(val["createdBy"]);
             setDescription(val["description"]);
             setName(val["name"]);
+            setBirthday(val["birthday"]);
         });
     }
 
@@ -44,7 +46,7 @@ const AddPeople = ({ personID, onSave, onClose }) => {
             return;
         }
 
-        onSave({ created, createdBy, description, name });
+        onSave({ created, createdBy, description, name, birthday });
 
         if (personID == null) {
             clearForm();
@@ -74,6 +76,10 @@ const AddPeople = ({ personID, onSave, onClose }) => {
                         placeholder={t('description')}
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
+                </Form.Group>
+                <Form.Group as={Col} className="mb-3">
+                    <Form.Label>{t('birthday')}</Form.Label>
+                    <Form.Control type="date" name='date' onChange={(e) => setBirthday(e.target.value)} value={birthday} />
                 </Form.Group>
                 <Row>
                     <ButtonGroup>
