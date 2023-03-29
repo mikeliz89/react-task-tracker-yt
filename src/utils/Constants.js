@@ -5,6 +5,7 @@ export const DB_BACKPACKING_GEAR_COMMENTS = '/backpacking-gear-comments';
 export const DB_BACKPACKING_GEAR_IMAGES = '/backpacking-gear-images';
 export const DB_BACKPACKING_GEAR_LINKS = '/backpacking-gear-links';
 export const DB_CAR_FUELING = '/car-fueling';
+export const DB_CAR_MAINTENANCE = '/car-maintenance';
 export const DB_CAR_INFO = '/car-info';
 export const DB_DRINKS = '/drinks';
 export const DB_DRINK_IMAGES = '/drink-images';
@@ -94,6 +95,7 @@ export const ICON_USER_ALT = 'user-alt';
 export const ICON_UTENSILS = 'utensils';
 export const ICON_WEIGHT = 'weight';
 export const ICON_WINE = 'wine-bottle';
+export const ICON_WRENCH = 'wrench';
 
 //NAVIGATION
 export const NAVIGATION_ABOUT = '/about';

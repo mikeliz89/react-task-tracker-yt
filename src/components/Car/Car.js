@@ -4,8 +4,10 @@ import Alert from '../Alert';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddFueling from './AddFueling';
+import AddMaintenance from './AddMaintenance';
 import AddInfo from './AddInfo';
 import CarFuelings from './CarFuelings';
+import CarMaintenances from './CarMaintenances';
 import { db } from '../../firebase-config';
 import { onValue, ref } from 'firebase/database';
 import PageTitle from '../Site/PageTitle';
@@ -30,8 +32,10 @@ export default function Car() {
     //states
     const [loading, setLoading] = useState(true);
     const [showAddFueling, setShowAddFueling] = useState(false);
+    const [showAddMaintenance, setShowAddMaintenance] = useState(false);
     const [showAddInfo, setShowAddInfo] = useState(false);
     const [carFuelings, setCarFuelings] = useState({});
+    const [carMaintenances, setCarMaintenances] = useState({});
 
     //user
     const { currentUser } = useAuth();
@@ -42,6 +46,10 @@ export default function Car() {
             await fetchCarFuelingsFromFirebase();
         }
         getFuelings();
+        const getMaintenances = async () => {
+            await fetchCarMaintenancesFromFirebase();
+        }
+        getMaintenances();
     }, []);
 
     const fetchCarFuelingsFromFirebase = async () => {
@@ -54,6 +62,18 @@ export default function Car() {
             }
             setLoading(false);
             setCarFuelings(fromDB);
+        })
+    }
+    const fetchCarMaintenancesFromFirebase = async () => {
+        const dbref = await ref(db, `${Constants.DB_CAR_MAINTENANCE}`);
+        onValue(dbref, (snapshot) => {
+            const snap = snapshot.val();
+            const fromDB = [];
+            for (let id in snap) {
+                fromDB.push({ id, ...snap[id] });
+            }
+            setLoading(false);
+            setCarMaintenances(fromDB);
         })
     }
 
@@ -73,6 +93,24 @@ export default function Car() {
 
     const deleteFueling = async (id) => {
         removeFromFirebaseById(Constants.DB_CAR_FUELING, id);
+    }
+
+    const addMaintenance = (maintenance) => {
+        try {
+            maintenance["created"] = getCurrentDateAsJson();
+            maintenance["createdBy"] = currentUser.email;
+            pushToFirebase(Constants.DB_CAR_MAINTENANCE, maintenance);
+            setMessage(t('save_successful'));
+            setShowMessage(true);
+        } catch (ex) {
+            setError(t('save_exception'));
+            setShowError(true);
+            console.warn(ex);
+        }
+    }
+
+    const deleteMaintenance = async (id) => {
+        removeFromFirebaseById(Constants.DB_CAR_MAINTENANCE, id);
     }
 
     return loading ? (
@@ -98,6 +136,12 @@ export default function Car() {
                     onClick={() => setShowAddFueling(!showAddFueling)}
                     text={showAddFueling ? t('button_close') : t('add_fueling')}
                     iconName={Constants.ICON_GAS_PUMP} />
+                &nbsp;
+                <Button
+                    color={showAddMaintenance ? 'red' : 'steelblue'}
+                    onClick={() => setShowAddMaintenance(!showAddMaintenance)}
+                    text={showAddFueling ? t('button_close') : t('add_maintenance')}
+                    iconName={Constants.ICON_WRENCH} />
             </>
 
             {/* Info Start */}
@@ -109,7 +153,8 @@ export default function Car() {
                     ) : ''
             }
             {/* Info End */}
-            {/* Fueling Start */}
+
+
             {
                 showAddFueling ?
                     (<div>
@@ -119,7 +164,18 @@ export default function Car() {
                     </div>
                     ) : ''
             }
-            {/* Fueling End */}
+
+            {
+                showAddMaintenance ?
+                    (<div>
+                        <AddMaintenance
+                            onSave={addMaintenance}
+                            onClose={() => setShowAddMaintenance(false)} />
+                    </div>
+                    ) : ''
+            }
+
+            {/* Fuelings Start */}
             <div>
                 {
                     carFuelings != null && carFuelings.length > 0 ? (
@@ -134,6 +190,26 @@ export default function Car() {
                     )
                 }
             </div>
+            {/* Fuelings End */}
+
+            {/* Maintenances Start */}
+
+            <div>
+                {
+                    carMaintenances != null && carMaintenances.length > 0 ? (
+                        <CarMaintenances
+                            carMaintenances={carMaintenances} onDelete={deleteMaintenance} />
+                    ) : (
+                        <>
+                            <CenterWrapper>
+                                {t('no_car_maintenances')}
+                            </CenterWrapper>
+                        </>
+                    )
+                }
+            </div>
+            {/* Maintenances End */}
+
         </PageContentWrapper>
     )
 }
