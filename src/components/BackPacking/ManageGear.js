@@ -133,7 +133,7 @@ export default function ManageGear() {
                         useNameFiltering={true}
                         showSortByName={true}
                         showSortByStarRating={true}
-                        defaultSort={SortMode.Name_DESC} />
+                        defaultSort={SortMode.Name_ASC} />
                 ) : (<></>)
             }
             {
