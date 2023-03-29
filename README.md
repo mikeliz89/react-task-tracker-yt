@@ -4,6 +4,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 This code project is based on youtube tutorial, url https://www.youtube.com/watch?v=w7ejDZ8SWv8&t=1730
 
+## Installing programming environment
+Download and install node js
+
+After that run command to install npm (node package manager)
+npm install -g npm
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -87,6 +93,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - ES7 React/Redux/GraphQL/React-Native snippets
 
 ### Firebase realtime database
+First time install firebase
+npm install --save firebase
+npm install -g firebase-tools
+
 Create .env.local file and add these two variables (without [ ] characters)
 
 REACT_APP_FIREBASE_API_KEY="[ApiKeyHere]"
