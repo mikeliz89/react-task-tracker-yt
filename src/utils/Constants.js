@@ -138,6 +138,11 @@ export const NAVIGATION_TASKLIST_ARCHIVE = '/tasklistarchive';
 export const NAVIGATION_SIGNUP = '/signup';
 export const NAVIGATION_WEIGHTHISTORY = '/weighthistory';
 
+//THEMES
+export const THEME_LIGHT = 'light';
+export const THEME_BLACK = 'black';
+export const THEME_WHITE = 'white';
+
 //TRANSLATIONS
 export const TRANSLATION_ABOUT = 'about';
 export const TRANSLATION_ALERT = 'alert';
