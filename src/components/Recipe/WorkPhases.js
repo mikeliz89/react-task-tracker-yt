@@ -7,9 +7,20 @@ export default function WorkPhases({ dbUrl, translation, workPhases, recipeID, o
   //translation
   const { t } = useTranslation(translation, { keyPrefix: translation });
 
+  const calculateEstimatedLengthsSum = (workPhases) => {
+    let sum = 0;
+    workPhases.forEach(phase => {
+      sum += parseInt(phase.estimatedLength);
+    });
+    return sum;
+  }
+
   return (
     <>
       <h5>{t('workphases_header')}</h5>
+
+      <p>{t('sum_in_minutes')}: {calculateEstimatedLengthsSum(workPhases)}</p>
+
       {workPhases
         ? workPhases.map((workPhase, index) =>
           <WorkPhase
