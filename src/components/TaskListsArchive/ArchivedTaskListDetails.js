@@ -5,7 +5,7 @@ import { Accordion, Table, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { ref, onValue, child } from 'firebase/database';
 import Tasks from '../../components/Task/Tasks';
-import GoBackButton from '../GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import i18n from "i18next";
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';

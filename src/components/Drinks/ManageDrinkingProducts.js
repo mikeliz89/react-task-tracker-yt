@@ -3,7 +3,7 @@ import { Row, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../firebase-config';
-import GoBackButton from '../GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddDrinkingProduct from './AddDrinkingProduct';
 import DrinkingProducts from './DrinkingProducts';

@@ -8,7 +8,7 @@ import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
-import GoBackButton from '../../components/GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import PageTitle from '../Site/PageTitle';
 import SetStarRating from '../StarRating/SetStarRating';
 import StarRating from '../StarRating/StarRating';

@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Row } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import GoBackButton from '../GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddRecipe from './AddRecipe';
 import Recipes from './Recipes';

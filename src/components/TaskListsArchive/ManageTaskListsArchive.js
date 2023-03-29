@@ -1,4 +1,4 @@
-import GoBackButton from '../GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';

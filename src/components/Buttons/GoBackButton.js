@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import Button from './Buttons/Button';
+import Button from './Button';
 import { useTranslation } from 'react-i18next';
-import * as Constants from '../utils/Constants';
+import * as Constants from '../../utils/Constants';
 
 const GoBackButton = () => {
 

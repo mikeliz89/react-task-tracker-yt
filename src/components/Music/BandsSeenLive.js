@@ -1,4 +1,4 @@
-import GoBackButton from "../GoBackButton";
+import GoBackButton from '../Buttons/GoBackButton';
 import { useTranslation } from 'react-i18next';
 import PageTitle from '../Site/PageTitle';
 import PageContentWrapper from "../Site/PageContentWrapper";

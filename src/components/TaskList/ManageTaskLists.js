@@ -7,7 +7,7 @@ import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import AddTaskList from '../../components/TaskList/AddTaskList';
 import TaskLists from '../../components/TaskList/TaskLists';
-import GoBackButton from '../GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import { getPageTitleContent } from '../../utils/ListUtils';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';

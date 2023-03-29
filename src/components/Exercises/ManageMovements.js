@@ -2,7 +2,7 @@ import { ButtonGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
-import GoBackButton from '../GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { db } from '../../firebase-config';

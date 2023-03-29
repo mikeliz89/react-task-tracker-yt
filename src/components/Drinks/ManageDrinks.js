@@ -6,7 +6,7 @@ import { ref, onValue } from 'firebase/database';
 import { db } from '../../firebase-config';
 import Recipes from '../Recipe/Recipes';
 import AddDrink from './AddDrink';
-import GoBackButton from '../GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';

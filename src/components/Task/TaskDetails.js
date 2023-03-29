@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ButtonGroup, Row, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import GoBackButton from '../GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';

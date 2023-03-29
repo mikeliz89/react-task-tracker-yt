@@ -7,7 +7,7 @@ import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-import GoBackButton from '../../components/GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import PageTitle from '../Site/PageTitle';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';

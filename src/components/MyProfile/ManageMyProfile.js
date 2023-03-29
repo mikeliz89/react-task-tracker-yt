@@ -1,4 +1,4 @@
-import GoBackButton from '../GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';

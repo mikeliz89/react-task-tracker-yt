@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../Buttons/Button';
-import GoBackButton from '../GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson, getCurrentDate, getCurrentTime } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';

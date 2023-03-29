@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Tab, Tabs, Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { child, ref, onValue } from 'firebase/database';
-import GoBackButton from '../GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddIncredient from './AddIncredient';
 import AddWorkPhase from './AddWorkPhase';

@@ -5,7 +5,7 @@ import { Accordion, Table, Row, ButtonGroup, Col, Tabs, Tab } from 'react-bootst
 import { db } from '../../firebase-config';
 import { ref, child, onValue } from 'firebase/database';
 import Button from '../Buttons/Button';
-import GoBackButton from '../../components/GoBackButton';
+import GoBackButton from '../Buttons/GoBackButton';
 import i18n from "i18next";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
