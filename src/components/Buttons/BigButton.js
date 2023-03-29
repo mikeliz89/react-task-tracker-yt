@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Icon from './Icon';
+import Icon from '../Icon';
 
 const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor,
     imageName, comingsoon, iconName, iconColor }) => {

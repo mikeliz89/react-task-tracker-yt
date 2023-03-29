@@ -1,4 +1,4 @@
-import BigButton from '../components/BigButton';
+import BigButton from './Buttons/BigButton';
 import { useTranslation } from 'react-i18next';
 import { Row, Tabs } from 'react-bootstrap';
 import PageContentWrapper from './Site/PageContentWrapper';
