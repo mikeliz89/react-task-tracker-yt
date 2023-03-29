@@ -4,6 +4,7 @@ import Alert from '../Alert';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddFueling from './AddFueling';
+import { Accordion, Table, Row, ButtonGroup, Col, Tabs, Tab } from 'react-bootstrap';
 import AddMaintenance from './AddMaintenance';
 import AddInfo from './AddInfo';
 import CarFuelings from './CarFuelings';
@@ -124,92 +125,92 @@ export default function Car() {
                 error={error} showError={showError}
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-            <>
-                <Button
-                    color={showAddInfo ? 'red' : 'steelblue'}
-                    onClick={() => setShowAddInfo(!showAddInfo)}
-                    text={showAddInfo ? t('button_close') : t('add_info')}
-                    iconName={Constants.ICON_CAR} />
-                &nbsp;
-                <Button
-                    color={showAddFueling ? 'red' : 'steelblue'}
-                    onClick={() => setShowAddFueling(!showAddFueling)}
-                    text={showAddFueling ? t('button_close') : t('add_fueling')}
-                    iconName={Constants.ICON_GAS_PUMP} />
-                &nbsp;
-                <Button
-                    color={showAddMaintenance ? 'red' : 'steelblue'}
-                    onClick={() => setShowAddMaintenance(!showAddMaintenance)}
-                    text={showAddFueling ? t('button_close') : t('add_maintenance')}
-                    iconName={Constants.ICON_WRENCH} />
-            </>
+            <Tabs defaultActiveKey="fuelings"
+                id="car-Tabs"
+                className="mb-3">
 
-            {/* Info Start */}
-            {
-                showAddInfo ?
-                    (<div>
-                        <AddInfo onClose={() => setShowAddInfo(false)} />
+                <Tab eventKey="carInfo" title={t('add_info_title')}>
+                    <Button
+                        color={showAddInfo ? 'red' : 'steelblue'}
+                        onClick={() => setShowAddInfo(!showAddInfo)}
+                        text={showAddInfo ? t('button_close') : t('add_info')}
+                        iconName={Constants.ICON_CAR} />
+                    {/* Info Start */}
+                    {
+                        showAddInfo ?
+                            (<div>
+                                <AddInfo onClose={() => setShowAddInfo(false)} />
+                            </div>
+                            ) : ''
+                    }
+                    {/* Info End */}
+                </Tab>
+                <Tab eventKey="fuelings" title={t('fuelings')}>
+                    <Button
+                        color={showAddFueling ? 'red' : 'steelblue'}
+                        onClick={() => setShowAddFueling(!showAddFueling)}
+                        text={showAddFueling ? t('button_close') : t('add_fueling')}
+                        iconName={Constants.ICON_GAS_PUMP} />
+                    {
+                        showAddFueling ?
+                            (<div>
+                                <AddFueling
+                                    onSave={addFueling}
+                                    onClose={() => setShowAddFueling(false)} />
+                            </div>
+                            ) : ''
+                    }
+                    {/* Fuelings Start */}
+                    <div>
+                        {
+                            carFuelings != null && carFuelings.length > 0 ? (
+                                <CarFuelings
+                                    carFuelings={carFuelings} onDelete={deleteFueling} />
+                            ) : (
+                                <>
+                                    <CenterWrapper>
+                                        {t('no_car_fuelings')}
+                                    </CenterWrapper>
+                                </>
+                            )
+                        }
                     </div>
-                    ) : ''
-            }
-            {/* Info End */}
+                    {/* Fuelings End */}
+                </Tab>
+                <Tab eventKey="carMaintenances" title={t('car_maintenances')}>
+                    <Button
+                        color={showAddMaintenance ? 'red' : 'steelblue'}
+                        onClick={() => setShowAddMaintenance(!showAddMaintenance)}
+                        text={showAddFueling ? t('button_close') : t('add_maintenance')}
+                        iconName={Constants.ICON_WRENCH} />
+                    {
+                        showAddMaintenance ?
+                            (<div>
+                                <AddMaintenance
+                                    onSave={addMaintenance}
+                                    onClose={() => setShowAddMaintenance(false)} />
+                            </div>
+                            ) : ''
+                    }
+                    {/* Maintenances Start */}
 
-
-            {
-                showAddFueling ?
-                    (<div>
-                        <AddFueling
-                            onSave={addFueling}
-                            onClose={() => setShowAddFueling(false)} />
+                    <div>
+                        {
+                            carMaintenances != null && carMaintenances.length > 0 ? (
+                                <CarMaintenances
+                                    carMaintenances={carMaintenances} onDelete={deleteMaintenance} />
+                            ) : (
+                                <>
+                                    <CenterWrapper>
+                                        {t('no_car_maintenances')}
+                                    </CenterWrapper>
+                                </>
+                            )
+                        }
                     </div>
-                    ) : ''
-            }
-
-            {
-                showAddMaintenance ?
-                    (<div>
-                        <AddMaintenance
-                            onSave={addMaintenance}
-                            onClose={() => setShowAddMaintenance(false)} />
-                    </div>
-                    ) : ''
-            }
-
-            {/* Fuelings Start */}
-            <div>
-                {
-                    carFuelings != null && carFuelings.length > 0 ? (
-                        <CarFuelings
-                            carFuelings={carFuelings} onDelete={deleteFueling} />
-                    ) : (
-                        <>
-                            <CenterWrapper>
-                                {t('no_car_fuelings')}
-                            </CenterWrapper>
-                        </>
-                    )
-                }
-            </div>
-            {/* Fuelings End */}
-
-            {/* Maintenances Start */}
-
-            <div>
-                {
-                    carMaintenances != null && carMaintenances.length > 0 ? (
-                        <CarMaintenances
-                            carMaintenances={carMaintenances} onDelete={deleteMaintenance} />
-                    ) : (
-                        <>
-                            <CenterWrapper>
-                                {t('no_car_maintenances')}
-                            </CenterWrapper>
-                        </>
-                    )
-                }
-            </div>
-            {/* Maintenances End */}
-
+                    {/* Maintenances End */}
+                </Tab>
+            </Tabs>
         </PageContentWrapper>
     )
 }

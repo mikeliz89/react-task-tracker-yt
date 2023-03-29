@@ -15,9 +15,22 @@ const CarFuelings = ({ carFuelings, onDelete }) => {
         return data;
     }
 
+    const getFuelingsPriceSum = (carFuelings) => {
+        let sum = 0;
+        carFuelings.forEach(fueling => {
+            if (fueling.price > 0) {
+                sum += parseFloat(fueling.price);
+            }
+        });
+        return sum;
+    }
+
     return (
         <>
             <PageTitle title={t('fuelings')} iconName={Constants.ICON_GAS_PUMP} />
+
+            <p>{t('car_fuelings_price_sum')}: {getFuelingsPriceSum(carFuelings)}</p>
+
             {carFuelings.map((fuelingRow) => (
                 <CarFueling key={fuelingRow.id} fuelingRow={fuelingRow} onDelete={onDelete} />
             ))}

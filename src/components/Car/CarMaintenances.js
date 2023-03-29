@@ -15,9 +15,20 @@ const CarMaintenances = ({ carMaintenances, onDelete }) => {
         return data;
     }
 
+    const getMaintenancesPriceSum = (carMaintenances) => {
+        let sum = 0;
+        carMaintenances.forEach(maintenance => {
+            if (maintenance.price > 0) {
+                sum += parseInt(maintenance.price);
+            }
+        });
+        return sum;
+    }
+
     return (
         <>
             <PageTitle title={t('car_maintenances')} iconName={Constants.ICON_WRENCH} />
+            <p>{t('maintenances_price_sum')}: {getMaintenancesPriceSum(carMaintenances)}</p>
             {carMaintenances.map((maintenance) => (
                 <CarMaintenance key={maintenance.id} carMaintenance={maintenance} onDelete={onDelete} />
             ))}
