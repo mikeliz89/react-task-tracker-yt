@@ -124,14 +124,18 @@ export default function ManagePeople() {
                 showAdd && <AddPeople onSave={addPerson} onClose={() => setShowAdd(false)} />
             }
 
-            <SearchSortFilter
-                onSet={setPeople}
-                originalList={originalPeople}
-                useNameFiltering={true}
-                showSortByName={true}
-                showSearchByDescription={true}
-                defaultSort={SortMode.Name_DESC} />
-
+            {
+                originalPeople != null && originalPeople.length > 0 ? (
+                    <SearchSortFilter
+                        onSet={setPeople}
+                        originalList={originalPeople}
+                        useNameFiltering={true}
+                        showSortByName={true}
+                        showSortByBirthday={true}
+                        showSearchByDescription={true}
+                        defaultSort={SortMode.Name_ASC} />
+                ) : (<></>)
+            }
             {
                 people != null && people.length > 0 ? (
                     <>

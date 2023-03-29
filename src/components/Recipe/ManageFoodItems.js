@@ -124,14 +124,20 @@ const ManageFoodItems = () => {
                 showAddFoodItem &&
                 <AddFoodItem onClose={() => setShowAddFoodItem(!showAddFoodItem)} onAddFoodItem={addFoodItem} />
             }
-            <SearchSortFilter
-                useNameFiltering={true}
-                showFilterHaveAtHome={true}
-                showFilterNotHaveAtHome={true}
-                onSet={setFoodItems}
-                showSortByName={true}
-                showSortByCreatedDate={true}
-                originalList={originalFoodItems} />
+
+            {
+                originalFoodItems != null && originalFoodItems.length > 0 ? (
+                    <SearchSortFilter
+                        useNameFiltering={true}
+                        showFilterHaveAtHome={true}
+                        showFilterNotHaveAtHome={true}
+                        onSet={setFoodItems}
+                        showSortByName={true}
+                        showSortByCreatedDate={true}
+                        originalList={originalFoodItems} />
+                ) : (<></>)
+            }
+
             {
                 foodItems != null && foodItems.length > 0 ? (
                     <>

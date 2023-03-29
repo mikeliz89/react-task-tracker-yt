@@ -124,14 +124,18 @@ export default function ManageGear() {
                 showAdd && <AddGear onSave={addGear} onClose={() => setShowAdd(false)} />
             }
 
-            <SearchSortFilter
-                onSet={setGear}
-                originalList={originalGear}
-                useNameFiltering={true}
-                showSortByName={true}
-                showSortByStarRating={true}
-                defaultSort={SortMode.Name_DESC} />
+            {
+                originalGear != null && originalGear.length > 0 ? (
 
+                    <SearchSortFilter
+                        onSet={setGear}
+                        originalList={originalGear}
+                        useNameFiltering={true}
+                        showSortByName={true}
+                        showSortByStarRating={true}
+                        defaultSort={SortMode.Name_DESC} />
+                ) : (<></>)
+            }
             {
                 gear != null && gear.length > 0 ? (
                     <>

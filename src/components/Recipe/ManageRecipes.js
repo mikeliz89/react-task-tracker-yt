@@ -20,6 +20,7 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
+import { SortMode } from '../SearchSortFilter/SortModes';
 
 const ManageRecipes = () => {
 
@@ -134,19 +135,28 @@ const ManageRecipes = () => {
         error={error} showError={showError}
         variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-      {showAddRecipe && <AddRecipe onClose={() => setShowAddRecipe(false)} onSave={addRecipe} />}
-      <SearchSortFilter
-        useTitleFiltering={true}
-        onSet={setRecipes}
-        showFilterCore={true}
-        showSortByTitle={true}
-        showFilterHaveRated={true}
-        showFilterNotHaveRated={true}
-        showSortByCreatedDate={true}
-        showSortByStarRating={true}
-        showSearchByDescription={true}
-        showSearchByIncredients={true}
-        originalList={originalRecipes} />
+      {
+        showAddRecipe && <AddRecipe onClose={() => setShowAddRecipe(false)} onSave={addRecipe} />
+      }
+
+      {
+        originalRecipes != null && originalRecipes.length > 0 ? (
+          <SearchSortFilter
+            defaultSort={SortMode.Title_ASC}
+            useTitleFiltering={true}
+            onSet={setRecipes}
+            showFilterCore={true}
+            showSortByTitle={true}
+            showFilterHaveRated={true}
+            showFilterNotHaveRated={true}
+            showSortByCreatedDate={true}
+            showSortByStarRating={true}
+            showSearchByDescription={true}
+            showSearchByIncredients={true}
+            originalList={originalRecipes} />
+        ) : (<></>)
+      }
+
       {
         recipes != null && recipes.length > 0 ? (
           <>

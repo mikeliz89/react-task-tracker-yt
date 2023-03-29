@@ -120,16 +120,20 @@ const ManageDrinkingProducts = () => {
                 <AddDrinkingProduct onClose={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)} onAddDrinkingProduct={addDrinkingProduct} />
             }
 
-            <SearchSortFilter
-                useNameFiltering={true}
-                onSet={setDrinkingProducts}
-                showFilterHaveAtHome={true}
-                showFilterNotHaveAtHome={true}
-                showSortByCreatedDate={true}
-                showSortByName={true}
-                showSortByStarRating={true}
-                showSearchByDescription={true}
-                originalList={originalDrinkingProducts} />
+            {
+                originalDrinkingProducts != null && originalDrinkingProducts.length > 0 ? (
+                    <SearchSortFilter
+                        useNameFiltering={true}
+                        onSet={setDrinkingProducts}
+                        showFilterHaveAtHome={true}
+                        showFilterNotHaveAtHome={true}
+                        showSortByCreatedDate={true}
+                        showSortByName={true}
+                        showSortByStarRating={true}
+                        showSearchByDescription={true}
+                        originalList={originalDrinkingProducts} />
+                ) : (<></>)
+            }
 
             {
                 drinkingProducts != null && drinkingProducts.length > 0 ? (

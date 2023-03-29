@@ -77,14 +77,19 @@ function ManageMovements() {
             <CenterWrapper>
                 {t('movements')}
             </CenterWrapper>
-            <SearchSortFilter
-                onSet={setMovements}
-                originalList={originalMovements}
-                showSearch={true}
-                useNameFiltering={true}
-                showSortByCreatedDate={true}
-                showSortByStarRating={true}
-                showSortByName={true} />
+
+            {
+                originalMovements != null && originalMovements.length > 0 ? (
+                    <SearchSortFilter
+                        onSet={setMovements}
+                        originalList={originalMovements}
+                        showSearch={true}
+                        useNameFiltering={true}
+                        showSortByCreatedDate={true}
+                        showSortByStarRating={true}
+                        showSortByName={true} />
+                ) : (<></>)
+            }
 
             {
                 movements != null && movements.length > 0 ? (

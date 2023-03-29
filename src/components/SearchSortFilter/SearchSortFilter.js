@@ -15,6 +15,7 @@ const SearchSortFilter = ({ onSet,
     showSortByCreatedDate,
     showSortByText,
     showSortByStarRating,
+    showSortByBirthday,
     //searching
     showSearch,
     showSearchByDescription,
@@ -53,6 +54,7 @@ const SearchSortFilter = ({ onSet,
     const [_showSortByCreatedDate, _setShowSortByCreatedDate] = useState(showSortByCreatedDate);
     const [_showSortByText, _setShowSortByText] = useState(showSortByText);
     const [_showSortByStarRating, _setShowSortByStarRating] = useState(showSortByStarRating);
+    const [_showSortByBirthday, _setShowSortByBirthday] = useState(showSortByBirthday);
     //filtering
     const [_showOnlyHaveAtHome, _setShowOnlyHaveAtHome] = useState(showFilterHaveAtHome);
     const [_showOnlyNotHaveAtHome, _setShowOnlyNotHaveAtHome] = useState(showFilterNotHaveAtHome);
@@ -158,7 +160,7 @@ const SearchSortFilter = ({ onSet,
             case SortMode.Name_ASC:
             case SortMode.Name_DESC:
                 newList = [...newList].sort((a, b) => {
-                    return a.name > b.name ? 1 : -1
+                    return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
                 });
                 if (sortBy === SortMode.Name_DESC) {
                     newList.reverse();
@@ -167,7 +169,7 @@ const SearchSortFilter = ({ onSet,
             case SortMode.Title_ASC:
             case SortMode.Title_DESC:
                 newList = [...newList].sort((a, b) => {
-                    return a.title > b.title ? 1 : -1
+                    return a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
                 });
                 if (sortBy === SortMode.Title_DESC) {
                     newList.reverse();
@@ -185,7 +187,7 @@ const SearchSortFilter = ({ onSet,
             case SortMode.Text_ASC:
             case SortMode.Text_DESC:
                 newList = [...newList].sort((a, b) => {
-                    return a.text > b.text ? 1 : -1
+                    return a.text.toLowerCase() > b.text.toLowerCase() ? 1 : -1
                 });
                 if (sortBy === SortMode.Text_DESC) {
                     newList.reverse();
@@ -199,6 +201,15 @@ const SearchSortFilter = ({ onSet,
                     return aStars - bStars
                 });
                 if (sortBy === SortMode.StarRating_DESC) {
+                    newList.reverse();
+                }
+                break;
+            case SortMode.Birthday_ASC:
+            case SortMode.Birthday_DESC:
+                newList = [...newList].sort(
+                    (a, b) => new Date(a.birthday).setHours(0, 0, 0, 0) - new Date(b.birthday).setHours(0, 0, 0, 0)
+                );
+                if (sortBy === SortMode.Birthday_DESC) {
                     newList.reverse();
                 }
                 break;
@@ -273,6 +284,18 @@ const SearchSortFilter = ({ onSet,
                                     }}
                                     text={t('star_rating')} type="button"
                                 />
+                            </>
+                        }
+                        {
+                            _showSortByBirthday &&
+                            <>
+                                &nbsp;
+                                <Button
+                                    iconName={sortBy === SortMode.Birthday_DESC ? 'arrow-down' : sortBy === SortMode.Birthday_ASC ? 'arrow-up' : ''}
+                                    onClick={() => {
+                                        sortBy === SortMode.Birthday_ASC ? setSortBy(SortMode.Birthday_DESC) : setSortBy(SortMode.Birthday_ASC);
+                                    }}
+                                    text={t('birthday')} type="button" />
                             </>
                         }
                     </Col>

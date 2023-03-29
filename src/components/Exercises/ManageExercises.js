@@ -79,12 +79,18 @@ const ManageExercises = () => {
       <CenterWrapper>
         {t('exercises')}
       </CenterWrapper>
-      <SearchSortFilter
-        onSet={setExercises}
-        originalList={originalExercises}
-        showSearch={false}
-        showSortByStarRating={true}
-        showSortByCreatedDate={true} />
+
+      {
+        originalExercises != null && originalExercises.length > 0 ? (
+          <SearchSortFilter
+            onSet={setExercises}
+            originalList={originalExercises}
+            showSearch={false}
+            showSortByStarRating={true}
+            showSortByCreatedDate={true} />
+        ) : (<></>)
+      }
+
       {
         exercises != null && exercises.length > 0 ? (
           <>

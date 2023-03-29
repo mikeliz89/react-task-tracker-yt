@@ -294,15 +294,20 @@ function TaskListDetails() {
         id="taskListDetails-Tab"
         className="mb-3">
         <Tab eventKey="home" title={t('tabheader_tasks')}>
-          <SearchSortFilter
-            useTextFiltering={true}
-            showFilterReady={true}
-            showFilterNotReady={true}
-            onSet={setTasks}
-            showSortByText={true}
-            showSearchByDay={true}
-            showSortByCreatedDate={true}
-            originalList={originalTasks} />
+
+          {
+            originalTasks != null && originalTasks.length > 0 ? (
+              <SearchSortFilter
+                useTextFiltering={true}
+                showFilterReady={true}
+                showFilterNotReady={true}
+                onSet={setTasks}
+                showSortByText={true}
+                showSearchByDay={true}
+                showSortByCreatedDate={true}
+                originalList={originalTasks} />
+            ) : (<></>)
+          }
 
           <CenterWrapper>
             <Button

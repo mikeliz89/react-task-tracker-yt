@@ -534,6 +534,7 @@
         "go_to_top": "Mene ylös"
     },
     "searchsortfilter": {
+        "birthday": "Syntymäpäivä",
         "created_date": "Luontipvm",
         "name": "Nimi",
         "placeholder_name": "Nimi",

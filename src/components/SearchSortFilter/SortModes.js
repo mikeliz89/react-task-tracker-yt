@@ -10,5 +10,7 @@ export const SortMode = {
     Text_ASC: "Text_ASC",
     Text_DESC: "Text_DESC",
     StarRating_ASC: "StarRating_ASC",
-    StarRating_DESC: "StarRating_DESC"
+    StarRating_DESC: "StarRating_DESC",
+    Birthday_ASC: "Birthday_ASC",
+    Birthday_DESC: "Birthday_DESC"
 }

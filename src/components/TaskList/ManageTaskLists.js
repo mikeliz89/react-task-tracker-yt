@@ -125,13 +125,13 @@ export default function ManageTaskLists({ listType }) {
       return t('countertext_drinklists');
     } else if (listType === ListTypes.Programming) {
       return t('countertext_programminglists');
-    } else if(listType === ListTypes.Food) {
+    } else if (listType === ListTypes.Food) {
       return t('countertext_recipelists');
-    } else if(listType === ListTypes.Music) {
+    } else if (listType === ListTypes.Music) {
       return t('countertext_musiclists');
-    } else if(listType === ListTypes.Games) {
+    } else if (listType === ListTypes.Games) {
       return t('countertext_gamelists');
-    } else if(listType === ListTypes.Movies) {
+    } else if (listType === ListTypes.Movies) {
       return t('countertext_movielists');
     }
     return t('countertext_tasklists');
@@ -153,13 +153,17 @@ export default function ManageTaskLists({ listType }) {
         <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={Constants.ICON_COPY} /> &nbsp;
       </div>
 
-      <SearchSortFilter
-        useTitleFiltering={true}
-        onSet={setTaskLists}
-        showSortByTitle={true}
-        showSortByCreatedDate={true}
-        showSearchByDescription={true}
-        originalList={originalTaskLists} />
+      {
+        originalTaskLists != null && originalTaskLists.length > 0 ? (
+          <SearchSortFilter
+            useTitleFiltering={true}
+            onSet={setTaskLists}
+            showSortByTitle={true}
+            showSortByCreatedDate={true}
+            showSearchByDescription={true}
+            originalList={originalTaskLists} />
+        ) : (<></>)
+      }
 
       <CenterWrapper>
         <Button

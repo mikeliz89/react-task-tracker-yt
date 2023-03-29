@@ -20,6 +20,7 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
+import { SortMode } from '../SearchSortFilter/SortModes';
 
 export default function ManageDrinks() {
 
@@ -135,18 +136,24 @@ export default function ManageDrinks() {
                 <AddDrink onSave={addDrink} onClose={() => setShowAddDrink(false)} />
             }
 
-            <SearchSortFilter
-                showFilterCore={true}
-                useTitleFiltering={true}
-                onSet={setDrinks}
-                showFilterHaveRated={true}
-                showFilterNotHaveRated={true}
-                showSortByTitle={true}
-                showSortByCreatedDate={true}
-                showSortByStarRating={true}
-                showSearchByDescription={true}
-                showSearchByIncredients={true}
-                originalList={originalDrinks} />
+            {
+                originalDrinks != null && originalDrinks.length > 0 ? (
+                    <SearchSortFilter
+                        defaultSort={SortMode.Title_ASC}
+                        showFilterCore={true}
+                        useTitleFiltering={true}
+                        onSet={setDrinks}
+                        showFilterHaveRated={true}
+                        showFilterNotHaveRated={true}
+                        showSortByTitle={true}
+                        showSortByCreatedDate={true}
+                        showSortByStarRating={true}
+                        showSearchByDescription={true}
+                        showSearchByIncredients={true}
+                        originalList={originalDrinks} />
+                ) : (<></>)
+            }
+
             {
                 drinks != null && drinks.length > 0 ? (
                     <>
