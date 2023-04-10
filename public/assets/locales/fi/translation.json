@@ -393,6 +393,7 @@
         "button_save_movie": "Tallenna",
         "created": "Luotu",
         "created_by": "Luoja",
+        "delete_movie_confirm_message": "Haluatko varmasti poistaa leffan?",
         "description": "Kuvaus",
         "failed_to_save_movie": "Tallennus epäonnistui",
         "format": "Tallennusmuoto",
