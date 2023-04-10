@@ -5,8 +5,9 @@ import Button from '../Buttons/Button';
 import { DrinkCategories } from './Categories';
 import * as Constants from '../../utils/Constants';
 import { getFromFirebaseById } from '../../datatier/datatier';
+import PropTypes from 'prop-types';
 
-const AddDrink = ({ drinkID, onSave, onClose }) => {
+const AddDrink = ({ drinkID, onSave, onClose, showLabels }) => {
 
    //translation
    const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
@@ -92,7 +93,7 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
       <>
          <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="addDrinkForm-Name">
-               <Form.Label>{t('name')}</Form.Label>
+               {showLabels && <Form.Label>{t('name')}</Form.Label>}
                <Form.Control type='text'
                   autoComplete="off"
                   placeholder={drinkID == null ? t('name') : t('name')}
@@ -100,7 +101,7 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
                   onChange={(e) => setTitle(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addDrinkForm-Description">
-               <Form.Label>{t('description')}</Form.Label>
+               {showLabels && <Form.Label>{t('description')}</Form.Label>}
                <Form.Control type='text'
                   autoComplete="off"
                   placeholder={drinkID == null ? t('description') : t('description')}
@@ -108,7 +109,7 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
                   onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addDrinkForm-Glass">
-               <Form.Label>{t('glass')}</Form.Label>
+               {showLabels && <Form.Label>{t('glass')}</Form.Label>}
                <Form.Control type='text'
                   autoComplete="off"
                   placeholder={drinkID == null ? t('glass') : t('glass')}
@@ -116,7 +117,7 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
                   onChange={(e) => setGlass(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addDrinkForm-Category">
-               <Form.Label>{t('category')}</Form.Label>
+               {showLabels && <Form.Label>{t('category')}</Form.Label>}
                <Form.Select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}>
@@ -144,6 +145,14 @@ const AddDrink = ({ drinkID, onSave, onClose }) => {
          {/* TODO rakenna linkin lisäys jo drinkin lisäykseen <AddLink onSaveLink={saveLink} /> */}
       </>
    )
+}
+
+AddDrink.defaultProps = {
+   showLabels: true
+}
+
+AddDrink.propTypes = {
+   showLabels: PropTypes.bool
 }
 
 export default AddDrink

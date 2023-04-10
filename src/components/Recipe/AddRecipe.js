@@ -5,8 +5,9 @@ import Button from '../Buttons/Button';
 import { RecipeCategories } from './Categories';
 import * as Constants from '../../utils/Constants';
 import { getFromFirebaseById } from '../../datatier/datatier';
+import PropTypes from 'prop-types';
 
-const AddRecipe = ({ recipeID, onSave, onClose }) => {
+const AddRecipe = ({ recipeID, onSave, onClose, showLabels }) => {
 
    //translation
    const { t } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
@@ -84,7 +85,7 @@ const AddRecipe = ({ recipeID, onSave, onClose }) => {
       <>
          <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="addRecipeForm-Name">
-               <Form.Label>{t('recipe_name')}</Form.Label>
+               {showLabels && <Form.Label>{t('recipe_name')}</Form.Label>}
                <Form.Control type='text'
                   autoComplete="off"
                   placeholder={recipeID == null ? t('recipe_name') : t('edit_recipe_name')}
@@ -92,7 +93,7 @@ const AddRecipe = ({ recipeID, onSave, onClose }) => {
                   onChange={(e) => setTitle(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addRecipeForm-Description">
-               <Form.Label>{t('description')}</Form.Label>
+               {showLabels && <Form.Label>{t('description')}</Form.Label>}
                <Form.Control type='text'
                   autoComplete="off"
                   placeholder={recipeID == null ? t('add_description') : t('edit_description')}
@@ -100,7 +101,7 @@ const AddRecipe = ({ recipeID, onSave, onClose }) => {
                   onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addRecipeForm-Category">
-               <Form.Label>{t('category')}</Form.Label>
+               {showLabels && <Form.Label>{t('category')}</Form.Label>}
                <Form.Select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}>
@@ -127,6 +128,14 @@ const AddRecipe = ({ recipeID, onSave, onClose }) => {
          </Form>
       </>
    )
+}
+
+AddRecipe.defaultProps = {
+   showLabels: true
+}
+
+AddRecipe.propTypes = {
+   showLabels: PropTypes.bool
 }
 
 export default AddRecipe
