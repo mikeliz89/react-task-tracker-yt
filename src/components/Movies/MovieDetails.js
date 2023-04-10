@@ -20,6 +20,7 @@ import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import SetStarRating from "../StarRating/SetStarRating";
 import StarRating from "../StarRating/StarRating";
+import { getMovieFormatNameByID } from '../../utils/ListUtils';
 
 function MovieDetails() {
 
@@ -92,7 +93,7 @@ function MovieDetails() {
         pushToFirebaseChild(Constants.DB_MOVIE_LINKS, id, link);
     }
 
-    
+
     const saveStars = async (stars) => {
         const movieID = params.id;
         movie["modified"] = getCurrentDateAsJson()
@@ -150,7 +151,12 @@ function MovieDetails() {
             </Row>
             <Row>
                 <Col>
-                    {movie.description}
+                    {t('format') + ':'} {t('movie_format_' + getMovieFormatNameByID(movie.format))}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    {t('description') + ':'} {movie.description}
                 </Col>
             </Row>
 

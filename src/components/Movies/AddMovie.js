@@ -4,6 +4,7 @@ import { Row, ButtonGroup, Form, Col } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import * as Constants from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
+import { MovieFormats } from './Categories';
 
 const AddMovie = ({ movieID, onSave, onClose }) => {
 
@@ -14,7 +15,12 @@ const AddMovie = ({ movieID, onSave, onClose }) => {
     const [created, setCreated] = useState('');
     const [createdBy, setCreatedBy] = useState('');
     const [name, setName] = useState('');
+    const [nameFi, setNameFi] = useState('');
     const [description, setDescription] = useState('');
+    const [publishYear, setPublishYear] = useState(0);
+
+    const [format, setFormat] = useState();
+    const [formats, setFormats] = useState(MovieFormats);
 
     //load data
     useEffect(() => {
@@ -26,12 +32,28 @@ const AddMovie = ({ movieID, onSave, onClose }) => {
         }
     }, [movieID]);
 
+    useEffect(() => {
+        sortFormatsByName();
+    }, []);
+
+    const sortFormatsByName = () => {
+        const sorted = [...formats].sort((a, b) => {
+            const aName = t(`movie_format_${a.name}`);
+            const bName = t(`movie_format_${b.name}`);
+            return aName > bName ? 1 : -1;
+        });
+        setFormats(sorted);
+    }
+
     const fetchMovieFromFirebase = async (movieID) => {
         getFromFirebaseById(Constants.DB_MOVIES, movieID).then((val) => {
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
             setDescription(val["description"]);
+            setFormat(val["format"]);
             setName(val["name"]);
+            setNameFi(val["nameFi"]);
+            setPublishYear(val["publishYear"]);
         });
     }
 
@@ -44,7 +66,7 @@ const AddMovie = ({ movieID, onSave, onClose }) => {
             return;
         }
 
-        onSave({ created, createdBy, description, name });
+        onSave({ created, createdBy, description, format, name, nameFi, publishYear });
 
         if (movieID == null) {
             clearForm();
@@ -54,6 +76,8 @@ const AddMovie = ({ movieID, onSave, onClose }) => {
     const clearForm = () => {
         setDescription('');
         setName('');
+        setNameFi('');
+        setPublishYear(0);
     }
 
     return (
@@ -66,6 +90,32 @@ const AddMovie = ({ movieID, onSave, onClose }) => {
                         placeholder={t('name')}
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addMovieForm-NameFi">
+                    <Form.Label>{t('name_fi')}</Form.Label>
+                    <Form.Control type='text'
+                        autoComplete="off"
+                        placeholder={t('name_fi')}
+                        value={nameFi}
+                        onChange={(e) => setNameFi(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addMovieForm-PublishYear">
+                    <Form.Label>{t('publish_year')}</Form.Label>
+                    <Form.Control type='number' step='any'
+                        autoComplete="off"
+                        placeholder={t('publish_year')}
+                        value={publishYear}
+                        onChange={(e) => setPublishYear(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addMovieForm-Category">
+                    <Form.Label>{t('format')}</Form.Label>
+                    <Form.Select
+                        value={format}
+                        onChange={(e) => setFormat(e.target.value)}>
+                        {formats.map(({ id, name }) => (
+                            <option value={id} key={id}>{t(`movie_format_${name}`)}</option>
+                        ))}
+                    </Form.Select>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addMovieForm-Description">
                     <Form.Label>{t('description')}</Form.Label>

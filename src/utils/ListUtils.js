@@ -3,8 +3,8 @@ import { RecipeCategories, FoodItemCategories } from "../components/Recipe/Categ
 import { DrinkCategories } from "../components/Drinks/Categories";
 import { DrinkingProductCategories } from "../components/Drinks/Categories";
 import { GearCategories } from "../components/BackPacking/Categories";
-
 import { ListTypes } from '../utils/Enums';
+import { MovieFormats } from "../components/Movies/Categories";
 
 export function getGearCategoryNameByID(id) {
     return getNameByID(GearCategories, id);
@@ -34,6 +34,10 @@ export function getMovementCategoryNameByID(id) {
     return getNameByID(MovementCategories, id);
 }
 
+export function getMovieFormatNameByID(id) {
+    return getNameByID(MovieFormats, id);
+}
+
 function getNameByID(arr, id) {
     let obj = arr.find((o) =>
         o.id === Number(id)
@@ -41,7 +45,7 @@ function getNameByID(arr, id) {
     if (obj) {
         return obj.name;
     }
-    return '-';
+    return 'none';
 }
 
 export const getPageTitleContent = (listType) => {
