@@ -5,35 +5,33 @@ import Button from '../Buttons/Button';
 import * as Constants from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 
-const AddPeople = ({ personID, onSave, onClose }) => {
+const AddMovie = ({ movieID, onSave, onClose }) => {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_PEOPLE, { keyPrefix: Constants.TRANSLATION_PEOPLE });
+    const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
 
     //states
     const [created, setCreated] = useState('');
     const [createdBy, setCreatedBy] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [birthday, setBirthday] = useState(new Date());
 
     //load data
     useEffect(() => {
-        if (personID != null) {
-            const getPerson = async () => {
-                await fetchPersonFromFirebase(personID);
+        if (movieID != null) {
+            const getMovie = async () => {
+                await fetchMovieFromFirebase(movieID);
             }
-            getPerson();
+            getMovie();
         }
-    }, [personID]);
+    }, [movieID]);
 
-    const fetchPersonFromFirebase = async (personID) => {
-        getFromFirebaseById(Constants.DB_PEOPLE, personID).then((val) => {
+    const fetchMovieFromFirebase = async (movieID) => {
+        getFromFirebaseById(Constants.DB_MOVIES, movieID).then((val) => {
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
             setDescription(val["description"]);
             setName(val["name"]);
-            setBirthday(val["birthday"]);
         });
     }
 
@@ -46,9 +44,9 @@ const AddPeople = ({ personID, onSave, onClose }) => {
             return;
         }
 
-        onSave({ created, createdBy, description, name, birthday });
+        onSave({ created, createdBy, description, name });
 
-        if (personID == null) {
+        if (movieID == null) {
             clearForm();
         }
     }
@@ -61,7 +59,7 @@ const AddPeople = ({ personID, onSave, onClose }) => {
     return (
         <>
             <Form onSubmit={onSubmit}>
-                <Form.Group className="mb-3" controlId="addPeopleForm-Name">
+                <Form.Group className="mb-3" controlId="addMovieForm-Name">
                     <Form.Label>{t('name')}</Form.Label>
                     <Form.Control type='text'
                         autoComplete="off"
@@ -69,7 +67,7 @@ const AddPeople = ({ personID, onSave, onClose }) => {
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addPeopleForm-Description">
+                <Form.Group className="mb-3" controlId="addMovieForm-Description">
                     <Form.Label>{t('description')}</Form.Label>
                     <Form.Control type='text'
                         autoComplete="off"
@@ -77,15 +75,11 @@ const AddPeople = ({ personID, onSave, onClose }) => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
                 </Form.Group>
-                <Form.Group as={Col} className="mb-3">
-                    <Form.Label>{t('birthday')}</Form.Label>
-                    <Form.Control type="date" name='date' onChange={(e) => setBirthday(e.target.value)} value={birthday} />
-                </Form.Group>
                 <Row>
                     <ButtonGroup>
                         <Button type='button' text={t('button_close')} className='btn btn-block'
                             onClick={() => onClose()} />
-                        <Button type='submit' text={t('button_save_person')} className='btn btn-block saveBtn' />
+                        <Button type='submit' text={t('button_save_movie')} className='btn btn-block saveBtn' />
                     </ButtonGroup>
                 </Row>
             </Form>
@@ -94,4 +88,4 @@ const AddPeople = ({ personID, onSave, onClose }) => {
     )
 }
 
-export default AddPeople
+export default AddMovie

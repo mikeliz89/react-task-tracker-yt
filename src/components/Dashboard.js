@@ -97,7 +97,7 @@ export default function Dashboard() {
                                 color="#0cb058"
                                 text={t('programming')} />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MOVIES}>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MOVIES}>
                             <BigButton
                                 imageName="movies.jpg"
                                 iconName={Constants.ICON_MOVIE}

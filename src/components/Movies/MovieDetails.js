@@ -14,15 +14,15 @@ import { useAuth } from '../../contexts/AuthContext';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import Button from '../Buttons/Button';
-import AddPerson from './AddPerson';
+import AddMovie from './AddMovie';
 import Alert from '../Alert';
 import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 
-function PersonDetails() {
+function MovieDetails() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_PEOPLE, { keyPrefix: Constants.TRANSLATION_PEOPLE });
+    const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -154,4 +154,4 @@ function PersonDetails() {
     )
 }
 
-export default PersonDetails
+export default MovieDetails

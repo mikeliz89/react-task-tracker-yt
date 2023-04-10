@@ -387,8 +387,17 @@
         "urlText": "linkin teksti"
     },
     "movies": {
+        "button_add_movie": "Lisää leffa",
+        "button_close": "Sulje",
         "button_movie_lists": "Leffalistat",
-        "movies_title": "Leffat"
+        "button_save_movie": "Tallenna",
+        "description": "Kuvaus",
+        "movies_title": "Leffat",
+        "movies": "Leffat",
+        "name": "Nimi",
+        "no_movies_to_show": "Ei lisättyjä leffoja",
+        "save_success": "Tallennus onnistui",
+        "view_details": "Katso lisätiedot"
     },
     "music": {
         "button_bands_seen_live": "Nähdyt bändit",

@@ -1,35 +1,36 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Row, ButtonGroup } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
-import AddPerson from './AddPerson';
+import Icon from '../Icon';
+import PageContentWrapper from '../Site/PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
+import * as Constants from '../../utils/Constants';
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import CenterWrapper from '../Site/CenterWrapper';
+import Movies from './Movies';
+import { useState, useEffect } from 'react';
+import Counter from '../Site/Counter';
+import Alert from '../Alert';
+import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
+import AddMovie from './AddMovie';
+import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from "../../utils/Constants";
-import { useAuth } from '../../contexts/AuthContext';
-import PeopleList from './PeopleList';
-import PageTitle from '../Site/PageTitle';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import { SortMode } from '../SearchSortFilter/SortModes';
-import Alert from '../Alert';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import CenterWrapper from '../Site/CenterWrapper';
-import Counter from '../Site/Counter';
-import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 
-export default function ManagePeople() {
+export default function Games() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_PEOPLE, { keyPrefix: Constants.TRANSLATION_PEOPLE });
+    const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
 
     //states
-    const [showAdd, setShowAdd] = useState(false);
-    const [people, setPeople] = useState();
-    const [originalPeople, setOriginalPeople] = useState();
     const [loading, setLoading] = useState(true);
     const [counter, setCounter] = useState(0);
+    const [movies, setMovies] = useState();
+    const [originalMovies, setOriginalMovies] = useState();
+    const [showAdd, setShowAdd] = useState(false);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -44,21 +45,21 @@ export default function ManagePeople() {
     useEffect(() => {
         let cancel = false;
 
-        const getPeople = async () => {
+        const getMovies = async () => {
             if (cancel) {
                 return;
             }
-            await fetchPeopleFromFirebase();
+            await fetchMoviesFromFirebase();
         }
-        getPeople();
+        getMovies();
 
         return () => {
             cancel = true;
         }
     }, [])
 
-    const fetchPeopleFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_PEOPLE);
+    const fetchMoviesFromFirebase = async () => {
+        const dbref = await ref(db, Constants.DB_MOVIES);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -69,17 +70,21 @@ export default function ManagePeople() {
             }
             setCounter(counterTemp);
             setLoading(false);
-            setPeople(fromDB);
-            setOriginalPeople(fromDB);
+            setMovies(fromDB);
+            setOriginalMovies(fromDB);
         })
     }
 
-    const addPerson = async (person) => {
+    const deleteMovie = async (id) => {
+        removeFromFirebaseById(Constants.DB_MOVIES, id);
+    }
+
+    const addMovie = async (movie) => {
         try {
             clearMessages();
-            person["created"] = getCurrentDateAsJson();
-            person["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_PEOPLE, person);
+            movie["created"] = getCurrentDateAsJson();
+            movie["createdBy"] = currentUser.email;
+            pushToFirebase(Constants.DB_MOVIES, movie);
             setMessage(t('save_success'));
             setShowMessage(true);
         } catch (ex) {
@@ -95,9 +100,6 @@ export default function ManagePeople() {
         setShowMessage(false);
     }
 
-    const deletePerson = (id) => {
-        removeFromFirebaseById(Constants.DB_PEOPLE, id);
-    }
 
     return loading ? (
         <h3>{t('loading')}</h3>
@@ -109,44 +111,52 @@ export default function ManagePeople() {
                     <Button
                         iconName={Constants.ICON_PLUS}
                         color={showAdd ? 'red' : 'green'}
-                        text={showAdd ? t('button_close') : t('button_add_person')}
+                        text={showAdd ? t('button_close') : t('button_add_movie')}
                         onClick={() => setShowAdd(!showAdd)} />
                 </ButtonGroup>
             </Row>
 
-            <PageTitle title={t('title')} />
+            <PageTitle title={t('movies_title')} />
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
+            <div>
+                <Link to={Constants.NAVIGATION_MANAGE_MOVIELISTS} className='btn btn-primary'>
+                    <Icon name={Constants.ICON_LIST_ALT} color='white' />
+                    {t('button_movie_lists')}
+                </Link>
+            </div>
+
+            <CenterWrapper>
+                {t('movies')}
+            </CenterWrapper>
+
             {
-                showAdd && <AddPerson onSave={addPerson} onClose={() => setShowAdd(false)} />
+                showAdd && <AddMovie onSave={addMovie} onClose={() => setShowAdd(false)} />
             }
 
             {
-                originalPeople != null && originalPeople.length > 0 ? (
+                originalMovies != null && originalMovies.length > 0 ? (
                     <SearchSortFilter
-                        onSet={setPeople}
-                        originalList={originalPeople}
-                        useNameFiltering={true}
-                        showSortByName={true}
-                        showSortByBirthday={true}
-                        showSearchByDescription={true}
-                        defaultSort={SortMode.Name_ASC} />
+                        onSet={setMovies}
+                        originalList={originalMovies}
+                        showSearch={false}
+                        showSortByStarRating={true}
+                        showSortByCreatedDate={true} />
                 ) : (<></>)
             }
             {
-                people != null && people.length > 0 ? (
+                movies != null && movies.length > 0 ? (
                     <>
-                        <Counter list={people} originalList={originalPeople} counter={counter} />
-                        <PeopleList people={people}
-                            onDelete={deletePerson} />
+                        <Counter list={movies} originalList={originalMovies} counter={counter} />
+                        <Movies movies={movies} onDelete={deleteMovie} />
                     </>
                 ) : (
                     <>
                         <CenterWrapper>
-                            {t('no_people_to_show')}
+                            {t('no_movies_to_show')}
                         </CenterWrapper>
                     </>
                 )
