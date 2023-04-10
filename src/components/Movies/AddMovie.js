@@ -67,7 +67,7 @@ const AddMovie = ({ movieID, onSave, onClose, showLabels }) => {
             return;
         }
 
-        onSave({ created, createdBy, description, format, name, nameFi, publishYear });
+        onSave(movieID, { created, createdBy, description, format, name, nameFi, publishYear });
 
         if (movieID == null) {
             clearForm();

@@ -80,7 +80,7 @@ export default function Games() {
         removeFromFirebaseById(Constants.DB_MOVIES, id);
     }
 
-    const addMovie = async (movie) => {
+    const addMovie = async (movieID, movie) => {
         try {
             clearMessages();
             movie["created"] = getCurrentDateAsJson();

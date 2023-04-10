@@ -408,7 +408,9 @@
         "name": "Nimi",
         "name_fi": "Suomenkielinen nimi",
         "no_movies_to_show": "Ei lisättyjä leffoja",
+        "please_add_name": "Ole hyvä ja anna leffalle nimi",
         "publish_year": "Julkaisuvuosi",
+        "save_exception": "Tallennus epäonnistui",
         "save_success": "Tallennus onnistui",
         "view_details": "Katso lisätiedot"
     },
