@@ -5,8 +5,9 @@ import Button from '../Buttons/Button';
 import * as Constants from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 import { MovieFormats } from './Categories';
+import PropTypes from 'prop-types';
 
-const AddMovie = ({ movieID, onSave, onClose }) => {
+const AddMovie = ({ movieID, onSave, onClose, showLabels }) => {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
@@ -84,7 +85,7 @@ const AddMovie = ({ movieID, onSave, onClose }) => {
         <>
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addMovieForm-Name">
-                    <Form.Label>{t('name')}</Form.Label>
+                    {showLabels && <Form.Label>{t('name')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
                         placeholder={t('name')}
@@ -92,7 +93,7 @@ const AddMovie = ({ movieID, onSave, onClose }) => {
                         onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addMovieForm-NameFi">
-                    <Form.Label>{t('name_fi')}</Form.Label>
+                    {showLabels && <Form.Label>{t('name_fi')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
                         placeholder={t('name_fi')}
@@ -100,7 +101,7 @@ const AddMovie = ({ movieID, onSave, onClose }) => {
                         onChange={(e) => setNameFi(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addMovieForm-PublishYear">
-                    <Form.Label>{t('publish_year')}</Form.Label>
+                    {showLabels && <Form.Label>{t('publish_year')}</Form.Label>}
                     <Form.Control type='number' step='any'
                         autoComplete="off"
                         placeholder={t('publish_year')}
@@ -108,7 +109,7 @@ const AddMovie = ({ movieID, onSave, onClose }) => {
                         onChange={(e) => setPublishYear(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addMovieForm-Category">
-                    <Form.Label>{t('format')}</Form.Label>
+                    {showLabels && <Form.Label>{t('format')}</Form.Label>}
                     <Form.Select
                         value={format}
                         onChange={(e) => setFormat(e.target.value)}>
@@ -118,7 +119,7 @@ const AddMovie = ({ movieID, onSave, onClose }) => {
                     </Form.Select>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addMovieForm-Description">
-                    <Form.Label>{t('description')}</Form.Label>
+                    {showLabels && <Form.Label>{t('description')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
                         placeholder={t('description')}
@@ -136,6 +137,14 @@ const AddMovie = ({ movieID, onSave, onClose }) => {
             {/* TODO rakenna linkin lisäys jo personin lisäykseen <AddLink onSaveLink={saveLink} /> */}
         </>
     )
+}
+
+AddMovie.defaultProps = {
+    showLabels: true
+}
+
+AddMovie.propTypes = {
+    showLabels: PropTypes.bool
 }
 
 export default AddMovie
