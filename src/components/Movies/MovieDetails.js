@@ -18,6 +18,8 @@ import AddMovie from './AddMovie';
 import Alert from '../Alert';
 import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
+import SetStarRating from "../StarRating/SetStarRating";
+import StarRating from "../StarRating/StarRating";
 
 function MovieDetails() {
 
@@ -32,7 +34,7 @@ function MovieDetails() {
 
     //states
     const [loading, setLoading] = useState(true);
-    const [person, setPerson] = useState({});
+    const [movie, setMovie] = useState({});
     const [showEdit, setShowEdit] = useState(false);
 
     //params
@@ -46,48 +48,56 @@ function MovieDetails() {
 
     //load data
     useEffect(() => {
-        const getPerson = async () => {
-            await fetchPersonFromFirebase();
+        const getMovie = async () => {
+            await fetchMovieFromFirebase();
         }
-        getPerson();
+        getMovie();
     }, [])
 
-    const fetchPersonFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_PEOPLE}/${params.id}`);
+    const fetchMovieFromFirebase = async () => {
+        const dbref = ref(db, `${Constants.DB_MOVIES}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
                 navigate(-1);
             }
-            setPerson(data);
+            setMovie(data);
             setLoading(false);
         })
     }
 
-    const updatePerson = async (person) => {
+    const updateMovie = async (movie) => {
         try {
-            const personID = params.id;
-            person["modified"] = getCurrentDateAsJson();
-            updateToFirebaseById(Constants.DB_PEOPLE, personID, person);
+            const movieID = params.id;
+            movie["modified"] = getCurrentDateAsJson();
+            updateToFirebaseById(Constants.DB_MOVIES, movieID, movie);
         } catch (error) {
-            setError(t('failed_to_save_person'));
+            setError(t('failed_to_save_movie'));
             setShowError(true);
             console.log(error);
         }
     }
 
-    const addCommentToPerson = (comment) => {
+    const addCommentToMovie = (comment) => {
         const id = params.id;
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_PEOPLE, id, comment);
+        pushToFirebaseChild(Constants.DB_MOVIES, id, comment);
     }
 
-    const addLinkToPerson = (link) => {
+    const addLinkToMovie = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_PEOPLE, id, link);
+        pushToFirebaseChild(Constants.DB_MOVIES, id, link);
+    }
+
+    
+    const saveStars = async (stars) => {
+        const movieID = params.id;
+        movie["modified"] = getCurrentDateAsJson()
+        movie["stars"] = Number(stars);
+        updateToFirebaseById(Constants.DB_MOVIES, movieID, movie);
     }
 
     return loading ? (
@@ -109,22 +119,22 @@ function MovieDetails() {
                     <Accordion>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>
-                                <PageTitle title={person.name} iconColor='gray' />
+                                <PageTitle title={movie.name} iconColor='gray' />
                             </Accordion.Header>
                             <Accordion.Body>
                                 <Table striped bordered hover>
                                     <tbody>
                                         <tr>
                                             <td>{t('created')}</td>
-                                            <td>{getJsonAsDateTimeString(person.created, i18n.language)}</td>
+                                            <td>{getJsonAsDateTimeString(movie.created, i18n.language)}</td>
                                         </tr>
                                         <tr>
                                             <td>{t('created_by')}</td>
-                                            <td>{person.createdBy}</td>
+                                            <td>{movie.createdBy}</td>
                                         </tr>
                                         <tr>
                                             <td>{t('modified')}</td>
-                                            <td>{getJsonAsDateTimeString(person.modified, i18n.language)}</td>
+                                            <td>{getJsonAsDateTimeString(movie.modified, i18n.language)}</td>
                                         </tr>
                                     </tbody>
                                 </Table>
@@ -135,7 +145,12 @@ function MovieDetails() {
             </Row>
             <Row>
                 <Col>
-                    {person.description}
+                    <StarRating starCount={movie.stars} />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    {movie.description}
                 </Col>
             </Row>
 
@@ -143,13 +158,17 @@ function MovieDetails() {
                 error={error} showError={showError}
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
+            <>
+                <SetStarRating starCount={movie.stars} onSaveStars={saveStars} />
+            </>
+
             {showEdit &&
-                <AddPerson onSave={updatePerson} personID={params.id} onClose={() => setShowEdit(false)} />
+                <AddMovie onSave={updateMovie} movieID={params.id} onClose={() => setShowEdit(false)} />
             }
             <hr />
-            <ImageComponent url={Constants.DB_PERSON_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={Constants.DB_PERSON_COMMENTS} onSave={addCommentToPerson} />
-            <LinkComponent objID={params.id} url={Constants.DB_PERSON_LINKS} onSaveLink={addLinkToPerson} />
+            <ImageComponent url={Constants.DB_MOVIE_IMAGES} objID={params.id} />
+            <CommentComponent objID={params.id} url={Constants.DB_MOVIE_COMMENTS} onSave={addCommentToMovie} />
+            <LinkComponent objID={params.id} url={Constants.DB_MOVIE_LINKS} onSaveLink={addLinkToMovie} />
         </PageContentWrapper>
     )
 }
