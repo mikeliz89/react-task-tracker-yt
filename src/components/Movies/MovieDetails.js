@@ -83,13 +83,13 @@ function MovieDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_MOVIES, id, comment);
+        pushToFirebaseChild(Constants.DB_MOVIE_COMMENTS, id, comment);
     }
 
     const addLinkToMovie = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_MOVIES, id, link);
+        pushToFirebaseChild(Constants.DB_MOVIE_LINKS, id, link);
     }
 
     
