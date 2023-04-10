@@ -19,6 +19,7 @@ import AddMovie from './AddMovie';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
+import { SortMode } from '../SearchSortFilter/SortModes';
 
 export default function Games() {
 
@@ -142,7 +143,11 @@ export default function Games() {
                     <SearchSortFilter
                         onSet={setMovies}
                         originalList={originalMovies}
-                        showSearch={false}
+                        showSearch={true}
+                        showSearchByDescription={true}
+                        useNameFiltering={true}
+                        defaultSort={SortMode.Name_ASC}
+                        showSortByName={true}
                         showSortByStarRating={true}
                         showSortByCreatedDate={true} />
                 ) : (<></>)
