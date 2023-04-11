@@ -67,7 +67,7 @@ function MovieDetails() {
         })
     }
 
-    const updateMovie = async (movie) => {
+    const updateMovie = async (updateMovieID, movie) => {
         try {
             const movieID = params.id;
             movie["modified"] = getCurrentDateAsJson();
