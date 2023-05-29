@@ -4,7 +4,7 @@ import Alert from '../Alert';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddFueling from './AddFueling';
-import { Accordion, Table, Row, ButtonGroup, Col, Tabs, Tab } from 'react-bootstrap';
+import { Tabs, Tab } from 'react-bootstrap';
 import AddMaintenance from './AddMaintenance';
 import AddInfo from './AddInfo';
 import CarFuelings from './CarFuelings';

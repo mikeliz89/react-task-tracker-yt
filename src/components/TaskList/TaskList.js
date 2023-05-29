@@ -29,7 +29,11 @@ const TaskList = ({ taskList, archived, onDelete }) => {
                     <h5>
                         <span>
                             <Icon name={Constants.ICON_LIST_ALT} color='gray' />
-                            {taskList.title}
+                            <Link
+                                style={{ textDecoration: 'none' }}
+                                to={archived ? `/tasklistarchive/${taskList.id}` : `/tasklist/${taskList.id}`}>
+                                {taskList.title}
+                            </Link>
                         </span>
                         <RightWrapper>
                             <Icon name={Constants.ICON_EDIT} className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
@@ -39,12 +43,6 @@ const TaskList = ({ taskList, archived, onDelete }) => {
                         </RightWrapper>
                     </h5>
                     <p>{taskList.description}</p>
-                    <p>
-                        <Link className="btn btn-primary"
-                            to={archived ? `/tasklistarchive/${taskList.id}` : `/tasklist/${taskList.id}`}>
-                            {t('view_details')}
-                        </Link>
-                    </p>
                 </>
             }
             {

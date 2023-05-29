@@ -30,7 +30,12 @@ const Task = ({ taskListID, archived, task, onDelete, onToggle }) => {
                 !editable &&
                 <>
                     <h5>
-                        {task.text}
+                        { /* TODO: Rakenna view details arkiston taskin katselulle? */
+                            archived ? <span>{task.text}</span> : !editable &&
+                                <span>
+                                    <Link to={`/task/${task.id}/${taskListID}`}>{task.text}</Link>
+                                </span>
+                        }
                         {archived ? null :
                             <RightWrapper>
                                 <Icon name={Constants.ICON_EDIT} className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
@@ -44,15 +49,6 @@ const Task = ({ taskListID, archived, task, onDelete, onToggle }) => {
                     <p>{task.day}</p>
                 </>
             }
-            { /* TODO: Rakenna view details arkiston taskin katselulle? */
-                archived ? null : !editable &&
-                    <>
-                        <p>
-                            <Link className="btn btn-primary" to={`/task/${task.id}/${taskListID}`}>{t('view_details')}</Link>
-                        </p>
-                    </>
-            }
-
             {
                 editable && <AddTask
                     taskID={task.id}
