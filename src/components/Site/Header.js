@@ -37,9 +37,11 @@ const Header = () => {
                         <Logo />
                     </LeftWrapper>
                     <RightWrapper>
-                        <Button
-                            iconName={Constants.ICON_GEAR}
-                            onClick={() => navigateTo()} />
+                        {currentUser &&
+                            <Button
+                                iconName={Constants.ICON_GEAR}
+                                onClick={() => navigateTo()} />
+                        }
                     </RightWrapper>
                 </Col>
             </Row>

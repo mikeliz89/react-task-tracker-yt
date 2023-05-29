@@ -426,6 +426,7 @@
         "height": "Pituus",
         "loading": "Lataa...",
         "name": "Nimi",
+        "profilepic": "Profiilikuva",
         "savebutton": "Tallenna",
         "saving_done": "Tallennus onnistui",
         "saving_failed": "Tallennus epäonnistui",

@@ -92,6 +92,8 @@ import ManageLists from './components/Lists/ManageLists';
 //People / person
 import ManagePeople from './components/People/ManagePeople';
 import PersonDetails from './components/People/PersonDetails';
+//Constants
+import * as Constants from './utils/Constants';
 
 //ICONIT
 //React icons: https://react-icons.github.io/react-icons/icons?name=fa
@@ -133,6 +135,22 @@ i18n
 function App() {
 
   const { theme } = useTheme();
+
+  const colorRootElement = () => {
+
+    const rootElement = document.getElementById("root");
+    const htmlElement = document.documentElement;
+
+    if (theme === Constants.THEME_DARK) {
+      rootElement.style.backgroundColor = Constants.THEME_BLACK;
+      htmlElement.style.backgroundColor = Constants.THEME_BLACK;
+    } else if (theme === Constants.THEME_LIGHT) {
+      rootElement.style.backgroundColor = Constants.THEME_WHITE;
+      htmlElement.style.backgroundColor = Constants.THEME_WHITE;
+    }
+  }
+
+  colorRootElement();
 
   return (
     <Container id={theme}>

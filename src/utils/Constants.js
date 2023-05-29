@@ -149,9 +149,11 @@ export const NAVIGATION_WEIGHTHISTORY = '/weighthistory';
 export const SESSION_FROM_PAGE = "fromPage";
 export const SESSION_DASHBOARD_ACTIONS = "actions";
 export const SESSION_DASHBOARD_LISTS = "lists";
+export const SESSION_THEME = "theme";
 
 //THEMES
 export const THEME_LIGHT = 'light';
+export const THEME_DARK = 'dark';
 export const THEME_BLACK = 'black';
 export const THEME_WHITE = 'white';
 
