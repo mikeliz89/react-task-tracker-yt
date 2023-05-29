@@ -433,6 +433,7 @@
         "upload": "Lähetä"
     },
     "people": {
+        "address": "Kotiosoite",
         "birthday": "Syntymäpäivä",
         "button_add_person": "Lisää ihminen",
         "button_close": "Sulje",

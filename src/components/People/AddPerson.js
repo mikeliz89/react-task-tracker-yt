@@ -16,6 +16,7 @@ const AddPerson = ({ personID, onSave, onClose }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [birthday, setBirthday] = useState(new Date());
+    const [address, setAddress] = useState('');
 
     //load data
     useEffect(() => {
@@ -29,6 +30,7 @@ const AddPerson = ({ personID, onSave, onClose }) => {
 
     const fetchPersonFromFirebase = async (personID) => {
         getFromFirebaseById(Constants.DB_PEOPLE, personID).then((val) => {
+            setAddress(val["address"]);
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
             setDescription(val["description"]);
@@ -46,7 +48,7 @@ const AddPerson = ({ personID, onSave, onClose }) => {
             return;
         }
 
-        onSave({ created, createdBy, description, name, birthday });
+        onSave({ address, created, createdBy, description, name, birthday });
 
         if (personID == null) {
             clearForm();
@@ -54,6 +56,7 @@ const AddPerson = ({ personID, onSave, onClose }) => {
     }
 
     const clearForm = () => {
+        setAddress('');
         setDescription('');
         setName('');
     }
@@ -77,7 +80,15 @@ const AddPerson = ({ personID, onSave, onClose }) => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
                 </Form.Group>
-                <Form.Group as={Col} className="mb-3">
+                <Form.Group className="mb-3" controlId="addPersonForm-Address">
+                    <Form.Label>{t('address')}</Form.Label>
+                    <Form.Control type='text'
+                        autoComplete="off"
+                        placeholder={t('address')}
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)} />
+                </Form.Group>
+                <Form.Group as={Col} className="mb-3" controlId="addPersonForm-BirthDay">
                     <Form.Label>{t('birthday')}</Form.Label>
                     <Form.Control type="date" name='date' onChange={(e) => setBirthday(e.target.value)} value={birthday} />
                 </Form.Group>

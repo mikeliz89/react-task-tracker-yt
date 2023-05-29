@@ -309,6 +309,24 @@
         "saving_done": "Saving was successful",
         "upload": "Upload"
     },
+    "people": {
+        "address": "Home address",
+        "birthday": "Birthday",
+        "button_add_person": "Add person",
+        "button_close": "Close",
+        "button_save_person": "Save",
+        "created": "Created",
+        "created_by": "Created By",
+        "delete_person_confirm_message": "Haluatko varmasti poistaa henkilön?",
+        "description": "Description",
+        "modified": "Modified",
+        "name": "Name",
+        "no_people_to_show": "No people to show",
+        "please_add_name": "Please give person a name",
+        "save_success": "Saving person was successful",
+        "title": "People",
+        "view_details": "See details"
+    },
     "recipe": {
         "add_description": "Add Description",
         "add_workphase_formtitle": "Add workphase",
