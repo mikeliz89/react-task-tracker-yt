@@ -9,7 +9,7 @@ import Footer from './components/Site/Footer';
 //About
 import About from './components/Site/About';
 //Dashboard
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/Dashboard/Dashboard';
 //Auth
 import Signup from './components/Auth/Signup';
 import Login from './components/Auth/Login';

@@ -1,8 +1,8 @@
-import BigButton from './Buttons/BigButton';
+import BigButton from '../Buttons/BigButton';
 import { useTranslation } from 'react-i18next';
 import { Row, Tabs } from 'react-bootstrap';
-import PageContentWrapper from './Site/PageContentWrapper';
-import * as Constants from '../utils/Constants';
+import PageContentWrapper from '../Site/PageContentWrapper';
+import * as Constants from '../../utils/Constants';
 import DashboardItem from './DashboardItem';
 import { Tab } from 'bootstrap';
 
