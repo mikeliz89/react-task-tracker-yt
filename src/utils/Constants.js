@@ -145,6 +145,11 @@ export const NAVIGATION_TASKLIST_ARCHIVE = '/tasklistarchive';
 export const NAVIGATION_SIGNUP = '/signup';
 export const NAVIGATION_WEIGHTHISTORY = '/weighthistory';
 
+//SESSIONSTORAGE
+export const SESSION_FROM_PAGE = "fromPage";
+export const SESSION_DASHBOARD_ACTIONS = "actions";
+export const SESSION_DASHBOARD_LISTS = "lists";
+
 //THEMES
 export const THEME_LIGHT = 'light';
 export const THEME_BLACK = 'black';

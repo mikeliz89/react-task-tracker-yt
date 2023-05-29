@@ -5,18 +5,56 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import * as Constants from '../../utils/Constants';
 import DashboardItem from './DashboardItem';
 import { Tab } from 'bootstrap';
+import { useState, useEffect } from 'react';
 
 export default function Dashboard() {
+
+    const [fromPage, setFromPage] = useState('');
+    const [loading, setLoading] = useState(true);
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_DASHBOARD, { keyPrefix: Constants.TRANSLATION_DASHBOARD_BUTTONS });
 
-    return (
+    useEffect(() => {
+        // Access fromPage from session storage
+        var fromPageSession = sessionStorage.getItem(Constants.SESSION_FROM_PAGE);
+        if (fromPageSession == null) {
+            //initialize as actions
+            fromPageSession = Constants.SESSION_DASHBOARD_ACTIONS;
+        }
+        // Update session storage
+        setSessionStorage(fromPageSession);
+        setFromPage(fromPageSession);
+
+        setLoading(false);
+
+        //console.log("FrompageSession", fromPageSession);
+
+    }, []); //No dependency to trigger in each page load
+
+    const setFromActions = () => {
+        setSessionStorage(Constants.SESSION_DASHBOARD_ACTIONS);
+    }
+
+    const setFromLists = () => {
+        setSessionStorage(Constants.SESSION_DASHBOARD_LISTS);
+    }
+
+    const setSessionStorage = (value) => {
+        sessionStorage.setItem(Constants.SESSION_FROM_PAGE, value);
+    }
+
+    return loading ? (
+        <h3>{t('loading')}</h3>
+    ) : (
         <PageContentWrapper>
 
-            <Tabs defaultActiveKey="actions" id="dashboard-Tab"
+            {/* <div>FromPage:</div>
+            {fromPage} */}
+
+            <Tabs defaultActiveKey={fromPage} id="dashboard-Tab"
                 className="mb-3">
-                <Tab eventKey="actions" title="Toiminnot">
+                <Tab eventKey={Constants.SESSION_DASHBOARD_ACTIONS} title="Toiminnot">
                     {/* Create New Row For Sets of 4 buttons  */}
                     <Row>
                         <DashboardItem link={Constants.NAVIGATION_CAR}>
@@ -25,7 +63,9 @@ export default function Dashboard() {
                                 textcolor="black"
                                 color="#0cb058"
                                 text={t('car')}
-                                iconName={Constants.ICON_CAR} />
+                                iconName={Constants.ICON_CAR}
+                                onClick={() => setFromActions()}
+                            />
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_DRINKS}>
                             <BigButton
@@ -33,7 +73,9 @@ export default function Dashboard() {
                                 textcolor="black"
                                 color="#f9a9d5"
                                 text={t('drinks')}
-                                iconName={Constants.ICON_GLASS_MARTINI} />
+                                iconName={Constants.ICON_GLASS_MARTINI}
+                                onClick={() => setFromActions()}
+                            />
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_PEOPLE}>
                             <BigButton
@@ -41,7 +83,9 @@ export default function Dashboard() {
                                 textcolor="black"
                                 color="white"
                                 text={t('personlist')}
-                                iconName={Constants.ICON_USER_ALT} />
+                                iconName={Constants.ICON_USER_ALT}
+                                onClick={() => setFromActions()}
+                            />
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_EXERCISES}>
                             <BigButton
@@ -49,7 +93,9 @@ export default function Dashboard() {
                                 textcolor="black"
                                 color="#ef7c1a"
                                 text={t('exercises')}
-                                iconName={Constants.ICON_RUNNING} />
+                                iconName={Constants.ICON_RUNNING}
+                                onClick={() => setFromActions()}
+                            />
                         </DashboardItem>
                     </Row>
                     <Row>
@@ -59,14 +105,18 @@ export default function Dashboard() {
                                 textcolor="black"
                                 color="white"
                                 text={t('links_list')}
-                                iconName={Constants.ICON_EXTERNAL_LINK_ALT} />
+                                iconName={Constants.ICON_EXTERNAL_LINK_ALT}
+                                onClick={() => setFromActions()}
+                            />
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_BMICALCULATOR}>
                             <BigButton
                                 imageName="calculator.PNG"
                                 textcolor="black"
                                 text={t('bmi_calculator')}
-                                iconName={Constants.ICON_WEIGHT} />
+                                iconName={Constants.ICON_WEIGHT}
+                                onClick={() => setFromActions()}
+                            />
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_RECIPES}>
                             <BigButton
@@ -75,6 +125,7 @@ export default function Dashboard() {
                                 color="#b37401"
                                 text={t('recipes')}
                                 iconName={Constants.ICON_UTENSILS}
+                                onClick={() => setFromActions()}
                             />
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_BACKPACKING}>
@@ -83,11 +134,13 @@ export default function Dashboard() {
                                 textcolor="black"
                                 color="#0cb058"
                                 text={t('backpacking')}
-                                iconName={Constants.ICON_CAMPGROUND} />
+                                iconName={Constants.ICON_CAMPGROUND}
+                                onClick={() => setFromActions()}
+                            />
                         </DashboardItem>
                     </Row>
                 </Tab>
-                <Tab eventKey="lists" title="Listat">
+                <Tab eventKey={Constants.SESSION_DASHBOARD_LISTS} title="Listat">
                     <Row>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_PROGRAMMING}>
                             <BigButton
@@ -95,7 +148,9 @@ export default function Dashboard() {
                                 iconName={Constants.ICON_LAPTOP}
                                 textcolor="black"
                                 color="#0cb058"
-                                text={t('programming')} />
+                                text={t('programming')}
+                                onClick={() => setFromLists()}
+                            />
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_MOVIES}>
                             <BigButton
@@ -103,7 +158,9 @@ export default function Dashboard() {
                                 iconName={Constants.ICON_MOVIE}
                                 textcolor="black"
                                 color="#0cb058"
-                                text={t('movies')} />
+                                text={t('movies')}
+                                onClick={() => setFromLists()}
+                            />
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_MUSIC}>
                             <BigButton
@@ -111,7 +168,9 @@ export default function Dashboard() {
                                 iconName={Constants.ICON_MUSIC}
                                 textcolor="black"
                                 color="#0cb058"
-                                text={t('music')} />
+                                text={t('music')}
+                                onClick={() => setFromLists()}
+                            />
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_GAMES}>
                             <BigButton
@@ -119,7 +178,9 @@ export default function Dashboard() {
                                 iconName={Constants.ICON_GAMEPAD}
                                 textcolor="black"
                                 color="#0cb058"
-                                text={t('games')} />
+                                text={t('games')}
+                                onClick={() => setFromLists()}
+                            />
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_SHOPPINGLISTS}>
                             <BigButton
@@ -127,7 +188,9 @@ export default function Dashboard() {
                                 textcolor="black"
                                 color="#fcba03"
                                 text={t('shoppinglists')}
-                                iconName={Constants.ICON_CHECK_SQUARE} />
+                                iconName={Constants.ICON_CHECK_SQUARE}
+                                onClick={() => setFromLists()}
+                            />
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_TASKLISTS}>
                             <BigButton
@@ -135,20 +198,26 @@ export default function Dashboard() {
                                 textcolor="black"
                                 color="#fcba03"
                                 text={t('tasklists')}
-                                iconName={Constants.ICON_CHECK_SQUARE} />
+                                iconName={Constants.ICON_CHECK_SQUARE}
+                                onClick={() => setFromLists()}
+                            />
                         </DashboardItem>
                         {/* <DashboardItem link={Constants.NAVIGATION_MOVIES}>
                             <BigButton
                                 textcolor="black"
                                 color="white"
                                 iconName='add'
-                                text={t('add_new')} />
+                                text={t('add_new')} 
+                                onClick={() => setFromLists()}
+                            />
                         </DashboardItem> */}
                         {<DashboardItem link={Constants.NAVIGATION_MANAGE_LISTS}>
                             <BigButton
                                 textcolor="black"
                                 color="white"
-                                text={t('other_lists')} />
+                                text={t('other_lists')}
+                                onClick={() => setFromLists()}
+                            />
                         </DashboardItem>}
                     </Row>
                 </Tab>
