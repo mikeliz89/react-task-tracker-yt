@@ -523,7 +523,9 @@
         "yes": "Yes"
     },
     "theme": {
-        "title": "Theme"
+        "title": "Theme",
+        "dark": "dark",
+        "light": "light"
     },
     "uploadimages": {
         "add_image": "Add image",

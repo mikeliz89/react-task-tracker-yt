@@ -11,7 +11,7 @@ function ThemeToggler() {
 
     return (
         <div className='btn btn-secondary' onClick={() => { toggleTheme(); }}>
-            {t('title')}: {theme}
+            {t('title')}: {t(theme)}
         </div>
     )
 }
