@@ -17,6 +17,7 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 
 const ManageDrinkingProducts = () => {
 
@@ -123,15 +124,19 @@ const ManageDrinkingProducts = () => {
             {
                 originalDrinkingProducts != null && originalDrinkingProducts.length > 0 ? (
                     <SearchSortFilter
-                        useNameFiltering={true}
                         onSet={setDrinkingProducts}
-                        showFilterHaveAtHome={true}
-                        showFilterNotHaveAtHome={true}
+                        originalList={originalDrinkingProducts}
+                        //search
+                        showSearchByDescription={true}
+                        //sort
                         showSortByCreatedDate={true}
                         showSortByName={true}
                         showSortByStarRating={true}
-                        showSearchByDescription={true}
-                        originalList={originalDrinkingProducts} />
+                        //filter
+                        filterMode={FilterMode.Name}
+                        showFilterHaveAtHome={true}
+                        showFilterNotHaveAtHome={true}
+                    />
                 ) : (<></>)
             }
 

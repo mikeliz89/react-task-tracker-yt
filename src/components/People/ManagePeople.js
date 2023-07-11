@@ -18,6 +18,7 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 
 export default function ManagePeople() {
 
@@ -129,11 +130,15 @@ export default function ManagePeople() {
                     <SearchSortFilter
                         onSet={setPeople}
                         originalList={originalPeople}
-                        useNameFiltering={true}
+                        //search
+                        showSearchByDescription={true}
+                        //sort
+                        defaultSort={SortMode.Name_ASC}
                         showSortByName={true}
                         showSortByBirthday={true}
-                        showSearchByDescription={true}
-                        defaultSort={SortMode.Name_ASC} />
+                        //filter
+                        filterMode={FilterMode.Name}
+                    />
                 ) : (<></>)
             }
             {

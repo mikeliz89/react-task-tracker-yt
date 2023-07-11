@@ -85,9 +85,12 @@ const ManageExercises = () => {
           <SearchSortFilter
             onSet={setExercises}
             originalList={originalExercises}
+            //search
             showSearch={false}
+            //sort
             showSortByStarRating={true}
-            showSortByCreatedDate={true} />
+            showSortByCreatedDate={true}
+          />
         ) : (<></>)
       }
 

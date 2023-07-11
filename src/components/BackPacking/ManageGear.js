@@ -18,6 +18,7 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 
 export default function ManageGear() {
 
@@ -126,14 +127,16 @@ export default function ManageGear() {
 
             {
                 originalGear != null && originalGear.length > 0 ? (
-
                     <SearchSortFilter
                         onSet={setGear}
                         originalList={originalGear}
-                        useNameFiltering={true}
+                        //sort
+                        defaultSort={SortMode.Name_ASC}
                         showSortByName={true}
                         showSortByStarRating={true}
-                        defaultSort={SortMode.Name_ASC} />
+                        //filter
+                        filterMode={FilterMode.Name}
+                    />
                 ) : (<></>)
             }
             {

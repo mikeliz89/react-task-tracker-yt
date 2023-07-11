@@ -21,6 +21,7 @@ import Counter from '../Site/Counter';
 import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { SortMode } from '../SearchSortFilter/SortModes';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 
 export default function ManageDrinks() {
 
@@ -139,18 +140,22 @@ export default function ManageDrinks() {
             {
                 originalDrinks != null && originalDrinks.length > 0 ? (
                     <SearchSortFilter
-                        defaultSort={SortMode.Title_ASC}
-                        showFilterCore={true}
-                        useTitleFiltering={true}
                         onSet={setDrinks}
-                        showFilterHaveRated={true}
-                        showFilterNotHaveRated={true}
+                        originalList={originalDrinks}
+                        //search
+                        showSearchByDescription={true}
+                        showSearchByIncredients={true}
+                        //sort
+                        defaultSort={SortMode.Title_ASC}
                         showSortByTitle={true}
                         showSortByCreatedDate={true}
                         showSortByStarRating={true}
-                        showSearchByDescription={true}
-                        showSearchByIncredients={true}
-                        originalList={originalDrinks} />
+                        //filter
+                        showFilterCore={true}
+                        filterMode={FilterMode.Title}
+                        showFilterHaveRated={true}
+                        showFilterNotHaveRated={true}
+                    />
                 ) : (<></>)
             }
 

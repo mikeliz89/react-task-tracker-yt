@@ -20,6 +20,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import { SortMode } from '../SearchSortFilter/SortModes';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 
 export default function Games() {
 
@@ -147,18 +148,19 @@ export default function Games() {
                     <SearchSortFilter
                         onSet={setMovies}
                         originalList={originalMovies}
-                        useNameFiltering={true}
-                        defaultSort={SortMode.Name_ASC}
-                        //filter
-                        showFilterHaveAtHome={true}
-                        showFilterNotHaveAtHome={true}
                         //search
                         showSearch={true}
                         showSearchByDescription={true}
                         //sort
+                        defaultSort={SortMode.Name_ASC}
                         showSortByName={true}
                         showSortByStarRating={true}
-                        showSortByCreatedDate={true} />
+                        showSortByCreatedDate={true}
+                        //filter
+                        filterMode={FilterMode.Name}
+                        showFilterHaveAtHome={true}
+                        showFilterNotHaveAtHome={true}
+                    />
                 ) : (<></>)
             }
             {

@@ -13,6 +13,7 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 
 function ManageMovements() {
 
@@ -83,11 +84,15 @@ function ManageMovements() {
                     <SearchSortFilter
                         onSet={setMovements}
                         originalList={originalMovements}
+                        //search
                         showSearch={true}
-                        useNameFiltering={true}
+                        //sort
                         showSortByCreatedDate={true}
                         showSortByStarRating={true}
-                        showSortByName={true} />
+                        showSortByName={true}
+                        //filter
+                        filterMode={FilterMode.Name}
+                    />
                 ) : (<></>)
             }
 

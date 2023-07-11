@@ -21,6 +21,7 @@ import Counter from '../Site/Counter';
 import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { SortMode } from '../SearchSortFilter/SortModes';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 
 const ManageRecipes = () => {
 
@@ -142,18 +143,22 @@ const ManageRecipes = () => {
       {
         originalRecipes != null && originalRecipes.length > 0 ? (
           <SearchSortFilter
-            defaultSort={SortMode.Title_ASC}
-            useTitleFiltering={true}
             onSet={setRecipes}
-            showFilterCore={true}
-            showSortByTitle={true}
-            showFilterHaveRated={true}
-            showFilterNotHaveRated={true}
-            showSortByCreatedDate={true}
-            showSortByStarRating={true}
+            originalList={originalRecipes}
+            //search
             showSearchByDescription={true}
             showSearchByIncredients={true}
-            originalList={originalRecipes} />
+            //sort
+            defaultSort={SortMode.Title_ASC}
+            showSortByTitle={true}
+            showSortByCreatedDate={true}
+            showSortByStarRating={true}
+            //filter
+            filterMode={FilterMode.Title}
+            showFilterCore={true}
+            showFilterHaveRated={true}
+            showFilterNotHaveRated={true}
+          />
         ) : (<></>)
       }
 

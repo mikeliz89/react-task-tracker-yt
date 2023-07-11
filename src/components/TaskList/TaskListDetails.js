@@ -26,6 +26,7 @@ import {
 import { getPageTitleContent } from '../../utils/ListUtils';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 
 function TaskListDetails() {
 
@@ -298,14 +299,18 @@ function TaskListDetails() {
           {
             originalTasks != null && originalTasks.length > 0 ? (
               <SearchSortFilter
-                useTextFiltering={true}
+                onSet={setTasks}
+                originalList={originalTasks}
+                //search
+                showSearchByDay={true}
+                //sort
+                showSortByText={true}
+                showSortByCreatedDate={true}
+                //filter
+                filterMode={FilterMode.Title}
                 showFilterReady={true}
                 showFilterNotReady={true}
-                onSet={setTasks}
-                showSortByText={true}
-                showSearchByDay={true}
-                showSortByCreatedDate={true}
-                originalList={originalTasks} />
+              />
             ) : (<></>)
           }
 

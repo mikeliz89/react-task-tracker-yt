@@ -21,6 +21,7 @@ import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 
 export default function ManageTaskLists({ listType }) {
 
@@ -156,12 +157,16 @@ export default function ManageTaskLists({ listType }) {
       {
         originalTaskLists != null && originalTaskLists.length > 0 ? (
           <SearchSortFilter
-            useTitleFiltering={true}
             onSet={setTaskLists}
+            originalList={originalTaskLists}
+            //search
+            showSearchByDescription={true}
+            //sort
             showSortByTitle={true}
             showSortByCreatedDate={true}
-            showSearchByDescription={true}
-            originalList={originalTaskLists} />
+            //filter
+            filterMode={FilterMode.Title}
+          />
         ) : (<></>)
       }
 

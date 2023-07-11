@@ -3,6 +3,7 @@ import { Col, Row, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
 import { SortMode } from './SortModes';
+import { FilterMode } from './FilterModes';
 import PropTypes from 'prop-types';
 import * as Constants from '../../utils/Constants';
 
@@ -29,9 +30,8 @@ const SearchSortFilter = ({ onSet,
     showFilterCore,
     showFilterReady,
     showFilterNotReady,
-    useNameFiltering,
-    useTitleFiltering,
-    useTextFiltering
+    //filtermode
+    filterMode
 }) => {
 
     //states
@@ -55,6 +55,7 @@ const SearchSortFilter = ({ onSet,
     const [_showSortByText, _setShowSortByText] = useState(showSortByText);
     const [_showSortByStarRating, _setShowSortByStarRating] = useState(showSortByStarRating);
     const [_showSortByBirthday, _setShowSortByBirthday] = useState(showSortByBirthday);
+
     //filtering
     const [_showOnlyHaveAtHome, _setShowOnlyHaveAtHome] = useState(showFilterHaveAtHome);
     const [_showOnlyNotHaveAtHome, _setShowOnlyNotHaveAtHome] = useState(showFilterNotHaveAtHome);
@@ -94,14 +95,16 @@ const SearchSortFilter = ({ onSet,
 
     const searching = (newList) => {
         if (searchString !== "") {
-            if (useNameFiltering) {
-                newList = newList.filter(x => x.name != null && x.name.toLowerCase().includes(searchString.toLowerCase()));
-            }
-            if (useTitleFiltering) {
-                newList = newList.filter(x => x.title != null && x.title.toLowerCase().includes(searchString.toLowerCase()));
-            }
-            if (useTextFiltering) {
-                newList = newList.filter(x => x.text != null && x.text.toLowerCase().includes(searchString.toLowerCase()));
+            switch (filterMode) {
+                case FilterMode.Name:
+                    newList = newList.filter(x => x.name != null && x.name.toLowerCase().includes(searchString.toLowerCase()));
+                    break;
+                case FilterMode.Text:
+                    newList = newList.filter(x => x.text != null && x.text.toLowerCase().includes(searchString.toLowerCase()));
+                    break;
+                case FilterMode.Title:
+                    newList = newList.filter(x => x.title != null && x.title.toLowerCase().includes(searchString.toLowerCase()));
+                    break;
             }
         }
         if (searchStringIncredients !== "") {
@@ -489,16 +492,14 @@ SearchSortFilter.defaultProps = {
     showSearchByIncredients: false,
     showSearchByDay: false,
     //filtering
+    filterMode: FilterMode.Name,
     showFilterHaveAtHome: false,
     showFilterNotHaveAtHome: false,
     showFilterHaveRated: false,
     showFilterNotHaveRated: false,
     showFilterCore: false,
     showfilterReady: false,
-    showFilterNotReady: false,
-    useNameFiltering: false,
-    useTitleFiltering: false,
-    useTextFiltering: false
+    showFilterNotReady: false
 }
 
 SearchSortFilter.propTypes = {
@@ -515,6 +516,7 @@ SearchSortFilter.propTypes = {
     showSearchByIncredients: PropTypes.bool,
     showSearchByDay: PropTypes.bool,
     //filtering
+    filterMode: PropTypes.string,
     showFilterHaveAtHome: PropTypes.bool,
     showFilterNotHaveAtHome: PropTypes.bool,
     showFilterHaveRated: PropTypes.bool,
@@ -522,9 +524,6 @@ SearchSortFilter.propTypes = {
     showFilterCore: PropTypes.bool,
     showFilterReady: PropTypes.bool,
     showFilterNotReady: PropTypes.bool,
-    useNameFiltering: PropTypes.bool,
-    useTitleFiltering: PropTypes.bool,
-    useTextFiltering: PropTypes.bool,
     //other
     onSet: PropTypes.func
 }
