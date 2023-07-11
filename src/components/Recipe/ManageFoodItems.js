@@ -129,9 +129,11 @@ const ManageFoodItems = () => {
                 originalFoodItems != null && originalFoodItems.length > 0 ? (
                     <SearchSortFilter
                         useNameFiltering={true}
+                        onSet={setFoodItems}
+                        //filter
                         showFilterHaveAtHome={true}
                         showFilterNotHaveAtHome={true}
-                        onSet={setFoodItems}
+                        //sort
                         showSortByName={true}
                         showSortByCreatedDate={true}
                         originalList={originalFoodItems} />

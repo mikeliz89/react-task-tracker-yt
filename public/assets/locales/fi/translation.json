@@ -397,6 +397,8 @@
         "description": "Kuvaus",
         "failed_to_save_movie": "Tallennus epäonnistui",
         "format": "Tallennusmuoto",
+        "have": "Minulla on tämä",
+        "have_not": "Minulla ei ole tätä",
         "loading": "Lataa...",
         "modified": "Muokattu",
         "movie_format_dvd": "DVD",

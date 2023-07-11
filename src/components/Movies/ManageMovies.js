@@ -14,7 +14,7 @@ import Movies from './Movies';
 import { useState, useEffect } from 'react';
 import Counter from '../Site/Counter';
 import Alert from '../Alert';
-import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import AddMovie from './AddMovie';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase-config';
@@ -101,6 +101,10 @@ export default function Games() {
         setShowMessage(false);
     }
 
+    const editMovie = (movie) => {
+        const id = movie.id;
+        updateToFirebaseById(Constants.DB_MOVIES, id, movie);
+    }
 
     return loading ? (
         <h3>{t('loading')}</h3>
@@ -143,10 +147,15 @@ export default function Games() {
                     <SearchSortFilter
                         onSet={setMovies}
                         originalList={originalMovies}
-                        showSearch={true}
-                        showSearchByDescription={true}
                         useNameFiltering={true}
                         defaultSort={SortMode.Name_ASC}
+                        //filter
+                        showFilterHaveAtHome={true}
+                        showFilterNotHaveAtHome={true}
+                        //search
+                        showSearch={true}
+                        showSearchByDescription={true}
+                        //sort
                         showSortByName={true}
                         showSortByStarRating={true}
                         showSortByCreatedDate={true} />
@@ -156,7 +165,7 @@ export default function Games() {
                 movies != null && movies.length > 0 ? (
                     <>
                         <Counter list={movies} originalList={originalMovies} counter={counter} />
-                        <Movies movies={movies} onDelete={deleteMovie} />
+                        <Movies movies={movies} onDelete={deleteMovie} onEdit={editMovie} />
                     </>
                 ) : (
                     <>

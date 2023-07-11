@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { FaCheckSquare } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
 import Icon from '../Icon';
@@ -10,7 +11,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import AddMovie from './AddMovie';
 
-const Movie = ({ movie, onDelete }) => {
+const Movie = ({ movie, onDelete, onEdit }) => {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
@@ -22,6 +23,16 @@ const Movie = ({ movie, onDelete }) => {
         object["modified"] = getCurrentDateAsJson();
         updateToFirebaseById(Constants.DB_MOVIES, updateMovieID, object);
         setEditable(false);
+    }
+
+    const markHaveAtHome = () => {
+        movie["haveAtHome"] = true;
+        onEdit(movie);
+    }
+
+    const markNotHaveAtHome = () => {
+        movie["haveAtHome"] = false;
+        onEdit(movie);
     }
 
     return (
@@ -74,6 +85,27 @@ const Movie = ({ movie, onDelete }) => {
                     onSave={updateMovie}
                     showLabels={false} />
             }
+
+            <p>
+                {
+                    movie.haveAtHome &&
+                    <span
+                        onClick={() => { markNotHaveAtHome() }}
+                        className='btn btn-success' style={{ margin: '5px' }}>
+                        {t('have')}&nbsp;
+                        <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
+                    </span>
+                }
+                {
+                    !movie.haveAtHome &&
+                    <span
+                        onClick={() => { markHaveAtHome() }}
+                        className='btn btn-danger' style={{ margin: '5px' }}>
+                        {t('have_not')}&nbsp;
+                        <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
+                    </span>
+                }
+            </p>
         </div>
     )
 }

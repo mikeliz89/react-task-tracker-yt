@@ -19,6 +19,7 @@ const AddMovie = ({ movieID, onSave, onClose, showLabels }) => {
     const [nameFi, setNameFi] = useState('');
     const [description, setDescription] = useState('');
     const [publishYear, setPublishYear] = useState(0);
+    const [haveAtHome, setHaveAtHome] = useState(false);
 
     const [format, setFormat] = useState();
     const [formats, setFormats] = useState(MovieFormats);
@@ -52,6 +53,7 @@ const AddMovie = ({ movieID, onSave, onClose, showLabels }) => {
             setCreatedBy(val["createdBy"]);
             setDescription(val["description"]);
             setFormat(val["format"]);
+            setHaveAtHome(val["haveAtHome"]);
             setName(val["name"]);
             setNameFi(val["nameFi"]);
             setPublishYear(val["publishYear"]);
@@ -67,7 +69,10 @@ const AddMovie = ({ movieID, onSave, onClose, showLabels }) => {
             return;
         }
 
-        onSave(movieID, { created, createdBy, description, format, name, nameFi, publishYear });
+        onSave(movieID, {
+            created, createdBy, description, format,
+            haveAtHome, name, nameFi, publishYear
+        });
 
         if (movieID == null) {
             clearForm();
@@ -125,6 +130,14 @@ const AddMovie = ({ movieID, onSave, onClose, showLabels }) => {
                         placeholder={t('description')}
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addMovieForm-HaveAtHome">
+                    <Form.Check
+                        type='checkbox'
+                        label={t('have')}
+                        checked={haveAtHome}
+                        value={haveAtHome}
+                        onChange={(e) => setHaveAtHome(e.currentTarget.checked)} />
                 </Form.Group>
                 <Row>
                     <ButtonGroup>
