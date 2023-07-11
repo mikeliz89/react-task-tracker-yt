@@ -156,6 +156,7 @@ export default function Games() {
                         showSortByName={true}
                         showSortByStarRating={true}
                         showSortByCreatedDate={true}
+                        showSortByPublishYear={true}
                         //filter
                         filterMode={FilterMode.Name}
                         showFilterHaveAtHome={true}

@@ -12,5 +12,7 @@ export const SortMode = {
     StarRating_ASC: "StarRating_ASC",
     StarRating_DESC: "StarRating_DESC",
     Birthday_ASC: "Birthday_ASC",
-    Birthday_DESC: "Birthday_DESC"
+    Birthday_DESC: "Birthday_DESC",
+    PublishYear_ASC: "PublishYear_ASC",
+    PublishYear_DESC: "PublishYear_DESC"
 }

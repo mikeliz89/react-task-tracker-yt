@@ -17,6 +17,7 @@ const SearchSortFilter = ({ onSet,
     showSortByText,
     showSortByStarRating,
     showSortByBirthday,
+    showSortByPublishYear,
     //searching
     showSearchByText,
     showSearchByDescription,
@@ -55,6 +56,7 @@ const SearchSortFilter = ({ onSet,
     const [_showSortByText, _setShowSortByText] = useState(showSortByText);
     const [_showSortByStarRating, _setShowSortByStarRating] = useState(showSortByStarRating);
     const [_showSortByBirthday, _setShowSortByBirthday] = useState(showSortByBirthday);
+    const [_showSortByPublishYear, _setShowSortByPublishYear] = useState(showSortByPublishYear);
 
     //filtering
     const [_showOnlyHaveAtHome, _setShowOnlyHaveAtHome] = useState(showFilterHaveAtHome);
@@ -207,6 +209,17 @@ const SearchSortFilter = ({ onSet,
                     newList.reverse();
                 }
                 break;
+            case SortMode.PublishYear_ASC:
+            case SortMode.PublishYear_DESC:
+                newList = [...newList].sort((a, b) => {
+                    let aYear = a.publishYear === undefined ? 0 : a.publishYear;
+                    let bYear = b.publishYear === undefined ? 0 : b.publishYear;
+                    return aYear - bYear
+                });
+                if (sortBy === SortMode.PublishYear_DESC) {
+                    newList.reverse();
+                }
+                break;
             case SortMode.Birthday_ASC:
             case SortMode.Birthday_DESC:
                 newList = [...newList].sort(
@@ -299,6 +312,18 @@ const SearchSortFilter = ({ onSet,
                                         sortBy === SortMode.Birthday_ASC ? setSortBy(SortMode.Birthday_DESC) : setSortBy(SortMode.Birthday_ASC);
                                     }}
                                     text={t('birthday')} type="button" />
+                            </>
+                        }
+                        {
+                            _showSortByPublishYear &&
+                            <>
+                                &nbsp;
+                                <Button
+                                    iconName={sortBy === SortMode.PublishYear_DESC ? 'arrow-down' : sortBy === SortMode.PublishYear_ASC ? 'arrow-up' : ''}
+                                    onClick={() => {
+                                        sortBy === SortMode.PublishYear_ASC ? setSortBy(SortMode.PublishYear_DESC) : setSortBy(SortMode.PublishYear_ASC);
+                                    }}
+                                    text={t('publishYear')} type="button" />
                             </>
                         }
                     </Col>
@@ -486,6 +511,8 @@ SearchSortFilter.defaultProps = {
     showSortByCreatedDate: false,
     showSortByText: false,
     showSortByStarRating: false,
+    showSortByBirthday: false,
+    showSortByPublishYear: false,
     //searching
     showSearchText: true,
     showSearchByDescription: false,
@@ -505,6 +532,8 @@ SearchSortFilter.defaultProps = {
 SearchSortFilter.propTypes = {
     //sorting
     defaultSort: PropTypes.string,
+    showSortByPublishYear: PropTypes.bool,
+    showSortByBirthday: PropTypes.bool,
     showSortByName: PropTypes.bool,
     showSortByTitle: PropTypes.bool,
     showSortByCreatedDate: PropTypes.bool,

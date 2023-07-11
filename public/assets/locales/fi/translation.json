@@ -594,7 +594,8 @@
         "sorting": "Järjestä",
         "star_rating": "Arvio",
         "text": "Nimi",
-        "title": "Nimi"
+        "title": "Nimi",
+        "publishYear": "Julkaisuvuosi"
     },
     "starrating": {
         "button_close": "Sulje",
