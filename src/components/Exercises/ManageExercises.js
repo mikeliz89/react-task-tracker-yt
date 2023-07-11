@@ -86,7 +86,7 @@ const ManageExercises = () => {
             onSet={setExercises}
             originalList={originalExercises}
             //search
-            showSearch={false}
+            showSearchByText={false}
             //sort
             showSortByStarRating={true}
             showSortByCreatedDate={true}

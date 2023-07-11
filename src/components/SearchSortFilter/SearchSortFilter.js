@@ -18,7 +18,7 @@ const SearchSortFilter = ({ onSet,
     showSortByStarRating,
     showSortByBirthday,
     //searching
-    showSearch,
+    showSearchByText,
     showSearchByDescription,
     showSearchByDay,
     showSearchByIncredients,
@@ -304,7 +304,7 @@ const SearchSortFilter = ({ onSet,
                     </Col>
                 </Form.Group>
                 {
-                    showSearch &&
+                    showSearchByText &&
                     <>
                         <Form.Group as={Row}>
                             <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
@@ -487,7 +487,7 @@ SearchSortFilter.defaultProps = {
     showSortByText: false,
     showSortByStarRating: false,
     //searching
-    showSearch: true,
+    showSearchText: true,
     showSearchByDescription: false,
     showSearchByIncredients: false,
     showSearchByDay: false,
@@ -511,7 +511,7 @@ SearchSortFilter.propTypes = {
     showSortByText: PropTypes.bool,
     showSortByStarRating: PropTypes.bool,
     //searching
-    showSearch: PropTypes.bool,
+    showSearchByText: PropTypes.bool,
     showSearchByDescription: PropTypes.bool,
     showSearchByIncredients: PropTypes.bool,
     showSearchByDay: PropTypes.bool,

@@ -149,7 +149,7 @@ export default function Games() {
                         onSet={setMovies}
                         originalList={originalMovies}
                         //search
-                        showSearch={true}
+                        showSearchByText={true}
                         showSearchByDescription={true}
                         //sort
                         defaultSort={SortMode.Name_ASC}

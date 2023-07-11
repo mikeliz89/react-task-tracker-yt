@@ -85,7 +85,7 @@ function ManageMovements() {
                         onSet={setMovements}
                         originalList={originalMovements}
                         //search
-                        showSearch={true}
+                        showSearchByText={true}
                         //sort
                         showSortByCreatedDate={true}
                         showSortByStarRating={true}
