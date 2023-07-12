@@ -166,7 +166,10 @@
             "recipes": "Reseptit",
             "shoppinglists": "Ostoslistat",
             "tasklists": "Tehtävälistat",
-            "other_lists": "Muut listat"
+            "other_lists": "Muut listat",
+            "title_actions": "Toiminnot",
+            "title_lists": "Listat",
+            "title_media": "Media"
         }
     },
     "drinks": {

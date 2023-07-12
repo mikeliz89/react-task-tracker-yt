@@ -36,6 +36,10 @@ export default function Dashboard() {
         setSessionStorage(Constants.SESSION_DASHBOARD_ACTIONS);
     }
 
+    const setFromMedia = () => {
+        setSessionStorage(Constants.SESSION_DASHBOARD_MEDIA);
+    }
+
     const setFromLists = () => {
         setSessionStorage(Constants.SESSION_DASHBOARD_LISTS);
     }
@@ -54,7 +58,7 @@ export default function Dashboard() {
 
             <Tabs defaultActiveKey={fromPage} id="dashboard-Tab"
                 className="mb-3">
-                <Tab eventKey={Constants.SESSION_DASHBOARD_ACTIONS} title="Toiminnot">
+                <Tab eventKey={Constants.SESSION_DASHBOARD_ACTIONS} title={t('title_actions')}>
                     {/* Create New Row For Sets of 4 buttons  */}
                     <Row>
                         <DashboardItem link={Constants.NAVIGATION_CAR}>
@@ -140,7 +144,7 @@ export default function Dashboard() {
                         </DashboardItem>
                     </Row>
                 </Tab>
-                <Tab eventKey={Constants.SESSION_DASHBOARD_LISTS} title="Listat">
+                <Tab eventKey={Constants.SESSION_DASHBOARD_LISTS} title={t('title_lists')}>
                     <Row>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_PROGRAMMING}>
                             <BigButton
@@ -149,36 +153,6 @@ export default function Dashboard() {
                                 textcolor="black"
                                 color="#0cb058"
                                 text={t('programming')}
-                                onClick={() => setFromLists()}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MOVIES}>
-                            <BigButton
-                                imageName="movies.jpg"
-                                iconName={Constants.ICON_MOVIE}
-                                textcolor="black"
-                                color="#0cb058"
-                                text={t('movies')}
-                                onClick={() => setFromLists()}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MUSIC}>
-                            <BigButton
-                                imageName="music.jpg"
-                                iconName={Constants.ICON_MUSIC}
-                                textcolor="black"
-                                color="#0cb058"
-                                text={t('music')}
-                                onClick={() => setFromLists()}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_GAMES}>
-                            <BigButton
-                                imageName="games.jpg"
-                                iconName={Constants.ICON_GAMEPAD}
-                                textcolor="black"
-                                color="#0cb058"
-                                text={t('games')}
                                 onClick={() => setFromLists()}
                             />
                         </DashboardItem>
@@ -202,23 +176,48 @@ export default function Dashboard() {
                                 onClick={() => setFromLists()}
                             />
                         </DashboardItem>
-                        {/* <DashboardItem link={Constants.NAVIGATION_MOVIES}>
-                            <BigButton
-                                textcolor="black"
-                                color="white"
-                                iconName='add'
-                                text={t('add_new')} 
-                                onClick={() => setFromLists()}
-                            />
-                        </DashboardItem> */}
-                        {<DashboardItem link={Constants.NAVIGATION_MANAGE_LISTS}>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_LISTS}>
                             <BigButton
                                 textcolor="black"
                                 color="white"
                                 text={t('other_lists')}
                                 onClick={() => setFromLists()}
                             />
-                        </DashboardItem>}
+                        </DashboardItem>
+                    </Row>
+                </Tab>
+                <Tab eventKey={Constants.SESSION_DASHBOARD_MEDIA} title={t('title_media')}>
+                    <Row>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MOVIES}>
+                            <BigButton
+                                imageName="movies.jpg"
+                                iconName={Constants.ICON_MOVIE}
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('movies')}
+                                onClick={() => setFromMedia()}
+                            />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MUSIC}>
+                            <BigButton
+                                imageName="music.jpg"
+                                iconName={Constants.ICON_MUSIC}
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('music')}
+                                onClick={() => setFromMedia()}
+                            />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_GAMES}>
+                            <BigButton
+                                imageName="games.jpg"
+                                iconName={Constants.ICON_GAMEPAD}
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('games')}
+                                onClick={() => setFromMedia()}
+                            />
+                        </DashboardItem>
                     </Row>
                 </Tab>
             </Tabs>

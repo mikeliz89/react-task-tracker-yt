@@ -154,6 +154,7 @@ export const NAVIGATION_WEIGHTHISTORY = '/weighthistory';
 export const SESSION_FROM_PAGE = "fromPage";
 export const SESSION_DASHBOARD_ACTIONS = "actions";
 export const SESSION_DASHBOARD_LISTS = "lists";
+export const SESSION_DASHBOARD_MEDIA = "media";
 export const SESSION_THEME = "theme";
 
 //THEMES
