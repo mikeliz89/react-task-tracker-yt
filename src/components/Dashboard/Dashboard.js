@@ -79,7 +79,7 @@ export default function Dashboard() {
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_PEOPLE}>
                             <BigButton
-                                imageName="personlist.jpg"
+                                imageName="people.jpg"
                                 textcolor="black"
                                 color="white"
                                 text={t('personlist')}
