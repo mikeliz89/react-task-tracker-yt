@@ -137,10 +137,6 @@ export default function Games() {
                 </Link>
             </div>
 
-            <CenterWrapper>
-                {t('movies')}
-            </CenterWrapper>
-
             {
                 showAdd && <AddMovie onSave={addMovie} onClose={() => setShowAdd(false)} />
             }
