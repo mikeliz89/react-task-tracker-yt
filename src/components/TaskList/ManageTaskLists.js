@@ -160,6 +160,7 @@ export default function ManageTaskLists({ listType }) {
             onSet={setTaskLists}
             originalList={originalTaskLists}
             //search
+            showSearchByText={true}
             showSearchByDescription={true}
             //sort
             showSortByTitle={true}

@@ -302,12 +302,13 @@ function TaskListDetails() {
                 onSet={setTasks}
                 originalList={originalTasks}
                 //search
+                showSearchByText={true}
                 showSearchByDay={true}
                 //sort
                 showSortByText={true}
                 showSortByCreatedDate={true}
                 //filter
-                filterMode={FilterMode.Title}
+                filterMode={FilterMode.Text}
                 showFilterReady={true}
                 showFilterNotReady={true}
               />
