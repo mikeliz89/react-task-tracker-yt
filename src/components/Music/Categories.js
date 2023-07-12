@@ -19,7 +19,9 @@ export const Formats = {
     /** CD ep = Extended play */
     CDEp: 8,
     /** 2DVD */
-    TwoDVD: 9
+    TwoDVD: 9,
+    /** 2CD */
+    TwoCD: 10
 }
 
 export const MusicFormats = [
@@ -72,5 +74,10 @@ export const MusicFormats = [
         //2 DVD
         "id": 9,
         "name" : "twodvd"
+    },
+    {
+        //2 CD
+        "id": 10,
+        "name": "twocd"
     }
 ]

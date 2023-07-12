@@ -434,6 +434,7 @@
         "music_format_cddvd": "CD + DVD",
         "music_format_cds": "CDS",
         "music_format_cdep": "CD EP",
+        "music_format_twocd": "2CD",
         "music_format_dvd": "DVD",
         "music_format_twodvd": "2DVD",
         "music_format_bluray": "Bluray",
