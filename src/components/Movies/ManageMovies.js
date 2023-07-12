@@ -126,7 +126,9 @@ export default function Games() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant='success'
+                onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
             <div>
                 <Link to={Constants.NAVIGATION_MANAGE_MOVIELISTS} className='btn btn-primary'>

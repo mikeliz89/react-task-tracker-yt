@@ -131,7 +131,9 @@ export default function ManageDrinks() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant='success'
+                onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
             {showAddDrink &&
                 <AddDrink onSave={addDrink} onClose={() => setShowAddDrink(false)} />
