@@ -18,8 +18,6 @@ import AddIncredient from '../Recipe/AddIncredient';
 import WorkPhases from '../Recipe/WorkPhases';
 import Incredients from '../Recipe/Incredients';
 import RecipeHistories from '../Recipe/RecipeHistories';
-import SetStarRating from '../StarRating/SetStarRating';
-import StarRating from '../StarRating/StarRating';
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
@@ -29,6 +27,7 @@ import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
+import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 export default function DrinkDetails() {
 
@@ -296,7 +295,7 @@ export default function DrinkDetails() {
             </Row>
             <Row>
                 <Col>
-                    <StarRating starCount={drink.stars} />
+                    <StarRatingWrapper stars={drink.stars} onSaveStars={saveStars} />
                 </Col>
             </Row>
             {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}
@@ -401,8 +400,6 @@ export default function DrinkDetails() {
                 </Tab>
                 <Tab eventKey="actions" title={t('tabheader_actions')}>
                     <>
-                        <SetStarRating starCount={drink.stars} onSaveStars={saveStars} />
-                        &nbsp;
                         <Button
                             iconName={Constants.ICON_PLUS_SQUARE}
                             text={t('do_drink')}

@@ -6,7 +6,6 @@ import i18n from 'i18next';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { getGearCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
 import PageTitle from '../Site/PageTitle';
@@ -15,16 +14,17 @@ import { useAuth } from '../../contexts/AuthContext';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import Button from '../Buttons/Button';
-import AddGear from './AddGear';
+import AddMusic from './AddMusic';
 import Alert from '../Alert';
 import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
+import { getMusicFormatNameByID } from '../../utils/ListUtils';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
-function GearDetails() {
+function MusicDetails() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
+    const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -34,7 +34,7 @@ function GearDetails() {
 
     //states
     const [loading, setLoading] = useState(true);
-    const [gear, setGear] = useState({});
+    const [music, setMusic] = useState({});
     const [showEdit, setShowEdit] = useState(false);
 
     //params
@@ -48,55 +48,55 @@ function GearDetails() {
 
     //load data
     useEffect(() => {
-        const getGear = async () => {
-            await fetchGearFromFirebase();
+        const getMusic = async () => {
+            await fetchMusicFromFirebase();
         }
-        getGear();
+        getMusic();
     }, [])
 
-    const fetchGearFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_BACKPACKING_GEAR}/${params.id}`);
+    const fetchMusicFromFirebase = async () => {
+        const dbref = ref(db, `${Constants.DB_MUSIC}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
                 navigate(-1);
             }
-            setGear(data);
+            setMusic(data);
             setLoading(false);
         })
     }
 
-    const saveStars = async (stars) => {
-        const id = params.id;
-        gear["modified"] = getCurrentDateAsJson()
-        gear["stars"] = Number(stars);
-        updateToFirebaseById(Constants.DB_BACKPACKING_GEAR, id, gear);
-    }
-
-    const updateGear = async (gear) => {
+    const updateMusic = async (updateMusicID, music) => {
         try {
-            const gearID = params.id;
-            gear["modified"] = getCurrentDateAsJson();
-            updateToFirebaseById(Constants.DB_BACKPACKING_GEAR, gearID, gear);
+            const musicID = params.id;
+            music["modified"] = getCurrentDateAsJson();
+            updateToFirebaseById(Constants.DB_MUSIC, musicID, music);
         } catch (error) {
-            setError(t('failed_to_save_gear'));
+            setError(t('failed_to_save_music'));
             setShowError(true);
             console.log(error);
         }
     }
 
-    const addCommentToGear = (comment) => {
+    const addCommentToMusic = (comment) => {
         const id = params.id;
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_BACKPACKING_GEAR_COMMENTS, id, comment);
+        pushToFirebaseChild(Constants.DB_MUSIC_COMMENTS, id, comment);
     }
 
-    const addLinkToGear = (link) => {
+    const addLinkToMusic = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_BACKPACKING_GEAR_LINKS, id, link);
+        pushToFirebaseChild(Constants.DB_MUSIC_LINKS, id, link);
+    }
+
+    const saveStars = async (stars) => {
+        const musicID = params.id;
+        music["modified"] = getCurrentDateAsJson()
+        music["stars"] = Number(stars);
+        updateToFirebaseById(Constants.DB_MUSIC, musicID, music);
     }
 
     return loading ? (
@@ -118,30 +118,22 @@ function GearDetails() {
                     <Accordion>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>
-                                <PageTitle title={gear.name} iconColor='gray' />
+                                <PageTitle title={music.band + ' ' + music.name} iconColor='gray' />
                             </Accordion.Header>
                             <Accordion.Body>
                                 <Table striped bordered hover>
                                     <tbody>
                                         <tr>
-                                            <td>{t('gear_weight_in_grams')}</td>
-                                            <td>{gear.weightInGrams}</td>
-                                        </tr>
-                                        <tr>
                                             <td>{t('created')}</td>
-                                            <td>{getJsonAsDateTimeString(gear.created, i18n.language)}</td>
+                                            <td>{getJsonAsDateTimeString(music.created, i18n.language)}</td>
                                         </tr>
                                         <tr>
                                             <td>{t('created_by')}</td>
-                                            <td>{gear.createdBy}</td>
+                                            <td>{music.createdBy}</td>
                                         </tr>
                                         <tr>
                                             <td>{t('modified')}</td>
-                                            <td>{getJsonAsDateTimeString(gear.modified, i18n.language)}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('category')}</td>
-                                            <td>{t('gear_category_' + getGearCategoryNameByID(gear.category))}</td>
+                                            <td>{getJsonAsDateTimeString(music.modified, i18n.language)}</td>
                                         </tr>
                                     </tbody>
                                 </Table>
@@ -150,14 +142,20 @@ function GearDetails() {
                     </Accordion>
                 </Col>
             </Row>
+
             <Row>
                 <Col>
-                    {gear.description}
+                    {t('format') + ':'} {t('music_format_' + getMusicFormatNameByID(music.format))}
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <StarRatingWrapper stars={gear.stars} onSaveStars={saveStars} />
+                    {t('description') + ':'} {music.description}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <StarRatingWrapper stars={music.stars} onSaveStars={saveStars} />
                 </Col>
             </Row>
 
@@ -166,15 +164,14 @@ function GearDetails() {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             {showEdit &&
-                <AddGear onSave={updateGear} gearID={params.id} onClose={() => setShowEdit(false)} />
+                <AddMusic onSave={updateMusic} musicID={params.id} onClose={() => setShowEdit(false)} />
             }
-
             <hr />
-            <ImageComponent url={Constants.DB_BACKPACKING_GEAR_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={Constants.DB_BACKPACKING_GEAR_COMMENTS} onSave={addCommentToGear} />
-            <LinkComponent objID={params.id} url={Constants.DB_BACKPACKING_GEAR_LINKS} onSaveLink={addLinkToGear} />
+            <ImageComponent url={Constants.DB_MUSIC_IMAGES} objID={params.id} />
+            <CommentComponent objID={params.id} url={Constants.DB_MUSIC_COMMENTS} onSave={addCommentToMusic} />
+            <LinkComponent objID={params.id} url={Constants.DB_MUSIC_LINKS} onSaveLink={addLinkToMusic} />
         </PageContentWrapper>
     )
 }
 
-export default GearDetails
+export default MusicDetails

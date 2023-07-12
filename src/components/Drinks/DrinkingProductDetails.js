@@ -18,9 +18,8 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
-import SetStarRating from '../StarRating/SetStarRating';
-import StarRating from '../StarRating/StarRating';
 import ImageComponent from '../ImageUpload/ImageComponent';
+import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 export default function DrinkingProductDetails() {
 
@@ -161,17 +160,13 @@ export default function DrinkingProductDetails() {
 
             <Row>
                 <Col>
-                    <StarRating starCount={drinkingProduct.stars} />
+                    <StarRatingWrapper stars={drinkingProduct.stars} onSaveStars={saveStars} />
                 </Col>
             </Row>
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
-
-            <>
-                <SetStarRating starCount={drinkingProduct.stars} onSaveStars={saveStars} />
-            </>
 
             {showEditDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} drinkingProductID={params.id}
                 onClose={() => setShowEditDrinkingProduct(false)} />}

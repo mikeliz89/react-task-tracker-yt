@@ -10,8 +10,6 @@ import i18n from "i18next";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
-import SetStarRating from '../StarRating/SetStarRating';
-import StarRating from '../StarRating/StarRating';
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
@@ -21,6 +19,7 @@ import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datati
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
+import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 export default function MovementDetails() {
 
@@ -143,7 +142,7 @@ export default function MovementDetails() {
             </Row>
             <Row>
                 <Col>
-                    <StarRating starCount={movement.stars} />
+                    <StarRatingWrapper stars={movement.stars} onSaveStars={saveStars} />
                 </Col>
             </Row>
             <Alert message={message} showMessage={showMessage}
@@ -153,10 +152,6 @@ export default function MovementDetails() {
             {showEditMovement &&
                 <AddMovement movementID={params.id} onClose={() => setShowEditMovement(false)} />
             }
-
-            <>
-                <SetStarRating starCount={movement.stars} onSaveStars={saveStars} />
-            </>
 
             <hr />
 

@@ -15,11 +15,9 @@ import i18n from "i18next";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
-import SetStarRating from '../StarRating/SetStarRating';
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
-import StarRating from '../StarRating/StarRating';
 import RecipeHistories from './RecipeHistories';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
@@ -28,6 +26,7 @@ import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
+import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 export default function RecipeDetails() {
 
@@ -271,7 +270,7 @@ export default function RecipeDetails() {
             </Row>
             <Row>
                 <Col>
-                    <StarRating starCount={recipe.stars} />
+                    <StarRatingWrapper stars={recipe.stars} onSaveStars={saveStars} />
                 </Col>
             </Row>
 
@@ -356,8 +355,6 @@ export default function RecipeDetails() {
                 </Tab>
                 <Tab eventKey="actions" title={t('tabheader_actions')}>
                     <>
-                        <SetStarRating starCount={recipe.stars} onSaveStars={saveStars} />
-                        &nbsp;
                         <Button
                             iconName={Constants.ICON_PLUS_SQUARE}
                             text={t('do_recipe')}

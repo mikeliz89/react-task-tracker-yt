@@ -11,8 +11,6 @@ import AddPartsMoving from "./AddPartsMoving";
 import AddPartsAerobics from "./AddPartsAerobics";
 import EditExercise from "./EditExercise";
 import { Categories, getTitleByCategory, getIconNameByCategory } from './Categories';
-import SetStarRating from "../StarRating/SetStarRating";
-import StarRating from "../StarRating/StarRating";
 import { useAuth } from '../../contexts/AuthContext';
 import CommentComponent from "../Comments/CommentComponent";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
@@ -25,6 +23,7 @@ import PageContentWrapper from "../Site/PageContentWrapper";
 import { pushToFirebaseChild, updateToFirebaseById } from "../../datatier/datatier";
 import LinkComponent from "../Links/LinkComponent";
 import ImageComponent from "../ImageUpload/ImageComponent";
+import StarRatingWrapper from "../StarRating/StarRatingWrapper";
 
 const ExerciseDetails = () => {
 
@@ -142,7 +141,7 @@ const ExerciseDetails = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <StarRating starCount={exercise.stars} />
+                        <StarRatingWrapper stars={exercise.stars} onSaveStars={saveStars} />
                     </Col>
                 </Row>
                 {showEditExercise && <EditExercise exerciseID={params.id} exercise={exercise} onClose={() => setShowEditExercise(false)} />}
@@ -150,10 +149,6 @@ const ExerciseDetails = () => {
                 <Alert message={message} showMessage={showMessage}
                     error={error} showError={showError}
                     variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
-
-                <>
-                    <SetStarRating starCount={exercise.stars} onSaveStars={saveStars} />
-                </>
 
                 <Table>
                     <tbody>

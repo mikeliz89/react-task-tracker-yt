@@ -18,9 +18,8 @@ import AddMovie from './AddMovie';
 import Alert from '../Alert';
 import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
-import SetStarRating from "../StarRating/SetStarRating";
-import StarRating from "../StarRating/StarRating";
 import { getMovieFormatNameByID } from '../../utils/ListUtils';
+import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 function MovieDetails() {
 
@@ -93,7 +92,6 @@ function MovieDetails() {
         pushToFirebaseChild(Constants.DB_MOVIE_LINKS, id, link);
     }
 
-
     const saveStars = async (stars) => {
         const movieID = params.id;
         movie["modified"] = getCurrentDateAsJson()
@@ -144,11 +142,7 @@ function MovieDetails() {
                     </Accordion>
                 </Col>
             </Row>
-            <Row>
-                <Col>
-                    <StarRating starCount={movie.stars} />
-                </Col>
-            </Row>
+
             <Row>
                 <Col>
                     {t('format') + ':'} {t('movie_format_' + getMovieFormatNameByID(movie.format))}
@@ -159,14 +153,15 @@ function MovieDetails() {
                     {t('description') + ':'} {movie.description}
                 </Col>
             </Row>
+            <Row>
+                <Col>
+                    <StarRatingWrapper stars={movie.stars} onSaveStars={saveStars} />
+                </Col>
+            </Row>
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
-
-            <>
-                <SetStarRating starCount={movie.stars} onSaveStars={saveStars} />
-            </>
 
             {showEdit &&
                 <AddMovie onSave={updateMovie} movieID={params.id} onClose={() => setShowEdit(false)} />

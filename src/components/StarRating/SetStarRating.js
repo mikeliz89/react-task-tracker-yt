@@ -6,7 +6,7 @@ import StarRating from './StarRating';
 import PropTypes from 'prop-types';
 import * as Constants from '../../utils/Constants';
 
-const SetStarRating = ({ starCount, onSaveStars }) => {
+const SetStarRating = ({ starCount, onSaveStars, onShow }) => {
 
     //states
     const [showStarRating, setShowStarRating] = useState(false);
@@ -23,7 +23,15 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
 
         onSaveStars(stars);
 
+        setShowStarRating(false);
+        onShow(true);
+
         setLoading(false);
+    }
+
+    const showRating = (show) => {
+        setShowStarRating(show);
+        onShow(show);
     }
 
     return (
@@ -33,7 +41,7 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
                 disableStyle={true}
                 className={showStarRating ? 'btn btn-danger' : 'btn btn-primary'}
                 text={showStarRating ? t('button_close') : t('rate')}
-                onClick={() => setShowStarRating(!showStarRating)} />
+                onClick={() => showRating(!showStarRating)} />
             {
                 showStarRating ? (
                     <>
@@ -49,7 +57,7 @@ const SetStarRating = ({ starCount, onSaveStars }) => {
                                     <Row>
                                         <ButtonGroup>
                                             <Button type='button' text={t('button_close')} className='btn btn-block'
-                                                onClick={() => setShowStarRating(false)} />
+                                                onClick={() => showRating(false)} />
                                             <Button
                                                 disabled={loading} type='submit'
                                                 text={t('save_rating')} className='btn btn-block saveBtn' />

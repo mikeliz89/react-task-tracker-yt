@@ -72,6 +72,7 @@ import Car from './components/Car/Car';
 import ManageMusic from './components/Music/ManageMusic';
 import ManageMusicLists from './components/Music/ManageMusicLists';
 import BandsSeenLive from './components/Music/BandsSeenLive';
+import MusicDetails from './components/Music/MusicDetails';
 //Games
 import Games from './components/Games/Games';
 import ManageGameLists from './components/Games/ManageGameLists';
@@ -106,6 +107,7 @@ import {
   faFish, faUserAlt, faHistory, faPlus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
   faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm, faWrench
 } from '@fortawesome/free-solid-svg-icons';
+
 library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
@@ -214,6 +216,7 @@ function App() {
             <Route path='/managemusic' element={<PrivateRoute><ManageMusic /></PrivateRoute>} />
             <Route path='/bandsseenlive' element={<PrivateRoute><BandsSeenLive /></PrivateRoute>} />
             <Route path='/managemusiclists' element={<PrivateRoute><ManageMusicLists /></PrivateRoute>} />
+            <Route path='/music/:id' element={<PrivateRoute><MusicDetails /></PrivateRoute>} />
             {/* Music */}
             {/* Games */}
             <Route path='/games' element={<PrivateRoute><Games /></PrivateRoute>} />
