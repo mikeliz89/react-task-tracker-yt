@@ -5,6 +5,7 @@ import { DrinkingProductCategories } from "../components/Drinks/Categories";
 import { GearCategories } from "../components/BackPacking/Categories";
 import { ListTypes } from '../utils/Enums';
 import { MovieFormats } from "../components/Movies/Categories";
+import { MusicFormats } from "../components/Music/Categories";
 
 export function getGearCategoryNameByID(id) {
     return getNameByID(GearCategories, id);
@@ -36,6 +37,10 @@ export function getMovementCategoryNameByID(id) {
 
 export function getMovieFormatNameByID(id) {
     return getNameByID(MovieFormats, id);
+}
+
+export function getMusicFormatNameByID(id) {
+    return getNameByID(MusicFormats, id);
 }
 
 function getNameByID(arr, id) {

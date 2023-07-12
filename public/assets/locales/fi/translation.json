@@ -418,10 +418,32 @@
         "view_details": "Katso lisätiedot"
     },
     "music": {
+        "button_add_music": "Lisää tallenne",
+        "button_close": "Sulje",
         "button_bands_seen_live": "Nähdyt bändit",
         "button_music_lists": "Listat",
+        "button_save_music": "Tallenna",
         "bands_seen_live": "Nähdyt bändit",
-        "music_title": "Musiikki"
+        "band": "Bändi",
+        "description": "Kuvaus",
+        "format": "Formaatti",
+        "have": "Minulla on tämä",
+        "have_not": "Minulla ei ole tätä",
+        "music_format_none": "-Ei mikään-",
+        "music_format_cd": "CD",
+        "music_format_dvd": "DVD",
+        "music_format_cddvd": "CD + DVD",
+        "music_format_bluray": "Bluray",
+        "music_format_lp": "LP",
+        "music_format_other": "Muu",
+        "music_title": "Musiikki",
+        "name": "Tallenteen nimi",
+        "no_musics_to_show": "Ei tallenteita",
+        "please_add_name": "Ole hyvä ja anna nimi",
+        "publish_year": "Julkaisuvuosi", 
+        "save_success": "Tallennus onnistui",
+        "save_exception": "Tallennus epäonnistui",
+        "view_details": "Katso lisätiedot"
     },
     "myprofile": {
         "button_close": "Sulje",
