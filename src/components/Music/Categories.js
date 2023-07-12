@@ -13,7 +13,13 @@ export const Formats = {
     /** LP = Long play */
     LP: 5,
     /** Other = Jokin muu */
-    Other: 6
+    Other: 6,
+    /** CD single */
+    CDS: 7,
+    /** CD ep = Extended play */
+    CDEp: 8,
+    /** 2DVD */
+    TwoDVD: 9
 }
 
 export const MusicFormats = [
@@ -51,5 +57,20 @@ export const MusicFormats = [
         //Other = Jokin muu
         "id": 6,
         "name": "other"
+    },
+    {
+        //CD single
+        "id": 7,
+        "name": "cds"
+    },
+    {
+        //CD EP = Extended play
+        "id": 8,
+        "name": "cdep"
+    },
+    {
+        //2 DVD
+        "id": 9,
+        "name" : "twodvd"
     }
 ]
