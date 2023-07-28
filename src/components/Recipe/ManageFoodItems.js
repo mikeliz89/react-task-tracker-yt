@@ -131,6 +131,8 @@ const ManageFoodItems = () => {
                     <SearchSortFilter
                         onSet={setFoodItems}
                         originalList={originalFoodItems}
+                        //search
+                        showSearchByText={true}
                         //sort
                         showSortByName={true}
                         showSortByCreatedDate={true}

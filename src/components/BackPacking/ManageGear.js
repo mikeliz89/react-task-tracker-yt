@@ -129,6 +129,8 @@ export default function ManageGear() {
                 originalGear != null && originalGear.length > 0 ? (
                     <SearchSortFilter
                         onSet={setGear}
+                        //search
+                        showSearchByText={true}
                         originalList={originalGear}
                         //sort
                         defaultSort={SortMode.Name_ASC}

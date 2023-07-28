@@ -146,6 +146,7 @@ const ManageRecipes = () => {
             onSet={setRecipes}
             originalList={originalRecipes}
             //search
+            showSearchByText={true}
             showSearchByDescription={true}
             showSearchByIncredients={true}
             //sort

@@ -514,7 +514,7 @@ SearchSortFilter.defaultProps = {
     showSortByBirthday: false,
     showSortByPublishYear: false,
     //searching
-    showSearchText: true,
+    showSearchByText: false,
     showSearchByDescription: false,
     showSearchByIncredients: false,
     showSearchByDay: false,

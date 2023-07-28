@@ -131,6 +131,7 @@ export default function ManagePeople() {
                         onSet={setPeople}
                         originalList={originalPeople}
                         //search
+                        showSearchByText={true}
                         showSearchByDescription={true}
                         //sort
                         defaultSort={SortMode.Name_ASC}

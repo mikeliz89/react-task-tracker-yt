@@ -145,6 +145,7 @@ export default function ManageDrinks() {
                         onSet={setDrinks}
                         originalList={originalDrinks}
                         //search
+                        showSearchByText={true}
                         showSearchByDescription={true}
                         showSearchByIncredients={true}
                         //sort
