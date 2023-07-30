@@ -18,6 +18,7 @@ const AddBand = ({ bandID, onSave, onClose, showLabels }) => {
     const [description, setDescription] = useState('');
     const [formingYear, setFormingYear] = useState(0);
     const [seenLive, setSeenLive] = useState(false);
+    const [country, setCountry] = useState('');
 
     //load data
     useEffect(() => {
@@ -37,6 +38,7 @@ const AddBand = ({ bandID, onSave, onClose, showLabels }) => {
             setName(val["name"]);
             setFormingYear(val["formingYear"]);
             setSeenLive(val["seenLive"]);
+            setCountry(val["country"]);
         });
     }
 
@@ -50,7 +52,7 @@ const AddBand = ({ bandID, onSave, onClose, showLabels }) => {
         }
 
         onSave(bandID, {
-            created, createdBy, description, name, formingYear, seenLive
+            created, createdBy, description, name, formingYear, seenLive, country
         });
 
         if (bandID == null) {
@@ -61,6 +63,7 @@ const AddBand = ({ bandID, onSave, onClose, showLabels }) => {
     const clearForm = () => {
         setDescription('');
         setName('');
+        setCountry('');
         setFormingYear(0);
     }
 
@@ -91,6 +94,14 @@ const AddBand = ({ bandID, onSave, onClose, showLabels }) => {
                         placeholder={t('band_forming_year')}
                         value={formingYear}
                         onChange={(e) => setFormingYear(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addBandForm-Country">
+                    {showLabels && <Form.Label>{t('country')}</Form.Label>}
+                    <Form.Control type='text'
+                        autoComplete="off"
+                        placeholder={t('country')}
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addBandForm-SeenLive">
                     <Form.Check

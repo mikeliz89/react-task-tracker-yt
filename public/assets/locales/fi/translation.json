@@ -435,6 +435,7 @@
         "button_save_music": "Tallenna",
         "button_save_event": "Tallenna",
         "button_save_band": "Tallenna",
+        "country": "Maa",
         "created": "Luotu",
         "created_by": "Luoja",
         "delete_music_confirm_message": "Haluatko varmasti poistaa tallenteen?",
