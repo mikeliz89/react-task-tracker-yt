@@ -10,19 +10,19 @@ import * as Constants from '../../utils/Constants';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import CenterWrapper from '../Site/CenterWrapper';
-import Musics from './Musics';
+import Events from './Events';
 import { useState, useEffect } from 'react';
 import Counter from '../Site/Counter';
 import Alert from '../Alert';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import AddMusic from './AddMusic';
+import AddEvent from './AddEvent';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 
-export default function ManageMusic() {
+export default function ManageMusicEvents() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
@@ -30,8 +30,8 @@ export default function ManageMusic() {
     //states
     const [loading, setLoading] = useState(true);
     const [counter, setCounter] = useState(0);
-    const [musics, setMusics] = useState();
-    const [originalMusics, setOriginalMusics] = useState();
+    const [events, setEvents] = useState();
+    const [originalEvents, setOriginalEvents] = useState();
     const [showAdd, setShowAdd] = useState(false);
 
     //alert
@@ -47,21 +47,21 @@ export default function ManageMusic() {
     useEffect(() => {
         let cancel = false;
 
-        const getMusics = async () => {
+        const getEvents = async () => {
             if (cancel) {
                 return;
             }
-            await fetchMusicsFromFirebase();
+            await fetchEventsFromFirebase();
         }
-        getMusics();
+        getEvents();
 
         return () => {
             cancel = true;
         }
     }, [])
 
-    const fetchMusicsFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_MUSIC);
+    const fetchEventsFromFirebase = async () => {
+        const dbref = await ref(db, Constants.DB_MUSIC_EVENTS);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -72,21 +72,21 @@ export default function ManageMusic() {
             }
             setCounter(counterTemp);
             setLoading(false);
-            setMusics(fromDB);
-            setOriginalMusics(fromDB);
+            setEvents(fromDB);
+            setOriginalEvents(fromDB);
         })
     }
 
-    const deleteMusic = async (id) => {
-        removeFromFirebaseById(Constants.DB_MUSIC, id);
+    const deleteEvent = async (id) => {
+        removeFromFirebaseById(Constants.DB_MUSIC_EVENTS, id);
     }
 
-    const addMusic = async (musicID, music) => {
+    const addEvent = async (eventID, event) => {
         try {
             clearMessages();
-            music["created"] = getCurrentDateAsJson();
-            music["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_MUSIC, music);
+            event["created"] = getCurrentDateAsJson();
+            event["createdBy"] = currentUser.email;
+            pushToFirebase(Constants.DB_MUSIC_EVENTS, event);
             setMessage(t('save_success'));
             setShowMessage(true);
         } catch (ex) {
@@ -102,9 +102,9 @@ export default function ManageMusic() {
         setShowMessage(false);
     }
 
-    const editMusic = (music) => {
-        const id = music.id;
-        updateToFirebaseById(Constants.DB_MUSIC, id, music);
+    const editEvent = (event) => {
+        const id = event.id;
+        updateToFirebaseById(Constants.DB_MUSIC_EVENTS, id, event);
     }
 
     return loading ? (
@@ -117,12 +117,12 @@ export default function ManageMusic() {
                     <Button
                         iconName={Constants.ICON_PLUS}
                         color={showAdd ? 'red' : 'green'}
-                        text={showAdd ? t('button_close') : t('button_add_music')}
+                        text={showAdd ? t('button_close') : t('button_add_music_event')}
                         onClick={() => setShowAdd(!showAdd)} />
                 </ButtonGroup>
             </Row>
 
-            <PageTitle title={t('music_title')} />
+            <PageTitle title={t('music_events_title')} />
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
@@ -138,14 +138,14 @@ export default function ManageMusic() {
             </div>
 
             {
-                showAdd && <AddMusic onSave={addMusic} onClose={() => setShowAdd(false)} />
+                showAdd && <AddEvent onSave={addEvent} onClose={() => setShowAdd(false)} />
             }
 
             {
-                originalMusics != null && originalMusics.length > 0 ? (
+                originalEvents != null && originalEvents.length > 0 ? (
                     <SearchSortFilter
-                        onSet={setMusics}
-                        originalList={originalMusics}
+                        onSet={setEvents}
+                        originalList={originalEvents}
                         //search
                         showSearchByText={true}
                         showSearchByDescription={true}
@@ -154,7 +154,6 @@ export default function ManageMusic() {
                         showSortByName={true}
                         showSortByStarRating={true}
                         showSortByCreatedDate={true}
-                        showSortByPublishYear={true}
                         //filter
                         filterMode={FilterMode.Name}
                         showFilterHaveAtHome={true}
@@ -164,15 +163,15 @@ export default function ManageMusic() {
             }
 
             {
-                musics != null && musics.length > 0 ? (
+                events != null && events.length > 0 ? (
                     <>
-                        <Counter list={musics} originalList={originalMusics} counter={counter} />
-                        <Musics musics={musics} onDelete={deleteMusic} onEdit={editMusic} />
+                        <Counter list={events} originalList={originalEvents} counter={counter} />
+                        <Events events={events} onDelete={deleteEvent} onEdit={editEvent} />
                     </>
                 ) : (
                     <>
                         <CenterWrapper>
-                            {t('no_musics_to_show')}
+                            {t('no_events_to_show')}
                         </CenterWrapper>
                     </>
                 )

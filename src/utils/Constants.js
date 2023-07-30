@@ -4,9 +4,11 @@ export const DB_BACKPACKING_GEAR = '/backpacking-gear';
 export const DB_BACKPACKING_GEAR_COMMENTS = '/backpacking-gear-comments';
 export const DB_BACKPACKING_GEAR_IMAGES = '/backpacking-gear-images';
 export const DB_BACKPACKING_GEAR_LINKS = '/backpacking-gear-links';
+//car
 export const DB_CAR_FUELING = '/car-fueling';
 export const DB_CAR_MAINTENANCE = '/car-maintenance';
 export const DB_CAR_INFO = '/car-info';
+//drink
 export const DB_DRINKS = '/drinks';
 export const DB_DRINK_IMAGES = '/drink-images';
 export const DB_DRINK_GARNISHES = '/drink-garnishes';
@@ -19,6 +21,7 @@ export const DB_DRINKINGPRODUCTS = '/drinkingproducts';
 export const DB_DRINKINGPRODUCT_COMMENTS = '/drinkingproduct-comments';
 export const DB_DRINKINGPRODUCT_LINKS = '/drinkingproduct-links';
 export const DB_DRINKINGPRODUCT_IMAGES = '/drinkingproduct-images';
+//excercise
 export const DB_EXERCISES = '/exercises';
 export const DB_EXERCISE_COMMENTS = '/exercise-comments';
 export const DB_EXERCISE_IMAGES = '/exercise-images';
@@ -28,21 +31,37 @@ export const DB_EXERCISE_MOVEMENT_COMMENTS = '/exercise-movement-comments';
 export const DB_EXERCISE_MOVEMENT_IMAGES = '/exercise-movement-images';
 export const DB_EXERCISE_MOVEMENT_LINKS = '/exercise-movement-links';
 export const DB_EXERCISE_PARTS = '/exercise-parts';
+//fooditems
 export const DB_FOODITEMS = '/fooditems';
+//links
 export const DB_LINKS = '/links';
+//movie
 export const DB_MOVIES = '/movies';
 export const DB_MOVIE_COMMENTS = '/movie-comments';
 export const DB_MOVIE_IMAGES = '/movie-images';
 export const DB_MOVIE_LINKS = '/movie-links';
+//music
 export const DB_MUSIC = '/music';
 export const DB_MUSIC_COMMENTS = '/music-comments';
 export const DB_MUSIC_IMAGES = '/music-images';
 export const DB_MUSIC_LINKS = '/music-links';
+//music-bands
+export const DB_MUSIC_BANDS = '/music-bands';
+export const DB_MUSIC_BAND_COMMENTS = '/music-band-comments';
+export const DB_MUSIC_BAND_IMAGES = '/music-band-images';
+export const DB_MUSIC_BAND_LINKS = '/music-band-links';
+//music-events
+export const DB_MUSIC_EVENTS = '/music-events';
+export const DB_MUSIC_EVENT_COMMENTS = '/music-event-comments';
+export const DB_MUSIC_EVENT_IMAGES = '/music-event-images';
+export const DB_MUSIC_EVENT_LINKS = '/music-event-links';
+//people / person
 export const DB_PEOPLE = '/people';
 export const DB_PERSON_COMMENTS = '/person-comments';
 export const DB_PERSON_IMAGES = '/person-images';
 export const DB_PERSON_LINKS = '/person-links';
 export const DB_PROFILES = '/profiles';
+//recipe
 export const DB_RECIPES = '/recipes';
 export const DB_RECIPE_INCREDIENTS = '/recipe-incredients';
 export const DB_RECIPE_IMAGES = '/recipe-images';
@@ -50,6 +69,7 @@ export const DB_RECIPE_COMMENTS = '/recipe-comments';
 export const DB_RECIPE_LINKS = '/recipe-links';
 export const DB_RECIPE_WORKPHASES = '/recipe-workphases';
 export const DB_RECIPE_HISTORY = '/recipehistory';
+//tasklist
 export const DB_TASKLIST_ARCHIVE = '/tasklist-archive';
 export const DB_TASKLIST_ARCHIVE_TASKS = '/tasklist-archive-tasks';
 export const DB_TASKLIST_COMMENTS = '/tasklist-comments';
@@ -118,8 +138,10 @@ export const NAVIGATION_GAMES = '/games';
 export const NAVIGATION_GEAR = '/gear';
 export const NAVIGATION_LINKSLIST = '/linkslist';
 export const NAVIGATION_LOGIN = '/login';
+//backpacking
 export const NAVIGATION_MANAGE_BACKPACKING = '/managebackpacking';
 export const NAVIGATION_MANAGE_BACKPACKINGLISTS = '/managebackpackinglists';
+//drinks
 export const NAVIGATION_MANAGE_DRINKS = '/managedrinks';
 export const NAVIGATION_MANAGE_DRINKLISTS = '/managedrinklists';
 export const NAVIGATION_MANAGE_DRINKINPRODUCTS = '/managedrinkingproducts';
@@ -131,8 +153,12 @@ export const NAVIGATION_MANAGE_LISTS = '/managelists';
 export const NAVIGATION_MANAGE_MOVEMENTS = '/managemovements';
 export const NAVIGATION_MANAGE_MOVIES = '/managemovies';
 export const NAVIGATION_MANAGE_MOVIELISTS = '/managemovielists';
-export const NAVIGATION_MANAGE_MUSIC = '/managemusic';
+//music
+export const NAVIGATION_MANAGE_MUSIC_BANDS = '/managemusicbands';
+export const NAVIGATION_MANAGE_MUSIC_RECORDS = '/managemusicrecords';
+export const NAVIGATION_MANAGE_MUSIC_EVENTS = '/managemusicevents';
 export const NAVIGATION_MANAGE_MUSICLISTS = '/managemusiclists';
+//profile
 export const NAVIGATION_MANAGE_MY_PROFILE = '/managemyprofile';
 export const NAVIGATION_MANAGE_PROGRAMMING = '/manageprogramming';
 export const NAVIGATION_MANAGE_RECIPES = '/managerecipes';
@@ -143,6 +169,8 @@ export const NAVIGATION_MANAGE_PEOPLE = '/managepeople';
 export const NAVIGATION_MOVEMENT = '/movement';
 export const NAVIGATION_MOVIE = '/movie';
 export const NAVIGATION_MUSIC = '/music';
+export const NAVIGATION_MUSIC_EVENT = '/event';
+export const NAVIGATION_MUSIC_BAND = '/band';
 export const NAVIGATION_PERSON = '/person';
 export const NAVIGATION_RECIPE = '/recipe';
 export const NAVIGATION_TASKLIST = '/tasklist';
@@ -155,6 +183,7 @@ export const SESSION_FROM_PAGE = "fromPage";
 export const SESSION_DASHBOARD_ACTIONS = "actions";
 export const SESSION_DASHBOARD_LISTS = "lists";
 export const SESSION_DASHBOARD_MEDIA = "media";
+export const SESSION_DASHBOARD_MUSIC = "music";
 export const SESSION_THEME = "theme";
 
 //THEMES

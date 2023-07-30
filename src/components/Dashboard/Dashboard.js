@@ -40,6 +40,10 @@ export default function Dashboard() {
         setSessionStorage(Constants.SESSION_DASHBOARD_MEDIA);
     }
 
+    const setFromMusic = () => {
+        setSessionStorage(Constants.SESSION_DASHBOARD_MUSIC);
+    }
+
     const setFromLists = () => {
         setSessionStorage(Constants.SESSION_DASHBOARD_LISTS);
     }
@@ -198,16 +202,6 @@ export default function Dashboard() {
                                 onClick={() => setFromMedia()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MUSIC}>
-                            <BigButton
-                                imageName="music.jpg"
-                                iconName={Constants.ICON_MUSIC}
-                                textcolor="black"
-                                color="#0cb058"
-                                text={t('music')}
-                                onClick={() => setFromMedia()}
-                            />
-                        </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_GAMES}>
                             <BigButton
                                 imageName="games.jpg"
@@ -216,6 +210,40 @@ export default function Dashboard() {
                                 color="#0cb058"
                                 text={t('games')}
                                 onClick={() => setFromMedia()}
+                            />
+                        </DashboardItem>
+                    </Row>
+                </Tab>
+                <Tab eventKey={Constants.SESSION_DASHBOARD_MUSIC} title={t('title_music')}>
+                    <Row>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MUSIC_BANDS}>
+                            <BigButton
+                                imageName="bands.jpg"
+                                iconName={Constants.ICON_MUSIC}
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('music_bands')}
+                                onClick={() => setFromMusic()}
+                            />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MUSIC_RECORDS}>
+                            <BigButton
+                                imageName="music.jpg"
+                                iconName={Constants.ICON_MUSIC}
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('music_records')}
+                                onClick={() => setFromMusic()}
+                            />
+                        </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MUSIC_EVENTS}>
+                            <BigButton
+                                imageName="events.jpg"
+                                iconName={Constants.ICON_MUSIC}
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('music_events')}
+                                onClick={() => setFromMusic()}
                             />
                         </DashboardItem>
                     </Row>

@@ -24,6 +24,8 @@ const SearchSortFilter = ({ onSet,
     showSearchByDay,
     showSearchByIncredients,
     //filtering
+    showFilterSeenLive,
+    showFilterNotHaveSeenLive,
     showFilterHaveAtHome,
     showFilterNotHaveAtHome,
     showFilterHaveRated,
@@ -41,6 +43,8 @@ const SearchSortFilter = ({ onSet,
     const [searchStringDay, setSearchStringDay] = useState('');
     const [searchStringIncredients, setSearchStringIncredients] = useState('');
     const [sortBy, setSortBy] = useState(defaultSort);
+    const [showOnlySeenLive, setShowOnlySeenLive] = useState(false);
+    const [showOnlyNotHaveSeenLive, setShowOnlyNotHaveSeenLive] = useState(false);
     const [showOnlyHaveAtHome, setShowOnlyHaveAtHome] = useState(false);
     const [showOnlyNotHaveAtHome, setShowOnlyNotHaveAtHome] = useState(false);
     const [showOnlyHaveRated, setShowOnlyHaveRated] = useState(false);
@@ -59,6 +63,8 @@ const SearchSortFilter = ({ onSet,
     const [_showSortByPublishYear, _setShowSortByPublishYear] = useState(showSortByPublishYear);
 
     //filtering
+    const [_showOnlySeenLive, _setShowOnlySeenLive] = useState(showFilterSeenLive);
+    const [_showOnlyNotHaveSeenLive, _setShowOnlyNotHaveSeenLive] = useState(showFilterNotHaveSeenLive);
     const [_showOnlyHaveAtHome, _setShowOnlyHaveAtHome] = useState(showFilterHaveAtHome);
     const [_showOnlyNotHaveAtHome, _setShowOnlyNotHaveAtHome] = useState(showFilterNotHaveAtHome);
     const [_showOnlyHaveRated, _setShowOnlyHaveRated] = useState(showFilterHaveRated);
@@ -79,6 +85,7 @@ const SearchSortFilter = ({ onSet,
     }, [sortBy,
         searchString, searchStringDescription,
         searchStringIncredients, searchStringDay,
+        showOnlySeenLive, showOnlyNotHaveSeenLive,
         showOnlyHaveAtHome, showOnlyNotHaveAtHome,
         showOnlyHaveRated, showOnlyNotHaveRated,
         showOnlyCore,
@@ -130,6 +137,15 @@ const SearchSortFilter = ({ onSet,
         //not have at home
         else if (showOnlyNotHaveAtHome) {
             newList = newList.filter(x => x.haveAtHome === false || !x.haveAtHome);
+        }
+
+        //seen live
+        if (showOnlySeenLive) {
+            newList = newList.filter(x => x.seenLive === true);
+        }
+        //not have seen live
+        else if (showOnlyNotHaveSeenLive) {
+            newList = newList.filter(x => x.seenLive === false || !x.seenLive);
         }
 
         //rated
@@ -401,6 +417,34 @@ const SearchSortFilter = ({ onSet,
                     </>
                 }
                 {
+                    showFilterSeenLive &&
+                    <>
+                        <Form.Group as={Row} controlId='searchSortFilter-OnlySeenLive'>
+                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+                            <Col xs={9} sm={10}>
+                                <Form.Check label={t('show_only_seen_live')}
+                                    onChange={(e) => {
+                                        setShowOnlySeenLive(e.currentTarget.checked);
+                                    }} />
+                            </Col>
+                        </Form.Group>
+                    </>
+                }
+                {
+                    showFilterNotHaveSeenLive &&
+                    <>
+                        <Form.Group as={Row} controlId='searchSortFilter-OnlyNotHaveSeenLive'>
+                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
+                            <Col xs={9} sm={10}>
+                                <Form.Check label={t('show_only_not_have_seen_live')}
+                                    onChange={(e) => {
+                                        setShowOnlyNotHaveSeenLive(e.currentTarget.checked);
+                                    }} />
+                            </Col>
+                        </Form.Group>
+                    </>
+                }
+                {
                     showFilterHaveAtHome &&
                     <>
                         <Form.Group as={Row} controlId='searchSortFilter-OnlyHaveAtHome'>
@@ -520,6 +564,8 @@ SearchSortFilter.defaultProps = {
     showSearchByDay: false,
     //filtering
     filterMode: FilterMode.Name,
+    showFilterSeenLive: false,
+    showFilterNotHaveSeenLive: false,
     showFilterHaveAtHome: false,
     showFilterNotHaveAtHome: false,
     showFilterHaveRated: false,
@@ -546,6 +592,8 @@ SearchSortFilter.propTypes = {
     showSearchByDay: PropTypes.bool,
     //filtering
     filterMode: PropTypes.string,
+    showFilterSeenLive: PropTypes.bool,
+    showFilterNotHaveSeenLive: PropTypes.bool,
     showFilterHaveAtHome: PropTypes.bool,
     showFilterNotHaveAtHome: PropTypes.bool,
     showFilterHaveRated: PropTypes.bool,

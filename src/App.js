@@ -69,9 +69,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //Car
 import Car from './components/Car/Car';
 //Music
-import ManageMusic from './components/Music/ManageMusic';
+import BandDetails from './components/Music/BandDetails';
+import EventDetails from './components/Music/EventDetails';
+import ManageMusicBands from './components/Music/ManageMusicBands';
+import ManageMusicEvents from './components/Music/ManageMusicEvents';
 import ManageMusicLists from './components/Music/ManageMusicLists';
-import BandsSeenLive from './components/Music/BandsSeenLive';
+import ManageMusicRecords from './components/Music/ManageMusicRecords';
 import MusicDetails from './components/Music/MusicDetails';
 //Games
 import Games from './components/Games/Games';
@@ -213,10 +216,13 @@ function App() {
             <Route path='/car' element={<PrivateRoute><Car /></PrivateRoute>} />
             {/* Car */}
             {/* Music */}
-            <Route path='/managemusic' element={<PrivateRoute><ManageMusic /></PrivateRoute>} />
-            <Route path='/bandsseenlive' element={<PrivateRoute><BandsSeenLive /></PrivateRoute>} />
+            <Route path='/managemusicrecords' element={<PrivateRoute><ManageMusicRecords /></PrivateRoute>} />
+            <Route path='/managemusicbands' element={<PrivateRoute><ManageMusicBands /></PrivateRoute>} />
+            <Route path='/managemusicevents' element={<PrivateRoute><ManageMusicEvents /></PrivateRoute>} />
             <Route path='/managemusiclists' element={<PrivateRoute><ManageMusicLists /></PrivateRoute>} />
             <Route path='/music/:id' element={<PrivateRoute><MusicDetails /></PrivateRoute>} />
+            <Route path='/event/:id' element={<PrivateRoute><EventDetails /></PrivateRoute>} />
+            <Route path='/band/:id' element={<PrivateRoute><BandDetails /></PrivateRoute>} />
             {/* Music */}
             {/* Games */}
             <Route path='/games' element={<PrivateRoute><Games /></PrivateRoute>} />
