@@ -62,7 +62,6 @@ const AddBand = ({ bandID, onSave, onClose, showLabels }) => {
         setDescription('');
         setName('');
         setFormingYear(0);
-        setSeenLive(false);
     }
 
     return (
@@ -77,14 +76,6 @@ const AddBand = ({ bandID, onSave, onClose, showLabels }) => {
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addBandForm-FormingYear">
-                    {showLabels && <Form.Label>{t('band_forming_year')}</Form.Label>}
-                    <Form.Control type='number' step='any'
-                        autoComplete="off"
-                        placeholder={t('band_forming_year')}
-                        value={formingYear}
-                        onChange={(e) => setFormingYear(e.target.value)} />
-                </Form.Group>
                 <Form.Group className="mb-3" controlId="addBandForm-Description">
                     {showLabels && <Form.Label>{t('description')}</Form.Label>}
                     <Form.Control type='text'
@@ -92,6 +83,14 @@ const AddBand = ({ bandID, onSave, onClose, showLabels }) => {
                         placeholder={t('description')}
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addBandForm-FormingYear">
+                    {showLabels && <Form.Label>{t('band_forming_year')}</Form.Label>}
+                    <Form.Control type='number' step='any'
+                        autoComplete="off"
+                        placeholder={t('band_forming_year')}
+                        value={formingYear}
+                        onChange={(e) => setFormingYear(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addBandForm-SeenLive">
                     <Form.Check
