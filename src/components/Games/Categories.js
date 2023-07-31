@@ -36,6 +36,8 @@ export const Consoles = {
     GameBoyColor: 16,
     /** */
     SuperNintendo: 17,
+    /** */
+    Switch: 18,
 }
 
 export const GameConsoles = [
@@ -128,6 +130,11 @@ export const GameConsoles = [
         //snes
         "id": 17,
         "name": "supernintendo"
+    },
+    {
+        //switch
+        "id": 18,
+        "name": "switch"
     },
 
 

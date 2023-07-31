@@ -395,6 +395,7 @@
         "game_console_xbox": "XBOX",
         "game_console_xbox360": "XBOX 360",
         "game_console_nintendo64": "Nintendo 64",
+        "game_console_switch": "Nintendo Switch",
         "have": "Omistan",
         "have_not": "En omista",
         "name": "Pelin nimi",
