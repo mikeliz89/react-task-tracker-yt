@@ -1,26 +1,17 @@
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import GoBackButton from '../Buttons/GoBackButton';
-import Icon from '../Icon';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import PageTitle from '../Site/PageTitle';
-import * as Constants from '../../utils/Constants';
+import Game from './Game';
 
-export default function Games() {
+const Games = ({ games, onDelete, onEdit }) => {
 
-    //translation
-    const { t } = useTranslation(Constants.TRANSLATION_GAMES, { keyPrefix: Constants.TRANSLATION_GAMES });
-
-    return (
-        <PageContentWrapper>
-            <GoBackButton />
-            <PageTitle title={t('games_title')} />
-            <div>
-                <Link to={Constants.NAVIGATION_MANAGE_GAMELISTS} className='btn btn-primary'>
-                    <Icon name={Constants.ICON_LIST_ALT} color='white' />
-                    {t('button_game_lists')}
-                </Link>
-            </div>
-        </PageContentWrapper>
-    )
+  return (
+    <div>
+      {games.map((game) => (
+        <Game key={game.id}
+          game={game}
+          onDelete={onDelete}
+          onEdit={onEdit} />
+      ))}
+    </div>
+  )
 }
+
+export default Games

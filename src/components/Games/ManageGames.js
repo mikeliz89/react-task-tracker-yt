@@ -1,37 +1,37 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Row, ButtonGroup } from 'react-bootstrap';
-import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
+import { Row, ButtonGroup } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
 import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
 import * as Constants from '../../utils/Constants';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import CenterWrapper from '../Site/CenterWrapper';
-import Movies from './Movies';
-import { useState, useEffect } from 'react';
-import Counter from '../Site/Counter';
-import Alert from '../Alert';
-import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import AddMovie from './AddMovie';
+import AddGame from './AddGame';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import CenterWrapper from '../Site/CenterWrapper';
+import Games from './Games';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import Button from '../Buttons/Button';
+import Alert from '../Alert';
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import Counter from '../Site/Counter';
 
-export default function ManageMovies() {
+export default function ManageGames() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
+    const { t } = useTranslation(Constants.TRANSLATION_GAMES, { keyPrefix: Constants.TRANSLATION_GAMES });
 
     //states
     const [loading, setLoading] = useState(true);
     const [counter, setCounter] = useState(0);
-    const [movies, setMovies] = useState();
-    const [originalMovies, setOriginalMovies] = useState();
+    const [games, setGames] = useState();
+    const [originalGames, setOriginalGames] = useState();
     const [showAdd, setShowAdd] = useState(false);
 
     //alert
@@ -47,21 +47,21 @@ export default function ManageMovies() {
     useEffect(() => {
         let cancel = false;
 
-        const getMovies = async () => {
+        const getGames = async () => {
             if (cancel) {
                 return;
             }
-            await fetchMoviesFromFirebase();
+            await fetchGamesFromFirebase();
         }
-        getMovies();
+        getGames();
 
         return () => {
             cancel = true;
         }
     }, [])
 
-    const fetchMoviesFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_MOVIES);
+    const fetchGamesFromFirebase = async () => {
+        const dbref = await ref(db, Constants.DB_GAMES);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -72,21 +72,21 @@ export default function ManageMovies() {
             }
             setCounter(counterTemp);
             setLoading(false);
-            setMovies(fromDB);
-            setOriginalMovies(fromDB);
+            setGames(fromDB);
+            setOriginalGames(fromDB);
         })
     }
 
-    const deleteMovie = async (id) => {
-        removeFromFirebaseById(Constants.DB_MOVIES, id);
+    const deleteGame = async (id) => {
+        removeFromFirebaseById(Constants.DB_GAMES, id);
     }
 
-    const addMovie = async (movieID, movie) => {
+    const addGame = async (gameID, game) => {
         try {
             clearMessages();
-            movie["created"] = getCurrentDateAsJson();
-            movie["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_MOVIES, movie);
+            game["created"] = getCurrentDateAsJson();
+            game["createdBy"] = currentUser.email;
+            pushToFirebase(Constants.DB_GAMES, game);
             setMessage(t('save_success'));
             setShowMessage(true);
         } catch (ex) {
@@ -102,9 +102,9 @@ export default function ManageMovies() {
         setShowMessage(false);
     }
 
-    const editMovie = (movie) => {
-        const id = movie.id;
-        updateToFirebaseById(Constants.DB_MOVIES, id, movie);
+    const editGame = (game) => {
+        const id = game.id;
+        updateToFirebaseById(Constants.DB_GAMES, id, game);
     }
 
     return loading ? (
@@ -117,12 +117,12 @@ export default function ManageMovies() {
                     <Button
                         iconName={Constants.ICON_PLUS}
                         color={showAdd ? 'red' : 'green'}
-                        text={showAdd ? t('button_close') : t('button_add_movie')}
+                        text={showAdd ? t('button_close') : t('button_add_game')}
                         onClick={() => setShowAdd(!showAdd)} />
                 </ButtonGroup>
             </Row>
 
-            <PageTitle title={t('movies_title')} />
+            <PageTitle title={t('games_title')} />
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
@@ -131,21 +131,21 @@ export default function ManageMovies() {
             />
 
             <div>
-                <Link to={Constants.NAVIGATION_MANAGE_MOVIELISTS} className='btn btn-primary'>
+                <Link to={Constants.NAVIGATION_MANAGE_GAMELISTS} className='btn btn-primary'>
                     <Icon name={Constants.ICON_LIST_ALT} color='white' />
-                    {t('button_movie_lists')}
+                    {t('button_game_lists')}
                 </Link>
             </div>
 
             {
-                showAdd && <AddMovie onSave={addMovie} onClose={() => setShowAdd(false)} />
+                showAdd && <AddGame onSave={addGame} onClose={() => setShowAdd(false)} />
             }
 
             {
-                originalMovies != null && originalMovies.length > 0 ? (
+                originalGames != null && originalGames.length > 0 ? (
                     <SearchSortFilter
-                        onSet={setMovies}
-                        originalList={originalMovies}
+                        onSet={setGames}
+                        originalList={originalGames}
                         //search
                         showSearchByText={true}
                         showSearchByDescription={true}
@@ -163,15 +163,15 @@ export default function ManageMovies() {
                 ) : (<></>)
             }
             {
-                movies != null && movies.length > 0 ? (
+                games != null && games.length > 0 ? (
                     <>
-                        <Counter list={movies} originalList={originalMovies} counter={counter} />
-                        <Movies movies={movies} onDelete={deleteMovie} onEdit={editMovie} />
+                        <Counter list={games} originalList={originalGames} counter={counter} />
+                        <Games games={games} onDelete={deleteGame} onEdit={editGame} />
                     </>
                 ) : (
                     <>
                         <CenterWrapper>
-                            {t('no_movies_to_show')}
+                            {t('no_games_to_show')}
                         </CenterWrapper>
                     </>
                 )

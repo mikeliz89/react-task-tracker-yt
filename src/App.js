@@ -78,6 +78,7 @@ import ManageMusicRecords from './components/Music/ManageMusicRecords';
 import MusicDetails from './components/Music/MusicDetails';
 //Games
 import Games from './components/Games/Games';
+import ManageGames from './components/Games/ManageGames';
 import ManageGameLists from './components/Games/ManageGameLists';
 //Movies
 import ManageMovies from './components/Movies/ManageMovies';
@@ -226,6 +227,7 @@ function App() {
             {/* Music */}
             {/* Games */}
             <Route path='/games' element={<PrivateRoute><Games /></PrivateRoute>} />
+            <Route path='/managegames' element={<PrivateRoute><ManageGames /></PrivateRoute>} />
             <Route path='/managegamelists' element={<PrivateRoute><ManageGameLists /></PrivateRoute>} />
             {/* Games */}
             {/* Movies */}

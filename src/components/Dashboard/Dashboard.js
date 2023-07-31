@@ -202,7 +202,7 @@ export default function Dashboard() {
                                 onClick={() => setFromMedia()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_GAMES}>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_GAMES}>
                             <BigButton
                                 imageName="games.jpg"
                                 iconName={Constants.ICON_GAMEPAD}

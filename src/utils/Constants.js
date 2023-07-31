@@ -33,6 +33,8 @@ export const DB_EXERCISE_MOVEMENT_LINKS = '/exercise-movement-links';
 export const DB_EXERCISE_PARTS = '/exercise-parts';
 //fooditems
 export const DB_FOODITEMS = '/fooditems';
+//games
+export const DB_GAMES = '/games';
 //links
 export const DB_LINKS = '/links';
 //movie
@@ -146,11 +148,17 @@ export const NAVIGATION_MANAGE_DRINKS = '/managedrinks';
 export const NAVIGATION_MANAGE_DRINKLISTS = '/managedrinklists';
 export const NAVIGATION_MANAGE_DRINKINPRODUCTS = '/managedrinkingproducts';
 export const NAVIGATION_MANAGE_EXERCISES = '/manageexercises';
+//games
+export const NAVIGATION_MANAGE_GAMES = '/managegames';
 export const NAVIGATION_MANAGE_GAMELISTS = '/managegamelists';
+//gear
 export const NAVIGATION_MANAGE_GEAR = '/managegear';
 export const NAVIGATION_MANAGE_GEAR_MAINTENANCE = '/managegearmaintenance';
+//lists
 export const NAVIGATION_MANAGE_LISTS = '/managelists';
+//movements
 export const NAVIGATION_MANAGE_MOVEMENTS = '/managemovements';
+//movies
 export const NAVIGATION_MANAGE_MOVIES = '/managemovies';
 export const NAVIGATION_MANAGE_MOVIELISTS = '/managemovielists';
 //music
