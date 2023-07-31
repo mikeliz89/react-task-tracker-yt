@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Row, Col, ButtonGroup, Accordion, Table } from "react-bootstrap";
+import { Row, Col, ButtonGroup, Table } from "react-bootstrap";
 import { ref, onValue } from 'firebase/database';
 import { db } from "../../firebase-config";
 import GoBackButton from '../Buttons/GoBackButton';
@@ -17,13 +17,13 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateT
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
 import * as Constants from '../../utils/Constants';
 import i18n from "i18next";
-import PageTitle from '../Site/PageTitle';
 import Alert from "../Alert";
 import PageContentWrapper from "../Site/PageContentWrapper";
 import { pushToFirebaseChild, updateToFirebaseById } from "../../datatier/datatier";
 import LinkComponent from "../Links/LinkComponent";
 import ImageComponent from "../ImageUpload/ImageComponent";
 import StarRatingWrapper from "../StarRating/StarRatingWrapper";
+import AccordionElement from "../AccordionElement";
 
 const ExerciseDetails = () => {
 
@@ -91,6 +91,15 @@ const ExerciseDetails = () => {
         pushToFirebaseChild(Constants.DB_EXERCISE_LINKS, id, link);
     }
 
+    const getAccordionData = () => {
+        return [
+            { id: 1, name: t('created'), value: getJsonAsDateTimeString(exercise.created, i18n.language) },
+            { id: 2, name: t('created_by'), value: exercise.createdBy },
+            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(exercise.modified, i18n.language) },
+            { id: 4, name: t('category'), value: t('category_' + getExerciseCategoryNameByID(exercise.category)) }
+        ];
+    }
+
     return (
         loading ? (
             <h3>{t('loading')}</h3>
@@ -106,39 +115,9 @@ const ExerciseDetails = () => {
                             text={showEditExercise ? t('close') : t('button_edit')} />
                     </ButtonGroup>
                 </Row>
-                <Row>
-                    <Col>
-                        <Accordion>
-                            <Accordion.Item eventKey="0">
-                                <Accordion.Header>
-                                    <PageTitle title={t('exercisedetails')} />
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                    <Table striped bordered hover>
-                                        <tbody>
-                                            <tr>
-                                                <td>{t('created')}</td>
-                                                <td>{getJsonAsDateTimeString(exercise.created, i18n.language)}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{t('created_by')}</td>
-                                                <td>{exercise.createdBy}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{t('modified')}</td>
-                                                <td>{getJsonAsDateTimeString(exercise.modified, i18n.language)}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{t('category')}</td>
-                                                <td>{t('category')}: {t('category_' + getExerciseCategoryNameByID(exercise.category))}</td>
-                                            </tr>
-                                        </tbody>
-                                    </Table>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion>
-                    </Col>
-                </Row>
+
+                <AccordionElement array={getAccordionData()} title={t('exercisedetails')} />
+
                 <Row>
                     <Col>
                         <StarRatingWrapper stars={exercise.stars} onSaveStars={saveStars} />

@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
+import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from 'i18next';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
-import PageTitle from '../Site/PageTitle';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
 import PageContentWrapper from '../Site/PageContentWrapper';
@@ -19,6 +18,7 @@ import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AddBand from './AddBand';
+import AccordionElement from '../AccordionElement';
 
 function BandDetails() {
 
@@ -98,6 +98,14 @@ function BandDetails() {
         updateToFirebaseById(Constants.DB_MUSIC_BANDS, bandID, band);
     }
 
+    const getAccordionData = () => {
+        return [
+            { id: 1, name: t('created'), value: getJsonAsDateTimeString(band.created, i18n.language) },
+            { id: 2, name: t('created_by'), value: band.createdBy },
+            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(band.modified, i18n.language) }
+        ];
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -112,35 +120,8 @@ function BandDetails() {
                         onClick={() => setShowEdit(!showEdit)} />
                 </ButtonGroup>
             </Row>
-            <Row>
-                <Col>
-                    <Accordion>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>
-                                <PageTitle title={band.name} iconColor='gray' />
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <Table striped bordered hover>
-                                    <tbody>
-                                        <tr>
-                                            <td>{t('created')}</td>
-                                            <td>{getJsonAsDateTimeString(band.created, i18n.language)}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('created_by')}</td>
-                                            <td>{band.createdBy}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('modified')}</td>
-                                            <td>{getJsonAsDateTimeString(band.modified, i18n.language)}</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </Col>
-            </Row>
+
+            <AccordionElement array={getAccordionData()} title={band.name} />
 
             <Row>
                 <Col>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Col, Row, ButtonGroup, Accordion, Table, Tab, Tabs } from 'react-bootstrap';
+import { Col, Row, ButtonGroup, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -14,7 +14,6 @@ import { ref, onValue, child, get } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import i18n from "i18next";
-import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
@@ -27,6 +26,7 @@ import { getPageTitleContent } from '../../utils/ListUtils';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import AccordionElement from '../AccordionElement';
 
 function TaskListDetails() {
 
@@ -212,6 +212,16 @@ function TaskListDetails() {
     navigator.clipboard.writeText(text);
   }
 
+  const getAccordionData = () => {
+    return [
+      { id: 1, name: t('created'), value: getJsonAsDateTimeString(taskList.created, i18n.language) },
+      { id: 2, name: t('created_by'), value: taskList.createdBy },
+      { id: 3, name: t('modified'), value: getJsonAsDateTimeString(taskList.modified, i18n.language) },
+      { id: 4, name: t('tasks_ready_counter'), value: taskReadyCounter + '/' + taskCounter },
+      { id: 5, name: t('category'), value: t(getPageTitleContent(taskList.listType)) }
+    ];
+  }
+
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -234,43 +244,8 @@ function TaskListDetails() {
           />
         </ButtonGroup>
       </Row>
-      <Row>
-        <Col>
-          <Accordion>
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>
-                <PageTitle title={taskList.title} iconName={Constants.ICON_LIST_ALT} iconColor='gray' />
-              </Accordion.Header>
-              <Accordion.Body>
-                <Table striped bordered hover>
-                  <tbody>
-                    <tr>
-                      <td>{t('created')}</td>
-                      <td>{getJsonAsDateTimeString(taskList.created, i18n.language)}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('created_by')}</td>
-                      <td>{taskList.createdBy}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('modified')}</td>
-                      <td>{getJsonAsDateTimeString(taskList.modified, i18n.language)}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('tasks_ready_counter')}</td>
-                      <td>{taskReadyCounter}/{taskCounter}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('category')}</td>
-                      <td>{t(getPageTitleContent(taskList.listType))}</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-        </Col>
-      </Row>
+
+      <AccordionElement array={getAccordionData()} title={taskList.title} iconName={Constants.ICON_LIST_ALT} />
 
       {!showEditTaskList &&
         <Row>

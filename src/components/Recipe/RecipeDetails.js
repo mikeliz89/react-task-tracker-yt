@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Tab, Tabs, Col, Row, ButtonGroup, Accordion, Table } from 'react-bootstrap';
+import { Tab, Tabs, Col, Row, ButtonGroup } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { child, ref, onValue } from 'firebase/database';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -16,7 +16,6 @@ import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateT
 import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
-import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
 import RecipeHistories from './RecipeHistories';
 import PageContentWrapper from '../Site/PageContentWrapper';
@@ -27,6 +26,7 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
+import AccordionElement from '../AccordionElement';
 
 export default function RecipeDetails() {
 
@@ -207,6 +207,16 @@ export default function RecipeDetails() {
         return result.toString();
     }
 
+    const getAccordionData = () => {
+        return [
+            { id: 1, name: t('created'), value: getJsonAsDateTimeString(recipe.created, i18n.language) },
+            { id: 2, name: t('created_by'), value: recipe.createdBy },
+            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(recipe.modified, i18n.language) },
+            { id: 4, name: t('core_recipe'), value: recipe.isCore === true ? t('yes') : t('no') },
+            { id: 5, name: t('category'), value: t('category_' + getRecipeCategoryNameByID(recipe.category)) }
+        ];
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -221,43 +231,9 @@ export default function RecipeDetails() {
                         onClick={() => setShowEditRecipe(!showEditRecipe)} />
                 </ButtonGroup>
             </Row>
-            <Row>
-                <Col>
-                    <Accordion>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>
-                                <PageTitle title={recipe.title} iconName={Constants.ICON_UTENSILS} iconColor='gray' />
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <Table striped bordered hover>
-                                    <tbody>
-                                        <tr>
-                                            <td>{t('created')}</td>
-                                            <td>{getJsonAsDateTimeString(recipe.created, i18n.language)}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('created_by')}</td>
-                                            <td>{recipe.createdBy}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('modified')}</td>
-                                            <td>{getJsonAsDateTimeString(recipe.modified, i18n.language)}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('core_recipe')}</td>
-                                            <td>{recipe.isCore === true ? t('yes') : t('no')}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('category')}</td>
-                                            <td>{t('category_' + getRecipeCategoryNameByID(recipe.category))}</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </Col>
-            </Row>
+
+            <AccordionElement array={getAccordionData()} title={recipe.title} iconName={Constants.ICON_UTENSILS} />
+
             <Row>
                 <Col>
                     {t('description') + ': '} {recipe.description}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
+import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import Button from '../Buttons/Button';
@@ -11,7 +11,6 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
-import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
 import AddMovement from './AddMovement';
 import PageContentWrapper from '../Site/PageContentWrapper';
@@ -20,6 +19,7 @@ import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
+import AccordionElement from '../AccordionElement';
 
 export default function MovementDetails() {
 
@@ -87,6 +87,15 @@ export default function MovementDetails() {
         pushToFirebaseChild(Constants.DB_EXERCISE_MOVEMENT_LINKS, movementID, link);
     }
 
+    const getAccordionData = () => {
+        return [
+            { id: 1, name: t('created'), value: getJsonAsDateTimeString(movement.created, i18n.language) },
+            { id: 2, name: t('created_by'), value: movement.createdBy },
+            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(movement.modified, i18n.language) },
+            { id: 4, name: t('category'), value: t('movementcategory_' + getMovementCategoryNameByID(movement.category)) }
+        ];
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -101,40 +110,9 @@ export default function MovementDetails() {
                         onClick={() => setShowEditMovement(!showEditMovement)} />
                 </ButtonGroup>
             </Row>
-            <Row>
-                <Col>
-                    <Accordion>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>
-                                { /* TODO: Lisää tähän icon name */}
-                                <PageTitle title={movement.name} iconColor='gray' />
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <Table striped bordered hover>
-                                    <tbody>
-                                        <tr>
-                                            <td>{t('created')}</td>
-                                            <td>{getJsonAsDateTimeString(movement.created, i18n.language)}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('created_by')}</td>
-                                            <td>{movement.createdBy}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('modified')}</td>
-                                            <td>{getJsonAsDateTimeString(movement.modified, i18n.language)}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('category')}</td>
-                                            <td>{t('movementcategory_' + getMovementCategoryNameByID(movement.category))}</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </Col>
-            </Row>
+
+            <AccordionElement array={getAccordionData()} title={movement.name} />
+
             <Row>
                 <Col>
                     {t('description') + ': '}{movement.description}

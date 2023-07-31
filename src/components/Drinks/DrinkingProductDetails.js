@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
+import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import Button from '../Buttons/Button';
@@ -12,7 +12,6 @@ import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import AddDrinkingProduct from './AddDrinkingProduct';
-import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
@@ -20,6 +19,7 @@ import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
+import AccordionElement from '../AccordionElement';
 
 export default function DrinkingProductDetails() {
 
@@ -99,6 +99,16 @@ export default function DrinkingProductDetails() {
         updateToFirebaseById(Constants.DB_DRINKINGPRODUCTS, drinkingProductID, drinkingProduct);
     }
 
+    const getAccordionData = () => {
+        return [
+            { id: 1, name: t('created'), value: getJsonAsDateTimeString(drinkingProduct.created, i18n.language) },
+            { id: 2, name: t('created_by'), value: drinkingProduct.createdBy },
+            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(drinkingProduct.modified, i18n.language) },
+            { id: 4, name: t('category'), value: t('drinkingproduct_category_' + getDrinkingProductCategoryNameByID(drinkingProduct.category)) },
+            { id: 5, name: t('drinkingproduct_amount'), value: drinkingProduct.amount }
+        ];
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -113,44 +123,11 @@ export default function DrinkingProductDetails() {
                         onClick={() => setShowEditDrinkingProduct(!showEditDrinkingProduct)} />
                 </ButtonGroup>
             </Row>
-            <Row>
-                <Col>
-                    <Accordion>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>
-                                <PageTitle title={drinkingProduct.name + (drinkingProduct.abv > 0 ? ' (' + drinkingProduct.abv + '%)' : '')}
-                                    iconName={Constants.ICON_COCKTAIL} iconColor='gray' />
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <Table striped bordered hover>
-                                    <tbody>
-                                        <tr>
-                                            <td>{t('created')}</td>
-                                            <td>{getJsonAsDateTimeString(drinkingProduct.created, i18n.language)}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('created_by')}</td>
-                                            <td>{drinkingProduct.createdBy}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('modified')}</td>
-                                            <td>{getJsonAsDateTimeString(drinkingProduct.modified, i18n.language)}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('category')}</td>
-                                            <td>{t('drinkingproduct_category_' + getDrinkingProductCategoryNameByID(drinkingProduct.category))}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('drinkingproduct_amount')}</td>
-                                            <td>{drinkingProduct.amount}</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </Col>
-            </Row>
+
+            <AccordionElement array={getAccordionData()}
+                title={drinkingProduct.name + (drinkingProduct.abv > 0 ? ' (' + drinkingProduct.abv + '%)' : '')}
+                iconName={Constants.ICON_COCKTAIL}
+            />
 
             <Row>
                 <Col>

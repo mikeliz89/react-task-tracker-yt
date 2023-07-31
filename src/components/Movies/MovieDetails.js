@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Accordion, Table, Row, ButtonGroup, Col } from 'react-bootstrap';
+import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from 'i18next';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
-import PageTitle from '../Site/PageTitle';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
 import PageContentWrapper from '../Site/PageContentWrapper';
@@ -20,6 +19,7 @@ import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import { getMovieFormatNameByID } from '../../utils/ListUtils';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
+import AccordionElement from '../AccordionElement';
 
 function MovieDetails() {
 
@@ -99,6 +99,14 @@ function MovieDetails() {
         updateToFirebaseById(Constants.DB_MOVIES, movieID, movie);
     }
 
+    const getAccordionData = () => {
+        return [
+            { id: 1, name: t('created'), value: getJsonAsDateTimeString(movie.created, i18n.language) },
+            { id: 2, name: t('created_by'), value: movie.createdBy },
+            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(movie.modified, i18n.language) }
+        ];
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -113,35 +121,8 @@ function MovieDetails() {
                         onClick={() => setShowEdit(!showEdit)} />
                 </ButtonGroup>
             </Row>
-            <Row>
-                <Col>
-                    <Accordion>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>
-                                <PageTitle title={movie.name} iconColor='gray' />
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <Table striped bordered hover>
-                                    <tbody>
-                                        <tr>
-                                            <td>{t('created')}</td>
-                                            <td>{getJsonAsDateTimeString(movie.created, i18n.language)}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('created_by')}</td>
-                                            <td>{movie.createdBy}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('modified')}</td>
-                                            <td>{getJsonAsDateTimeString(movie.modified, i18n.language)}</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </Col>
-            </Row>
+
+            <AccordionElement array={getAccordionData()} title={movie.name} />
 
             <Row>
                 <Col>

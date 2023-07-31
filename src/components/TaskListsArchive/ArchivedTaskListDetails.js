@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Accordion, Table, Row, Col, ButtonGroup } from 'react-bootstrap';
+import { Row, ButtonGroup } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { ref, onValue, child } from 'firebase/database';
 import Tasks from '../../components/Task/Tasks';
@@ -10,12 +10,12 @@ import Button from '../Buttons/Button';
 import i18n from "i18next";
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-import PageTitle from '../Site/PageTitle';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
 import { getFromFirebaseById, pushToFirebase, updateToFirebase, updateToFirebaseById } from '../../datatier/datatier';
 import { getPageTitleContent } from '../../utils/ListUtils';
+import AccordionElement from '../AccordionElement';
 
 export default function ArchivedTaskListDetails() {
 
@@ -119,6 +119,16 @@ export default function ArchivedTaskListDetails() {
     });
   }
 
+  const getAccordionData = () => {
+    return [
+      { id: 1, name: t('created'), value: getJsonAsDateTimeString(taskList.created, i18n.language) },
+      { id: 2, name: t('created_by'), value: taskList.createdBy },
+      { id: 3, name: t('modified'), value: getJsonAsDateTimeString(taskList.modified, i18n.language) },
+      { id: 4, name: t('tasks_ready_counter'), value: taskReadyCounter + '/' + taskCounter },
+      { id: 5, name: t('category'), value: t(getPageTitleContent(taskList.listType)) }
+    ];
+  }
+
   return loading ? (
     <h3>{t('loading')}</h3>
   ) : (
@@ -138,44 +148,9 @@ export default function ArchivedTaskListDetails() {
       </Row>
 
       {/* TODO: Arkistoidun listan palautustoiminto -nappi */}
-      <Row>
-        <Col>
-          <Accordion>
-            <Accordion.Item>
-              <Accordion.Header>
-                <PageTitle title={taskList.title} iconName={Constants.ICON_LIST_ALT} />
-              </Accordion.Header>
-              <Accordion.Body>
-                {t('description')}: {taskList.description}<br />
-                <Table striped bordered hover>
-                  <tbody>
-                    <tr>
-                      <td>{t('created')}</td>
-                      <td>{getJsonAsDateTimeString(taskList.created, i18n.language)}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('created_by')}</td>
-                      <td>{taskList.createdBy}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('modified')}</td>
-                      <td>{getJsonAsDateTimeString(taskList.modified, i18n.language)}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('tasks_ready_counter')}</td>
-                      <td>{taskReadyCounter}/{taskCounter}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('category')}</td>
-                      <td>{t(getPageTitleContent(taskList.listType))}</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-        </Col>
-      </Row>
+
+      <AccordionElement array={getAccordionData()} title={taskList.title} iconName={Constants.ICON_LIST_ALT} forceOpen={true} />
+
       {tasks != null && tasks.length > 0 ? (
         <>
           <Counter list={tasks} originalList={originalTasks} counter={taskCounter} />

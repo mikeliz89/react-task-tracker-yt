@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Accordion, Table, Row, ButtonGroup, Col, Tabs, Tab } from 'react-bootstrap';
+import { Row, ButtonGroup, Col, Tabs, Tab } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { ref, child, onValue } from 'firebase/database';
 import Button from '../Buttons/Button';
@@ -19,7 +19,6 @@ import WorkPhases from '../Recipe/WorkPhases';
 import Incredients from '../Recipe/Incredients';
 import RecipeHistories from '../Recipe/RecipeHistories';
 import { useAuth } from '../../contexts/AuthContext';
-import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
@@ -28,6 +27,7 @@ import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
+import AccordionElement from '../AccordionElement';
 
 export default function DrinkDetails() {
 
@@ -232,6 +232,16 @@ export default function DrinkDetails() {
         setMessage(t('save_success_drinkinghistory'));
     }
 
+    const getAccordionData = () => {
+        return [
+            { id: 1, name: t('created'), value: getJsonAsDateTimeString(drink.created, i18n.language) },
+            { id: 2, name: t('created_by'), value: drink.createdBy },
+            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(drink.modified, i18n.language) },
+            { id: 4, name: t('glass'), value: drink.glass },
+            { id: 5, name: t('category'), value: t('category_' + getDrinkCategoryNameByID(drink.category)) }
+        ];
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -246,43 +256,9 @@ export default function DrinkDetails() {
                         onClick={() => setShowEditDrink(!showEditDrink)} />
                 </ButtonGroup>
             </Row>
-            <Row>
-                <Col>
-                    <Accordion>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>
-                                <PageTitle title={drink.title} iconName={Constants.ICON_GLASS_MARTINI} iconColor='gray' />
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <Table striped bordered hover>
-                                    <tbody>
-                                        <tr>
-                                            <td>{t('created')}</td>
-                                            <td>{getJsonAsDateTimeString(drink.created, i18n.language)}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('created_by')}</td>
-                                            <td>{drink.createdBy}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('modified')}</td>
-                                            <td>{getJsonAsDateTimeString(drink.modified, i18n.language)}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('glass')}</td>
-                                            <td>{drink.glass}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{t('category')}</td>
-                                            <td>{t('category_' + getDrinkCategoryNameByID(drink.category))}</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </Col>
-            </Row>
+
+            <AccordionElement array={getAccordionData()} title={drink.title} iconName={Constants.ICON_GLASS_MARTINI} />
+
             <Row>
                 <Col>
                     {t('description') + ': '}{drink.description}
