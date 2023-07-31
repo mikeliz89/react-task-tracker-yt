@@ -398,6 +398,7 @@
         "game_console_switch": "Nintendo Switch",
         "have": "Omistan",
         "have_not": "En omista",
+        "is_digital": "Digitaalinen",
         "name": "Pelin nimi",
         "no_games_to_show": "Ei pelejä",
         "publish_year": "Julkaisuvuosi",
