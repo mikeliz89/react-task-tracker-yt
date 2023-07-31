@@ -139,6 +139,14 @@ const AddGame = ({ gameID, onSave, onClose, showLabels }) => {
                         value={isDigital}
                         onChange={(e) => setIsDigital(e.currentTarget.checked)} />
                 </Form.Group>
+                <Form.Group className="mb-3" controlId="addGameForm-IsCollectorsEdition">
+                    <Form.Check
+                        type='checkbox'
+                        label={t('is_collectors_edition')}
+                        checked={isCollectorsEdition}
+                        value={isCollectorsEdition}
+                        onChange={(e) => setIsCollectorsEdition(e.currentTarget.checked)} />
+                </Form.Group>
                 <Row>
                     <ButtonGroup>
                         <Button type='button' text={t('button_close')} className='btn btn-block'

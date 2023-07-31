@@ -399,6 +399,7 @@
         "have": "Omistan",
         "have_not": "En omista",
         "is_digital": "Digitaalinen",
+        "is_collectors_edition": "Keräilyversio",
         "name": "Pelin nimi",
         "no_games_to_show": "Ei pelejä",
         "publish_year": "Julkaisuvuosi",
