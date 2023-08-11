@@ -148,6 +148,7 @@ export default function ManageMovies() {
                         originalList={originalMovies}
                         //search
                         showSearchByText={true}
+                        showSearchByFinnishName={true}
                         showSearchByDescription={true}
                         //sort
                         defaultSort={SortMode.Name_ASC}

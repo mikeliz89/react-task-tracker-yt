@@ -20,6 +20,7 @@ const SearchSortFilter = ({ onSet,
     showSortByPublishYear,
     //searching
     showSearchByText,
+    showSearchByFinnishName,
     showSearchByDescription,
     showSearchByDay,
     showSearchByIncredients,
@@ -39,6 +40,7 @@ const SearchSortFilter = ({ onSet,
 
     //states
     const [searchString, setSearchString] = useState('');
+    const [searchStringFinnishName, setSearchStringFinnishName] = useState('');
     const [searchStringDescription, setSearchStringDescription] = useState('');
     const [searchStringDay, setSearchStringDay] = useState('');
     const [searchStringIncredients, setSearchStringIncredients] = useState('');
@@ -83,7 +85,7 @@ const SearchSortFilter = ({ onSet,
     useEffect(() => {
         filterAndSort();
     }, [sortBy,
-        searchString, searchStringDescription,
+        searchString, searchStringFinnishName, searchStringDescription,
         searchStringIncredients, searchStringDay,
         showOnlySeenLive, showOnlyNotHaveSeenLive,
         showOnlyHaveAtHome, showOnlyNotHaveAtHome,
@@ -115,6 +117,9 @@ const SearchSortFilter = ({ onSet,
                     newList = newList.filter(x => x.title != null && x.title.toLowerCase().includes(searchString.toLowerCase()));
                     break;
             }
+        }
+        if (searchStringFinnishName !== "") {
+            newList = newList.filter(x => x.nameFi != null && x.nameFi.toLowerCase().includes(searchStringFinnishName.toLowerCase()));
         }
         if (searchStringIncredients !== "") {
             newList = newList.filter(x => x.incredients != null && x.incredients.toLowerCase().includes(searchStringIncredients.toLowerCase()));
@@ -363,6 +368,24 @@ const SearchSortFilter = ({ onSet,
                     </>
                 }
                 {
+                    showSearchByFinnishName &&
+                    <>
+                        <Form.Group as={Row}>
+                            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
+                            <Col xs={9} sm={10}>
+                                <Form.Control
+                                    autoComplete='off'
+                                    type="text"
+                                    id="inputSearchStringFinnishName"
+                                    aria-describedby="searchHelpBlock"
+                                    onChange={(e) => setSearchStringFinnishName(e.target.value)}
+                                    placeholder={t('placeholder_finnishname')}
+                                />
+                            </Col>
+                        </Form.Group>
+                    </>
+                }
+                {
                     showSearchByDescription &&
                     <>
                         <Form.Group as={Row}>
@@ -559,6 +582,7 @@ SearchSortFilter.defaultProps = {
     showSortByPublishYear: false,
     //searching
     showSearchByText: false,
+    showSearchByFinnishName: false,
     showSearchByDescription: false,
     showSearchByIncredients: false,
     showSearchByDay: false,
@@ -587,6 +611,7 @@ SearchSortFilter.propTypes = {
     showSortByStarRating: PropTypes.bool,
     //searching
     showSearchByText: PropTypes.bool,
+    showSearchByFinnishName: PropTypes.bool,
     showSearchByDescription: PropTypes.bool,
     showSearchByIncredients: PropTypes.bool,
     showSearchByDay: PropTypes.bool,

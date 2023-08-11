@@ -668,6 +668,7 @@
         "placeholder_description": "Kuvaus",
         "placeholder_incredients": "Ainesosat",
         "placeholder_day": "Teksti",
+        "placeholder_finnishname": "Suomenkielinen nimi",
         "search": "Hae",
         "show": "Näytä",
         "show_only_seen_live": "Nähty livenä",
