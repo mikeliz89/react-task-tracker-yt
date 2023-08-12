@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import GoBackButton from '../Buttons/GoBackButton';
-import { Row, ButtonGroup } from 'react-bootstrap';
+import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
@@ -32,7 +32,11 @@ export default function ManageGames() {
     const [counter, setCounter] = useState(0);
     const [games, setGames] = useState();
     const [originalGames, setOriginalGames] = useState();
-    const [showAdd, setShowAdd] = useState(false);
+
+    //modal
+    const [showAddGame, setShowAddGame] = useState(false);
+    const handleClose = () => setShowAddGame(false);
+    const handleShow = () => setShowAddGame(true);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -111,18 +115,18 @@ export default function ManageGames() {
         <h3>{t('loading')}</h3>
     ) : (
         <PageContentWrapper>
+
+            <PageTitle title={t('games_title')} />
+
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Button
-                        iconName={Constants.ICON_PLUS}
-                        color={showAdd ? 'red' : 'green'}
-                        text={showAdd ? t('button_close') : t('button_add_game')}
-                        onClick={() => setShowAdd(!showAdd)} />
+                    <Link to={Constants.NAVIGATION_MANAGE_GAMELISTS} className='btn btn-primary'>
+                        <Icon name={Constants.ICON_LIST_ALT} color='white' />
+                        {t('button_game_lists')}
+                    </Link>
                 </ButtonGroup>
             </Row>
-
-            <PageTitle title={t('games_title')} />
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
@@ -130,16 +134,14 @@ export default function ManageGames() {
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            <div>
-                <Link to={Constants.NAVIGATION_MANAGE_GAMELISTS} className='btn btn-primary'>
-                    <Icon name={Constants.ICON_LIST_ALT} color='white' />
-                    {t('button_game_lists')}
-                </Link>
-            </div>
-
-            {
-                showAdd && <AddGame onSave={addGame} onClose={() => setShowAdd(false)} />
-            }
+            <Modal show={showAddGame} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_add_game')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddGame onSave={addGame} onClose={() => setShowAddGame(false)} />
+                </Modal.Body>
+            </Modal>
 
             {
                 originalGames != null && originalGames.length > 0 ? (
@@ -162,6 +164,15 @@ export default function ManageGames() {
                     />
                 ) : (<></>)
             }
+
+            <CenterWrapper>
+                <Button
+                    iconName={Constants.ICON_PLUS}
+                    color={showAddGame ? 'red' : 'green'}
+                    text={showAddGame ? t('button_close') : t('button_add_game')}
+                    onClick={() => setShowAddGame(!showAddGame)} />
+            </CenterWrapper>
+
             {
                 games != null && games.length > 0 ? (
                     <>

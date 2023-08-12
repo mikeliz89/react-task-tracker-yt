@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
 import { useNavigate } from 'react-router-dom';
-import Modal from 'react-bootstrap/Modal';
-import { Row, ButtonGroup } from 'react-bootstrap';
+import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import AddTaskList from '../../components/TaskList/AddTaskList';
@@ -37,12 +36,12 @@ export default function ManageTaskLists({ listType }) {
 
   //states
   const [loading, setLoading] = useState(true);
-  const [showAddTaskList, setShowAddTaskList] = useState(false);
   const [taskLists, setTaskLists] = useState();
   const [originalTaskLists, setOriginalTaskLists] = useState();
   const [counter, setCounter] = useState(0);
 
   //modal
+  const [showAddTaskList, setShowAddTaskList] = useState(false);
   const handleClose = () => setShowAddTaskList(false);
   const handleShow = () => setShowAddTaskList(true);
 
@@ -147,17 +146,15 @@ export default function ManageTaskLists({ listType }) {
     <h3>{t('loading')}</h3>
   ) : (
     <PageContentWrapper>
+
+      <PageTitle title={getPageTitle(listType)} />
+
       <Row>
         <ButtonGroup>
           <GoBackButton />
           <Button text={t('button_goto_tasklist_archive')} color="#545454" onClick={() => gotoTaskListArchive()} />
         </ButtonGroup>
       </Row>
-      <PageTitle title={getPageTitle(listType)} />
-
-      <div style={{ marginBottom: '10px' }}>
-        <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={Constants.ICON_COPY} /> &nbsp;
-      </div>
 
       {
         originalTaskLists != null && originalTaskLists.length > 0 ? (
@@ -177,7 +174,11 @@ export default function ManageTaskLists({ listType }) {
       }
 
       <CenterWrapper>
+        <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')}
+          iconName={Constants.ICON_COPY} />
+          &nbsp;
         <Button
+          iconName={Constants.ICON_PLUS}
           color={showAddTaskList ? 'red' : 'green'}
           text={showAddTaskList ? t('button_close') : t('button_add_list')}
           onClick={() => setShowAddTaskList(!showAddTaskList)} />

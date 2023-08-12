@@ -4,7 +4,7 @@ import Alert from '../Alert';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddFueling from './AddFueling';
-import { Tabs, Tab } from 'react-bootstrap';
+import { Tabs, Tab, Row, ButtonGroup } from 'react-bootstrap';
 import AddMaintenance from './AddMaintenance';
 import AddInfo from './AddInfo';
 import CarFuelings from './CarFuelings';
@@ -118,16 +118,24 @@ export default function Car() {
         <h3>{t('loading')}</h3>
     ) : (
         <PageContentWrapper>
-            <GoBackButton />
+
             <PageTitle title={t('car_title')} />
+
+            <Row>
+                <ButtonGroup>
+                    <GoBackButton />
+                </ButtonGroup>
+            </Row>
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
             <Tabs defaultActiveKey="fuelings"
                 id="car-Tabs"
-                className="mb-3">
+                className="mb-3"
+                style={{ marginTop: '10px' }}>
 
                 <Tab eventKey="carInfo" title={t('add_info_title')}>
                     <Button
@@ -211,6 +219,7 @@ export default function Car() {
                     {/* Maintenances End */}
                 </Tab>
             </Tabs>
-        </PageContentWrapper>
+
+        </PageContentWrapper >
     )
 }

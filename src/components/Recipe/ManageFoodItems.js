@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Row, ButtonGroup } from 'react-bootstrap';
+import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../firebase-config';
@@ -29,10 +29,14 @@ const ManageFoodItems = () => {
 
     //states
     const [loading, setLoading] = useState(true);
-    const [showAddFoodItem, setShowAddFoodItem] = useState(false);
     const [counter, setCounter] = useState(0);
     const [foodItems, setFoodItems] = useState();
     const [originalFoodItems, setOriginalFoodItems] = useState();
+
+    //modal
+    const [showAddFoodItem, setShowAddFoodItem] = useState(false);
+    const handleClose = () => setShowAddFoodItem(false);
+    const handleShow = () => setShowAddFoodItem(true);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -108,23 +112,29 @@ const ManageFoodItems = () => {
         <h3>{t('loading')}</h3>
     ) : (
         <PageContentWrapper>
+
+            <PageTitle title={t('manage_fooditems_title')} />
+
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Button
-                        color={showAddFoodItem ? 'red' : 'green'}
-                        text={showAddFoodItem ? t('button_close') : t('button_add_fooditem')}
-                        onClick={() => setShowAddFoodItem(!showAddFoodItem)} />
                 </ButtonGroup>
             </Row>
-            <PageTitle title={t('manage_fooditems_title')} />
+
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
-            {
-                showAddFoodItem &&
-                <AddFoodItem onClose={() => setShowAddFoodItem(!showAddFoodItem)} onAddFoodItem={addFoodItem} />
-            }
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
+
+            <Modal show={showAddFoodItem} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_add_food_item')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddFoodItem onClose={() => setShowAddFoodItem(!showAddFoodItem)}
+                        onAddFoodItem={addFoodItem} />
+                </Modal.Body>
+            </Modal>
 
             {
                 originalFoodItems != null && originalFoodItems.length > 0 ? (
@@ -143,6 +153,13 @@ const ManageFoodItems = () => {
                     />
                 ) : (<></>)
             }
+
+            <CenterWrapper>
+                <Button
+                    color={showAddFoodItem ? 'red' : 'green'}
+                    text={showAddFoodItem ? t('button_close') : t('button_add_fooditem')}
+                    onClick={() => setShowAddFoodItem(!showAddFoodItem)} />
+            </CenterWrapper>
 
             {
                 foodItems != null && foodItems.length > 0 ? (

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup } from 'react-bootstrap';
+import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -26,11 +26,15 @@ export default function ManageGear() {
     const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
 
     //states
-    const [showAdd, setShowAdd] = useState(false);
     const [gear, setGear] = useState();
     const [originalGear, setOriginalGear] = useState();
     const [loading, setLoading] = useState(true);
     const [counter, setCounter] = useState(0);
+
+    //modal
+    const [showAddGear, setShowAddGear] = useState(false);
+    const handleClose = () => setShowAddGear(false);
+    const handleShow = () => setShowAddGear(true);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -104,26 +108,28 @@ export default function ManageGear() {
         <h3>{t('loading')}</h3>
     ) : (
         <PageContentWrapper>
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                    <Button
-                        iconName={Constants.ICON_PLUS}
-                        color={showAdd ? 'red' : 'green'}
-                        text={showAdd ? t('button_close') : t('button_add_gear')}
-                        onClick={() => setShowAdd(!showAdd)} />
-                </ButtonGroup>
-            </Row>
 
             <PageTitle title={t('my_gear_title')} />
 
+            <Row>
+                <ButtonGroup>
+                    <GoBackButton />
+                </ButtonGroup>
+            </Row>
+
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
-            {
-                showAdd && <AddGear onSave={addGear} onClose={() => setShowAdd(false)} />
-            }
+            <Modal show={showAddGear} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_add_gear')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddGear onSave={addGear} onClose={() => setShowAddGear(false)} />
+                </Modal.Body>
+            </Modal>
 
             {
                 originalGear != null && originalGear.length > 0 ? (
@@ -141,6 +147,15 @@ export default function ManageGear() {
                     />
                 ) : (<></>)
             }
+
+            <CenterWrapper>
+                <Button
+                    iconName={Constants.ICON_PLUS}
+                    color={showAddGear ? 'red' : 'green'}
+                    text={showAddGear ? t('button_close') : t('button_add_gear')}
+                    onClick={() => setShowAddGear(!showAddGear)} />
+            </CenterWrapper>
+
             {
                 gear != null && gear.length > 0 ? (
                     <>

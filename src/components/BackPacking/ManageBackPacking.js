@@ -5,6 +5,7 @@ import PageTitle from '../Site/PageTitle';
 import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import * as Constants from '../../utils/Constants';
+import { ButtonGroup, Row } from 'react-bootstrap';
 
 export default function ManageBackPacking() {
 
@@ -13,18 +14,27 @@ export default function ManageBackPacking() {
 
     return (
         <PageContentWrapper>
-            <GoBackButton />
+
             <PageTitle title={t('manage_backpacking_title')} />
-            <Link to={Constants.NAVIGATION_MANAGE_GEAR} className='btn btn-primary'>{t('button_manage_gear')}</Link>
-            &nbsp;
-            <Link to={Constants.NAVIGATION_MANAGE_GEAR_MAINTENANCE} className='btn btn-primary'>
-                {t('button_manage_gear_maintenance')}
-            </Link>
-            &nbsp;
-            <Link to={Constants.NAVIGATION_MANAGE_BACKPACKINGLISTS} className='btn btn-primary'>
-                <Icon name={Constants.ICON_LIST_ALT} color='white' />
-                {t('button_manage_backpacking_lists')}
-            </Link>
+
+            <Row>
+
+                <ButtonGroup>
+                    <GoBackButton />
+                    <Link to={Constants.NAVIGATION_MANAGE_GEAR} className='btn btn-primary'>
+                        {t('button_manage_gear')}
+                    </Link>
+
+                    <Link to={Constants.NAVIGATION_MANAGE_GEAR_MAINTENANCE} className='btn btn-primary'>
+                        {t('button_manage_gear_maintenance')}
+                    </Link>
+
+                    <Link to={Constants.NAVIGATION_MANAGE_BACKPACKINGLISTS} className='btn btn-primary'>
+                        <Icon name={Constants.ICON_LIST_ALT} color='white' />
+                        {t('button_manage_backpacking_lists')}
+                    </Link>
+                </ButtonGroup>
+            </Row>
         </PageContentWrapper>
     )
 }

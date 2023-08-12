@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Row, ButtonGroup } from 'react-bootstrap';
+import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import Icon from '../Icon';
@@ -32,7 +32,11 @@ export default function ManageMovies() {
     const [counter, setCounter] = useState(0);
     const [movies, setMovies] = useState();
     const [originalMovies, setOriginalMovies] = useState();
-    const [showAdd, setShowAdd] = useState(false);
+
+    //modal
+    const [showAddMovie, setShowAddMovie] = useState(false);
+    const handleClose = () => setShowAddMovie(false);
+    const handleShow = () => setShowAddMovie(true);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -111,18 +115,18 @@ export default function ManageMovies() {
         <h3>{t('loading')}</h3>
     ) : (
         <PageContentWrapper>
+
+            <PageTitle title={t('movies_title')} />
+
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Button
-                        iconName={Constants.ICON_PLUS}
-                        color={showAdd ? 'red' : 'green'}
-                        text={showAdd ? t('button_close') : t('button_add_movie')}
-                        onClick={() => setShowAdd(!showAdd)} />
+                    <Link to={Constants.NAVIGATION_MANAGE_MOVIELISTS} className='btn btn-primary'>
+                        <Icon name={Constants.ICON_LIST_ALT} color='white' />
+                        {t('button_movie_lists')}
+                    </Link>
                 </ButtonGroup>
             </Row>
-
-            <PageTitle title={t('movies_title')} />
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
@@ -130,17 +134,14 @@ export default function ManageMovies() {
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            <div>
-                <Link to={Constants.NAVIGATION_MANAGE_MOVIELISTS} className='btn btn-primary'>
-                    <Icon name={Constants.ICON_LIST_ALT} color='white' />
-                    {t('button_movie_lists')}
-                </Link>
-            </div>
-
-            {
-                showAdd &&
-                <AddMovie onSave={addMovie} onClose={() => setShowAdd(false)} />
-            }
+            <Modal show={showAddMovie} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_add_movie')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddMovie onSave={addMovie} onClose={() => setShowAddMovie(false)} />
+                </Modal.Body>
+            </Modal>
 
             {
                 originalMovies != null && originalMovies.length > 0 ? (
@@ -164,6 +165,15 @@ export default function ManageMovies() {
                     />
                 ) : (<></>)
             }
+
+            <CenterWrapper>
+                <Button
+                    iconName={Constants.ICON_PLUS}
+                    color={showAddMovie ? 'red' : 'green'}
+                    text={showAddMovie ? t('button_close') : t('button_add_movie')}
+                    onClick={() => setShowAddMovie(!showAddMovie)} />
+            </CenterWrapper>
+
             {
                 movies != null && movies.length > 0 ? (
                     <>

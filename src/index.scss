@@ -331,6 +331,10 @@ form {
     background-color: dimgrey;
 }
 
+#dark .deleteBtn {
+    color: red;
+}
+
 /* Theme end */
 
 /* Modal styles start */
@@ -354,3 +358,7 @@ form {
 }
 
 /* Modal styles end */
+
+.searchSortFilter {
+    margin-top: 10px;
+}

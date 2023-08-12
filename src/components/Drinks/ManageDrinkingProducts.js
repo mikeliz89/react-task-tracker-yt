@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Row, ButtonGroup } from 'react-bootstrap';
+import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../firebase-config';
@@ -28,11 +28,15 @@ const ManageDrinkingProducts = () => {
     const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
     //states
-    const [showAddDrinkingProduct, setShowAddDrinkingProduct] = useState(false);
     const [drinkingProducts, setDrinkingProducts] = useState();
     const [originalDrinkingProducts, setOriginalDrinkingProducts] = useState();
     const [counter, setCounter] = useState(0);
     const [loading, setLoading] = useState(true);
+
+    //modal
+    const [showAddDrinkingProduct, setShowAddDrinkingProduct] = useState(false);
+    const handleClose = () => setShowAddDrinkingProduct(false);
+    const handleShow = () => setShowAddDrinkingProduct(true);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -100,26 +104,31 @@ const ManageDrinkingProducts = () => {
         <h3>{t('loading')}</h3>
     ) : (
         <PageContentWrapper>
+
+            <PageTitle title={t('manage_drinkingproducts_title')} />
+
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Button
-                        iconName={Constants.ICON_PLUS}
-                        secondIconName={Constants.ICON_WINE}
-                        color={showAddDrinkingProduct ? 'red' : 'green'}
-                        text={showAddDrinkingProduct ? t('button_close') : t('button_add_drinkingproduct')}
-                        onClick={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)} />
                 </ButtonGroup>
             </Row>
-            <PageTitle title={t('manage_drinkingproducts_title')} />
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
-            {showAddDrinkingProduct &&
-                <AddDrinkingProduct onClose={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)} onAddDrinkingProduct={addDrinkingProduct} />
-            }
+            <Modal show={showAddDrinkingProduct} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_add_drinking_product')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddDrinkingProduct
+                        onClose={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)}
+                        onAddDrinkingProduct={addDrinkingProduct}
+                    />
+                </Modal.Body>
+            </Modal>
 
             {
                 originalDrinkingProducts != null && originalDrinkingProducts.length > 0 ? (
@@ -139,6 +148,15 @@ const ManageDrinkingProducts = () => {
                     />
                 ) : (<></>)
             }
+
+            <CenterWrapper>
+                <Button
+                    iconName={Constants.ICON_PLUS}
+                    secondIconName={Constants.ICON_WINE}
+                    color={showAddDrinkingProduct ? 'red' : 'green'}
+                    text={showAddDrinkingProduct ? t('button_close') : t('button_add_drinkingproduct')}
+                    onClick={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)} />
+            </CenterWrapper>
 
             {
                 drinkingProducts != null && drinkingProducts.length > 0 ? (

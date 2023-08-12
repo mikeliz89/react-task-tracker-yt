@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
-import { Row, ButtonGroup } from 'react-bootstrap';
+import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../firebase-config';
@@ -37,6 +37,10 @@ export default function ManageDrinks() {
     const [drinks, setDrinks] = useState();
     const [originalDrinks, setOriginalDrinks] = useState();
     const [counter, setCounter] = useState(0);
+
+    //modal
+    const handleClose = () => setShowAddDrink(false);
+    const handleShow = () => setShowAddDrink(true);
 
     //alert
     const [showError, setShowError] = useState(false);
@@ -106,28 +110,21 @@ export default function ManageDrinks() {
         <h3>{t('loading')}</h3>
     ) : (
         <PageContentWrapper>
+            <PageTitle title={t('manage_drinks_title')} />
+
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Button
-                        color={showAddDrink ? 'red' : 'green'}
-                        text={showAddDrink ? t('button_close') : t('button_add_drinks')}
-                        onClick={() => setShowAddDrink(!showAddDrink)} />
+                    <Link to={Constants.NAVIGATION_MANAGE_DRINKINPRODUCTS} className='btn btn-primary'>
+                        <Icon name={Constants.ICON_WINE} color='white' />
+                        {t('button_manage_drinkingproducts')}
+                    </Link>
+                    <Link to={Constants.NAVIGATION_MANAGE_DRINKLISTS} className='btn btn-primary'>
+                        <Icon name={Constants.ICON_LIST_ALT} color='white' />
+                        {t('button_drinklists')}
+                    </Link>
                 </ButtonGroup>
             </Row>
-            <PageTitle title={t('manage_drinks_title')} />
-
-            <div>
-                <Link to={Constants.NAVIGATION_MANAGE_DRINKINPRODUCTS} className='btn btn-primary'>
-                    <Icon name={Constants.ICON_WINE} color='white' />
-                    {t('button_manage_drinkingproducts')}
-                </Link>
-                &nbsp;
-                <Link to={Constants.NAVIGATION_MANAGE_DRINKLISTS} className='btn btn-primary'>
-                    <Icon name={Constants.ICON_LIST_ALT} color='white' />
-                    {t('button_drinklists')}
-                </Link>
-            </div>
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
@@ -135,12 +132,19 @@ export default function ManageDrinks() {
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            {showAddDrink &&
-                <AddDrink onSave={addDrink} onClose={() => setShowAddDrink(false)} />
-            }
+            <Modal show={showAddDrink} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_add_drink')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddDrink onSave={addDrink} onClose={() => setShowAddDrink(false)} />
+                </Modal.Body>
+            </Modal>
+
 
             {
                 originalDrinks != null && originalDrinks.length > 0 ? (
+
                     <SearchSortFilter
                         onSet={setDrinks}
                         originalList={originalDrinks}
@@ -159,8 +163,16 @@ export default function ManageDrinks() {
                         showFilterHaveRated={true}
                         showFilterNotHaveRated={true}
                     />
+
                 ) : (<></>)
             }
+
+            <CenterWrapper>
+                <Button
+                    color={showAddDrink ? 'red' : 'green'}
+                    text={showAddDrink ? t('button_close') : t('button_add_drinks')}
+                    onClick={() => setShowAddDrink(!showAddDrink)} />
+            </CenterWrapper>
 
             {
                 drinks != null && drinks.length > 0 ? (

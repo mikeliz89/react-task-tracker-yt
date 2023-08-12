@@ -106,6 +106,9 @@ const BmiCalculator = () => {
 
     return (
         <PageContentWrapper>
+
+            <PageTitle title={t('title')} />
+
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
@@ -116,8 +119,6 @@ const BmiCalculator = () => {
                         onClick={() => navigate(Constants.NAVIGATION_WEIGHTHISTORY)} />
                 </ButtonGroup>
             </Row>
-
-            <PageTitle title={t('title')} />
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}

@@ -83,6 +83,9 @@ function ManageGearMaintenance() {
         <h3>{t('loading')}</h3>
     ) : (
         <PageContentWrapper>
+
+            <PageTitle title={t('button_manage_gear_maintenance')} />
+
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
@@ -93,7 +96,7 @@ function ManageGearMaintenance() {
                         onClick={() => setShowAdd(!showAdd)} />
                 </ButtonGroup>
             </Row>
-            <PageTitle title={t('button_manage_gear_maintenance')} />
+
             {
                 showAdd && <AddGearMaintenanceInstruction onSave={addGearMaintenanceInstruction} onClose={() => setShowAdd(false)} />
             }

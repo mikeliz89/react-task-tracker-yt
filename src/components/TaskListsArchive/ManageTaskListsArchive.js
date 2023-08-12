@@ -66,8 +66,10 @@ const ManageTaskListsArchive = () => {
     <h3>{t('loading')}</h3>
   ) : (
     <PageContentWrapper>
-      <GoBackButton />
+
       <PageTitle title={t('manage_tasklists_archive_title')} />
+
+      <GoBackButton />
 
       {taskLists != null && taskLists.length > 0 ? (
         <>

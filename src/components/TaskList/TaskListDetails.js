@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Col, Row, ButtonGroup, Tab, Tabs } from 'react-bootstrap';
-import Modal from 'react-bootstrap/Modal';
+import { Col, Row, ButtonGroup, Tab, Tabs, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';

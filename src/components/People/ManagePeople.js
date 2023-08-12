@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup } from 'react-bootstrap';
+import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -26,11 +26,15 @@ export default function ManagePeople() {
     const { t } = useTranslation(Constants.TRANSLATION_PEOPLE, { keyPrefix: Constants.TRANSLATION_PEOPLE });
 
     //states
-    const [showAdd, setShowAdd] = useState(false);
     const [people, setPeople] = useState();
     const [originalPeople, setOriginalPeople] = useState();
     const [loading, setLoading] = useState(true);
     const [counter, setCounter] = useState(0);
+
+    //modal
+    const [showAddPerson, setShowAddPerson] = useState(false);
+    const handleClose = () => setShowAddPerson(false);
+    const handleShow = () => setShowAddPerson(true);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -104,26 +108,28 @@ export default function ManagePeople() {
         <h3>{t('loading')}</h3>
     ) : (
         <PageContentWrapper>
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                    <Button
-                        iconName={Constants.ICON_PLUS}
-                        color={showAdd ? 'red' : 'green'}
-                        text={showAdd ? t('button_close') : t('button_add_person')}
-                        onClick={() => setShowAdd(!showAdd)} />
-                </ButtonGroup>
-            </Row>
 
             <PageTitle title={t('title')} />
 
+            <Row>
+                <ButtonGroup>
+                    <GoBackButton />
+                </ButtonGroup>
+            </Row>
+
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
-            {
-                showAdd && <AddPerson onSave={addPerson} onClose={() => setShowAdd(false)} />
-            }
+            <Modal show={showAddPerson} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_add_person')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddPerson onSave={addPerson} onClose={() => setShowAddPerson(false)} />
+                </Modal.Body>
+            </Modal>
 
             {
                 originalPeople != null && originalPeople.length > 0 ? (
@@ -142,6 +148,15 @@ export default function ManagePeople() {
                     />
                 ) : (<></>)
             }
+
+            <CenterWrapper>
+                <Button
+                    iconName={Constants.ICON_PLUS}
+                    color={showAddPerson ? 'red' : 'green'}
+                    text={showAddPerson ? t('button_close') : t('button_add_person')}
+                    onClick={() => setShowAddPerson(!showAddPerson)} />
+            </CenterWrapper>
+
             {
                 people != null && people.length > 0 ? (
                     <>

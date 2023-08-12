@@ -67,18 +67,15 @@ const ManageExercises = () => {
     <h3>{t('loading')}</h3>
   ) : (
     <PageContentWrapper>
+
+      <PageTitle title={t('manage_exercises_title')} />
+
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <Link className="btn btn-primary" to={`/createexercise`}>{t('create_exercise')}</Link>
+          <Link to={Constants.NAVIGATION_MANAGE_MOVEMENTS} className='btn btn-primary'>{t('manage_movements_button')}</Link>
         </ButtonGroup>
       </Row>
-      <PageTitle title={t('manage_exercises_title')} />
-
-      <Link to={Constants.NAVIGATION_MANAGE_MOVEMENTS} className='btn btn-primary'>{t('manage_movements_button')}</Link>
-      <CenterWrapper>
-        {t('exercises')}
-      </CenterWrapper>
 
       {
         originalExercises != null && originalExercises.length > 0 ? (
@@ -93,6 +90,10 @@ const ManageExercises = () => {
           />
         ) : (<></>)
       }
+
+      <CenterWrapper>
+        <Link className="btn btn-primary" to={`/createexercise`}>{t('create_exercise')}</Link>
+      </CenterWrapper>
 
       {
         exercises != null && exercises.length > 0 ? (

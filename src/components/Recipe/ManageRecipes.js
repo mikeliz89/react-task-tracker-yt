@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { ButtonGroup, Row } from 'react-bootstrap';
+import { ButtonGroup, Modal, Row } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -27,10 +27,14 @@ const ManageRecipes = () => {
 
   //states
   const [loading, setLoading] = useState(true);
-  const [showAddRecipe, setShowAddRecipe] = useState(false);
   const [recipes, setRecipes] = useState();
   const [originalRecipes, setOriginalRecipes] = useState();
   const [counter, setCounter] = useState(0);
+
+  //modal
+  const [showAddRecipe, setShowAddRecipe] = useState(false);
+  const handleClose = () => setShowAddRecipe(false);
+  const handleShow = () => setShowAddRecipe(true);
 
   //alert
   const [message, setMessage] = useState('');
@@ -111,34 +115,32 @@ const ManageRecipes = () => {
     <h3>{t('loading')}</h3>
   ) : (
     <PageContentWrapper>
+
+      <PageTitle title={t('manage_recipes_title')} />
+
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <Button
-            color={showAddRecipe ? 'red' : 'green'}
-            text={showAddRecipe ? t('button_close') : t('button_add_recipe')}
-            onClick={() => setShowAddRecipe(!showAddRecipe)} />
+          <Link to={Constants.NAVIGATION_MANAGE_FOODITEMS} className='btn btn-primary'>{t('button_manage_fooditems')}</Link>
+          <Link to={Constants.NAVIGATION_MANAGE_RECIPELISTS} className='btn btn-primary'>
+            <Icon name={Constants.ICON_LIST_ALT} color='white' />
+            {t('button_recipe_lists')}
+          </Link>
         </ButtonGroup>
       </Row>
-      <PageTitle title={t('manage_recipes_title')} />
-
-
-      <div>
-        <Link to={Constants.NAVIGATION_MANAGE_FOODITEMS} className='btn btn-primary'>{t('button_manage_fooditems')}</Link>
-        &nbsp;
-        <Link to={Constants.NAVIGATION_MANAGE_RECIPELISTS} className='btn btn-primary'>
-          <Icon name={Constants.ICON_LIST_ALT} color='white' />
-          {t('button_recipe_lists')}
-        </Link>
-      </div>
 
       <Alert message={message} showMessage={showMessage}
         error={error} showError={showError}
         variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-      {
-        showAddRecipe && <AddRecipe onClose={() => setShowAddRecipe(false)} onSave={addRecipe} />
-      }
+      <Modal show={showAddRecipe} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{t('modal_header_add_recipe')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddRecipe onClose={() => setShowAddRecipe(false)} onSave={addRecipe} />
+        </Modal.Body>
+      </Modal>
 
       {
         originalRecipes != null && originalRecipes.length > 0 ? (
@@ -162,6 +164,13 @@ const ManageRecipes = () => {
           />
         ) : (<></>)
       }
+
+      <CenterWrapper>
+        <Button
+          color={showAddRecipe ? 'red' : 'green'}
+          text={showAddRecipe ? t('button_close') : t('button_add_recipe')}
+          onClick={() => setShowAddRecipe(!showAddRecipe)} />
+      </CenterWrapper>
 
       {
         recipes != null && recipes.length > 0 ? (

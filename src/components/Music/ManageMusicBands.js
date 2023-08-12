@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Row, ButtonGroup } from 'react-bootstrap';
+import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import Icon from '../Icon';
@@ -32,7 +32,11 @@ export default function ManageMusicBands() {
     const [counter, setCounter] = useState(0);
     const [bands, setBands] = useState();
     const [originalBands, setOriginalBands] = useState();
+    
+    //modal
     const [showAdd, setShowAdd] = useState(false);
+    const handleClose = () => setShowAdd(false);
+    const handleShow = () => setShowAdd(true);
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -111,18 +115,18 @@ export default function ManageMusicBands() {
         <h3>{t('loading')}</h3>
     ) : (
         <PageContentWrapper>
+
+            <PageTitle title={t('music_bands_title')} />
+
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Button
-                        iconName={Constants.ICON_PLUS}
-                        color={showAdd ? 'red' : 'green'}
-                        text={showAdd ? t('button_close') : t('button_add_music_band')}
-                        onClick={() => setShowAdd(!showAdd)} />
+                    <Link to={Constants.NAVIGATION_MANAGE_MUSICLISTS} className='btn btn-primary'>
+                        <Icon name={Constants.ICON_LIST_ALT} color='white' />
+                        {t('button_music_lists')}
+                    </Link>
                 </ButtonGroup>
             </Row>
-
-            <PageTitle title={t('music_bands_title')} />
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
@@ -130,16 +134,14 @@ export default function ManageMusicBands() {
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            <div>
-                <Link to={Constants.NAVIGATION_MANAGE_MUSICLISTS} className='btn btn-primary'>
-                    <Icon name={Constants.ICON_LIST_ALT} color='white' />
-                    {t('button_music_lists')}
-                </Link>
-            </div>
-
-            {
-                showAdd && <AddBand onSave={addBand} onClose={() => setShowAdd(false)} />
-            }
+            <Modal show={showAdd} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_add_band')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddBand onSave={addBand} onClose={() => setShowAdd(false)} />
+                </Modal.Body>
+            </Modal>
 
             {
                 originalBands != null && originalBands.length > 0 ? (
@@ -161,6 +163,14 @@ export default function ManageMusicBands() {
                     />
                 ) : (<></>)
             }
+
+            <CenterWrapper>
+                <Button
+                    iconName={Constants.ICON_PLUS}
+                    color={showAdd ? 'red' : 'green'}
+                    text={showAdd ? t('button_close') : t('button_add_music_band')}
+                    onClick={() => setShowAdd(!showAdd)} />
+            </CenterWrapper>
 
             {
                 bands != null && bands.length > 0 ? (

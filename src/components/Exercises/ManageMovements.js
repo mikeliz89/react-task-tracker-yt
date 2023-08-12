@@ -1,4 +1,4 @@
-import { ButtonGroup, Row } from 'react-bootstrap';
+import { ButtonGroup, Modal, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
@@ -12,8 +12,12 @@ import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import * as Constants from '../../utils/Constants';
-import { removeFromFirebaseById } from '../../datatier/datatier';
+import { removeFromFirebaseById, pushToFirebase } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import Button from '../Buttons/Button';
+import AddMovement from './AddMovement';
+import { useAuth } from '../../contexts/AuthContext';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 
 function ManageMovements() {
 
@@ -25,6 +29,20 @@ function ManageMovements() {
     const [movements, setMovements] = useState();
     const [counter, setCounter] = useState(0);
     const [originalMovements, setOriginalMovements] = useState();
+
+    //modal
+    const [showAddMovement, setShowAddMovement] = useState(false);
+    const handleClose = () => setShowAddMovement(false);
+    const handleShow = () => setShowAddMovement(true);
+
+    //alert
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
+
+    //user
+    const { currentUser } = useAuth();
 
     //load data
     useEffect(() => {
@@ -64,20 +82,40 @@ function ManageMovements() {
         removeFromFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, id);
     }
 
+
+    function clearMessages() {
+        setError('');
+        setShowError(false);
+        setMessage('');
+        setShowMessage(false);
+    }
+
+    const addMovement = async (movement) => {
+        try {
+            clearMessages();
+            movement["created"] = getCurrentDateAsJson();
+            movement["createdBy"] = currentUser.email;
+            pushToFirebase(Constants.DB_EXERCISE_MOVEMENTS, movement);
+            setMessage(t('save_success'));
+            setShowMessage(true);
+        } catch (ex) {
+            setError(t('movement_save_exception'));
+            setShowError(true);
+        }
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
         <PageContentWrapper>
+
+            <PageTitle title={t('manage_movements_title')} />
+
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Link className="btn btn-primary" to={`/addmovement`}>{t('add_movement')}</Link>
                 </ButtonGroup>
             </Row>
-            <PageTitle title={t('manage_movements_title')} />
-            <CenterWrapper>
-                {t('movements')}
-            </CenterWrapper>
 
             {
                 originalMovements != null && originalMovements.length > 0 ? (
@@ -95,6 +133,23 @@ function ManageMovements() {
                     />
                 ) : (<></>)
             }
+
+            <CenterWrapper>
+                <Button
+                    iconName={Constants.ICON_PLUS}
+                    color={showAddMovement ? 'red' : 'green'}
+                    text={showAddMovement ? t('button_close') : t('button_add_movement')}
+                    onClick={() => setShowAddMovement(!showAddMovement)} />
+            </CenterWrapper>
+
+            <Modal show={showAddMovement} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_add_movement')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddMovement onSave={addMovement} onClose={() => setShowAddMovement(false)} />
+                </Modal.Body>
+            </Modal>
 
             {
                 movements != null && movements.length > 0 ? (
