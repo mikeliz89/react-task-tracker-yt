@@ -4,7 +4,7 @@ import Alert from '../Alert';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddFueling from './AddFueling';
-import { Tabs, Tab, Row, ButtonGroup } from 'react-bootstrap';
+import { Tabs, Tab, Row, ButtonGroup, Modal } from 'react-bootstrap';
 import AddMaintenance from './AddMaintenance';
 import AddInfo from './AddInfo';
 import CarFuelings from './CarFuelings';
@@ -32,11 +32,17 @@ export default function Car() {
 
     //states
     const [loading, setLoading] = useState(true);
-    const [showAddFueling, setShowAddFueling] = useState(false);
-    const [showAddMaintenance, setShowAddMaintenance] = useState(false);
     const [showAddInfo, setShowAddInfo] = useState(false);
     const [carFuelings, setCarFuelings] = useState({});
     const [carMaintenances, setCarMaintenances] = useState({});
+
+    //modal
+    const [showAddMaintenance, setShowAddMaintenance] = useState(false);
+    const [showAddFueling, setShowAddFueling] = useState(false);
+    const handleClose = () => {
+        setShowAddFueling(false);
+        setShowAddMaintenance(false);
+    }
 
     //user
     const { currentUser } = useAuth();
@@ -138,18 +144,11 @@ export default function Car() {
                 style={{ marginTop: '10px' }}>
 
                 <Tab eventKey="carInfo" title={t('add_info_title')}>
-                    <Button
-                        color={showAddInfo ? 'red' : 'steelblue'}
-                        onClick={() => setShowAddInfo(!showAddInfo)}
-                        text={showAddInfo ? t('button_close') : t('add_info')}
-                        iconName={Constants.ICON_CAR} />
                     {/* Info Start */}
                     {
-                        showAddInfo ?
-                            (<div>
-                                <AddInfo onClose={() => setShowAddInfo(false)} />
-                            </div>
-                            ) : ''
+                        <div>
+                            <AddInfo onClose={() => setShowAddInfo(false)} />
+                        </div>
                     }
                     {/* Info End */}
                 </Tab>
@@ -160,13 +159,18 @@ export default function Car() {
                         text={showAddFueling ? t('button_close') : t('add_fueling')}
                         iconName={Constants.ICON_GAS_PUMP} />
                     {
-                        showAddFueling ?
-                            (<div>
+
+                        <Modal show={showAddFueling} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>{t('modal_header_add_fueling')}</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
                                 <AddFueling
                                     onSave={addFueling}
                                     onClose={() => setShowAddFueling(false)} />
-                            </div>
-                            ) : ''
+                            </Modal.Body>
+                        </Modal>
+
                     }
                     {/* Fuelings Start */}
                     <div>
@@ -192,13 +196,18 @@ export default function Car() {
                         text={showAddFueling ? t('button_close') : t('add_maintenance')}
                         iconName={Constants.ICON_WRENCH} />
                     {
-                        showAddMaintenance ?
-                            (<div>
+
+                        <Modal show={showAddMaintenance} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>{t('modal_header_add_maintenance')}</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
                                 <AddMaintenance
                                     onSave={addMaintenance}
                                     onClose={() => setShowAddMaintenance(false)} />
-                            </div>
-                            ) : ''
+                            </Modal.Body>
+                        </Modal>
+
                     }
                     {/* Maintenances Start */}
 

@@ -98,7 +98,7 @@
         "your_bmi_is": "Painoindeksisi on"
     },
     "car": {
-        "add_fueling": "Lisää tankilla käynti",
+        "add_fueling": "Lisää tankkaus",
         "add_fueling_title": "Tankilla käynti",
         "add_info": "Ajoneuvon tiedot",
         "add_info_title": "Ajoneuvon tiedot",
@@ -125,6 +125,8 @@
         "maintenance_price": "Huollon hinta",
         "maintenances_price_sum": "Huollot yhteensä (euroina)",
         "meter_kilometers": "Matkamittarin km lukema",
+        "modal_header_add_maintenance": "Lisää huolto",
+        "modal_header_add_fueling": "Lisää tankkaus",
         "model_year": "Vuosimalli",
         "no_car_fuelings": "Ei tankkauksia",
         "no_car_maintenances": "Ei huoltoja",
