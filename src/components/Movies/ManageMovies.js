@@ -138,7 +138,8 @@ export default function ManageMovies() {
             </div>
 
             {
-                showAdd && <AddMovie onSave={addMovie} onClose={() => setShowAdd(false)} />
+                showAdd &&
+                <AddMovie onSave={addMovie} onClose={() => setShowAdd(false)} />
             }
 
             {

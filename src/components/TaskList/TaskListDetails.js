@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Col, Row, ButtonGroup, Tab, Tabs } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -41,6 +42,10 @@ function TaskListDetails() {
   const [tasks, setTasks] = useState();
   const [originalTasks, setOriginalTasks] = useState();
   const [showChangeListType, setShowChangeListType] = useState(false);
+
+  //modal
+  const handleClose = () => setShowAddTask(false);
+  const handleShow = () => setShowAddTask(true);
 
   //counters
   const [taskCounter, setTaskCounter] = useState(0);
@@ -297,7 +302,18 @@ function TaskListDetails() {
               text={showAddTask ? t('button_close') : t('button_add_task')}
               onClick={() => setShowAddTask(!showAddTask)} />
           </CenterWrapper>
-          {showAddTask && <AddTask onClose={() => setShowAddTask(false)} taskListID={params.id} onSave={updateTask} />}
+
+          <Modal show={showAddTask} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>{t('modal_header_add_task')}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <AddTask
+                onClose={() => setShowAddTask(false)}
+                taskListID={params.id} onSave={updateTask}
+              />
+            </Modal.Body>
+          </Modal>
 
           {tasks != null && tasks.length > 0 ? (
             <>

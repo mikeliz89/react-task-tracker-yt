@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
 import { useNavigate } from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
@@ -40,6 +41,10 @@ export default function ManageTaskLists({ listType }) {
   const [taskLists, setTaskLists] = useState();
   const [originalTaskLists, setOriginalTaskLists] = useState();
   const [counter, setCounter] = useState(0);
+
+  //modal
+  const handleClose = () => setShowAddTaskList(false);
+  const handleShow = () => setShowAddTaskList(true);
 
   //load data
   useEffect(() => {
@@ -178,9 +183,17 @@ export default function ManageTaskLists({ listType }) {
           onClick={() => setShowAddTaskList(!showAddTaskList)} />
       </CenterWrapper>
 
-      {showAddTaskList &&
-        <AddTaskList onClose={() => setShowAddTaskList(false)} onSave={addTaskList} showLabels={true} defaultTitle={getDefaultTitle(listType)} />
-      }
+      <Modal show={showAddTaskList} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{t('modal_header_add_list')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddTaskList
+            onClose={() => handleClose()}
+            onSave={addTaskList} showLabels={true}
+            defaultTitle={getDefaultTitle(listType)} />
+        </Modal.Body>
+      </Modal>
 
       {taskLists != null && taskLists.length > 0 ? (
         <>

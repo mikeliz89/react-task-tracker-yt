@@ -749,6 +749,8 @@
         "mark_all_tasks_done": "Merkkaa kaikki tehdyiksi",
         "mark_all_tasks_done_confirm_message": "Oletko varma?",
         "modified": "Muokattu",
+        "modal_header_add_list": "Lisää lista",
+        "modal_header_add_task": "Lisää tehtävä",
         "name": "Nimi",
         "no": "Ei",
         "no_task_lists_to_show": "Ei listoja",
