@@ -138,7 +138,7 @@ export default function ManageMovies() {
                     <Modal.Title>{t('modal_header_add_movie')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddMovie onSave={addMovie} onClose={() => toggleAddMovie()} />
+                    <AddMovie onSave={addMovie} onClose={toggleAddMovie} />
                 </Modal.Body>
             </Modal>
 
@@ -170,7 +170,7 @@ export default function ManageMovies() {
                     iconName={Constants.ICON_PLUS}
                     color={showAddMovie ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddMovie ? t('button_close') : t('button_add_movie')}
-                    onClick={() => toggleAddMovie()} />
+                    onClick={toggleAddMovie} />
             </CenterWrapper>
 
             {
