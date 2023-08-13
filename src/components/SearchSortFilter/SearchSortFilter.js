@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Col, Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import Button from '../Buttons/Button';
 import { SortMode } from './SortModes';
 import { FilterMode } from './FilterModes';
 import PropTypes from 'prop-types';
 import * as Constants from '../../utils/Constants';
 import SortByButton from './SortByButton';
+import SearchTextInput from './SearchTextInput';
 
 const SearchSortFilter = ({ onSet,
     originalList,
@@ -330,93 +330,38 @@ const SearchSortFilter = ({ onSet,
                 </Form.Group>
                 {
                     showSearchByText &&
-                    <>
-                        <Form.Group as={Row}>
-                            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Control
-                                    autoComplete='off'
-                                    type="text"
-                                    id="inputSearchString"
-                                    aria-describedby="searchHelpBlock"
-                                    onChange={(e) => setSearchString(e.target.value)}
-                                    placeholder={t('placeholder_name')}
-                                />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <SearchTextInput
+                        setSearchString={setSearchString}
+                        placeholderText='placeholder_name'
+                    />
                 }
                 {
                     showSearchByFinnishName &&
-                    <>
-                        <Form.Group as={Row}>
-                            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Control
-                                    autoComplete='off'
-                                    type="text"
-                                    id="inputSearchStringFinnishName"
-                                    aria-describedby="searchHelpBlock"
-                                    onChange={(e) => setSearchStringFinnishName(e.target.value)}
-                                    placeholder={t('placeholder_finnishname')}
-                                />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <SearchTextInput
+                        setSearchString={setSearchStringFinnishName}
+                        placeholderText='placeholder_finnishname'
+                    />
                 }
                 {
                     showSearchByDescription &&
-                    <>
-                        <Form.Group as={Row}>
-                            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Control
-                                    autoComplete='off'
-                                    type="text"
-                                    id="inputSearchStringDescription"
-                                    aria-describedby="searchHelpBlock"
-                                    onChange={(e) => setSearchStringDescription(e.target.value)}
-                                    placeholder={t('placeholder_description')}
-                                />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <SearchTextInput
+                        setSearchString={setSearchStringDescription}
+                        placeholderText='placeholder_description'
+                    />
                 }
                 {
                     showSearchByDay &&
-                    <>
-                        <Form.Group as={Row}>
-                            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Control
-                                    autoComplete='off'
-                                    type="text"
-                                    id="inputSearchStringDay"
-                                    aria-describedby="searchHelpBlock"
-                                    onChange={(e) => setSearchStringDay(e.target.value)}
-                                    placeholder={t('placeholder_day')}
-                                />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <SearchTextInput
+                        setSearchString={setSearchStringDay}
+                        placeholderText='placeholder_day'
+                    />
                 }
                 {
                     showSearchByIncredients &&
-                    <>
-                        <Form.Group as={Row}>
-                            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Control
-                                    autoComplete='off'
-                                    type="text"
-                                    id="inputSearchStringIncredients"
-                                    aria-describedby="searchHelpBlock"
-                                    onChange={(e) => setSearchStringIncredients(e.target.value)}
-                                    placeholder={t('placeholder_incredients')}
-                                />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <SearchTextInput
+                        setSearchString={setSearchStringIncredients}
+                        placeholderText='placeholder_incredients'
+                    />
                 }
                 {
                     showFilterSeenLive &&
