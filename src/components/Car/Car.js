@@ -32,7 +32,6 @@ export default function Car() {
 
     //states
     const [loading, setLoading] = useState(true);
-    const [showAddInfo, setShowAddInfo] = useState(false);
     const [carFuelings, setCarFuelings] = useState({});
     const [carMaintenances, setCarMaintenances] = useState({});
 
@@ -144,13 +143,7 @@ export default function Car() {
                 style={{ marginTop: '10px' }}>
 
                 <Tab eventKey="carInfo" title={t('add_info_title')}>
-                    {/* Info Start */}
-                    {
-                        <div>
-                            <AddInfo onClose={() => setShowAddInfo(false)} />
-                        </div>
-                    }
-                    {/* Info End */}
+                    <AddInfo />
                 </Tab>
                 <Tab eventKey="fuelings" title={t('fuelings')}>
                     <Button
