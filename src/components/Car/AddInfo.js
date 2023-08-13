@@ -12,7 +12,7 @@ import PageTitle from '../Site/PageTitle';
 import Alert from "../Alert";
 import { pushToFirebase, updateToFirebaseById } from "../../datatier/datatier";
 
-const AddInfo = ({ onClose }) => {
+const AddInfo = () => {
 
     //user
     const { currentUser } = useAuth();
@@ -172,10 +172,6 @@ const AddInfo = ({ onClose }) => {
                 </Form.Group>
                 <Row>
                     <ButtonGroup>
-                        <Button
-                            type='button'
-                            text={t('button_close')} className='btn btn-block'
-                            onClick={() => onClose()} />
                         <Button disabled={loading} type='submit' text={t('save')} className='btn btn-block saveBtn' />
                     </ButtonGroup>
                 </Row>
