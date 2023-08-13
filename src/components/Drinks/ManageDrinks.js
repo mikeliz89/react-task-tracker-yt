@@ -169,6 +169,7 @@ export default function ManageDrinks() {
 
             <CenterWrapper>
                 <Button
+                    iconName={Constants.ICON_PLUS}
                     color={showAddDrink ? 'red' : 'green'}
                     text={showAddDrink ? t('button_close') : t('button_add_drinks')}
                     onClick={() => setShowAddDrink(!showAddDrink)} />

@@ -167,6 +167,7 @@ const ManageRecipes = () => {
 
       <CenterWrapper>
         <Button
+          iconName={Constants.ICON_PLUS}
           color={showAddRecipe ? 'red' : 'green'}
           text={showAddRecipe ? t('button_close') : t('button_add_recipe')}
           onClick={() => setShowAddRecipe(!showAddRecipe)} />

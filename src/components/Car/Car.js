@@ -146,11 +146,13 @@ export default function Car() {
                     <AddInfo />
                 </Tab>
                 <Tab eventKey="fuelings" title={t('fuelings')}>
+
                     <Button
-                        color={showAddFueling ? 'red' : 'steelblue'}
+                        color={showAddFueling ? 'red' : 'green'}
                         onClick={() => setShowAddFueling(!showAddFueling)}
                         text={showAddFueling ? t('button_close') : t('add_fueling')}
-                        iconName={Constants.ICON_GAS_PUMP} />
+                        secondIconName={Constants.ICON_GAS_PUMP}
+                        iconName={Constants.ICON_PLUS} />
                     {
 
                         <Modal show={showAddFueling} onHide={handleClose}>
@@ -184,10 +186,11 @@ export default function Car() {
                 </Tab>
                 <Tab eventKey="carMaintenances" title={t('car_maintenances')}>
                     <Button
-                        color={showAddMaintenance ? 'red' : 'steelblue'}
+                        color={showAddMaintenance ? 'red' : 'green'}
                         onClick={() => setShowAddMaintenance(!showAddMaintenance)}
                         text={showAddFueling ? t('button_close') : t('add_maintenance')}
-                        iconName={Constants.ICON_WRENCH} />
+                        iconName={Constants.ICON_PLUS}
+                        secondIconName={Constants.ICON_WRENCH} />
                     {
 
                         <Modal show={showAddMaintenance} onHide={handleClose}>
