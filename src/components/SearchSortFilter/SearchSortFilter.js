@@ -40,13 +40,15 @@ export default function SearchSortFilter({ onSet,
     filterMode
 }) {
 
-    //states
+    //search states
     const [searchString, setSearchString] = useState('');
     const [searchStringFinnishName, setSearchStringFinnishName] = useState('');
     const [searchStringDescription, setSearchStringDescription] = useState('');
     const [searchStringDay, setSearchStringDay] = useState('');
     const [searchStringIncredients, setSearchStringIncredients] = useState('');
+    //sort states
     const [sortBy, setSortBy] = useState(defaultSort);
+    //filter states
     const [showOnlySeenLive, setShowOnlySeenLive] = useState(false);
     const [showOnlyNotHaveSeenLive, setShowOnlyNotHaveSeenLive] = useState(false);
     const [showOnlyHaveAtHome, setShowOnlyHaveAtHome] = useState(false);
@@ -56,25 +58,6 @@ export default function SearchSortFilter({ onSet,
     const [showOnlyCore, setShowOnlyCore] = useState(false);
     const [showOnlyReady, setShowOnlyReady] = useState(false);
     const [showOnlyNotReady, setShowOnlyNotReady] = useState(false);
-
-    //sorting
-    const [_showSortByName, _setShowSortByName] = useState(showSortByName);
-    const [_showSortByTitle, _setShowSortByTitle] = useState(showSortByTitle);
-    const [_showSortByCreatedDate, _setShowSortByCreatedDate] = useState(showSortByCreatedDate);
-    const [_showSortByText, _setShowSortByText] = useState(showSortByText);
-    const [_showSortByStarRating, _setShowSortByStarRating] = useState(showSortByStarRating);
-    const [_showSortByBirthday, _setShowSortByBirthday] = useState(showSortByBirthday);
-    const [_showSortByPublishYear, _setShowSortByPublishYear] = useState(showSortByPublishYear);
-
-    //filtering
-    const [_showOnlySeenLive, _setShowOnlySeenLive] = useState(showFilterSeenLive);
-    const [_showOnlyNotHaveSeenLive, _setShowOnlyNotHaveSeenLive] = useState(showFilterNotHaveSeenLive);
-    const [_showOnlyHaveAtHome, _setShowOnlyHaveAtHome] = useState(showFilterHaveAtHome);
-    const [_showOnlyNotHaveAtHome, _setShowOnlyNotHaveAtHome] = useState(showFilterNotHaveAtHome);
-    const [_showOnlyHaveRated, _setShowOnlyHaveRated] = useState(showFilterHaveRated);
-    const [_showOnlyNotHaveRated, _setShowOnlyNotHaveRated] = useState(showFilterNotHaveRated);
-    const [_showOnlyReady, _setShowOnlyReady] = useState(showFilterReady);
-    const [_showOnlyNotReady, _setShowOnlyNotReady] = useState(showFilterNotReady);
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_SEARCHSORTFILTER, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
@@ -93,7 +76,8 @@ export default function SearchSortFilter({ onSet,
         showOnlyHaveAtHome, showOnlyNotHaveAtHome,
         showOnlyHaveRated, showOnlyNotHaveRated,
         showOnlyCore,
-        showOnlyReady, showOnlyNotReady]);
+        showOnlyReady, showOnlyNotReady]
+    );
 
     const filterAndSort = () => {
         if (!originalList) {
@@ -110,28 +94,55 @@ export default function SearchSortFilter({ onSet,
         if (searchString !== "") {
             switch (filterMode) {
                 case FilterMode.Name:
-                    newList = newList.filter(x => x.name != null && x.name.toLowerCase().includes(searchString.toLowerCase()));
+                    newList = filterCheckText(newList, "name", searchString);
                     break;
                 case FilterMode.Text:
-                    newList = newList.filter(x => x.text != null && x.text.toLowerCase().includes(searchString.toLowerCase()));
+                    newList = filterCheckText(newList, "text", searchString);
                     break;
                 case FilterMode.Title:
-                    newList = newList.filter(x => x.title != null && x.title.toLowerCase().includes(searchString.toLowerCase()));
+                    newList = filterCheckText(newList, "title", searchString);
                     break;
             }
         }
         if (searchStringFinnishName !== "") {
-            newList = newList.filter(x => x.nameFi != null && x.nameFi.toLowerCase().includes(searchStringFinnishName.toLowerCase()));
+            newList = filterCheckText(newList, "nameFi", searchStringFinnishName);
         }
         if (searchStringIncredients !== "") {
-            newList = newList.filter(x => x.incredients != null && x.incredients.toLowerCase().includes(searchStringIncredients.toLowerCase()));
+            newList = filterCheckText(newList, "incredients", searchStringIncredients);
         }
         if (searchStringDescription !== "") {
-            newList = newList.filter(x => x.description != null && x.description.toLowerCase().includes(searchStringDescription.toLowerCase()));
+            newList = filterCheckText(newList, "description", searchStringDescription);
         }
         if (searchStringDay !== "") {
-            newList = newList.filter(x => x.day != null && x.day.toLowerCase().includes(searchStringDay.toLowerCase()));
+            newList = filterCheckText(newList, "day", searchStringDay);
         }
+        return newList;
+    }
+
+    const filterCheckText = (newList, key, comparableString) => {
+        newList = newList.filter(x => x[key] != null &&
+            x[key].toLowerCase().includes(comparableString.toLowerCase())
+        );
+        return newList;
+    }
+
+    const filterCheckTrue = (newList, key) => {
+        newList = newList.filter(x => x[key] === true);
+        return newList;
+    }
+
+    const filterCheckFalse = (newList, key) => {
+        newList = newList.filter(x => x[key] === false || !x[key]);
+        return newList;
+    }
+
+    const filterCheckIntMoreThanZero = (newList, key) => {
+        newList = newList.filter(x => x[key] !== undefined && x[key] > 0);
+        return newList;
+    }
+
+    const filterCheckIntZero = (newList, key) => {
+        newList = newList.filter(x => x[key] === undefined || x[key] === 0);
         return newList;
     }
 
@@ -139,115 +150,115 @@ export default function SearchSortFilter({ onSet,
 
         //have at home
         if (showOnlyHaveAtHome) {
-            newList = newList.filter(x => x.haveAtHome === true);
+            newList = filterCheckTrue(newList, "haveAtHome");
         }
         //not have at home
-        else if (showOnlyNotHaveAtHome) {
-            newList = newList.filter(x => x.haveAtHome === false || !x.haveAtHome);
+        if (showOnlyNotHaveAtHome) {
+            newList = filterCheckFalse(newList, "haveAtHome");
         }
-
         //seen live
         if (showOnlySeenLive) {
-            newList = newList.filter(x => x.seenLive === true);
+            newList = filterCheckTrue(newList, "seenLive");
         }
         //not have seen live
-        else if (showOnlyNotHaveSeenLive) {
-            newList = newList.filter(x => x.seenLive === false || !x.seenLive);
+        if (showOnlyNotHaveSeenLive) {
+            newList = filterCheckFalse(newList, "seenLive");
         }
-
         //rated
         if (showOnlyHaveRated) {
-            newList = newList.filter(x => x.stars !== undefined && x.stars > 0);
+            newList = filterCheckIntMoreThanZero(newList, "stars");
         }
         //not rated
-        else if (showOnlyNotHaveRated) {
-            newList = newList.filter(x => x.stars === undefined || x.stars === 0);
+        if (showOnlyNotHaveRated) {
+            newList = filterCheckIntZero(newList, "stars");
         }
-
         //core
         if (showOnlyCore) {
-            newList = newList.filter(x => x.isCore === true);
+            newList = filterCheckTrue(newList, "isCore");
         }
-
         //ready
         if (showOnlyReady) {
-            newList = newList.filter(x => x.reminder === true);
+            newList = filterCheckTrue(newList, "reminder");
         }
         //notready
-        else if (showOnlyNotReady) {
-            newList = newList.filter(x => x.reminder === false);
+        if (showOnlyNotReady) {
+            newList = filterCheckFalse(newList, "reminder");
         }
 
         return newList;
     }
 
+    const sortByText = (newList, key) => {
+        newList = [...newList].sort((a, b) => {
+            return a[key].toLowerCase() > b[key].toLowerCase() ? 1 : -1
+        });
+        return newList;
+    }
+
+    const sortByDate = (newList, key) => {
+        newList = [...newList].sort(
+            (a, b) => new Date(a[key]).setHours(0, 0, 0, 0) - new Date(b[key]).setHours(0, 0, 0, 0)
+        );
+        return newList;
+    }
+
+    const sortByInt = (newList, key) => {
+        newList = [...newList].sort((a, b) => {
+            let aCount = a[key] === undefined ? 0 : a[key];
+            let bCount = b[key] === undefined ? 0 : b[key];
+            return aCount - bCount;
+        });
+        return newList;
+    }
+
     const sorting = (newList) => {
 
-        //sortit
         switch (sortBy) {
             case SortMode.Name_ASC:
             case SortMode.Name_DESC:
-                newList = [...newList].sort((a, b) => {
-                    return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
-                });
+                newList = sortByText(newList, "name");
                 if (sortBy === SortMode.Name_DESC) {
                     newList.reverse();
                 }
                 break;
             case SortMode.Title_ASC:
             case SortMode.Title_DESC:
-                newList = [...newList].sort((a, b) => {
-                    return a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
-                });
+                newList = sortByText(newList, "title");
                 if (sortBy === SortMode.Title_DESC) {
                     newList.reverse();
                 }
                 break;
             case SortMode.Created_ASC:
             case SortMode.Created_DESC:
-                newList = [...newList].sort(
-                    (a, b) => new Date(a.created).setHours(0, 0, 0, 0) - new Date(b.created).setHours(0, 0, 0, 0)
-                );
+                newList = sortByDate(newList, "created");
                 if (sortBy === SortMode.Created_DESC) {
                     newList.reverse();
                 }
                 break;
             case SortMode.Text_ASC:
             case SortMode.Text_DESC:
-                newList = [...newList].sort((a, b) => {
-                    return a.text.toLowerCase() > b.text.toLowerCase() ? 1 : -1
-                });
+                newList = sortByText(newList, "text");
                 if (sortBy === SortMode.Text_DESC) {
                     newList.reverse();
                 }
                 break;
             case SortMode.StarRating_ASC:
             case SortMode.StarRating_DESC:
-                newList = [...newList].sort((a, b) => {
-                    let aStars = a.stars === undefined ? 0 : a.stars;
-                    let bStars = b.stars === undefined ? 0 : b.stars;
-                    return aStars - bStars
-                });
+                newList = sortByInt(newList, "stars");
                 if (sortBy === SortMode.StarRating_DESC) {
                     newList.reverse();
                 }
                 break;
             case SortMode.PublishYear_ASC:
             case SortMode.PublishYear_DESC:
-                newList = [...newList].sort((a, b) => {
-                    let aYear = a.publishYear === undefined ? 0 : a.publishYear;
-                    let bYear = b.publishYear === undefined ? 0 : b.publishYear;
-                    return aYear - bYear
-                });
+                newList = sortByInt(newList, "publishYear");
                 if (sortBy === SortMode.PublishYear_DESC) {
                     newList.reverse();
                 }
                 break;
             case SortMode.Birthday_ASC:
             case SortMode.Birthday_DESC:
-                newList = [...newList].sort(
-                    (a, b) => new Date(a.birthday).setHours(0, 0, 0, 0) - new Date(b.birthday).setHours(0, 0, 0, 0)
-                );
+                newList = sortByDate(newList, "birthday");
                 if (sortBy === SortMode.Birthday_DESC) {
                     newList.reverse();
                 }
@@ -264,7 +275,7 @@ export default function SearchSortFilter({ onSet,
                     <Col xs={9} sm={10}>
                         <ButtonGroup>
                             {
-                                _showSortByCreatedDate &&
+                                showSortByCreatedDate &&
                                 <SortByButton
                                     sortBy={sortBy}
                                     sortModeASC={SortMode.Created_ASC}
@@ -273,7 +284,7 @@ export default function SearchSortFilter({ onSet,
                                     title='created_date' />
                             }
                             {
-                                _showSortByName &&
+                                showSortByName &&
                                 <SortByButton
                                     sortBy={sortBy}
                                     sortModeASC={SortMode.Name_ASC}
@@ -282,7 +293,7 @@ export default function SearchSortFilter({ onSet,
                                     title='name' />
                             }
                             {
-                                _showSortByTitle &&
+                                showSortByTitle &&
                                 <SortByButton
                                     sortBy={sortBy}
                                     sortModeASC={SortMode.Title_ASC}
@@ -291,7 +302,7 @@ export default function SearchSortFilter({ onSet,
                                     title='title' />
                             }
                             {
-                                _showSortByText &&
+                                showSortByText &&
                                 <SortByButton
                                     sortBy={sortBy}
                                     sortModeASC={SortMode.Text_ASC}
@@ -300,7 +311,7 @@ export default function SearchSortFilter({ onSet,
                                     title='text' />
                             }
                             {
-                                _showSortByStarRating &&
+                                showSortByStarRating &&
                                 <SortByButton
                                     sortBy={sortBy}
                                     sortModeASC={SortMode.StarRating_ASC}
@@ -309,7 +320,7 @@ export default function SearchSortFilter({ onSet,
                                     title='star_rating' />
                             }
                             {
-                                _showSortByBirthday &&
+                                showSortByBirthday &&
                                 <SortByButton
                                     sortBy={sortBy}
                                     sortModeASC={SortMode.Birthday_ASC}
@@ -318,7 +329,7 @@ export default function SearchSortFilter({ onSet,
                                     title='birthday' />
                             }
                             {
-                                _showSortByPublishYear &&
+                                showSortByPublishYear &&
                                 <SortByButton
                                     sortBy={sortBy}
                                     sortModeASC={SortMode.PublishYear_ASC}

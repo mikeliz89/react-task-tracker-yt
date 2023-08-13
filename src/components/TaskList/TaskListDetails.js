@@ -206,9 +206,9 @@ export default function TaskListDetails() {
         text += ": " + arrayItem.day;
       }
       if (arrayItem.reminder) {
-        text += "" + ' [x]';
+        text += ` [x]`;
       } else {
-        text += "" + ' [ ]';
+        text += ` [ ]`;
       }
       text += "\n";
     });

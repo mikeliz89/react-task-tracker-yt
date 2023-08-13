@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
@@ -9,9 +8,6 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function Task({ taskListID, archived, task, onDelete, onToggle }) {
-
-    //translation
-    const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
     //states
     const [editable, setEditable] = useState(false);

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default function Counter({ counter, list, originalList, text }) {
 
     const getText = () => {
-        if (text === undefined || text == '') {
+        if (text === undefined || text === '') {
             return '';
         } else {
             return text + ':';
