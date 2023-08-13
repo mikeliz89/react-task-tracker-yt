@@ -158,8 +158,6 @@ export default function ManageMusicEvents() {
                         showSortByCreatedDate={true}
                         //filter
                         filterMode={FilterMode.Name}
-                        showFilterHaveAtHome={true}
-                        showFilterNotHaveAtHome={true}
                     />
                 ) : (<></>)
             }
