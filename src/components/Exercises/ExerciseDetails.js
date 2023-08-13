@@ -111,7 +111,7 @@ const ExerciseDetails = () => {
                         <Button
                             iconName={Constants.ICON_EDIT}
                             onClick={() => setShowEditExercise(!showEditExercise)}
-                            color={showEditExercise ? 'red' : 'orange'}
+                            color={showEditExercise ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
                             text={showEditExercise ? t('close') : t('button_edit')} />
                     </ButtonGroup>
                 </Row>

@@ -106,7 +106,7 @@ export default function MovementDetails() {
                     <Button
                         iconName={Constants.ICON_EDIT}
                         text={showEditMovement ? t('button_close') : ''}
-                        color={showEditMovement ? 'red' : 'orange'}
+                        color={showEditMovement ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
                         onClick={() => setShowEditMovement(!showEditMovement)} />
                 </ButtonGroup>
             </Row>

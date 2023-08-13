@@ -227,7 +227,7 @@ export default function RecipeDetails() {
                     <Button
                         iconName={Constants.ICON_EDIT}
                         text={showEditRecipe ? t('button_close') : ''}
-                        color={showEditRecipe ? 'red' : 'orange'}
+                        color={showEditRecipe ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
                         onClick={() => setShowEditRecipe(!showEditRecipe)} />
                 </ButtonGroup>
             </Row>

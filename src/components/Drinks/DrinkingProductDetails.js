@@ -119,7 +119,7 @@ export default function DrinkingProductDetails() {
                     <Button
                         iconName={Constants.ICON_EDIT}
                         text={showEditDrinkingProduct ? t('button_close') : ''}
-                        color={showEditDrinkingProduct ? 'red' : 'orange'}
+                        color={showEditDrinkingProduct ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
                         onClick={() => setShowEditDrinkingProduct(!showEditDrinkingProduct)} />
                 </ButtonGroup>
             </Row>

@@ -119,7 +119,7 @@ function GearDetails() {
                     <Button
                         iconName={Constants.ICON_EDIT}
                         text={showEdit ? t('button_close') : ''}
-                        color={showEdit ? 'red' : 'orange'}
+                        color={showEdit ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
                         onClick={() => setShowEdit(!showEdit)} />
                 </ButtonGroup>
             </Row>

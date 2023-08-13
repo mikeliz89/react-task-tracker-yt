@@ -237,7 +237,7 @@ function TaskListDetails() {
           <Button
             iconName={Constants.ICON_EDIT}
             text={showEditTaskList ? t('button_close') : ''}
-            color={showEditTaskList ? 'red' : 'orange'}
+            color={showEditTaskList ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
             onClick={() => setShowEditTaskList(!showEditTaskList)} />
           <Button color="#545454" iconName={Constants.ICON_ARCHIVE}
             onClick={() => {

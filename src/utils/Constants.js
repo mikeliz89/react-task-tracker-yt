@@ -1,6 +1,8 @@
 //colors
-export const COLOR_ADDBUTTON_OPEN = 'red';
 export const COLOR_ADDBUTTON_CLOSED = 'green';
+export const COLOR_ADDBUTTON_OPEN = 'red';
+export const COLOR_EDITBUTTON_CLOSED = 'orange';
+export const COLOR_EDITBUTTON_OPEN = 'red';
 
 //DATABASE
 export const DB_BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS = '/backpacking-gear-maintenance-instructions';

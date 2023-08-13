@@ -86,7 +86,7 @@ function TaskDetails() {
           <Button
             iconName={Constants.ICON_EDIT}
             text={showEditTask ? t('button_close') : t('button_edit')}
-            color={showEditTask ? 'red' : 'orange'}
+            color={showEditTask ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
             onClick={() => setShowEditTask(!showEditTask)} />
         </ButtonGroup>
       </Row>
