@@ -137,7 +137,7 @@ function ManageMovements() {
             <CenterWrapper>
                 <Button
                     iconName={Constants.ICON_PLUS}
-                    color={showAddMovement ? 'red' : 'green'}
+                    color={showAddMovement ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddMovement ? t('button_close') : t('button_add_movement')}
                     onClick={() => setShowAddMovement(!showAddMovement)} />
             </CenterWrapper>

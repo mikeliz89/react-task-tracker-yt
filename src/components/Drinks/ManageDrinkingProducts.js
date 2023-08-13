@@ -153,7 +153,7 @@ const ManageDrinkingProducts = () => {
                 <Button
                     iconName={Constants.ICON_PLUS}
                     secondIconName={Constants.ICON_WINE}
-                    color={showAddDrinkingProduct ? 'red' : 'green'}
+                    color={showAddDrinkingProduct ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddDrinkingProduct ? t('button_close') : t('button_add_drinkingproduct')}
                     onClick={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)} />
             </CenterWrapper>

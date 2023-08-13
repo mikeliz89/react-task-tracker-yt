@@ -1,3 +1,7 @@
+//colors
+export const COLOR_ADDBUTTON_OPEN = 'red';
+export const COLOR_ADDBUTTON_CLOSED = 'green';
+
 //DATABASE
 export const DB_BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS = '/backpacking-gear-maintenance-instructions';
 export const DB_BACKPACKING_GEAR = '/backpacking-gear';

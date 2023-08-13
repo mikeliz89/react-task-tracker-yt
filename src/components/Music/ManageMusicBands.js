@@ -167,7 +167,7 @@ export default function ManageMusicBands() {
             <CenterWrapper>
                 <Button
                     iconName={Constants.ICON_PLUS}
-                    color={showAdd ? 'red' : 'green'}
+                    color={showAdd ? Constants.COLOR_ADDBUTTON_OPEN: Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAdd ? t('button_close') : t('button_add_music_band')}
                     onClick={() => setShowAdd(!showAdd)} />
             </CenterWrapper>

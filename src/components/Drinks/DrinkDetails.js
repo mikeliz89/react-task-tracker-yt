@@ -291,7 +291,7 @@ export default function DrinkDetails() {
                     <Button
                         iconName={Constants.ICON_PLUS}
                         secondIconName={Constants.ICON_CARROT}
-                        color={showAddIncredient ? 'red' : 'green'}
+                        color={showAddIncredient ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                         text={showAddIncredient ? t('button_close') : ''}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
                     {showAddIncredient &&
@@ -325,7 +325,7 @@ export default function DrinkDetails() {
                     <Button
                         iconName={Constants.ICON_PLUS}
                         secondIconName={Constants.ICON_HOURGLASS_1}
-                        color={showAddWorkPhase ? 'red' : 'green'}
+                        color={showAddWorkPhase ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                         text={showAddWorkPhase ? t('button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                     {showAddWorkPhase && <AddWorkPhase
@@ -353,7 +353,7 @@ export default function DrinkDetails() {
                     <Button
                         iconName={Constants.ICON_PLUS}
                         secondIconName={Constants.ICON_LEMON}
-                        color={showAddGarnish ? 'red' : 'green'}
+                        color={showAddGarnish ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                         text={showAddGarnish ? t('button_close') : ''}
                         onClick={() => setShowAddGarnish(!showAddGarnish)} />
                     {showAddGarnish &&

@@ -148,7 +148,7 @@ export default function Car() {
                 <Tab eventKey="fuelings" title={t('fuelings')}>
 
                     <Button
-                        color={showAddFueling ? 'red' : 'green'}
+                        color={showAddFueling ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                         onClick={() => setShowAddFueling(!showAddFueling)}
                         text={showAddFueling ? t('button_close') : t('add_fueling')}
                         secondIconName={Constants.ICON_GAS_PUMP}
@@ -186,7 +186,7 @@ export default function Car() {
                 </Tab>
                 <Tab eventKey="carMaintenances" title={t('car_maintenances')}>
                     <Button
-                        color={showAddMaintenance ? 'red' : 'green'}
+                        color={showAddMaintenance ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                         onClick={() => setShowAddMaintenance(!showAddMaintenance)}
                         text={showAddFueling ? t('button_close') : t('add_maintenance')}
                         iconName={Constants.ICON_PLUS}

@@ -157,7 +157,7 @@ const ManageFoodItems = () => {
             <CenterWrapper>
                 <Button
                     iconName={Constants.ICON_PLUS}
-                    color={showAddFoodItem ? 'red' : 'green'}
+                    color={showAddFoodItem ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddFoodItem ? t('button_close') : t('button_add_fooditem')}
                     onClick={() => setShowAddFoodItem(!showAddFoodItem)} />
             </CenterWrapper>

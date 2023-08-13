@@ -151,7 +151,7 @@ export default function ManageGear() {
             <CenterWrapper>
                 <Button
                     iconName={Constants.ICON_PLUS}
-                    color={showAddGear ? 'red' : 'green'}
+                    color={showAddGear ? Constants.COLOR_ADDBUTTON_OPEN  : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddGear ? t('button_close') : t('button_add_gear')}
                     onClick={() => setShowAddGear(!showAddGear)} />
             </CenterWrapper>

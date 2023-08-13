@@ -266,7 +266,7 @@ export default function RecipeDetails() {
                     <Button
                         iconName={Constants.ICON_PLUS}
                         secondIconName={Constants.ICON_CARROT}
-                        color={showAddIncredient ? 'red' : 'green'}
+                        color={showAddIncredient ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                         text={showAddIncredient ? t('button_close') : ''}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
                     {showAddIncredient &&
@@ -301,7 +301,7 @@ export default function RecipeDetails() {
                     <Button
                         iconName={Constants.ICON_PLUS}
                         secondIconName={Constants.ICON_HOURGLASS_1}
-                        color={showAddWorkPhase ? 'red' : 'green'}
+                        color={showAddWorkPhase ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                         text={showAddWorkPhase ? t('button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                     {showAddWorkPhase &&

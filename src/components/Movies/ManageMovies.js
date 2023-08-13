@@ -169,7 +169,7 @@ export default function ManageMovies() {
             <CenterWrapper>
                 <Button
                     iconName={Constants.ICON_PLUS}
-                    color={showAddMovie ? 'red' : 'green'}
+                    color={showAddMovie ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddMovie ? t('button_close') : t('button_add_movie')}
                     onClick={() => setShowAddMovie(!showAddMovie)} />
             </CenterWrapper>

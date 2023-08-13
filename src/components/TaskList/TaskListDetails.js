@@ -297,7 +297,7 @@ function TaskListDetails() {
           <CenterWrapper>
             <Button
               iconName={Constants.ICON_PLUS}
-              color={showAddTask ? 'red' : 'green'}
+              color={showAddTask ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
               text={showAddTask ? t('button_close') : t('button_add_task')}
               onClick={() => setShowAddTask(!showAddTask)} />
           </CenterWrapper>
