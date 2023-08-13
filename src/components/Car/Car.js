@@ -20,6 +20,8 @@ import * as Constants from '../../utils/Constants';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import Icon from '../Icon';
 import { Link } from 'react-router-dom';
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+import { SortMode } from "../SearchSortFilter/SortModes";
 
 export default function Car() {
 
@@ -35,6 +37,7 @@ export default function Car() {
     //states
     const [loading, setLoading] = useState(true);
     const [carFuelings, setCarFuelings] = useState({});
+    const [originalCarFuelings, setOriginalCarFuelings] = useState({});
     const [carMaintenances, setCarMaintenances] = useState({});
 
     //modal
@@ -70,6 +73,7 @@ export default function Car() {
             }
             setLoading(false);
             setCarFuelings(fromDB);
+            setOriginalCarFuelings(fromDB);
         })
     }
     const fetchCarMaintenancesFromFirebase = async () => {
@@ -174,7 +178,19 @@ export default function Car() {
 
                     }
                     {/* Fuelings Start */}
-                    <div>
+                    <>
+                        {
+                            originalCarFuelings != null && originalCarFuelings.length > 0 ? (
+                                <SearchSortFilter
+                                    onSet={setCarFuelings}
+                                    //search
+                                    originalList={originalCarFuelings}
+                                    //sort
+                                    defaultSort={SortMode.Created_DESC}
+                                    showSortByCreatedDate={true}
+                                />
+                            ) : (<></>)
+                        }
                         {
                             carFuelings != null && carFuelings.length > 0 ? (
                                 <CarFuelings
@@ -187,7 +203,7 @@ export default function Car() {
                                 </>
                             )
                         }
-                    </div>
+                    </>
                     {/* Fuelings End */}
                 </Tab>
                 <Tab eventKey="carMaintenances" title={t('car_maintenances')}>
@@ -213,7 +229,7 @@ export default function Car() {
                     }
                     {/* Maintenances Start */}
 
-                    <div>
+                    <>
                         {
                             carMaintenances != null && carMaintenances.length > 0 ? (
                                 <CarMaintenances
@@ -226,7 +242,7 @@ export default function Car() {
                                 </>
                             )
                         }
-                    </div>
+                    </>
                     {/* Maintenances End */}
                 </Tab>
             </Tabs>
