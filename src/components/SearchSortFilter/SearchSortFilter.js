@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import * as Constants from '../../utils/Constants';
 import SortByButton from './SortByButton';
 import SearchTextInput from './SearchTextInput';
+import FilterCheckBox from './FilterCheckBox';
 
 const SearchSortFilter = ({ onSet,
     originalList,
@@ -365,129 +366,75 @@ const SearchSortFilter = ({ onSet,
                 }
                 {
                     showFilterSeenLive &&
-                    <>
-                        <Form.Group as={Row} controlId='searchSortFilter-OnlySeenLive'>
-                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Check label={t('show_only_seen_live')}
-                                    onChange={(e) => {
-                                        setShowOnlySeenLive(e.currentTarget.checked);
-                                    }} />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <FilterCheckBox
+                        onSet={setShowOnlySeenLive}
+                        labelText='show_only_seen_live'
+                        id='seenlive'
+                    />
                 }
                 {
                     showFilterNotHaveSeenLive &&
-                    <>
-                        <Form.Group as={Row} controlId='searchSortFilter-OnlyNotHaveSeenLive'>
-                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Check label={t('show_only_not_have_seen_live')}
-                                    onChange={(e) => {
-                                        setShowOnlyNotHaveSeenLive(e.currentTarget.checked);
-                                    }} />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <FilterCheckBox
+                        onSet={setShowOnlyNotHaveSeenLive}
+                        labelText='show_only_not_have_seen_live'
+                        id='notseenlive'
+                    />
                 }
                 {
                     showFilterHaveAtHome &&
-                    <>
-                        <Form.Group as={Row} controlId='searchSortFilter-OnlyHaveAtHome'>
-                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Check label={t('show_only_have_at_home')}
-                                    onChange={(e) => {
-                                        setShowOnlyHaveAtHome(e.currentTarget.checked);
-                                    }} />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <FilterCheckBox
+                        onSet={setShowOnlyHaveAtHome}
+                        labelText='show_only_have_at_home'
+                        id='haveathome'
+                    />
                 }
                 {
                     showFilterNotHaveAtHome &&
-                    <>
-                        <Form.Group as={Row} controlId='searchSortFilter-OnlyNotHaveAtHome'>
-                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Check label={t('show_only_not_have_at_home')}
-                                    onChange={(e) => {
-                                        setShowOnlyNotHaveAtHome(e.currentTarget.checked);
-                                    }} />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <FilterCheckBox
+                        onSet={setShowOnlyNotHaveAtHome}
+                        labelText='show_only_not_have_at_home'
+                        id='nothaveathome'
+                    />
                 }
                 {
                     showFilterHaveRated &&
-                    <>
-                        <Form.Group as={Row} controlId='searchSortFilter-OnlyHaveRated'>
-                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Check label={t('show_only_have_rated')}
-                                    onChange={(e) => {
-                                        setShowOnlyHaveRated(e.currentTarget.checked);
-                                    }} />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <FilterCheckBox
+                        onSet={setShowOnlyHaveRated}
+                        labelText='show_only_have_rated'
+                        id='haverated'
+                    />
                 }
                 {
                     showFilterNotHaveRated &&
-                    <>
-                        <Form.Group as={Row} controlId='searchSortFilter-OnlyNotHaveRated'>
-                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Check label={t('show_only_not_have_rated')}
-                                    onChange={(e) => {
-                                        setShowOnlyNotHaveRated(e.currentTarget.checked);
-                                    }} />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <FilterCheckBox
+                        onSet={setShowOnlyNotHaveRated}
+                        labelText='show_only_not_have_rated'
+                        id='nothaverated'
+                    />
                 }
                 {
                     showFilterCore &&
-                    <>
-                        <Form.Group as={Row} controlId='searchSortFilter-OnlyCore'>
-                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Check label={t('show_only_core')}
-                                    onChange={(e) => {
-                                        setShowOnlyCore(e.currentTarget.checked);
-                                    }} />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <FilterCheckBox
+                        onSet={setShowOnlyCore}
+                        labelText='show_only_core'
+                        id='iscore'
+                    />
                 }
                 {
                     showFilterReady &&
-                    <>
-                        <Form.Group as={Row} controlId='searchSortFilter-OnlyReady'>
-                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Check label={t('show_only_ready')}
-                                    onChange={(e) => {
-                                        setShowOnlyReady(e.currentTarget.checked);
-                                    }} />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <FilterCheckBox
+                        onSet={setShowOnlyReady}
+                        labelText='show_only_ready'
+                        id='isready'
+                    />
                 }
                 {
                     showFilterNotReady &&
-                    <>
-                        <Form.Group as={Row} controlId='searchSortFilter-OnlyNotReady'>
-                            <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <Form.Check label={t('show_only_not_ready')}
-                                    onChange={(e) => {
-                                        setShowOnlyNotReady(e.currentTarget.checked);
-                                    }} />
-                            </Col>
-                        </Form.Group>
-                    </>
+                    <FilterCheckBox
+                        onSet={setShowOnlyNotReady}
+                        labelText='show_only_not_ready'
+                        id='notisready'
+                        />
                 }
             </Form>
         </div>
