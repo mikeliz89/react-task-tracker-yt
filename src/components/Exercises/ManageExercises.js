@@ -2,10 +2,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import Exercises from './Exercises';
-import { db } from '../../firebase-config';
-import { onValue, ref } from 'firebase/database';
 import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import CenterWrapper from '../Site/CenterWrapper';
@@ -13,51 +10,16 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
+import useFetch from '../useFetch';
 
 export default function ManageExercises() {
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
-  //states
-  const [loading, setLoading] = useState(true);
-  const [counter, setCounter] = useState(0);
-  const [exercises, setExercises] = useState();
-  const [originalExercises, setOriginalExercises] = useState();
-
-  //load data
-  useEffect(() => {
-    let cancel = false;
-
-    const getExercises = async () => {
-      if (cancel) {
-        return;
-      }
-      await fetchExercisesFromFirebase();
-    }
-    getExercises();
-
-    return () => {
-      cancel = true;
-    }
-  }, [])
-
-  const fetchExercisesFromFirebase = async () => {
-    const dbref = await ref(db, Constants.DB_EXERCISES);
-    onValue(dbref, (snapshot) => {
-      const snap = snapshot.val();
-      const fromDB = [];
-      let counterTemp = 0;
-      for (let id in snap) {
-        counterTemp++;
-        fromDB.push({ id, ...snap[id] });
-      }
-      setCounter(counterTemp);
-      setExercises(fromDB);
-      setOriginalExercises(fromDB);
-      setLoading(false);
-    })
-  }
+  //fetch data
+  const { data: exercises, setData: setExercises,
+    originalData: originalExercises, counter, loading } = useFetch(Constants.DB_EXERCISES);
 
   const deleteExercise = async (id) => {
     removeFromFirebaseById(Constants.DB_EXERCISES, id);

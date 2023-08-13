@@ -2,15 +2,13 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import GoBackButton from '../Buttons/GoBackButton';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
 import * as Constants from '../../utils/Constants';
 import AddGame from './AddGame';
 import { useAuth } from '../../contexts/AuthContext';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import CenterWrapper from '../Site/CenterWrapper';
 import Games from './Games';
@@ -22,17 +20,17 @@ import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import Counter from '../Site/Counter';
 import { useToggle } from '../UseToggle';
+import useFetch from '../useFetch';
 
 export default function ManageGames() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_GAMES, { keyPrefix: Constants.TRANSLATION_GAMES });
 
-    //states
-    const [loading, setLoading] = useState(true);
-    const [counter, setCounter] = useState(0);
-    const [games, setGames] = useState();
-    const [originalGames, setOriginalGames] = useState();
+    //fetch data
+    const { data: games, setData: setGames,
+        originalData: originalGames,
+        counter, loading } = useFetch(Constants.DB_GAMES);
 
     //modal
     const { status: showAddGame, toggleStatus: toggleAddGame } = useToggle();
@@ -45,40 +43,6 @@ export default function ManageGames() {
 
     //user
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        let cancel = false;
-
-        const getGames = async () => {
-            if (cancel) {
-                return;
-            }
-            await fetchGamesFromFirebase();
-        }
-        getGames();
-
-        return () => {
-            cancel = true;
-        }
-    }, [])
-
-    const fetchGamesFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_GAMES);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let counterTemp = 0;
-            for (let id in snap) {
-                counterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setCounter(counterTemp);
-            setLoading(false);
-            setGames(fromDB);
-            setOriginalGames(fromDB);
-        })
-    }
 
     const deleteGame = async (id) => {
         removeFromFirebaseById(Constants.DB_GAMES, id);

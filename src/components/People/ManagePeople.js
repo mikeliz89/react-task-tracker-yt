@@ -1,11 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import AddPerson from './AddPerson';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from "../../utils/Constants";
 import { useAuth } from '../../contexts/AuthContext';
@@ -20,17 +18,16 @@ import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
+import useFetch from '../useFetch';
 
 export default function ManagePeople() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_PEOPLE, { keyPrefix: Constants.TRANSLATION_PEOPLE });
 
-    //states
-    const [people, setPeople] = useState();
-    const [originalPeople, setOriginalPeople] = useState();
-    const [loading, setLoading] = useState(true);
-    const [counter, setCounter] = useState(0);
+    //fetch data
+    const { data: people, setData: setPeople,
+        originalData: originalPeople, counter, loading } = useFetch(Constants.DB_PEOPLE);
 
     //modal
     const { status: showAddPerson, toggleStatus: toggleAddPerson } = useToggle();
@@ -43,40 +40,6 @@ export default function ManagePeople() {
 
     //user
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        let cancel = false;
-
-        const getPeople = async () => {
-            if (cancel) {
-                return;
-            }
-            await fetchPeopleFromFirebase();
-        }
-        getPeople();
-
-        return () => {
-            cancel = true;
-        }
-    }, [])
-
-    const fetchPeopleFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_PEOPLE);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let counterTemp = 0;
-            for (let id in snap) {
-                counterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setCounter(counterTemp);
-            setLoading(false);
-            setPeople(fromDB);
-            setOriginalPeople(fromDB);
-        })
-    }
 
     const addPerson = async (person) => {
         try {

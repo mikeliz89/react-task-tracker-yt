@@ -1,12 +1,9 @@
 import { ButtonGroup, Modal, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import GoBackButton from '../Buttons/GoBackButton';
 import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import { db } from '../../firebase-config';
-import { onValue, ref } from 'firebase/database';
 import Movements from './Movements';
 import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
@@ -19,17 +16,17 @@ import AddMovement from './AddMovement';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useToggle } from '../UseToggle';
+import useFetch from '../useFetch';
 
 export default function ManageMovements() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
-    //states
-    const [loading, setLoading] = useState(true);
-    const [movements, setMovements] = useState();
-    const [counter, setCounter] = useState(0);
-    const [originalMovements, setOriginalMovements] = useState();
+    //fetch data
+    const { data: movements, setData: setMovements,
+        originalData: originalMovements,
+        counter, loading } = useFetch(Constants.DB_EXERCISE_MOVEMENTS);
 
     //modal
     const { status: showAddMovement, toggleStatus: toggleAddMovement } = useToggle();
@@ -43,44 +40,9 @@ export default function ManageMovements() {
     //user
     const { currentUser } = useAuth();
 
-    //load data
-    useEffect(() => {
-        let cancel = false;
-
-        const getMovements = async () => {
-            if (cancel) {
-                return;
-            }
-            await fetchMovementsFromFirebase();
-        }
-        getMovements();
-
-        return () => {
-            cancel = true;
-        }
-    }, [])
-
-    const fetchMovementsFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_EXERCISE_MOVEMENTS);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let counterTemp = 0;
-            for (let id in snap) {
-                counterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setCounter(counterTemp);
-            setMovements(fromDB);
-            setOriginalMovements(fromDB);
-            setLoading(false);
-        })
-    }
-
     const deleteMovement = async (id) => {
         removeFromFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, id);
     }
-
 
     function clearMessages() {
         setError('');

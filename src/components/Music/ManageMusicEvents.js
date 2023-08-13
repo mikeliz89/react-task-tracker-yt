@@ -11,28 +11,25 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import CenterWrapper from '../Site/CenterWrapper';
 import Events from './Events';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Counter from '../Site/Counter';
 import Alert from '../Alert';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import AddEvent from './AddEvent';
 import { useAuth } from '../../contexts/AuthContext';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
+import useFetch from '../useFetch';
 
 export default function ManageMusicEvents() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
 
-    //states
-    const [loading, setLoading] = useState(true);
-    const [counter, setCounter] = useState(0);
-    const [events, setEvents] = useState();
-    const [originalEvents, setOriginalEvents] = useState();
+    //fetch data
+    const { data: events, setData: setEvents,
+        originalData: originalEvents, counter, loading } = useFetch(Constants.DB_MUSIC_EVENTS);
 
     //modal
     const { status: showAddEvent, toggleStatus: toggleAddEvent } = useToggle();
@@ -45,40 +42,6 @@ export default function ManageMusicEvents() {
 
     //user
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        let cancel = false;
-
-        const getEvents = async () => {
-            if (cancel) {
-                return;
-            }
-            await fetchEventsFromFirebase();
-        }
-        getEvents();
-
-        return () => {
-            cancel = true;
-        }
-    }, [])
-
-    const fetchEventsFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_MUSIC_EVENTS);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let counterTemp = 0;
-            for (let id in snap) {
-                counterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setCounter(counterTemp);
-            setLoading(false);
-            setEvents(fromDB);
-            setOriginalEvents(fromDB);
-        })
-    }
 
     const deleteEvent = async (id) => {
         removeFromFirebaseById(Constants.DB_MUSIC_EVENTS, id);

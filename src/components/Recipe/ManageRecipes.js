@@ -1,13 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Modal, Row } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddRecipe from './AddRecipe';
 import Recipes from './Recipes';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
@@ -23,14 +21,13 @@ import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier'
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
+import useFetch from '../useFetch';
 
 export default function ManageRecipes() {
 
-  //states
-  const [loading, setLoading] = useState(true);
-  const [recipes, setRecipes] = useState();
-  const [originalRecipes, setOriginalRecipes] = useState();
-  const [counter, setCounter] = useState(0);
+  //fetch data
+  const { data: recipes, setData: setRecipes,
+    originalData: originalRecipes, counter, loading } = useFetch(Constants.DB_RECIPES);
 
   //modal
   const { status: showAddRecipe, toggleStatus: toggleAddRecipe } = useToggle();
@@ -49,40 +46,6 @@ export default function ManageRecipes() {
 
   //navigate
   const navigate = useNavigate();
-
-  //load data
-  useEffect(() => {
-    let cancel = false;
-
-    const getRecipes = async () => {
-      if (cancel) {
-        return;
-      }
-      await fetchRecipesFromFirebase();
-    }
-    getRecipes();
-
-    return () => {
-      cancel = true;
-    }
-  }, [])
-
-  const fetchRecipesFromFirebase = async () => {
-    const dbref = await ref(db, Constants.DB_RECIPES);
-    onValue(dbref, (snapshot) => {
-      const snap = snapshot.val();
-      const fromDB = [];
-      let counterTemp = 0;
-      for (let id in snap) {
-        counterTemp++;
-        fromDB.push({ id, ...snap[id] });
-      }
-      setCounter(counterTemp);
-      setLoading(false);
-      setRecipes(fromDB);
-      setOriginalRecipes(fromDB);
-    })
-  }
 
   const addRecipe = async (recipe) => {
     try {

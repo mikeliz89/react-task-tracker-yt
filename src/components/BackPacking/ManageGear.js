@@ -1,11 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import AddGear from './AddGear';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from "../../utils/Constants";
 import { useAuth } from '../../contexts/AuthContext';
@@ -20,17 +18,16 @@ import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
+import useFetch from '../useFetch';
 
 export default function ManageGear() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
 
-    //states
-    const [gear, setGear] = useState();
-    const [originalGear, setOriginalGear] = useState();
-    const [loading, setLoading] = useState(true);
-    const [counter, setCounter] = useState(0);
+    //fetch data
+    const { data: gear, setData: setGear,
+        originalData: originalGear, counter, loading } = useFetch(Constants.DB_BACKPACKING_GEAR);
 
     //modal
     const { status: showAddGear, toggleStatus: toggleAddGear } = useToggle();
@@ -43,40 +40,6 @@ export default function ManageGear() {
 
     //user
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        let cancel = false;
-
-        const getGear = async () => {
-            if (cancel) {
-                return;
-            }
-            await fetchGearsFromFirebase();
-        }
-        getGear();
-
-        return () => {
-            cancel = true;
-        }
-    }, [])
-
-    const fetchGearsFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_BACKPACKING_GEAR);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let counterTemp = 0;
-            for (let id in snap) {
-                counterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setCounter(counterTemp);
-            setLoading(false);
-            setGear(fromDB);
-            setOriginalGear(fromDB);
-        })
-    }
 
     const addGear = async (gear) => {
         try {
@@ -150,7 +113,7 @@ export default function ManageGear() {
             <CenterWrapper>
                 <Button
                     iconName={Constants.ICON_PLUS}
-                    color={showAddGear ? Constants.COLOR_ADDBUTTON_OPEN  : Constants.COLOR_ADDBUTTON_CLOSED}
+                    color={showAddGear ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddGear ? t('button_close') : t('button_add_gear')}
                     onClick={toggleAddGear} />
             </CenterWrapper>

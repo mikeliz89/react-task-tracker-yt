@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { ref, onValue } from 'firebase/database';
-import { db } from '../../firebase-config';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddFoodItem from './AddFoodItem';
@@ -19,6 +17,7 @@ import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
+import useFetch from '../useFetch';
 
 export default function ManageFoodItems() {
 
@@ -28,11 +27,9 @@ export default function ManageFoodItems() {
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
 
-    //states
-    const [loading, setLoading] = useState(true);
-    const [counter, setCounter] = useState(0);
-    const [foodItems, setFoodItems] = useState();
-    const [originalFoodItems, setOriginalFoodItems] = useState();
+    //fetch data
+    const { data: foodItems, setData: setFoodItems,
+        originalData: originalFoodItems, counter, loading } = useFetch(Constants.DB_FOODITEMS);
 
     //modal
     const { status: showAddFoodItem, toggleStatus: toggleAddFoodItem } = useToggle();
@@ -42,23 +39,6 @@ export default function ManageFoodItems() {
     const [message, setMessage] = useState('');
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
-
-    //load data
-    useEffect(() => {
-        let cancel = false;
-
-        const getFoodItems = async () => {
-            if (cancel) {
-                return;
-            }
-            await fetchFoodItemsFromFirebase();
-        }
-        getFoodItems();
-
-        return () => {
-            cancel = true;
-        }
-    }, [])
 
     const addFoodItem = (foodItem) => {
         try {
@@ -88,23 +68,6 @@ export default function ManageFoodItems() {
     const editFoodItem = (foodItem) => {
         const id = foodItem.id;
         updateToFirebaseById(Constants.DB_FOODITEMS, id, foodItem);
-    }
-
-    const fetchFoodItemsFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_FOODITEMS);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let counterTemp = 0;
-            for (let id in snap) {
-                counterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setCounter(counterTemp);
-            setFoodItems(fromDB);
-            setOriginalFoodItems(fromDB);
-            setLoading(false);
-        })
     }
 
     return loading ? (

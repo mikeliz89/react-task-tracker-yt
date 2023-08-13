@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { ref, onValue } from 'firebase/database';
-import { db } from '../../firebase-config';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddDrinkingProduct from './AddDrinkingProduct';
@@ -19,6 +17,7 @@ import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
+import useFetch from '../useFetch';
 
 export default function ManageDrinkingProducts() {
 
@@ -28,11 +27,10 @@ export default function ManageDrinkingProducts() {
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
-    //states
-    const [drinkingProducts, setDrinkingProducts] = useState();
-    const [originalDrinkingProducts, setOriginalDrinkingProducts] = useState();
-    const [counter, setCounter] = useState(0);
-    const [loading, setLoading] = useState(true);
+    //fetch data
+    const { data: drinkingProducts, setData: setDrinkingProducts,
+        originalData: originalDrinkingProducts,
+        counter, loading } = useFetch(Constants.DB_DRINKINGPRODUCTS);
 
     //modal
     const { status: showAddDrinkingProduct, toggleStatus: toggleAddDrinkingProduct } = useToggle();
@@ -42,23 +40,6 @@ export default function ManageDrinkingProducts() {
     const [message, setMessage] = useState('');
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
-
-    //load data
-    useEffect(() => {
-        let cancel = false;
-
-        const getDrinkingProducts = async () => {
-            if (cancel) {
-                return;
-            }
-            await fetchDrinkingProductsFromFirebase();
-        }
-        getDrinkingProducts();
-
-        return () => {
-            cancel = true;
-        }
-    }, [])
 
     const addDrinkingProduct = (drinkingProduct) => {
         try {
@@ -80,23 +61,6 @@ export default function ManageDrinkingProducts() {
     const editDrinkingProduct = (drinkingProduct) => {
         const id = drinkingProduct.id;
         updateToFirebaseById(Constants.DB_DRINKINGPRODUCTS, id, drinkingProduct);
-    }
-
-    const fetchDrinkingProductsFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_DRINKINGPRODUCTS);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let counterTemp = 0;
-            for (let id in snap) {
-                counterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setCounter(counterTemp);
-            setDrinkingProducts(fromDB);
-            setOriginalDrinkingProducts(fromDB);
-            setLoading(false);
-        })
     }
 
     return loading ? (

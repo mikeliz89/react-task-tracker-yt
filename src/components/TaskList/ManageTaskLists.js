@@ -1,10 +1,7 @@
-import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
 import { useNavigate } from 'react-router-dom';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import AddTaskList from '../../components/TaskList/AddTaskList';
 import TaskLists from '../../components/TaskList/TaskLists';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -23,6 +20,7 @@ import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
+import useFetch from '../useFetch';
 
 export default function ManageTaskLists({ listType }) {
 
@@ -35,43 +33,12 @@ export default function ManageTaskLists({ listType }) {
   //translation
   const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
-  //states
-  const [loading, setLoading] = useState(true);
-  const [taskLists, setTaskLists] = useState();
-  const [originalTaskLists, setOriginalTaskLists] = useState();
-  const [counter, setCounter] = useState(0);
+  //fetch data
+  const { data: taskLists, setData: setTaskLists,
+    originalData: originalTaskLists, counter, loading } = useFetch(Constants.DB_TASKLISTS, listType);
 
   //modal
   const { status: showAddTaskList, toggleStatus: toggleAddTaskList } = useToggle();
-
-  //load data
-  useEffect(() => {
-    const getTaskLists = async () => {
-      await fetchTaskListsFromFireBase();
-    }
-    getTaskLists();
-  }, [])
-
-  const fetchTaskListsFromFireBase = async () => {
-    const dbref = ref(db, Constants.DB_TASKLISTS); //.orderByChild("listType").equalTo(Number(listType));;
-    onValue(dbref, (snapshot) => {
-      const snap = snapshot.val();
-      const fromDB = [];
-      let counterTemp = 0;
-      for (let id in snap) {
-        const item = snap[id];
-        if ((item["listType"] === listType && listType > 0) ||
-          (item["listType"] === undefined && listType === 0)) {
-          counterTemp++;
-          fromDB.push({ id, ...snap[id] });
-        }
-      }
-      setCounter(counterTemp);
-      setLoading(false);
-      setTaskLists(fromDB);
-      setOriginalTaskLists(fromDB);
-    })
-  }
 
   const addTaskList = async (taskList) => {
     taskList["created"] = getCurrentDateAsJson();

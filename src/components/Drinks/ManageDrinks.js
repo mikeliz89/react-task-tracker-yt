@@ -1,9 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { ref, onValue } from 'firebase/database';
-import { db } from '../../firebase-config';
 import Recipes from '../Recipe/Recipes';
 import AddDrink from './AddDrink';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -23,6 +21,7 @@ import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier'
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
+import useFetch from '../useFetch';
 
 export default function ManageDrinks() {
 
@@ -32,11 +31,10 @@ export default function ManageDrinks() {
     //navigate
     const navigate = useNavigate();
 
-    //states
-    const [loading, setLoading] = useState(true);
-    const [drinks, setDrinks] = useState();
-    const [originalDrinks, setOriginalDrinks] = useState();
-    const [counter, setCounter] = useState(0);
+    //fetch data
+    const { data: drinks, setData: setDrinks,
+        originalData: originalDrinks,
+        counter, loading } = useFetch(Constants.DB_DRINKS);
 
     //modal
     const { status: showAddDrink, toggleStatus: toggleAddDrink } = useToggle();
@@ -49,40 +47,6 @@ export default function ManageDrinks() {
 
     //user
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        let cancel = false;
-
-        const getDrinks = async () => {
-            if (cancel) {
-                return;
-            }
-            await fetchDrinksFromFirebase();
-        }
-        getDrinks();
-
-        return () => {
-            cancel = true;
-        }
-    }, [])
-
-    const fetchDrinksFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_DRINKS);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let counterTemp = 0;
-            for (let id in snap) {
-                counterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setCounter(counterTemp);
-            setLoading(false);
-            setDrinks(fromDB);
-            setOriginalDrinks(fromDB);
-        })
-    }
 
     const addDrink = async (drink) => {
         try {

@@ -1,6 +1,5 @@
 import { Row, ButtonGroup } from "react-bootstrap";
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from "react";
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import PageContentWrapper from "../Site/PageContentWrapper";
@@ -10,21 +9,19 @@ import * as Constants from "../../utils/Constants";
 import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebase } from "../../datatier/datatier";
-import { db } from "../../firebase-config";
-import { onValue, ref } from "firebase/database";
 import GearMaintenanceInstructions from "./GearMaintenanceInstructions";
 import { removeFromFirebaseById } from "../../datatier/datatier";
 import Counter from "../Site/Counter";
 import CenterWrapper from '../Site/CenterWrapper';
 import { useToggle } from "../UseToggle";
+import useFetch from "../useFetch";
 
 export default function ManageGearMaintenance() {
 
-    //states
-    const [loading, setLoading] = useState(true);
-    const [counter, setCounter] = useState(0);
-    const [gearMaintenanceInstructions, setGearMaintenanceInstructions] = useState(null);
-    const [originalGearMaintenanceInstructions, setOriginalGearMaintenanceInstructions] = useState(null);
+    //fetch data
+    const { data: gearMaintenanceInstructions,
+        originalData: originalGearMaintenanceInstructions,
+        counter, loading } = useFetch(Constants.DB_BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS);
 
     //toggle
     const { status: showAddGearMaintenance, toggleStatus: toggleAddGearMaintenance } = useToggle();
@@ -34,40 +31,6 @@ export default function ManageGearMaintenance() {
 
     //user
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        let cancel = false;
-
-        const getGearMaintenanceInstructions = async () => {
-            if (cancel) {
-                return;
-            }
-            await fetchGearMaintenanceInstructionsFromFirebase();
-        }
-        getGearMaintenanceInstructions();
-
-        return () => {
-            cancel = true;
-        }
-    }, [])
-
-    const fetchGearMaintenanceInstructionsFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let counterTemp = 0;
-            for (let id in snap) {
-                counterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setCounter(counterTemp);
-            setLoading(false);
-            setGearMaintenanceInstructions(fromDB);
-            setOriginalGearMaintenanceInstructions(fromDB);
-        })
-    }
 
     const addGearMaintenanceInstruction = (maintenanceInstruction) => {
         try {

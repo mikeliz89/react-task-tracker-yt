@@ -11,29 +11,26 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import CenterWrapper from '../Site/CenterWrapper';
 import Musics from './Musics';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Counter from '../Site/Counter';
 import Alert from '../Alert';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import AddMusic from './AddMusic';
 import { useAuth } from '../../contexts/AuthContext';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
+import useFetch from '../useFetch';
 
 export default function ManageMusicRecords() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
 
-    //states
-    const [loading, setLoading] = useState(true);
-    const [counter, setCounter] = useState(0);
-    const [musics, setMusics] = useState();
-    const [originalMusics, setOriginalMusics] = useState();
-    
+    //fetch data
+    const { data: musics, setData: setMusics,
+        originalData: originalMusics, counter, loading } = useFetch(Constants.DB_MUSIC);
+
     //modal
     const { status: showAddRecord, toggleStatus: toggleAddRecord } = useToggle();
 
@@ -45,40 +42,6 @@ export default function ManageMusicRecords() {
 
     //user
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        let cancel = false;
-
-        const getMusics = async () => {
-            if (cancel) {
-                return;
-            }
-            await fetchMusicsFromFirebase();
-        }
-        getMusics();
-
-        return () => {
-            cancel = true;
-        }
-    }, [])
-
-    const fetchMusicsFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_MUSIC);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let counterTemp = 0;
-            for (let id in snap) {
-                counterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setCounter(counterTemp);
-            setLoading(false);
-            setMusics(fromDB);
-            setOriginalMusics(fromDB);
-        })
-    }
 
     const deleteMusic = async (id) => {
         removeFromFirebaseById(Constants.DB_MUSIC, id);
@@ -167,7 +130,7 @@ export default function ManageMusicRecords() {
             <CenterWrapper>
                 <Button
                     iconName={Constants.ICON_PLUS}
-                    color={showAddRecord ? Constants.COLOR_ADDBUTTON_OPEN: Constants.COLOR_ADDBUTTON_CLOSED}
+                    color={showAddRecord ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddRecord ? t('button_close') : t('button_add_music')}
                     onClick={toggleAddRecord} />
             </CenterWrapper>

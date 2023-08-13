@@ -11,28 +11,25 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import CenterWrapper from '../Site/CenterWrapper';
 import Movies from './Movies';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Counter from '../Site/Counter';
 import Alert from '../Alert';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import AddMovie from './AddMovie';
 import { useAuth } from '../../contexts/AuthContext';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
+import useFetch from '../useFetch';
 
 export default function ManageMovies() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
 
-    //states
-    const [loading, setLoading] = useState(true);
-    const [counter, setCounter] = useState(0);
-    const [movies, setMovies] = useState();
-    const [originalMovies, setOriginalMovies] = useState();
+    //fetch data
+    const { data: movies, setData: setMovies,
+        originalData: originalMovies, counter, loading } = useFetch(Constants.DB_MOVIES);
 
     //modal
     const { status: showAddMovie, toggleStatus: toggleAddMovie } = useToggle();
@@ -45,40 +42,6 @@ export default function ManageMovies() {
 
     //user
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        let cancel = false;
-
-        const getMovies = async () => {
-            if (cancel) {
-                return;
-            }
-            await fetchMoviesFromFirebase();
-        }
-        getMovies();
-
-        return () => {
-            cancel = true;
-        }
-    }, [])
-
-    const fetchMoviesFromFirebase = async () => {
-        const dbref = await ref(db, Constants.DB_MOVIES);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let counterTemp = 0;
-            for (let id in snap) {
-                counterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setCounter(counterTemp);
-            setLoading(false);
-            setMovies(fromDB);
-            setOriginalMovies(fromDB);
-        })
-    }
 
     const deleteMovie = async (id) => {
         removeFromFirebaseById(Constants.DB_MOVIES, id);
