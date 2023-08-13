@@ -11,8 +11,9 @@ import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
+import { ButtonGroup, Row } from 'react-bootstrap';
 
-const ManageTaskListsArchive = () => {
+export default function ManageTaskListsArchive() {
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
@@ -69,7 +70,11 @@ const ManageTaskListsArchive = () => {
 
       <PageTitle title={t('manage_tasklists_archive_title')} />
 
-      <GoBackButton />
+      <Row>
+        <ButtonGroup>
+          <GoBackButton />
+        </ButtonGroup>
+      </Row>
 
       {taskLists != null && taskLists.length > 0 ? (
         <>
@@ -91,5 +96,3 @@ const ManageTaskListsArchive = () => {
     </PageContentWrapper>
   )
 }
-
-export default ManageTaskListsArchive

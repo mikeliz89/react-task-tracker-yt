@@ -5,7 +5,7 @@ import { getMovementCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 import Icon from '../Icon';
 
-const Movement = ({ movement, onDelete }) => {
+export default function Movement({ movement, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
@@ -37,5 +37,3 @@ const Movement = ({ movement, onDelete }) => {
         </div>
     )
 }
-
-export default Movement

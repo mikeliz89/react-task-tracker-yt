@@ -9,7 +9,7 @@ import SortByButton from './SortByButton';
 import SearchTextInput from './SearchTextInput';
 import FilterCheckBox from './FilterCheckBox';
 
-const SearchSortFilter = ({ onSet,
+export default function SearchSortFilter({ onSet,
     originalList,
     //sorting
     defaultSort,
@@ -38,7 +38,7 @@ const SearchSortFilter = ({ onSet,
     showFilterNotReady,
     //filtermode
     filterMode
-}) => {
+}) {
 
     //states
     const [searchString, setSearchString] = useState('');
@@ -434,7 +434,7 @@ const SearchSortFilter = ({ onSet,
                         onSet={setShowOnlyNotReady}
                         labelText='show_only_not_ready'
                         id='notisready'
-                        />
+                    />
                 }
             </Form>
         </div>
@@ -500,5 +500,3 @@ SearchSortFilter.propTypes = {
     //other
     onSet: PropTypes.func
 }
-
-export default SearchSortFilter

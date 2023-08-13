@@ -1,6 +1,6 @@
 import StarRating from "../StarRating/StarRating";
 
-function StarRatings() {
+export default function StarRatings() {
     return (
         <div>
             Star ratings:
@@ -19,5 +19,3 @@ function StarRatings() {
         </div>
     )
 }
-
-export default StarRatings

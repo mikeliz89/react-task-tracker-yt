@@ -3,7 +3,7 @@ import GymPart from './GymPart';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
-function GymParts({ exerciseID, parts }) {
+export default function GymParts({ exerciseID, parts }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
@@ -23,6 +23,3 @@ function GymParts({ exerciseID, parts }) {
         </>
     )
 }
-
-export default GymParts
-

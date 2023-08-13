@@ -20,7 +20,7 @@ import RightWrapper from '../Site/RightWrapper';
 import AddRecipe from './AddRecipe';
 import AddDrink from '../Drinks/AddDrink';
 
-const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
+export default function Recipe({ recipeType, translation, recipe, onDelete }) {
 
     //navigate
     const navigate = useNavigate();
@@ -183,8 +183,6 @@ const Recipe = ({ recipeType, translation, recipe, onDelete }) => {
         </div>
     )
 }
-
-export default Recipe
 
 Recipe.defaultProps = {
     translation: '',

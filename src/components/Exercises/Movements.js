@@ -1,6 +1,6 @@
 import Movement from './Movement';
 
-const Movements = ({ movements, onDelete }) => {
+export default function Movements({ movements, onDelete }) {
 
     return (
         <div>
@@ -10,5 +10,3 @@ const Movements = ({ movements, onDelete }) => {
         </div>
     )
 }
-
-export default Movements

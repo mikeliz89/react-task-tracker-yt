@@ -7,7 +7,7 @@ import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import RightWrapper from '../Site/RightWrapper';
 import * as Constants from '../../utils/Constants';
 
-export const Incredient = ({ dbUrl, translation, incredient, recipeID, onDelete }) => {
+export default function Incredient({ dbUrl, translation, incredient, recipeID, onDelete }) {
 
     //states
     const [editable, setEditable] = useState(false);

@@ -20,7 +20,7 @@ import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '..
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
 
-const ManageDrinkingProducts = () => {
+export default function ManageDrinkingProducts() {
 
     //user
     const { currentUser } = useAuth();
@@ -176,5 +176,3 @@ const ManageDrinkingProducts = () => {
         </PageContentWrapper>
     )
 }
-
-export default ManageDrinkingProducts

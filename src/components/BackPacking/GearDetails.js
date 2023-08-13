@@ -21,7 +21,7 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
 
-function GearDetails() {
+export default function GearDetails() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
@@ -152,5 +152,3 @@ function GearDetails() {
         </PageContentWrapper>
     )
 }
-
-export default GearDetails

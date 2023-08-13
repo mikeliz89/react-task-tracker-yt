@@ -6,7 +6,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { updateToFirebaseById } from '../../datatier/datatier';
 
-function EditExercise({ exerciseID, exercise, onClose }) {
+export default function EditExercise({ exerciseID, exercise, onClose }) {
 
   //states
   const [date, setDate] = useState(''); //todo: laita oletuksena nykypvm
@@ -90,5 +90,3 @@ function EditExercise({ exerciseID, exercise, onClose }) {
     </Form>
   )
 }
-
-export default EditExercise

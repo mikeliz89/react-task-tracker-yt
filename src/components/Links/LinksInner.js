@@ -1,6 +1,6 @@
 import LinkInner from "./LinkInner";
 
-const LinksInner = ({ links, objID, linkUrl, onDelete, onEdit }) => {
+export default function LinksInner({ links, objID, linkUrl, onDelete, onEdit }) {
 
     return (
         <div>
@@ -14,5 +14,3 @@ const LinksInner = ({ links, objID, linkUrl, onDelete, onEdit }) => {
         </div>
     )
 }
-
-export default LinksInner

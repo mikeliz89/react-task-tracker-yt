@@ -14,7 +14,7 @@ import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseById } from '../../datatier/datatier';
 
-const BmiCalculator = () => {
+export default function BmiCalculator() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_BMICALCULATOR, { keyPrefix: Constants.TRANSLATION_BMICALCULATOR });
@@ -177,5 +177,3 @@ const BmiCalculator = () => {
         </PageContentWrapper>
     )
 }
-
-export default BmiCalculator

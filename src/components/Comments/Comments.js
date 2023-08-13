@@ -7,7 +7,7 @@ import CommentsInner from './CommentsInner';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
-const Comments = ({ url, objID, onCounterChange }) => {
+export default function Comments({ url, objID, onCounterChange }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_COMMENTS, { keyPrefix: Constants.TRANSLATION_COMMENTS });
@@ -56,5 +56,3 @@ const Comments = ({ url, objID, onCounterChange }) => {
         </div>
     )
 }
-
-export default Comments

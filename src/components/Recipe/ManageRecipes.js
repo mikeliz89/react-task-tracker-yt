@@ -24,7 +24,7 @@ import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
 
-const ManageRecipes = () => {
+export default function ManageRecipes() {
 
   //states
   const [loading, setLoading] = useState(true);
@@ -194,5 +194,3 @@ const ManageRecipes = () => {
     </PageContentWrapper>
   )
 }
-
-export default ManageRecipes

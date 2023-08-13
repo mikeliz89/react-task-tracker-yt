@@ -18,6 +18,8 @@ import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import * as Constants from '../../utils/Constants';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
+import Icon from '../Icon';
+import { Link } from 'react-router-dom';
 
 export default function Car() {
 
@@ -129,6 +131,10 @@ export default function Car() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
+                    <Link to={Constants.NAVIGATION_MANAGE_CARLISTS} className='btn btn-primary'>
+                        <Icon name={Constants.ICON_LIST_ALT} color='white' />
+                        {t('button_car_lists')}
+                    </Link>
                 </ButtonGroup>
             </Row>
 

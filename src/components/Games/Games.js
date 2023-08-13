@@ -1,6 +1,6 @@
 import Game from './Game';
 
-const Games = ({ games, onDelete, onEdit }) => {
+export default function Games({ games, onDelete, onEdit }) {
 
   return (
     <div>
@@ -13,5 +13,3 @@ const Games = ({ games, onDelete, onEdit }) => {
     </div>
   )
 }
-
-export default Games

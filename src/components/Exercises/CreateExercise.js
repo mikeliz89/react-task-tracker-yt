@@ -13,7 +13,7 @@ import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebase } from '../../datatier/datatier';
 
-const CreateExercise = () => {
+export default function CreateExercise() {
 
     //states
     const [category, setCategory] = useState();
@@ -116,5 +116,3 @@ const CreateExercise = () => {
         </PageContentWrapper>
     )
 }
-
-export default CreateExercise

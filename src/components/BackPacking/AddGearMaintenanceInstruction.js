@@ -5,7 +5,7 @@ import Button from '../Buttons/Button';
 import * as Constants from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 
-const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, onClose }) => {
+export default function AddGearMaintenanceInstruction ({ gearMaintenanceInstructionID, onSave, onClose }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
@@ -84,5 +84,3 @@ const AddGearMaintenanceInstruction = ({ gearMaintenanceInstructionID, onSave, o
         </>
     )
 }
-
-export default AddGearMaintenanceInstruction

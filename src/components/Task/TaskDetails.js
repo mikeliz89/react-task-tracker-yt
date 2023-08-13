@@ -17,7 +17,7 @@ import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatie
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 
-function TaskDetails() {
+export default function TaskDetails() {
 
   //translation  
   const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
@@ -117,6 +117,4 @@ function TaskDetails() {
       <LinkComponent objID={params.id} url={Constants.DB_TASK_LINKS} onSaveLink={addLinkToTask} />
     </PageContentWrapper>
   );
-};
-
-export default TaskDetails;
+}

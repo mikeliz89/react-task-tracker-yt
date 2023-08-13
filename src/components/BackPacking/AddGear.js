@@ -6,7 +6,7 @@ import { GearCategories } from './Categories';
 import * as Constants from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 
-const AddGear = ({ gearID, onSave, onClose }) => {
+export default function AddGear ({ gearID, onSave, onClose }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
@@ -128,5 +128,3 @@ const AddGear = ({ gearID, onSave, onClose }) => {
         </>
     )
 }
-
-export default AddGear

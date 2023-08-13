@@ -1,6 +1,6 @@
 import Event from './Event';
 
-const Events = ({ events, onDelete, onEdit }) => {
+export default function Events({ events, onDelete, onEdit }) {
 
   return (
     <div>
@@ -13,5 +13,3 @@ const Events = ({ events, onDelete, onEdit }) => {
     </div>
   )
 }
-
-export default Events

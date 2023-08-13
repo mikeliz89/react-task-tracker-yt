@@ -9,7 +9,7 @@ import Icon from '../Icon';
 import RightWrapper from '../Site/RightWrapper';
 import StarRating from '../StarRating/StarRating';
 
-const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
+export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
 
     //states
     const [editable, setEditable] = useState(false);
@@ -83,5 +83,3 @@ const DrinkingProduct = ({ drinkingProduct, onDelete, onEdit }) => {
         </div>
     )
 }
-
-export default DrinkingProduct

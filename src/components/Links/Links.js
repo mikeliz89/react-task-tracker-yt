@@ -7,7 +7,7 @@ import LinksInner from './LinksInner';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById, removeFromFirebaseByIdAndSubId, updateToFirebaseById, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
-const Links = ({ url, objID, onCounterChange }) => {
+export default function Links({ url, objID, onCounterChange }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
@@ -80,5 +80,3 @@ const Links = ({ url, objID, onCounterChange }) => {
         </div>
     )
 }
-
-export default Links

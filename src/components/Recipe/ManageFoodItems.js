@@ -20,7 +20,7 @@ import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '..
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
 
-const ManageFoodItems = () => {
+export default function ManageFoodItems() {
 
     //user
     const { currentUser } = useAuth();
@@ -180,5 +180,3 @@ const ManageFoodItems = () => {
         </PageContentWrapper>
     )
 }
-
-export default ManageFoodItems

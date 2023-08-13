@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Garnish } from './Garnish';
+import Garnish from './Garnish';
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants'
 

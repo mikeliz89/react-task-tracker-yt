@@ -2,7 +2,7 @@ import useUploadToStorage from "../../hooks/useUploadToStorage";
 import { useEffect } from "react";
 import styles from './progressbar.module.css';
 
-function ProgressBar({ file, setFile, objectID, imagesUrl }) {
+export default function ProgressBar({ file, setFile, objectID, imagesUrl }) {
 
   const { url, progress } = useUploadToStorage(file, imagesUrl, objectID);
 
@@ -19,5 +19,3 @@ function ProgressBar({ file, setFile, objectID, imagesUrl }) {
     <div className={styles.progressBar} style={{ width: progress + '%' }}></div>
   )
 }
-
-export default ProgressBar

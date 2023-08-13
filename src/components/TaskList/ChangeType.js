@@ -5,7 +5,7 @@ import Button from '../Buttons/Button';
 import { ListTypesArray } from '../../utils/Enums';
 import * as Constants from '../../utils/Constants';
 
-function ChangeType({ taskList, onSave, onClose }) {
+export default function ChangeType({ taskList, onSave, onClose }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
@@ -66,5 +66,3 @@ function ChangeType({ taskList, onSave, onClose }) {
         </Form>
     )
 }
-
-export default ChangeType

@@ -8,7 +8,7 @@ import Alert from '../Alert';
 import { getIconNameByCategory } from './Categories';
 import StarRating from '../StarRating/StarRating';
 
-const Gear = ({ gear, onDelete }) => {
+export default function Gear({ gear, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
@@ -46,5 +46,3 @@ const Gear = ({ gear, onDelete }) => {
         </div>
     )
 }
-
-export default Gear

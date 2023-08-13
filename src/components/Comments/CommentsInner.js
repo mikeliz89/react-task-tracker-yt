@@ -4,7 +4,7 @@ import i18n from "i18next";
 import { useTranslation } from 'react-i18next';
 import Icon from "../Icon";
 
-const CommentsInner = ({ comments, onDelete }) => {
+export default function CommentsInner({ comments, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_COMMENTS, { keyPrefix: Constants.TRANSLATION_COMMENTS });
@@ -28,5 +28,3 @@ const CommentsInner = ({ comments, onDelete }) => {
         </div>
     )
 }
-
-export default CommentsInner

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Icon from '../Icon';
 
-function PageTitle({ title, iconName, iconColor, isSubTitle }) {
+export default function PageTitle({ title, iconName, iconColor, isSubTitle }) {
     return (
         <>
             {
@@ -37,5 +37,3 @@ PageTitle.propTypes = {
     iconName: PropTypes.string,
     iconColor: PropTypes.string
 }
-
-export default PageTitle

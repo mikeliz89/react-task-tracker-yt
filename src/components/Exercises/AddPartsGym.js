@@ -10,7 +10,7 @@ import PageTitle from '../Site/PageTitle';
 import * as Constants from '../../utils/Constants';
 import { pushToFirebaseChild } from '../../datatier/datatier';
 
-const AddPartsGym = () => {
+export default function AddPartsGym() {
 
   //params
   const params = useParams();
@@ -77,5 +77,3 @@ const AddPartsGym = () => {
     </div>
   )
 }
-
-export default AddPartsGym

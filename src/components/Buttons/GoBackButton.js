@@ -3,7 +3,7 @@ import Button from './Button';
 import { useTranslation } from 'react-i18next';
 import * as Constants from '../../utils/Constants';
 
-const GoBackButton = () => {
+export default function GoBackButton() {
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION_COMMON_BUTTONS, { keyPrefix: Constants.TRANSLATION_COMMON_BUTTONS });
@@ -15,5 +15,3 @@ const GoBackButton = () => {
     <Button iconName={Constants.ICON_ARROW_LEFT} onClick={() => navigate(-1)} title={t('go_back_button_alt')} />
   )
 }
-
-export default GoBackButton

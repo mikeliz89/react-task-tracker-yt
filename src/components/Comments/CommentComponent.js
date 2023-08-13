@@ -5,7 +5,7 @@ import PageTitle from '../Site/PageTitle';
 import { useTranslation } from "react-i18next";
 import * as Constants from '../../utils/Constants';
 
-function CommentComponent({ objID, url, onSave }) {
+export default function CommentComponent({ objID, url, onSave }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_COMMENTS, { keyPrefix: Constants.TRANSLATION_COMMENTS });
@@ -22,5 +22,3 @@ function CommentComponent({ objID, url, onSave }) {
         </>
     )
 }
-
-export default CommentComponent

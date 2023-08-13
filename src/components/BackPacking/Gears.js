@@ -1,6 +1,6 @@
 import Gear from './Gear';
 
-export const Gears = ({ gears, onDelete }) => {
+export default function Gears({ gears, onDelete }) {
 
     return (
         <div>
@@ -10,5 +10,3 @@ export const Gears = ({ gears, onDelete }) => {
         </div>
     )
 }
-
-export default Gears

@@ -6,7 +6,7 @@ import { removeFromFirebaseByIdAndSubId } from "../../datatier/datatier";
 import PageTitle from '../Site/PageTitle';
 import * as Constants from '../../utils/Constants';
 
-function RecipeHistories({ dbUrl, translation, recipeHistories, recipeID }) {
+export default function RecipeHistories({ dbUrl, translation, recipeHistories, recipeID }) {
 
     //translation
     const { t } = useTranslation(translation, { keyPrefix: translation });
@@ -39,8 +39,6 @@ function RecipeHistories({ dbUrl, translation, recipeHistories, recipeID }) {
         </div>
     )
 }
-
-export default RecipeHistories
 
 RecipeHistories.defaultProps = {
     dbUrl: '/none',

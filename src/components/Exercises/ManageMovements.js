@@ -20,7 +20,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useToggle } from '../UseToggle';
 
-function ManageMovements() {
+export default function ManageMovements() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
@@ -168,5 +168,3 @@ function ManageMovements() {
         </PageContentWrapper>
     )
 }
-
-export default ManageMovements

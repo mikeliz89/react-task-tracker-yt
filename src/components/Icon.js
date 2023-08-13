@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 //https://fontawesome.com/v5/docs/web/use-with/react
 
-function Icon({ name, color, className, onClick, fontSize, cursor, style }) {
+export default function Icon({ name, color, className, onClick, fontSize, cursor, style }) {
     return (
         <>
             {name &&
@@ -31,5 +31,3 @@ Icon.propTypes = {
     fontSize: PropTypes.string,
     style: PropTypes.object
 }
-
-export default Icon

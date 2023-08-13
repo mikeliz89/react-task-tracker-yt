@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Col, Row, Form } from 'react-bootstrap';
 import * as Constants from '../../utils/Constants';
 
-const SearchTextInput = ({ setSearchString, placeholderText }) => {
+export default function SearchTextInput({ setSearchString, placeholderText }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_SEARCHSORTFILTER, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
@@ -23,5 +23,3 @@ const SearchTextInput = ({ setSearchString, placeholderText }) => {
         </Form.Group>
     )
 }
-
-export default SearchTextInput

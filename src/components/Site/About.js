@@ -4,7 +4,7 @@ import PageTitle from '../Site/PageTitle';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import * as Constants from '../../utils/Constants';
 
-const About = () => {
+export default function About() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_ABOUT, { keyPrefix: Constants.TRANSLATION_ABOUT });
@@ -18,5 +18,3 @@ const About = () => {
         </PageContentWrapper>
     )
 }
-
-export default About

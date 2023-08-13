@@ -9,7 +9,7 @@ import AddMaintenance from "./AddMaintenance";
 import { updateToFirebaseById } from "../../datatier/datatier";
 import RightWrapper from "../Site/RightWrapper";
 
-function CarMaintenance({ carMaintenance, onDelete }) {
+export default function CarMaintenance({ carMaintenance, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
@@ -64,5 +64,3 @@ function CarMaintenance({ carMaintenance, onDelete }) {
         </>
     )
 }
-
-export default CarMaintenance

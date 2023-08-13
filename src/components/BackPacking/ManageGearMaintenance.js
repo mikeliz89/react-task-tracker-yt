@@ -18,7 +18,7 @@ import Counter from "../Site/Counter";
 import CenterWrapper from '../Site/CenterWrapper';
 import { useToggle } from "../UseToggle";
 
-function ManageGearMaintenance() {
+export default function ManageGearMaintenance() {
 
     //states
     const [loading, setLoading] = useState(true);
@@ -128,5 +128,3 @@ function ManageGearMaintenance() {
         </PageContentWrapper>
     )
 }
-
-export default ManageGearMaintenance

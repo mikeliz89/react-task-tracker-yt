@@ -7,7 +7,7 @@ import * as Constants from '../../utils/Constants';
 import { MovementCategories } from './Categories';
 import { getFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 
-const AddMovement = ({ movementID, onClose, onSave }) => {
+export default function  AddMovement ({ movementID, onClose, onSave })  {
 
     //states
     const [category, setCategory] = useState();
@@ -107,5 +107,3 @@ const AddMovement = ({ movementID, onClose, onSave }) => {
         </>
     )
 }
-
-export default AddMovement

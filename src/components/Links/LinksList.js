@@ -4,8 +4,14 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebase } from '../../datatier/datatier';
 import * as Constants from '../../utils/Constants';
 import LinkComponent from './LinkComponent';
+import PageTitle from '../Site/PageTitle';
+import { useTranslation } from 'react-i18next';
+import { ButtonGroup, Row } from 'react-bootstrap';
 
 export default function LinksList() {
+
+    //translation
+    const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
 
     const addLink = (link) => {
         link["created"] = getCurrentDateAsJson();
@@ -14,7 +20,12 @@ export default function LinksList() {
 
     return (
         <PageContentWrapper>
-            <GoBackButton />
+            <PageTitle title={t('header')} />
+            <Row>
+                <ButtonGroup>
+                    <GoBackButton />
+                </ButtonGroup>
+            </Row>
             <LinkComponent onSaveLink={addLink} url={Constants.DB_LINKS} />
         </PageContentWrapper>
     )

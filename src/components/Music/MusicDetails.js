@@ -21,7 +21,7 @@ import { getMusicFormatNameByID } from '../../utils/ListUtils';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
 
-function MusicDetails() {
+export default function MusicDetails() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
@@ -154,5 +154,3 @@ function MusicDetails() {
         </PageContentWrapper>
     )
 }
-
-export default MusicDetails

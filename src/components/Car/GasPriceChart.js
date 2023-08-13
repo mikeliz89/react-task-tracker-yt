@@ -1,7 +1,7 @@
 
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
-function GasPriceChart({ data }) {
+export default function GasPriceChart({ data }) {
     return (
         <div>
             {/* <pre>{JSON.stringify(data)}</pre> */}
@@ -16,5 +16,3 @@ function GasPriceChart({ data }) {
         </div>
     )
 }
-
-export default GasPriceChart

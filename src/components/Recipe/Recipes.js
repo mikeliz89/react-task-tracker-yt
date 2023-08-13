@@ -2,7 +2,7 @@ import Recipe from './Recipe';
 import PropTypes from 'prop-types';
 import { RecipeTypes } from '../../utils/Enums';
 
-const Recipes = ({ recipeType, translation, recipes, onDelete }) => {
+export default function Recipes({ recipeType, translation, recipes, onDelete }) {
 
   return (
     <div>
@@ -16,8 +16,6 @@ const Recipes = ({ recipeType, translation, recipes, onDelete }) => {
     </div>
   )
 }
-
-export default Recipes
 
 Recipes.defaultProps = {
   translation: '',

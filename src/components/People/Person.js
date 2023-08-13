@@ -5,7 +5,7 @@ import * as Constants from "../../utils/Constants";
 import Icon from '../Icon';
 import Alert from '../Alert';
 
-const Person = ({ person, onDelete }) => {
+export default function Person({ person, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_PEOPLE, { keyPrefix: Constants.TRANSLATION_PEOPLE });
@@ -39,5 +39,3 @@ const Person = ({ person, onDelete }) => {
         </div>
     )
 }
-
-export default Person

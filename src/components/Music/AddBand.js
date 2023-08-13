@@ -6,7 +6,7 @@ import * as Constants from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 import PropTypes from 'prop-types';
 
-const AddBand = ({ bandID, onSave, onClose, showLabels }) => {
+export default function AddBand({ bandID, onSave, onClose, showLabels }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
@@ -130,5 +130,3 @@ AddBand.defaultProps = {
 AddBand.propTypes = {
     showLabels: PropTypes.bool
 }
-
-export default AddBand

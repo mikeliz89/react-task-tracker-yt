@@ -6,7 +6,7 @@ import StarRating from './StarRating';
 import PropTypes from 'prop-types';
 import * as Constants from '../../utils/Constants';
 
-const SetStarRating = ({ starCount, onSaveStars, onShow }) => {
+export default function SetStarRating({ starCount, onSaveStars, onShow }) {
 
     //states
     const [showStarRating, setShowStarRating] = useState(false);
@@ -71,8 +71,6 @@ const SetStarRating = ({ starCount, onSaveStars, onShow }) => {
         </>
     )
 }
-
-export default SetStarRating
 
 SetStarRating.defaultProps = {
     starCount: 0

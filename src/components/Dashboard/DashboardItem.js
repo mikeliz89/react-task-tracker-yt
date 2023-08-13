@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
 import styles from './dashboard.module.css';
 
-function DashboardItem(props) {
+export default function DashboardItem(props) {
 
     const { link, children } = props;
 
@@ -14,5 +14,3 @@ function DashboardItem(props) {
         </Col>
     )
 }
-
-export default DashboardItem

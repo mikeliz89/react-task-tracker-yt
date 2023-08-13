@@ -4,7 +4,7 @@ import { ButtonGroup, Col, Form, Row } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import * as Constants from '../../utils/Constants';
 
-const AddLink = ({ onSaveLink }) => {
+export default function AddLink({ onSaveLink }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
@@ -80,5 +80,3 @@ const AddLink = ({ onSaveLink }) => {
         </>
     )
 }
-
-export default AddLink

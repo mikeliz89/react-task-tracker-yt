@@ -11,7 +11,7 @@ import * as Constants from '../../utils/Constants';
 import PageTitle from '../Site/PageTitle';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
-const AddPartsAerobics = () => {
+export default function  AddPartsAerobics () {
 
   //states
   const [time, setTime] = useState(0);
@@ -99,5 +99,3 @@ const AddPartsAerobics = () => {
     )
   )
 }
-
-export default AddPartsAerobics

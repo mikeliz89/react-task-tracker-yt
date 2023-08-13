@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Icon from '../Icon';
 
-function FormTitle({ iconName, title }) {
+export default function FormTitle({ iconName, title }) {
     return (
         <h5 style={{ marginTop: '10px' }}>
             {
@@ -25,5 +25,3 @@ FormTitle.propTypes = {
     //icons
     iconName: PropTypes.string
 }
-
-export default FormTitle

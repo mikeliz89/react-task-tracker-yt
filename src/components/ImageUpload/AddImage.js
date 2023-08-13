@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import * as Constants from '../../utils/Constants';
 import Button from '../Buttons/Button';
 
-function AddImage({ objectID, imagesUrl }) {
+export default function AddImage({ objectID, imagesUrl }) {
 
     //states
     const [showAddImage, setShowAddImage] = useState(false);
@@ -30,5 +30,3 @@ function AddImage({ objectID, imagesUrl }) {
         </>
     )
 }
-
-export default AddImage

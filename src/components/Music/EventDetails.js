@@ -20,7 +20,7 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
 
-function EventDetails() {
+export default function EventDetails() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
@@ -148,5 +148,3 @@ function EventDetails() {
         </PageContentWrapper>
     )
 }
-
-export default EventDetails

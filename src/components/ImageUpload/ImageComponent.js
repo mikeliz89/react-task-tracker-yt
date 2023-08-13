@@ -6,7 +6,7 @@ import ImageGrid from './ImageGrid';
 import Modal from './Modal';
 import PageTitle from '../Site/PageTitle';
 
-function ImageComponent({ objID, url }) {
+export default function ImageComponent({ objID, url }) {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [counter, setCounter] = useState(0);
@@ -26,5 +26,3 @@ function ImageComponent({ objID, url }) {
     </>
   )
 }
-
-export default ImageComponent

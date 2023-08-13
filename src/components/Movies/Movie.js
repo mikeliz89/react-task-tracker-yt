@@ -11,7 +11,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import AddMovie from './AddMovie';
 
-const Movie = ({ movie, onDelete, onEdit }) => {
+export default function Movie({ movie, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
@@ -110,5 +110,3 @@ const Movie = ({ movie, onDelete, onEdit }) => {
         </div>
     )
 }
-
-export default Movie

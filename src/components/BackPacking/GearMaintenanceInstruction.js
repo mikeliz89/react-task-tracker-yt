@@ -8,7 +8,7 @@ import AddGearMaintenanceInstruction from './AddGearMaintenanceInstruction';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
 
-const GearMaintenanceInstruction = ({ instruction, onDelete }) => {
+export default function GearMaintenanceInstruction({ instruction, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
@@ -60,5 +60,3 @@ const GearMaintenanceInstruction = ({ instruction, onDelete }) => {
         </div>
     )
 }
-
-export default GearMaintenanceInstruction

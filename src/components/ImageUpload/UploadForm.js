@@ -6,7 +6,7 @@ import * as Constants from '../../utils/Constants';
 import ProgressBar from './ProgressBar';
 import CenterWrapper from '../Site/CenterWrapper';
 
-function UploadForm({ objectID, imagesUrl }) {
+export default function UploadForm({ objectID, imagesUrl }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_UPLOAD_IMAGES, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
@@ -59,5 +59,3 @@ function UploadForm({ objectID, imagesUrl }) {
         </>
     )
 }
-
-export default UploadForm

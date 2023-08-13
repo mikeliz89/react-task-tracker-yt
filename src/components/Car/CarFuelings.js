@@ -5,7 +5,7 @@ import CarFueling from "./CarFueling";
 import * as Constants from '../../utils/Constants';
 import GasPriceChart from './GasPriceChart';
 
-const CarFuelings = ({ carFuelings, onDelete }) => {
+export default function CarFuelings({ carFuelings, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
@@ -41,5 +41,3 @@ const CarFuelings = ({ carFuelings, onDelete }) => {
         </>
     )
 }
-
-export default CarFuelings

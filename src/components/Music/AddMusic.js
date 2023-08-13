@@ -7,7 +7,7 @@ import { getFromFirebaseById } from '../../datatier/datatier';
 import { MusicFormats } from './Categories';
 import PropTypes from 'prop-types';
 
-const AddMusic = ({ musicID, onSave, onClose, showLabels }) => {
+export default function AddMusic({ musicID, onSave, onClose, showLabels }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
@@ -159,5 +159,3 @@ AddMusic.defaultProps = {
 AddMusic.propTypes = {
     showLabels: PropTypes.bool
 }
-
-export default AddMusic

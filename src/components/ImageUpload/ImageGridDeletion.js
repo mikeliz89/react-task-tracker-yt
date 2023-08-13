@@ -1,6 +1,6 @@
 import useRemoveFromStorage from "../../hooks/useRemoveFromStorage";
 
-function ImageGridDeletion({ url, mainID, subID, fileName }) {
+export default function ImageGridDeletion({ url, mainID, subID, fileName }) {
 
   const { error, success } = useRemoveFromStorage(url, mainID, subID, fileName);
 
@@ -8,5 +8,3 @@ function ImageGridDeletion({ url, mainID, subID, fileName }) {
     <></>
   )
 }
-
-export default ImageGridDeletion

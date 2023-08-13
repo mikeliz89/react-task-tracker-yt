@@ -151,6 +151,8 @@ export const NAVIGATION_LOGIN = '/login';
 //backpacking
 export const NAVIGATION_MANAGE_BACKPACKING = '/managebackpacking';
 export const NAVIGATION_MANAGE_BACKPACKINGLISTS = '/managebackpackinglists';
+//car
+export const NAVIGATION_MANAGE_CARLISTS = '/managecarlists';
 //drinks
 export const NAVIGATION_MANAGE_DRINKS = '/managedrinks';
 export const NAVIGATION_MANAGE_DRINKLISTS = '/managedrinklists';
@@ -183,15 +185,22 @@ export const NAVIGATION_MANAGE_SHOPPINGLISTS = '/manageshoppinglists';
 export const NAVIGATION_MANAGE_TASKLISTS = '/managetasklists';
 export const NAVIGATION_MANAGE_PEOPLE = '/managepeople';
 export const NAVIGATION_MOVEMENT = '/movement';
+//movie
 export const NAVIGATION_MOVIE = '/movie';
+//music
 export const NAVIGATION_MUSIC = '/music';
 export const NAVIGATION_MUSIC_EVENT = '/event';
 export const NAVIGATION_MUSIC_BAND = '/band';
+//person
 export const NAVIGATION_PERSON = '/person';
+//recipe
 export const NAVIGATION_RECIPE = '/recipe';
+//tasklist
 export const NAVIGATION_TASKLIST = '/tasklist';
 export const NAVIGATION_TASKLIST_ARCHIVE = '/tasklistarchive';
+//signup
 export const NAVIGATION_SIGNUP = '/signup';
+//weight
 export const NAVIGATION_WEIGHTHISTORY = '/weighthistory';
 
 //SESSIONSTORAGE

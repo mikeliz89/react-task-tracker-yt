@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Icon from "../Icon";
 import * as Constants from '../../utils/Constants';
 
-function RecipeHistory({ translation, recipeHistory, onDelete }) {
+export default function RecipeHistory({ translation, recipeHistory, onDelete }) {
 
     //translation
     const { t } = useTranslation(translation, { keyPrefix: translation });
@@ -26,5 +26,3 @@ function RecipeHistory({ translation, recipeHistory, onDelete }) {
         </div>
     )
 }
-
-export default RecipeHistory

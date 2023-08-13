@@ -9,7 +9,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import AddBand from './AddBand';
 
-const Band = ({ band, onDelete, onEdit }) => {
+export default function Band({ band, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
@@ -64,5 +64,3 @@ const Band = ({ band, onDelete, onEdit }) => {
         </div>
     )
 }
-
-export default Band

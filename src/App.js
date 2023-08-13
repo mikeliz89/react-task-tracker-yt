@@ -67,6 +67,7 @@ import 'flag-icon-css/css/flag-icons.min.css';
 import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //Car
+import ManageCarLists from './components/Car/ManageCarLists';
 import Car from './components/Car/Car';
 //Music
 import BandDetails from './components/Music/BandDetails';
@@ -214,6 +215,7 @@ function App() {
             <Route path='/gear/:id' element={<PrivateRoute><GearDetails /></PrivateRoute>} />
             {/* Backpacking */}
             {/* Car */}
+            <Route path='/managecarlists' element={<PrivateRoute><ManageCarLists /></PrivateRoute>} />
             <Route path='/car' element={<PrivateRoute><Car /></PrivateRoute>} />
             {/* Car */}
             {/* Music */}

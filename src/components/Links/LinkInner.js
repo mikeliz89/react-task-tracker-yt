@@ -6,7 +6,7 @@ import Icon from "../Icon";
 import * as Constants from '../../utils/Constants';
 import RightWrapper from "../Site/RightWrapper";
 
-const LinkInner = ({ link, objID, linkUrl, onEdit, onDelete }) => {
+export default function LinkInner({ link, objID, linkUrl, onEdit, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
@@ -52,5 +52,3 @@ const LinkInner = ({ link, objID, linkUrl, onEdit, onDelete }) => {
         </>
     )
 }
-
-export default LinkInner

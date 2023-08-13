@@ -11,7 +11,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import AddGame from './AddGame';
 
-const Game = ({ game, onDelete, onEdit }) => {
+export default function Game({ game, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_GAMES, { keyPrefix: Constants.TRANSLATION_GAMES });
@@ -113,5 +113,3 @@ const Game = ({ game, onDelete, onEdit }) => {
         </div>
     )
 }
-
-export default Game

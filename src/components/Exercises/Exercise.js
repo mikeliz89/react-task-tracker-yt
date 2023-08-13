@@ -6,7 +6,7 @@ import Icon from '../Icon';
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
 
-const Exercise = ({ exercise, onDelete }) => {
+export default function Exercise({ exercise, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
@@ -41,5 +41,3 @@ const Exercise = ({ exercise, onDelete }) => {
         </div>
     )
 }
-
-export default Exercise

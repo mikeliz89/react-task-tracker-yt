@@ -8,7 +8,7 @@ import AddTaskList from './AddTaskList';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
 
-const TaskList = ({ taskList, archived, onDelete }) => {
+export default function TaskList({ taskList, archived, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
@@ -57,4 +57,3 @@ const TaskList = ({ taskList, archived, onDelete }) => {
     )
 }
 
-export default TaskList

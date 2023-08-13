@@ -2,7 +2,7 @@ import { Accordion, Table, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import PageTitle from './Site/PageTitle';
 
-function AccordionElement({ title, array, iconName, forceOpen }) {
+export default function AccordionElement({ title, array, iconName, forceOpen }) {
     return (
         <Row>
             <Col>
@@ -43,5 +43,3 @@ AccordionElement.propTypes = {
     iconName: PropTypes.string,
     forceOpen: PropTypes.bool
 }
-
-export default AccordionElement

@@ -6,7 +6,7 @@ import { FoodItemCategories } from './Categories';
 import * as Constants from '../../utils/Constants';
 import { getFromFirebaseById } from '../../datatier/datatier';
 
-const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
+export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
 
     //translation
     const { t, ready } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
@@ -200,5 +200,3 @@ const AddFoodItem = ({ foodItemID, onAddFoodItem, onClose }) => {
         </>
     )
 }
-
-export default AddFoodItem

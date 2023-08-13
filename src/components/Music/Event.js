@@ -10,7 +10,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import AddEvent from './AddEvent';
 
-const Event = ({ event, onDelete, onEdit }) => {
+export default function Event({ event, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
@@ -65,5 +65,3 @@ const Event = ({ event, onDelete, onEdit }) => {
         </div>
     )
 }
-
-export default Event

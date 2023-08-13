@@ -5,7 +5,7 @@ import PageTitle from '../Site/PageTitle';
 import { useTranslation } from 'react-i18next';
 import * as Constants from '../../utils/Constants';
 
-function LinkComponent({ objID, url, onSaveLink }) {
+export default function LinkComponent({ objID, url, onSaveLink }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
@@ -23,5 +23,3 @@ function LinkComponent({ objID, url, onSaveLink }) {
         </>
     )
 }
-
-export default LinkComponent

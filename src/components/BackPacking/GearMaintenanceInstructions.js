@@ -1,6 +1,6 @@
 import GearMaintenanceInstruction from './GearMaintenanceInstruction';
 
-export const GearMaintenanceInstructions = ({ gearMaintenanceInstructions, onDelete }) => {
+export default function GearMaintenanceInstructions ({ gearMaintenanceInstructions, onDelete }) {
 
     return (
         <div>
@@ -10,5 +10,3 @@ export const GearMaintenanceInstructions = ({ gearMaintenanceInstructions, onDel
         </div>
     )
 }
-
-export default GearMaintenanceInstructions

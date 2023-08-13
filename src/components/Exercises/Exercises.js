@@ -1,6 +1,6 @@
 import Exercise from './Exercise';
 
-const Exercises = ({ exercises, onDelete }) => {
+export default function Exercises({ exercises, onDelete }) {
 
   return (
     <div>
@@ -11,4 +11,3 @@ const Exercises = ({ exercises, onDelete }) => {
   )
 }
 
-export default Exercises

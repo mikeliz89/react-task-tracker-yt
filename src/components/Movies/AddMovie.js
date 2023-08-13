@@ -7,7 +7,7 @@ import { getFromFirebaseById } from '../../datatier/datatier';
 import { MovieFormats } from './Categories';
 import PropTypes from 'prop-types';
 
-const AddMovie = ({ movieID, onSave, onClose, showLabels }) => {
+export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
@@ -159,5 +159,3 @@ AddMovie.defaultProps = {
 AddMovie.propTypes = {
     showLabels: PropTypes.bool
 }
-
-export default AddMovie

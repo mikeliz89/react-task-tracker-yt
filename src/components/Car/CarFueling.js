@@ -9,7 +9,7 @@ import AddFueling from "./AddFueling";
 import { updateToFirebaseById } from "../../datatier/datatier";
 import RightWrapper from "../Site/RightWrapper";
 
-function CarFueling({ fuelingRow, onDelete }) {
+export default function CarFueling({ fuelingRow, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
@@ -58,5 +58,3 @@ function CarFueling({ fuelingRow, onDelete }) {
         </>
     )
 }
-
-export default CarFueling

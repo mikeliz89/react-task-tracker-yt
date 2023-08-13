@@ -7,7 +7,7 @@ import * as Constants from '../../utils/Constants';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import RightWrapper from '../Site/RightWrapper';
 
-function GymPart({ exerciseID, gymPart, onDelete }) {
+export default function GymPart({ exerciseID, gymPart, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
@@ -54,5 +54,3 @@ function GymPart({ exerciseID, gymPart, onDelete }) {
         </div>
     )
 }
-
-export default GymPart

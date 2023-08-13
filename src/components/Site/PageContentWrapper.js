@@ -1,6 +1,6 @@
 import ScrollToTop from "../Site/ScrollToTop";
 
-function PageContentWrapper({children}) {
+export default function PageContentWrapper({ children }) {
     return (
         <>
             <div className='page-content'>
@@ -10,5 +10,3 @@ function PageContentWrapper({children}) {
         </>
     )
 }
-
-export default PageContentWrapper

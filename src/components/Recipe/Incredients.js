@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Incredient } from './Incredient';
+import Incredient from './Incredient';
 import PropTypes from 'prop-types';
 
 export default function Incredients({ dbUrl, translation, incredients, recipeID, onDelete }) {

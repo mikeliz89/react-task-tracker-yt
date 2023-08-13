@@ -25,7 +25,7 @@ import ImageComponent from "../ImageUpload/ImageComponent";
 import StarRatingWrapper from "../StarRating/StarRatingWrapper";
 import AccordionElement from "../AccordionElement";
 
-const ExerciseDetails = () => {
+export default function ExerciseDetails() {
 
     //params
     const params = useParams();
@@ -172,5 +172,3 @@ const ExerciseDetails = () => {
         )
     )
 }
-
-export default ExerciseDetails

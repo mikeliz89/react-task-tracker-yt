@@ -7,7 +7,7 @@ import * as Constants from '../../utils/Constants';
 import Icon from '../Icon';
 import RightWrapper from '../Site/RightWrapper';
 
-const FoodItem = ({ foodItem, onDelete, onEdit }) => {
+export default function FoodItem({ foodItem, onDelete, onEdit }) {
 
     //states
     const [editable, setEditable] = useState(false);
@@ -79,5 +79,3 @@ const FoodItem = ({ foodItem, onDelete, onEdit }) => {
         </div>
     )
 }
-
-export default FoodItem

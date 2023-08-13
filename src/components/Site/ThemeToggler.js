@@ -2,7 +2,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import * as Constants from '../../utils/Constants';
 import { useTranslation } from 'react-i18next';
 
-function ThemeToggler() {
+export default function ThemeToggler() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_THEME, { keyPrefix: Constants.TRANSLATION_THEME });
@@ -15,5 +15,3 @@ function ThemeToggler() {
         </div>
     )
 }
-
-export default ThemeToggler

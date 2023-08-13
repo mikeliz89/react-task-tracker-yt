@@ -5,7 +5,7 @@ import { Form, Row, Col, ButtonGroup } from "react-bootstrap";
 import * as Constants from '../../utils/Constants';
 import { getFromFirebaseByIdAndSubId } from "../../datatier/datatier";
 
-function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {
+export default function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {
 
     //translation  
     const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
@@ -108,5 +108,3 @@ function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {
         </Form>
     )
 }
-
-export default AddPartsGymForm

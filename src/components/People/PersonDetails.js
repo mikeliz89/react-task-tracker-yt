@@ -19,7 +19,7 @@ import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import AccordionElement from '../AccordionElement';
 
-function PersonDetails() {
+export default function PersonDetails() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_PEOPLE, { keyPrefix: Constants.TRANSLATION_PEOPLE });
@@ -136,5 +136,3 @@ function PersonDetails() {
         </PageContentWrapper>
     )
 }
-
-export default PersonDetails

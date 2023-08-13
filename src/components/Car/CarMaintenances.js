@@ -3,9 +3,8 @@ import { useTranslation } from "react-i18next";
 import PageTitle from '../Site/PageTitle';
 import CarMaintenance from "./CarMaintenance";
 import * as Constants from '../../utils/Constants';
-import GasPriceChart from './GasPriceChart';
 
-const CarMaintenances = ({ carMaintenances, onDelete }) => {
+export default function CarMaintenances({ carMaintenances, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
@@ -35,5 +34,3 @@ const CarMaintenances = ({ carMaintenances, onDelete }) => {
         </>
     )
 }
-
-export default CarMaintenances

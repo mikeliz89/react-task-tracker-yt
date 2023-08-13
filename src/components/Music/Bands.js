@@ -1,6 +1,6 @@
 import Band from './Band';
 
-const Bands = ({ bands, onDelete, onEdit }) => {
+export default function Bands({ bands, onDelete, onEdit }) {
 
   return (
     <div>
@@ -13,5 +13,3 @@ const Bands = ({ bands, onDelete, onEdit }) => {
     </div>
   )
 }
-
-export default Bands

@@ -13,7 +13,7 @@ import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
-const WeightHistory = () => {
+export default function WeightHistory() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_BMICALCULATOR, { keyPrefix: Constants.TRANSLATION_BMICALCULATOR });
@@ -82,5 +82,3 @@ const WeightHistory = () => {
         </PageContentWrapper>
     )
 }
-
-export default WeightHistory

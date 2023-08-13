@@ -7,7 +7,7 @@ import { db } from "../../firebase-config";
 import * as Constants from '../../utils/Constants';
 import FormTitle from '../Site/FormTitle';
 
-const AddMaintenance = ({ ID, onClose, onSave }) => {
+export default function AddMaintenance({ ID, onClose, onSave }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
@@ -104,5 +104,3 @@ const AddMaintenance = ({ ID, onClose, onSave }) => {
         </div >
     )
 }
-
-export default AddMaintenance

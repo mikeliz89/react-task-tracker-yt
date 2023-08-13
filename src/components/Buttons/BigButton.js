@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Icon from '../Icon';
 
-const BigButton = ({ color, textcolor, text, onClick, textBackgroundColor,
-    imageName, comingsoon, iconName, iconColor }) => {
+export default function BigButton({ color, textcolor, text, onClick, textBackgroundColor,
+    imageName, comingsoon, iconName, iconColor }) {
 
     //translation
     const { t } = useTranslation();
@@ -55,5 +55,3 @@ BigButton.propTypes = {
     comingsoon: PropTypes.bool,
     onClick: PropTypes.func
 }
-
-export default BigButton

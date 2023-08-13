@@ -7,7 +7,7 @@ import { getFromFirebaseById } from '../../datatier/datatier';
 import { GameConsoles } from './Categories';
 import PropTypes from 'prop-types';
 
-const AddGame = ({ gameID, onSave, onClose, showLabels }) => {
+export default function AddGame({ gameID, onSave, onClose, showLabels }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_GAMES, { keyPrefix: Constants.TRANSLATION_GAMES });
@@ -167,5 +167,3 @@ AddGame.defaultProps = {
 AddGame.propTypes = {
     showLabels: PropTypes.bool
 }
-
-export default AddGame

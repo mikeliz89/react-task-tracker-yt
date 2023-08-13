@@ -1,8 +1,8 @@
 import ManageTaskLists from "../TaskList/ManageTaskLists";
 import { ListTypes } from "../../utils/Enums";
 
-export default function ManageRecipeLists() {
+export default function ManageCarLists() {
     return (
-        <ManageTaskLists listType={ListTypes.Food} />
+        <ManageTaskLists listType={ListTypes.Car} />
     )
 }

@@ -2,7 +2,7 @@ import Button from "../Buttons/Button";
 import * as Constants from '../../utils/Constants';
 import { useTranslation } from 'react-i18next';
 
-const SortByButton = ({ sortBy, sortModeASC, sortModeDESC, title, onSortBy }) => {
+export default function SortByButton({ sortBy, sortModeASC, sortModeDESC, title, onSortBy }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_SEARCHSORTFILTER, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
@@ -18,5 +18,3 @@ const SortByButton = ({ sortBy, sortModeASC, sortModeDESC, title, onSortBy }) =>
         </>
     )
 }
-
-export default SortByButton;

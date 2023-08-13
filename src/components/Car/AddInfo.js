@@ -12,7 +12,7 @@ import PageTitle from '../Site/PageTitle';
 import Alert from "../Alert";
 import { pushToFirebase, updateToFirebaseById } from "../../datatier/datatier";
 
-const AddInfo = () => {
+export default function AddInfo() {
 
     //user
     const { currentUser } = useAuth();
@@ -179,5 +179,3 @@ const AddInfo = () => {
         </div>
     )
 }
-
-export default AddInfo

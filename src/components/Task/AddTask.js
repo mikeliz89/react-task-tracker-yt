@@ -6,7 +6,7 @@ import * as Constants from '../../utils/Constants';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 import PropTypes from 'prop-types';
 
-const AddTask = ({ taskID, taskListID, onSave, onClose, showLabels }) => {
+export default function AddTask({ taskID, taskListID, onSave, onClose, showLabels }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
@@ -117,5 +117,3 @@ AddTask.defaultProps = {
 AddTask.propTypes = {
     showLabels: PropTypes.bool
 }
-
-export default AddTask

@@ -14,7 +14,7 @@ import Counter from '../Site/Counter';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
 
-const ManageExercises = () => {
+export default function ManageExercises() {
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
@@ -113,5 +113,3 @@ const ManageExercises = () => {
     </PageContentWrapper>
   )
 }
-
-export default ManageExercises

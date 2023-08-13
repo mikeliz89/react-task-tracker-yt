@@ -1,6 +1,6 @@
 import Music from './Music';
 
-const Musics = ({ musics, onDelete, onEdit }) => {
+export default function Musics({ musics, onDelete, onEdit }) {
 
   return (
     <div>
@@ -13,5 +13,3 @@ const Musics = ({ musics, onDelete, onEdit }) => {
     </div>
   )
 }
-
-export default Musics

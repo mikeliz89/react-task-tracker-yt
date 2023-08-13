@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Button from './Buttons/Button';
 import * as Constants from '../utils/Constants';
 
-function Alert({ message, showMessage, showError, error, onClose, variant }) {
+export default function Alert({ message, showMessage, showError, error, onClose, variant }) {
 
     const { t } = useTranslation(Constants.TRANSLATION_ALERT, { keyPrefix: Constants.TRANSLATION_ALERT });
 
@@ -41,8 +41,6 @@ function Alert({ message, showMessage, showError, error, onClose, variant }) {
         </>
     )
 }
-
-export default Alert
 
 Alert.defaultProps = {
     variant: 'success',

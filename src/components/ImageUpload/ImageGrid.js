@@ -8,7 +8,7 @@ import Button from '../Buttons/Button';
 import { useState, useEffect } from 'react';
 import ImageGridDeletion from './ImageGridDeletion';
 
-const ImageGrid = ({ objectID, url, setSelectedImage, onCounterChange }) => {
+export default function ImageGrid({ objectID, url, setSelectedImage, onCounterChange }) {
 
     const { docs } = useFirestore([], url, objectID);
 
@@ -56,5 +56,3 @@ const ImageGrid = ({ objectID, url, setSelectedImage, onCounterChange }) => {
         </>
     )
 }
-
-export default ImageGrid;

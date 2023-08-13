@@ -20,7 +20,7 @@ import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AddBand from './AddBand';
 import AccordionElement from '../AccordionElement';
 
-function BandDetails() {
+export default function BandDetails() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
@@ -148,5 +148,3 @@ function BandDetails() {
         </PageContentWrapper>
     )
 }
-
-export default BandDetails

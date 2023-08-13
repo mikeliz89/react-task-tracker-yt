@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import * as Constants from '../../utils/Constants';
 
-const Footer = () => {
+export default function Footer() {
 
     const { t } = useTranslation(Constants.TRANSLATION_FOOTER, { keyPrefix: Constants.TRANSLATION_FOOTER })
 
@@ -13,5 +13,3 @@ const Footer = () => {
         </footer>
     )
 }
-
-export default Footer

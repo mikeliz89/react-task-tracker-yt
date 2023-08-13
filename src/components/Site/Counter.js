@@ -1,7 +1,7 @@
 import CenterWrapper from "./CenterWrapper";
 import PropTypes from 'prop-types';
 
-function Counter({ counter, list, originalList, text }) {
+export default function Counter({ counter, list, originalList, text }) {
 
     const getText = () => {
         if (text === undefined || text == '') {
@@ -36,5 +36,3 @@ Counter.propTypes = {
     //numbers
     counter: PropTypes.number
 }
-
-export default Counter

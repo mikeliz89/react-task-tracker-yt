@@ -123,22 +123,34 @@ export default function ManageTaskLists({ listType }) {
   }
 
   const getCounterText = (listType) => {
-    if (listType === ListTypes.Shopping) {
-      return t('countertext_shoppinglists');
-    } else if (listType === ListTypes.Drink) {
-      return t('countertext_drinklists');
-    } else if (listType === ListTypes.Programming) {
-      return t('countertext_programminglists');
-    } else if (listType === ListTypes.Food) {
-      return t('countertext_recipelists');
-    } else if (listType === ListTypes.Music) {
-      return t('countertext_musiclists');
-    } else if (listType === ListTypes.Games) {
-      return t('countertext_gamelists');
-    } else if (listType === ListTypes.Movies) {
-      return t('countertext_movielists');
+
+    const counterTextContentKey = () => {
+      switch (listType) {
+        case ListTypes.Shopping:
+          return 'countertext_shoppinglists';
+        case ListTypes.Drink:
+          return 'countertext_drinklists';
+        case ListTypes.Programming:
+          return 'countertext_programminglists';
+        case ListTypes.Food:
+          return 'countertext_recipelists';
+        case ListTypes.Music:
+          return 'countertext_musiclists';
+        case ListTypes.Games:
+          return 'countertext_gamelists';
+        case ListTypes.Movies:
+          return 'countertext_movielists';
+        case ListTypes.Other:
+          return 'countertext_otherlists';
+        case ListTypes.Car:
+          return 'countertext_carlists';
+        default:
+          return 'countertext_tasklists';
+      }
     }
-    return t('countertext_tasklists');
+
+    var contentKey = counterTextContentKey();
+    return t(contentKey);
   }
 
   return loading ? (
@@ -175,7 +187,7 @@ export default function ManageTaskLists({ listType }) {
       <CenterWrapper>
         <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')}
           iconName={Constants.ICON_COPY} />
-          &nbsp;
+        &nbsp;
         <Button
           iconName={Constants.ICON_PLUS}
           color={showAddTaskList ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}

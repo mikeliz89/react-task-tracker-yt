@@ -5,7 +5,7 @@ import Button from '../Buttons/Button'
 import * as Constants from '../../utils/Constants';
 import { getFromFirebaseById, getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
-const EditLink = ({ linkID, objID, linkUrl, onEditLink, onCloseEditLink }) => {
+export default function EditLink({ linkID, objID, linkUrl, onEditLink, onCloseEditLink }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
@@ -72,5 +72,3 @@ const EditLink = ({ linkID, objID, linkUrl, onEditLink, onCloseEditLink }) => {
         </Form>
     )
 }
-
-export default EditLink

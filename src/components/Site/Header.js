@@ -9,7 +9,7 @@ import LeftWrapper from './LeftWrapper';
 import { Col, Row } from 'react-bootstrap';
 import Logo from './Logo';
 
-const Header = () => {
+export default function Header() {
 
     //navigation
     const navigate = useNavigate();
@@ -68,5 +68,3 @@ Header.propTypes = {
 // const headingStyle = {
 //     color: 'red', backgroundColor: 'black'
 // }
-
-export default Header

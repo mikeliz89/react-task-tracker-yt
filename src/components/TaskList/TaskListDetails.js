@@ -29,7 +29,7 @@ import { FilterMode } from '../SearchSortFilter/FilterModes';
 import AccordionElement from '../AccordionElement';
 import { useToggle } from '../UseToggle';
 
-function TaskListDetails() {
+export default function TaskListDetails() {
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
@@ -41,7 +41,7 @@ function TaskListDetails() {
   const [tasks, setTasks] = useState();
   const [originalTasks, setOriginalTasks] = useState();
   const [showChangeListType, setShowChangeListType] = useState(false);
-  
+
   //modal
   const { status: showAddTask, toggleStatus: toggleAddTask } = useToggle();
 
@@ -356,5 +356,3 @@ function TaskListDetails() {
     </PageContentWrapper>
   )
 }
-
-export default TaskListDetails;

@@ -1,6 +1,6 @@
 import Movie from './Movie';
 
-const Movies = ({ movies, onDelete, onEdit }) => {
+export default function Movies({ movies, onDelete, onEdit }) {
 
   return (
     <div>
@@ -13,5 +13,3 @@ const Movies = ({ movies, onDelete, onEdit }) => {
     </div>
   )
 }
-
-export default Movies

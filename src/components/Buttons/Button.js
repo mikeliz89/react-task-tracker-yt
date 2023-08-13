@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import Icon from '../Icon';
 
-const Button = ({ disabled, color, text, onClick, className,
+export default function Button({ disabled, color, text, onClick, className,
     secondIconName, type, iconName, iconColor, disableStyle,
     title
-}) => {
+}) {
     return (
         <button
             title={title}
@@ -51,5 +51,3 @@ Button.propTypes = {
     disableStyle: PropTypes.bool,
     onClick: PropTypes.func
 }
-
-export default Button

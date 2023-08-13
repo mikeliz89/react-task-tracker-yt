@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
 import * as Constants from '../../utils/Constants';
 
-function Logo() {
+export default function Logo() {
 
     //navigation
     const navigate = useNavigate();
@@ -39,5 +39,3 @@ function Logo() {
         />
     )
 }
-
-export default Logo

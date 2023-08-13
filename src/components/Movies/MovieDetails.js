@@ -21,7 +21,7 @@ import { getMovieFormatNameByID } from '../../utils/ListUtils';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
 
-function MovieDetails() {
+export default function MovieDetails() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
@@ -154,5 +154,3 @@ function MovieDetails() {
         </PageContentWrapper>
     )
 }
-
-export default MovieDetails

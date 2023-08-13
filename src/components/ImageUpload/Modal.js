@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Modal({ selectedImage, setSelectedImage }) {
+export default function Modal({ selectedImage, setSelectedImage }) {
 
     const handleClick = (e) => {
         /* when clicking image itself, do not close modal */
@@ -14,5 +14,3 @@ function Modal({ selectedImage, setSelectedImage }) {
         </div>
     )
 }
-
-export default Modal;

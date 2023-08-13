@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Col, Row, Form } from 'react-bootstrap';
 import * as Constants from '../../utils/Constants';
 
-const FilterCheckBox = ({ onSet, labelText, id }) => {
+export default function FilterCheckBox({ onSet, labelText, id }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_SEARCHSORTFILTER, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
@@ -19,5 +19,3 @@ const FilterCheckBox = ({ onSet, labelText, id }) => {
         </Form.Group>
     )
 }
-
-export default FilterCheckBox;

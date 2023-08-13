@@ -7,7 +7,7 @@ import * as Constants from '../../utils/Constants';
 import { getFromFirebaseById } from '../../datatier/datatier';
 import PropTypes from 'prop-types';
 
-const AddDrink = ({ drinkID, onSave, onClose, showLabels }) => {
+export default function AddDrink({ drinkID, onSave, onClose, showLabels }) {
 
    //translation
    const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
@@ -154,5 +154,3 @@ AddDrink.defaultProps = {
 AddDrink.propTypes = {
    showLabels: PropTypes.bool
 }
-
-export default AddDrink

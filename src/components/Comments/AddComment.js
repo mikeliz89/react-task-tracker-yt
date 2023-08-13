@@ -5,7 +5,7 @@ import Button from '../Buttons/Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 
-function AddComment({ onSave }) {
+export default function AddComment({ onSave }) {
 
     //states
     const [text, setText] = useState();
@@ -72,5 +72,3 @@ function AddComment({ onSave }) {
         </>
     )
 }
-
-export default AddComment

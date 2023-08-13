@@ -5,7 +5,7 @@ import Button from '../Buttons/Button';
 import * as Constants from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 
-const AddPerson = ({ personID, onSave, onClose }) => {
+export default function AddPerson({ personID, onSave, onClose }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_PEOPLE, { keyPrefix: Constants.TRANSLATION_PEOPLE });
@@ -104,5 +104,3 @@ const AddPerson = ({ personID, onSave, onClose }) => {
         </>
     )
 }
-
-export default AddPerson

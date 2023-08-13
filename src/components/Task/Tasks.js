@@ -1,6 +1,6 @@
 import Task from './Task';
 
-const Tasks = ({ taskListID, tasks, archived, onDelete, onToggle }) => {
+export default function Tasks({ taskListID, tasks, archived, onDelete, onToggle }) {
 
   return (
     <>
@@ -15,5 +15,3 @@ const Tasks = ({ taskListID, tasks, archived, onDelete, onToggle }) => {
     </>
   )
 }
-
-export default Tasks

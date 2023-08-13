@@ -6,7 +6,7 @@ import * as Constants from '../../utils/Constants';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import RightWrapper from '../Site/RightWrapper';
 
-export const Garnish = ({ garnish, drinkID, onDelete }) => {
+export default function Garnish({ garnish, drinkID, onDelete }) {
 
     //states
     const [editable, setEditable] = useState(false);

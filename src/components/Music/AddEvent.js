@@ -6,7 +6,7 @@ import * as Constants from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 import PropTypes from 'prop-types';
 
-const AddEvent = ({ eventID, onSave, onClose, showLabels }) => {
+export default function AddEvent({ eventID, onSave, onClose, showLabels }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
@@ -109,5 +109,3 @@ AddEvent.defaultProps = {
 AddEvent.propTypes = {
     showLabels: PropTypes.bool
 }
-
-export default AddEvent

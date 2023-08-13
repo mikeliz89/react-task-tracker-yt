@@ -1,6 +1,6 @@
 import Person from './Person';
 
-export const PeopleList = ({ people, onDelete }) => {
+export default function PeopleList({ people, onDelete }) {
 
     return (
         <div>
@@ -10,5 +10,3 @@ export const PeopleList = ({ people, onDelete }) => {
         </div>
     )
 }
-
-export default PeopleList

@@ -12,7 +12,7 @@ import * as Constants from '../../utils/Constants';
 import PageTitle from '../Site/PageTitle';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
-const AddPartsMoving = ({ title, iconName }) => {
+export default function AddPartsMoving({ title, iconName }) {
 
   //states
   const [distance, setDistance] = useState(0);
@@ -118,5 +118,3 @@ AddPartsMoving.propTypes = {
   title: PropTypes.string,
   iconName: PropTypes.string
 }
-
-export default AddPartsMoving
