@@ -10,7 +10,7 @@ const SortByButton = ({ sortBy, sortModeASC, sortModeDESC, title, onSortBy }) =>
     return (
         <>
             <Button
-                iconName={sortBy === sortModeDESC ? 'arrow-down' : sortBy === sortModeASC ? 'arrow-up' : ''}
+                iconName={sortBy === sortModeDESC ? Constants.ICON_ARROW_DOWN : sortBy === sortModeASC ? Constants.ICON_ARROW_UP : ''}
                 onClick={() => {
                     sortBy === sortModeASC ? onSortBy(sortModeDESC) : onSortBy(sortModeASC);
                 }}

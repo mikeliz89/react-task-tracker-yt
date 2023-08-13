@@ -91,6 +91,7 @@ export const DB_WEIGHT_HISTORY = '/weighthistory';
 
 //ICONS
 export const ICON_ARCHIVE = 'archive';
+export const ICON_ARROW_DOWN = 'arrow-down';
 export const ICON_ARROW_LEFT = 'arrow-left';
 export const ICON_ARROW_UP = 'arrow-up';
 export const ICON_BURN = 'burn';
