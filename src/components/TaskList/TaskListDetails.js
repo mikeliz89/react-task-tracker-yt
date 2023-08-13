@@ -27,6 +27,7 @@ import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import AccordionElement from '../AccordionElement';
+import { useToggle } from '../UseToggle';
 
 function TaskListDetails() {
 
@@ -36,15 +37,13 @@ function TaskListDetails() {
   //states
   const [loading, setLoading] = useState(true);
   const [taskList, setTaskList] = useState({});
-  const [showAddTask, setShowAddTask] = useState(false);
   const [showEditTaskList, setShowEditTaskList] = useState(false);
   const [tasks, setTasks] = useState();
   const [originalTasks, setOriginalTasks] = useState();
   const [showChangeListType, setShowChangeListType] = useState(false);
-
+  
   //modal
-  const handleClose = () => setShowAddTask(false);
-  const handleShow = () => setShowAddTask(true);
+  const { status: showAddTask, toggleStatus: toggleAddTask } = useToggle();
 
   //counters
   const [taskCounter, setTaskCounter] = useState(0);
@@ -299,16 +298,16 @@ function TaskListDetails() {
               iconName={Constants.ICON_PLUS}
               color={showAddTask ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
               text={showAddTask ? t('button_close') : t('button_add_task')}
-              onClick={() => setShowAddTask(!showAddTask)} />
+              onClick={toggleAddTask} />
           </CenterWrapper>
 
-          <Modal show={showAddTask} onHide={handleClose}>
+          <Modal show={showAddTask} onHide={toggleAddTask}>
             <Modal.Header closeButton>
               <Modal.Title>{t('modal_header_add_task')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <AddTask
-                onClose={() => setShowAddTask(false)}
+                onClose={toggleAddTask}
                 taskListID={params.id} onSave={updateTask}
               />
             </Modal.Body>

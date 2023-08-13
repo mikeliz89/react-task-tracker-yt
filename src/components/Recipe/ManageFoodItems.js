@@ -18,6 +18,7 @@ import Counter from '../Site/Counter';
 import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { useToggle } from '../UseToggle';
 
 const ManageFoodItems = () => {
 
@@ -34,9 +35,7 @@ const ManageFoodItems = () => {
     const [originalFoodItems, setOriginalFoodItems] = useState();
 
     //modal
-    const [showAddFoodItem, setShowAddFoodItem] = useState(false);
-    const handleClose = () => setShowAddFoodItem(false);
-    const handleShow = () => setShowAddFoodItem(true);
+    const { status: showAddFoodItem, toggleStatus: toggleAddFoodItem } = useToggle();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -126,12 +125,12 @@ const ManageFoodItems = () => {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            <Modal show={showAddFoodItem} onHide={handleClose}>
+            <Modal show={showAddFoodItem} onHide={toggleAddFoodItem}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t('modal_header_add_food_item')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddFoodItem onClose={() => setShowAddFoodItem(!showAddFoodItem)}
+                    <AddFoodItem onClose={toggleAddFoodItem}
                         onAddFoodItem={addFoodItem} />
                 </Modal.Body>
             </Modal>
@@ -159,7 +158,7 @@ const ManageFoodItems = () => {
                     iconName={Constants.ICON_PLUS}
                     color={showAddFoodItem ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddFoodItem ? t('button_close') : t('button_add_fooditem')}
-                    onClick={() => setShowAddFoodItem(!showAddFoodItem)} />
+                    onClick={toggleAddFoodItem} />
             </CenterWrapper>
 
             {

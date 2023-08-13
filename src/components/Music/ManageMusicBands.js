@@ -21,6 +21,7 @@ import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { useToggle } from '../UseToggle';
 
 export default function ManageMusicBands() {
 
@@ -34,9 +35,7 @@ export default function ManageMusicBands() {
     const [originalBands, setOriginalBands] = useState();
     
     //modal
-    const [showAdd, setShowAdd] = useState(false);
-    const handleClose = () => setShowAdd(false);
-    const handleShow = () => setShowAdd(true);
+    const { status: showAddBand, toggleStatus: toggleAddBand } = useToggle();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -134,12 +133,12 @@ export default function ManageMusicBands() {
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            <Modal show={showAdd} onHide={handleClose}>
+            <Modal show={showAddBand} onHide={toggleAddBand}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t('modal_header_add_band')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddBand onSave={addBand} onClose={() => setShowAdd(false)} />
+                    <AddBand onSave={addBand} onClose={toggleAddBand} />
                 </Modal.Body>
             </Modal>
 
@@ -167,9 +166,9 @@ export default function ManageMusicBands() {
             <CenterWrapper>
                 <Button
                     iconName={Constants.ICON_PLUS}
-                    color={showAdd ? Constants.COLOR_ADDBUTTON_OPEN: Constants.COLOR_ADDBUTTON_CLOSED}
-                    text={showAdd ? t('button_close') : t('button_add_music_band')}
-                    onClick={() => setShowAdd(!showAdd)} />
+                    color={showAddBand ? Constants.COLOR_ADDBUTTON_OPEN: Constants.COLOR_ADDBUTTON_CLOSED}
+                    text={showAddBand ? t('button_close') : t('button_add_music_band')}
+                    onClick={toggleAddBand} />
             </CenterWrapper>
 
             {

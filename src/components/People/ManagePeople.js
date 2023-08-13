@@ -19,6 +19,7 @@ import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { useToggle } from '../UseToggle';
 
 export default function ManagePeople() {
 
@@ -32,9 +33,7 @@ export default function ManagePeople() {
     const [counter, setCounter] = useState(0);
 
     //modal
-    const [showAddPerson, setShowAddPerson] = useState(false);
-    const handleClose = () => setShowAddPerson(false);
-    const handleShow = () => setShowAddPerson(true);
+    const { status: showAddPerson, toggleStatus: toggleAddPerson } = useToggle();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -122,12 +121,12 @@ export default function ManagePeople() {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            <Modal show={showAddPerson} onHide={handleClose}>
+            <Modal show={showAddPerson} onHide={toggleAddPerson}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t('modal_header_add_person')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddPerson onSave={addPerson} onClose={() => setShowAddPerson(false)} />
+                    <AddPerson onSave={addPerson} onClose={toggleAddPerson} />
                 </Modal.Body>
             </Modal>
 
@@ -154,7 +153,7 @@ export default function ManagePeople() {
                     iconName={Constants.ICON_PLUS}
                     color={showAddPerson ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddPerson ? t('button_close') : t('button_add_person')}
-                    onClick={() => setShowAddPerson(!showAddPerson)} />
+                    onClick={toggleAddPerson} />
             </CenterWrapper>
 
             {

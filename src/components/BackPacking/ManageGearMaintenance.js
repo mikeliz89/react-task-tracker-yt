@@ -16,15 +16,18 @@ import GearMaintenanceInstructions from "./GearMaintenanceInstructions";
 import { removeFromFirebaseById } from "../../datatier/datatier";
 import Counter from "../Site/Counter";
 import CenterWrapper from '../Site/CenterWrapper';
+import { useToggle } from "../UseToggle";
 
 function ManageGearMaintenance() {
 
     //states
     const [loading, setLoading] = useState(true);
-    const [showAdd, setShowAdd] = useState(false);
     const [counter, setCounter] = useState(0);
     const [gearMaintenanceInstructions, setGearMaintenanceInstructions] = useState(null);
     const [originalGearMaintenanceInstructions, setOriginalGearMaintenanceInstructions] = useState(null);
+
+    //toggle
+    const { status: showAddGearMaintenance, toggleStatus: toggleAddGearMaintenance } = useToggle();
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
@@ -91,14 +94,18 @@ function ManageGearMaintenance() {
                     <GoBackButton />
                     <Button
                         iconName={Constants.ICON_PLUS}
-                        color={showAdd ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                        color={showAddGearMaintenance ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                         text={t('button_add_maintenance_instructions')} className='btn btn-primary'
-                        onClick={() => setShowAdd(!showAdd)} />
+                        onClick={toggleAddGearMaintenance} />
                 </ButtonGroup>
             </Row>
 
             {
-                showAdd && <AddGearMaintenanceInstruction onSave={addGearMaintenanceInstruction} onClose={() => setShowAdd(false)} />
+                showAddGearMaintenance &&
+                <AddGearMaintenanceInstruction
+                    onSave={addGearMaintenanceInstruction}
+                    onClose={toggleAddGearMaintenance}
+                />
             }
 
             {

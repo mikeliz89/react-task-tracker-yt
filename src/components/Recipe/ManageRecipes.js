@@ -22,6 +22,7 @@ import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { useToggle } from '../UseToggle';
 
 const ManageRecipes = () => {
 
@@ -32,9 +33,7 @@ const ManageRecipes = () => {
   const [counter, setCounter] = useState(0);
 
   //modal
-  const [showAddRecipe, setShowAddRecipe] = useState(false);
-  const handleClose = () => setShowAddRecipe(false);
-  const handleShow = () => setShowAddRecipe(true);
+  const { status: showAddRecipe, toggleStatus: toggleAddRecipe } = useToggle();
 
   //alert
   const [message, setMessage] = useState('');
@@ -133,12 +132,12 @@ const ManageRecipes = () => {
         error={error} showError={showError}
         variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
-      <Modal show={showAddRecipe} onHide={handleClose}>
+      <Modal show={showAddRecipe} onHide={toggleAddRecipe}>
         <Modal.Header closeButton>
           <Modal.Title>{t('modal_header_add_recipe')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddRecipe onClose={() => setShowAddRecipe(false)} onSave={addRecipe} />
+          <AddRecipe onClose={toggleAddRecipe} onSave={addRecipe} />
         </Modal.Body>
       </Modal>
 
@@ -170,7 +169,7 @@ const ManageRecipes = () => {
           iconName={Constants.ICON_PLUS}
           color={showAddRecipe ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
           text={showAddRecipe ? t('button_close') : t('button_add_recipe')}
-          onClick={() => setShowAddRecipe(!showAddRecipe)} />
+          onClick={toggleAddRecipe} />
       </CenterWrapper>
 
       {

@@ -22,6 +22,7 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { useToggle } from '../UseToggle';
 
 export default function ManageTaskLists({ listType }) {
 
@@ -41,9 +42,7 @@ export default function ManageTaskLists({ listType }) {
   const [counter, setCounter] = useState(0);
 
   //modal
-  const [showAddTaskList, setShowAddTaskList] = useState(false);
-  const handleClose = () => setShowAddTaskList(false);
-  const handleShow = () => setShowAddTaskList(true);
+  const { status: showAddTaskList, toggleStatus: toggleAddTaskList } = useToggle();
 
   //load data
   useEffect(() => {
@@ -181,16 +180,16 @@ export default function ManageTaskLists({ listType }) {
           iconName={Constants.ICON_PLUS}
           color={showAddTaskList ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
           text={showAddTaskList ? t('button_close') : t('button_add_list')}
-          onClick={() => setShowAddTaskList(!showAddTaskList)} />
+          onClick={toggleAddTaskList} />
       </CenterWrapper>
 
-      <Modal show={showAddTaskList} onHide={handleClose}>
+      <Modal show={showAddTaskList} onHide={toggleAddTaskList}>
         <Modal.Header closeButton>
           <Modal.Title>{t('modal_header_add_list')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AddTaskList
-            onClose={() => handleClose()}
+            onClose={toggleAddTaskList}
             onSave={addTaskList} showLabels={true}
             defaultTitle={getDefaultTitle(listType)} />
         </Modal.Body>

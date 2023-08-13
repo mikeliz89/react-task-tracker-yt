@@ -18,6 +18,7 @@ import Counter from '../Site/Counter';
 import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { useToggle } from '../UseToggle';
 
 const ManageDrinkingProducts = () => {
 
@@ -34,9 +35,7 @@ const ManageDrinkingProducts = () => {
     const [loading, setLoading] = useState(true);
 
     //modal
-    const [showAddDrinkingProduct, setShowAddDrinkingProduct] = useState(false);
-    const handleClose = () => setShowAddDrinkingProduct(false);
-    const handleShow = () => setShowAddDrinkingProduct(true);
+    const { status: showAddDrinkingProduct, toggleStatus: toggleAddDrinkingProduct } = useToggle();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -118,13 +117,13 @@ const ManageDrinkingProducts = () => {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            <Modal show={showAddDrinkingProduct} onHide={handleClose}>
+            <Modal show={showAddDrinkingProduct} onHide={toggleAddDrinkingProduct}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t('modal_header_add_drinking_product')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <AddDrinkingProduct
-                        onClose={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)}
+                        onClose={toggleAddDrinkingProduct}
                         onAddDrinkingProduct={addDrinkingProduct}
                     />
                 </Modal.Body>
@@ -155,7 +154,7 @@ const ManageDrinkingProducts = () => {
                     secondIconName={Constants.ICON_WINE}
                     color={showAddDrinkingProduct ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddDrinkingProduct ? t('button_close') : t('button_add_drinkingproduct')}
-                    onClick={() => setShowAddDrinkingProduct(!showAddDrinkingProduct)} />
+                    onClick={toggleAddDrinkingProduct} />
             </CenterWrapper>
 
             {

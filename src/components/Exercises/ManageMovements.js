@@ -18,6 +18,7 @@ import Button from '../Buttons/Button';
 import AddMovement from './AddMovement';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { useToggle } from '../UseToggle';
 
 function ManageMovements() {
 
@@ -31,9 +32,7 @@ function ManageMovements() {
     const [originalMovements, setOriginalMovements] = useState();
 
     //modal
-    const [showAddMovement, setShowAddMovement] = useState(false);
-    const handleClose = () => setShowAddMovement(false);
-    const handleShow = () => setShowAddMovement(true);
+    const { status: showAddMovement, toggleStatus: toggleAddMovement } = useToggle();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -139,15 +138,15 @@ function ManageMovements() {
                     iconName={Constants.ICON_PLUS}
                     color={showAddMovement ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddMovement ? t('button_close') : t('button_add_movement')}
-                    onClick={() => setShowAddMovement(!showAddMovement)} />
+                    onClick={toggleAddMovement} />
             </CenterWrapper>
 
-            <Modal show={showAddMovement} onHide={handleClose}>
+            <Modal show={showAddMovement} onHide={toggleAddMovement}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t('modal_header_add_movement')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddMovement onSave={addMovement} onClose={() => setShowAddMovement(false)} />
+                    <AddMovement onSave={addMovement} onClose={toggleAddMovement} />
                 </Modal.Body>
             </Modal>
 

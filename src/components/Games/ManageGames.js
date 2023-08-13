@@ -21,6 +21,7 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import Counter from '../Site/Counter';
+import { useToggle } from '../UseToggle';
 
 export default function ManageGames() {
 
@@ -34,9 +35,7 @@ export default function ManageGames() {
     const [originalGames, setOriginalGames] = useState();
 
     //modal
-    const [showAddGame, setShowAddGame] = useState(false);
-    const handleClose = () => setShowAddGame(false);
-    const handleShow = () => setShowAddGame(true);
+    const { status: showAddGame, toggleStatus: toggleAddGame } = useToggle();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -134,12 +133,12 @@ export default function ManageGames() {
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            <Modal show={showAddGame} onHide={handleClose}>
+            <Modal show={showAddGame} onHide={toggleAddGame}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t('modal_header_add_game')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddGame onSave={addGame} onClose={() => setShowAddGame(false)} />
+                    <AddGame onSave={addGame} onClose={toggleAddGame} />
                 </Modal.Body>
             </Modal>
 
@@ -170,7 +169,7 @@ export default function ManageGames() {
                     iconName={Constants.ICON_PLUS}
                     color={showAddGame ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddGame ? t('button_close') : t('button_add_game')}
-                    onClick={() => setShowAddGame(!showAddGame)} />
+                    onClick={toggleAddGame} />
             </CenterWrapper>
 
             {

@@ -19,6 +19,7 @@ import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { useToggle } from '../UseToggle';
 
 export default function ManageGear() {
 
@@ -32,9 +33,7 @@ export default function ManageGear() {
     const [counter, setCounter] = useState(0);
 
     //modal
-    const [showAddGear, setShowAddGear] = useState(false);
-    const handleClose = () => setShowAddGear(false);
-    const handleShow = () => setShowAddGear(true);
+    const { status: showAddGear, toggleStatus: toggleAddGear } = useToggle();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -122,12 +121,12 @@ export default function ManageGear() {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            <Modal show={showAddGear} onHide={handleClose}>
+            <Modal show={showAddGear} onHide={toggleAddGear}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t('modal_header_add_gear')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddGear onSave={addGear} onClose={() => setShowAddGear(false)} />
+                    <AddGear onSave={addGear} onClose={toggleAddGear} />
                 </Modal.Body>
             </Modal>
 
@@ -153,7 +152,7 @@ export default function ManageGear() {
                     iconName={Constants.ICON_PLUS}
                     color={showAddGear ? Constants.COLOR_ADDBUTTON_OPEN  : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddGear ? t('button_close') : t('button_add_gear')}
-                    onClick={() => setShowAddGear(!showAddGear)} />
+                    onClick={toggleAddGear} />
             </CenterWrapper>
 
             {

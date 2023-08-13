@@ -22,6 +22,7 @@ import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { useToggle } from '../UseToggle';
 
 export default function ManageDrinks() {
 
@@ -33,14 +34,12 @@ export default function ManageDrinks() {
 
     //states
     const [loading, setLoading] = useState(true);
-    const [showAddDrink, setShowAddDrink] = useState(false);
     const [drinks, setDrinks] = useState();
     const [originalDrinks, setOriginalDrinks] = useState();
     const [counter, setCounter] = useState(0);
 
     //modal
-    const handleClose = () => setShowAddDrink(false);
-    const handleShow = () => setShowAddDrink(true);
+    const { status: showAddDrink, toggleStatus: toggleAddDrink } = useToggle();
 
     //alert
     const [showError, setShowError] = useState(false);
@@ -132,12 +131,12 @@ export default function ManageDrinks() {
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            <Modal show={showAddDrink} onHide={handleClose}>
+            <Modal show={showAddDrink} onHide={toggleAddDrink}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t('modal_header_add_drink')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddDrink onSave={addDrink} onClose={() => setShowAddDrink(false)} />
+                    <AddDrink onSave={addDrink} onClose={toggleAddDrink} />
                 </Modal.Body>
             </Modal>
 
@@ -172,7 +171,7 @@ export default function ManageDrinks() {
                     iconName={Constants.ICON_PLUS}
                     color={showAddDrink ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddDrink ? t('button_close') : t('button_add_drinks')}
-                    onClick={() => setShowAddDrink(!showAddDrink)} />
+                    onClick={toggleAddDrink} />
             </CenterWrapper>
 
             {
