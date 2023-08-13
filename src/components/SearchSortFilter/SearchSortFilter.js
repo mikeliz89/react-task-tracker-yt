@@ -6,6 +6,7 @@ import { SortMode } from './SortModes';
 import { FilterMode } from './FilterModes';
 import PropTypes from 'prop-types';
 import * as Constants from '../../utils/Constants';
+import SortByButton from './SortByButton';
 
 const SearchSortFilter = ({ onSet,
     originalList,
@@ -263,84 +264,66 @@ const SearchSortFilter = ({ onSet,
                         <ButtonGroup>
                             {
                                 _showSortByCreatedDate &&
-                                <>
-                                    <Button
-                                        iconName={sortBy === SortMode.Created_DESC ? 'arrow-down' : sortBy === SortMode.Created_ASC ? 'arrow-up' : ''}
-                                        onClick={() => {
-                                            sortBy === SortMode.Created_ASC ? setSortBy(SortMode.Created_DESC) : setSortBy(SortMode.Created_ASC);
-                                        }}
-                                        text={t('created_date')} type="button" />
-                                </>
+                                <SortByButton
+                                    sortBy={sortBy}
+                                    sortModeASC={SortMode.Created_ASC}
+                                    sortModeDESC={SortMode.Created_DESC}
+                                    onSortBy={setSortBy}
+                                    title='created_date' />
                             }
                             {
                                 _showSortByName &&
-                                <>
-                                    <Button
-                                        iconName={sortBy === SortMode.Name_DESC ? 'arrow-down' : sortBy === SortMode.Name_ASC ? 'arrow-up' : ''}
-                                        onClick={() => {
-                                            sortBy === SortMode.Name_ASC ? setSortBy(SortMode.Name_DESC) : setSortBy(SortMode.Name_ASC);
-                                        }}
-                                        text={t('name')} type="button"
-                                    />
-                                </>
+                                <SortByButton
+                                    sortBy={sortBy}
+                                    sortModeASC={SortMode.Name_ASC}
+                                    sortModeDESC={SortMode.Name_DESC}
+                                    onSortBy={setSortBy}
+                                    title='name' />
                             }
                             {
                                 _showSortByTitle &&
-                                <>
-                                    <Button
-                                        iconName={sortBy === SortMode.Title_DESC ? 'arrow-down' : sortBy === SortMode.Title_ASC ? 'arrow-up' : ''}
-                                        onClick={() => {
-                                            sortBy === SortMode.Title_ASC ? setSortBy(SortMode.Title_DESC) : setSortBy(SortMode.Title_ASC);
-                                        }}
-                                        text={t('title')} type="button"
-                                    />
-                                </>
+                                <SortByButton
+                                    sortBy={sortBy}
+                                    sortModeASC={SortMode.Title_ASC}
+                                    sortModeDESC={SortMode.Title_DESC}
+                                    onSortBy={setSortBy}
+                                    title='title' />
                             }
                             {
                                 _showSortByText &&
-                                <>
-                                    <Button
-                                        iconName={sortBy === SortMode.Text_DESC ? 'arrow-down' : sortBy === SortMode.Text_ASC ? 'arrow-up' : ''}
-                                        onClick={() => {
-                                            sortBy === SortMode.Text_ASC ? setSortBy(SortMode.Text_DESC) : setSortBy(SortMode.Text_ASC);
-                                        }}
-                                        text={t('text')} type="button"
-                                    />
-                                </>
+                                <SortByButton
+                                    sortBy={sortBy}
+                                    sortModeASC={SortMode.Text_ASC}
+                                    sortModeDESC={SortMode.Text_DESC}
+                                    onSortBy={setSortBy}
+                                    title='text' />
                             }
                             {
                                 _showSortByStarRating &&
-                                <>
-                                    <Button
-                                        iconName={sortBy === SortMode.StarRating_DESC ? 'arrow-down' : sortBy === SortMode.StarRating_ASC ? 'arrow-up' : ''}
-                                        onClick={() => {
-                                            sortBy === SortMode.StarRating_ASC ? setSortBy(SortMode.StarRating_DESC) : setSortBy(SortMode.StarRating_ASC);
-                                        }}
-                                        text={t('star_rating')} type="button"
-                                    />
-                                </>
+                                <SortByButton
+                                    sortBy={sortBy}
+                                    sortModeASC={SortMode.StarRating_ASC}
+                                    sortModeDESC={SortMode.StarRating_DESC}
+                                    onSortBy={setSortBy}
+                                    title='star_rating' />
                             }
                             {
                                 _showSortByBirthday &&
-                                <>
-                                    <Button
-                                        iconName={sortBy === SortMode.Birthday_DESC ? 'arrow-down' : sortBy === SortMode.Birthday_ASC ? 'arrow-up' : ''}
-                                        onClick={() => {
-                                            sortBy === SortMode.Birthday_ASC ? setSortBy(SortMode.Birthday_DESC) : setSortBy(SortMode.Birthday_ASC);
-                                        }}
-                                        text={t('birthday')} type="button" />
-                                </>
+                                <SortByButton
+                                    sortBy={sortBy}
+                                    sortModeASC={SortMode.Birthday_ASC}
+                                    sortModeDESC={SortMode.Birthday_DESC}
+                                    onSortBy={setSortBy}
+                                    title='birthday' />
                             }
                             {
                                 _showSortByPublishYear &&
-                                <>
-                                    <Button
-                                        iconName={sortBy === SortMode.PublishYear_DESC ? 'arrow-down' : sortBy === SortMode.PublishYear_ASC ? 'arrow-up' : ''}
-                                        onClick={() => {
-                                            sortBy === SortMode.PublishYear_ASC ? setSortBy(SortMode.PublishYear_DESC) : setSortBy(SortMode.PublishYear_ASC);
-                                        }}
-                                        text={t('publishYear')} type="button" />
-                                </>
+                                <SortByButton
+                                    sortBy={sortBy}
+                                    sortModeASC={SortMode.PublishYear_ASC}
+                                    sortModeDESC={SortMode.PublishYear_DESC}
+                                    onSortBy={setSortBy}
+                                    title='publishYear' />
                             }
                         </ButtonGroup>
                     </Col>
