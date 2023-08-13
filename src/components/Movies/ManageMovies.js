@@ -21,6 +21,7 @@ import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { useToggle } from '../UseToggle';
 
 export default function ManageMovies() {
 
@@ -34,9 +35,7 @@ export default function ManageMovies() {
     const [originalMovies, setOriginalMovies] = useState();
 
     //modal
-    const [showAddMovie, setShowAddMovie] = useState(false);
-    const handleClose = () => setShowAddMovie(false);
-    const handleShow = () => setShowAddMovie(true);
+    const { status: showAddMovie, toggleStatus: toggleAddMovie } = useToggle();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -134,12 +133,12 @@ export default function ManageMovies() {
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            <Modal show={showAddMovie} onHide={handleClose}>
+            <Modal show={showAddMovie} onHide={toggleAddMovie}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t('modal_header_add_movie')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddMovie onSave={addMovie} onClose={() => setShowAddMovie(false)} />
+                    <AddMovie onSave={addMovie} onClose={() => toggleAddMovie()} />
                 </Modal.Body>
             </Modal>
 
@@ -171,7 +170,7 @@ export default function ManageMovies() {
                     iconName={Constants.ICON_PLUS}
                     color={showAddMovie ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                     text={showAddMovie ? t('button_close') : t('button_add_movie')}
-                    onClick={() => setShowAddMovie(!showAddMovie)} />
+                    onClick={() => toggleAddMovie()} />
             </CenterWrapper>
 
             {
