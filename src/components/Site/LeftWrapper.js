@@ -1,8 +1,8 @@
 
-function LeftWrapper(props) {
+const LeftWrapper = ({ children }) => {
     return (
         <span style={{ float: 'left' }}>
-            {props.children}
+            {children}
         </span>
     )
 }

@@ -1,8 +1,8 @@
 
-function CenterWrapper(props) {
+const CenterWrapper = ({children}) => {
     return (
         <div className='text-center'>
-            {props.children}
+            {children}
         </div>
     )
 }

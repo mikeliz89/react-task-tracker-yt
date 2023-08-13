@@ -1,8 +1,8 @@
 
-function RightWrapper(props) {
+function RightWrapper({children}) {
     return (
         <span style={{ float: 'right' }}>
-            {props.children}
+            {children}
         </span>
     )
 }
