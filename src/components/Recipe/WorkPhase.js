@@ -33,7 +33,8 @@ export default function WorkPhase({ dbUrl, translation, workPhase, recipeID, onD
                         <RightWrapper>
                             <Icon name={Constants.ICON_EDIT} className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
-                            <Icon name={Constants.ICON_DELETE} className="deleteBtn" style={{ color: 'red', cursor: 'pointer', fontSize: '1.2em' }}
+                            <Icon name={Constants.ICON_DELETE} className="deleteBtn"
+                                style={{ color: Constants.COLOR_DELETEBUTTON, cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => onDelete(recipeID, workPhase.id)} />
                         </RightWrapper>
                     }

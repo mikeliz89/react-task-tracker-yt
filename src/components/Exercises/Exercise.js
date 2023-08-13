@@ -21,7 +21,8 @@ const Exercise = ({ exercise, onDelete }) => {
                         //  getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)
                     }
                 </span>
-                <Icon className='deleteBtn' name={Constants.ICON_DELETE} color='red' fontSize='1.2em' cursor='pointer'
+                <Icon className='deleteBtn' name={Constants.ICON_DELETE}
+                    color={Constants.COLOR_DELETEBUTTON} fontSize='1.2em' cursor='pointer'
                     onClick={() => { if (window.confirm(t('delete_exercise_confirm_message'))) { onDelete(exercise.id); } }} />
             </h5>
             <p>

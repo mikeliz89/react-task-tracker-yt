@@ -1,6 +1,7 @@
 //colors
 export const COLOR_ADDBUTTON_CLOSED = 'green';
 export const COLOR_ADDBUTTON_OPEN = 'red';
+export const COLOR_DELETEBUTTON = 'red';
 export const COLOR_EDITBUTTON_CLOSED = 'orange';
 export const COLOR_EDITBUTTON_OPEN = 'red';
 

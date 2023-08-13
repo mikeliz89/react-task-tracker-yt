@@ -71,7 +71,7 @@ const WeightHistory = () => {
 
                             <Icon className='btn deleteBtn'
                                 name={Constants.ICON_DELETE}
-                                color='red'
+                                color={Constants.COLOR_DELETEBUTTON}
                                 fontSize='1.2em'
                                 cursor='pointer'
                                 onClick={() => { if (window.confirm(t('delete_weighthistory_confirm_message'))) { deleteHistoryRow(row.id) } }} />

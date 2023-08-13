@@ -664,6 +664,7 @@
     "uploadimages": {
         "add_image": "Add image",
         "button_close": "Close",
+        "delete": "Delete",
         "images": "Images",
         "load_image": "Load image",
         "no_images": "No images",
