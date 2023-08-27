@@ -249,6 +249,7 @@ export default function EventDetails() {
             }
 
             <hr />
+
             {
                 eventBands != null && eventBands.length > 0 ? (
                     <>

@@ -1,7 +1,12 @@
 import Button from "../Buttons/Button";
 import * as Constants from "../../utils/Constants";
+import { useTranslation } from 'react-i18next';
+import { Row, Col, Table } from "react-bootstrap";
 
 export default function EventBands({ bands, onDelete }) {
+
+  //translation
+  const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
 
   const showBandName = (band) => {
     return band.name;
@@ -13,14 +18,28 @@ export default function EventBands({ bands, onDelete }) {
   }
 
   return (
-    <div>
-      {bands != null && bands.map((band) => (
-        <div key={band.id}>
-          {showBandName(band)}
-          &nbsp;
-          <Button onClick={() => deleteBand(band)} text={'Delete'} color={Constants.COLOR_DELETEBUTTON} />
-        </div>
-      ))}
-    </div>
+    <>
+      <p>{t('music_bands_title')}</p>
+      <Row>
+        <Col>
+          <Table>
+            <thead>
+              <tr>
+                <th>{t('band_name')}</th>
+                <th>{t('action')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bands != null && bands.map((band) => (
+                <tr key={band.id}>
+                  <td>{showBandName(band)}</td>
+                  <td> <Button onClick={() => deleteBand(band)} text={t('button_delete')} color={Constants.COLOR_DELETEBUTTON} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
+    </>
   )
 }
