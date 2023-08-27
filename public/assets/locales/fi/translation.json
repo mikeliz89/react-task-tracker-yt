@@ -466,6 +466,7 @@
         "view_details": "Katso lisätiedot"
     },
     "music": {
+        "action": "Toiminto",
         "band": "Bändi",
         "band_name": "Bändin nimi",
         "band_forming_year": "Perustamisvuosi",
@@ -473,6 +474,7 @@
         "button_add_music_event": "Lisää tapahtuma",
         "button_add_music_band": "Lisää bändi",
         "button_close": "Sulje",
+        "button_delete": "Poista",
         "button_music_lists": "Listat",
         "button_save_music": "Tallenna",
         "button_save_event": "Tallenna",

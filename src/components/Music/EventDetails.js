@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Row, ButtonGroup, Col } from 'react-bootstrap';
+import { Row, ButtonGroup, Col, Form } from 'react-bootstrap';
 import i18n from 'i18next';
 import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, child } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -19,6 +19,10 @@ import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
+import useFetch from '../useFetch';
+import FoundBands from './FoundBands';
+import Bands from './Bands';
+import EventBands from './EventBands';
 
 export default function EventDetails() {
 
@@ -35,6 +39,11 @@ export default function EventDetails() {
     const [loading, setLoading] = useState(true);
     const [event, setEvent] = useState({});
     const [showEdit, setShowEdit] = useState(false);
+    const [showLinkBands, setShowLinkBands] = useState(false);
+    const [linkedBandName, setLinkedBandName] = useState('');
+    const [foundBands, setFoundBands] = useState([]);
+    const [selectedBand, setSelectedBand] = useState({});
+    const [eventBands, setEventBands] = useState();
 
     //params
     const params = useParams();
@@ -45,12 +54,50 @@ export default function EventDetails() {
     //auth
     const { currentUser } = useAuth();
 
+    //fetch data
+    const { data: bands, setData: setBands,
+        originalData: originalBands, counter } = useFetch(Constants.DB_MUSIC_BANDS);
+
+    const inputRef = useRef();
+
+    useEffect(() => {
+        if (linkedBandName === "") {
+            setFoundBands(Object.values(originalBands));
+        } else {
+            var filtered =
+                Object.values(originalBands).filter(
+                    e => e.name != null && e.name.toLowerCase().includes(linkedBandName.toLowerCase())
+                );
+            setFoundBands(filtered);
+        }
+    }, [linkedBandName]);
+
+
     //load data
     useEffect(() => {
         const getEvent = async () => {
             await fetchEventFromFirebase();
         }
         getEvent();
+
+        const fetchEventBandsFromFirebase = async () => {
+            const eventID = params.id;
+            const dbref = child(ref(db, Constants.DB_MUSIC_EVENT_BANDS), eventID);
+            onValue(dbref, (snapshot) => {
+                const snap = snapshot.val();
+                const fromDB = [];
+                for (let id in snap) {
+                    fromDB.push({ id, ...snap[id] });
+                }
+                setEventBands(fromDB);
+            }
+                /*,
+                { onlyOnce: true }
+                */
+            )
+        }
+
+        fetchEventBandsFromFirebase();
     }, [])
 
     const fetchEventFromFirebase = async () => {
@@ -106,6 +153,32 @@ export default function EventDetails() {
         ];
     }
 
+    const logBands = async () => {
+        console.log(bands);
+    }
+
+    const selectedBandChanged = (band) => {
+
+        var currentEventBands = eventBands;
+
+        //lisää listaan vain jos ei vielä löydy tällä ID:llä
+        if (currentEventBands.filter(e => e.id === band.id).length == 0) {
+            currentEventBands.push({ id: band.id, name: band.name });
+        }
+
+        const id = params.id;
+        updateToFirebaseById(Constants.DB_MUSIC_EVENT_BANDS, id, currentEventBands);
+        updateToFirebaseById(Constants.DB_MUSIC_BAND_EVENTS, band.id, currentEventBands);
+    }
+
+    const deleteEventBand = (band) => {
+        var currentEventBands = eventBands;
+        //poimitaan vain muut kuin tämän bändin id eli tämä filtteröityy pois
+        currentEventBands = currentEventBands.filter(e => e.id != band.id);
+        const id = params.id;
+        updateToFirebaseById(Constants.DB_MUSIC_EVENT_BANDS, id, currentEventBands);
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -134,14 +207,61 @@ export default function EventDetails() {
                 </Col>
             </Row>
 
+            <Row>
+                <Col>
+                    <Button
+                        color={showLinkBands ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                        text={showLinkBands ? t('button_close') : 'Lisää bändejä tapahtumaan'}
+                        onClick={() => {
+                            setShowLinkBands(!showLinkBands);
+                            //logBands();
+                        }}
+                    />
+                </Col>
+            </Row>
+
+            {
+                showLinkBands &&
+                <>
+                    <Form style={{ paddingBottom: 0 }}>
+                        <Form.Group className="mb-3" controlId="linkBandForm-BandName">
+                            <Form.Label>{t('band_name')}</Form.Label>
+                            <Form.Control type='text'
+                                ref={inputRef}
+                                autoComplete="off"
+                                placeholder={t('band_name')}
+                                value={linkedBandName}
+                                onChange={(e) => setLinkedBandName(e.target.value)} />
+                        </Form.Group>
+                    </Form>
+                    <FoundBands bands={foundBands} onSelection={selectedBandChanged} linkedBandName={linkedBandName} />
+
+                </>
+            }
+
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
             {showEdit &&
                 <AddEvent onSave={updateEvent} eventID={params.id} onClose={() => setShowEdit(false)} />
             }
+
             <hr />
+
+            {
+                eventBands != null && eventBands.length > 0 ? (
+                    <>
+                        <EventBands bands={eventBands} onDelete={deleteEventBand} />
+                    </>
+                ) : (
+                    <>
+                        {t('no_bands_to_show')}
+                    </>
+                )
+            }
+
             <ImageComponent url={Constants.DB_MUSIC_EVENT_IMAGES} objID={params.id} />
             <CommentComponent objID={params.id} url={Constants.DB_MUSIC_EVENT_COMMENTS} onSave={addCommentToEvent} />
             <LinkComponent objID={params.id} url={Constants.DB_MUSIC_EVENT_LINKS} onSaveLink={addLinkToEvent} />
