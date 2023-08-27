@@ -7,7 +7,6 @@ export default function FoundBands({ bands, onSelection, linkedBandName }) {
 
   const setSelected = (band) => {
     const obj = { name: band.name, id: band.id };
-    //console.log(obj);
     onSelection(obj);
   }
 

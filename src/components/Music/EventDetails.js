@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Row, ButtonGroup, Col, Form } from 'react-bootstrap';
 import i18n from 'i18next';
 import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, child } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -21,6 +21,8 @@ import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
 import useFetch from '../useFetch';
 import FoundBands from './FoundBands';
+import Bands from './Bands';
+import EventBands from './EventBands';
 
 export default function EventDetails() {
 
@@ -41,6 +43,7 @@ export default function EventDetails() {
     const [linkedBandName, setLinkedBandName] = useState('');
     const [foundBands, setFoundBands] = useState([]);
     const [selectedBand, setSelectedBand] = useState({});
+    const [eventBands, setEventBands] = useState();
 
     //params
     const params = useParams();
@@ -51,12 +54,50 @@ export default function EventDetails() {
     //auth
     const { currentUser } = useAuth();
 
+    //fetch data
+    const { data: bands, setData: setBands,
+        originalData: originalBands, counter } = useFetch(Constants.DB_MUSIC_BANDS);
+
+    const inputRef = useRef();
+
+    useEffect(() => {
+        if (linkedBandName === "") {
+            setFoundBands(Object.values(originalBands));
+        } else {
+            var filtered =
+                Object.values(originalBands).filter(
+                    e => e.name != null && e.name.toLowerCase().includes(linkedBandName.toLowerCase())
+                );
+            setFoundBands(filtered);
+        }
+    }, [linkedBandName]);
+
+
     //load data
     useEffect(() => {
         const getEvent = async () => {
             await fetchEventFromFirebase();
         }
         getEvent();
+
+        const fetchEventBandsFromFirebase = async () => {
+            const eventID = params.id;
+            const dbref = child(ref(db, Constants.DB_MUSIC_EVENT_BANDS), eventID);
+            onValue(dbref, (snapshot) => {
+                const snap = snapshot.val();
+                const fromDB = [];
+                for (let id in snap) {
+                    fromDB.push({ id, ...snap[id] });
+                }
+                setEventBands(fromDB);
+            }
+                /*,
+                { onlyOnce: true }
+                */
+            )
+        }
+
+        fetchEventBandsFromFirebase();
     }, [])
 
     const fetchEventFromFirebase = async () => {
@@ -112,40 +153,30 @@ export default function EventDetails() {
         ];
     }
 
-    const getBands = async () => {
+    const logBands = async () => {
         console.log(bands);
     }
 
-    //fetch data
-    const { data: bands, setData: setBands,
-        originalData: originalBands, counter } = useFetch(Constants.DB_MUSIC_BANDS);
-
-    const inputRef = useRef();
-
-    useEffect(() => {
-
-        /*
-        if (linkedBandName === "ray") {
-            inputRef.current.select();
-        }
-        */
-
-        if (linkedBandName === "") {
-            console.log("pöö");
-            setFoundBands(Object.values(originalBands));
-        } else {
-
-            var filtered = Object.values(originalBands).filter(e => e.name != null && e.name.toLowerCase().includes(linkedBandName.toLowerCase()));
-            setFoundBands(filtered);
-        }
-
-    }, [linkedBandName]);
-
     const selectedBandChanged = (band) => {
+
+        var currentEventBands = eventBands;
+
+        //lisää listaan vain jos ei vielä löydy tällä ID:llä
+        if (currentEventBands.filter(e => e.id === band.id).length == 0) {
+            currentEventBands.push({ id: band.id, name: band.name });
+        }
+
         const id = params.id;
-        //TODO: Tarkista onko jo
-        pushToFirebaseChild(Constants.DB_MUSIC_EVENT_BANDS, id, {id: band.id, name: band.name} );
-        pushToFirebaseChild(Constants.DB_MUSIC_BAND_EVENTS, band.id, id );
+        updateToFirebaseById(Constants.DB_MUSIC_EVENT_BANDS, id, currentEventBands);
+        updateToFirebaseById(Constants.DB_MUSIC_BAND_EVENTS, band.id, currentEventBands);
+    }
+
+    const deleteEventBand = (band) => {
+        var currentEventBands = eventBands;
+        //poimitaan vain muut kuin tämän bändin id eli tämä filtteröityy pois
+        currentEventBands = currentEventBands.filter(e => e.id != band.id);
+        const id = params.id;
+        updateToFirebaseById(Constants.DB_MUSIC_EVENT_BANDS, id, currentEventBands);
     }
 
     return loading ? (
@@ -181,7 +212,10 @@ export default function EventDetails() {
                     <Button
                         color={showLinkBands ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                         text={showLinkBands ? t('button_close') : 'Lisää bändejä tapahtumaan'}
-                        onClick={() => { setShowLinkBands(!showLinkBands); getBands(); }}
+                        onClick={() => {
+                            setShowLinkBands(!showLinkBands);
+                            //logBands();
+                        }}
                     />
                 </Col>
             </Row>
@@ -213,7 +247,20 @@ export default function EventDetails() {
             {showEdit &&
                 <AddEvent onSave={updateEvent} eventID={params.id} onClose={() => setShowEdit(false)} />
             }
+
             <hr />
+            {
+                eventBands != null && eventBands.length > 0 ? (
+                    <>
+                        <EventBands bands={eventBands} onDelete={deleteEventBand} />
+                    </>
+                ) : (
+                    <>
+                        {t('no_bands_to_show')}
+                    </>
+                )
+            }
+
             <ImageComponent url={Constants.DB_MUSIC_EVENT_IMAGES} objID={params.id} />
             <CommentComponent objID={params.id} url={Constants.DB_MUSIC_EVENT_COMMENTS} onSave={addCommentToEvent} />
             <LinkComponent objID={params.id} url={Constants.DB_MUSIC_EVENT_LINKS} onSaveLink={addLinkToEvent} />
