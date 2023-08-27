@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Row, ButtonGroup, Col } from 'react-bootstrap';
+import { Row, ButtonGroup, Col, Form } from 'react-bootstrap';
 import i18n from 'i18next';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
@@ -19,6 +19,8 @@ import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
+import useFetch from '../useFetch';
+import FoundBands from './FoundBands';
 
 export default function EventDetails() {
 
@@ -35,6 +37,10 @@ export default function EventDetails() {
     const [loading, setLoading] = useState(true);
     const [event, setEvent] = useState({});
     const [showEdit, setShowEdit] = useState(false);
+    const [showLinkBands, setShowLinkBands] = useState(false);
+    const [linkedBandName, setLinkedBandName] = useState('');
+    const [foundBands, setFoundBands] = useState([]);
+    const [selectedBand, setSelectedBand] = useState('');
 
     //params
     const params = useParams();
@@ -106,6 +112,35 @@ export default function EventDetails() {
         ];
     }
 
+    const getBands = async () => {
+        console.log(bands);
+    }
+
+    //fetch data
+    const { data: bands, setData: setBands,
+        originalData: originalBands, counter } = useFetch(Constants.DB_MUSIC_BANDS);
+
+    const inputRef = useRef();
+
+    useEffect(() => {
+
+        /*
+        if (linkedBandName === "ray") {
+            inputRef.current.select();
+        }
+        */
+
+        if (linkedBandName === "") {
+            console.log("pöö");
+            setFoundBands(Object.values(originalBands));
+        } else {
+
+            var filtered = Object.values(originalBands).filter(e => e.name != null && e.name.toLowerCase().includes(linkedBandName.toLowerCase()));
+            setFoundBands(filtered);
+        }
+
+    }, [linkedBandName]);
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -134,9 +169,41 @@ export default function EventDetails() {
                 </Col>
             </Row>
 
+            <Row>
+                <Col>
+                    <Button
+                        color={showLinkBands ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                        text={showLinkBands ? t('button_close') : 'Lisää bändejä tapahtumaan'}
+                        onClick={() => { setShowLinkBands(!showLinkBands); getBands(); }}
+                    />
+                </Col>
+            </Row>
+
+            {
+                showLinkBands &&
+                <>
+                    <Form>
+                        <Form.Group className="mb-3" controlId="linkBandForm-BandName">
+                            <Form.Label>{t('band_name')}</Form.Label>
+                            <Form.Control type='text'
+                                ref={inputRef}
+                                autoComplete="off"
+                                placeholder={t('band_name')}
+                                value={linkedBandName}
+                                onChange={(e) => setLinkedBandName(e.target.value)} />
+                        </Form.Group>
+                    </Form>
+                    <FoundBands bands={foundBands} onSelection={setSelectedBand} />
+                    {
+                        selectedBand && <p>Valittu bändi: {selectedBand}</p>
+                    }
+                </>
+            }
+
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
             {showEdit &&
                 <AddEvent onSave={updateEvent} eventID={params.id} onClose={() => setShowEdit(false)} />
