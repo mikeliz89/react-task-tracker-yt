@@ -62,6 +62,7 @@ export const DB_MUSIC_BAND_IMAGES = '/music-band-images';
 export const DB_MUSIC_BAND_LINKS = '/music-band-links';
 //music-events
 export const DB_MUSIC_EVENTS = '/music-events';
+export const DB_MUSIC_EVENT_BANDS = '/music-event-bands';
 export const DB_MUSIC_EVENT_COMMENTS = '/music-event-comments';
 export const DB_MUSIC_EVENT_IMAGES = '/music-event-images';
 export const DB_MUSIC_EVENT_LINKS = '/music-event-links';

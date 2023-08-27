@@ -1,10 +1,22 @@
 
-export default function FoundBands({ bands, onSelection }) {
+export default function FoundBands({ bands, onSelection, linkedBandName }) {
+
+  const showBandName = (band) => {
+    return band.name;
+  }
+
+  const setSelected = (band) => {
+    const obj = { name: band.name, id: band.id };
+    //console.log(obj);
+    onSelection(obj);
+  }
 
   return (
     <div>
       {bands != null && bands.slice(0, 3).map((band) => (
-        <p key={band.id} onClick={onSelection(band.name)}>{band.name}</p>
+        <div key={band.id} onClick={() => setSelected(band)}>
+          {showBandName(band)}
+        </div>
       ))}
     </div>
   )

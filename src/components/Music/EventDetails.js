@@ -40,7 +40,7 @@ export default function EventDetails() {
     const [showLinkBands, setShowLinkBands] = useState(false);
     const [linkedBandName, setLinkedBandName] = useState('');
     const [foundBands, setFoundBands] = useState([]);
-    const [selectedBand, setSelectedBand] = useState('');
+    const [selectedBand, setSelectedBand] = useState({});
 
     //params
     const params = useParams();
@@ -141,6 +141,13 @@ export default function EventDetails() {
 
     }, [linkedBandName]);
 
+    const selectedBandChanged = (band) => {
+        const id = params.id;
+        //TODO: Tarkista onko jo
+        pushToFirebaseChild(Constants.DB_MUSIC_EVENT_BANDS, id, {id: band.id, name: band.name} );
+        pushToFirebaseChild(Constants.DB_MUSIC_BAND_EVENTS, band.id, id );
+    }
+
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
@@ -182,7 +189,7 @@ export default function EventDetails() {
             {
                 showLinkBands &&
                 <>
-                    <Form>
+                    <Form style={{ paddingBottom: 0 }}>
                         <Form.Group className="mb-3" controlId="linkBandForm-BandName">
                             <Form.Label>{t('band_name')}</Form.Label>
                             <Form.Control type='text'
@@ -193,10 +200,8 @@ export default function EventDetails() {
                                 onChange={(e) => setLinkedBandName(e.target.value)} />
                         </Form.Group>
                     </Form>
-                    <FoundBands bands={foundBands} onSelection={setSelectedBand} />
-                    {
-                        selectedBand && <p>Valittu bändi: {selectedBand}</p>
-                    }
+                    <FoundBands bands={foundBands} onSelection={selectedBandChanged} linkedBandName={linkedBandName} />
+
                 </>
             }
 
