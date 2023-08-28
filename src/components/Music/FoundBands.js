@@ -4,6 +4,7 @@ import * as Constants from "../../utils/Constants";
 export default function FoundBands({ bands, onSelection, linkedBandName }) {
 
   const showBandName = (band) => {
+    //TODO: lisää alaviiva band.nameen siihen kohtaan missä hakuehto toteutui
     return band.name;
   }
 
