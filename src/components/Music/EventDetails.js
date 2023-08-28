@@ -210,7 +210,8 @@ export default function EventDetails() {
             <Row>
                 <Col>
                     <Button
-                        color={showLinkBands ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                        disableStyle={true}
+                        className={showLinkBands ? 'btn btn-danger' : 'btn btn-primary'}
                         text={showLinkBands ? t('button_close') : 'Lisää bändejä tapahtumaan'}
                         onClick={() => {
                             setShowLinkBands(!showLinkBands);

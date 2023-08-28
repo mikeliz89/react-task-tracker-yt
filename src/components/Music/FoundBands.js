@@ -1,3 +1,5 @@
+import Button from "../Buttons/Button";
+import * as Constants from "../../utils/Constants";
 
 export default function FoundBands({ bands, onSelection, linkedBandName }) {
 
@@ -13,9 +15,14 @@ export default function FoundBands({ bands, onSelection, linkedBandName }) {
   return (
     <div>
       {bands != null && bands.slice(0, 3).map((band) => (
-        <div key={band.id} onClick={() => setSelected(band)}>
-          {showBandName(band)}
-        </div>
+        <>
+          <Button key={band.id}
+            iconName={Constants.ICON_PLUS}
+            onClick={() => setSelected(band)}
+            text={showBandName(band)}
+          />
+          &nbsp;
+        </>
       ))}
     </div>
   )

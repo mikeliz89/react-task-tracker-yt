@@ -22,7 +22,7 @@ export default function EventBands({ bands, onDelete }) {
       <p>{t('music_bands_title')}</p>
       <Row>
         <Col>
-          <Table>
+          <Table bordered>
             <thead>
               <tr>
                 <th>{t('band_name')}</th>

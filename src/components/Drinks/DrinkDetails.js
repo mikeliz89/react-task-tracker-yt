@@ -379,7 +379,11 @@ export default function DrinkDetails() {
                         <Button
                             iconName={Constants.ICON_PLUS_SQUARE}
                             text={t('do_drink')}
-                            onClick={() => { if (window.confirm(t('do_drink_confirm'))) { saveDrinkHistory(params.id); } }}
+                            onClick={() => {
+                                if (window.confirm(t('do_drink_confirm'))) {
+                                    saveDrinkHistory(params.id);
+                                }
+                            }}
                         />
                     </>
                 </Tab>
