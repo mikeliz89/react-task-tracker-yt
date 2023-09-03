@@ -8,6 +8,7 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
 import GoBackButton from '../Buttons/GoBackButton';
 import { Link } from 'react-router-dom';
+import CenterWrapper from '../Site/CenterWrapper';
 
 export default function TracksList() {
 
@@ -37,7 +38,23 @@ export default function TracksList() {
                </Link>
             </ButtonGroup>
          </Row>
-         <Tracks tracks={tracks} onDelete={() => deleteTrack()} />
+
+         {
+            tracks != null && tracks.length > 0 ? (
+               <>
+                  {
+                     <Tracks tracks={tracks} onDelete={() => deleteTrack()} />
+                  }
+               </>
+            ) : (
+               <>
+                  <CenterWrapper>
+                     {t('no_tracks_to_show')}
+                  </CenterWrapper>
+               </>
+            )
+         }
+
       </PageContentWrapper>
    )
 }

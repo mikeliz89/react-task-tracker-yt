@@ -19,6 +19,7 @@ export const DB_CAR_MAINTENANCE = '/car-maintenance';
 export const DB_CAR_INFO = '/car-info';
 //disc golf
 export const DB_DISC_GOLF_TRACKS = '/disc-golf-tracks';
+export const DB_DISC_GOLF_TRACK_HOLES = '/disc-golf-track-holes';
 //drink
 export const DB_DRINKS = '/drinks';
 export const DB_DRINK_IMAGES = '/drink-images';

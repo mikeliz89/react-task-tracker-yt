@@ -26,6 +26,7 @@ Button.defaultProps = {
     textcolor: 'white',
     className: 'btn',
     title: '',
+    type: 'button',
     //icons
     iconName: '',
     iconColor: '',

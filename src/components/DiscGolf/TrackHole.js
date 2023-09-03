@@ -19,15 +19,17 @@ export default function TrackHole({ hole, decreasePar, increasePar, deleteHole }
                 Par: <span>{hole.par}</span>
             </td>
             <td>
-                <Button
+                <Button type='button'
                     onClick={() => decreasePar(hole.id)}
                     iconName={Constants.ICON_MINUS} className='btn btn-inline' />
-                <Button onClick={() => increasePar(hole.id)}
+                <Button type='button'
+                    onClick={() => increasePar(hole.id)}
                     iconName={Constants.ICON_PLUS} />
             </td>
 
             <td>
                 <Button
+                    type='button'
                     onClick={() => deleteHole(hole.id)}
                     iconName={Constants.ICON_DELETE}
                     style={{ backgroundColor: Constants.COLOR_ADDBUTTON_CLOSED }} />

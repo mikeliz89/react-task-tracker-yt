@@ -5,6 +5,10 @@ import Button from '../Buttons/Button';
 import * as Constants from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
 import TrackHoles from './TrackHoles';
+import { pushToFirebase, pushToFirebaseChild } from '../../datatier/datatier';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateTrack() {
 
@@ -14,6 +18,9 @@ export default function CreateTrack() {
    //states
    const [trackName, setTrackName] = useState('');
    const [description, setDescription] = useState('');
+
+   //auth
+   const { currentUser } = useAuth();
 
    //constants
    const maxHoleCount = 24;
@@ -36,14 +43,19 @@ export default function CreateTrack() {
    //states
    const [holes, setHoles] = useState(myArray);
 
+   //navigation
+   const navigate = useNavigate();
+
+   //alert
+   const [showMessage, setShowMessage] = useState(false);
+   const [message] = useState('');
+   const [showError, setShowError] = useState(false);
+   const [error, setError] = useState('');
+
+   //listen to holes changes
    useEffect(() => {
       //console.log("holes", holes);
    }, [holes]);
-
-
-   const sortCategoriesByName = () => {
-
-   }
 
    const addHole = () => {
       let counter = holes.length;
@@ -72,12 +84,37 @@ export default function CreateTrack() {
          return;
       }
 
+      if(trackName === "") {
+         alert("Ole hyvä ja anna radalle nimi");
+         return;
+      }
+
       try {
-         //TODO: Tallenna rata ja reiät databaseen
          console.log("Saving track");
+         saveTrack({ trackName, description });
+
       } catch (error) {
          console.log(error);
       }
+   }
+
+   const saveTrack = async (track) => {
+      try {
+         track["created"] = getCurrentDateAsJson();
+         track["createdBy"] = currentUser.email;
+         const key = await pushToFirebase(Constants.DB_DISC_GOLF_TRACKS, track);
+
+         saveHoles(key);
+
+         navigate(`${Constants.NAVIGATION_MANAGE_DISC_GOLF_TRACKS}`);
+      } catch (ex) {
+         setError(t('track_save_exception'));
+         setShowError(true);
+      }
+   }
+
+   const saveHoles = async (trackID) => {
+      await pushToFirebaseChild(Constants.DB_DISC_GOLF_TRACK_HOLES, trackID, holes);
    }
 
    const deleteHole = (holeID) => {
