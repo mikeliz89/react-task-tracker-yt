@@ -15,8 +15,11 @@ export default function CreateTrack() {
    const [trackName, setTrackName] = useState('');
    const [description, setDescription] = useState('');
 
+   //constants
+   const maxHoleCount = 24;
    const defaultPar = 3;
    const myArray = [
+      { id: 0, par: defaultPar },
       { id: 1, par: defaultPar },
       { id: 2, par: defaultPar },
       { id: 3, par: defaultPar },
@@ -24,15 +27,14 @@ export default function CreateTrack() {
       { id: 5, par: defaultPar },
       { id: 6, par: defaultPar },
       { id: 7, par: defaultPar },
-      { id: 8, par: defaultPar },
-      { id: 9, par: defaultPar }
+      { id: 8, par: defaultPar }
    ];
 
+   //states
    const [holes, setHoles] = useState(myArray);
 
-
    useEffect(() => {
-      //console.log("holes", holes);
+      console.log("holes", holes);
    }, [holes]);
 
 
@@ -42,7 +44,14 @@ export default function CreateTrack() {
 
    const addHole = () => {
       let counter = holes.length;
-      let newID = counter + 1;
+      let newID = counter;
+
+      if (counter == maxHoleCount) {
+         //TODO: kieleistys
+         alert("Rataan ei voi lisätä enempää väyliä kuin " + maxHoleCount);
+         return;
+      }
+
       //console.log("addhole", counter);
       let newHole = { id: newID, par: defaultPar }
 
@@ -61,10 +70,22 @@ export default function CreateTrack() {
       }
 
       try {
-
+         //TODO: Tallenna rata ja reiät databaseen
       } catch (error) {
          console.log(error);
       }
+   }
+
+   const deleteHole = (holeID) => {
+      //hävitä klikattu hole
+      let filteredHoles = holes.filter(e => e.id != holeID);
+      //luo uudet ID:t väylille
+      let newHoles = [];
+      for (let i = 0; i < filteredHoles.length; i++) {
+         let newHole = { id: i, par: filteredHoles[i]["par"] };
+         newHoles.push(newHole);
+      }
+      setHoles(newHoles);
    }
 
    return (
@@ -88,16 +109,17 @@ export default function CreateTrack() {
                   onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
 
-            {holes != null && holes.length > 0 &&
-               <>
-                  <TrackHoles holes={holes} />
-               </>
-            }
             <Row>
                <ButtonGroup>
                   <Button text={t('button_add_holes')} iconName={Constants.ICON_PLUS}
                      type='button' onClick={() => addHole()} />
                </ButtonGroup>
+
+               {holes != null && holes.length > 0 &&
+                  <>
+                     <TrackHoles holes={holes} deleteHole={deleteHole} setPar={setHoles} />
+                  </>
+               }
                <hr style={{ marginTop: '20px' }} />
                <ButtonGroup>
                   <Button type='submit' text={t('button_save_track')} className='btn btn-block saveBtn' />
