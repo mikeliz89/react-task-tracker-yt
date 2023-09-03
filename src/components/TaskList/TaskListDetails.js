@@ -37,13 +37,13 @@ export default function TaskListDetails() {
   //states
   const [loading, setLoading] = useState(true);
   const [taskList, setTaskList] = useState({});
-  const [showEditTaskList, setShowEditTaskList] = useState(false);
   const [tasks, setTasks] = useState();
   const [originalTasks, setOriginalTasks] = useState();
   const [showChangeListType, setShowChangeListType] = useState(false);
 
   //modal
   const { status: showAddTask, toggleStatus: toggleAddTask } = useToggle();
+  const { status: showEditTaskList, toggleStatus: toggleShowTaskList } = useToggle();
 
   //counters
   const [taskCounter, setTaskCounter] = useState(0);
@@ -237,7 +237,7 @@ export default function TaskListDetails() {
             iconName={Constants.ICON_EDIT}
             text={showEditTaskList ? t('button_close') : ''}
             color={showEditTaskList ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
-            onClick={() => setShowEditTaskList(!showEditTaskList)} />
+            onClick={() => toggleShowTaskList()} />
           <Button color="#545454" iconName={Constants.ICON_ARCHIVE}
             onClick={() => {
               if (window.confirm(t('archive_list_confirm_message'))) {
@@ -248,15 +248,14 @@ export default function TaskListDetails() {
         </ButtonGroup>
       </Row>
 
-      <AccordionElement array={getAccordionData()} title={taskList.title} iconName={Constants.ICON_LIST_ALT} />
+      <AccordionElement array={getAccordionData()} title={taskList.title}
+        iconName={Constants.ICON_LIST_ALT} />
 
-      {!showEditTaskList &&
-        <Row>
-          <Col>
-            {t('description' + ': ')}{taskList.description}
-          </Col>
-        </Row>
-      }
+      <Row>
+        <Col>
+          {t('description') + ': '}{taskList.description}
+        </Col>
+      </Row>
 
       {
         showChangeListType &&
@@ -265,9 +264,16 @@ export default function TaskListDetails() {
           onClose={() => setShowChangeListType(false)} />
       }
 
-      {showEditTaskList &&
-        <AddTaskList onSave={updateTaskList} taskListID={params.id} onClose={() => setShowEditTaskList(false)} />
-      }
+      <Modal show={showEditTaskList} onHide={toggleShowTaskList}>
+        <Modal.Header closeButton>
+          <Modal.Title>{t('modal_header_edit_task_list')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddTaskList onSave={updateTaskList}
+            taskListID={params.id} onClose={toggleShowTaskList}
+          />
+        </Modal.Body>
+      </Modal>
 
       <Tabs defaultActiveKey="home"
         id="taskListDetails-Tab"

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Row, ButtonGroup, Col, Tabs, Tab } from 'react-bootstrap';
+import { Row, ButtonGroup, Col, Tabs, Tab, Modal } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { ref, child, onValue } from 'firebase/database';
 import Button from '../Buttons/Button';
@@ -38,10 +38,15 @@ export default function DrinkDetails() {
     const [showAddIncredient, setShowAddIncredient] = useState(false);
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
     const [showAddGarnish, setShowAddGarnish] = useState(false);
-    const [showEditDrink, setShowEditDrink] = useState(false);
     const [incredients, setIncredients] = useState({});
     const [workPhases, setWorkPhases] = useState({});
     const [garnishes, setGarnishes] = useState({});
+
+    //modal
+    const [showEditDrink, setShowEditDrink] = useState(false);
+    const handleClose = () => {
+        setShowEditDrink(false);
+    }
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -278,11 +283,17 @@ export default function DrinkDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
-            {showEditDrink &&
-                <AddDrink onSave={updateDrink} drinkID={params.id} onClose={() => setShowEditDrink(false)} />
-            }
+            <Modal show={showEditDrink} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_edit_drink')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddDrink onSave={updateDrink} drinkID={params.id} onClose={() => setShowEditDrink(false)} />
+                </Modal.Body>
+            </Modal>
 
             <Tabs defaultActiveKey="incredients"
                 id="drinkDetails-Tab"

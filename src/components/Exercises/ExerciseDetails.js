@@ -156,11 +156,7 @@ export default function ExerciseDetails() {
                 }
                 {
                     (
-                        Number(exercise.category) === Categories.BikingInside ||
-                        Number(exercise.category) === Categories.Biking ||
-                        Number(exercise.category) === Categories.Kayaking ||
-                        Number(exercise.category) === Categories.Running ||
-                        Number(exercise.category) === Categories.Walking
+                        showAddMoving(exercise)
                     ) &&
                     <AddPartsMoving title={getTitleByCategory(exercise.category)}
                         iconName={getIconNameByCategory(exercise.category)} />
@@ -171,4 +167,13 @@ export default function ExerciseDetails() {
             </PageContentWrapper >
         )
     )
+}
+
+function showAddMoving(exercise) {
+    return Number(exercise.category) === Categories.BikingInside ||
+        Number(exercise.category) === Categories.Biking ||
+        Number(exercise.category) === Categories.Kayaking ||
+        Number(exercise.category) === Categories.Running ||
+        Number(exercise.category) === Categories.Walking ||
+        Number(exercise.category) === Categories.Skiing;
 }

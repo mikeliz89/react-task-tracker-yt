@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Row, ButtonGroup, Col } from 'react-bootstrap';
+import { Row, ButtonGroup, Col, Modal } from 'react-bootstrap';
 import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import Button from '../Buttons/Button';
@@ -26,7 +26,12 @@ export default function DrinkingProductDetails() {
     //states
     const [loading, setLoading] = useState(true);
     const [drinkingProduct, setDrinkingProduct] = useState({});
+    
+    //modal
     const [showEditDrinkingProduct, setShowEditDrinkingProduct] = useState(false);
+    const handleClose = () => {
+        setShowEditDrinkingProduct(false);
+    }
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -143,10 +148,18 @@ export default function DrinkingProductDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
-            {showEditDrinkingProduct && <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} drinkingProductID={params.id}
-                onClose={() => setShowEditDrinkingProduct(false)} />}
+            <Modal show={showEditDrinkingProduct} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_edit_drinking_product')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} drinkingProductID={params.id}
+                        onClose={() => setShowEditDrinkingProduct(false)} />
+                </Modal.Body>
+            </Modal>
 
             <hr />
 

@@ -15,7 +15,9 @@ export const Categories = {
     /** Pyöräily */
     Biking: 6,
     /** Kuntopyöräily */
-    BikingInside: 7
+    BikingInside: 7,
+    /** Hiihto */
+    Skiing: 8
 }
 
 export const ExerciseCategories = [
@@ -58,6 +60,11 @@ export const ExerciseCategories = [
         //Kuntopyöräily
         "id": 7,
         "name": "biking_inside"
+    },
+    {
+        //hiihto
+        "id": 8,
+        "name": "skiing"
     }
 ]
 
@@ -140,6 +147,8 @@ export function getTitleByCategory(category) {
             return 'title_running';
         case Categories.Walking:
             return 'title_walking';
+        case Categories.Skiing:
+            return 'title_skiing';
         default: return '';
     }
 }
