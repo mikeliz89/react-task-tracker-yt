@@ -38,10 +38,11 @@ export default function TaskList({ taskList, archived, onDelete }) {
                         <RightWrapper>
                             {
                                 !archived &&
-                                <Icon name={Constants.ICON_EDIT} className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
+                                <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
+                                    style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                                     onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             }
-                            <Icon name={Constants.ICON_DELETE} className="deleteBtn"
+                            <Icon name={Constants.ICON_DELETE} className={Constants.CLASSNAME_DELETEBTN}
                                 style={{ color: Constants.COLOR_DELETEBUTTON, cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => { if (window.confirm(t('delete_list_confirm_message'))) { onDelete(taskList.id); } }}
                             />

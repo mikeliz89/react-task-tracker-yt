@@ -3,70 +3,100 @@ import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import * as Constants from '../../utils/Constants';
+import GoBackButton from '../Buttons/GoBackButton';
+import TrackHoles from './TrackHoles';
 
 export default function CreateTrack() {
 
    //translation
    const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
-   
+
+   //states
+   const [trackName, setTrackName] = useState('');
+   const [description, setDescription] = useState('');
+
+   const defaultPar = 3;
+   const myArray = [
+      { id: 1, par: defaultPar },
+      { id: 2, par: defaultPar },
+      { id: 3, par: defaultPar },
+      { id: 4, par: defaultPar },
+      { id: 5, par: defaultPar },
+      { id: 6, par: defaultPar },
+      { id: 7, par: defaultPar },
+      { id: 8, par: defaultPar },
+      { id: 9, par: defaultPar }
+   ];
+
+   const [holes, setHoles] = useState(myArray);
+
+   /*
    useEffect(() => {
       //sortCategoriesByName();
-   }, []);
+   }, [holes]);
+   */
 
    const sortCategoriesByName = () => {
-     
+
+   }
+
+   const createDefaultHoles = () => {
+      let newHole = { id: ++holes.length, par: defaultPar }
+      let currentHoles = holes;
+      currentHoles.push(newHole);
+      console.log(currentHoles);
+      setHoles(currentHoles);
+   }
+
+   async function onSubmit(e) {
+      e.preventDefault();
+
+      if (holes.length < 1) {
+         alert("Lisää vähintään yksi väylä");
+         return;
+      }
+
+      try {
+
+      } catch (error) {
+         console.log(error);
+      }
    }
 
    return (
       <>
+         <GoBackButton />
          <Form onSubmit={onSubmit}>
-            <Form.Group className="mb-3" controlId="startGameForm-TrackName">
-               {showLabels && <Form.Label>{t('track')}</Form.Label>}
+            <Form.Group className="mb-3" controlId="createTrackForm-TrackName">
+               <Form.Label>{t('track_name')}</Form.Label>
                <Form.Control type='text'
                   autoComplete="off"
-                  placeholder={t('track')}
-                  value={title}
-                  onChange={(e) => setTrack(e.target.value)} />
+                  placeholder={t('track_name')}
+                  value={trackName}
+                  onChange={(e) => setTrackName(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="addDrinkForm-Description">
-               {showLabels && <Form.Label>{t('description')}</Form.Label>}
+            <Form.Group className="mb-3" controlId="createTrackForm-Description">
+               <Form.Label>{t('track_description')}</Form.Label>
                <Form.Control type='text'
                   autoComplete="off"
-                  placeholder={drinkID == null ? t('description') : t('description')}
+                  placeholder={t('track_description')}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="addDrinkForm-Glass">
-               {showLabels && <Form.Label>{t('glass')}</Form.Label>}
-               <Form.Control type='text'
-                  autoComplete="off"
-                  placeholder={drinkID == null ? t('glass') : t('glass')}
-                  value={glass}
-                  onChange={(e) => setGlass(e.target.value)} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="addDrinkForm-Category">
-               {showLabels && <Form.Label>{t('category')}</Form.Label>}
-               <Form.Select
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}>
-                  {categories.map(({ id, name }) => (
-                     <option value={id} key={id}>{t(`category_${name}`)}</option>
-                  ))}
-               </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="AddDrinkForm-IsCore">
-               <Form.Check
-                  type='checkbox'
-                  label={t('set_isCore')}
-                  checked={isCore}
-                  value={isCore}
-                  onChange={(e) => setIsCore(e.currentTarget.checked)} />
-            </Form.Group>
+
+            {holes != null && holes.length > 0 &&
+               <>
+                  <TrackHoles holes={holes} />
+               </>
+            }
             <Row>
                <ButtonGroup>
-                  <Button type='button' text={t('button_close')} className='btn btn-block'
-                     onClick={() => onClose()} />
-                  <Button type='submit' text={t('button_save_drink')} className='btn btn-block saveBtn' />
+                  <Button text={t('button_add_holes')} iconName={Constants.ICON_PLUS}
+                     type='button' onClick={() => createDefaultHoles()} />
+               </ButtonGroup>
+               <hr style={{ marginTop: '20px' }} />
+               <ButtonGroup>
+                  <Button type='submit' text={t('button_save_track')} className='btn btn-block saveBtn' />
                </ButtonGroup>
             </Row>
          </Form>

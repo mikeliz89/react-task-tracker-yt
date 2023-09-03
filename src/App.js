@@ -83,6 +83,8 @@ import ManageGames from './components/Games/ManageGames';
 import ManageGameLists from './components/Games/ManageGameLists';
 //Disc Golf
 import ManageDiscGolf from './components/DiscGolf/ManageDiscGolf';
+import TracksList from './components/DiscGolf/TracksList';
+import CreateTrack from './components/DiscGolf/CreateTrack';
 //Movies
 import ManageMovies from './components/Movies/ManageMovies';
 import ManageMovieLists from './components/Movies/ManageMovieLists';
@@ -111,15 +113,14 @@ import {
   faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
-  faFish, faUserAlt, faHistory, faPlus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
+  faFish, faUserAlt, faHistory, faPlus, faMinus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
   faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm, faWrench
 } from '@fortawesome/free-solid-svg-icons';
-import TracksList from './components/DiscGolf/TracksList';
 
 library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
-  faFish, faUserAlt, faHistory, faPlus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
+  faFish, faUserAlt, faHistory, faPlus, faMinus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
   faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm, faWrench
 );
 
@@ -238,6 +239,7 @@ function App() {
             {/* Disc Golf */}
             <Route path={Constants.NAVIGATION_MANAGE_DISC_GOLF} element={<PrivateRoute><ManageDiscGolf /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_DISC_GOLF_TRACKS} element={<PrivateRoute><TracksList /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_DISCGOLF_ADD_NEW_TRACK} element={<PrivateRoute><CreateTrack /></PrivateRoute>} />
             {/* Disc Golf */}
             {/* Movies */}
             <Route path={Constants.NAVIGATION_MANAGE_MOVIES} element={<PrivateRoute><ManageMovies /></PrivateRoute>} />

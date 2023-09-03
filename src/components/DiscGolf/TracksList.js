@@ -7,6 +7,7 @@ import useFetch from '../UseFetch';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
 import GoBackButton from '../Buttons/GoBackButton';
+import { Link } from 'react-router-dom';
 
 export default function TracksList() {
 
@@ -31,7 +32,9 @@ export default function TracksList() {
          <Row>
             <ButtonGroup>
                <GoBackButton />
-               <Button text="Lisää uusi rata" />
+               <Link to={Constants.NAVIGATION_DISCGOLF_ADD_NEW_TRACK} className='btn btn-primary'>
+                  {t('add_new_track')}
+               </Link>
             </ButtonGroup>
          </Row>
          <Tracks tracks={tracks} onDelete={() => deleteTrack()} />

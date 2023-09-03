@@ -36,12 +36,12 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
                     <RightWrapper>
                         <Icon
                             name={Constants.ICON_EDIT}
-                            className="editBtn"
+                            className={Constants.CLASSNAME_EDITBTN}
                             style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                             onClick={() => editable ? setEditable(false) : setEditable(true)} />
                         <Icon
                             name={Constants.ICON_DELETE}
-                            className="deleteBtn"
+                            className={Constants.CLASSNAME_DELETEBTN}
                             style={{ color: Constants.COLOR_DELETEBUTTON, cursor: 'pointer', fontSize: '1.2em' }}
                             onClick={() => {
                                 if (window.confirm(t('delete_maintenance_confirm_message'))) {

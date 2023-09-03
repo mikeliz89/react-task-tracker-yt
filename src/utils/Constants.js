@@ -4,6 +4,8 @@ export const COLOR_ADDBUTTON_OPEN = 'red';
 export const COLOR_DELETEBUTTON = 'red';
 export const COLOR_EDITBUTTON_CLOSED = 'orange';
 export const COLOR_EDITBUTTON_OPEN = 'red';
+export const CLASSNAME_DELETEBTN = 'deleteBtn';
+export const CLASSNAME_EDITBTN = 'editBtn';
 
 //DATABASE
 export const DB_BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS = '/backpacking-gear-maintenance-instructions';
@@ -123,8 +125,9 @@ export const ICON_LAPTOP = 'laptop-code';
 export const ICON_LEMON = 'lemon';
 export const ICON_LIST_ALT = 'list-alt';
 export const ICON_HAMBURGER = 'hamburger';
-export const ICON_MUSIC = 'music';
+export const ICON_MINUS = 'minus';
 export const ICON_MOVIE = 'film';
+export const ICON_MUSIC = 'music';
 export const ICON_PIZZA = 'pizza-slice';
 export const ICON_PLUS = 'plus';
 export const ICON_PLUS_SQUARE = 'plus-square';
@@ -171,6 +174,7 @@ export const NAVIGATION_MANAGE_GAMELISTS = '/managegamelists';
 //disc golf
 export const NAVIGATION_MANAGE_DISC_GOLF = '/managediscgolf';
 export const NAVIGATION_MANAGE_DISC_GOLF_TRACKS = '/managediscgolftracks';
+export const NAVIGATION_DISCGOLF_ADD_NEW_TRACK = '/discgolfaddnewtrack';
 //gear
 export const NAVIGATION_MANAGE_GEAR = '/managegear';
 export const NAVIGATION_MANAGE_GEAR_MAINTENANCE = '/managegearmaintenance';

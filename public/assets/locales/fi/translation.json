@@ -181,8 +181,16 @@
         }
     },
     "discgolf": {
+        "add_new_track": "Lisää uusi rata",
         "button_tracks": "Radat",
-        "start_game": "Aloita peli"
+        "button_add_holes": "Lisää väyliä",
+        "button_save_track": "Tallenna rata",
+        "hole_number": "Väylä",
+        "no_tracks_to_show": "Ei ratoja",
+        "start_game": "Aloita peli",
+        "tracks": "Radat",
+        "track_description": "Radan kuvaus",
+        "track_name": "Radan nimi"
     },
     "drinks": {
         "add_incredient_formtitle": "Ainesosan lisäys",

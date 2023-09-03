@@ -30,9 +30,10 @@ export default function Band({ band, onDelete, onEdit }) {
                     {band.name} {band.formingYear > 0 ? '(' + band.formingYear + ')' : ''}
                 </span>
                 <RightWrapper>
-                    <Icon name={Constants.ICON_EDIT} className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
+                    <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
+                        style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => editable ? setEditable(false) : setEditable(true)} />
-                    <Icon className='deleteBtn'
+                    <Icon className={Constants.CLASSNAME_DELETEBTN}
                         name={Constants.ICON_DELETE}
                         color={Constants.COLOR_DELETEBUTTON} fontSize='1.2em' cursor='pointer'
                         onClick={() => {
