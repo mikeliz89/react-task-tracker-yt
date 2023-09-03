@@ -20,18 +20,16 @@ import CommentComponent from '../Comments/CommentComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
+import { useToggle } from '../UseToggle';
 
 export default function DrinkingProductDetails() {
 
     //states
     const [loading, setLoading] = useState(true);
     const [drinkingProduct, setDrinkingProduct] = useState({});
-    
+
     //modal
-    const [showEditDrinkingProduct, setShowEditDrinkingProduct] = useState(false);
-    const handleClose = () => {
-        setShowEditDrinkingProduct(false);
-    }
+    const { status: showEditDrinkingProduct, toggleStatus: toggleSetShowEdit } = useToggle();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -125,7 +123,7 @@ export default function DrinkingProductDetails() {
                         iconName={Constants.ICON_EDIT}
                         text={showEditDrinkingProduct ? t('button_close') : ''}
                         color={showEditDrinkingProduct ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
-                        onClick={() => setShowEditDrinkingProduct(!showEditDrinkingProduct)} />
+                        onClick={() => toggleSetShowEdit()} />
                 </ButtonGroup>
             </Row>
 
@@ -148,16 +146,18 @@ export default function DrinkingProductDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant='success' onClose={() => {
+                    setShowMessage(false); setShowError(false);
+                }}
             />
 
-            <Modal show={showEditDrinkingProduct} onHide={handleClose}>
+            <Modal show={showEditDrinkingProduct} onHide={toggleSetShowEdit}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t('modal_header_edit_drinking_product')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} drinkingProductID={params.id}
-                        onClose={() => setShowEditDrinkingProduct(false)} />
+                        onClose={() => toggleSetShowEdit()} />
                 </Modal.Body>
             </Modal>
 

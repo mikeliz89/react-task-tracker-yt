@@ -28,6 +28,7 @@ import CommentComponent from '../Comments/CommentComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
+import { useToggle } from '../UseToggle';
 
 export default function DrinkDetails() {
 
@@ -43,10 +44,7 @@ export default function DrinkDetails() {
     const [garnishes, setGarnishes] = useState({});
 
     //modal
-    const [showEditDrink, setShowEditDrink] = useState(false);
-    const handleClose = () => {
-        setShowEditDrink(false);
-    }
+    const { status: showEditDrink, toggleStatus: toggleSetShowEditDrink } = useToggle();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -146,6 +144,7 @@ export default function DrinkDetails() {
                 drinkToUpdate["isCore"] = false;
             }
             updateToFirebaseById(Constants.DB_DRINKS, drinkID, drinkToUpdate);
+            toggleSetShowEditDrink();
         } catch (error) {
             setError(t('failed_to_save_drink'));
             setShowError(true);
@@ -258,7 +257,7 @@ export default function DrinkDetails() {
                         iconName={Constants.ICON_EDIT}
                         text={showEditDrink ? t('button_close') : ''}
                         color={showEditDrink ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
-                        onClick={() => setShowEditDrink(!showEditDrink)} />
+                        onClick={() => toggleSetShowEditDrink()} />
                 </ButtonGroup>
             </Row>
 
@@ -286,12 +285,13 @@ export default function DrinkDetails() {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            <Modal show={showEditDrink} onHide={handleClose}>
+            <Modal show={showEditDrink} onHide={toggleSetShowEditDrink}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t('modal_header_edit_drink')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddDrink onSave={updateDrink} drinkID={params.id} onClose={() => setShowEditDrink(false)} />
+                    <AddDrink onSave={updateDrink} drinkID={params.id}
+                        onClose={() => toggleSetShowEditDrink()} />
                 </Modal.Body>
             </Modal>
 

@@ -1,5 +1,4 @@
-import { Row, Col } from "react-bootstrap";
-import { useState } from "react";
+import { Row, Col, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
@@ -8,19 +7,20 @@ import Icon from "../Icon";
 import AddFueling from "./AddFueling";
 import { updateToFirebaseById } from "../../datatier/datatier";
 import RightWrapper from "../Site/RightWrapper";
+import { useToggle } from '../UseToggle';
 
 export default function CarFueling({ fuelingRow, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
 
-    //states
-    const [editable, setEditable] = useState(false);
+    //modal
+    const { status: showEditFueling, toggleStatus: toggleShowEditFueling } = useToggle();
 
     const updateFueling = (fueling) => {
         fueling["modified"] = getCurrentDateAsJson();
         updateToFirebaseById(Constants.DB_CAR_FUELING, fuelingRow.id, fueling);
-        setEditable(false);
+        toggleShowEditFueling();
     }
 
     return (
@@ -39,23 +39,26 @@ export default function CarFueling({ fuelingRow, onDelete }) {
                     <RightWrapper>
                         <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
                             style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
-                            onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                            onClick={() => toggleShowEditFueling()} />
                         <Icon name={Constants.ICON_DELETE} className={Constants.CLASSNAME_DELETEBTN}
                             style={{ color: Constants.COLOR_DELETEBUTTON, cursor: 'pointer', fontSize: '1.2em' }}
                             onClick={() => { if (window.confirm(t('delete_fueling_confirm_message'))) { onDelete(fuelingRow.id); } }} />
                     </RightWrapper>
                 </Col>
             </Row>
-            <Row>
-                <Col>
-                    {editable &&
-                        <AddFueling
-                            ID={fuelingRow.id}
-                            onClose={() => setEditable(false)}
-                            onSave={updateFueling} />
-                    }
-                </Col>
-            </Row>
+
+            <Modal show={showEditFueling} onHide={toggleShowEditFueling}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_edit_fueling')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddFueling
+                        ID={fuelingRow.id}
+                        onClose={() => toggleShowEditFueling()}
+                        onSave={updateFueling} />
+                </Modal.Body>
+            </Modal>
+
         </>
     )
 }
