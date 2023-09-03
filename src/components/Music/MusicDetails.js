@@ -13,7 +13,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import Button from '../Buttons/Button';
-import AddMusic from './AddMusic';
+import AddRecord from './AddRecord';
 import Alert from '../Alert';
 import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
@@ -34,7 +34,7 @@ export default function MusicDetails() {
 
     //states
     const [loading, setLoading] = useState(true);
-    const [music, setMusic] = useState({});
+    const [record, setRecord] = useState({});
     const [showEdit, setShowEdit] = useState(false);
 
     //params
@@ -48,29 +48,29 @@ export default function MusicDetails() {
 
     //load data
     useEffect(() => {
-        const getMusic = async () => {
+        const getRecord = async () => {
             await fetchMusicFromFirebase();
         }
-        getMusic();
+        getRecord();
     }, [])
 
     const fetchMusicFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_MUSIC}/${params.id}`);
+        const dbref = ref(db, `${Constants.DB_MUSIC_RECORDS}/${params.id}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data === null) {
                 navigate(-1);
             }
-            setMusic(data);
+            setRecord(data);
             setLoading(false);
         })
     }
 
-    const updateMusic = async (updateMusicID, music) => {
+    const updateRecord = async (updateRecordID, record) => {
         try {
-            const musicID = params.id;
-            music["modified"] = getCurrentDateAsJson();
-            updateToFirebaseById(Constants.DB_MUSIC, musicID, music);
+            const recordID = params.id;
+            record["modified"] = getCurrentDateAsJson();
+            updateToFirebaseById(Constants.DB_MUSIC_RECORDS, recordID, record);
         } catch (error) {
             setError(t('failed_to_save_music'));
             setShowError(true);
@@ -78,7 +78,7 @@ export default function MusicDetails() {
         }
     }
 
-    const addCommentToMusic = (comment) => {
+    const addCommentToRecord = (comment) => {
         const id = params.id;
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
@@ -86,24 +86,24 @@ export default function MusicDetails() {
         pushToFirebaseChild(Constants.DB_MUSIC_COMMENTS, id, comment);
     }
 
-    const addLinkToMusic = (link) => {
+    const addLinkToRecord = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
         pushToFirebaseChild(Constants.DB_MUSIC_LINKS, id, link);
     }
 
     const saveStars = async (stars) => {
-        const musicID = params.id;
-        music["modified"] = getCurrentDateAsJson()
-        music["stars"] = Number(stars);
-        updateToFirebaseById(Constants.DB_MUSIC, musicID, music);
+        const recordID = params.id;
+        record["modified"] = getCurrentDateAsJson()
+        record["stars"] = Number(stars);
+        updateToFirebaseById(Constants.DB_MUSIC_RECORDS, recordID, record);
     }
 
     const getAccordionData = () => {
         return [
-            { id: 1, name: t('created'), value: getJsonAsDateTimeString(music.created, i18n.language) },
-            { id: 2, name: t('created_by'), value: music.createdBy },
-            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(music.modified, i18n.language) }
+            { id: 1, name: t('created'), value: getJsonAsDateTimeString(record.created, i18n.language) },
+            { id: 2, name: t('created_by'), value: record.createdBy },
+            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(record.modified, i18n.language) }
         ];
     }
 
@@ -122,21 +122,21 @@ export default function MusicDetails() {
                 </ButtonGroup>
             </Row>
 
-            <AccordionElement array={getAccordionData()} title={music.band + ' ' + music.name} />
+            <AccordionElement array={getAccordionData()} title={record.band + ' ' + record.name} />
 
             <Row>
                 <Col>
-                    {t('format') + ':'} {t('music_format_' + getMusicFormatNameByID(music.format))}
+                    {t('format') + ':'} {t('music_format_' + getMusicFormatNameByID(record.format))}
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    {t('description') + ':'} {music.description}
+                    {t('description') + ':'} {record.description}
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <StarRatingWrapper stars={music.stars} onSaveStars={saveStars} />
+                    <StarRatingWrapper stars={record.stars} onSaveStars={saveStars} />
                 </Col>
             </Row>
 
@@ -145,12 +145,12 @@ export default function MusicDetails() {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
 
             {showEdit &&
-                <AddMusic onSave={updateMusic} musicID={params.id} onClose={() => setShowEdit(false)} />
+                <AddRecord onSave={updateRecord} recordID={params.id} onClose={() => setShowEdit(false)} />
             }
             <hr />
             <ImageComponent url={Constants.DB_MUSIC_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={Constants.DB_MUSIC_COMMENTS} onSave={addCommentToMusic} />
-            <LinkComponent objID={params.id} url={Constants.DB_MUSIC_LINKS} onSaveLink={addLinkToMusic} />
+            <CommentComponent objID={params.id} url={Constants.DB_MUSIC_COMMENTS} onSave={addCommentToRecord} />
+            <LinkComponent objID={params.id} url={Constants.DB_MUSIC_LINKS} onSaveLink={addLinkToRecord} />
         </PageContentWrapper>
     )
 }

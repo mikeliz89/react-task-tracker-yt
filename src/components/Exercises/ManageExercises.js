@@ -54,7 +54,7 @@ export default function ManageExercises() {
       }
 
       <CenterWrapper>
-        <Link className="btn btn-primary" to={`/createexercise`}>{t('create_exercise')}</Link>
+        <Link className="btn btn-primary" to={Constants.NAVIGATION_CREATE_EXERCISE}>{t('create_exercise')}</Link>
       </CenterWrapper>
 
       {

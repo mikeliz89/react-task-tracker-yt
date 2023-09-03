@@ -10,12 +10,12 @@ import * as Constants from '../../utils/Constants';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import CenterWrapper from '../Site/CenterWrapper';
-import Musics from './Musics';
+import Records from './Records';
 import { useState } from 'react';
 import Counter from '../Site/Counter';
 import Alert from '../Alert';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import AddMusic from './AddMusic';
+import AddRecord from './AddRecord';
 import { useAuth } from '../../contexts/AuthContext';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
@@ -28,8 +28,8 @@ export default function ManageMusicRecords() {
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
 
     //fetch data
-    const { data: musics, setData: setMusics,
-        originalData: originalMusics, counter, loading } = useFetch(Constants.DB_MUSIC);
+    const { data: records, setData: setRecords,
+        originalData: originalRecords, counter, loading } = useFetch(Constants.DB_MUSIC_RECORDS);
 
     //modal
     const { status: showAddRecord, toggleStatus: toggleAddRecord } = useToggle();
@@ -43,16 +43,16 @@ export default function ManageMusicRecords() {
     //user
     const { currentUser } = useAuth();
 
-    const deleteMusic = async (id) => {
-        removeFromFirebaseById(Constants.DB_MUSIC, id);
+    const deleteRecord = async (id) => {
+        removeFromFirebaseById(Constants.DB_MUSIC_RECORDS, id);
     }
 
-    const addMusic = async (musicID, music) => {
+    const addRecord = async (recordID, record) => {
         try {
             clearMessages();
-            music["created"] = getCurrentDateAsJson();
-            music["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_MUSIC, music);
+            record["created"] = getCurrentDateAsJson();
+            record["createdBy"] = currentUser.email;
+            pushToFirebase(Constants.DB_MUSIC_RECORDS, record);
             setMessage(t('save_success'));
             setShowMessage(true);
         } catch (ex) {
@@ -68,9 +68,9 @@ export default function ManageMusicRecords() {
         setShowMessage(false);
     }
 
-    const editMusic = (music) => {
-        const id = music.id;
-        updateToFirebaseById(Constants.DB_MUSIC, id, music);
+    const editRecord = (record) => {
+        const id = record.id;
+        updateToFirebaseById(Constants.DB_MUSIC_RECORDS, id, record);
     }
 
     return loading ? (
@@ -101,15 +101,15 @@ export default function ManageMusicRecords() {
                     <Modal.Title>{t('modal_header_add_record')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddMusic onSave={addMusic} onClose={toggleAddRecord} />
+                    <AddRecord onSave={addRecord} onClose={toggleAddRecord} />
                 </Modal.Body>
             </Modal>
 
             {
-                originalMusics != null && originalMusics.length > 0 ? (
+                originalRecords != null && originalRecords.length > 0 ? (
                     <SearchSortFilter
-                        onSet={setMusics}
-                        originalList={originalMusics}
+                        onSet={setRecords}
+                        originalList={originalRecords}
                         //search
                         showSearchByText={true}
                         showSearchByDescription={true}
@@ -136,15 +136,15 @@ export default function ManageMusicRecords() {
             </CenterWrapper>
 
             {
-                musics != null && musics.length > 0 ? (
+                records != null && records.length > 0 ? (
                     <>
-                        <Counter list={musics} originalList={originalMusics} counter={counter} />
-                        <Musics musics={musics} onDelete={deleteMusic} onEdit={editMusic} />
+                        <Counter list={records} originalList={originalRecords} counter={counter} />
+                        <Records records={records} onDelete={deleteRecord} onEdit={editRecord} />
                     </>
                 ) : (
                     <>
                         <CenterWrapper>
-                            {t('no_musics_to_show')}
+                            {t('no_records_to_show')}
                         </CenterWrapper>
                     </>
                 )

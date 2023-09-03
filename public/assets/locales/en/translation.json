@@ -455,7 +455,7 @@
         "music_format_other": "Other",
         "music_records_title": "Music Records",
         "name": "Record name",
-        "no_musics_to_show": "No records to show",
+        "no_records_to_show": "No records to show",
         "please_add_name": "Please give record name",
         "publish_year": "Publish year", 
         "save_success": "Saving was succesfull",

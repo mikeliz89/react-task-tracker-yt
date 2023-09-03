@@ -212,6 +212,16 @@ export default function Dashboard() {
                                 onClick={() => setFromMedia()}
                             />
                         </DashboardItem>
+                        <DashboardItem link={Constants.NAVIGATION_MANAGE_DISC_GOLF}>
+                            <BigButton
+                                imageName="discgolf.jpg"
+                                iconName={Constants.ICON_GAMEPAD}
+                                textcolor="black"
+                                color="#0cb058"
+                                text={t('discgolf')}
+                                onClick={() => setFromMedia()}
+                            />
+                        </DashboardItem>
                     </Row>
                 </Tab>
                 <Tab eventKey={Constants.SESSION_DASHBOARD_MUSIC} title={t('title_music')}>

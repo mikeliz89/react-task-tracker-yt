@@ -159,6 +159,7 @@
             "backpacking": "Retkeily",
             "bmi_calculator": "Painoindeksi-laskuri",
             "car": "Auto",
+            "discgolf": "Frisbeegolf",
             "drinks": "Drinkit",
             "exercises": "Liikunta",
             "games": "Pelit",
@@ -178,6 +179,10 @@
             "title_media": "Media",
             "title_music": "Musiikki"
         }
+    },
+    "discgolf": {
+        "button_tracks": "Radat",
+        "start_game": "Aloita peli"
     },
     "drinks": {
         "add_incredient_formtitle": "Ainesosan lisäys",
@@ -519,7 +524,7 @@
         "name": "Tallenteen nimi",
         "no_bands_to_show": "Ei bändejä",
         "no_events_to_show": "Ei tapahtumia",
-        "no_musics_to_show": "Ei tallenteita",
+        "no_records_to_show": "Ei tallenteita",
         "please_add_name": "Ole hyvä ja anna nimi",
         "publish_year": "Julkaisuvuosi",
         "save_success": "Tallennus onnistui",

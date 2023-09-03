@@ -9,9 +9,9 @@ import RightWrapper from '../Site/RightWrapper';
 import { useState } from 'react';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
-import AddMusic from './AddMusic';
+import AddRecord from './AddRecord';
 
-export default function Music({ music, onDelete, onEdit }) {
+export default function Record({ record, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
@@ -19,27 +19,27 @@ export default function Music({ music, onDelete, onEdit }) {
     //states
     const [editable, setEditable] = useState(false);
 
-    const updateMusic = (updateMusicID, object) => {
+    const updateRecord = (updateRecordID, object) => {
         object["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(Constants.DB_MUSIC, updateMusicID, object);
+        updateToFirebaseById(Constants.DB_MUSIC_RECORDS, updateRecordID, object);
         setEditable(false);
     }
 
     const markHaveAtHome = () => {
-        music["haveAtHome"] = true;
-        onEdit(music);
+        record["haveAtHome"] = true;
+        onEdit(record);
     }
 
     const markNotHaveAtHome = () => {
-        music["haveAtHome"] = false;
-        onEdit(music);
+        record["haveAtHome"] = false;
+        onEdit(record);
     }
 
     return (
         <div className='listContainer'>
             <h5>
                 <span>
-                    {music.band} {music.band !== '' ? '-' : ''} {music.name} {music.publishYear > 0 ? '(' + music.publishYear + ')' : ''}
+                    {record.band} {record.band !== '' ? '-' : ''} {record.name} {record.publishYear > 0 ? '(' + record.publishYear + ')' : ''}
                 </span>
                 <RightWrapper>
                     <Icon name={Constants.ICON_EDIT} className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
@@ -49,42 +49,42 @@ export default function Music({ music, onDelete, onEdit }) {
                         color={Constants.COLOR_DELETEBUTTON} fontSize='1.2em' cursor='pointer'
                         onClick={() => {
                             if (window.confirm(t('delete_music_confirm_message'))) {
-                                onDelete(music.id);
+                                onDelete(record.id);
                             }
                         }} />
                 </RightWrapper>
             </h5>
             {!editable &&
                 <p>
-                    {music.format > 0 ?
+                    {record.format > 0 ?
                         (<span> {
-                            t('music_format_' + getMusicFormatNameByID(music.format))
+                            t('music_format_' + getMusicFormatNameByID(record.format))
                         }</span>) : ('')}
                 </p>
             }
             {!editable &&
                 <p>
-                    {music.description}
+                    {record.description}
                 </p>
             }
             {!editable &&
                 <p>
-                    <Link className='btn btn-primary' to={`${Constants.NAVIGATION_MUSIC}/${music.id}`}>{t('view_details')}</Link>
+                    <Link className='btn btn-primary' to={`${Constants.NAVIGATION_MUSIC_RECORD}/${record.id}`}>{t('view_details')}</Link>
                 </p>
             }
-            <StarRating starCount={music.stars} />
+            <StarRating starCount={record.stars} />
 
             {
-                editable && <AddMusic
-                    musicID={music.id}
+                editable && <AddRecord
+                    recordID={record.id}
                     onClose={() => setEditable(false)}
-                    onSave={updateMusic}
+                    onSave={updateRecord}
                     showLabels={false} />
             }
 
             <p>
                 {
-                    music.haveAtHome &&
+                    record.haveAtHome &&
                     <span
                         onClick={() => { markNotHaveAtHome() }}
                         className='btn btn-success' style={{ margin: '5px' }}>
@@ -93,7 +93,7 @@ export default function Music({ music, onDelete, onEdit }) {
                     </span>
                 }
                 {
-                    !music.haveAtHome &&
+                    !record.haveAtHome &&
                     <span
                         onClick={() => { markHaveAtHome() }}
                         className='btn btn-danger' style={{ margin: '5px' }}>

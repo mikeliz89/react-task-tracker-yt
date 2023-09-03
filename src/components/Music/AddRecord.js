@@ -7,7 +7,7 @@ import { getFromFirebaseById } from '../../datatier/datatier';
 import { MusicFormats } from './Categories';
 import PropTypes from 'prop-types';
 
-export default function AddMusic({ musicID, onSave, onClose, showLabels }) {
+export default function AddRecord({ recordID, onSave, onClose, showLabels }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
@@ -26,13 +26,13 @@ export default function AddMusic({ musicID, onSave, onClose, showLabels }) {
 
     //load data
     useEffect(() => {
-        if (musicID != null) {
+        if (recordID != null) {
             const getMusic = async () => {
-                await fetchMusicFromFirebase(musicID);
+                await fetchMusicFromFirebase(recordID);
             }
             getMusic();
         }
-    }, [musicID]);
+    }, [recordID]);
 
     useEffect(() => {
         sortFormatsByName();
@@ -47,8 +47,8 @@ export default function AddMusic({ musicID, onSave, onClose, showLabels }) {
         setFormats(sorted);
     }
 
-    const fetchMusicFromFirebase = async (musicID) => {
-        getFromFirebaseById(Constants.DB_MUSIC, musicID).then((val) => {
+    const fetchMusicFromFirebase = async (recordID) => {
+        getFromFirebaseById(Constants.DB_MUSIC_RECORDS, recordID).then((val) => {
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
             setBand(val["band"]);
@@ -69,12 +69,12 @@ export default function AddMusic({ musicID, onSave, onClose, showLabels }) {
             return;
         }
 
-        onSave(musicID, {
+        onSave(recordID, {
             created, createdBy, band, description, format,
             haveAtHome, name, publishYear
         });
 
-        if (musicID == null) {
+        if (recordID == null) {
             clearForm();
         }
     }
@@ -89,7 +89,7 @@ export default function AddMusic({ musicID, onSave, onClose, showLabels }) {
     return (
         <>
             <Form onSubmit={onSubmit}>
-                <Form.Group className="mb-3" controlId="addMusicForm-Band">
+                <Form.Group className="mb-3" controlId="addRecordForm-Band">
                     {showLabels && <Form.Label>{t('band')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
@@ -97,7 +97,7 @@ export default function AddMusic({ musicID, onSave, onClose, showLabels }) {
                         value={band}
                         onChange={(e) => setBand(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addMusicForm-Name">
+                <Form.Group className="mb-3" controlId="addRecordForm-Name">
                     {showLabels && <Form.Label>{t('name')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
@@ -105,7 +105,7 @@ export default function AddMusic({ musicID, onSave, onClose, showLabels }) {
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addMusicForm-PublishYear">
+                <Form.Group className="mb-3" controlId="addRecordForm-PublishYear">
                     {showLabels && <Form.Label>{t('publish_year')}</Form.Label>}
                     <Form.Control type='number' step='any'
                         autoComplete="off"
@@ -113,7 +113,7 @@ export default function AddMusic({ musicID, onSave, onClose, showLabels }) {
                         value={publishYear}
                         onChange={(e) => setPublishYear(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addMusicForm-Category">
+                <Form.Group className="mb-3" controlId="addRecordForm-Category">
                     {showLabels && <Form.Label>{t('format')}</Form.Label>}
                     <Form.Select
                         value={format}
@@ -123,7 +123,7 @@ export default function AddMusic({ musicID, onSave, onClose, showLabels }) {
                         ))}
                     </Form.Select>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addMusicForm-Description">
+                <Form.Group className="mb-3" controlId="addRecordForm-Description">
                     {showLabels && <Form.Label>{t('description')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
@@ -131,7 +131,7 @@ export default function AddMusic({ musicID, onSave, onClose, showLabels }) {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addMusicForm-HaveAtHome">
+                <Form.Group className="mb-3" controlId="addRecordForm-HaveAtHome">
                     <Form.Check
                         type='checkbox'
                         label={t('have')}
@@ -152,10 +152,10 @@ export default function AddMusic({ musicID, onSave, onClose, showLabels }) {
     )
 }
 
-AddMusic.defaultProps = {
+AddRecord.defaultProps = {
     showLabels: true
 }
 
-AddMusic.propTypes = {
+AddRecord.propTypes = {
     showLabels: PropTypes.bool
 }
