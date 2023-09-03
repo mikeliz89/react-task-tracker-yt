@@ -86,6 +86,7 @@ import ManageDiscGolf from './components/DiscGolf/ManageDiscGolf';
 import ManageDiscGolfTracks from './components/DiscGolf/ManageDiscGolfTracks';
 import CreateTrack from './components/DiscGolf/CreateTrack';
 import StartNewRound from './components/DiscGolf/StartNewRound';
+import PlayRound from './components/DiscGolf/PlayRound';
 //Movies
 import ManageMovies from './components/Movies/ManageMovies';
 import ManageMovieLists from './components/Movies/ManageMovieLists';
@@ -242,6 +243,7 @@ function App() {
             <Route path={Constants.NAVIGATION_MANAGE_DISC_GOLF_TRACKS} element={<PrivateRoute><ManageDiscGolfTracks /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_DISCGOLF_ADD_NEW_TRACK} element={<PrivateRoute><CreateTrack /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_DISCGOLF_START_NEW_ROUND} element={<PrivateRoute><StartNewRound /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_DISC_GOLF_PLAY_ROUND} element={<PrivateRoute><PlayRound /></PrivateRoute>} />
             {/* Disc Golf */}
             {/* Movies */}
             <Route path={Constants.NAVIGATION_MANAGE_MOVIES} element={<PrivateRoute><ManageMovies /></PrivateRoute>} />

@@ -17,13 +17,6 @@ export default function CreateTrack() {
    //translation
    const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
 
-   //states
-   const [trackName, setTrackName] = useState('');
-   const [description, setDescription] = useState('');
-
-   //auth
-   const { currentUser } = useAuth();
-
    //constants
    const maxHoleCount = 24;
    const defaultPar = 3;
@@ -43,10 +36,16 @@ export default function CreateTrack() {
    ];
 
    //states
+   const [trackName, setTrackName] = useState('');
+   const [trackCity, setTrackCity] = useState('');
+   const [description, setDescription] = useState('');
    const [holes, setHoles] = useState(myArray);
 
    //navigation
    const navigate = useNavigate();
+
+   //auth
+   const { currentUser } = useAuth();
 
    //alert
    const [showMessage, setShowMessage] = useState(false);
@@ -93,7 +92,7 @@ export default function CreateTrack() {
 
       try {
          console.log("Saving track");
-         saveTrack({ trackName, description });
+         saveTrack({ trackName, trackCity, description });
 
       } catch (error) {
          console.log(error);
@@ -173,6 +172,14 @@ export default function CreateTrack() {
                   placeholder={t('track_name')}
                   value={trackName}
                   onChange={(e) => setTrackName(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="createTrackForm-City">
+               <Form.Label>{t('track_city')}</Form.Label>
+               <Form.Control type='text'
+                  autoComplete="off"
+                  placeholder={t('track_city')}
+                  value={trackCity}
+                  onChange={(e) => setTrackCity(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="createTrackForm-Description">
                <Form.Label>{t('track_description')}</Form.Label>

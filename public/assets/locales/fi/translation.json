@@ -200,6 +200,7 @@
         "player_name": "Pelaajan nimi",
         "start_new_round": "Aloita uusi kierros",
         "tracks": "Radat",
+        "track_city": "Kaupunki",
         "track_description": "Radan kuvaus",
         "track_name": "Radan nimi"
     },

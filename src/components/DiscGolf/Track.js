@@ -6,7 +6,8 @@ export default function Track({ track }) {
                 <h5>
                     {track.trackName}
                 </h5>
-                <p> {track.description}</p>
+                <h6>Sijainti: {track.trackCity}</h6>
+                <p>Kuvaus: {track.description}</p>
             </div>
         </>
     )

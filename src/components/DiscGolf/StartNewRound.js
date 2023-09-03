@@ -5,10 +5,13 @@ import * as Constants from '../../utils/Constants';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import GoBackButton from '../Buttons/GoBackButton';
 import useFetch from '../UseFetch';
-import FoundTracks from '../Selectors/FoundItems';
 import { useRef } from 'react';
 import Button from '../Buttons/Button';
 import FoundItems from '../Selectors/FoundItems';
+import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { pushToFirebase, pushToFirebaseChild } from '../../datatier/datatier';
 
 export default function StartNewRound() {
 
@@ -32,6 +35,18 @@ export default function StartNewRound() {
    const [linkedPlayerName, setLinkedPlayerName] = useState('');
    const [foundPlayers, setFoundPlayers] = useState([]);
    const [selectedPlayers, setSelectedPlayers] = useState([]);
+
+   //navigation
+   const navigate = useNavigate();
+
+   //auth
+   const { currentUser } = useAuth();
+
+   //alert
+   const [showMessage, setShowMessage] = useState(false);
+   const [message] = useState('');
+   const [showError, setShowError] = useState(false);
+   const [error, setError] = useState('');
 
    const inputRef = useRef();
    const inputPlayerRef = useRef();
@@ -76,6 +91,30 @@ export default function StartNewRound() {
          alert(t('alert_choose_at_last_one_player'));
          return;
       }
+
+      saveRound(selectedTrack);
+   }
+
+   const saveRound = async (track) => {
+      try {
+         var round = {};
+         round["created"] = getCurrentDateAsJson();
+         round["createdBy"] = currentUser.email;
+         round["trackID"] = track.id;
+         round["trackName"] = track.name;
+         const key = await pushToFirebase(Constants.DB_DISC_GOLF_ROUNDS, round);
+
+         savePlayers(key);
+
+         navigate(`${Constants.NAVIGATION_DISC_GOLF_PLAY_ROUND}`);
+      } catch (ex) {
+         setError(t('track_save_exception'));
+         setShowError(true);
+      }
+   }
+
+   const savePlayers = async (roundID) => {
+      await pushToFirebaseChild(Constants.DB_DISC_GOLF_ROUND_PLAYERS, roundID, selectedPlayers);
    }
 
    const selectedTrackChanged = (track) => {
