@@ -18,6 +18,9 @@ export default function CreateTrack() {
    //constants
    const maxHoleCount = 24;
    const defaultPar = 3;
+   const minPar = 2;
+   const maxPar = 6;
+
    const myArray = [
       { id: 0, par: defaultPar },
       { id: 1, par: defaultPar },
@@ -34,7 +37,7 @@ export default function CreateTrack() {
    const [holes, setHoles] = useState(myArray);
 
    useEffect(() => {
-      console.log("holes", holes);
+      //console.log("holes", holes);
    }, [holes]);
 
 
@@ -71,6 +74,7 @@ export default function CreateTrack() {
 
       try {
          //TODO: Tallenna rata ja reiät databaseen
+         console.log("Saving track");
       } catch (error) {
          console.log(error);
       }
@@ -85,6 +89,34 @@ export default function CreateTrack() {
          let newHole = { id: i, par: filteredHoles[i]["par"] };
          newHoles.push(newHole);
       }
+      setHoles(newHoles);
+   }
+
+   const increasePar = (holeID) => {
+      const newHoles = holes.map(hole => {
+         if (hole.id === holeID) {
+            if (hole.par < maxPar) {
+               hole.par = hole.par + 1;
+               return hole;
+            }
+         }
+         return hole;
+      });
+      // Re-render with the new array
+      setHoles(newHoles);
+   }
+
+   const decreasePar = (holeID) => {
+      const newHoles = holes.map(hole => {
+         if (hole.id === holeID) {
+            if (hole.par > minPar) {
+               hole.par = hole.par - 1;
+               return hole;
+            }
+         }
+         return hole;
+      });
+      // Re-render with the new array
       setHoles(newHoles);
    }
 
@@ -117,7 +149,9 @@ export default function CreateTrack() {
 
                {holes != null && holes.length > 0 &&
                   <>
-                     <TrackHoles holes={holes} deleteHole={deleteHole} setPar={setHoles} />
+                     <TrackHoles holes={holes} deleteHole={deleteHole}
+                        increasePar={increasePar} decreasePar={decreasePar}
+                     />
                   </>
                }
                <hr style={{ marginTop: '20px' }} />

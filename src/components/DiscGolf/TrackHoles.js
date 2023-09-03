@@ -1,17 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Row, Col, ButtonGroup, Form, FormGroup, Table } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import * as Constants from '../../utils/Constants';
-import GoBackButton from '../Buttons/GoBackButton';
+import { Row, Col, Table } from 'react-bootstrap';
+import TrackHole from './TrackHole';
 
-export default function TrackHoles({ holes, setPar, deleteHole }) {
-
-    const minPar = 2;
-    const maxPar = 6;
-
-    //translation
-    const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+export default function TrackHoles({ holes, increasePar, decreasePar, deleteHole }) {
 
     return (
         <>
@@ -23,35 +13,10 @@ export default function TrackHoles({ holes, setPar, deleteHole }) {
                             {
                                 holes.map((hole, index) => (
                                     <tr key={hole.id}>
-                                        <td>
-                                            <span>{t('hole_number') + ': ' + (hole.id + 1)}</span>
-                                        </td>
-                                        <td>
-                                            <Button
-                                                onClick={() => hole.par < minPar + 1 ? minPar : hole.par = hole.par - 1}
-                                                iconName={Constants.ICON_MINUS} className='btn btn-inline' />
-                                        </td>
-                                        <td>
-                                            <Form.Control type='text'
-                                                autoComplete="off"
-                                                placeholder={t('track_name')}
-                                                value={hole.par}
-                                                disabled={true}
-                                                style={{ margin: '3px' }}
-                                                onChange={(e) => setPar(e.target.value)}
-                                            />
-                                        </td>
-                                        <td>
-                                            <Button onClick={() => hole.par > maxPar - 1 ? maxPar : hole.par = hole.par + 1}
-                                                iconName={Constants.ICON_PLUS} />
-                                        </td>
-
-                                        <td>
-                                            <Button
-                                                onClick={() => deleteHole(hole.id)}
-                                                iconName={Constants.ICON_DELETE}
-                                                style={{ backgroundColor: Constants.COLOR_ADDBUTTON_CLOSED }} />
-                                        </td>
+                                        <TrackHole hole={hole}
+                                            increasePar={increasePar}
+                                            decreasePar={decreasePar}
+                                            deleteHole={deleteHole} />
                                     </tr>
                                 ))
                             }
