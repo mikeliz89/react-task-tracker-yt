@@ -4,6 +4,8 @@ import { ButtonGroup, Row, Col } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import { Link } from 'react-router-dom';
+import PageContentWrapper from '../Site/PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
 
 export default function ManageDiscGolf() {
 
@@ -11,7 +13,10 @@ export default function ManageDiscGolf() {
    const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
 
    return (
-      <>
+      <PageContentWrapper>
+
+         <PageTitle title={t('disc_golf_title')} />
+
          <Row>
             <ButtonGroup>
 
@@ -22,6 +27,6 @@ export default function ManageDiscGolf() {
                </Link>
             </ButtonGroup>
          </Row>
-      </>
+      </PageContentWrapper>
    )
 }
