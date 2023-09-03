@@ -30,7 +30,6 @@ export default function AccordionElement({ title, array, iconName, forceOpen }) 
     )
 }
 
-
 AccordionElement.defaultProps = {
     title: '',
     iconName: '',

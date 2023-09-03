@@ -19,8 +19,8 @@ import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
-import useFetch from '../useFetch';
-import FoundBands from './FoundBands';
+import useFetch from '../UseFetch';
+import FoundItems from '../Selectors/FoundItems';
 import Bands from './Bands';
 import EventBands from './EventBands';
 
@@ -42,7 +42,6 @@ export default function EventDetails() {
     const [showLinkBands, setShowLinkBands] = useState(false);
     const [linkedBandName, setLinkedBandName] = useState('');
     const [foundBands, setFoundBands] = useState([]);
-    const [selectedBand, setSelectedBand] = useState({});
     const [eventBands, setEventBands] = useState();
 
     //params
@@ -71,7 +70,6 @@ export default function EventDetails() {
             setFoundBands(filtered);
         }
     }, [linkedBandName]);
-
 
     //load data
     useEffect(() => {
@@ -235,8 +233,11 @@ export default function EventDetails() {
                                 onChange={(e) => setLinkedBandName(e.target.value)} />
                         </Form.Group>
                     </Form>
-                    <FoundBands bands={foundBands} onSelection={selectedBandChanged} linkedBandName={linkedBandName} />
-
+                    <FoundItems itemsToFind={foundBands}
+                        nameField='name'
+                        onSelection={selectedBandChanged}
+                        linkedName={linkedBandName}
+                    />
                 </>
             }
 
