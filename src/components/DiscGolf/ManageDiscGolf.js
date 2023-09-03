@@ -1,16 +1,26 @@
 import { useTranslation } from 'react-i18next';
 import * as Constants from '../../utils/Constants';
 import { ButtonGroup, Row, Col } from 'react-bootstrap';
-import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import { Link } from 'react-router-dom';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
+import useFetch from '../UseFetch';
+import Rounds from './Rounds';
+import CenterWrapper from '../Site/CenterWrapper';
 
 export default function ManageDiscGolf() {
 
    //translation
    const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+
+   //fetch data
+   const { data: rounds, setData: setRounds,
+      originalData: originalRounds, counter, loading } = useFetch(Constants.DB_DISC_GOLF_ROUNDS);
+
+   const deleteRound = () => {
+
+   }
 
    return (
       <PageContentWrapper>
@@ -27,6 +37,29 @@ export default function ManageDiscGolf() {
                </Link>
             </ButtonGroup>
          </Row>
+
+         <CenterWrapper>
+            <Link to={Constants.NAVIGATION_DISCGOLF_START_NEW_ROUND} className='btn btn-primary'>
+               {t('start_new_round')}
+            </Link>
+         </CenterWrapper>
+
+         {
+            rounds != null && rounds.length > 0 ? (
+               <>
+                  {
+                     <Rounds rounds={rounds} onDelete={() => deleteRound()} />
+                  }
+               </>
+            ) : (
+               <>
+                  <CenterWrapper>
+                     {t('no_previous_rounds_to_show')}
+                  </CenterWrapper>
+               </>
+            )
+         }
+
       </PageContentWrapper>
    )
 }

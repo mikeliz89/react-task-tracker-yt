@@ -9,6 +9,8 @@ import { pushToFirebase, pushToFirebaseChild } from '../../datatier/datatier';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import PageTitle from '../Site/PageTitle';
+import PageContentWrapper from '../Site/PageContentWrapper';
 
 export default function CreateTrack() {
 
@@ -84,7 +86,7 @@ export default function CreateTrack() {
          return;
       }
 
-      if(trackName === "") {
+      if (trackName === "") {
          alert("Ole hyvä ja anna radalle nimi");
          return;
       }
@@ -158,7 +160,10 @@ export default function CreateTrack() {
    }
 
    return (
-      <>
+      <PageContentWrapper>
+
+         <PageTitle title={t('add_new_track')} />
+
          <GoBackButton />
          <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="createTrackForm-TrackName">
@@ -197,6 +202,6 @@ export default function CreateTrack() {
                </ButtonGroup>
             </Row>
          </Form>
-      </>
+      </PageContentWrapper>
    )
 }

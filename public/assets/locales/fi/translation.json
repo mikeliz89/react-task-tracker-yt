@@ -189,7 +189,8 @@
         "disc_golf_title": "Frisbeegolf",
         "hole_number": "Väylä",
         "no_tracks_to_show": "Ei ratoja",
-        "start_game": "Aloita peli",
+        "no_previous_rounds_to_show": "Ei pelattuja kierroksia",
+        "start_new_round": "Aloita uusi kierros",
         "tracks": "Radat",
         "track_description": "Radan kuvaus",
         "track_name": "Radan nimi"

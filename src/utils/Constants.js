@@ -20,6 +20,7 @@ export const DB_CAR_INFO = '/car-info';
 //disc golf
 export const DB_DISC_GOLF_TRACKS = '/disc-golf-tracks';
 export const DB_DISC_GOLF_TRACK_HOLES = '/disc-golf-track-holes';
+export const DB_DISC_GOLF_ROUNDS = '/disc-golf-rounds';
 //drink
 export const DB_DRINKS = '/drinks';
 export const DB_DRINK_IMAGES = '/drink-images';
@@ -176,6 +177,7 @@ export const NAVIGATION_MANAGE_GAMELISTS = '/managegamelists';
 export const NAVIGATION_MANAGE_DISC_GOLF = '/managediscgolf';
 export const NAVIGATION_MANAGE_DISC_GOLF_TRACKS = '/managediscgolftracks';
 export const NAVIGATION_DISCGOLF_ADD_NEW_TRACK = '/discgolfaddnewtrack';
+export const NAVIGATION_DISCGOLF_START_NEW_ROUND = '/discgolf-start-new-round';
 //gear
 export const NAVIGATION_MANAGE_GEAR = '/managegear';
 export const NAVIGATION_MANAGE_GEAR_MAINTENANCE = '/managegearmaintenance';
