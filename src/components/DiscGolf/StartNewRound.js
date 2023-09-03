@@ -72,7 +72,7 @@ export default function StartNewRound() {
          return;
       }
 
-      if(selectedPlayers == null || selectedPlayers.length < 1) {
+      if (selectedPlayers == null || selectedPlayers.length < 1) {
          alert(t('alert_choose_at_last_one_player'));
          return;
       }
@@ -104,7 +104,7 @@ export default function StartNewRound() {
          </Row>
 
          <>
-            <Form style={{ paddingBottom: 0 }}>
+            <Form onSubmit={e => { e.preventDefault(); }} style={{ paddingBottom: 0 }}>
                <Form.Group className="mb-3" controlId="startNewRound-Track">
                   <Form.Label>{t('choose_track')}</Form.Label>
                   <Form.Control type='text'
@@ -125,7 +125,7 @@ export default function StartNewRound() {
          }
 
          <>
-            <Form style={{ paddingBottom: 0 }}>
+            <Form onSubmit={e => { e.preventDefault(); }} style={{ paddingBottom: 0 }}>
                <Form.Group className="mb-3" controlId="startNewRound-Players">
                   <Form.Label>{t('choose_players')}</Form.Label>
                   <Form.Control type='text'
