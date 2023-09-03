@@ -6,16 +6,17 @@ import { useState } from 'react';
 import AddTask from './AddTask';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
+import { useToggle } from '../UseToggle';
 
 export default function Task({ taskListID, archived, task, onDelete, onToggle }) {
 
-    //states
-    const [editable, setEditable] = useState(false);
+    //toggle
+    const { status: editable, toggleStatus: toggleSetEditable } = useToggle();
 
     const updateTask = (updateTaskListID, object) => {
         object["modified"] = getCurrentDateAsJson();
         updateToFirebaseByIdAndSubId(Constants.DB_TASKS, updateTaskListID, task.id, object);
-        setEditable(false);
+        toggleSetEditable();
     }
 
     return (
@@ -35,7 +36,7 @@ export default function Task({ taskListID, archived, task, onDelete, onToggle })
                         {archived ? null :
                             <RightWrapper>
                                 <Icon name={Constants.ICON_EDIT} className="editBtn" style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
-                                    onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                                    onClick={() => toggleSetEditable()} />
                                 <Icon name={Constants.ICON_DELETE} className="deleteBtn"
                                     style={{ color: Constants.COLOR_DELETEBUTTON, cursor: 'pointer', fontSize: '1.4em' }}
                                     onClick={() => onDelete(taskListID, task.id)} />
@@ -49,7 +50,7 @@ export default function Task({ taskListID, archived, task, onDelete, onToggle })
                 editable && <AddTask
                     taskID={task.id}
                     taskListID={taskListID}
-                    onClose={() => setEditable(false)}
+                    onClose={() => toggleSetEditable()}
                     onSave={updateTask}
                     showLabels={false} />
             }

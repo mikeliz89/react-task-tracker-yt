@@ -39,11 +39,11 @@ export default function TaskListDetails() {
   const [taskList, setTaskList] = useState({});
   const [tasks, setTasks] = useState();
   const [originalTasks, setOriginalTasks] = useState();
-  const [showChangeListType, setShowChangeListType] = useState(false);
 
-  //modal
+  //modal & toggle
   const { status: showAddTask, toggleStatus: toggleAddTask } = useToggle();
   const { status: showEditTaskList, toggleStatus: toggleShowTaskList } = useToggle();
+  const { status: showChangeListType, toggleStatus: toggleShowChangeListType } = useToggle();
 
   //counters
   const [taskCounter, setTaskCounter] = useState(0);
@@ -261,7 +261,7 @@ export default function TaskListDetails() {
         showChangeListType &&
         <ChangeType taskList={taskList}
           onSave={updateTaskList}
-          onClose={() => setShowChangeListType(false)} />
+          onClose={() => toggleShowChangeListType()} />
       }
 
       <Modal show={showEditTaskList} onHide={toggleShowTaskList}>
@@ -351,11 +351,11 @@ export default function TaskListDetails() {
                 markAllTasksDone(params.id)
               }
             }} text={t('mark_all_tasks_done')} iconName={Constants.ICON_SQUARE_CHECK} /> &nbsp;
-            <Button onClick={() => setShowChangeListType(!showChangeListType)} text={t('change_list_type')} iconName={Constants.ICON_EDIT} />
+            <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
+              iconName={Constants.ICON_EDIT} />
           </div>
         </Tab>
       </Tabs>
-
 
       <Row />
 
