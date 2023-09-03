@@ -30,22 +30,26 @@ export default function CreateTrack() {
 
    const [holes, setHoles] = useState(myArray);
 
-   /*
+
    useEffect(() => {
-      //sortCategoriesByName();
+      //console.log("holes", holes);
    }, [holes]);
-   */
+
 
    const sortCategoriesByName = () => {
 
    }
 
-   const createDefaultHoles = () => {
-      let newHole = { id: ++holes.length, par: defaultPar }
-      let currentHoles = holes;
-      currentHoles.push(newHole);
-      console.log(currentHoles);
-      setHoles(currentHoles);
+   const addHole = () => {
+      let counter = holes.length;
+      let newID = counter + 1;
+      //console.log("addhole", counter);
+      let newHole = { id: newID, par: defaultPar }
+
+      let newHoles = [];
+      newHoles.push(newHole);
+
+      setHoles(prevHoles => ([...prevHoles, ...newHoles]));
    }
 
    async function onSubmit(e) {
@@ -92,7 +96,7 @@ export default function CreateTrack() {
             <Row>
                <ButtonGroup>
                   <Button text={t('button_add_holes')} iconName={Constants.ICON_PLUS}
-                     type='button' onClick={() => createDefaultHoles()} />
+                     type='button' onClick={() => addHole()} />
                </ButtonGroup>
                <hr style={{ marginTop: '20px' }} />
                <ButtonGroup>

@@ -69,7 +69,7 @@ export default function WeightHistory() {
                         <p>
                             {getJsonAsDateTimeString(row.currentDateTime, i18n.language)}<br /> - {row.weight} kg, BMI: {row.bmi}
 
-                            <Icon className='btn deleteBtn'
+                            <Icon className={'btn ' + Constants.CLASSNAME_DELETEBTN}
                                 name={Constants.ICON_DELETE}
                                 color={Constants.COLOR_DELETEBUTTON}
                                 fontSize='1.2em'
