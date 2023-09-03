@@ -17,7 +17,7 @@ import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../UseToggle';
-import useFetch from '../useFetch';
+import useFetch from '../UseFetch';
 
 export default function ManageFoodItems() {
 

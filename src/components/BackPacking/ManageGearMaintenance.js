@@ -14,7 +14,7 @@ import { removeFromFirebaseById } from "../../datatier/datatier";
 import Counter from "../Site/Counter";
 import CenterWrapper from '../Site/CenterWrapper';
 import { useToggle } from "../UseToggle";
-import useFetch from "../useFetch";
+import useFetch from "../UseFetch";
 
 export default function ManageGearMaintenance() {
 

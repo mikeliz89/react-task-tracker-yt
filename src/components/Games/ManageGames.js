@@ -20,7 +20,7 @@ import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import Counter from '../Site/Counter';
 import { useToggle } from '../UseToggle';
-import useFetch from '../useFetch';
+import useFetch from '../UseFetch';
 
 export default function ManageGames() {
 
