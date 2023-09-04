@@ -11,6 +11,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import PageTitle from '../Site/PageTitle';
 import PageContentWrapper from '../Site/PageContentWrapper';
+import CenterWrapper from '../Site/CenterWrapper';
 
 export default function CreateTrack() {
 
@@ -198,6 +199,7 @@ export default function CreateTrack() {
 
                {holes != null && holes.length > 0 &&
                   <>
+                     <CenterWrapper>{t('holes') + ': '}{holes.length}</CenterWrapper>
                      <TrackHoles holes={holes} deleteHole={deleteHole}
                         increasePar={increasePar} decreasePar={decreasePar}
                      />

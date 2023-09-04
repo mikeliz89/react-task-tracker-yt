@@ -6,8 +6,8 @@ export default function TrackHoles({ holes, increasePar, decreasePar, deleteHole
     return (
         <>
             <Row>
-                <Col sm={1} xs={1}></Col>
-                <Col sm={10} xs={10}>
+                <Col sm={1}></Col>
+                <Col sm={10} xs={12}>
                     <Table>
                         <tbody>
                             {
@@ -23,7 +23,7 @@ export default function TrackHoles({ holes, increasePar, decreasePar, deleteHole
                         </tbody>
                     </Table>
                 </Col>
-                <Col sm={1} xs={1}></Col>
+                <Col sm={1}></Col>
             </Row>
         </>
     )
