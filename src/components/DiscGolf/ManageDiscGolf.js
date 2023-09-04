@@ -39,7 +39,7 @@ export default function ManageDiscGolf() {
          </Row>
 
          <CenterWrapper>
-            <Link to={Constants.NAVIGATION_DISCGOLF_START_NEW_ROUND} className='btn btn-primary'>
+            <Link to={Constants.NAVIGATION_DISC_GOLF_START_NEW_ROUND} className='btn btn-primary'>
                {t('start_new_round')}
             </Link>
          </CenterWrapper>

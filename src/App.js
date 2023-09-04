@@ -241,8 +241,8 @@ function App() {
             {/* Disc Golf */}
             <Route path={Constants.NAVIGATION_MANAGE_DISC_GOLF} element={<PrivateRoute><ManageDiscGolf /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_DISC_GOLF_TRACKS} element={<PrivateRoute><ManageDiscGolfTracks /></PrivateRoute>} />
-            <Route path={Constants.NAVIGATION_DISCGOLF_ADD_NEW_TRACK} element={<PrivateRoute><CreateTrack /></PrivateRoute>} />
-            <Route path={Constants.NAVIGATION_DISCGOLF_START_NEW_ROUND} element={<PrivateRoute><StartNewRound /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_DISC_GOLF_CREATE_TRACK} element={<PrivateRoute><CreateTrack /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_DISC_GOLF_START_NEW_ROUND} element={<PrivateRoute><StartNewRound /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_DISC_GOLF_PLAY_ROUND} element={<PrivateRoute><PlayRound /></PrivateRoute>} />
             {/* Disc Golf */}
             {/* Movies */}
