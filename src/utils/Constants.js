@@ -177,8 +177,8 @@ export const NAVIGATION_MANAGE_GAMELISTS = '/managegamelists';
 //disc golf
 export const NAVIGATION_MANAGE_DISC_GOLF = '/managediscgolf';
 export const NAVIGATION_MANAGE_DISC_GOLF_TRACKS = '/managediscgolftracks';
-export const NAVIGATION_DISCGOLF_ADD_NEW_TRACK = '/discgolfaddnewtrack';
-export const NAVIGATION_DISCGOLF_START_NEW_ROUND = '/discgolf-start-new-round';
+export const NAVIGATION_DISC_GOLF_CREATE_TRACK = '/discgolf-create-track';
+export const NAVIGATION_DISC_GOLF_START_NEW_ROUND = '/discgolf-start-new-round';
 export const NAVIGATION_DISC_GOLF_PLAY_ROUND = '/discgolf-play-round';
 //gear
 export const NAVIGATION_MANAGE_GEAR = '/managegear';

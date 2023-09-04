@@ -33,7 +33,7 @@ export default function TracksList() {
          <Row>
             <ButtonGroup>
                <GoBackButton />
-               <Link to={Constants.NAVIGATION_DISCGOLF_ADD_NEW_TRACK} className='btn btn-primary'>
+               <Link to={Constants.NAVIGATION_DISC_GOLF_CREATE_TRACK} className='btn btn-primary'>
                   {t('add_new_track')}
                </Link>
             </ButtonGroup>
