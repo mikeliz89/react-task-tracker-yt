@@ -19,7 +19,7 @@ import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
-import useFetch from '../UseFetch';
+import useFetch from '../useFetch';
 import FoundItems from '../Selectors/FoundItems';
 import Bands from './Bands';
 import EventBands from './EventBands';

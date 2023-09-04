@@ -6,7 +6,7 @@ import { useState } from 'react';
 import AddTask from './AddTask';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import { useToggle } from '../UseToggle';
+import { useToggle } from '../useToggle';
 
 export default function Task({ taskListID, archived, task, onDelete, onToggle }) {
 

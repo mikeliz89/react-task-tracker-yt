@@ -1,4 +1,6 @@
-export default function PlayRound({ round }) {
+export default function PlayRound() {
+
+    
 
     return (
         <p>

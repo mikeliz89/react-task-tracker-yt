@@ -3,7 +3,7 @@ import * as Constants from '../../utils/Constants';
 import { ButtonGroup, Row, Col } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import Tracks from './Tracks';
-import useFetch from '../UseFetch';
+import useFetch from '../useFetch';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
 import GoBackButton from '../Buttons/GoBackButton';

@@ -22,6 +22,7 @@ import Icon from '../Icon';
 import { Link } from 'react-router-dom';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from "../SearchSortFilter/SortModes";
+import useFetch from '../useFetch';
 
 export default function Car() {
 

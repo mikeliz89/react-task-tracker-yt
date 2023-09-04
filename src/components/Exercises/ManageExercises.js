@@ -10,7 +10,7 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
-import useFetch from '../UseFetch';
+import useFetch from '../useFetch';
 
 export default function ManageExercises() {
 

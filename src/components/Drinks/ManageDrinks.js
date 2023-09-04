@@ -20,8 +20,8 @@ import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../UseToggle';
-import useFetch from '../UseFetch';
+import { useToggle } from '../useToggle';
+import useFetch from '../useFetch';
 
 export default function ManageDrinks() {
 

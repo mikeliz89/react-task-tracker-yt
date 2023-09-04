@@ -7,7 +7,7 @@ import Icon from "../Icon";
 import AddFueling from "./AddFueling";
 import { updateToFirebaseById } from "../../datatier/datatier";
 import RightWrapper from "../Site/RightWrapper";
-import { useToggle } from '../UseToggle';
+import { useToggle } from '../useToggle';
 
 export default function CarFueling({ fuelingRow, onDelete }) {
 

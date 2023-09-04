@@ -27,7 +27,7 @@ import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import AccordionElement from '../AccordionElement';
-import { useToggle } from '../UseToggle';
+import { useToggle } from '../useToggle';
 
 export default function TaskListDetails() {
 

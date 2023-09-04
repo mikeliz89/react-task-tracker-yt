@@ -28,7 +28,7 @@ import CommentComponent from '../Comments/CommentComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
-import { useToggle } from '../UseToggle';
+import { useToggle } from '../useToggle';
 
 export default function DrinkDetails() {
 

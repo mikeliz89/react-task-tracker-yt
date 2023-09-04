@@ -9,7 +9,7 @@ import Counter from '../Site/Counter';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
 import { ButtonGroup, Row } from 'react-bootstrap';
-import useFetch from '../UseFetch';
+import useFetch from '../useFetch';
 
 export default function ManageTaskListsArchive() {
 

@@ -5,7 +5,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import { Link } from 'react-router-dom';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
-import useFetch from '../UseFetch';
+import useFetch from '../useFetch';
 import Rounds from './Rounds';
 import CenterWrapper from '../Site/CenterWrapper';
 
