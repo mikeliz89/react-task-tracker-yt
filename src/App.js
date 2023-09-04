@@ -87,6 +87,7 @@ import ManageDiscGolfTracks from './components/DiscGolf/ManageDiscGolfTracks';
 import CreateTrack from './components/DiscGolf/CreateTrack';
 import StartNewRound from './components/DiscGolf/StartNewRound';
 import PlayRound from './components/DiscGolf/PlayRound';
+import TrackDetails from './components/DiscGolf/TrackDetails';
 //Movies
 import ManageMovies from './components/Movies/ManageMovies';
 import ManageMovieLists from './components/Movies/ManageMovieLists';
@@ -182,22 +183,22 @@ function App() {
             <Route path={Constants.NAVIGATION_MANAGE_RECIPES} element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_FOODITEMS} element={<PrivateRoute><ManageFoodItems /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_RECIPELISTS} element={<PrivateRoute><ManageRecipeLists /></PrivateRoute>} />
-            <Route path='/recipe/:id' element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_RECIPE + '/:id'} element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
             {/* Recipe */}
             {/* Drinks */}
             <Route path={Constants.NAVIGATION_MANAGE_DRINKS} element={<PrivateRoute><ManageDrinks /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_DRINKINPRODUCTS} element={<PrivateRoute><ManageDrinkingProducts /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_DRINKLISTS} element={<PrivateRoute><ManageDrinkLists /></PrivateRoute>} />
-            <Route path='/drink/:id' element={<PrivateRoute><DrinkDetails /></PrivateRoute>} />
-            <Route path='/drinkingproduct/:id' element={<PrivateRoute><DrinkingProductDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_DRINK + '/:id'} element={<PrivateRoute><DrinkDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_DRINKINGPRODUCT + '/:id'} element={<PrivateRoute><DrinkingProductDetails /></PrivateRoute>} />
             {/*Drinks */}
             {/* Exercises */}
             <Route path={Constants.NAVIGATION_MANAGE_EXERCISES} element={<PrivateRoute><ManageExercises /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_CREATE_EXERCISE} element={<PrivateRoute><CreateExercise /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_MOVEMENTS} element={<PrivateRoute><ManageMovements /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_ADD_MOVEMENT} element={<PrivateRoute><AddMovement /></PrivateRoute>} />
-            <Route path='/exercise/:id' element={<PrivateRoute><ExerciseDetails /></PrivateRoute>} />
-            <Route path='/movement/:id' element={<PrivateRoute><MovementDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_EXERCISE + '/:id'} element={<PrivateRoute><ExerciseDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_MOVEMENT + '/:id'} element={<PrivateRoute><MovementDetails /></PrivateRoute>} />
             {/* Exercises */}
             {/* BMI */}
             <Route path={Constants.NAVIGATION_BMICALCULATOR} element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
@@ -207,8 +208,8 @@ function App() {
             <Route path={Constants.NAVIGATION_MANAGE_TASKLISTS} element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_TASKLIST_ARCHIVE} element={<PrivateRoute><ManageTaskListsArchive /></PrivateRoute>} />
             <Route path='/task/:id/:tasklistid' element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
-            <Route path='/tasklist/:id' element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
-            <Route path='/tasklistarchive/:id' element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_TASKLIST + '/:id'} element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_TASKLIST_ARCHIVE + '/:id'} element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
             {/* TaskLists */}
             {/* MyProfile */}
             <Route path={Constants.NAVIGATION_MANAGE_MY_PROFILE} element={<PrivateRoute><ManageMyProfile /></PrivateRoute>} />
@@ -218,7 +219,7 @@ function App() {
             <Route path={Constants.NAVIGATION_MANAGE_BACKPACKINGLISTS} element={<PrivateRoute><ManageBackPackingLists /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_GEAR} element={<PrivateRoute><ManageGear /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_GEAR_MAINTENANCE} element={<PrivateRoute><ManageGearMaintenance /></PrivateRoute>} />
-            <Route path='/gear/:id' element={<PrivateRoute><GearDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_GEAR + '/:id'} element={<PrivateRoute><GearDetails /></PrivateRoute>} />
             {/* Backpacking */}
             {/* Car */}
             <Route path={Constants.NAVIGATION_MANAGE_CARLISTS} element={<PrivateRoute><ManageCarLists /></PrivateRoute>} />
@@ -229,9 +230,9 @@ function App() {
             <Route path={Constants.NAVIGATION_MANAGE_MUSIC_BANDS} element={<PrivateRoute><ManageMusicBands /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_MUSIC_EVENTS} element={<PrivateRoute><ManageMusicEvents /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_MUSICLISTS} element={<PrivateRoute><ManageMusicLists /></PrivateRoute>} />
-            <Route path='/record/:id' element={<PrivateRoute><MusicDetails /></PrivateRoute>} />
-            <Route path='/event/:id' element={<PrivateRoute><EventDetails /></PrivateRoute>} />
-            <Route path='/band/:id' element={<PrivateRoute><BandDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_MUSIC_RECORD + '/:id'} element={<PrivateRoute><MusicDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_MUSIC_EVENT + '/:id'} element={<PrivateRoute><EventDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_MUSIC_BAND + '/:id'} element={<PrivateRoute><BandDetails /></PrivateRoute>} />
             {/* Music */}
             {/* Games */}
             <Route path={Constants.NAVIGATION_GAMES} element={<PrivateRoute><Games /></PrivateRoute>} />
@@ -244,11 +245,12 @@ function App() {
             <Route path={Constants.NAVIGATION_DISC_GOLF_CREATE_TRACK} element={<PrivateRoute><CreateTrack /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_DISC_GOLF_START_NEW_ROUND} element={<PrivateRoute><StartNewRound /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_DISC_GOLF_PLAY_ROUND} element={<PrivateRoute><PlayRound /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_DISC_GOLF_TRACK + '/:id'} element={<PrivateRoute><TrackDetails /></PrivateRoute>} />
             {/* Disc Golf */}
             {/* Movies */}
             <Route path={Constants.NAVIGATION_MANAGE_MOVIES} element={<PrivateRoute><ManageMovies /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_MOVIELISTS} element={<PrivateRoute><ManageMovieLists /></PrivateRoute>} />
-            <Route path='/movie/:id' element={<PrivateRoute><MovieDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_MOVIE + '/:id'} element={<PrivateRoute><MovieDetails /></PrivateRoute>} />
             {/* Movies */}
             {/* Demo */}
             <Route path={Constants.NAVIGATION_DEMO} element={<PrivateRoute><Demo /></PrivateRoute>} />
@@ -265,7 +267,7 @@ function App() {
             {/* Links */}
             {/* People / person */}
             <Route path={Constants.NAVIGATION_MANAGE_PEOPLE} element={<PrivateRoute><ManagePeople /></PrivateRoute>} />
-            <Route path='/person/:id' element={<PrivateRoute><PersonDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_PERSON + '/:id'} element={<PrivateRoute><PersonDetails /></PrivateRoute>} />
             {/* People  / person */}
             {
               <Route path={Constants.NAVIGATION_MANAGE_SHOPPINGLISTS} element={<PrivateRoute><ManageShoppingLists /></PrivateRoute>} />

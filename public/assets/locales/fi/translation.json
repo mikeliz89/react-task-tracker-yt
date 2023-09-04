@@ -203,7 +203,8 @@
         "tracks": "Radat",
         "track_city": "Kaupunki",
         "track_description": "Radan kuvaus",
-        "track_name": "Radan nimi"
+        "track_name": "Radan nimi",
+        "view_details": "Radan tietoihin"
     },
     "drinks": {
         "add_incredient_formtitle": "Ainesosan lisäys",
