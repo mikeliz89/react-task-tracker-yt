@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Row, ButtonGroup, Col, Tabs, Tab, Modal } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { ref, child, onValue } from 'firebase/database';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import i18n from "i18next";
@@ -29,19 +27,18 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
 import { useToggle } from '../useToggle';
+import useFetch from '../useFetch';
+import useFetchChildren from '../useFetchChildren';
 
 export default function DrinkDetails() {
 
+    //params
+    const params = useParams();
+
     //states
-    const [loading, setLoading] = useState(true);
-    const [drink, setDrink] = useState({});
-    const [drinkHistory, setDrinkHistory] = useState({});
     const [showAddIncredient, setShowAddIncredient] = useState(false);
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
     const [showAddGarnish, setShowAddGarnish] = useState(false);
-    const [incredients, setIncredients] = useState({});
-    const [workPhases, setWorkPhases] = useState({});
-    const [garnishes, setGarnishes] = useState({});
 
     //modal
     const { status: showEditDrink, toggleStatus: toggleSetShowEditDrink } = useToggle();
@@ -55,86 +52,15 @@ export default function DrinkDetails() {
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
-    //params
-    const params = useParams();
-
-    //navigation
-    const navigate = useNavigate();
-
     //auth
     const { currentUser } = useAuth();
 
-    //load data
-    useEffect(() => {
-        const getDrink = async () => {
-            await fetchDrinkFromFirebase();
-        }
-        getDrink();
-        const getIncredients = async () => {
-            await fetchIncredientsFromFirebase();
-        }
-        getIncredients();
-        const getWorkPhases = async () => {
-            await fetchWorkPhasesFromFirebase();
-        }
-        getWorkPhases();
-        const getDrinkHistory = async () => {
-            await fetchDrinkHistoryFromFirebase();
-        }
-        getDrinkHistory();
-        const getGarnishes = async () => {
-            await fetchGarnishesFromFirebase();
-        }
-        getGarnishes();
-    }, [])
-
-    const fetchWorkPhasesFromFirebase = async () => {
-        const dbref = await child(ref(db, Constants.DB_DRINK_WORKPHASES), params.id);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            for (let id in snap) {
-                fromDB.push({ id, ...snap[id] });
-            }
-            setWorkPhases(fromDB);
-        })
-    }
-
-    const fetchGarnishesFromFirebase = async () => {
-        const dbref = await child(ref(db, Constants.DB_DRINK_GARNISHES), params.id);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            for (let id in snap) {
-                fromDB.push({ id, ...snap[id] });
-            }
-            setGarnishes(fromDB);
-        })
-    }
-
-    const fetchDrinkHistoryFromFirebase = async () => {
-        const dbref = await child(ref(db, Constants.DB_DRINK_HISTORY), params.id);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            for (let id in snap) {
-                fromDB.push({ id, ...snap[id] });
-            }
-            setDrinkHistory(fromDB);
-        })
-    }
-
-    const fetchDrinkFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_DRINKS}/${params.id}`);
-        onValue(dbref, (snapshot) => {
-            const data = snapshot.val();
-            if (data === null) {
-                navigate(-1);
-            }
-            setDrink(data);
-            setLoading(false);
-        })
-    }
+    //fetch data
+    const { data: drink, loading } = useFetch(Constants.DB_DRINKS, "", params.id);
+    const { data: incredients } = useFetchChildren(Constants.DB_DRINK_INCREDIENTS, params.id);
+    const { data: workPhases } = useFetchChildren(Constants.DB_DRINK_WORKPHASES, params.id);
+    const { data: garnishes } = useFetchChildren(Constants.DB_DRINK_GARNISHES, params.id);
+    const { data: drinkHistory } = useFetchChildren(Constants.DB_DRINK_HISTORY, params.id);
 
     const updateDrink = async (drinkToUpdate) => {
         try {
@@ -169,18 +95,6 @@ export default function DrinkDetails() {
         const result = names.toString().split(search).join(replaceWith);
         //muutetaan lopuksi vielä stringiksi
         return result.toString();
-    }
-
-    const fetchIncredientsFromFirebase = async () => {
-        const dbref = await child(ref(db, Constants.DB_DRINK_INCREDIENTS), params.id);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            for (let id in snap) {
-                fromDB.push({ id, ...snap[id] });
-            }
-            setIncredients(fromDB);
-        })
     }
 
     const deleteIncredient = async (drinkID, id) => {

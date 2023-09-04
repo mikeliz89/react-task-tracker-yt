@@ -16,6 +16,7 @@ import Counter from '../Site/Counter';
 import { getFromFirebaseById, pushToFirebase, updateToFirebase, updateToFirebaseById } from '../../datatier/datatier';
 import { getPageTitleContent } from '../../utils/ListUtils';
 import AccordionElement from '../AccordionElement';
+import useFetch from '../useFetch';
 
 export default function ArchivedTaskListDetails() {
 
@@ -23,8 +24,6 @@ export default function ArchivedTaskListDetails() {
   const params = useParams();
 
   //states
-  const [loading, setLoading] = useState(true);
-  const [taskList, setTaskList] = useState({});
   const [originalTasks, setOriginalTasks] = useState();
   const [tasks, setTasks] = useState();
   //counters
@@ -36,6 +35,10 @@ export default function ArchivedTaskListDetails() {
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+
+
+  //fetch data
+  const { data: taskList, loading } = useFetch(Constants.DB_TASKLIST_ARCHIVE, "", params.id);
 
   //load data
   useEffect(() => {
@@ -50,30 +53,11 @@ export default function ArchivedTaskListDetails() {
     }
     getTasks();
 
-    const getTaskList = async () => {
-      if (cancel) {
-        return;
-      }
-      await fetchTaskListFromFirebase();
-    }
-    getTaskList();
-
     return () => {
       cancel = true;
     }
   }, [])
 
-  const fetchTaskListFromFirebase = async () => {
-    const dbref = ref(db, `${Constants.DB_TASKLIST_ARCHIVE}/${params.id}`);
-    onValue(dbref, (snapshot) => {
-      const data = snapshot.val();
-      if (data === null) {
-        navigate('/');
-      }
-      setTaskList(data);
-      setLoading(false);
-    })
-  }
 
   const fetchTasksFromFirebase = async () => {
     const dbref = await child(ref(db, Constants.DB_TASKLIST_ARCHIVE_TASKS), params.id);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Col, Row, ButtonGroup, Tab, Tabs, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
@@ -28,15 +28,17 @@ import CommentComponent from '../Comments/CommentComponent';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import AccordionElement from '../AccordionElement';
 import { useToggle } from '../useToggle';
+import useFetch from '../useFetch';
 
 export default function TaskListDetails() {
+
+  //params
+  const params = useParams();
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
   //states
-  const [loading, setLoading] = useState(true);
-  const [taskList, setTaskList] = useState({});
   const [tasks, setTasks] = useState();
   const [originalTasks, setOriginalTasks] = useState();
 
@@ -49,26 +51,15 @@ export default function TaskListDetails() {
   const [taskCounter, setTaskCounter] = useState(0);
   const [taskReadyCounter, setTaskReadyCounter] = useState(0);
 
-  //params
-  const params = useParams();
-
-  //navigate
-  const navigate = useNavigate();
-
   //user
   const { currentUser } = useAuth();
+
+  //fetch data
+  const { data: taskList, loading } = useFetch(Constants.DB_TASKLISTS, "", params.id);
 
   //load data
   useEffect(() => {
     let cancel = false;
-
-    const getTaskList = async () => {
-      if (cancel) {
-        return;
-      }
-      await fetchTaskListFromFirebase();
-    }
-    getTaskList();
 
     const getTasks = async () => {
       await fetchTasksFromFirebase();
@@ -80,17 +71,6 @@ export default function TaskListDetails() {
     }
   }, [])
 
-  const fetchTaskListFromFirebase = async () => {
-    const dbref = ref(db, `${Constants.DB_TASKLISTS}/${params.id}`);
-    onValue(dbref, (snapshot) => {
-      const data = snapshot.val();
-      if (data === null) {
-        navigate('/');
-      }
-      setTaskList(data);
-      setLoading(false);
-    })
-  }
 
   const fetchTasksFromFirebase = async () => {
     const dbref = await child(ref(db, Constants.DB_TASKS), params.id);

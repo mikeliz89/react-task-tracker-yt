@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { db } from '../firebase-config';
 import { ref, onValue } from 'firebase/database';
 
-const useFetch = (url, listType) => {
+const useFetch = (url, listType, objectID, subObjectID) => {
 
     //states
     const [loading, setLoading] = useState(true);
@@ -26,8 +26,24 @@ const useFetch = (url, listType) => {
         }
     }, [url])
 
+    const getFullUrl = () => {
+
+        var onlyObjectIdGiven = objectID != null && subObjectID == null;
+        var objectIdAndSubIdGive = objectID != null && subObjectID != null;
+        if (onlyObjectIdGiven) {
+            return `${url}/${objectID}`;
+        } else if (objectIdAndSubIdGive) {
+            return `${url}/${objectID}/${subObjectID}`;
+        }
+
+        return url;
+    }
+
     const fetchDataFromFirebase = async () => {
-        const dbref = ref(db, url);
+
+        const fullUrl = getFullUrl();
+        //console.log("fetching data from url: ", fullUrl);
+        const dbref = ref(db, fullUrl);
         onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -48,11 +64,22 @@ const useFetch = (url, listType) => {
                     }
                 }
             }
+
+            //snap didn't contain data, so lets assume snap is the only object
+            if (fromDB.length < 1) {
+                setCounter(1);
+                setLoading(false);
+                setData(snap);
+                setOriginalData(snap);
+                return;
+            }
+
             setCounter(counterTemp);
             setLoading(false);
             setData(fromDB);
             setOriginalData(fromDB);
         })
+
     }
 
     return { data, setData, originalData, counter, loading };

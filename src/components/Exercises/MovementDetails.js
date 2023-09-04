@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import i18n from "i18next";
@@ -20,12 +18,11 @@ import CommentComponent from '../Comments/CommentComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
+import useFetch from '../useFetch';
 
 export default function MovementDetails() {
 
     //states
-    const [loading, setLoading] = useState(true);
-    const [movement, setMovement] = useState({});
     const [showEditMovement, setShowEditMovement] = useState(false);
 
     //alert
@@ -40,31 +37,11 @@ export default function MovementDetails() {
     //params
     const params = useParams();
 
-    //navigation
-    const navigate = useNavigate();
-
     //auth
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        const getMovement = async () => {
-            await fetchMovementFromFirebase();
-        }
-        getMovement();
-    }, [])
-
-    const fetchMovementFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_EXERCISE_MOVEMENTS}/${params.id}`);
-        onValue(dbref, (snapshot) => {
-            const data = snapshot.val();
-            if (data === null) {
-                navigate(-1);
-            }
-            setMovement(data);
-            setLoading(false);
-        })
-    }
+    
+    //fetch data
+    const { data: movement, loading } = useFetch(Constants.DB_EXERCISE_MOVEMENTS, "", params.id);
 
     const saveStars = async (stars) => {
         const movementID = params.id;

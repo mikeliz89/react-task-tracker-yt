@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from 'i18next';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -18,8 +16,12 @@ import Alert from '../Alert';
 import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import AccordionElement from '../AccordionElement';
+import useFetch from '../useFetch';
 
 export default function PersonDetails() {
+
+    //params
+    const params = useParams();
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_PEOPLE, { keyPrefix: Constants.TRANSLATION_PEOPLE });
@@ -31,38 +33,13 @@ export default function PersonDetails() {
     const [error, setError] = useState('');
 
     //states
-    const [loading, setLoading] = useState(true);
-    const [person, setPerson] = useState({});
     const [showEdit, setShowEdit] = useState(false);
 
-    //params
-    const params = useParams();
-
-    //navigation
-    const navigate = useNavigate();
+    //fetch data
+    const { data: person, loading } = useFetch(Constants.DB_PEOPLE, "", params.id);
 
     //auth
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        const getPerson = async () => {
-            await fetchPersonFromFirebase();
-        }
-        getPerson();
-    }, [])
-
-    const fetchPersonFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_PEOPLE}/${params.id}`);
-        onValue(dbref, (snapshot) => {
-            const data = snapshot.val();
-            if (data === null) {
-                navigate(-1);
-            }
-            setPerson(data);
-            setLoading(false);
-        })
-    }
 
     const updatePerson = async (person) => {
         try {

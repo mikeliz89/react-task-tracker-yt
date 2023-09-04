@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Row, Col, ButtonGroup, Table } from "react-bootstrap";
-import { ref, onValue } from 'firebase/database';
-import { db } from "../../firebase-config";
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddPartsGym from "./AddPartsGym";
@@ -24,18 +22,14 @@ import LinkComponent from "../Links/LinkComponent";
 import ImageComponent from "../ImageUpload/ImageComponent";
 import StarRatingWrapper from "../StarRating/StarRatingWrapper";
 import AccordionElement from "../AccordionElement";
+import useFetch from "../useFetch";
 
 export default function ExerciseDetails() {
 
     //params
     const params = useParams();
 
-    //navigation
-    const navigate = useNavigate();
-
     //states
-    const [exercise, setExercise] = useState({});
-    const [loading, setLoading] = useState(true);
     const [showEditExercise, setShowEditExercise] = useState(false);
 
     //alert
@@ -50,25 +44,8 @@ export default function ExerciseDetails() {
     //auth
     const { currentUser } = useAuth();
 
-    //load data
-    useEffect(() => {
-        const getExercise = async () => {
-            await fetchExerciseFromFirebase();
-        }
-        getExercise();
-    }, [])
-
-    const fetchExerciseFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_EXERCISES}/${params.id}`);
-        onValue(dbref, (snapshot) => {
-            const data = snapshot.val();
-            if (data === null) {
-                navigate(-1);
-            }
-            setExercise(data)
-            setLoading(false);
-        })
-    }
+    //fetch data
+    const { data: exercise, loading } = useFetch(Constants.DB_EXERCISES, "", params.id);
 
     const saveStars = async (stars) => {
         const exerciseID = params.id;

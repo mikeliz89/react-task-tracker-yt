@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col, Modal } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import i18n from "i18next";
@@ -21,12 +19,12 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
 import { useToggle } from '../useToggle';
+import useFetch from '../useFetch';
 
 export default function DrinkingProductDetails() {
 
-    //states
-    const [loading, setLoading] = useState(true);
-    const [drinkingProduct, setDrinkingProduct] = useState({});
+    //params
+    const params = useParams();
 
     //modal
     const { status: showEditDrinkingProduct, toggleStatus: toggleSetShowEdit } = useToggle();
@@ -40,34 +38,11 @@ export default function DrinkingProductDetails() {
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
-    //params
-    const params = useParams();
-
-    //navigation
-    const navigate = useNavigate();
+    //fetch data
+    const { data: drinkingProduct, loading } = useFetch(Constants.DB_DRINKINGPRODUCTS, "", params.id);
 
     //auth
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        const getDrinkingProduct = async () => {
-            await fetchDrinkingProductFromFirebase();
-        }
-        getDrinkingProduct();
-    }, [])
-
-    const fetchDrinkingProductFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_DRINKINGPRODUCTS}/${params.id}`);
-        onValue(dbref, (snapshot) => {
-            const data = snapshot.val();
-            if (data === null) {
-                navigate(-1);
-            }
-            setDrinkingProduct(data);
-            setLoading(false);
-        })
-    }
 
     const addCommentToDrinkingProduct = (comment) => {
         const drinkID = params.id;

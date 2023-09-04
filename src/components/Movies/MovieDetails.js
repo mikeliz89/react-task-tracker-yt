@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from 'i18next';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -20,51 +18,30 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import { getMovieFormatNameByID } from '../../utils/ListUtils';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
+import useFetch from '../useFetch';
 
 export default function MovieDetails() {
+
+    //params
+    const params = useParams();
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message] = useState('');
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
     //states
-    const [loading, setLoading] = useState(true);
-    const [movie, setMovie] = useState({});
     const [showEdit, setShowEdit] = useState(false);
 
-    //params
-    const params = useParams();
-
-    //navigation
-    const navigate = useNavigate();
+    //fetch data
+    const { data: movie, loading } = useFetch(Constants.DB_MOVIES, "", params.id);
 
     //auth
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        const getMovie = async () => {
-            await fetchMovieFromFirebase();
-        }
-        getMovie();
-    }, [])
-
-    const fetchMovieFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_MOVIES}/${params.id}`);
-        onValue(dbref, (snapshot) => {
-            const data = snapshot.val();
-            if (data === null) {
-                navigate(-1);
-            }
-            setMovie(data);
-            setLoading(false);
-        })
-    }
 
     const updateMovie = async (updateMovieID, movie) => {
         try {

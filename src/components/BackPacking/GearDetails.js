@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from 'i18next';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
@@ -20,6 +18,7 @@ import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
+import useFetch from '../useFetch';
 
 export default function GearDetails() {
 
@@ -33,8 +32,6 @@ export default function GearDetails() {
     const [error, setError] = useState('');
 
     //states
-    const [loading, setLoading] = useState(true);
-    const [gear, setGear] = useState({});
     const [showEdit, setShowEdit] = useState(false);
 
     //params
@@ -46,25 +43,8 @@ export default function GearDetails() {
     //auth
     const { currentUser } = useAuth();
 
-    //load data
-    useEffect(() => {
-        const getGear = async () => {
-            await fetchGearFromFirebase();
-        }
-        getGear();
-    }, [])
-
-    const fetchGearFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_BACKPACKING_GEAR}/${params.id}`);
-        onValue(dbref, (snapshot) => {
-            const data = snapshot.val();
-            if (data === null) {
-                navigate(-1);
-            }
-            setGear(data);
-            setLoading(false);
-        })
-    }
+    //fetch data
+    const { data: gear, loading } = useFetch(Constants.DB_BACKPACKING_GEAR, "", params.id);
 
     const saveStars = async (stars) => {
         const id = params.id;

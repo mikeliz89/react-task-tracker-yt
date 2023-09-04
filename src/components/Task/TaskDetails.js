@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { ButtonGroup, Row, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import AddTask from './AddTask';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
@@ -16,45 +14,24 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
+import useFetch from '../useFetch';
 
 export default function TaskDetails() {
+
+  //params
+  const params = useParams();
 
   //translation  
   const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
   //states
   const [showEditTask, setShowEditTask] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [task, setTask] = useState({});
 
-  //params
-  const params = useParams();
-
-  //navigate
-  const navigate = useNavigate();
+  //fetch data
+  const { data: task, loading } = useFetch(Constants.DB_TASKS, "", params.tasklistid, params.id);
 
   //auth
   const { currentUser } = useAuth();
-
-  //load data
-  useEffect(() => {
-    const getTask = async () => {
-      await fetchTaskFromFirebase();
-    }
-    getTask();
-  }, []);
-
-  const fetchTaskFromFirebase = async () => {
-    const dbref = ref(db, `${Constants.DB_TASKS}/${params.tasklistid}/${params.id}`);
-    onValue(dbref, (snapshot) => {
-      const data = snapshot.val();
-      if (data === null) {
-        navigate(-1)
-      }
-      setTask(data)
-      setLoading(false);
-    })
-  }
 
   const updateTask = async (taskListID, task) => {
     let taskID = params.id;

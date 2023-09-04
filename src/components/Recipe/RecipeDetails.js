@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Tab, Tabs, Col, Row, ButtonGroup } from 'react-bootstrap';
-import { db } from '../../firebase-config';
-import { child, ref, onValue } from 'firebase/database';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddIncredient from './AddIncredient';
@@ -27,18 +25,18 @@ import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
+import useFetch from '../useFetch';
+import useFetchChildren from '../useFetchChildren';
 
 export default function RecipeDetails() {
 
+    //params
+    const params = useParams();
+
     //states
-    const [loading, setLoading] = useState(true);
-    const [recipe, setRecipe] = useState({});
-    const [recipeHistory, setRecipeHistory] = useState({});
     const [showEditRecipe, setShowEditRecipe] = useState(false);
     const [showAddIncredient, setShowAddIncredient] = useState(false);
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
-    const [incredients, setIncredients] = useState();
-    const [workPhases, setWorkPhases] = useState();
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -49,82 +47,14 @@ export default function RecipeDetails() {
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
 
-    //params
-    const params = useParams();
-
-    //navigation
-    const navigate = useNavigate();
-
     //auth
     const { currentUser } = useAuth();
 
-    //load data
-    useEffect(() => {
-        const getRecipe = async () => {
-            await fetchRecipeFromFirebase();
-        }
-        getRecipe();
-        const getIncredients = async () => {
-            await fetchIncredientsFromFirebase();
-        }
-        getIncredients();
-        const getWorkPhases = async () => {
-            await fetchWorkPhasesFromFirebase();
-        }
-        getWorkPhases();
-        const getRecipeHistory = async () => {
-            await fetchRecipeHistoryFromFirebase();
-        }
-        getRecipeHistory();
-    }, [])
-
-    const fetchRecipeFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_RECIPES}/${params.id}`);
-        onValue(dbref, (snapshot) => {
-            const data = snapshot.val();
-            if (data === null) {
-                navigate(-1);
-            }
-            setRecipe(data);
-            setLoading(false);
-        })
-    }
-
-    const fetchRecipeHistoryFromFirebase = async () => {
-        const dbref = await child(ref(db, Constants.DB_RECIPE_HISTORY), params.id);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            for (let id in snap) {
-                fromDB.push({ id, ...snap[id] });
-            }
-            setRecipeHistory(fromDB);
-        })
-    }
-
-    const fetchIncredientsFromFirebase = async () => {
-        const dbref = await child(ref(db, Constants.DB_RECIPE_INCREDIENTS), params.id);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            for (let id in snap) {
-                fromDB.push({ id, ...snap[id] });
-            }
-            setIncredients(fromDB);
-        })
-    }
-
-    const fetchWorkPhasesFromFirebase = async () => {
-        const dbref = await child(ref(db, Constants.DB_RECIPE_WORKPHASES), params.id);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            for (let id in snap) {
-                fromDB.push({ id, ...snap[id] });
-            }
-            setWorkPhases(fromDB);
-        })
-    }
+    //fetch data
+    const { data: recipe, loading } = useFetch(Constants.DB_RECIPES, "", params.id);
+    const { data: incredients } = useFetchChildren(Constants.DB_RECIPE_INCREDIENTS, params.id);
+    const { data: workPhases } = useFetchChildren(Constants.DB_RECIPE_WORKPHASES, params.id);
+    const { data: recipeHistory } = useFetchChildren(Constants.DB_RECIPE_HISTORY, params.id);
 
     const deleteIncredient = async (recipeID, id) => {
         removeFromFirebaseByIdAndSubId(Constants.DB_RECIPE_INCREDIENTS, recipeID, id);

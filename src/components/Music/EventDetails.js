@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col, Form } from 'react-bootstrap';
 import i18n from 'i18next';
-import { db } from '../../firebase-config';
-import { ref, onValue, child } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -19,10 +17,10 @@ import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
-import useFetch from '../useFetch';
 import FoundItems from '../Selectors/FoundItems';
-import Bands from './Bands';
 import EventBands from './EventBands';
+import useFetch from '../useFetch';
+import useFetchChildren from '../useFetchChildren';
 
 export default function EventDetails() {
 
@@ -31,31 +29,26 @@ export default function EventDetails() {
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message] = useState('');
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
     //states
-    const [loading, setLoading] = useState(true);
-    const [event, setEvent] = useState({});
     const [showEdit, setShowEdit] = useState(false);
     const [showLinkBands, setShowLinkBands] = useState(false);
     const [linkedBandName, setLinkedBandName] = useState('');
     const [foundBands, setFoundBands] = useState([]);
-    const [eventBands, setEventBands] = useState();
 
     //params
     const params = useParams();
-
-    //navigation
-    const navigate = useNavigate();
 
     //auth
     const { currentUser } = useAuth();
 
     //fetch data
-    const { data: bands, setData: setBands,
-        originalData: originalBands, counter } = useFetch(Constants.DB_MUSIC_BANDS);
+    const { data: bands, originalData: originalBands } = useFetch(Constants.DB_MUSIC_BANDS);
+    const { data: event, loading } = useFetch(Constants.DB_MUSIC_EVENTS, "", params.id);
+    const { data: eventBands } = useFetchChildren(Constants.DB_MUSIC_EVENT_BANDS, params.id);
 
     const inputRef = useRef();
 
@@ -70,45 +63,6 @@ export default function EventDetails() {
             setFoundBands(filtered);
         }
     }, [linkedBandName]);
-
-    //load data
-    useEffect(() => {
-        const getEvent = async () => {
-            await fetchEventFromFirebase();
-        }
-        getEvent();
-
-        const fetchEventBandsFromFirebase = async () => {
-            const eventID = params.id;
-            const dbref = child(ref(db, Constants.DB_MUSIC_EVENT_BANDS), eventID);
-            onValue(dbref, (snapshot) => {
-                const snap = snapshot.val();
-                const fromDB = [];
-                for (let id in snap) {
-                    fromDB.push({ id, ...snap[id] });
-                }
-                setEventBands(fromDB);
-            }
-                /*,
-                { onlyOnce: true }
-                */
-            )
-        }
-
-        fetchEventBandsFromFirebase();
-    }, [])
-
-    const fetchEventFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_MUSIC_EVENTS}/${params.id}`);
-        onValue(dbref, (snapshot) => {
-            const data = snapshot.val();
-            if (data === null) {
-                navigate(-1);
-            }
-            setEvent(data);
-            setLoading(false);
-        })
-    }
 
     const updateEvent = async (updateEventID, event) => {
         try {

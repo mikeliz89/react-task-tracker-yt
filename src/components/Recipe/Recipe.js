@@ -47,6 +47,7 @@ export default function Recipe({ recipeType, translation, recipe, onDelete }) {
     );
 
     const makeShoppingList = async () => {
+        
         const incredients = await fetchIncredientsFromFirebase(recipe.id);
 
         if (incredients && incredients.length > 0) {

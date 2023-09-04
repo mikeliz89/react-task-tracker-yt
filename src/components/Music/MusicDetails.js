@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from 'i18next';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -20,8 +18,12 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import { getMusicFormatNameByID } from '../../utils/ListUtils';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
+import useFetch from '../useFetch';
 
 export default function MusicDetails() {
+
+    //params
+    const params = useParams();
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
@@ -33,38 +35,13 @@ export default function MusicDetails() {
     const [error, setError] = useState('');
 
     //states
-    const [loading, setLoading] = useState(true);
-    const [record, setRecord] = useState({});
     const [showEdit, setShowEdit] = useState(false);
-
-    //params
-    const params = useParams();
-
-    //navigation
-    const navigate = useNavigate();
 
     //auth
     const { currentUser } = useAuth();
 
-    //load data
-    useEffect(() => {
-        const getRecord = async () => {
-            await fetchMusicFromFirebase();
-        }
-        getRecord();
-    }, [])
-
-    const fetchMusicFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_MUSIC_RECORDS}/${params.id}`);
-        onValue(dbref, (snapshot) => {
-            const data = snapshot.val();
-            if (data === null) {
-                navigate(-1);
-            }
-            setRecord(data);
-            setLoading(false);
-        })
-    }
+    //fetch data
+    const { data: record, loading } = useFetch(Constants.DB_MUSIC_RECORDS, "", params.id);
 
     const updateRecord = async (updateRecordID, record) => {
         try {
