@@ -27,7 +27,7 @@ export default function ChangeType({ taskList, onSave, onClose }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (category == 0) {
+        if (category === 0) {
             delete (taskList["listType"]);
         } else {
             taskList["listType"] = Number(category);

@@ -2,10 +2,9 @@ import { Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import Button from '../Buttons/Button';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
 import { MovementCategories } from './Categories';
-import { getFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import { getFromFirebaseById } from '../../datatier/datatier';
 
 export default function  AddMovement ({ movementID, onClose, onSave })  {
 
@@ -13,8 +12,8 @@ export default function  AddMovement ({ movementID, onClose, onSave })  {
     const [category, setCategory] = useState();
     const [categories, setCategories] = useState(MovementCategories);
     const [name, setName] = useState('');
-    const [created, setCreated] = useState();
-    const [createdBy, setCreatedBy] = useState();
+    const [setCreated] = useState();
+    const [setCreatedBy] = useState();
     const [stars, setStars] = useState(0);
     const [description, setDescription] = useState('');
 

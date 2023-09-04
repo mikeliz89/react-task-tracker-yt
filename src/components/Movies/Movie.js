@@ -57,7 +57,7 @@ export default function Movie({ movie, onDelete, onEdit }) {
             </h5>
             {!editable &&
                 <p>
-                    {movie.nameFi != "" ? movie.nameFi : ''}
+                    {movie.nameFi !== "" ? movie.nameFi : ''}
                 </p>
             }
             {!editable &&

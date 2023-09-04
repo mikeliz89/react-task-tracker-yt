@@ -44,7 +44,7 @@ export default function Car() {
 
     //fetch data
     const { data: carFuelings, setData: setCarFuelings, originalData: originalCarFuelings, counter: fuelingsCounter, loading } = useFetch(Constants.DB_CAR_FUELING);
-    const { data: carMaintenances, setData: setCarMaintenances, originalData: originalCarMaintenances, counter: maintenancesCounter } = useFetch(Constants.DB_CAR_MAINTENANCE);
+    const { data: carMaintenances, originalData: originalCarMaintenances, counter: maintenancesCounter } = useFetch(Constants.DB_CAR_MAINTENANCE);
 
     //user
     const { currentUser } = useAuth();

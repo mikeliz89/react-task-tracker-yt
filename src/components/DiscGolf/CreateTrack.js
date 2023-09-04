@@ -49,10 +49,8 @@ export default function CreateTrack() {
    const { currentUser } = useAuth();
 
    //alert
-   const [showMessage, setShowMessage] = useState(false);
-   const [message] = useState('');
-   const [showError, setShowError] = useState(false);
-   const [error, setError] = useState('');
+   const [setShowError] = useState(false);
+   const [setError] = useState('');
 
    //listen to holes changes
    useEffect(() => {
@@ -63,7 +61,7 @@ export default function CreateTrack() {
       let counter = holes.length;
       let newID = counter;
 
-      if (counter == maxHoleCount) {
+      if (counter === maxHoleCount) {
          //TODO: kieleistys
          alert("Rataan ei voi lisätä enempää väyliä kuin " + maxHoleCount);
          return;
@@ -121,7 +119,7 @@ export default function CreateTrack() {
 
    const deleteHole = (holeID) => {
       //hävitä klikattu hole
-      let filteredHoles = holes.filter(e => e.id != holeID);
+      let filteredHoles = holes.filter(e => e.id !== holeID);
       //luo uudet ID:t väylille
       let newHoles = [];
       for (let i = 0; i < filteredHoles.length; i++) {

@@ -9,7 +9,7 @@ export default function Logo() {
     const navigate = useNavigate();
 
     //theme
-    const { toggleTheme, theme } = useTheme();
+    const { theme } = useTheme();
 
     //images
     const logo = `/images/logo.png`;

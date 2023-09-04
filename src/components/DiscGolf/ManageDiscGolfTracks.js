@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import * as Constants from '../../utils/Constants';
-import { ButtonGroup, Row, Col } from 'react-bootstrap';
-import Button from '../Buttons/Button';
+import { ButtonGroup, Row } from 'react-bootstrap';
 import Tracks from './Tracks';
 import useFetch from '../useFetch';
 import PageContentWrapper from '../Site/PageContentWrapper';
@@ -16,8 +15,7 @@ export default function TracksList() {
    const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
 
    //fetch data
-   const { data: tracks, setData: setTracks,
-      originalData: originalTracks, counter, loading } = useFetch(Constants.DB_DISC_GOLF_TRACKS);
+   const { data: tracks, loading } = useFetch(Constants.DB_DISC_GOLF_TRACKS);
 
    const deleteTrack = () => {
 

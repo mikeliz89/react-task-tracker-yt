@@ -28,7 +28,7 @@ export default function PersonDetails() {
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message] = useState('');
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 

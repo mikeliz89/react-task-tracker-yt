@@ -1,6 +1,5 @@
 
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 import PageTitle from '../Site/PageTitle';
 import CarFueling from "./CarFueling";
 import * as Constants from '../../utils/Constants';
@@ -11,10 +10,10 @@ export default function CarFuelings({ carFuelings, onDelete }) {
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
 
-    const mockData = () => {
-        let data = [{ created: "2022-09-19T17:25:19.586Z", fuelPricePerLiter: "2.10" }]
-        return data;
-    }
+    // const mockData = () => {
+    //     let data = [{ created: "2022-09-19T17:25:19.586Z", fuelPricePerLiter: "2.10" }]
+    //     return data;
+    // }
 
     const getFuelingsPriceSum = (carFuelings) => {
         let sum = 0;

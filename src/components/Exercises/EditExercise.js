@@ -16,12 +16,12 @@ export default function EditExercise({ exerciseID, exercise, onClose }) {
   const [created, setCreated] = useState('');
   const [createdBy, setCreatedBy] = useState('');
   const [category, setCategory] = useState('');
-  const [error, setError] = useState('');
+  const [setError] = useState('');
   const [stars, setStars] = useState(0);
   const [description, setDescription] = useState('');
 
   //translation
-  const { t, ready } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+  const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
   useEffect(() => {
     if (exercise != null) {

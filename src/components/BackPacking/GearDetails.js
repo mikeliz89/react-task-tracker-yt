@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
@@ -27,7 +27,7 @@ export default function GearDetails() {
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message] = useState('');
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
@@ -36,9 +36,6 @@ export default function GearDetails() {
 
     //params
     const params = useParams();
-
-    //navigation
-    const navigate = useNavigate();
 
     //auth
     const { currentUser } = useAuth();

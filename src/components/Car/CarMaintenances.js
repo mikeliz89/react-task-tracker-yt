@@ -9,10 +9,10 @@ export default function CarMaintenances({ carMaintenances, onDelete }) {
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
 
-    const mockData = () => {
-        let data = [{ created: "2022-09-19T17:25:19.586Z", name: "Jarrunesteiden vaihto", price: 10, }]
-        return data;
-    }
+    // const mockData = () => {
+    //     let data = [{ created: "2022-09-19T17:25:19.586Z", name: "Jarrunesteiden vaihto", price: 10, }]
+    //     return data;
+    // }
 
     const getMaintenancesPriceSum = (carMaintenances) => {
         let sum = 0;

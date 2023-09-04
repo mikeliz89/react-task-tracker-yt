@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col, Tabs, Tab, Modal } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';

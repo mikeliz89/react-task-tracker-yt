@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row, Col, ButtonGroup, Form, FormGroup, Table } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import * as Constants from '../../utils/Constants';
-import GoBackButton from '../Buttons/GoBackButton';
 
 export default function TrackHole({ hole, decreasePar, increasePar, deleteHole }) {
 

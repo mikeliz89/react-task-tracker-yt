@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup } from 'react-bootstrap';
 import { db } from '../../firebase-config';
@@ -30,12 +30,8 @@ export default function ArchivedTaskListDetails() {
   const [taskCounter, setTaskCounter] = useState(0);
   const [taskReadyCounter, setTaskReadyCounter] = useState(0);
 
-  //navigate
-  const navigate = useNavigate();
-
   //translation
   const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
-
 
   //fetch data
   const { data: taskList, loading } = useFetch(Constants.DB_TASKLIST_ARCHIVE, "", params.id);

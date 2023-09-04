@@ -27,9 +27,9 @@ export default function MovementDetails() {
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message] = useState('');
     const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const [error] = useState('');
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });

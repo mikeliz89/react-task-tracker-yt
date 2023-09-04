@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { FaCheckSquare } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
 import Icon from '../Icon';

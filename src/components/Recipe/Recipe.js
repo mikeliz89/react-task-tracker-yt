@@ -33,7 +33,7 @@ export default function Recipe({ recipeType, translation, recipe, onDelete }) {
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message] = useState('');
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 

@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
-import { useState } from 'react';
 import AddTask from './AddTask';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useAuth } from '../../contexts/AuthContext';
-import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as Constants from '../../utils/Constants';
 import RightWrapper from './RightWrapper';
@@ -13,9 +12,6 @@ export default function Header() {
 
     //navigation
     const navigate = useNavigate();
-
-    //translation
-    const { t } = useTranslation(Constants.TRANSLATION_HEADER, { keyPrefix: Constants.TRANSLATION_HEADER });
 
     //user
     const { currentUser } = useAuth();

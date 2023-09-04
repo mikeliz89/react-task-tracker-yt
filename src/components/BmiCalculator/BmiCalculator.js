@@ -26,7 +26,7 @@ export default function BmiCalculator() {
     const { currentUser } = useAuth();
 
     //states
-    const [BMI, setBMI] = useState(0);
+    const [setBMI] = useState(0);
     const [height, setHeight] = useState();
     const [weight, setWeight] = useState();
 

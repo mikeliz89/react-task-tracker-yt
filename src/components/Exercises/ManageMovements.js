@@ -32,10 +32,10 @@ export default function ManageMovements() {
     const { status: showAddMovement, toggleStatus: toggleAddMovement } = useToggle();
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const [setShowMessage] = useState(false);
+    const [setMessage] = useState('');
+    const [setShowError] = useState(false);
+    const [setError] = useState('');
 
     //user
     const { currentUser } = useAuth();

@@ -46,7 +46,7 @@ export default function EventDetails() {
     const { currentUser } = useAuth();
 
     //fetch data
-    const { data: bands, originalData: originalBands } = useFetch(Constants.DB_MUSIC_BANDS);
+    const { originalData: originalBands } = useFetch(Constants.DB_MUSIC_BANDS);
     const { data: event, loading } = useFetch(Constants.DB_MUSIC_EVENTS, "", params.id);
     const { data: eventBands } = useFetchChildren(Constants.DB_MUSIC_EVENT_BANDS, params.id);
 
@@ -105,16 +105,18 @@ export default function EventDetails() {
         ];
     }
 
+    /*
     const logBands = async () => {
         console.log(bands);
     }
+    */
 
     const selectedBandChanged = (band) => {
 
         var currentEventBands = eventBands;
 
         //lisää listaan vain jos ei vielä löydy tällä ID:llä
-        if (currentEventBands.filter(e => e.id === band.id).length == 0) {
+        if (currentEventBands.filter(e => e.id === band.id).length === 0) {
             currentEventBands.push({ id: band.id, name: band.name });
         }
 
@@ -126,7 +128,7 @@ export default function EventDetails() {
     const deleteEventBand = (band) => {
         var currentEventBands = eventBands;
         //poimitaan vain muut kuin tämän bändin id eli tämä filtteröityy pois
-        currentEventBands = currentEventBands.filter(e => e.id != band.id);
+        currentEventBands = currentEventBands.filter(e => e.id !== band.id);
         const id = params.id;
         updateToFirebaseById(Constants.DB_MUSIC_EVENT_BANDS, id, currentEventBands);
     }

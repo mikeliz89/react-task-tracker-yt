@@ -13,7 +13,7 @@ export default function AddMaintenance({ ID, onClose, onSave }) {
     const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
 
     //states
-    const [loading, setLoading] = useState(false);
+    const [loading] = useState(false);
 
     //car data states
     const [name, setName] = useState('');
