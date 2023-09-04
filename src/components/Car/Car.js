@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Alert from '../Alert';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
@@ -9,8 +9,6 @@ import AddMaintenance from './AddMaintenance';
 import AddInfo from './AddInfo';
 import CarFuelings from './CarFuelings';
 import CarMaintenances from './CarMaintenances';
-import { db } from '../../firebase-config';
-import { onValue, ref } from 'firebase/database';
 import PageTitle from '../Site/PageTitle';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
@@ -23,6 +21,7 @@ import { Link } from 'react-router-dom';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from "../SearchSortFilter/SortModes";
 import useFetch from '../useFetch';
+import Counter from '../Site/Counter';
 
 export default function Car() {
 
@@ -35,12 +34,6 @@ export default function Car() {
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
-    //states
-    const [loading, setLoading] = useState(true);
-    const [carFuelings, setCarFuelings] = useState({});
-    const [originalCarFuelings, setOriginalCarFuelings] = useState({});
-    const [carMaintenances, setCarMaintenances] = useState({});
-
     //modal
     const [showAddMaintenance, setShowAddMaintenance] = useState(false);
     const [showAddFueling, setShowAddFueling] = useState(false);
@@ -49,46 +42,12 @@ export default function Car() {
         setShowAddMaintenance(false);
     }
 
+    //fetch data
+    const { data: carFuelings, setData: setCarFuelings, originalData: originalCarFuelings, counter: fuelingsCounter, loading } = useFetch(Constants.DB_CAR_FUELING);
+    const { data: carMaintenances, setData: setCarMaintenances, originalData: originalCarMaintenances, counter: maintenancesCounter } = useFetch(Constants.DB_CAR_MAINTENANCE);
+
     //user
     const { currentUser } = useAuth();
-
-    //load data
-    useEffect(() => {
-        const getFuelings = async () => {
-            await fetchCarFuelingsFromFirebase();
-        }
-        getFuelings();
-        const getMaintenances = async () => {
-            await fetchCarMaintenancesFromFirebase();
-        }
-        getMaintenances();
-    }, []);
-
-    const fetchCarFuelingsFromFirebase = async () => {
-        const dbref = await ref(db, `${Constants.DB_CAR_FUELING}`);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            for (let id in snap) {
-                fromDB.push({ id, ...snap[id] });
-            }
-            setLoading(false);
-            setCarFuelings(fromDB);
-            setOriginalCarFuelings(fromDB);
-        })
-    }
-    const fetchCarMaintenancesFromFirebase = async () => {
-        const dbref = await ref(db, `${Constants.DB_CAR_MAINTENANCE}`);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            for (let id in snap) {
-                fromDB.push({ id, ...snap[id] });
-            }
-            setLoading(false);
-            setCarMaintenances(fromDB);
-        })
-    }
 
     const addFueling = (fueling) => {
         try {
@@ -192,6 +151,7 @@ export default function Car() {
                                 />
                             ) : (<></>)
                         }
+                        <Counter counter={fuelingsCounter} text={t('amount')} list={carFuelings} originalList={originalCarFuelings} />
                         {
                             carFuelings != null && carFuelings.length > 0 ? (
                                 <CarFuelings
@@ -231,6 +191,7 @@ export default function Car() {
                     {/* Maintenances Start */}
 
                     <>
+                        <Counter counter={maintenancesCounter} text={t('amount')} list={carMaintenances} originalList={originalCarMaintenances} />
                         {
                             carMaintenances != null && carMaintenances.length > 0 ? (
                                 <CarMaintenances
