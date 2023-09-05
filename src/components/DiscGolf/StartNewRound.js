@@ -19,12 +19,10 @@ export default function StartNewRound() {
    const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
 
    //fetch tracks
-   const { data: tracks, setData: setTracks,
-      originalData: originalTracks, counter } = useFetch(Constants.DB_DISC_GOLF_TRACKS);
+   const { originalData: originalTracks } = useFetch(Constants.DB_DISC_GOLF_TRACKS);
 
    //fetch people for players
-   const { data: people, setData: setPeople,
-      originalData: originalPeople, counter: peopleCounter } = useFetch(Constants.DB_PEOPLE);
+   const { originalData: originalPeople } = useFetch(Constants.DB_PEOPLE);
 
    //states for tack
    const [linkedTrackName, setLinkedTrackName] = useState('');
@@ -43,10 +41,8 @@ export default function StartNewRound() {
    const { currentUser } = useAuth();
 
    //alert
-   const [showMessage, setShowMessage] = useState(false);
-   const [message] = useState('');
-   const [showError, setShowError] = useState(false);
-   const [error, setError] = useState('');
+   const [setShowError] = useState(false);
+   const [setError] = useState('');
 
    const inputRef = useRef();
    const inputPlayerRef = useRef();
@@ -122,14 +118,14 @@ export default function StartNewRound() {
    }
 
    const selectedPlayerChanged = (player) => {
-      if (selectedPlayers.filter(x => x.id == player.id).length < 1) {
+      if (selectedPlayers.filter(x => x.id === player.id).length < 1) {
          var result = [...selectedPlayers, { ...player }];
          setSelectedPlayers(result);
       }
    }
 
    const deletePlayer = (playerID) => {
-      var newPlayerArray = selectedPlayers.filter(x => x.id != playerID);
+      var newPlayerArray = selectedPlayers.filter(x => x.id !== playerID);
       setSelectedPlayers(newPlayerArray);
    }
 

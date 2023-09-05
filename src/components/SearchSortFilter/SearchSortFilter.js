@@ -265,6 +265,8 @@ export default function SearchSortFilter({ onSet,
                     newList.reverse();
                 }
                 break;
+            default: 
+                break;
         }
         return newList;
     }
