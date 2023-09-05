@@ -102,6 +102,8 @@ export default function SearchSortFilter({ onSet,
                 case FilterMode.Title:
                     newList = filterCheckText(newList, "title", searchString);
                     break;
+                default:
+                    break;
             }
         }
         if (searchStringFinnishName !== "") {

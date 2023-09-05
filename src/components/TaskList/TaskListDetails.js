@@ -59,18 +59,11 @@ export default function TaskListDetails() {
 
   //load data
   useEffect(() => {
-    let cancel = false;
-
     const getTasks = async () => {
       await fetchTasksFromFirebase();
     }
     getTasks();
-
-    return () => {
-      cancel = true;
-    }
   }, [])
-
 
   const fetchTasksFromFirebase = async () => {
     const dbref = await child(ref(db, Constants.DB_TASKS), params.id);

@@ -32,7 +32,7 @@ export default function Logo() {
 
     return (
 
-        <img id="logo" onClick={() => navigate('/')}
+        <img alt="logo" id="logo" onClick={() => navigate('/')}
             src={getLogoSource()}
             onMouseOver={e => (e.currentTarget.src = getLogoSourceHover())}
             onMouseOut={e => (e.currentTarget.src = getLogoSource())}

@@ -168,20 +168,20 @@ export default function Recipe({ recipeType, translation, recipe, onDelete }) {
             }
             <StarRating starCount={recipe.stars} />
             {
-                editable && (
+                editable && ((
                     recipeType === RecipeTypes.Food && (
                         <AddRecipe
                             showLabels={false}
                             recipeID={recipe.id}
                             onClose={() => setEditable(false)}
-                            onSave={updateRecipe} />) ||
-                    recipeType === RecipeTypes.Drink && (
+                            onSave={updateRecipe} />)) ||
+                    (recipeType === RecipeTypes.Drink && (
                         <AddDrink
                             showLabels={false}
                             drinkID={recipe.id}
                             onClose={() => setEditable(false)}
                             onSave={updateRecipe} />
-                    )
+                    ))
                 )
             }
         </div>

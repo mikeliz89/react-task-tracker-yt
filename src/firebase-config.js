@@ -29,7 +29,7 @@ export const storage = getStorage(app);
 
 //App check for production
 if (process.env.NODE_ENV === 'production') {
-  const appCheck = initializeAppCheck(app, {
+  initializeAppCheck(app, {
     provider: new ReCaptchaV3Provider(process.env.REACT_APP_FIREBASE_SITE_KEY),
 
     // Optional argument. If true, the SDK automatically refreshes App Check
@@ -43,7 +43,7 @@ export async function uploadProfilePic(file, currentUser, setLoading) {
   const fileRef = ref(storage, "avatars/" + currentUser.uid + '.png');
 
   setLoading(true);
-  let snapshot = await uploadBytes(fileRef, file);
+  await uploadBytes(fileRef, file);
 
   const _photoURL = await getDownloadURL(fileRef)
 
