@@ -29,6 +29,7 @@ import AddMovement from './components/Exercises/AddMovement';
 import ExerciseDetails from './components/Exercises/ExerciseDetails';
 import ManageMovements from './components/Exercises/ManageMovements';
 import MovementDetails from './components/Exercises/MovementDetails';
+import ManageExerciseLists from './components/Exercises/ManageExerciseLists';
 //Recipe
 import ManageFoodItems from './components/Recipe/ManageFoodItems';
 import ManageRecipes from './components/Recipe/ManageRecipes';
@@ -100,7 +101,6 @@ import ManageProgramming from './components/Programming/ManageProgramming';
 import ManageShoppingLists from './components/ShoppingList/ManageShoppingLists';
 import { useTheme } from './contexts/ThemeContext';
 //Other lists
-import Lists from './components/Lists/Lists';
 import ManageLists from './components/Lists/ManageLists';
 //People / person
 import ManagePeople from './components/People/ManagePeople';
@@ -199,6 +199,7 @@ function App() {
             <Route path={Constants.NAVIGATION_ADD_MOVEMENT} element={<PrivateRoute><AddMovement /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_EXERCISE + '/:id'} element={<PrivateRoute><ExerciseDetails /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MOVEMENT + '/:id'} element={<PrivateRoute><MovementDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_MANAGE_EXERCISE_LISTS} element={<PrivateRoute><ManageExerciseLists /></PrivateRoute>} />
             {/* Exercises */}
             {/* BMI */}
             <Route path={Constants.NAVIGATION_BMICALCULATOR} element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
@@ -259,7 +260,6 @@ function App() {
             <Route path={Constants.NAVIGATION_MANAGE_PROGRAMMING} element={<PrivateRoute><ManageProgramming /></PrivateRoute>} />
             {/* Programming */}
             {/* Other lists */}
-            <Route path={Constants.NAVIGATION_MANAGE_LISTS} element={<PrivateRoute><Lists /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_LISTS} element={<PrivateRoute><ManageLists /></PrivateRoute>} />
             {/* Other lists */}
             {/* Links */}

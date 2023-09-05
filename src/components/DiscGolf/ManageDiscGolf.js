@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import * as Constants from '../../utils/Constants';
-import { ButtonGroup, Row } from 'react-bootstrap';
+import { ButtonGroup, Row, Col } from 'react-bootstrap';
 import GoBackButton from '../Buttons/GoBackButton';
 import { Link } from 'react-router-dom';
 import PageContentWrapper from '../Site/PageContentWrapper';
@@ -36,6 +36,8 @@ export default function ManageDiscGolf() {
                </Link>
             </ButtonGroup>
          </Row>
+
+         <hr />
 
          <CenterWrapper>
             <Link to={Constants.NAVIGATION_DISC_GOLF_START_NEW_ROUND} className='btn btn-primary'>

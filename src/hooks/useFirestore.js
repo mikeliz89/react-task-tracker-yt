@@ -5,7 +5,7 @@ import { db } from '../firebase-config';
 const useFireStore = (collection, url, objectID) => {
 
     const [docs, setDocs] = useState([]);
-    const [setCounter] = useState(0);
+    const [counter, setCounter] = useState(0);
 
     useEffect(() => {
         let cancel = false;

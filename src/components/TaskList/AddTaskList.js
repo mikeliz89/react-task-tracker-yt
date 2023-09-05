@@ -23,21 +23,20 @@ export default function AddTaskList({ taskListID, onSave, onClose, showLabels, d
             const getTaskList = async () => {
                 await fetchTaskListFromFirebase(taskListID);
             }
+            const fetchTaskListFromFirebase = async (taskListID) => {
+                getFromFirebaseById(Constants.DB_TASKLISTS, taskListID).then((val) => {
+                    setCreated(val["created"]);
+                    setCreatedBy(val["createdBy"]);
+                    setDescription(val["description"]);
+                    setListType(val["listType"]);
+                    setTitle(val["title"]);
+                });
+            }
             getTaskList();
         } else {
             setTitle(defaultTitle);
         }
-    }, [taskListID]);
-
-    const fetchTaskListFromFirebase = async (taskListID) => {
-        getFromFirebaseById(Constants.DB_TASKLISTS, taskListID).then((val) => {
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setDescription(val["description"]);
-            setListType(val["listType"]);
-            setTitle(val["title"]);
-        });
-    }
+    }, [taskListID, defaultTitle]);
 
     const onSubmit = (e) => {
         e.preventDefault()

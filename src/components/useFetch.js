@@ -41,6 +41,8 @@ const useFetch = (url, listType, objectID, subObjectID) => {
 
     const fetchDataFromFirebase = async () => {
 
+        //console.log("listType", listType);
+
         const fullUrl = getFullUrl();
         //console.log("fetching data from url: ", fullUrl);
         const dbref = ref(db, fullUrl);

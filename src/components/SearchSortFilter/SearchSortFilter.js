@@ -83,11 +83,30 @@ export default function SearchSortFilter({ onSet,
         if (!originalList) {
             return;
         }
+
+        if (originalList.length < 1) {
+            return;
+        }
+
+        if (isEmpty(originalList)) {
+            return;
+        }
+
         let newList = originalList;
         newList = searching(newList);
         newList = filtering(newList);
         newList = sorting(newList);
         onSet(newList);
+    }
+
+    function isEmpty(obj) {
+        for (const prop in obj) {
+            if (Object.hasOwn(obj, prop)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     const searching = (newList) => {
@@ -265,7 +284,7 @@ export default function SearchSortFilter({ onSet,
                     newList.reverse();
                 }
                 break;
-            default: 
+            default:
                 break;
         }
         return newList;
@@ -457,6 +476,8 @@ export default function SearchSortFilter({ onSet,
 }
 
 SearchSortFilter.defaultProps = {
+    //list
+    originalList: null,
     //sorting
     defaultSort: SortMode.Created_ASC,
     showSortByName: false,

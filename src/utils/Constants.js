@@ -171,6 +171,7 @@ export const NAVIGATION_MANAGE_DRINKINPRODUCTS = '/managedrinkingproducts';
 //exercise
 export const NAVIGATION_MANAGE_EXERCISES = '/manageexercises';
 export const NAVIGATION_CREATE_EXERCISE = '/createexercise';
+export const NAVIGATION_MANAGE_EXERCISE_LISTS = '/manageexerciselists';
 //games
 export const NAVIGATION_MANAGE_GAMES = '/managegames';
 export const NAVIGATION_MANAGE_GAMELISTS = '/managegamelists';

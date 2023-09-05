@@ -36,6 +36,7 @@ export default function ManageExercises() {
         <ButtonGroup>
           <GoBackButton />
           <Link to={Constants.NAVIGATION_MANAGE_MOVEMENTS} className='btn btn-primary'>{t('manage_movements_button')}</Link>
+          <Link to={Constants.NAVIGATION_MANAGE_EXERCISE_LISTS} className='btn btn-primary'>{t('manage_exercise_lists_button')}</Link>
         </ButtonGroup>
       </Row>
 

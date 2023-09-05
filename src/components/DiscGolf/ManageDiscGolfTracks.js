@@ -8,6 +8,7 @@ import PageTitle from '../Site/PageTitle';
 import GoBackButton from '../Buttons/GoBackButton';
 import { Link } from 'react-router-dom';
 import CenterWrapper from '../Site/CenterWrapper';
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 
 export default function TracksList() {
 
@@ -15,7 +16,7 @@ export default function TracksList() {
    const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
 
    //fetch data
-   const { data: tracks, loading } = useFetch(Constants.DB_DISC_GOLF_TRACKS);
+   const { data: tracks, originalData: originalTracks, loading, setData: setTracks } = useFetch(Constants.DB_DISC_GOLF_TRACKS);
 
    const deleteTrack = () => {
 
@@ -36,6 +37,16 @@ export default function TracksList() {
                </Link>
             </ButtonGroup>
          </Row>
+
+
+         {
+            originalTracks != null && originalTracks.length > 0 ? (
+               <SearchSortFilter
+                  originalList={originalTracks} onSet={setTracks}
+                  showSortByCreatedDate={true}
+               />
+            ) : (<></>)
+         }
 
          {
             tracks != null && tracks.length > 0 ? (

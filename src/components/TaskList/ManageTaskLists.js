@@ -111,6 +111,10 @@ export default function ManageTaskLists({ listType }) {
           return 'countertext_otherlists';
         case ListTypes.Car:
           return 'countertext_carlists';
+        case ListTypes.Exercises:
+          return 'countertext_exercises';
+        case ListTypes.BackPacking:
+          return 'countertext_backpacking';
         default:
           return 'countertext_tasklists';
       }

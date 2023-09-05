@@ -6,7 +6,7 @@ import { GearCategories } from './Categories';
 import * as Constants from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 
-export default function AddGear ({ gearID, onSave, onClose }) {
+export default function AddGear({ gearID, onSave, onClose }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
@@ -32,17 +32,16 @@ export default function AddGear ({ gearID, onSave, onClose }) {
     }, [gearID]);
 
     useEffect(() => {
+        const sortCategoriesByName = () => {
+            const sortedCategories = [...categories].sort((a, b) => {
+                const aName = t(`gear_category_${a.name}`);
+                const bName = t(`gear_category_${b.name}`);
+                return aName > bName ? 1 : -1;
+            });
+            setCategories(sortedCategories);
+        }
         sortCategoriesByName();
-    }, []);
-
-    const sortCategoriesByName = () => {
-        const sortedCategories = [...categories].sort((a, b) => {
-            const aName = t(`gear_category_${a.name}`);
-            const bName = t(`gear_category_${b.name}`);
-            return aName > bName ? 1 : -1;
-        });
-        setCategories(sortedCategories);
-    }
+    }, [categories, t]);
 
     const fetchGearFromFirebase = async (gearID) => {
         getFromFirebaseById(Constants.DB_BACKPACKING_GEAR, gearID).then((val) => {
