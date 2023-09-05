@@ -11,6 +11,7 @@ import Counter from '../Site/Counter';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
 import useFetch from '../useFetch';
+import Icon from '../Icon';
 
 export default function ManageExercises() {
 
@@ -36,7 +37,12 @@ export default function ManageExercises() {
         <ButtonGroup>
           <GoBackButton />
           <Link to={Constants.NAVIGATION_MANAGE_MOVEMENTS} className='btn btn-primary'>{t('manage_movements_button')}</Link>
-          <Link to={Constants.NAVIGATION_MANAGE_EXERCISE_LISTS} className='btn btn-primary'>{t('manage_exercise_lists_button')}</Link>
+
+          <Link to={Constants.NAVIGATION_MANAGE_EXERCISE_LISTS} className='btn btn-primary'>
+            <Icon name={Constants.ICON_LIST_ALT} color='white' />
+            {t('manage_exercise_lists_button')}
+          </Link>
+          
         </ButtonGroup>
       </Row>
 
