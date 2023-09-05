@@ -8,6 +8,9 @@ import * as Constants from '../../utils/Constants';
 import SortByButton from './SortByButton';
 import SearchTextInput from './SearchTextInput';
 import FilterCheckBox from './FilterCheckBox';
+import Button from '../Buttons/Button';
+import { useToggle } from '../useToggle';
+import Collapse from 'react-bootstrap/Collapse';
 
 export default function SearchSortFilter({ onSet,
     originalList,
@@ -39,6 +42,9 @@ export default function SearchSortFilter({ onSet,
     //filtermode
     filterMode
 }) {
+
+    //toggle
+    const { status: showAll, toggleStatus: toggleShowAll } = useToggle(true);
 
     //search states
     const [searchString, setSearchString] = useState('');
@@ -291,187 +297,192 @@ export default function SearchSortFilter({ onSet,
     }
 
     return (
-        <div className="searchSortFilter">
-            <Form className='form-no-paddings'>
-                <Form.Group as={Row}>
-                    <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
-                    <Col xs={9} sm={10}>
-                        <ButtonGroup>
-                            {
-                                showSortByCreatedDate &&
-                                <SortByButton
-                                    sortBy={sortBy}
-                                    sortModeASC={SortMode.Created_ASC}
-                                    sortModeDESC={SortMode.Created_DESC}
-                                    onSortBy={setSortBy}
-                                    title='created_date' />
-                            }
-                            {
-                                showSortByName &&
-                                <SortByButton
-                                    sortBy={sortBy}
-                                    sortModeASC={SortMode.Name_ASC}
-                                    sortModeDESC={SortMode.Name_DESC}
-                                    onSortBy={setSortBy}
-                                    title='name' />
-                            }
-                            {
-                                showSortByTitle &&
-                                <SortByButton
-                                    sortBy={sortBy}
-                                    sortModeASC={SortMode.Title_ASC}
-                                    sortModeDESC={SortMode.Title_DESC}
-                                    onSortBy={setSortBy}
-                                    title='title' />
-                            }
-                            {
-                                showSortByText &&
-                                <SortByButton
-                                    sortBy={sortBy}
-                                    sortModeASC={SortMode.Text_ASC}
-                                    sortModeDESC={SortMode.Text_DESC}
-                                    onSortBy={setSortBy}
-                                    title='text' />
-                            }
-                            {
-                                showSortByStarRating &&
-                                <SortByButton
-                                    sortBy={sortBy}
-                                    sortModeASC={SortMode.StarRating_ASC}
-                                    sortModeDESC={SortMode.StarRating_DESC}
-                                    onSortBy={setSortBy}
-                                    title='star_rating' />
-                            }
-                            {
-                                showSortByBirthday &&
-                                <SortByButton
-                                    sortBy={sortBy}
-                                    sortModeASC={SortMode.Birthday_ASC}
-                                    sortModeDESC={SortMode.Birthday_DESC}
-                                    onSortBy={setSortBy}
-                                    title='birthday' />
-                            }
-                            {
-                                showSortByPublishYear &&
-                                <SortByButton
-                                    sortBy={sortBy}
-                                    sortModeASC={SortMode.PublishYear_ASC}
-                                    sortModeDESC={SortMode.PublishYear_DESC}
-                                    onSortBy={setSortBy}
-                                    title='publishYear' />
-                            }
-                        </ButtonGroup>
-                    </Col>
-                </Form.Group>
-                {
-                    showSearchByText &&
-                    <SearchTextInput
-                        setSearchString={setSearchString}
-                        placeholderText='placeholder_name'
-                    />
-                }
-                {
-                    showSearchByFinnishName &&
-                    <SearchTextInput
-                        setSearchString={setSearchStringFinnishName}
-                        placeholderText='placeholder_finnishname'
-                    />
-                }
-                {
-                    showSearchByDescription &&
-                    <SearchTextInput
-                        setSearchString={setSearchStringDescription}
-                        placeholderText='placeholder_description'
-                    />
-                }
-                {
-                    showSearchByDay &&
-                    <SearchTextInput
-                        setSearchString={setSearchStringDay}
-                        placeholderText='placeholder_day'
-                    />
-                }
-                {
-                    showSearchByIncredients &&
-                    <SearchTextInput
-                        setSearchString={setSearchStringIncredients}
-                        placeholderText='placeholder_incredients'
-                    />
-                }
-                {
-                    showFilterSeenLive &&
-                    <FilterCheckBox
-                        onSet={setShowOnlySeenLive}
-                        labelText='show_only_seen_live'
-                        id='seenlive'
-                    />
-                }
-                {
-                    showFilterNotHaveSeenLive &&
-                    <FilterCheckBox
-                        onSet={setShowOnlyNotHaveSeenLive}
-                        labelText='show_only_not_have_seen_live'
-                        id='notseenlive'
-                    />
-                }
-                {
-                    showFilterHaveAtHome &&
-                    <FilterCheckBox
-                        onSet={setShowOnlyHaveAtHome}
-                        labelText='show_only_have_at_home'
-                        id='haveathome'
-                    />
-                }
-                {
-                    showFilterNotHaveAtHome &&
-                    <FilterCheckBox
-                        onSet={setShowOnlyNotHaveAtHome}
-                        labelText='show_only_not_have_at_home'
-                        id='nothaveathome'
-                    />
-                }
-                {
-                    showFilterHaveRated &&
-                    <FilterCheckBox
-                        onSet={setShowOnlyHaveRated}
-                        labelText='show_only_have_rated'
-                        id='haverated'
-                    />
-                }
-                {
-                    showFilterNotHaveRated &&
-                    <FilterCheckBox
-                        onSet={setShowOnlyNotHaveRated}
-                        labelText='show_only_not_have_rated'
-                        id='nothaverated'
-                    />
-                }
-                {
-                    showFilterCore &&
-                    <FilterCheckBox
-                        onSet={setShowOnlyCore}
-                        labelText='show_only_core'
-                        id='iscore'
-                    />
-                }
-                {
-                    showFilterReady &&
-                    <FilterCheckBox
-                        onSet={setShowOnlyReady}
-                        labelText='show_only_ready'
-                        id='isready'
-                    />
-                }
-                {
-                    showFilterNotReady &&
-                    <FilterCheckBox
-                        onSet={setShowOnlyNotReady}
-                        labelText='show_only_not_ready'
-                        id='notisready'
-                    />
-                }
-            </Form>
-        </div>
+        <>
+            <Collapse in={showAll} dimension="height">
+                <div className="searchSortFilter">
+                    <Form className='form-no-paddings'>
+                        <Form.Group as={Row}>
+                            <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
+                            <Col xs={9} sm={10}>
+                                <ButtonGroup>
+                                    {
+                                        showSortByCreatedDate &&
+                                        <SortByButton
+                                            sortBy={sortBy}
+                                            sortModeASC={SortMode.Created_ASC}
+                                            sortModeDESC={SortMode.Created_DESC}
+                                            onSortBy={setSortBy}
+                                            title='created_date' />
+                                    }
+                                    {
+                                        showSortByName &&
+                                        <SortByButton
+                                            sortBy={sortBy}
+                                            sortModeASC={SortMode.Name_ASC}
+                                            sortModeDESC={SortMode.Name_DESC}
+                                            onSortBy={setSortBy}
+                                            title='name' />
+                                    }
+                                    {
+                                        showSortByTitle &&
+                                        <SortByButton
+                                            sortBy={sortBy}
+                                            sortModeASC={SortMode.Title_ASC}
+                                            sortModeDESC={SortMode.Title_DESC}
+                                            onSortBy={setSortBy}
+                                            title='title' />
+                                    }
+                                    {
+                                        showSortByText &&
+                                        <SortByButton
+                                            sortBy={sortBy}
+                                            sortModeASC={SortMode.Text_ASC}
+                                            sortModeDESC={SortMode.Text_DESC}
+                                            onSortBy={setSortBy}
+                                            title='text' />
+                                    }
+                                    {
+                                        showSortByStarRating &&
+                                        <SortByButton
+                                            sortBy={sortBy}
+                                            sortModeASC={SortMode.StarRating_ASC}
+                                            sortModeDESC={SortMode.StarRating_DESC}
+                                            onSortBy={setSortBy}
+                                            title='star_rating' />
+                                    }
+                                    {
+                                        showSortByBirthday &&
+                                        <SortByButton
+                                            sortBy={sortBy}
+                                            sortModeASC={SortMode.Birthday_ASC}
+                                            sortModeDESC={SortMode.Birthday_DESC}
+                                            onSortBy={setSortBy}
+                                            title='birthday' />
+                                    }
+                                    {
+                                        showSortByPublishYear &&
+                                        <SortByButton
+                                            sortBy={sortBy}
+                                            sortModeASC={SortMode.PublishYear_ASC}
+                                            sortModeDESC={SortMode.PublishYear_DESC}
+                                            onSortBy={setSortBy}
+                                            title='publishYear' />
+                                    }
+                                </ButtonGroup>
+                            </Col>
+                        </Form.Group>
+                        {
+                            showSearchByText &&
+                            <SearchTextInput
+                                setSearchString={setSearchString}
+                                placeholderText='placeholder_name'
+                            />
+                        }
+                        {
+                            showSearchByFinnishName &&
+                            <SearchTextInput
+                                setSearchString={setSearchStringFinnishName}
+                                placeholderText='placeholder_finnishname'
+                            />
+                        }
+                        {
+                            showSearchByDescription &&
+                            <SearchTextInput
+                                setSearchString={setSearchStringDescription}
+                                placeholderText='placeholder_description'
+                            />
+                        }
+                        {
+                            showSearchByDay &&
+                            <SearchTextInput
+                                setSearchString={setSearchStringDay}
+                                placeholderText='placeholder_day'
+                            />
+                        }
+                        {
+                            showSearchByIncredients &&
+                            <SearchTextInput
+                                setSearchString={setSearchStringIncredients}
+                                placeholderText='placeholder_incredients'
+                            />
+                        }
+                        {
+                            showFilterSeenLive &&
+                            <FilterCheckBox
+                                onSet={setShowOnlySeenLive}
+                                labelText='show_only_seen_live'
+                                id='seenlive'
+                            />
+                        }
+                        {
+                            showFilterNotHaveSeenLive &&
+                            <FilterCheckBox
+                                onSet={setShowOnlyNotHaveSeenLive}
+                                labelText='show_only_not_have_seen_live'
+                                id='notseenlive'
+                            />
+                        }
+                        {
+                            showFilterHaveAtHome &&
+                            <FilterCheckBox
+                                onSet={setShowOnlyHaveAtHome}
+                                labelText='show_only_have_at_home'
+                                id='haveathome'
+                            />
+                        }
+                        {
+                            showFilterNotHaveAtHome &&
+                            <FilterCheckBox
+                                onSet={setShowOnlyNotHaveAtHome}
+                                labelText='show_only_not_have_at_home'
+                                id='nothaveathome'
+                            />
+                        }
+                        {
+                            showFilterHaveRated &&
+                            <FilterCheckBox
+                                onSet={setShowOnlyHaveRated}
+                                labelText='show_only_have_rated'
+                                id='haverated'
+                            />
+                        }
+                        {
+                            showFilterNotHaveRated &&
+                            <FilterCheckBox
+                                onSet={setShowOnlyNotHaveRated}
+                                labelText='show_only_not_have_rated'
+                                id='nothaverated'
+                            />
+                        }
+                        {
+                            showFilterCore &&
+                            <FilterCheckBox
+                                onSet={setShowOnlyCore}
+                                labelText='show_only_core'
+                                id='iscore'
+                            />
+                        }
+                        {
+                            showFilterReady &&
+                            <FilterCheckBox
+                                onSet={setShowOnlyReady}
+                                labelText='show_only_ready'
+                                id='isready'
+                            />
+                        }
+                        {
+                            showFilterNotReady &&
+                            <FilterCheckBox
+                                onSet={setShowOnlyNotReady}
+                                labelText='show_only_not_ready'
+                                id='notisready'
+                            />
+                        }
+                    </Form>
+                </div>
+            </Collapse>
+            <Button text={showAll ? t('hide_search') : t('show_search')} onClick={() => toggleShowAll()} />
+        </>
     )
 }
 

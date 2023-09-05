@@ -717,6 +717,8 @@
     "searchsortfilter": {
         "birthday": "Syntymäpäivä",
         "created_date": "Luontipvm",
+        "hide_search": "Piilota haku",
+        "show_search": "Näytä haku",
         "name": "Nimi",
         "placeholder_name": "Nimi",
         "placeholder_description": "Kuvaus",

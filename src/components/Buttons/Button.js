@@ -3,7 +3,7 @@ import Icon from '../Icon';
 
 export default function Button({ disabled, color, text, onClick, className,
     secondIconName, type, iconName, iconColor, disableStyle,
-    title
+    title, textcolor
 }) {
     return (
         <button
@@ -12,7 +12,7 @@ export default function Button({ disabled, color, text, onClick, className,
             type={type}
             onClick={onClick}
             //jos class saveBtn niin ei styleä
-            style={className.includes('saveBtn') || disableStyle ? {} : { backgroundColor: color, color: 'white' }}
+            style={className.includes('saveBtn') || disableStyle ? {} : { backgroundColor: color, color: textcolor }}
             className={className}>
             <Icon name={iconName} color={iconColor} />
             <Icon name={secondIconName} color={iconColor} />
@@ -23,8 +23,8 @@ export default function Button({ disabled, color, text, onClick, className,
 Button.defaultProps = {
     //strings
     color: 'steelblue',
-    textcolor: 'white',
     className: 'btn',
+    textcolor: 'white',
     title: '',
     type: 'button',
     //icons
@@ -38,10 +38,11 @@ Button.defaultProps = {
 
 Button.propTypes = {
     //strings
-    title: PropTypes.string,
-    text: PropTypes.string,
     color: PropTypes.string,
     className: PropTypes.string,
+    textcolor: PropTypes.string,
+    title: PropTypes.string,
+    text: PropTypes.string,
     type: PropTypes.string,
     //icons
     iconName: PropTypes.string,
