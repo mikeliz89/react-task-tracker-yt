@@ -155,6 +155,7 @@ export const NAVIGATION_DRINKINGPRODUCT = '/drinkingproduct';
 export const NAVIGATION_EXERCISE = '/exercise';
 export const NAVIGATION_MANAGE_FOODITEMS = '/managefooditems';
 export const NAVIGATION_FORGOT_PASSWORD = '/forgot-password';
+export const NAVIGATION_GAME = '/game';
 export const NAVIGATION_GAMES = '/games';
 export const NAVIGATION_GEAR = '/gear';
 export const NAVIGATION_LINKSLIST = '/linkslist';

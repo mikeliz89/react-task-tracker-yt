@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { Row, ButtonGroup, Col } from 'react-bootstrap';
+import { Row, ButtonGroup, Col, Modal } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
@@ -19,8 +19,9 @@ import { getMusicFormatNameByID } from '../../utils/ListUtils';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
 import useFetch from '../useFetch';
+import { useToggle } from '../useToggle';
 
-export default function MusicDetails() {
+export default function RecordDetails() {
 
     //params
     const params = useParams();
@@ -34,11 +35,11 @@ export default function MusicDetails() {
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
-    //states
-    const [showEdit, setShowEdit] = useState(false);
-
     //auth
     const { currentUser } = useAuth();
+
+    //modal
+    const { status: showEdit, toggleStatus: toggleShowEdit } = useToggle();
 
     //fetch data
     const { data: record, loading } = useFetch(Constants.DB_MUSIC_RECORDS, "", params.id);
@@ -87,6 +88,7 @@ export default function MusicDetails() {
     return loading ? (
         <h3>{t('loading')}</h3>
     ) : (
+
         <PageContentWrapper>
             <Row>
                 <ButtonGroup>
@@ -95,7 +97,7 @@ export default function MusicDetails() {
                         iconName={Constants.ICON_EDIT}
                         text={showEdit ? t('button_close') : ''}
                         color={showEdit ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
-                        onClick={() => setShowEdit(!showEdit)} />
+                        onClick={() => toggleShowEdit()} />
                 </ButtonGroup>
             </Row>
 
@@ -119,11 +121,18 @@ export default function MusicDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
-            {showEdit &&
-                <AddRecord onSave={updateRecord} recordID={params.id} onClose={() => setShowEdit(false)} />
-            }
+            <Modal show={showEdit} onHide={toggleShowEdit}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_edit_record')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddRecord onSave={updateRecord} recordID={params.id} onClose={() => toggleShowEdit()} />
+                </Modal.Body>
+            </Modal>
+
             <hr />
             <ImageComponent url={Constants.DB_MUSIC_IMAGES} objID={params.id} />
             <CommentComponent objID={params.id} url={Constants.DB_MUSIC_COMMENTS} onSave={addCommentToRecord} />

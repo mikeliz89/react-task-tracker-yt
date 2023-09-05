@@ -71,17 +71,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ManageCarLists from './components/Car/ManageCarLists';
 import Car from './components/Car/Car';
 //Music
+import RecordDetails from './components/Music/RecordDetails';
 import BandDetails from './components/Music/BandDetails';
 import EventDetails from './components/Music/EventDetails';
 import ManageMusicBands from './components/Music/ManageMusicBands';
 import ManageMusicEvents from './components/Music/ManageMusicEvents';
 import ManageMusicLists from './components/Music/ManageMusicLists';
 import ManageMusicRecords from './components/Music/ManageMusicRecords';
-import MusicDetails from './components/Music/MusicDetails';
 //Games
 import Games from './components/Games/Games';
 import ManageGames from './components/Games/ManageGames';
 import ManageGameLists from './components/Games/ManageGameLists';
+import GameDetails from './components/Games/GameDetails';
 //Disc Golf
 import ManageDiscGolf from './components/DiscGolf/ManageDiscGolf';
 import ManageDiscGolfTracks from './components/DiscGolf/ManageDiscGolfTracks';
@@ -231,7 +232,7 @@ function App() {
             <Route path={Constants.NAVIGATION_MANAGE_MUSIC_BANDS} element={<PrivateRoute><ManageMusicBands /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_MUSIC_EVENTS} element={<PrivateRoute><ManageMusicEvents /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_MUSICLISTS} element={<PrivateRoute><ManageMusicLists /></PrivateRoute>} />
-            <Route path={Constants.NAVIGATION_MUSIC_RECORD + '/:id'} element={<PrivateRoute><MusicDetails /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_MUSIC_RECORD + '/:id'} element={<PrivateRoute><RecordDetails /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MUSIC_EVENT + '/:id'} element={<PrivateRoute><EventDetails /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MUSIC_BAND + '/:id'} element={<PrivateRoute><BandDetails /></PrivateRoute>} />
             {/* Music */}
@@ -239,6 +240,7 @@ function App() {
             <Route path={Constants.NAVIGATION_GAMES} element={<PrivateRoute><Games /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_GAMES} element={<PrivateRoute><ManageGames /></PrivateRoute>} />
             <Route path={Constants.NAVIGATION_MANAGE_GAMELISTS} element={<PrivateRoute><ManageGameLists /></PrivateRoute>} />
+            <Route path={Constants.NAVIGATION_GAME + '/:id'} element={<PrivateRoute><GameDetails /></PrivateRoute>} />
             {/* Games */}
             {/* Disc Golf */}
             <Route path={Constants.NAVIGATION_MANAGE_DISC_GOLF} element={<PrivateRoute><ManageDiscGolf /></PrivateRoute>} />

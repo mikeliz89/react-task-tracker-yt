@@ -18,6 +18,8 @@ import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AddBand from './AddBand';
 import AccordionElement from '../AccordionElement';
 import useFetch from '../useFetch';
+import { Modal } from 'react-bootstrap';
+import { useToggle } from '../useToggle';
 
 export default function BandDetails() {
 
@@ -33,8 +35,8 @@ export default function BandDetails() {
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
 
-    //states
-    const [showEdit, setShowEdit] = useState(false);
+    //modal
+    const { status: showEdit, toggleStatus: toggleShowEdit } = useToggle();
 
     //auth
     const { currentUser } = useAuth();
@@ -94,7 +96,7 @@ export default function BandDetails() {
                         iconName={Constants.ICON_EDIT}
                         text={showEdit ? t('button_close') : ''}
                         color={showEdit ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
-                        onClick={() => setShowEdit(!showEdit)} />
+                        onClick={() => toggleShowEdit()} />
                 </ButtonGroup>
             </Row>
 
@@ -113,11 +115,18 @@ export default function BandDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
-            {showEdit &&
-                <AddBand onSave={updateBand} bandID={params.id} onClose={() => setShowEdit(false)} />
-            }
+            <Modal show={showEdit} onHide={toggleShowEdit}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_edit_band')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddBand onSave={updateBand} bandID={params.id} onClose={() => toggleShowEdit()} />
+                </Modal.Body>
+            </Modal>
+
             <hr />
             <ImageComponent url={Constants.DB_MUSIC_BAND_IMAGES} objID={params.id} />
             <CommentComponent objID={params.id} url={Constants.DB_MUSIC_BAND_COMMENTS} onSave={addCommentToBand} />

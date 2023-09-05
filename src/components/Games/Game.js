@@ -78,7 +78,7 @@ export default function Game({ game, onDelete, onEdit }) {
             }
             {!editable &&
                 <p>
-                    <Link className='btn btn-primary' to={`${Constants.NAVIGATION_GAMES}/${game.id}`}>{t('view_details')}</Link>
+                    <Link className='btn btn-primary' to={`${Constants.NAVIGATION_GAME}/${game.id}`}>{t('view_details')}</Link>
                 </p>
             }
             <StarRating starCount={game.stars} />

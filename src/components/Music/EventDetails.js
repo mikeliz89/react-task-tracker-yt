@@ -21,6 +21,8 @@ import FoundItems from '../Selectors/FoundItems';
 import EventBands from './EventBands';
 import useFetch from '../useFetch';
 import useFetchChildren from '../useFetchChildren';
+import { Modal } from 'react-bootstrap';
+import { useToggle } from '../useToggle';
 
 export default function EventDetails() {
 
@@ -34,7 +36,6 @@ export default function EventDetails() {
     const [error, setError] = useState('');
 
     //states
-    const [showEdit, setShowEdit] = useState(false);
     const [showLinkBands, setShowLinkBands] = useState(false);
     const [linkedBandName, setLinkedBandName] = useState('');
     const [foundBands, setFoundBands] = useState([]);
@@ -49,6 +50,9 @@ export default function EventDetails() {
     const { originalData: originalBands } = useFetch(Constants.DB_MUSIC_BANDS);
     const { data: event, loading } = useFetch(Constants.DB_MUSIC_EVENTS, "", params.id);
     const { data: eventBands } = useFetchChildren(Constants.DB_MUSIC_EVENT_BANDS, params.id);
+
+    //modal
+    const { status: showEdit, toggleStatus: toggleShowEdit } = useToggle();
 
     const inputRef = useRef();
 
@@ -144,7 +148,7 @@ export default function EventDetails() {
                         iconName={Constants.ICON_EDIT}
                         text={showEdit ? t('button_close') : ''}
                         color={showEdit ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
-                        onClick={() => setShowEdit(!showEdit)} />
+                        onClick={() => toggleShowEdit()} />
                 </ButtonGroup>
             </Row>
 
@@ -202,9 +206,14 @@ export default function EventDetails() {
                 variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
-            {showEdit &&
-                <AddEvent onSave={updateEvent} eventID={params.id} onClose={() => setShowEdit(false)} />
-            }
+            <Modal show={showEdit} onHide={toggleShowEdit}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_edit_event')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddEvent onSave={updateEvent} eventID={params.id} onClose={() => toggleShowEdit()} />
+                </Modal.Body>
+            </Modal>
 
             <hr />
 
