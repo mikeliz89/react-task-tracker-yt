@@ -16,16 +16,17 @@ export default function ChangeType({ taskList, onSave, onClose }) {
 
     //load data
     useEffect(() => {
-        const sortCategoriesByName = () => {
-            const sortedCategories = [...categories].sort((a, b) => {
-                const aName = t(`category_${a.name}`);
-                const bName = t(`category_${b.name}`);
-                return aName > bName ? 1 : -1;
-            });
-            setCategories(sortedCategories);
-        }
         sortCategoriesByName();
-    }, [t, categories]);
+    }, []);
+
+    const sortCategoriesByName = () => {
+        const sortedCategories = [...categories].sort((a, b) => {
+            const aName = t(`category_${a.name}`);
+            const bName = t(`category_${b.name}`);
+            return aName > bName ? 1 : -1;
+        });
+        setCategories(sortedCategories);
+    }
 
     useEffect(() => {
         if (taskList != null) {

@@ -130,8 +130,6 @@ export default function TaskListDetails() {
     const updates = {};
     updates[`${Constants.DB_TASKLISTS}/${taskListID}`] = taskList;
     updateToFirebase(updates);
-
-    toggleShowTaskList();
   }
 
   async function archiveTaskList(taskList) {
