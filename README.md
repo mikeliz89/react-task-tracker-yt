@@ -108,6 +108,12 @@ firebase login (once at the start of the project)
 ### Firebase continuous integration deployment
 firebase deploy
 
+list firebase projects
+firebase projects:list
+
+change target project 
+firebase use [projectID]
+
 ### Firebase authentication
 https://www.youtube.com/watch?v=PKwu15ldZ7k 
 
