@@ -81,7 +81,8 @@ export default function ManagePeople() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={Constants.VARIANT_SUCCESS}
+                onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             <Modal show={showAddPerson} onHide={toggleAddPerson}>

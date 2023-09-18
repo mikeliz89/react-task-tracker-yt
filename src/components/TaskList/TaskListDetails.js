@@ -210,8 +210,9 @@ export default function TaskListDetails() {
             iconName={Constants.ICON_EDIT}
             text={showEditTaskList ? t('button_close') : ''}
             color={showEditTaskList ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
-            onClick={() => toggleShowTaskList()} />
-          <Button color="#545454" iconName={Constants.ICON_ARCHIVE}
+            onClick={() => toggleShowTaskList()}
+          />
+          <Button color={Constants.COLOR_BUTTON_GRAY} iconName={Constants.ICON_ARCHIVE}
             onClick={() => {
               if (window.confirm(t('archive_list_confirm_message'))) {
                 archiveTaskList(taskList);

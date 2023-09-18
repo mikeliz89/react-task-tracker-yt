@@ -25,7 +25,7 @@ export default function RecipeHistories({ dbUrl, translation, recipeHistories, r
 
     return (
         <div>
-            <PageTitle iconName={Constants.ICON_HISTORY} iconColor='gray'
+            <PageTitle iconName={Constants.ICON_HISTORY} iconColor={Constants.COLOR_GRAY}
                 isSubTitle={true}
                 title={t('recipehistory_title') + (counter > 0 ? ' (' + counter + ')' : '')} />
             {recipeHistories.map((recipeHistory) => (

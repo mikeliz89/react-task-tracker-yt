@@ -121,7 +121,8 @@ export default function DrinkingProductDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => {
+                variant={Constants.VARIANT_SUCCESS}
+                onClose={() => {
                     setShowMessage(false); setShowError(false);
                 }}
             />

@@ -26,7 +26,7 @@ export default function BmiCalculator() {
     const { currentUser } = useAuth();
 
     //states
-    const [setBMI] = useState(0);
+    const [bmi, setBMI] = useState(0);
     const [height, setHeight] = useState();
     const [weight, setWeight] = useState();
 
@@ -114,7 +114,7 @@ export default function BmiCalculator() {
                     <GoBackButton />
                     <Button
                         iconName={Constants.ICON_WEIGHT}
-                        color="#545454"
+                        color={Constants.COLOR_BUTTON_GRAY}
                         text={t('button_weight_history')}
                         onClick={() => navigate(Constants.NAVIGATION_WEIGHTHISTORY)} />
                 </ButtonGroup>
@@ -122,7 +122,8 @@ export default function BmiCalculator() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='primary' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant={Constants.VARIANT_PRIMARY} onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="bmiCalculatorForm-Height">

@@ -79,11 +79,11 @@ export default function ManageDrinks() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Link to={Constants.NAVIGATION_MANAGE_DRINKINPRODUCTS} className='btn btn-primary'>
-                        <Icon name={Constants.ICON_WINE} color='white' />
+                        <Icon name={Constants.ICON_WINE} color={Constants.COLOR_WHITE} />
                         {t('button_manage_drinkingproducts')}
                     </Link>
                     <Link to={Constants.NAVIGATION_MANAGE_DRINKLISTS} className='btn btn-primary'>
-                        <Icon name={Constants.ICON_LIST_ALT} color='white' />
+                        <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
                         {t('button_drinklists')}
                     </Link>
                 </ButtonGroup>
@@ -91,7 +91,7 @@ export default function ManageDrinks() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success'
+                variant={Constants.VARIANT_SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 

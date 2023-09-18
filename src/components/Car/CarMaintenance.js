@@ -37,7 +37,7 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
                         <Icon
                             name={Constants.ICON_EDIT}
                             className={Constants.CLASSNAME_EDITBTN}
-                            style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
+                            style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                             onClick={() => editable ? setEditable(false) : setEditable(true)} />
                         <Icon
                             name={Constants.ICON_DELETE}

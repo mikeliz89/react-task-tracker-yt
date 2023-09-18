@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import Icon from '../Icon';
+import * as Constants from '../../utils/Constants';
 
 export default function Button({ disabled, color, text, onClick, className,
     secondIconName, type, iconName, iconColor, disableStyle,
@@ -22,9 +23,9 @@ export default function Button({ disabled, color, text, onClick, className,
 
 Button.defaultProps = {
     //strings
-    color: 'steelblue',
+    color: Constants.COLOR_STEELBLUE,
     className: 'btn',
-    textcolor: 'white',
+    textcolor: Constants.COLOR_WHITE,
     title: '',
     type: 'button',
     //icons

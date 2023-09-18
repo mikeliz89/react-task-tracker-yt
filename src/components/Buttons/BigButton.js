@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Icon from '../Icon';
+import * as Constants from '../../utils/Constants';
 
 export default function BigButton({ color, textcolor, text, onClick, textBackgroundColor,
     imageName, comingsoon, iconName, iconColor }) {
@@ -20,13 +21,13 @@ export default function BigButton({ color, textcolor, text, onClick, textBackgro
                     { backgroundColor: 'rgba(0, 0, 0, 0)', color: textcolor }}
                 className='bigBtn'>
                 <div style={{ backgroundColor: textBackgroundColor, paddingTop: '5px', paddingBottom: '5px' }}>
-                    <span style={comingsoon ? { color: 'gray' } : {}}>
+                    <span style={comingsoon ? { color: Constants.COLOR_GRAY } : {}}>
                         <b>
                             <Icon name={iconName} color={iconColor} />
                             {text}
                         </b>
                     </span>
-                    {comingsoon && <div style={{ color: 'gray' }}>{t('coming_soon')}</div>}
+                    {comingsoon && <div style={{ color: Constants.COLOR_GRAY }}>{t('coming_soon')}</div>}
                 </div>
             </button>
         </div>
@@ -34,9 +35,9 @@ export default function BigButton({ color, textcolor, text, onClick, textBackgro
 }
 
 BigButton.defaultProps = {
-    color: 'steelblue',
+    color: Constants.COLOR_STEELBLUE,
     text: '',
-    textcolor: 'white',
+    textcolor: Constants.COLOR_WHITE,
     textBackgroundColor: 'rgba(255, 255, 255, 0.5)',
     imageName: '',
     iconName: '',

@@ -87,7 +87,8 @@ export default function Signup() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }} 
+            />
 
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="signupFormEmail">

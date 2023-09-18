@@ -30,7 +30,7 @@ export default function ManageBackPacking() {
                     </Link>
 
                     <Link to={Constants.NAVIGATION_MANAGE_BACKPACKINGLISTS} className='btn btn-primary'>
-                        <Icon name={Constants.ICON_LIST_ALT} color='white' />
+                        <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
                         {t('button_manage_backpacking_lists')}
                     </Link>
                 </ButtonGroup>

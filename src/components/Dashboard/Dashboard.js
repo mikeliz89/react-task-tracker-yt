@@ -68,7 +68,7 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_CAR}>
                             <BigButton
                                 imageName="car.jpg"
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#0cb058"
                                 text={t('car')}
                                 iconName={Constants.ICON_CAR}
@@ -78,7 +78,7 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_DRINKS}>
                             <BigButton
                                 imageName="cocktail.jpg"
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#f9a9d5"
                                 text={t('drinks')}
                                 iconName={Constants.ICON_GLASS_MARTINI}
@@ -88,8 +88,8 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_PEOPLE}>
                             <BigButton
                                 imageName="people.jpg"
-                                textcolor="black"
-                                color="white"
+                                textcolor={Constants.COLOR_BLACK}
+                                color={Constants.COLOR_WHITE}
                                 text={t('personlist')}
                                 iconName={Constants.ICON_USER_ALT}
                                 onClick={() => setFromActions()}
@@ -98,7 +98,7 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_EXERCISES}>
                             <BigButton
                                 imageName="exercises.PNG"
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#ef7c1a"
                                 text={t('exercises')}
                                 iconName={Constants.ICON_RUNNING}
@@ -110,8 +110,8 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_LINKSLIST}>
                             <BigButton
                                 imageName="links.jpg"
-                                textcolor="black"
-                                color="white"
+                                textcolor={Constants.COLOR_BLACK}
+                                color={Constants.COLOR_WHITE}
                                 text={t('links_list')}
                                 iconName={Constants.ICON_EXTERNAL_LINK_ALT}
                                 onClick={() => setFromActions()}
@@ -120,7 +120,7 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_BMICALCULATOR}>
                             <BigButton
                                 imageName="calculator.PNG"
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 text={t('bmi_calculator')}
                                 iconName={Constants.ICON_WEIGHT}
                                 onClick={() => setFromActions()}
@@ -129,7 +129,7 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_RECIPES}>
                             <BigButton
                                 imageName="recipes.png"
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#b37401"
                                 text={t('recipes')}
                                 iconName={Constants.ICON_UTENSILS}
@@ -139,7 +139,7 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_BACKPACKING}>
                             <BigButton
                                 imageName="backpacking.jpg"
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#0cb058"
                                 text={t('backpacking')}
                                 iconName={Constants.ICON_CAMPGROUND}
@@ -154,7 +154,7 @@ export default function Dashboard() {
                             <BigButton
                                 imageName="programming.jpg"
                                 iconName={Constants.ICON_LAPTOP}
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#0cb058"
                                 text={t('programming')}
                                 onClick={() => setFromLists()}
@@ -163,7 +163,7 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_SHOPPINGLISTS}>
                             <BigButton
                                 imageName="shoppinglists.png"
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#fcba03"
                                 text={t('shoppinglists')}
                                 iconName={Constants.ICON_CHECK_SQUARE}
@@ -173,7 +173,7 @@ export default function Dashboard() {
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_TASKLISTS}>
                             <BigButton
                                 imageName="tasklists.PNG"
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#fcba03"
                                 text={t('tasklists')}
                                 iconName={Constants.ICON_CHECK_SQUARE}
@@ -182,8 +182,8 @@ export default function Dashboard() {
                         </DashboardItem>
                         <DashboardItem link={Constants.NAVIGATION_MANAGE_LISTS}>
                             <BigButton
-                                textcolor="black"
-                                color="white"
+                                textcolor={Constants.COLOR_BLACK}
+                                color={Constants.COLOR_WHITE}
                                 text={t('other_lists')}
                                 onClick={() => setFromLists()}
                             />
@@ -196,7 +196,7 @@ export default function Dashboard() {
                             <BigButton
                                 imageName="movies.jpg"
                                 iconName={Constants.ICON_MOVIE}
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#0cb058"
                                 text={t('movies')}
                                 onClick={() => setFromMedia()}
@@ -206,7 +206,7 @@ export default function Dashboard() {
                             <BigButton
                                 imageName="games.jpg"
                                 iconName={Constants.ICON_GAMEPAD}
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#0cb058"
                                 text={t('games')}
                                 onClick={() => setFromMedia()}
@@ -216,7 +216,7 @@ export default function Dashboard() {
                             <BigButton
                                 imageName="discgolf.jpg"
                                 iconName={Constants.ICON_GAMEPAD}
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#0cb058"
                                 text={t('discgolf')}
                                 onClick={() => setFromMedia()}
@@ -230,7 +230,7 @@ export default function Dashboard() {
                             <BigButton
                                 imageName="bands.jpg"
                                 iconName={Constants.ICON_MUSIC}
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#0cb058"
                                 text={t('music_bands')}
                                 onClick={() => setFromMusic()}
@@ -240,7 +240,7 @@ export default function Dashboard() {
                             <BigButton
                                 imageName="music.jpg"
                                 iconName={Constants.ICON_MUSIC}
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#0cb058"
                                 text={t('music_records')}
                                 onClick={() => setFromMusic()}
@@ -250,7 +250,7 @@ export default function Dashboard() {
                             <BigButton
                                 imageName="events.jpg"
                                 iconName={Constants.ICON_MUSIC}
-                                textcolor="black"
+                                textcolor={Constants.COLOR_BLACK}
                                 color="#0cb058"
                                 text={t('music_events')}
                                 onClick={() => setFromMusic()}

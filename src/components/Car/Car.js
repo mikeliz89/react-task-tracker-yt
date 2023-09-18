@@ -96,7 +96,7 @@ export default function Car() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Link to={Constants.NAVIGATION_MANAGE_CARLISTS} className='btn btn-primary'>
-                        <Icon name={Constants.ICON_LIST_ALT} color='white' />
+                        <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
                         {t('button_car_lists')}
                     </Link>
                 </ButtonGroup>
@@ -104,7 +104,7 @@ export default function Car() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             <Tabs defaultActiveKey="fuelings"

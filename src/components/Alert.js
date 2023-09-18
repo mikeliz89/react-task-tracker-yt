@@ -10,7 +10,7 @@ export default function Alert({ message, showMessage, showError, error, onClose,
 
     return (
         <>
-            {error && <BootstrapAlert show={showError} variant='danger'>
+            {error && <BootstrapAlert show={showError} variant={Constants.VARIANT_DANGER}>
                 {error}
                 <div className='d-flex justify-content-end'>
                     <Button
@@ -43,7 +43,7 @@ export default function Alert({ message, showMessage, showError, error, onClose,
 }
 
 Alert.defaultProps = {
-    variant: 'success',
+    variant: Constants.VARIANT_SUCCESS,
     message: '',
     error: '',
     showMessage: false,

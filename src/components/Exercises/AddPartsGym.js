@@ -57,7 +57,7 @@ export default function AddPartsGym() {
       <PageTitle title={t('title_gym')} iconName={Constants.ICON_DUMBBELL} />
       <Button
         iconName={Constants.ICON_BURN}
-        color={showAddGymPart ? 'red' : 'steelblue'}
+        color={showAddGymPart ? Constants.COLOR_RED : Constants.COLOR_STEELBLUE}
         text={showAddGymPart ? t('close') : t('gym_parts_add_button')}
         onClick={() => setShowAddGymPart(!showAddGymPart)} />
       {showAddGymPart &&

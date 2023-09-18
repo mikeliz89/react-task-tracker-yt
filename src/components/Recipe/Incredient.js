@@ -27,7 +27,7 @@ export default function Incredient({ dbUrl, translation, incredient, recipeID, o
                     {
                         <RightWrapper>
                             <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                                style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
+                                style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             <Icon name={Constants.ICON_DELETE} className={Constants.CLASSNAME_DELETEBTN}
                                 style={{ color: Constants.COLOR_DELETEBUTTON, cursor: 'pointer', fontSize: '1.2em' }}

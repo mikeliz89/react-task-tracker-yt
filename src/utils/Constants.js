@@ -4,8 +4,23 @@ export const COLOR_ADDBUTTON_OPEN = 'red';
 export const COLOR_DELETEBUTTON = 'red';
 export const COLOR_EDITBUTTON_CLOSED = 'orange';
 export const COLOR_EDITBUTTON_OPEN = 'red';
+export const COLOR_LIGHT_GRAY = 'light-gray';
+export const COLOR_GRAY = 'gray';
+export const COLOR_RED = 'red';
+export const COLOR_STEELBLUE = 'steelblue';
+export const COLOR_WHITE = 'white';
+export const COLOR_BUTTON_GRAY = '#545454';
+export const COLOR_BLACK = 'black';
+
+//Button classess
 export const CLASSNAME_DELETEBTN = 'deleteBtn';
 export const CLASSNAME_EDITBTN = 'editBtn';
+
+//variants
+export const VARIANT_PRIMARY = 'primary';
+export const VARIANT_SUCCESS = 'success';
+export const VARIANT_INFO = 'info';
+export const VARIANT_DANGER = 'danger';
 
 //DATABASE
 export const DB_BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS = '/backpacking-gear-maintenance-instructions';

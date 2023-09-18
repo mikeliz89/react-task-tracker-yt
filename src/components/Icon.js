@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import * as Constants from '../utils/Constants';
 //https://fontawesome.com/v5/docs/web/use-with/react
 
 export default function Icon({ name, color, className, onClick, fontSize, cursor, style }) {
@@ -19,7 +19,7 @@ export default function Icon({ name, color, className, onClick, fontSize, cursor
 
 Icon.defaultProps = {
     name: '',
-    color: 'gray',
+    color: Constants.COLOR_GRAY,
     className: '',
     fontSize: '1em'
 }

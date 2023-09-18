@@ -47,7 +47,7 @@ export default function Recipe({ recipeType, translation, recipe, onDelete }) {
     );
 
     const makeShoppingList = async () => {
-        
+
         const incredients = await fetchIncredientsFromFirebase(recipe.id);
 
         if (incredients && incredients.length > 0) {
@@ -123,12 +123,12 @@ export default function Recipe({ recipeType, translation, recipe, onDelete }) {
         <div className={recipe.isCore === true ? `listContainer coreRecipe` : 'listContainer'}>
             <h5>
                 <span>
-                    <Icon name={getIconName(recipeType, recipe.category)} color='gray' />
+                    <Icon name={getIconName(recipeType, recipe.category)} color={Constants.COLOR_GRAY} />
                     {recipe.title}
                 </span>
                 <RightWrapper>
                     <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                        style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
+                        style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => editable ? setEditable(false) : setEditable(true)} />
                     <Icon name={Constants.ICON_DELETE} className={Constants.CLASSNAME_DELETEBTN}
                         style={{ color: Constants.COLOR_DELETEBUTTON, cursor: 'pointer', fontSize: '1.2em' }}
@@ -139,7 +139,8 @@ export default function Recipe({ recipeType, translation, recipe, onDelete }) {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={Constants.VARIANT_SUCCESS}
+                onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             {recipe.category > 0 ? !editable && (

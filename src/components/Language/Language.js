@@ -32,7 +32,7 @@ export default function Language() {
                 as={ButtonGroup}
                 id="dropdown-basic-languageBtn"
                 title={t('language')}
-                variant='success'>
+                variant={Constants.VARIANT_SUCCESS}>
                 {languages.map(({ code, name, country_code }) => (
                     <Dropdown.Item key={country_code}>
                         <button

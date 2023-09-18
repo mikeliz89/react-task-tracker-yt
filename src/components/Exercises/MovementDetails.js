@@ -39,7 +39,7 @@ export default function MovementDetails() {
 
     //auth
     const { currentUser } = useAuth();
-    
+
     //fetch data
     const { data: movement, loading } = useFetch(Constants.DB_EXERCISE_MOVEMENTS, "", params.id);
 
@@ -95,14 +95,17 @@ export default function MovementDetails() {
                     {t('description') + ': '}{movement.description}
                 </Col>
             </Row>
+            
             <Row>
                 <Col>
                     <StarRatingWrapper stars={movement.stars} onSaveStars={saveStars} />
                 </Col>
             </Row>
+
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
             {showEditMovement &&
                 <AddMovement movementID={params.id} onClose={() => setShowEditMovement(false)} />

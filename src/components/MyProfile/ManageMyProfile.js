@@ -120,7 +120,7 @@ export default function ManageMyProfile() {
     return (
         <PageContentWrapper>
             <GoBackButton />
-            
+
             <PageTitle title={t('title')} />
 
             <RightWrapper>
@@ -131,7 +131,9 @@ export default function ManageMyProfile() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant={Constants.VARIANT_SUCCESS}
+                onClose={() => { setShowMessage(false); setShowError(false); }}
+            />
 
             {/* <p>PhotoUrl: {photoUrl}</p> */}
             <img src={photoUrl} alt='avatar' className='avatar' onClick={() => setSelectedImage(photoUrl)} />

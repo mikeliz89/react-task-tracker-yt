@@ -60,7 +60,7 @@ export default function WeightHistory() {
     return (
         <PageContentWrapper>
             <GoBackButton />
-            <PageTitle title={t('weighthistory')} iconName={Constants.ICON_WEIGHT} iconColor='gray' />
+            <PageTitle title={t('weighthistory')} iconName={Constants.ICON_WEIGHT} iconColor={Constants.COLOR_GRAY} />
             <WeightChart data={historyRows} />
             {/* { <pre>{JSON.stringify(historyRows)}</pre> } */}
             {historyRows

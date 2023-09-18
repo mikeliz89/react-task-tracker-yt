@@ -15,7 +15,7 @@ export default function LinkComponent({ objID, url, onSaveLink }) {
 
     return (
         <>
-            <PageTitle iconName={'external-link-alt'} iconColor='gray'
+            <PageTitle iconName={'external-link-alt'} iconColor={Constants.COLOR_GRAY}
                 title={t('header') + (counter > 0 ? ' (' + counter + ')' : '')}
                 isSubTitle={true} />
             <AddLink onSaveLink={onSaveLink} />

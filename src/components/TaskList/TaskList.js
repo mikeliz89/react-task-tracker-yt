@@ -28,7 +28,7 @@ export default function TaskList({ taskList, archived, onDelete }) {
                 <>
                     <h5>
                         <span>
-                            <Icon name={Constants.ICON_LIST_ALT} color='gray' />
+                            <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_GRAY} />
                             <Link
                                 style={{ textDecoration: 'none' }}
                                 to={archived ? `/tasklistarchive/${taskList.id}` : `/tasklist/${taskList.id}`}>
@@ -39,8 +39,9 @@ export default function TaskList({ taskList, archived, onDelete }) {
                             {
                                 !archived &&
                                 <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                                    style={{ color: 'light-gray', cursor: 'pointer', fontSize: '1.2em' }}
-                                    onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                                    style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
+                                    onClick={() => editable ? setEditable(false) : setEditable(true)}
+                                />
                             }
                             <Icon name={Constants.ICON_DELETE} className={Constants.CLASSNAME_DELETEBTN}
                                 style={{ color: Constants.COLOR_DELETEBUTTON, cursor: 'pointer', fontSize: '1.2em' }}

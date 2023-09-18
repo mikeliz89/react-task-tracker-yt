@@ -64,7 +64,8 @@ export default function ForgotPassword() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant='info' onClose={() => { setShowMessage(false); setShowError(false); }} />
+                variant={Constants.VARIANT_INFO} onClose={() => { setShowMessage(false); setShowError(false); }} 
+            />
 
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="forgotPasswordFormEmail">

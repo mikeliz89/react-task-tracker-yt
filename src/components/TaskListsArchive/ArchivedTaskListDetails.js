@@ -117,7 +117,7 @@ export default function ArchivedTaskListDetails() {
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <Button color="#545454" iconName={Constants.ICON_ARCHIVE}
+          <Button color={Constants.COLOR_BUTTON_GRAY} iconName={Constants.ICON_ARCHIVE}
             onClick={() => {
               if (window.confirm(t('return_from_archive_list_confirm_message'))) {
                 returnFromArchive(taskList);

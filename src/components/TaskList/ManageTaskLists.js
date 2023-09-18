@@ -20,7 +20,7 @@ import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../useToggle';
-import useFetch from '../useFetch'; 
+import useFetch from '../useFetch';
 
 export default function ManageTaskLists({ listType }) {
 
@@ -134,7 +134,10 @@ export default function ManageTaskLists({ listType }) {
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <Button text={t('button_goto_tasklist_archive')} color="#545454" onClick={() => gotoTaskListArchive()} />
+          <Button text={t('button_goto_tasklist_archive')}
+            color={Constants.COLOR_BUTTON_GRAY}
+            onClick={() => gotoTaskListArchive()}
+          />
         </ButtonGroup>
       </Row>
 

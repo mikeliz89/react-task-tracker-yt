@@ -85,7 +85,7 @@ export default function ManageRecipes() {
           <GoBackButton />
           <Link to={Constants.NAVIGATION_MANAGE_FOODITEMS} className='btn btn-primary'>{t('button_manage_fooditems')}</Link>
           <Link to={Constants.NAVIGATION_MANAGE_RECIPELISTS} className='btn btn-primary'>
-            <Icon name={Constants.ICON_LIST_ALT} color='white' />
+            <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
             {t('button_recipe_lists')}
           </Link>
         </ButtonGroup>
@@ -93,7 +93,9 @@ export default function ManageRecipes() {
 
       <Alert message={message} showMessage={showMessage}
         error={error} showError={showError}
-        variant='success' onClose={() => { setShowMessage(false); setShowError(false); }} />
+        variant={Constants.VARIANT_SUCCESS}
+        onClose={() => { setShowMessage(false); setShowError(false); }}
+      />
 
       <Modal show={showAddRecipe} onHide={toggleAddRecipe}>
         <Modal.Header closeButton>
