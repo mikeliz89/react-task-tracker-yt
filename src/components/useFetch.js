@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { db } from '../firebase-config';
 import { ref, onValue } from 'firebase/database';
+import * as Constants from '../utils/Constants';
 
 const useFetch = (url, listType, objectID, subObjectID) => {
 
@@ -63,9 +64,15 @@ const useFetch = (url, listType, objectID, subObjectID) => {
                         (item["listType"] === undefined && listType === 0)) {
                         counterTemp++;
                         fromDB.push({ id, ...snap[id] });
+                    } else if(listType === Constants.LIST_TYPE_COMMON) {
+                        counterTemp++;
+                        fromDB.push({ id, ...snap[id] });
                     }
                 }
             }
+
+            //Data is:
+            //console.log("Data is", fromDB);
 
             //snap didn't contain data, so lets assume snap is the only object
             if (fromDB.length < 1) {
@@ -75,6 +82,9 @@ const useFetch = (url, listType, objectID, subObjectID) => {
                 setOriginalData(snap);
                 return;
             }
+
+            //console.log("Data is", fromDB);
+            //console.log("loading is", loading);
 
             setCounter(counterTemp);
             setLoading(false);
