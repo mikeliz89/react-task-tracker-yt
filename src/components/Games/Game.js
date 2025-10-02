@@ -14,7 +14,7 @@ import AddGame from './AddGame';
 export default function Game({ game, onDelete, onEdit }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_GAMES, { keyPrefix: Constants.TRANSLATION_GAMES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_GAMES });
 
     //states
     const [editable, setEditable] = useState(false);

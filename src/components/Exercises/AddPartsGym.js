@@ -16,7 +16,7 @@ export default function AddPartsGym() {
   const params = useParams();
 
   //translation  
-  const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
   //states
   const [showAddGymPart, setShowAddGymPart] = useState(false);

@@ -5,7 +5,7 @@ import * as Constants from '../../utils/Constants';
 export default function FilterCheckBox({ onSet, labelText, id }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_SEARCHSORTFILTER, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
 
     return (
         <Form.Group as={Row} controlId={'searchSortFilter-CheckBox' + id}>

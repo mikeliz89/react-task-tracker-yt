@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 export default function AddGame({ gameID, onSave, onClose, showLabels }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_GAMES, { keyPrefix: Constants.TRANSLATION_GAMES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_GAMES });
 
     //states
     const [created, setCreated] = useState('');

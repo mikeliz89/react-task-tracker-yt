@@ -13,7 +13,8 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 export default function TracksList() {
 
    //translation
-   const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+   const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
    //fetch data
    const { data: tracks, originalData: originalTracks, loading, setData: setTracks } = useFetch(Constants.DB_DISC_GOLF_TRACKS);
@@ -23,7 +24,7 @@ export default function TracksList() {
    }
 
    return loading ? (
-      <h3>{t('loading')}</h3>
+      <h3>{tCommon("loading")}</h3>
    ) : (
       <PageContentWrapper>
 

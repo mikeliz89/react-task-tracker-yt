@@ -9,7 +9,7 @@ import * as Constants from '../../utils/Constants';
 export default function Exercise({ exercise, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     return (
         <div className='listContainer'>

@@ -1,0 +1,30 @@
+{
+    "dashboard": {
+        "buttons": {
+            "add_new": "Lisää uusi",
+            "backpacking": "Retkeily",
+            "bmi_calculator": "Painoindeksi-laskuri",
+            "car": "Auto",
+            "discgolf": "Frisbeegolf",
+            "drinks": "Drinkit",
+            "exercises": "Liikunta",
+            "games": "Pelit",
+            "links_list": "Linkit",
+            "movies": "Leffat",
+            "music": "Musiikki",
+            "music_bands": "Bändit",
+            "music_records": "Tallenteet",
+            "music_events": "Tapahtumat",
+            "personlist": "Ihmiset",
+            "programming": "Koodaus",
+            "recipes": "Reseptit",
+            "shoppinglists": "Ostoslistat",
+            "tasklists": "Tehtävälistat",
+            "other_lists": "Muut listat",
+            "title_actions": "Toiminnot",
+            "title_lists": "Listat",
+            "title_media": "Media",
+            "title_music": "Musiikki"
+        }
+    }
+}

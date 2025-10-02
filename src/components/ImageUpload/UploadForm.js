@@ -9,7 +9,7 @@ import CenterWrapper from '../Site/CenterWrapper';
 export default function UploadForm({ objectID, imagesUrl }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_UPLOAD_IMAGES, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
 
     //states
     const [file, setFile] = useState(null);

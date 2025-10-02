@@ -14,7 +14,7 @@ export default function SetStarRating({ starCount, onSaveStars, onShow }) {
     const [loading, setLoading] = useState(false);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_STAR_RATING, { keyPrefix: Constants.TRANSLATION_STAR_RATING });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_STAR_RATING });
 
     async function onSubmit(e) {
         e.preventDefault();

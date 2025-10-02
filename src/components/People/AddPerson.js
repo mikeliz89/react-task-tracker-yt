@@ -8,7 +8,7 @@ import { getFromFirebaseById } from '../../datatier/datatier';
 export default function AddPerson({ personID, onSave, onClose }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_PEOPLE, { keyPrefix: Constants.TRANSLATION_PEOPLE });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_PEOPLE });
 
     //states
     const [created, setCreated] = useState('');

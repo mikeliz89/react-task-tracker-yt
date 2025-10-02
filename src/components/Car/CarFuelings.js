@@ -8,7 +8,7 @@ import GasPriceChart from './GasPriceChart';
 export default function CarFuelings({ carFuelings, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
 
     // const mockData = () => {
     //     let data = [{ created: "2022-09-19T17:25:19.586Z", fuelPricePerLiter: "2.10" }]

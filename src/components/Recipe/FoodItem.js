@@ -13,7 +13,7 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
     const [editable, setEditable] = useState(false);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
 
     const markHaveAtHome = () => {
         foodItem["haveAtHome"] = true;

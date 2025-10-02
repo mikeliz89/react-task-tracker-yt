@@ -9,7 +9,7 @@ import RightWrapper from "../Site/RightWrapper";
 export default function LinkInner({ link, objID, linkUrl, onEdit, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LINKS });
 
     //states
     const [editable, setEditable] = useState(false);

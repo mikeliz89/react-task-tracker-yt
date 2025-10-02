@@ -13,7 +13,7 @@ export default function AddComment({ onSave }) {
     const [loading, setLoading] = useState(false);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_COMMENTS, { keyPrefix: Constants.TRANSLATION_COMMENTS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_COMMENTS });
 
     const onSubmit = (e) => {
         e.preventDefault();

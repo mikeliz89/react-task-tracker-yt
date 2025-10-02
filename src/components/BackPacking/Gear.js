@@ -11,7 +11,8 @@ import StarRating from '../StarRating/StarRating';
 export default function Gear({ gear, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //alert
     const [showMessage, setShowMessage] = useState(false);

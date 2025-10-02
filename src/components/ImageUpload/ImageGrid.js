@@ -15,7 +15,7 @@ export default function ImageGrid({ objectID, url, setSelectedImage, onCounterCh
     const [deleted, setDeleted] = useState(null);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_UPLOAD_IMAGES, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
 
     useEffect(() => {
         onCounterChange(docs.length);

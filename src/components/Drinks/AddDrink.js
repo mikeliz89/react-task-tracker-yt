@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 export default function AddDrink({ drinkID, onSave, onClose, showLabels }) {
 
    //translation
-   const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
+   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
    //states
    const [category, setCategory] = useState('');

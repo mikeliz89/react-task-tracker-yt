@@ -31,7 +31,8 @@ export default function ManageTaskLists({ listType }) {
   const { currentUser } = useAuth();
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
   //fetch data
   const { data: taskLists, setData: setTaskLists,
@@ -125,7 +126,7 @@ export default function ManageTaskLists({ listType }) {
   }
 
   return loading ? (
-    <h3>{t('loading')}</h3>
+    <h3>{tCommon("loading")}</h3>
   ) : (
     <PageContentWrapper>
 

@@ -11,7 +11,7 @@ import { updateToFirebaseById } from '../../datatier/datatier';
 export default function TaskList({ taskList, archived, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
     //states
     const [editable, setEditable] = useState(false);

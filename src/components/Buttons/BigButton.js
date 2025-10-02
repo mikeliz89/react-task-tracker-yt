@@ -8,6 +8,7 @@ export default function BigButton({ color, textcolor, text, onClick, textBackgro
 
     //translation
     const { t } = useTranslation();
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //images
     const background = `/images/${imageName}`;

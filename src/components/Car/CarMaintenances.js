@@ -7,7 +7,7 @@ import * as Constants from '../../utils/Constants';
 export default function CarMaintenances({ carMaintenances, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
 
     // const mockData = () => {
     //     let data = [{ created: "2022-09-19T17:25:19.586Z", name: "Jarrunesteiden vaihto", price: 10, }]

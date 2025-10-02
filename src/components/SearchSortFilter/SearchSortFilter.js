@@ -66,7 +66,7 @@ export default function SearchSortFilter({ onSet,
     const [showOnlyNotReady, setShowOnlyNotReady] = useState(false);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_SEARCHSORTFILTER, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
 
     //componentDidMount
     useEffect(() => {

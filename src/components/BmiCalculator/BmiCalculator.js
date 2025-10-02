@@ -17,7 +17,8 @@ import { pushToFirebaseById } from '../../datatier/datatier';
 export default function BmiCalculator() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_BMICALCULATOR, { keyPrefix: Constants.TRANSLATION_BMICALCULATOR });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BMICALCULATOR });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //navigation
     const navigate = useNavigate();

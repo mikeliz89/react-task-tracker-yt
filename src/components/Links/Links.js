@@ -10,7 +10,8 @@ import { removeFromFirebaseById, removeFromFirebaseByIdAndSubId, updateToFirebas
 export default function Links({ url, objID, onCounterChange }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LINKS });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //states
     const [loading, setLoading] = useState(true);
@@ -68,7 +69,7 @@ export default function Links({ url, objID, onCounterChange }) {
     }
 
     return loading ? (
-        <h3>{t('loading')}</h3>
+        <h3>{tCommon("loading")}</h3>
     ) : (
         <div>
             {/* <pre>{JSON.stringify(links)}</pre> */}

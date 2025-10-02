@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 export default function AddBand({ bandID, onSave, onClose, showLabels }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
 
     //states
     const [created, setCreated] = useState('');

@@ -25,7 +25,8 @@ export default function ManageDrinkingProducts() {
     const { currentUser } = useAuth();
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //fetch data
     const { data: drinkingProducts, setData: setDrinkingProducts,
@@ -64,7 +65,7 @@ export default function ManageDrinkingProducts() {
     }
 
     return loading ? (
-        <h3>{t('loading')}</h3>
+        <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
 

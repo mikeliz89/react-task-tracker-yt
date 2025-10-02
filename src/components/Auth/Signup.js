@@ -12,7 +12,8 @@ import * as Constants from '../../utils/Constants';
 export default function Signup() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_AUTH, { keyPrefix: Constants.TRANSLATION_AUTH });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_AUTH });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //states
     const [email, setEmail] = useState('');

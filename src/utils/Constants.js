@@ -256,6 +256,7 @@ export const THEME_BLACK = 'black';
 export const THEME_WHITE = 'white';
 
 //TRANSLATIONS
+export const TRANSLATION = 'translation';
 export const TRANSLATION_ABOUT = 'about';
 export const TRANSLATION_ALERT = 'alert';
 export const TRANSLATION_AUTH = 'auth';
@@ -263,6 +264,7 @@ export const TRANSLATION_BACKPACKING = 'backpacking';
 export const TRANSLATION_BMICALCULATOR = 'bmicalculator';
 export const TRANSLATION_CAR = 'car';
 export const TRANSLATION_COMMENTS = 'comments';
+export const TRANSLATION_COMMON  = 'common';
 export const TRANSLATION_COMMON_BUTTONS = 'common.buttons';
 export const TRANSLATION_DASHBOARD = 'dashboard';
 export const TRANSLATION_DASHBOARD_BUTTONS = 'dashboard.buttons';

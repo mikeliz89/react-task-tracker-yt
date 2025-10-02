@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 export default function SortByButton({ sortBy, sortModeASC, sortModeDESC, title, onSortBy }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_SEARCHSORTFILTER, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
 
     return (
         <>

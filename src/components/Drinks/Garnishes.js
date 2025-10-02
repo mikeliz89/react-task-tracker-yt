@@ -6,7 +6,7 @@ import * as Constants from '../../utils/Constants'
 export default function Garnishes({ garnishes, drinkID, onDelete }) {
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
   return (
     <>

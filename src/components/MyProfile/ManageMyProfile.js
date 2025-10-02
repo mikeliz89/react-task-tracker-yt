@@ -25,7 +25,7 @@ export default function ManageMyProfile() {
     const defaultPhotoUrl = `/images/${imageName}`;
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_MYPROFILE, { keyPrefix: Constants.TRANSLATION_MYPROFILE });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MYPROFILE });
 
     //user
     const { currentUser } = useAuth();

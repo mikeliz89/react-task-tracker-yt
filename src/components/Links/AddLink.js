@@ -7,7 +7,7 @@ import * as Constants from '../../utils/Constants';
 export default function AddLink({ onSaveLink }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LINKS });
 
     //states
     const [url, setUrl] = useState('');

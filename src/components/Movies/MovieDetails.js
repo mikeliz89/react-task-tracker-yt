@@ -26,7 +26,8 @@ export default function MovieDetails() {
     const params = useParams();
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MOVIES });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -85,7 +86,7 @@ export default function MovieDetails() {
     }
 
     return loading ? (
-        <h3>{t('loading')}</h3>
+        <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
             <Row>

@@ -31,7 +31,8 @@ export default function ArchivedTaskListDetails() {
   const [taskReadyCounter, setTaskReadyCounter] = useState(0);
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
   //fetch data
   const { data: taskList, loading } = useFetch(Constants.DB_TASKLIST_ARCHIVE, "", params.id);
@@ -110,7 +111,7 @@ export default function ArchivedTaskListDetails() {
   }
 
   return loading ? (
-    <h3>{t('loading')}</h3>
+    <h3>{tCommon("loading")}</h3>
   ) : (
     <PageContentWrapper>
 

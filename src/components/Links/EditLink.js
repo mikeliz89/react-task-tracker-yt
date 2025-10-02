@@ -8,7 +8,7 @@ import { getFromFirebaseById, getFromFirebaseByIdAndSubId } from '../../datatier
 export default function EditLink({ linkID, objID, linkUrl, onEditLink, onCloseEditLink }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LINKS });
 
     //states
     const [url, setUrl] = useState('');

@@ -8,7 +8,7 @@ import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
     //states
     const [name, setName] = useState('');

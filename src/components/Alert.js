@@ -6,7 +6,7 @@ import * as Constants from '../utils/Constants';
 
 export default function Alert({ message, showMessage, showError, error, onClose, variant }) {
 
-    const { t } = useTranslation(Constants.TRANSLATION_ALERT, { keyPrefix: Constants.TRANSLATION_ALERT });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_ALERT });
 
     return (
         <>

@@ -6,7 +6,7 @@ import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 export default function GymParts({ exerciseID, parts }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     const deleteGymPart = (exerciseID, gymPartID) => {
         removeFromFirebaseByIdAndSubId(Constants.DB_EXERCISE_PARTS, exerciseID, gymPartID);

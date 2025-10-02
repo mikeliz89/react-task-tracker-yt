@@ -25,7 +25,8 @@ import useFetch from '../useFetch';
 export default function ManageMusicRecords() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //fetch data
     const { data: records, setData: setRecords,
@@ -74,7 +75,7 @@ export default function ManageMusicRecords() {
     }
 
     return loading ? (
-        <h3>{t('loading')}</h3>
+        <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
 

@@ -39,7 +39,8 @@ export default function ExerciseDetails() {
     const [error] = useState('');
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //auth
     const { currentUser } = useAuth();
@@ -79,7 +80,7 @@ export default function ExerciseDetails() {
 
     return (
         loading ? (
-            <h3>{t('loading')}</h3>
+            <h3>{tCommon("loading")}</h3>
         ) : (
             <PageContentWrapper>
                 <Row>

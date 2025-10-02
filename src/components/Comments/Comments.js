@@ -10,7 +10,7 @@ import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 export default function Comments({ url, objID, onCounterChange }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_COMMENTS, { keyPrefix: Constants.TRANSLATION_COMMENTS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_COMMENTS });
 
     //states
     const [comments, setComments] = useState({});

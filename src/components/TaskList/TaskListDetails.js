@@ -36,7 +36,8 @@ export default function TaskListDetails() {
   const params = useParams();
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
   //states
   const [tasks, setTasks] = useState();
@@ -199,7 +200,7 @@ export default function TaskListDetails() {
   }
 
   return loading ? (
-    <h3>{t('loading')}</h3>
+    <h3>{tCommon("loading")}</h3>
   ) : (
     <PageContentWrapper>
       {/* <pre>{JSON.stringify(taskList)}</pre> */}

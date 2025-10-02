@@ -14,7 +14,7 @@ import AddMovie from './AddMovie';
 export default function Movie({ movie, onDelete, onEdit }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MOVIES });
 
     //states
     const [editable, setEditable] = useState(false);

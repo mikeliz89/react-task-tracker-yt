@@ -7,7 +7,7 @@ import Icon from "../Icon";
 export default function CommentsInner({ comments, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_COMMENTS, { keyPrefix: Constants.TRANSLATION_COMMENTS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_COMMENTS });
 
     return (
         <div>

@@ -9,7 +9,8 @@ import { getFromFirebaseById } from '../../datatier/datatier';
 export default function AddGear({ gearID, onSave, onClose }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //states
     const [category, setCategory] = useState('');

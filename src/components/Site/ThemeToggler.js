@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 export default function ThemeToggler() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_THEME, { keyPrefix: Constants.TRANSLATION_THEME });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_THEME });
 
     const { toggleTheme, theme } = useTheme();
 

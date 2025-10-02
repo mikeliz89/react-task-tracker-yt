@@ -27,7 +27,8 @@ import { useToggle } from '../useToggle';
 export default function EventDetails() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -138,7 +139,7 @@ export default function EventDetails() {
     }
 
     return loading ? (
-        <h3>{t('loading')}</h3>
+        <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
             <Row>

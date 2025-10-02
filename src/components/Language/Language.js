@@ -9,7 +9,7 @@ import * as Constants from '../../utils/Constants';
 export default function Language() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_LANGUAGE, { keyPrefix: Constants.TRANSLATION_LANGUAGE });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LANGUAGE });
 
     const currentLanguageCode = cookies.get('i18next') || Languages.FI;
 

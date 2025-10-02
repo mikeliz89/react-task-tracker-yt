@@ -15,7 +15,8 @@ export default function Logout() {
     const navigate = useNavigate();
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_AUTH, { keyPrefix: Constants.TRANSLATION_AUTH });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_AUTH });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //alert
     const [showMessage, setShowMessage] = useState(false);

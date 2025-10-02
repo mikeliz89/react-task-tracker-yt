@@ -11,7 +11,7 @@ import { ButtonGroup, Row } from 'react-bootstrap';
 export default function LinksList() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LINKS });
 
     const addLink = (link) => {
         link["created"] = getCurrentDateAsJson();

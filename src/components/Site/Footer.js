@@ -4,7 +4,7 @@ import * as Constants from '../../utils/Constants';
 
 export default function Footer() {
 
-    const { t } = useTranslation(Constants.TRANSLATION_FOOTER, { keyPrefix: Constants.TRANSLATION_FOOTER })
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_FOOTER })
 
     return (
         <footer>

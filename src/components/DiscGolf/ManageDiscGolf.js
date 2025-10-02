@@ -12,7 +12,7 @@ import CenterWrapper from '../Site/CenterWrapper';
 export default function ManageDiscGolf() {
 
    //translation
-   const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
 
    //fetch data
    const { data: rounds } = useFetch(Constants.DB_DISC_GOLF_ROUNDS);
