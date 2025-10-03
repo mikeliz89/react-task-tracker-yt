@@ -26,7 +26,8 @@ import Counter from '../Site/Counter';
 export default function Car() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t } = useTranslation([Constants.TRANSLATION_CAR], { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -86,7 +87,7 @@ export default function Car() {
     }
 
     return loading ? (
-        <h3>{t('loading')}</h3>
+        <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
 

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 export default function AddTaskList({ taskListID, onSave, onClose, showLabels, defaultTitle }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
     //states
     const [title, setTitle] = useState('');

@@ -32,7 +32,8 @@ export default function MovementDetails() {
     const [error] = useState('');
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //params
     const params = useParams();
@@ -74,7 +75,7 @@ export default function MovementDetails() {
     }
 
     return loading ? (
-        <h3>{t('loading')}</h3>
+        <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
             <Row>

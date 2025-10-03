@@ -6,7 +6,8 @@ import * as Constants from '../../utils/Constants';
 export default function GoBackButton() {
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION_COMMON_BUTTONS, { keyPrefix: Constants.TRANSLATION_COMMON_BUTTONS });
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_COMMON_BUTTONS });
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
   //navigation
   const navigate = useNavigate();

@@ -22,7 +22,8 @@ export default function TaskDetails() {
   const params = useParams();
 
   //translation  
-  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
   //states
   const [showEditTask, setShowEditTask] = useState(false);
@@ -54,7 +55,7 @@ export default function TaskDetails() {
   }
 
   return loading ? (
-    <h3>{t('loading')}</h3>
+    <h3>{tCommon("loading")}</h3>
   ) : (
     <PageContentWrapper>
       <Row>

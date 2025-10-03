@@ -10,7 +10,8 @@ import { ButtonGroup, Row } from 'react-bootstrap';
 export default function ManageBackPacking() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     return (
         <PageContentWrapper>

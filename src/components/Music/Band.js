@@ -12,7 +12,7 @@ import AddBand from './AddBand';
 export default function Band({ band, onDelete, onEdit }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
 
     //states
     const [editable, setEditable] = useState(false);

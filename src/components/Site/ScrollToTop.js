@@ -7,7 +7,7 @@ import RightWrapper from '../Site/RightWrapper';
 export default function ScrollToTop() {
 
     //translation  
-    const { t } = useTranslation(Constants.TRANSLATION_SCROLL_TO_TOP, { keyPrefix: Constants.TRANSLATION_SCROLL_TO_TOP });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_SCROLL_TO_TOP });
 
     //states
     const [isVisible, setIsVisible] = useState(false);

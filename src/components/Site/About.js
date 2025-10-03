@@ -7,7 +7,7 @@ import * as Constants from '../../utils/Constants';
 export default function About() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_ABOUT, { keyPrefix: Constants.TRANSLATION_ABOUT });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_ABOUT });
 
     return (
         <PageContentWrapper>

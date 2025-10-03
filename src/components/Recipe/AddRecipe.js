@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 export default function AddRecipe({ recipeID, onSave, onClose, showLabels }) {
 
    //translation
-   const { t } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
+   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
 
    //states
    const [category, setCategory] = useState('');

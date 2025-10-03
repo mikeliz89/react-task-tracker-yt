@@ -8,7 +8,7 @@ import * as Constants from '../../utils/Constants';
 export default function LinkComponent({ objID, url, onSaveLink }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_LINKS, { keyPrefix: Constants.TRANSLATION_LINKS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LINKS });
 
     //states
     const [counter, setCounter] = useState(0);

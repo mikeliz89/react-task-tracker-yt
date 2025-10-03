@@ -25,7 +25,8 @@ export default function  AddPartsAerobics () {
   const params = useParams();
 
   //translation  
-  const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
   //load data
   useEffect(() => {
@@ -82,7 +83,7 @@ export default function  AddPartsAerobics () {
 
   return (
     loading ? (
-      <h3>{t('loading')}</h3>
+      <h3>{tCommon("loading")}</h3>
     ) : (
       <div>
         <PageTitle title={t('title_aerobics')} iconName={Constants.ICON_CHILD} />

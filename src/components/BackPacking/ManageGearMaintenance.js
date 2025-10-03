@@ -27,7 +27,8 @@ export default function ManageGearMaintenance() {
     const { status: showAddGearMaintenance, toggleStatus: toggleAddGearMaintenance } = useToggle();
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_BACKPACKING, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //user
     const { currentUser } = useAuth();
@@ -46,7 +47,7 @@ export default function ManageGearMaintenance() {
     }
 
     return loading ? (
-        <h3>{t('loading')}</h3>
+        <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
 

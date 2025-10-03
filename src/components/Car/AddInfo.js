@@ -34,7 +34,8 @@ export default function AddInfo() {
     const [modified, setModified] = useState('');
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //load data
     useEffect(() => {

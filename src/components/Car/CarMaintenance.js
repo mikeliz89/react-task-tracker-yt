@@ -12,7 +12,7 @@ import RightWrapper from "../Site/RightWrapper";
 export default function CarMaintenance({ carMaintenance, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
 
     //states
     const [editable, setEditable] = useState(false);

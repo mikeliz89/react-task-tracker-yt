@@ -14,7 +14,8 @@ import useFetch from '../useFetch';
 export default function WeightHistory() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_BMICALCULATOR, { keyPrefix: Constants.TRANSLATION_BMICALCULATOR });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BMICALCULATOR });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //auth
     const { currentUser } = useAuth();
@@ -29,7 +30,7 @@ export default function WeightHistory() {
     }
 
     return loading ? (
-        <h3>{t('loading')}</h3>
+        <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
             <GoBackButton />

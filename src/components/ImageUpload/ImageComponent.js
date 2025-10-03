@@ -11,7 +11,7 @@ export default function ImageComponent({ objID, url }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [counter, setCounter] = useState(0);
 
-  const { t } = useTranslation(Constants.TRANSLATION_UPLOAD_IMAGES, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
 
   const getCounter = () => {
     return t('images') + (counter > 0 ? ' (' + counter + ')' : '');

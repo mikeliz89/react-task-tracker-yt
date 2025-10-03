@@ -15,7 +15,7 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
     const [editable, setEditable] = useState(false);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
 
     const markHaveAtHome = () => {
         drinkingProduct["haveAtHome"] = true;

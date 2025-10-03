@@ -12,7 +12,8 @@ import { useToggle } from '../useToggle';
 export default function CarFueling({ fuelingRow, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //modal
     const { status: showEditFueling, toggleStatus: toggleShowEditFueling } = useToggle();

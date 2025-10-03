@@ -36,7 +36,8 @@ export default function DrinkingProductDetails() {
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_DRINKS, { keyPrefix: Constants.TRANSLATION_DRINKS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //fetch data
     const { data: drinkingProduct, loading } = useFetch(Constants.DB_DRINKINGPRODUCTS, "", params.id);
@@ -88,7 +89,7 @@ export default function DrinkingProductDetails() {
     }
 
     return loading ? (
-        <h3>{t('loading')}</h3>
+        <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
             <Row>

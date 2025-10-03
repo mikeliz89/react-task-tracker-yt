@@ -8,7 +8,7 @@ import { getFromFirebaseByIdAndSubId } from "../../datatier/datatier";
 export default function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {
 
     //translation  
-    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     //states
     const [name, setName] = useState('');

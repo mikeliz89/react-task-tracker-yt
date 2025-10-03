@@ -10,7 +10,7 @@ import RightWrapper from '../Site/RightWrapper';
 export default function GymPart({ exerciseID, gymPart, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     //states
     const [editable, setEditable] = useState(false);

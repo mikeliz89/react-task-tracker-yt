@@ -16,7 +16,8 @@ import Icon from '../Icon';
 export default function ManageExercises() {
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
   //fetch data
   const { data: exercises, setData: setExercises,
@@ -27,7 +28,7 @@ export default function ManageExercises() {
   }
 
   return loading ? (
-    <h3>{t('loading')}</h3>
+    <h3>{tCommon("loading")}</h3>
   ) : (
     <PageContentWrapper>
 

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Track({ track }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
 
     return (
         <>

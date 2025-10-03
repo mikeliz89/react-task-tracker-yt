@@ -10,7 +10,7 @@ export default function AddImage({ objectID, imagesUrl }) {
     const [showAddImage, setShowAddImage] = useState(false);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_UPLOAD_IMAGES, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
 
     return (
         <>

@@ -16,7 +16,7 @@ import { pushToFirebase, pushToFirebaseChild } from '../../datatier/datatier';
 export default function StartNewRound() {
 
    //translation
-   const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
 
    //fetch tracks
    const { originalData: originalTracks } = useFetch(Constants.DB_DISC_GOLF_TRACKS);

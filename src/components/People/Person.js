@@ -8,7 +8,7 @@ import Alert from '../Alert';
 export default function Person({ person, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_PEOPLE, { keyPrefix: Constants.TRANSLATION_PEOPLE });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_PEOPLE });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);

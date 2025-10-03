@@ -5,7 +5,7 @@ import * as Constants from '../../utils/Constants';
 export default function TrackHole({ hole, decreasePar, increasePar, deleteHole }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
 
     return (
         <>

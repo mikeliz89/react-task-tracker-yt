@@ -1,0 +1,30 @@
+{
+    "dashboard": {
+        "buttons": {
+            "add_new": "Add new",
+            "backpacking": "Backpacking",
+            "bmi_calculator": "BMI Calculator",
+            "car": "Car",
+            "discgolf": "Disc golf",
+            "drinks": "Drinks",
+            "exercises": "Exercises",
+            "games": "Games",
+            "links_list": "Links",
+            "movies": "Movies",
+            "music": "Music",
+            "music_bands": "Bands",
+            "music_records": "Records",
+            "music_events": "Events",
+            "personlist": "People",
+            "programming": "Programming",
+            "recipes": "Recipes",
+            "shoppinglists": "Shopping Lists",
+            "tasklists": "Task Lists",
+            "other_lists": "Other Lists",
+            "title_actions": "Actions",
+            "title_lists": "Lists",
+            "title_media": "Media",
+            "title_music": "Music"
+        }
+    }
+}

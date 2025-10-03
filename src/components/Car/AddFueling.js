@@ -10,7 +10,8 @@ import FormTitle from '../Site/FormTitle';
 export default function AddFueling({ ID, onClose, onSave }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_CAR, { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //states
     const [loading] = useState(false);

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MOVIES });
 
     //states
     const [created, setCreated] = useState('');

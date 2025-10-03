@@ -6,7 +6,7 @@ import { Row, Col, Table } from "react-bootstrap";
 export default function EventBands({ bands, onDelete }) {
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION_MUSIC, { keyPrefix: Constants.TRANSLATION_MUSIC });
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
 
   const showBandName = (band) => {
     return band.name;

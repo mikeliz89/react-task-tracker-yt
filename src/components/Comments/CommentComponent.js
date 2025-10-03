@@ -8,7 +8,7 @@ import * as Constants from '../../utils/Constants';
 export default function CommentComponent({ objID, url, onSave }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_COMMENTS, { keyPrefix: Constants.TRANSLATION_COMMENTS });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_COMMENTS });
 
     //states
     const [counter, setCounter] = useState(0);

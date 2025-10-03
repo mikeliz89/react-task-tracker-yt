@@ -21,7 +21,7 @@ export default function EditExercise({ exerciseID, exercise, onClose }) {
   const [description, setDescription] = useState('');
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
   useEffect(() => {
     if (exercise != null) {

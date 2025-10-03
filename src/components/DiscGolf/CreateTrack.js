@@ -16,7 +16,7 @@ import CenterWrapper from '../Site/CenterWrapper';
 export default function CreateTrack() {
 
    //translation
-   const { t } = useTranslation(Constants.TRANSLATION_DISC_GOLF, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
 
    //constants
    const maxHoleCount = 24;

@@ -11,7 +11,7 @@ import * as Constants from '../../utils/Constants';
 
 export default function Login() {
 
-    const { t } = useTranslation(Constants.TRANSLATION_AUTH, { keyPrefix: Constants.TRANSLATION_AUTH });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_AUTH });
 
     //states
     const [loading, setLoading] = useState(false);

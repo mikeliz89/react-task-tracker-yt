@@ -25,7 +25,8 @@ import useFetch from '../useFetch';
 export default function ManageMovies() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_MOVIES, { keyPrefix: Constants.TRANSLATION_MOVIES });
+    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MOVIES });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //fetch data
     const { data: movies, setData: setMovies,
@@ -74,7 +75,7 @@ export default function ManageMovies() {
     }
 
     return loading ? (
-        <h3>{t('loading')}</h3>
+        <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
 
