@@ -1,0 +1,8 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "buttons": {
+            "go_back_button_alt": "Go back"
+        }
+    }
+}
