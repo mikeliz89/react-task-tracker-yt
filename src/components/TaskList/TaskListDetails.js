@@ -37,7 +37,7 @@ export default function TaskListDetails() {
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
   //states
   const [tasks, setTasks] = useState();
@@ -275,6 +275,9 @@ export default function TaskListDetails() {
           }
 
           <CenterWrapper>
+            <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')}
+              iconName={Constants.ICON_COPY} />
+            &nbsp;
             <Button
               iconName={Constants.ICON_PLUS}
               color={showAddTask ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
