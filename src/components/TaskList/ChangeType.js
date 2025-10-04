@@ -8,7 +8,7 @@ import * as Constants from '../../utils/Constants';
 export default function ChangeType({ taskList, onSave, onClose }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+    const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
 
     //states
     const [category, setCategory] = useState('');

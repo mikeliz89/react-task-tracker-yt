@@ -9,7 +9,7 @@ import { getFromFirebaseById } from '../../datatier/datatier';
 export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
 
     //translation
-    const { t, ready } = useTranslation(Constants.TRANSLATION_RECIPE, { keyPrefix: Constants.TRANSLATION_RECIPE });
+    const { t, ready } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
 
     //states
     const [category, setCategory] = useState('');

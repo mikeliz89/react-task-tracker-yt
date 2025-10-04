@@ -7,10 +7,10 @@ import FormTitle from '../Site/FormTitle';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 import * as Constants from '../../utils/Constants';
 
-export default function AddWorkPhase({ dbUrl, translation, workPhaseID, recipeID, onSave, onClose }) {
+export default function AddWorkPhase({ dbUrl, translation, translationKeyPrefix, workPhaseID, recipeID, onSave, onClose }) {
 
   //translation
-  const { t } = useTranslation(translation, { keyPrefix: translation });
+  const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
 
   //states
   const [name, setName] = useState('');

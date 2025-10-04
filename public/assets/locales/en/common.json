@@ -3,6 +3,9 @@
         "loading": "Loading...",
         "buttons": {
             "go_back_button_alt": "Go back"
+        },
+        "confirm": {
+            "areyousure": "Are you sure?"
         }
     }
 }

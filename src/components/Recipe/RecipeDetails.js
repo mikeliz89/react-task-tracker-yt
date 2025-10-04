@@ -46,7 +46,7 @@ export default function RecipeDetails() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //auth
     const { currentUser } = useAuth();
@@ -195,7 +195,7 @@ export default function RecipeDetails() {
             <Tabs defaultActiveKey="home"
                 id="recipeDetails-Tab"
                 className="mb-3">
-                <Tab eventKey="home" title={t('incredients_header')}>
+                <Tab eventKey="home" title={t("incredients_header")}>
                     <Button
                         iconName={Constants.ICON_PLUS}
                         secondIconName={Constants.ICON_CARROT}
@@ -205,7 +205,8 @@ export default function RecipeDetails() {
                     {showAddIncredient &&
                         <AddIncredient
                             dbUrl={Constants.DB_RECIPE_INCREDIENTS}
-                            translation={Constants.TRANSLATION_RECIPE}
+                            translation={Constants.TRANSLATION}
+                            translationKeyPrefix={Constants.TRANSLATION_RECIPE}
                             onSave={addIncredient}
                             recipeID={params.id}
                             onClose={() => setShowAddIncredient(false)}
@@ -216,7 +217,8 @@ export default function RecipeDetails() {
                             <Button iconName={Constants.ICON_SYNC} onClick={updateRecipeIncredients} />
                             <Incredients
                                 dbUrl={Constants.DB_RECIPE_INCREDIENTS}
-                                translation={Constants.TRANSLATION_RECIPE}
+                                translation={Constants.TRANSLATION}
+                                translationKeyPrefix={Constants.TRANSLATION_RECIPE}
                                 recipeID={params.id}
                                 incredients={incredients}
                                 onDelete={deleteIncredient}
@@ -240,7 +242,8 @@ export default function RecipeDetails() {
                     {showAddWorkPhase &&
                         <AddWorkPhase
                             dbUrl={Constants.DB_RECIPE_WORKPHASES}
-                            translation={Constants.TRANSLATION_RECIPE}
+                            translation={Constants.TRANSLATION}
+                            translationKeyPrefix={Constants.TRANSLATION_RECIPE}
                             onSave={addWorkPhase}
                             recipeID={params.id}
                             onClose={() => setShowAddWorkPhase(false)} />
@@ -249,7 +252,8 @@ export default function RecipeDetails() {
                     {workPhases != null && workPhases.length > 0 ? (
                         <WorkPhases
                             dbUrl={Constants.DB_RECIPE_WORKPHASES}
-                            translation={Constants.TRANSLATION_RECIPE}
+                            translation={Constants.TRANSLATION}
+                            translationKeyPrefix={Constants.TRANSLATION_RECIPE}
                             recipeID={params.id}
                             workPhases={workPhases}
                             onDelete={deleteWorkPhase}
@@ -277,7 +281,8 @@ export default function RecipeDetails() {
                 recipeHistory != null && recipeHistory.length > 0 ? (
                     <RecipeHistories
                         dbUrl={Constants.DB_RECIPE_HISTORY}
-                        translation={Constants.TRANSLATION_RECIPE}
+                        translation={Constants.TRANSLATION}
+                        translationKeyPrefix={Constants.TRANSLATION_RECIPE}
                         recipeHistories={recipeHistory} recipeID={params.id} />
                 ) : (
                     t('no_recipe_history')

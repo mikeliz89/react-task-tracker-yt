@@ -6,16 +6,17 @@ import i18n from 'i18next';
 import { useAuth } from '../../contexts/AuthContext';
 import WeightChart from './WeightChart';
 import PageTitle from '../Site/PageTitle';
-import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 import useFetch from '../useFetch';
+import DeleteButton from '../Buttons/DeleteButton';
 
 export default function WeightHistory() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BMICALCULATOR });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t: tCommonConfirm } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //auth
     const { currentUser } = useAuth();
@@ -36,22 +37,17 @@ export default function WeightHistory() {
             <GoBackButton />
             <PageTitle title={t('weighthistory')} iconName={Constants.ICON_WEIGHT} iconColor={Constants.COLOR_GRAY} />
             <WeightChart data={historyRows} />
-            {/* { <pre>{JSON.stringify(historyRows)}</pre> } */}
-            {historyRows != null && historyRows > 0 ? historyRows.map((row, index) =>
+             {/* { <pre>{JSON.stringify(historyRows)}</pre> }  */}
+             {historyRows != null && historyRows.length > 0 ? historyRows.map((row, index) =>
                 <div key={row.id}>
                     <p>
                         {getJsonAsDateTimeString(row.currentDateTime, i18n.language)}<br /> - {row.weight} kg, BMI: {row.bmi}
 
-                        <Icon className={'btn ' + Constants.CLASSNAME_DELETEBTN}
-                            name={Constants.ICON_DELETE}
-                            color={Constants.COLOR_DELETEBUTTON}
-                            fontSize='1.2em'
-                            cursor='pointer'
-                            onClick={() => {
-                                if (window.confirm(t('delete_weighthistory_confirm_message'))) {
-                                    deleteHistoryRow(row.id)
-                                }
-                            }} />
+                        <DeleteButton
+                            confirmMessage={tCommonConfirm('areyousure')}
+                            onDelete={deleteHistoryRow}
+                            id={row.id}
+                        />
                     </p>
                 </div>
             ) : '-'

@@ -7,10 +7,10 @@ import FormTitle from '../Site/FormTitle';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 import * as Constants from '../../utils/Constants';
 
-export default function AddIncredient({ dbUrl, translation, onSave, incredientID, recipeID, onClose }) {
+export default function AddIncredient({ dbUrl, translation, translationKeyPrefix, onSave, incredientID, recipeID, onClose }) {
 
   //translation
-  const { t } = useTranslation(translation, { keyPrefix: translation });
+  const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
 
   //states
   const [name, setName] = useState('');

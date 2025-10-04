@@ -6,10 +6,10 @@ import { removeFromFirebaseByIdAndSubId } from "../../datatier/datatier";
 import PageTitle from '../Site/PageTitle';
 import * as Constants from '../../utils/Constants';
 
-export default function RecipeHistories({ dbUrl, translation, recipeHistories, recipeID }) {
+export default function RecipeHistories({ dbUrl, translation, translationKeyPrefix, recipeHistories, recipeID }) {
 
     //translation
-    const { t } = useTranslation(translation, { keyPrefix: translation });
+    const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
 
     //states
     const [counter, setCounter] = useState(0);
@@ -32,6 +32,7 @@ export default function RecipeHistories({ dbUrl, translation, recipeHistories, r
                 <RecipeHistory
                     dbUrl={dbUrl}
                     translation={translation}
+                    translationKeyPrefix={translationKeyPrefix}
                     key={recipeHistory.id}
                     recipeHistory={recipeHistory}
                     onDelete={deleteRecipeHistory} />

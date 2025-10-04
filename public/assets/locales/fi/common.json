@@ -3,6 +3,9 @@
         "loading": "Lataa...",
         "buttons": {
             "go_back_button_alt": "Takaisin"
+        },
+        "confirm": {
+            "areyousure": "Oletko varma?"
         }
     }
 }

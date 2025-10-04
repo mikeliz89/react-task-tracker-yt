@@ -18,7 +18,7 @@ export default function  AddMovement ({ movementID, onClose, onSave })  {
     const [description, setDescription] = useState('');
 
     //translation
-    const { t, ready } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t, ready } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     useEffect(() => {
         sortCategoriesByName();

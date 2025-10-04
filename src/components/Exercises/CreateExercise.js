@@ -28,7 +28,7 @@ export default function CreateExercise() {
     const [error, setError] = useState('');
 
     //translation
-    const { t, ready } = useTranslation(Constants.TRANSLATION_EXERCISES, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t, ready } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
 
     //auth
     const { currentUser } = useAuth();

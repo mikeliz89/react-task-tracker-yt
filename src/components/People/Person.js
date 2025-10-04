@@ -4,11 +4,13 @@ import { useState } from 'react';
 import * as Constants from "../../utils/Constants";
 import Icon from '../Icon';
 import Alert from '../Alert';
+import DeleteButton from '../Buttons/DeleteButton';
 
 export default function Person({ person, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_PEOPLE });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -24,14 +26,15 @@ export default function Person({ person, onDelete }) {
                 variant={Constants.VARIANT_SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
-            
+
             <h5>
                 <span>
                     {person.name}
                 </span>
-                <Icon name={Constants.ICON_DELETE} className={Constants.CLASSNAME_DELETEBTN}
-                    style={{ color: Constants.COLOR_DELETEBUTTON, cursor: 'pointer', fontSize: '1.2em' }}
-                    onClick={() => { if (window.confirm(t('delete_person_confirm_message'))) { onDelete(person.id); } }}
+                <DeleteButton
+                    confirmMessage={tCommon('areyousure')}
+                    onDelete={onDelete}
+                    id={person.id}
                 />
             </h5>
             <p>{t('birthday') + ": "}{person.birthday}</p>

@@ -266,6 +266,7 @@ export const TRANSLATION_CAR = 'car';
 export const TRANSLATION_COMMENTS = 'comments';
 export const TRANSLATION_COMMON  = 'common';
 export const TRANSLATION_COMMON_BUTTONS = 'common.buttons';
+export const TRANSLATION_COMMON_CONFIRM = 'common.confirm';
 export const TRANSLATION_DASHBOARD = 'dashboard';
 export const TRANSLATION_DASHBOARD_BUTTONS = 'dashboard.buttons';
 export const TRANSLATION_DISC_GOLF = 'discgolf';

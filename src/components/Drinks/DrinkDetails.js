@@ -51,7 +51,7 @@ export default function DrinkDetails() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //auth
     const { currentUser } = useAuth();
@@ -223,7 +223,8 @@ export default function DrinkDetails() {
                     {showAddIncredient &&
                         <AddIncredient
                             dbUrl={Constants.DB_DRINK_INCREDIENTS}
-                            translation={Constants.TRANSLATION_DRINKS}
+                            translation={Constants.TRANSLATION}
+                            translationKeyPrefix={Constants.TRANSLATION_RECIPE}
                             recipeID={params.id}
                             onSave={addIncredient}
                             onClose={() => setShowAddIncredient(false)} />
@@ -233,7 +234,8 @@ export default function DrinkDetails() {
                             <Button iconName={Constants.ICON_SYNC} onClick={updateDrinkIncredients} />
                             <Incredients
                                 dbUrl={Constants.DB_DRINK_INCREDIENTS}
-                                translation={Constants.TRANSLATION_DRINKS}
+                                translation={Constants.TRANSLATION}
+                                translationKeyPrefix={Constants.TRANSLATION_DRINKS}
                                 recipeID={params.id}
                                 incredients={incredients}
                                 onDelete={deleteIncredient}
@@ -256,13 +258,15 @@ export default function DrinkDetails() {
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                     {showAddWorkPhase && <AddWorkPhase
                         dbUrl={Constants.DB_DRINK_WORKPHASES}
-                        translation={Constants.TRANSLATION_DRINKS}
+                        translation={Constants.TRANSLATION}
+                        translationKeyPrefix={Constants.TRANSLATION_DRINKS}
                         recipeID={params.id}
                         onSave={addWorkPhase} onClose={() => setShowAddWorkPhase(false)} />}
                     {workPhases != null && workPhases.length > 0 ? (
                         <WorkPhases
                             dbUrl={Constants.DB_DRINK_WORKPHASES}
-                            translation={Constants.TRANSLATION_DRINKS}
+                            translation={Constants.TRANSLATION}
+                            translationKeyPrefix={Constants.TRANSLATION_DRINKS}
                             recipeID={params.id}
                             workPhases={workPhases}
                             onDelete={deleteWorkPhase}
@@ -319,7 +323,8 @@ export default function DrinkDetails() {
                 drinkHistory != null && drinkHistory.length > 0 ? (
                     <RecipeHistories
                         dbUrl={Constants.DB_DRINK_HISTORY}
-                        translation={Constants.TRANSLATION_DRINKS}
+                        translation={Constants.TRANSLATION}
+                        translationKeyPrefix={Constants.TRANSLATION_DRINKS}
                         recipeHistories={drinkHistory}
                         recipeID={params.id} />
                 ) : (

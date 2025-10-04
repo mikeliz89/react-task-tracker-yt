@@ -10,11 +10,13 @@ import { useState } from 'react';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import AddGame from './AddGame';
+import DeleteButton from '../Buttons/DeleteButton';
 
 export default function Game({ game, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_GAMES });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //states
     const [editable, setEditable] = useState(false);
@@ -45,14 +47,11 @@ export default function Game({ game, onDelete, onEdit }) {
                     <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
                         style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => editable ? setEditable(false) : setEditable(true)} />
-                    <Icon className={Constants.CLASSNAME_DELETEBTN}
-                        name={Constants.ICON_DELETE}
-                        color={Constants.COLOR_DELETEBUTTON} fontSize='1.2em' cursor='pointer'
-                        onClick={() => {
-                            if (window.confirm(t('delete_game_confirm_message'))) {
-                                onDelete(game.id);
-                            }
-                        }} />
+                    <DeleteButton
+                        confirmMessage={tCommon('areyousure')}
+                        onDelete={onDelete}
+                        id={game.id}
+                    />
                 </RightWrapper>
             </h5>
             {!editable &&

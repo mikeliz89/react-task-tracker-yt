@@ -6,8 +6,12 @@ import PropTypes from 'prop-types';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import RightWrapper from '../Site/RightWrapper';
 import * as Constants from '../../utils/Constants';
+import { useTranslation } from 'react-i18next';
+import DeleteButton from '../Buttons/DeleteButton';
 
-export default function Incredient({ dbUrl, translation, incredient, recipeID, onDelete }) {
+export default function Incredient({ dbUrl, translation, translationKeyPrefix, incredient, recipeID, onDelete }) {
+
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //states
     const [editable, setEditable] = useState(false);
@@ -29,9 +33,12 @@ export default function Incredient({ dbUrl, translation, incredient, recipeID, o
                             <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
                                 style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
-                            <Icon name={Constants.ICON_DELETE} className={Constants.CLASSNAME_DELETEBTN}
-                                style={{ color: Constants.COLOR_DELETEBUTTON, cursor: 'pointer', fontSize: '1.2em' }}
-                                onClick={() => onDelete(recipeID, incredient.id)} />
+                            <DeleteButton
+                                confirmMessage={tCommon('areyousure')}
+                                onDelete={onDelete}
+                                id={recipeID}
+                                subId={incredient.id}
+                            />
                         </RightWrapper>
                     }
                 </Col>
@@ -42,6 +49,7 @@ export default function Incredient({ dbUrl, translation, incredient, recipeID, o
             {editable &&
                 <AddIncredient
                     translation={translation}
+                    translationKeyPrefix={translationKeyPrefix}
                     dbUrl={dbUrl}
                     incredientID={incredient.id}
                     recipeID={recipeID}

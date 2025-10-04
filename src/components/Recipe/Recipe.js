@@ -19,6 +19,7 @@ import { pushToFirebase, pushToFirebaseChild, updateToFirebaseById } from '../..
 import RightWrapper from '../Site/RightWrapper';
 import AddRecipe from './AddRecipe';
 import AddDrink from '../Drinks/AddDrink';
+import DeleteButton from '../Buttons/DeleteButton';
 
 export default function Recipe({ recipeType, translation, recipe, onDelete }) {
 
@@ -30,6 +31,7 @@ export default function Recipe({ recipeType, translation, recipe, onDelete }) {
 
     //translation
     const { t } = useTranslation(translation, { keyPrefix: translation });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -130,9 +132,10 @@ export default function Recipe({ recipeType, translation, recipe, onDelete }) {
                     <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
                         style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => editable ? setEditable(false) : setEditable(true)} />
-                    <Icon name={Constants.ICON_DELETE} className={Constants.CLASSNAME_DELETEBTN}
-                        style={{ color: Constants.COLOR_DELETEBUTTON, cursor: 'pointer', fontSize: '1.2em' }}
-                        onClick={() => { if (window.confirm(t('delete_recipe_confirm_message'))) { onDelete(recipe.id); } }}
+                    <DeleteButton
+                        confirmMessage={tCommon('areyousure')}
+                        onDelete={onDelete}
+                        id={recipe.id}
                     />
                 </RightWrapper>
             </h5>

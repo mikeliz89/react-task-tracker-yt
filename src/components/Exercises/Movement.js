@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
-import Icon from '../Icon';
+import DeleteButton from '../Buttons/DeleteButton';
 
 export default function Movement({ movement, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     return (
         <div className='listContainer'>
@@ -16,9 +17,10 @@ export default function Movement({ movement, onDelete }) {
                 <span>
                     {movement.name}
                 </span>
-                <Icon className={Constants.CLASSNAME_DELETEBTN} name={Constants.ICON_DELETE}
-                    color={Constants.COLOR_DELETEBUTTON} fontSize='1.2em' cursor='pointer'
-                    onClick={() => { if (window.confirm(t('delete_exercise_confirm_message'))) { onDelete(movement.id); } }}
+                <DeleteButton
+                    confirmMessage={tCommon('areyousure')}
+                    onDelete={onDelete}
+                    id={movement.id}
                 />
             </h5>
             <p>

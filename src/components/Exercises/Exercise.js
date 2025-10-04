@@ -5,11 +5,13 @@ import { getIconNameByCategory } from './Categories';
 import Icon from '../Icon';
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
+import DeleteButton from '../Buttons/DeleteButton';
 
 export default function Exercise({ exercise, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     return (
         <div className='listContainer'>
@@ -21,9 +23,11 @@ export default function Exercise({ exercise, onDelete }) {
                         //  getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)
                     }
                 </span>
-                <Icon className={Constants.CLASSNAME_DELETEBTN} name={Constants.ICON_DELETE}
-                    color={Constants.COLOR_DELETEBUTTON} fontSize='1.2em' cursor='pointer'
-                    onClick={() => { if (window.confirm(t('delete_exercise_confirm_message'))) { onDelete(exercise.id); } }} />
+                <DeleteButton
+                    confirmMessage={tCommon('areyousure')}
+                    onDelete={onDelete}
+                    id={exercise.id}
+                />
             </h5>
             <p>
                 {exercise.category > 0 ?
