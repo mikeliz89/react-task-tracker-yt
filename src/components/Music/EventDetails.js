@@ -171,7 +171,7 @@ export default function EventDetails() {
                     <Button
                         disableStyle={true}
                         className={showLinkBands ? 'btn btn-danger' : 'btn btn-primary'}
-                        text={showLinkBands ? t('button_close') : 'Lisää bändejä tapahtumaan'}
+                        text={showLinkBands ? t('button_close') : t('add_bands_to_event')}
                         onClick={() => {
                             setShowLinkBands(!showLinkBands);
                             //logBands();

@@ -299,7 +299,7 @@
         "game_console_ps1": "Playstation",
         "game_console_ps2": "Playstation 2",
         "game_console_ps3": "Playstation 3",
-        "game_console_ps4": "Playstation 4", 
+        "game_console_ps4": "Playstation 4",
         "game_console_ps5": "Playstation 5",
         "game_console_gamecube": "Nintendo Gamecube",
         "game_console_gameboycolor": "Gameboy Color",
@@ -372,6 +372,8 @@
         "view_details": "View Details"
     },
     "music": {
+        "action": "Action",
+        "add_bands_to_event": "Add bands to event",
         "band": "Band",
         "band_name": "Band name",
         "band_forming_year": "Forming Year",
@@ -413,10 +415,11 @@
         "name": "Record name",
         "no_records_to_show": "No records to show",
         "please_add_name": "Please give record name",
-        "publish_year": "Publish year", 
+        "publish_year": "Publish year",
         "save_success": "Saving was succesfull",
         "save_exception": "Saving failed",
         "seen_live": "Seen live",
+        "sort_by_name": "Sort by name",
         "view_details": "View Details"
     },
     "myprofile": {

@@ -450,6 +450,7 @@
     },
     "music": {
         "action": "Toiminto",
+        "add_bands_to_event": "Lisää bändejä tapahtumaan",
         "band": "Bändi",
         "band_name": "Bändin nimi",
         "band_forming_year": "Perustamisvuosi",
@@ -503,6 +504,7 @@
         "save_success": "Tallennus onnistui",
         "save_exception": "Tallennus epäonnistui",
         "seen_live": "Nähty livenä",
+        "sort_by_name": "Lajittele nimen mukaan",
         "view_details": "Katso lisätiedot"
     },
     "myprofile": {

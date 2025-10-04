@@ -1,25 +1,36 @@
-import Button from "../Buttons/Button";
 import * as Constants from "../../utils/Constants";
 import { useTranslation } from 'react-i18next';
 import { Row, Col, Table } from "react-bootstrap";
+import DeleteButton from '../Buttons/DeleteButton';
+import { useState, useEffect } from "react";
 
 export default function EventBands({ bands, onDelete }) {
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
+
+  const [sortedBands, setSortedBands] = useState([]);
+
+  useEffect(() => {
+    setSortedBands(bands || []);
+  }, [bands]);
+
+  const sortByName = () => {
+    const sorted = [...sortedBands].sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+    setSortedBands(sorted);
+  };
 
   const showBandName = (band) => {
     return band.name;
   }
 
-  const deleteBand = (band) => {
-    const obj = { name: band.name, id: band.id };
-    onDelete(obj);
-  }
-
   return (
     <>
       <p>{t('music_bands_title')}</p>
+      <button onClick={sortByName}>{t('sort_by_name')}</button>
       <Row>
         <Col>
           <Table bordered>
@@ -30,10 +41,16 @@ export default function EventBands({ bands, onDelete }) {
               </tr>
             </thead>
             <tbody>
-              {bands != null && bands.map((band) => (
+               {sortedBands != null && sortedBands.map((band) => (
                 <tr key={band.id}>
                   <td>{showBandName(band)}</td>
-                  <td> <Button onClick={() => deleteBand(band)} text={t('button_delete')} color={Constants.COLOR_DELETEBUTTON} /></td>
+                  <td>
+                    <DeleteButton
+                      confirmMessage={t('areyousure')}
+                      onDelete={onDelete}
+                      id={band}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
