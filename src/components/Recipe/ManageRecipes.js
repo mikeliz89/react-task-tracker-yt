@@ -25,9 +25,17 @@ import useFetch from '../useFetch';
 
 export default function ManageRecipes() {
 
+  //translation
+  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+
+  //navigate
+  const navigate = useNavigate();
+
   //fetch data
   const { data: recipes, setData: setRecipes,
-    originalData: originalRecipes, counter, loading } = useFetch(Constants.DB_RECIPES);
+    originalData: originalRecipes,
+    counter, loading } = useFetch(Constants.DB_RECIPES);
 
   //modal
   const { status: showAddRecipe, toggleStatus: toggleAddRecipe } = useToggle();
@@ -38,15 +46,8 @@ export default function ManageRecipes() {
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState('');
 
-  //translation
-  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
-
   //user
   const { currentUser } = useAuth();
-
-  //navigate
-  const navigate = useNavigate();
 
   const addRecipe = async (recipe) => {
     try {
@@ -58,16 +59,16 @@ export default function ManageRecipes() {
     } catch (ex) {
       showFailure();
     }
-  }
 
-  function showSuccess() {
-    setMessage(t('recipe_save_successful'));
-    setShowMessage(true);
-  }
+    function showSuccess() {
+      setMessage(t('recipe_save_successful'));
+      setShowMessage(true);
+    }
 
-  function showFailure() {
-    setError(t('recipe_save_exception'));
-    setShowError(true);
+    function showFailure() {
+      setError(t('recipe_save_exception'));
+      setShowError(true);
+    }
   }
 
   const deleteRecipe = async (id) => {
@@ -84,7 +85,10 @@ export default function ManageRecipes() {
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <Link to={Constants.NAVIGATION_MANAGE_FOODITEMS} className='btn btn-primary'>{t('button_manage_fooditems')}</Link>
+          <Link to={Constants.NAVIGATION_MANAGE_FOODITEMS} className='btn btn-primary'>
+            <Icon name={Constants.ICON_CARROT} color={Constants.COLOR_WHITE} />
+            {t('button_manage_fooditems')}
+          </Link>
           <Link to={Constants.NAVIGATION_MANAGE_RECIPELISTS} className='btn btn-primary'>
             <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
             {t('button_recipe_lists')}

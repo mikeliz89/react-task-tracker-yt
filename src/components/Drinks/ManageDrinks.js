@@ -27,7 +27,7 @@ export default function ManageDrinks() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //navigate
     const navigate = useNavigate();
@@ -58,15 +58,23 @@ export default function ManageDrinks() {
             }
             const key = await pushToFirebase(Constants.DB_DRINKS, drink);
             navigate(`${Constants.NAVIGATION_DRINK}/${key}`);
+            showSuccess();
+        } catch (ex) {
+            showFailure();
+        }
+
+        function showSuccess() {
             setMessage(t('save_success'));
             setShowMessage(true);
-        } catch (ex) {
+        }
+
+        function showFailure() {
             setShowError(true);
             setError(t('save_exception'));
         }
     }
 
-    const deleteDrink = (id) => {
+    const deleteDrink = async (id) => {
         removeFromFirebaseById(Constants.DB_DRINKS, id);
     }
 
