@@ -21,7 +21,7 @@ import AddRecipe from './AddRecipe';
 import AddDrink from '../Drinks/AddDrink';
 import DeleteButton from '../Buttons/DeleteButton';
 
-export default function Recipe({ recipeType, translation, recipe, onDelete }) {
+export default function Recipe({ recipeType, translation, translationKeyPrefix, recipe, onDelete }) {
 
     //navigate
     const navigate = useNavigate();
@@ -30,7 +30,7 @@ export default function Recipe({ recipeType, translation, recipe, onDelete }) {
     const { currentUser } = useAuth();
 
     //translation
-    const { t } = useTranslation(translation, { keyPrefix: translation });
+    const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
     const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //alert

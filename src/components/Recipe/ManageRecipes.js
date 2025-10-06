@@ -148,7 +148,8 @@ export default function ManageRecipes() {
             <Counter list={recipes} originalList={originalRecipes} counter={counter} />
             <Recipes
               recipeType={RecipeTypes.Food}
-              translation={Constants.TRANSLATION_RECIPE}
+              translation={Constants.TRANSLATION}
+              translationKeyPrefix={Constants.TRANSLATION_RECIPE}
               recipes={recipes}
               onDelete={deleteRecipe} />
           </>

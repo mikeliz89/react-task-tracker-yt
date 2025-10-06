@@ -152,7 +152,8 @@ export default function ManageDrinks() {
                     <>
                         <Counter list={drinks} originalList={originalDrinks} counter={counter} />
                         <Recipes
-                            translation={Constants.TRANSLATION_DRINKS}
+                            translation={Constants.TRANSLATION}
+                            translationKeyPrefix={Constants.TRANSLATION_DRINKS}
                             recipes={drinks}
                             recipeType={RecipeTypes.Drink}
                             onDelete={deleteDrink} />
