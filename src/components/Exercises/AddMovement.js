@@ -12,10 +12,11 @@ export default function AddMovement({ movementID, onClose, onSave }) {
     const [category, setCategory] = useState();
     const [categories, setCategories] = useState(MovementCategories);
     const [name, setName] = useState('');
-    const [setCreated] = useState();
-    const [setCreatedBy] = useState();
+    const [created, setCreated] = useState('');
+    const [createdBy, setCreatedBy] = useState('');
     const [stars, setStars] = useState(0);
     const [description, setDescription] = useState('');
+    const [modified, setModified] = useState('');
 
     //translation
     const { t, ready } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
@@ -38,6 +39,7 @@ export default function AddMovement({ movementID, onClose, onSave }) {
         getFromFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, movementID).then((val) => {
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
+            setModified(val["modified"]);
             setCategory(val["category"]);
             setDescription(val["description"]);
             setName(val["name"]);
@@ -100,7 +102,7 @@ export default function AddMovement({ movementID, onClose, onSave }) {
                     <ButtonGroup>
                         <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
                             onClick={() => onClose()} />
-                        <Button type='submit' text={t('button_add_movement')} className='btn btn-block saveBtn' />
+                        <Button type='submit' text={tCommon('buttons.button_save')} className='btn btn-block saveBtn' />
                     </ButtonGroup>
                 </Row>
             </Form>

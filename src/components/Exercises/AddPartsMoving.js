@@ -103,7 +103,7 @@ export default function AddPartsMoving({ title, iconName }) {
               value={time}
               onChange={(e) => setTime(e.target.value)}></Form.Control>
           </Form.Group>
-          <Button disabled={loading} type='submit' text={t('button_save')} />
+          <Button disabled={loading} type='submit' text={tCommon('buttons.button_save')} />
         </Form>
       </div>
     )

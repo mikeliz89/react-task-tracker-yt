@@ -263,7 +263,6 @@
     },
     "exercises": {
         "add_movement": "Luo liike",
-        "button_add_movement": "Lisää liike",
         "button_create_exercise": "Luo harjoitus",
         "button_save_exercise": "Tallenna harjoitus",
         "button_save_gym_part": "Tallenna liike",

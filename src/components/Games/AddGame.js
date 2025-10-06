@@ -152,7 +152,7 @@ export default function AddGame({ gameID, onSave, onClose, showLabels }) {
                     <ButtonGroup>
                         <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
                             onClick={() => onClose()} />
-                        <Button type='submit' text={t('button_save_game')} className='btn btn-block saveBtn' />
+                        <Button type='submit' text={tCommon('buttons.button_save')} className='btn btn-block saveBtn' />
                     </ButtonGroup>
                 </Row>
             </Form>

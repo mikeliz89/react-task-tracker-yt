@@ -72,7 +72,7 @@ const useFetch = (url, listType, objectID, subObjectID) => {
             }
 
             //Data is:
-            console.log("Data is", fromDB);
+            //console.log("Data is", fromDB);
 
             //snap didn't contain data, so lets assume snap is the only object
             if (fromDB.length < 1) {
@@ -80,6 +80,7 @@ const useFetch = (url, listType, objectID, subObjectID) => {
                 setLoading(false);
                 setData(snap);
                 setOriginalData(snap);
+                console.log("Data is", snap);
                 return;
             }
 

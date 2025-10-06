@@ -42,7 +42,7 @@ export default function AddGear({ gearID, onSave, onClose }) {
             setCategories(sortedCategories);
         }
         sortCategoriesByName();
-    }, [categories, t]);
+    }, [t]);
 
     const fetchGearFromFirebase = async (gearID) => {
         getFromFirebaseById(Constants.DB_BACKPACKING_GEAR, gearID).then((val) => {

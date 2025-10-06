@@ -198,7 +198,6 @@
     },
     "exercises": {
         "add_movement": "Add movement",
-        "button_add_movement": "Add movement",
         "button_create_exercise": "Create Exercise",
         "button_save_exercise": "Save exercise",
         "button_save_gym_part": "Save movement",

@@ -27,13 +27,13 @@ export default function MovementDetails() {
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
-    const [message] = useState('');
+    const [message, setMessage] = useState('');
     const [showError, setShowError] = useState(false);
-    const [error] = useState('');
+    const [error, setError] = useState('');
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //params
     const params = useParams();
@@ -74,6 +74,18 @@ export default function MovementDetails() {
         ];
     }
 
+    const updateMovement = async (updateMovementID, movement) => {
+        try {
+            const movementID = params.id;
+            movement["modified"] = getCurrentDateAsJson();
+            updateToFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, movementID, movement);
+        } catch (error) {
+            setError(t('movement_save_exception'));
+            setShowError(true);
+            console.log(error);
+        }
+    }
+
     return loading ? (
         <h3>{tCommon("loading")}</h3>
     ) : (
@@ -96,7 +108,7 @@ export default function MovementDetails() {
                     {t('description') + ': '}{movement.description}
                 </Col>
             </Row>
-            
+
             <Row>
                 <Col>
                     <StarRatingWrapper stars={movement.stars} onSaveStars={saveStars} />
@@ -109,7 +121,7 @@ export default function MovementDetails() {
             />
 
             {showEditMovement &&
-                <AddMovement movementID={params.id} onClose={() => setShowEditMovement(false)} />
+                <AddMovement movementID={params.id} onClose={() => setShowEditMovement(false)} onSave={updateMovement} />
             }
 
             <hr />

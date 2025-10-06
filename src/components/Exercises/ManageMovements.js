@@ -33,10 +33,10 @@ export default function ManageMovements() {
     const { status: showAddMovement, toggleStatus: toggleAddMovement } = useToggle();
 
     //alert
-    const [setShowMessage] = useState(false);
-    const [setMessage] = useState('');
-    const [setShowError] = useState(false);
-    const [setError] = useState('');
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
 
     //user
     const { currentUser } = useAuth();
@@ -100,13 +100,13 @@ export default function ManageMovements() {
                 <Button
                     iconName={Constants.ICON_PLUS}
                     color={showAddMovement ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                    text={showAddMovement ? tCommon('buttons.button_close') : t('button_add_movement')}
+                    text={showAddMovement ? tCommon('buttons.button_close') : tCommon('buttons.button_save')}
                     onClick={toggleAddMovement} />
             </CenterWrapper>
 
             <Modal show={showAddMovement} onHide={toggleAddMovement}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_add_movement')}</Modal.Title>
+                    <Modal.Title>{t('modal_header_add_movement')}</Modal.Title> 
                 </Modal.Header>
                 <Modal.Body>
                     <AddMovement onSave={addMovement} onClose={toggleAddMovement} />
