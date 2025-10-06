@@ -168,7 +168,7 @@ export default function Car() {
                                 />
                             ) : (<></>)
                         }
-                        <Counter counter={fuelingsCounter} text={t('amount')} list={carFuelings} originalList={originalCarFuelings} />
+                        <Counter counter={fuelingsCounter} text={tCommon('amount')} list={carFuelings} originalList={originalCarFuelings} />
                         {
                             carFuelings != null && carFuelings.length > 0 ? (
                                 <CarFuelings

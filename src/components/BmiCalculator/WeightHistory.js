@@ -10,6 +10,7 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 import useFetch from '../useFetch';
 import DeleteButton from '../Buttons/DeleteButton';
+import Counter from '../Site/Counter';
 
 export default function WeightHistory() {
 
@@ -37,6 +38,7 @@ export default function WeightHistory() {
             <GoBackButton />
             <PageTitle title={t('weighthistory')} iconName={Constants.ICON_WEIGHT} iconColor={Constants.COLOR_GRAY} />
             <WeightChart data={historyRows} />
+            <Counter counter={counter} text={tCommon('amount')} list={historyRows} originalList={originalHistoryRows} />
              {/* { <pre>{JSON.stringify(historyRows)}</pre> }  */}
              {historyRows != null && historyRows.length > 0 ? historyRows.map((row, index) =>
                 <div key={row.id}>
@@ -44,7 +46,7 @@ export default function WeightHistory() {
                         {getJsonAsDateTimeString(row.currentDateTime, i18n.language)}<br /> - {row.weight} kg, BMI: {row.bmi}
 
                         <DeleteButton
-                            confirmMessage={tCommonConfirm('areyousure')}
+                            confirmMessage={tCommon('confirm.areyousure')}
                             onDelete={deleteHistoryRow}
                             id={row.id}
                         />
