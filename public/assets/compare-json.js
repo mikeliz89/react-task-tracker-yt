@@ -2,10 +2,11 @@
 // Käyttö: node compare-json.js <lähde.json> <kohde.json> [--add-missing] [--use-source-value]
 // Käyttöesimerkki: node compare-json.js locales/fi/tasklist.json locales/en/tasklist.json --add-missing --use-source-value
 // Tulostaa avaimet, jotka puuttuvat kohteesta verrattuna lähteeseen.
-// --add-missing lisää puuttuvat avaimet kohteeseen ja tallentaa tiedostoon <kohde>.with-missing.json
-// --use-source-value täyttää puuttuvat avaimet lähteen arvoilla (oletuksena tyhjä merkkijono)
+// --add-missing lisää puuttuvat avaimet kohteeseen ja tallentaa suoraan <kohde>.json-tiedostoon
+// --use-source-value täyttää puuttuvat avaimet lähteen arvoilla ja lisää perään _kansionimi (esim. _en)
 
 const fs = require("fs");
+const path = require("path");
 
 function load(p) {
   return JSON.parse(fs.readFileSync(p, "utf8"));
@@ -54,11 +55,15 @@ function missingKeys(fromObj, toObj) {
   return [...A].filter(k => !B.has(k)).sort();
 }
 
-// Lisää puuttuvat avaimet kohdeobjektiin (arvoksi tyhjä merkkijono tai lähteen arvo)
-function addMissingKeys(fromObj, toObj, useSourceValue = false) {
+// Lisää puuttuvat avaimet kohdeobjektiin (arvoksi tyhjä merkkijono tai lähteen arvo + _kansionimi)
+function addMissingKeys(fromObj, toObj, useSourceValue = false, langSuffix = "") {
   const missing = missingKeys(fromObj, toObj);
   missing.forEach(path => {
-    const value = useSourceValue ? getValueByPath(fromObj, path) : "";
+    let value = "";
+    if (useSourceValue) {
+      const srcVal = getValueByPath(fromObj, path);
+      value = typeof srcVal === "string" ? srcVal + langSuffix : srcVal;
+    }
     setValueByPath(toObj, path, value);
   });
   return toObj;
@@ -84,10 +89,16 @@ function addMissingKeys(fromObj, toObj, useSourceValue = false) {
   missing.forEach(k => console.log(k));
 
   if (addMissing) {
-    const newObj = addMissingKeys(srcJson, JSON.parse(JSON.stringify(dstJson)), useSourceValue);
-    const outPath = dst.replace(/\.json$/i, "") + ".with-missing.json";
-    fs.writeFileSync(outPath, JSON.stringify(newObj, null, 2), "utf8");
-    console.log(`\nLisätty puuttuvat avaimet tiedostoon: ${outPath}`);
+    // Selvitetään kansion nimi (esim. en) tiedostopolusta
+    let langSuffix = "";
+    if (useSourceValue) {
+      // Oletetaan että tiedosto on esim. .../en/tiedosto.json
+      const dirName = path.basename(path.dirname(dst));
+      langSuffix = `_${dirName}`;
+    }
+    const newObj = addMissingKeys(srcJson, dstJson, useSourceValue, langSuffix);
+    fs.writeFileSync(dst, JSON.stringify(newObj, null, 2), "utf8");
+    console.log(`\nLisätty puuttuvat avaimet tiedostoon: ${dst}`);
   }
 
   process.exitCode = 1;
