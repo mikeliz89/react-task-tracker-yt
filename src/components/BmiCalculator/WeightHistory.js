@@ -11,6 +11,8 @@ import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 import useFetch from '../useFetch';
 import DeleteButton from '../Buttons/DeleteButton';
 import Counter from '../Site/Counter';
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+import { SortMode } from "../SearchSortFilter/SortModes";
 
 export default function WeightHistory() {
 
@@ -39,8 +41,24 @@ export default function WeightHistory() {
             <PageTitle title={t('weighthistory')} iconName={Constants.ICON_WEIGHT} iconColor={Constants.COLOR_GRAY} />
             <WeightChart data={historyRows} />
             <Counter counter={counter} text={tCommon('amount')} list={historyRows} originalList={originalHistoryRows} />
-             {/* { <pre>{JSON.stringify(historyRows)}</pre> }  */}
-             {historyRows != null && historyRows.length > 0 ? historyRows.map((row, index) =>
+
+            <>
+                {
+                    originalHistoryRows != null && originalHistoryRows.length > 0 ? (
+                        <SearchSortFilter
+                            onSet={setHistoryRows}
+                            //search
+                            originalList={originalHistoryRows}
+                            //sort
+                            defaultSort={SortMode.Created_ASC}
+                            showSortByCreatedDate={true}
+                        />
+                    ) : (<></>)
+                }
+            </>
+
+            {/* { <pre>{JSON.stringify(historyRows)}</pre> }  */}
+            {historyRows != null && historyRows.length > 0 ? historyRows.map((row, index) =>
                 <div key={row.id}>
                     <p>
                         {getJsonAsDateTimeString(row.currentDateTime, i18n.language)}<br /> - {row.weight} kg, BMI: {row.bmi}
