@@ -54,11 +54,19 @@ export default function ManageMusicEvents() {
             event["created"] = getCurrentDateAsJson();
             event["createdBy"] = currentUser.email;
             pushToFirebase(Constants.DB_MUSIC_EVENTS, event);
-            setMessage(t('save_success'));
-            setShowMessage(true);
+            showSuccess();
         } catch (ex) {
+            showFailure();
+        }
+
+        function showFailure() {
             setError(t('save_exception'));
             setShowError(true);
+        }
+
+        function showSuccess() {
+            setMessage(t('save_success'));
+            setShowMessage(true);
         }
     }
 

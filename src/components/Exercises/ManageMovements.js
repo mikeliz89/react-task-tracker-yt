@@ -52,17 +52,25 @@ export default function ManageMovements() {
         setShowMessage(false);
     }
 
-    const addMovement = async (movement) => {
+    const addMovement = async (movementID, movement) => {
         try {
             clearMessages();
             movement["created"] = getCurrentDateAsJson();
             movement["createdBy"] = currentUser.email;
             pushToFirebase(Constants.DB_EXERCISE_MOVEMENTS, movement);
-            setMessage(t('save_success'));
-            setShowMessage(true);
+            showSuccess();
         } catch (ex) {
+            showFailure();
+        }
+
+        function showFailure() {
             setError(t('movement_save_exception'));
             setShowError(true);
+        }
+
+        function showSuccess() {
+            setMessage(t('save_success'));
+            setShowMessage(true);
         }
     }
 

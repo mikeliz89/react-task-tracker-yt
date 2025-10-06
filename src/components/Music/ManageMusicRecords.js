@@ -54,11 +54,19 @@ export default function ManageMusicRecords() {
             record["created"] = getCurrentDateAsJson();
             record["createdBy"] = currentUser.email;
             pushToFirebase(Constants.DB_MUSIC_RECORDS, record);
-            setMessage(t('save_success'));
-            setShowMessage(true);
+            showSuccess();
         } catch (ex) {
+            showFailure();
+        }
+
+        function showFailure() {
             setError(t('save_exception'));
             setShowError(true);
+        }
+
+        function showSuccess() {
+            setMessage(t('save_success'));
+            setShowMessage(true);
         }
     }
 

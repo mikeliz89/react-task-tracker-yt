@@ -65,8 +65,9 @@ export default function AddMovement({ movementID, onClose, onSave }) {
             return;
         }
 
-        const obj = { name, category, stars, description };
-        onSave(obj);
+        onSave(movementID, {
+            name, category, stars, description
+        });
     }
 
     return (

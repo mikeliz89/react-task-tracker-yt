@@ -80,6 +80,10 @@ export default function MovementDetails() {
             movement["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, movementID, movement);
         } catch (error) {
+            showFailure(error);
+        }
+
+        function showFailure(error) {
             setError(t('movement_save_exception'));
             setShowError(true);
             console.log(error);

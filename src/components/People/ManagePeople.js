@@ -48,11 +48,19 @@ export default function ManagePeople() {
             person["created"] = getCurrentDateAsJson();
             person["createdBy"] = currentUser.email;
             pushToFirebase(Constants.DB_PEOPLE, person);
-            setMessage(t('save_success'));
-            setShowMessage(true);
+            showSuccess();
         } catch (ex) {
+            showFailure();
+        }
+
+        function showFailure() {
             setError(t('save_exception'));
             setShowError(true);
+        }
+
+        function showSuccess() {
+            setMessage(t('save_success'));
+            setShowMessage(true);
         }
     }
 

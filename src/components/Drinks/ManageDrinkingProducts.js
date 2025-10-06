@@ -47,11 +47,19 @@ export default function ManageDrinkingProducts() {
             drinkingProduct["created"] = getCurrentDateAsJson();
             drinkingProduct["createdBy"] = currentUser.email;
             pushToFirebase(Constants.DB_DRINKINGPRODUCTS, drinkingProduct);
-            setMessage(t('drinkingproduct_save_successful'));
-            setShowMessage(true);
+            showSuccess();
         } catch (ex) {
+            showFailure();
+        }
+
+        function showFailure() {
             setError(t('drinkingproduct_save_exception'));
             setShowError(true);
+        }
+
+        function showSuccess() {
+            setMessage(t('drinkingproduct_save_successful'));
+            setShowMessage(true);
         }
     }
 

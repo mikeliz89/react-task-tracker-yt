@@ -74,6 +74,10 @@ export default function CreateExercise() {
             const key = await pushToFirebase(Constants.DB_EXERCISES, exercise);
             navigate(`${Constants.NAVIGATION_EXERCISE}/${key}`);
         } catch (ex) {
+            showFailure();
+        }
+
+        function showFailure() {
             setError(t('exercise_save_exception'));
             setShowError(true);
         }

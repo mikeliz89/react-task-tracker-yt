@@ -54,11 +54,19 @@ export default function ManageMovies() {
             movie["created"] = getCurrentDateAsJson();
             movie["createdBy"] = currentUser.email;
             pushToFirebase(Constants.DB_MOVIES, movie);
-            setMessage(t('save_success'));
-            setShowMessage(true);
+            showSuccess();
         } catch (ex) {
+            showFailure();
+        }
+
+        function showFailure() {
             setError(t('save_exception'));
             setShowError(true);
+        }
+
+        function showSuccess() {
+            setMessage(t('save_success'));
+            setShowMessage(true);
         }
     }
 
