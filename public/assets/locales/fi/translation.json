@@ -5,9 +5,6 @@
         "about_author": "Tekijä",
         "version_upgraded": "Versiota nostettu viimeksi"
     },
-    "alert": {
-        "button_close": "Sulje"
-    },
     "auth": {
         "already_have_an_account": "Oletko jo rekisteröitynyt?",
         "check_your_inbox": "Katso sähköpostiisi lähetetty viesti",
@@ -31,12 +28,10 @@
     "backpacking": {
         "button_add_maintenance_instructions": "Lisää huolto-ohje",
         "button_add_gear": "Lisää varuste",
-        "button_close": "Sulje",
         "button_manage_backpacking_lists": "Listat",
         "button_manage_gear": "Varusteeni",
         "button_manage_gear_maintenance": "Huolto-ohjeet",
         "button_save_gear": "Tallenna varuste",
-        "button_save_gear_maintenance_instruction": "Tallenna",
         "category": "Kategoria",
         "created": "Luotu",
         "created_by": "Luoja",
@@ -102,7 +97,6 @@
         "add_maintenance_title": "Huolto",
         "amount": "Määrä",
         "button_car_lists": "Listat",
-        "button_close": "Sulje",
         "car_fuelings_price_sum": "Tankkaukset yhteensä (euroina)",
         "car_maintenances": "Huollot",
         "car_title": "Auto",
@@ -129,15 +123,12 @@
         "price": "Tankattu euromäärä",
         "purchase_location": "Ostopaikka",
         "register_number": "Rekisterinumero",
-        "save": "Tallenna",
         "save_exception": "Tallennus epäonnistui",
         "save_successful": "Tallennus onnistui",
         "text": "Lisätieto"
     },
     "comments": {
         "add_comment": "Kommentoi",
-        "button_close": "Sulje",
-        "button_save": "Tallenna",
         "header": "Kommentit",
         "no_comments": "Ei kommentteja",
         "text": "Teksti"
@@ -174,11 +165,9 @@
         "button_add_drinkingproduct": "Lisää tuote",
         "button_add_incredient": "Lisää ainesosa",
         "button_add_workphase": "Lisää työvaihe",
-        "button_close": "Sulje",
         "button_drinklists": "Listat",
         "button_edit": "Muokkaa drinkkiä",
         "button_manage_drinkingproducts": "Alkoholit",
-        "button_save_drink": "Tallenna",
         "button_save_garnish": "Tallenna koriste",
         "button_save_incredient": "Tallenna ainesosa",
         "button_save_workphase": "Tallenna työvaihe",
@@ -236,7 +225,6 @@
         "incredients": "Ainesosat",
         "incredient_name": "Ainesosan nimi",
         "incredient_amount": "Määrä",
-        "incredient_save_button_text": "Tallenna",
         "incredient_unit": "Yksikkö",
         "incredient_unit_label": "Yksikkö",
         "incredients_header": "Ainesosat",
@@ -278,9 +266,6 @@
         "add_movement": "Luo liike",
         "button_add_movement": "Lisää liike",
         "button_create_exercise": "Luo harjoitus",
-        "button_close": "Sulje",
-        "button_edit": "Muokkaa",
-        "button_save": "Tallenna",
         "button_save_exercise": "Tallenna harjoitus",
         "button_save_gym_part": "Tallenna liike",
         "category": "Kategoria",
@@ -364,9 +349,7 @@
         "copyright": "Tekijänoikeus"
     },
     "games": {
-        "button_save_game": "Tallenna",
         "button_add_game": "Lisää peli",
-        "button_close": "Sulje",
         "button_game_lists": "Listat",
         "console": "Konsoli",
         "description": "Kuvaus",
@@ -410,7 +393,6 @@
     },
     "links": {
         "add_link": "Lisää linkki",
-        "button_close": "Sulje",
         "header": "Linkit",
         "links_list_title": "Linkit",
         "no_links": "Ei linkkejä",
@@ -420,9 +402,7 @@
     },
     "movies": {
         "button_add_movie": "Lisää leffa",
-        "button_close": "Sulje",
         "button_movie_lists": "Leffalistat",
-        "button_save_movie": "Tallenna",
         "created": "Luotu",
         "created_by": "Luoja",
         "description": "Kuvaus",
@@ -457,12 +437,7 @@
         "button_add_music": "Lisää tallenne",
         "button_add_music_event": "Lisää tapahtuma",
         "button_add_music_band": "Lisää bändi",
-        "button_close": "Sulje",
-        "button_delete": "Poista",
         "button_music_lists": "Listat",
-        "button_save_music": "Tallenna",
-        "button_save_event": "Tallenna",
-        "button_save_band": "Tallenna",
         "country": "Maa",
         "created": "Luotu",
         "created_by": "Luoja",
@@ -508,11 +483,9 @@
         "view_details": "Katso lisätiedot"
     },
     "myprofile": {
-        "button_close": "Sulje",
         "height": "Pituus",
         "name": "Nimi",
         "profilepic": "Profiilikuva",
-        "savebutton": "Tallenna",
         "saving_done": "Tallennus onnistui",
         "saving_failed": "Tallennus epäonnistui",
         "title": "Oma profiili",
@@ -522,8 +495,6 @@
         "address": "Kotiosoite",
         "birthday": "Syntymäpäivä",
         "button_add_person": "Lisää ihminen",
-        "button_close": "Sulje",
-        "button_save_person": "Tallenna",
         "created": "Luotu",
         "created_by": "Luoja",
         "description": "Kuvaus",
@@ -545,8 +516,6 @@
         "button_add_incredient": "Lisää ainesosa",
         "button_add_recipe": "Lisää resepti",
         "button_add_workphase": "Lisää työvaihe",
-        "button_close": "Sulje",
-        "button_edit": "Muokkaa",
         "button_manage_fooditems": "Ruoka-ainekset",
         "button_recipe_lists": "Listat",
         "button_save_fooditem": "Tallenna ruoka-aines",
@@ -685,7 +654,6 @@
         "publishYear": "Julkaisuvuosi"
     },
     "starrating": {
-        "button_close": "Sulje",
         "rate": "Arvioi",
         "save_rating": "Tallenna arvio",
         "stars": "Tähdet"
@@ -697,7 +665,6 @@
     },
     "uploadimages": {
         "add_image": "Lisää kuva",
-        "button_close": "Sulje",
         "delete": "Poista",
         "delete_image_confirm_message": "Haluatko varmasti poistaa tämän kuvan?",
         "images": "Kuvat",

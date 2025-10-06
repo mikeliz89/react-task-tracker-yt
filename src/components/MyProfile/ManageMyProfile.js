@@ -26,6 +26,7 @@ export default function ManageMyProfile() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MYPROFILE });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //user
     const { currentUser } = useAuth();
@@ -163,7 +164,7 @@ export default function ManageMyProfile() {
                         value={height}
                         onChange={(e) => setHeight(e.target.value)} />
                 </Form.Group>
-                <Button type='submit' text={t('savebutton')} className='btn btn-block saveBtn' />
+                <Button type='submit' text={tCommon('buttons.button_save')} className='btn btn-block saveBtn' />
             </Form>
         </PageContentWrapper>
     )

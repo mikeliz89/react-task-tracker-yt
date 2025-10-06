@@ -209,7 +209,7 @@ export default function TaskListDetails() {
           <GoBackButton />
           <Button
             iconName={Constants.ICON_EDIT}
-            text={showEditTaskList ? t('button_close') : ''}
+            text={showEditTaskList ? tCommon('buttons.button_close') : ''}
             color={showEditTaskList ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
             onClick={() => toggleShowTaskList()}
           />
@@ -281,7 +281,7 @@ export default function TaskListDetails() {
             <Button
               iconName={Constants.ICON_PLUS}
               color={showAddTask ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-              text={showAddTask ? t('button_close') : t('button_add_task')}
+              text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
               onClick={toggleAddTask} />
           </CenterWrapper>
 

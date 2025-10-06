@@ -8,6 +8,7 @@ export default function AddLink({ onSaveLink }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LINKS });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //states
     const [url, setUrl] = useState('');
@@ -43,7 +44,7 @@ export default function AddLink({ onSaveLink }) {
                 type='button'
                 disableStyle={true}
                 className={showForm ? 'btn btn-danger' : 'btn btn-primary'}
-                text={showForm ? t('button_close') : t('add_link')}
+                text={showForm ? tCommon('buttons.button_close') : t('add_link')}
                 onClick={() => setShowForm(!showForm)} />
             {
                 showForm ? (
@@ -67,7 +68,7 @@ export default function AddLink({ onSaveLink }) {
                                     </Form.Group>
                                     <Row>
                                         <ButtonGroup>
-                                            <Button type='button' text={t('button_close')} className='btn btn-block'
+                                            <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
                                                 onClick={() => setShowForm(false)} />
                                             <Button disabled={loading} type='submit' text={t('save_link')} className='btn btn-block saveBtn' />
                                         </ButtonGroup>

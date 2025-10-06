@@ -63,7 +63,7 @@ export default function TaskDetails() {
           <GoBackButton />
           <Button
             iconName={Constants.ICON_EDIT}
-            text={showEditTask ? t('button_close') : t('button_edit')}
+            text={showEditTask ? tCommon('buttons.button_close') : tCommon('buttons.button_edit')}
             color={showEditTask ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
             onClick={() => setShowEditTask(!showEditTask)} />
         </ButtonGroup>

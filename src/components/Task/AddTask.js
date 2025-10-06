@@ -10,6 +10,7 @@ export default function AddTask({ taskID, taskListID, onSave, onClose, showLabel
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_BUTTONS });
 
     //states
     const [text, setText] = useState('');
@@ -100,7 +101,7 @@ export default function AddTask({ taskID, taskListID, onSave, onClose, showLabel
             </Form.Group>
             <Row>
                 <ButtonGroup>
-                    <Button type='button' text={t('button_close')} className='btn btn-block'
+                    <Button type='button' text={tCommon('button_close')} className='btn btn-block'
                         onClick={() => onClose()}
                     />
                     <Button type='submit' text={t('button_save_task')} className='btn btn-block saveBtn' />

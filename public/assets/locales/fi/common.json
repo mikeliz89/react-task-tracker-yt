@@ -2,7 +2,11 @@
     "common": {
         "loading": "Lataa...",
         "buttons": {
-            "go_back_button_alt": "Takaisin"
+            "go_back_button_alt": "Takaisin",
+            "button_close": "Sulje",
+            "button_delete": "Poista",
+            "button_edit": "Muokkaa",
+            "button_save": "Tallenna"
         },
         "confirm": {
             "areyousure": "Oletko varma?"

@@ -14,6 +14,7 @@ export default function AddComment({ onSave }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_COMMENTS });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -45,7 +46,7 @@ export default function AddComment({ onSave }) {
                 disableStyle={true}
                 className={showAddComment ? 'btn btn-danger' : 'btn btn-primary'}
                 text={
-                    showAddComment ? t('button_close') : t('add_comment')
+                    showAddComment ? tCommon('buttons.button_close') : t('add_comment')
                 }
                 onClick={() => setShowAddComment(!showAddComment)} />
             {
@@ -61,9 +62,9 @@ export default function AddComment({ onSave }) {
                             onChange={(e) => setText(e.target.value)} />
                         <Row>
                             <ButtonGroup>
-                                <Button type='button' text={t('button_close')} className='btn btn-block'
+                                <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
                                     onClick={() => setShowAddComment(false)} />
-                                <Button type="submit" text={t('button_save')} className="btn btn-block saveBtn" />
+                                <Button type="submit" text={tCommon('buttons.button_save')} className="btn btn-block saveBtn" />
                             </ButtonGroup>
                         </Row>
                     </Form.Group>

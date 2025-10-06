@@ -11,6 +11,7 @@ export default function AddImage({ objectID, imagesUrl }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     return (
         <>
@@ -19,7 +20,7 @@ export default function AddImage({ objectID, imagesUrl }) {
                 iconName={Constants.ICON_IMAGES}
                 className={showAddImage ? 'btn btn-danger' : 'btn btn-primary'}
                 text={
-                    showAddImage ? t('button_close') : t('add_image')
+                    showAddImage ? tCommon('buttons.button_close') : t('add_image')
                 }
                 onClick={() => setShowAddImage(!showAddImage)} />
             {showAddImage &&

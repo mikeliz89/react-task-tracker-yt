@@ -124,9 +124,9 @@ export default function AddFueling({ ID, onClose, onSave }) {
                 <Row>
                     <ButtonGroup>
                         <Button
-                            type='button' text={t('button_close')} className='btn btn-block'
+                            type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
                             onClick={() => onClose()} />
-                        <Button disabled={loading} type='submit' text={t('save')} className='btn btn-block saveBtn' />
+                        <Button disabled={loading} type='submit' text={tCommon('buttons.button_save')} className='btn btn-block saveBtn' />
                     </ButtonGroup>
                 </Row>
             </Form>

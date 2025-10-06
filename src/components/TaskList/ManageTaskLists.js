@@ -166,7 +166,7 @@ export default function ManageTaskLists({ listType }) {
         <Button
           iconName={Constants.ICON_PLUS}
           color={showAddTaskList ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-          text={showAddTaskList ? t('button_close') : t('button_add_list')}
+          text={showAddTaskList ? tCommon('buttons.button_close') : t('button_add_list')}
           onClick={toggleAddTaskList} />
       </CenterWrapper>
 

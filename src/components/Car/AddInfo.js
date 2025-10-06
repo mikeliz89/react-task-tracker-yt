@@ -174,7 +174,7 @@ export default function AddInfo() {
                 </Form.Group>
                 <Row>
                     <ButtonGroup>
-                        <Button disabled={loading} type='submit' text={t('save')} className='btn btn-block saveBtn' />
+                        <Button disabled={loading} type='submit' text={tCommon('buttons.button_save')} className='btn btn-block saveBtn' />
                     </ButtonGroup>
                 </Row>
             </Form>

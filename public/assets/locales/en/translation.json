@@ -5,9 +5,6 @@
         "about_author": "Author",
         "version_upgraded": "Version upgraded last"
     },
-    "alert": {
-        "button_close": "Close"
-    },
     "auth": {
         "already_have_an_account": "Already have an account?",
         "check_your_inbox": "Check your inbox for further instructions",
@@ -31,12 +28,10 @@
     "backpacking": {
         "button_add_maintenance_instructions": "Add gear maintenance instruction",
         "button_add_gear": "Add gear",
-        "button_close": "Close",
         "button_manage_backpacking_lists": "Lists",
         "button_manage_gear": "My gear",
         "button_manage_gear_maintenance": "Gear maintenace",
         "button_save_gear": "Save gear",
-        "button_save_gear_maintenance_instruction": "Save",
         "category": "Category",
         "created": "Created",
         "created_by": "Created By",
@@ -89,7 +84,6 @@
         "add_info": "Car details",
         "add_info_title": "Car details",
         "add_maintenance": "Add maintenance",
-        "button_close": "Close",
         "car_fuelings_price_sum": "Fuelings sum (in euros)",
         "car_maintenances": "Maintenances",
         "car_title": "Car",
@@ -121,8 +115,6 @@
     },
     "comments": {
         "add_comment": "Comment",
-        "button_close": "Close",
-        "button_save": "Save",
         "header": "Comments",
         "no_comments": "No comments",
         "text": "Text"
@@ -132,9 +124,7 @@
         "button_add_drinkingproduct": "Add Drinking Product",
         "button_add_incredient": "Add Incredient",
         "button_add_workphase": "Add Workphase",
-        "button_close": "Close",
         "button_drinklists": "Lists",
-        "button_edit": "Edit Drink",
         "button_manage_drinkingproducts": "Drinking Products",
         "button_save_drink": "Save Drink",
         "category": "Category",
@@ -213,9 +203,6 @@
         "add_movement": "Add movement",
         "button_add_movement": "Add movement",
         "button_create_exercise": "Create Exercise",
-        "button_close": "Close",
-        "button_edit": "Edit",
-        "button_save": "Save",
         "button_save_exercise": "Save exercise",
         "button_save_gym_part": "Save movement",
         "category": "Category",
@@ -290,7 +277,6 @@
     "games": {
         "button_save_game": "Save",
         "button_add_game": "Add Game",
-        "button_close": "Close",
         "button_game_lists": "Lists",
         "console": "Console",
         "description": "Description",
@@ -334,7 +320,6 @@
     },
     "links": {
         "add_link": "Add Link",
-        "button_close": "Close",
         "header": "Links",
         "links_list_title": "Links",
         "no_links": "No links",
@@ -344,7 +329,6 @@
     },
     "movies": {
         "button_add_movie": "Add Movie",
-        "button_close": "Close",
         "button_movie_lists": "Movie Lists",
         "button_save_movie": "Save",
         "created": "Created",
@@ -380,7 +364,6 @@
         "button_add_music": "Add Record",
         "button_add_music_event": "Add Event",
         "button_add_music_band": "Add Band",
-        "button_close": "Close",
         "button_music_lists": "Lists",
         "button_save_music": "Save",
         "button_save_event": "Save",
@@ -423,12 +406,10 @@
         "view_details": "View Details"
     },
     "myprofile": {
-        "button_close": "Close",
         "title": "My Profile",
         "name": "Name",
         "height": "Height",
         "profilepic": "Profile picture",
-        "savebutton": "Save",
         "saving_done": "Saving was successful",
         "upload": "Upload"
     },
@@ -436,7 +417,6 @@
         "address": "Home address",
         "birthday": "Birthday",
         "button_add_person": "Add person",
-        "button_close": "Close",
         "button_save_person": "Save",
         "created": "Created",
         "created_by": "Created By",
@@ -458,7 +438,6 @@
         "button_add_incredient": "Add Incredient",
         "button_add_recipe": "Add Recipe",
         "button_add_workphase": "Add Work Phase",
-        "button_close": "Close",
         "button_edit": "Edit Recipe",
         "button_manage_fooditems": "Food items",
         "button_recipe_lists": "Lists",
@@ -584,7 +563,6 @@
         "publishYear": "Publish year"
     },
     "starrating": {
-        "button_close": "Close",
         "rate": "Rate",
         "save_rating": "Save rating",
         "stars": "Stars"
@@ -596,7 +574,6 @@
     },
     "uploadimages": {
         "add_image": "Add image",
-        "button_close": "Close",
         "delete": "Delete",
         "images": "Images",
         "load_image": "Load image",

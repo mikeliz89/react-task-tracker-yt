@@ -138,7 +138,7 @@ export default function ManageRecipes() {
         <Button
           iconName={Constants.ICON_PLUS}
           color={showAddRecipe ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-          text={showAddRecipe ? t('button_close') : t('button_add_recipe')}
+          text={showAddRecipe ? tCommon('buttons.button_close') : t('button_add_recipe')}
           onClick={toggleAddRecipe} />
       </CenterWrapper>
 

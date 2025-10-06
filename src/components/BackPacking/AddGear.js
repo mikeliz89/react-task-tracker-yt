@@ -118,7 +118,7 @@ export default function AddGear({ gearID, onSave, onClose }) {
                 </Form.Group>
                 <Row>
                     <ButtonGroup>
-                        <Button type='button' text={t('button_close')} className='btn btn-block'
+                        <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
                             onClick={() => onClose()} />
                         <Button type='submit' text={t('button_save_gear')} className='btn btn-block saveBtn' />
                     </ButtonGroup>

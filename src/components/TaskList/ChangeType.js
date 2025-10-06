@@ -9,6 +9,7 @@ export default function ChangeType({ taskList, onSave, onClose }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //states
     const [category, setCategory] = useState('');
@@ -58,7 +59,7 @@ export default function ChangeType({ taskList, onSave, onClose }) {
             </Form.Group>
             <Row>
                 <ButtonGroup>
-                    <Button type='button' text={t('button_close')} className='btn btn-block'
+                    <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
                         onClick={() => onClose()} />
                     <Button type='submit' text={t('button_save_list')} className='btn btn-block saveBtn' />
                 </ButtonGroup>

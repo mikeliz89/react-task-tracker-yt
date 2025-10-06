@@ -10,6 +10,7 @@ export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
 
     //translation
     const { t, ready } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //states
     const [category, setCategory] = useState('');
@@ -192,7 +193,7 @@ export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
                 </Form.Group>
                 <Row>
                     <ButtonGroup>
-                        <Button type="button" text={t('button_close')} className='btn btn-block' onClick={() => onClose()} />
+                        <Button type="button" text={tCommon('buttons.button_close')} className='btn btn-block' onClick={() => onClose()} />
                         <Button type='submit' text={t('button_save_fooditem')} className='btn btn-block saveBtn' />
                     </ButtonGroup>
                 </Row>
