@@ -41,7 +41,7 @@ export default function ManageExercises() {
 
           <Link to={Constants.NAVIGATION_MANAGE_EXERCISE_LISTS} className='btn btn-primary'>
             <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
-            {t('manage_exercise_lists_button')}
+            {tCommon('buttons.button_lists')}
           </Link>
           
         </ButtonGroup>

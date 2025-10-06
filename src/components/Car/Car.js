@@ -114,7 +114,7 @@ export default function Car() {
                     <GoBackButton />
                     <Link to={Constants.NAVIGATION_MANAGE_CARLISTS} className='btn btn-primary'>
                         <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
-                        {t('button_car_lists')}
+                        {tCommon('buttons.button_lists')}
                     </Link>
                 </ButtonGroup>
             </Row>

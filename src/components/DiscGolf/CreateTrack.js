@@ -80,11 +80,13 @@ export default function CreateTrack() {
       e.preventDefault();
 
       if (holes.length < 1) {
+         //TODO: kieleistys
          alert("Lisää vähintään yksi väylä");
          return;
       }
 
       if (trackName === "") {
+         //TODO: kieleistys
          alert("Ole hyvä ja anna radalle nimi");
          return;
       }

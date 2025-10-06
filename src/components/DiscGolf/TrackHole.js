@@ -6,6 +6,7 @@ export default function TrackHole({ hole, decreasePar, increasePar, deleteHole }
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     return (
         <>
@@ -34,7 +35,7 @@ export default function TrackHole({ hole, decreasePar, increasePar, deleteHole }
                 <Button
                     color={Constants.COLOR_DELETEBUTTON}
                     type='button'
-                    text='Poista'
+                    text={tCommon('buttons.button_delete')}
                     onClick={() => deleteHole(hole.id)}
                     iconName={Constants.ICON_DELETE}
                     style={{ backgroundColor: Constants.COLOR_ADDBUTTON_CLOSED }}
