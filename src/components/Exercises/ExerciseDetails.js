@@ -90,7 +90,7 @@ export default function ExerciseDetails() {
                             iconName={Constants.ICON_EDIT}
                             onClick={() => setShowEditExercise(!showEditExercise)}
                             color={showEditExercise ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
-                            text={showEditExercise ? t('close') : t('button_edit')} />
+                            text={showEditExercise ? tCommon('buttons.button_close') : tCommon('buttons.button_edit')} />
                     </ButtonGroup>
                 </Row>
 

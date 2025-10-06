@@ -117,7 +117,7 @@ export default function ManagePeople() {
                 <Button
                     iconName={Constants.ICON_PLUS}
                     color={showAddPerson ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                    text={showAddPerson ? t('button_close') : t('button_add_person')}
+                    text={showAddPerson ? tCommon('buttons.button_close') : t('button_add_person')}
                     onClick={toggleAddPerson} />
             </CenterWrapper>
 

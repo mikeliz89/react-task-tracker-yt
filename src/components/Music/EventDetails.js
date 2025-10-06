@@ -147,7 +147,7 @@ export default function EventDetails() {
                     <GoBackButton />
                     <Button
                         iconName={Constants.ICON_EDIT}
-                        text={showEdit ? t('button_close') : ''}
+                        text={showEdit ? tCommon('buttons.button_close') : ''}
                         color={showEdit ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
                         onClick={() => toggleShowEdit()} />
                 </ButtonGroup>
@@ -171,7 +171,7 @@ export default function EventDetails() {
                     <Button
                         disableStyle={true}
                         className={showLinkBands ? 'btn btn-danger' : 'btn btn-primary'}
-                        text={showLinkBands ? t('button_close') : t('add_bands_to_event')}
+                        text={showLinkBands ? tCommon('buttons.button_close') : t('add_bands_to_event')}
                         onClick={() => {
                             setShowLinkBands(!showLinkBands);
                             //logBands();

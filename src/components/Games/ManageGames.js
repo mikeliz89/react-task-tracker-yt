@@ -133,7 +133,7 @@ export default function ManageGames() {
                 <Button
                     iconName={Constants.ICON_PLUS}
                     color={showAddGame ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                    text={showAddGame ? t('button_close') : t('button_add_game')}
+                    text={showAddGame ? tCommon('buttons.button_close') : t('button_add_game')}
                     onClick={toggleAddGame} />
             </CenterWrapper>
 

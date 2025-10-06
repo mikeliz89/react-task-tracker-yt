@@ -12,8 +12,8 @@ export default function About() {
     return (
         <PageContentWrapper>
             <GoBackButton />
-            <PageTitle title={t('about_version') + ' 2.2.0'} />
-            <p>{t('version_upgraded')} 13.8.2023</p>
+            <PageTitle title={t('about_version') + ' 2.2.1'} />
+            <p>{t('version_upgraded')} 6.10.2025</p>
             <p>{t('about_author')} Miika Kontio</p>
         </PageContentWrapper>
     )

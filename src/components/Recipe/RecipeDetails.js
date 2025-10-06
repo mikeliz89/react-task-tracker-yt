@@ -157,7 +157,7 @@ export default function RecipeDetails() {
                     <GoBackButton />
                     <Button
                         iconName={Constants.ICON_EDIT}
-                        text={showEditRecipe ? t('button_close') : ''}
+                        text={showEditRecipe ? tCommon('buttons.button_close') : ''}
                         color={showEditRecipe ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
                         onClick={() => setShowEditRecipe(!showEditRecipe)} />
                 </ButtonGroup>
@@ -200,7 +200,7 @@ export default function RecipeDetails() {
                         iconName={Constants.ICON_PLUS}
                         secondIconName={Constants.ICON_CARROT}
                         color={showAddIncredient ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                        text={showAddIncredient ? t('button_close') : ''}
+                        text={showAddIncredient ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
                     {showAddIncredient &&
                         <AddIncredient
@@ -237,7 +237,7 @@ export default function RecipeDetails() {
                         iconName={Constants.ICON_PLUS}
                         secondIconName={Constants.ICON_HOURGLASS_1}
                         color={showAddWorkPhase ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                        text={showAddWorkPhase ? t('button_close') : ''}
+                        text={showAddWorkPhase ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                     {showAddWorkPhase &&
                         <AddWorkPhase

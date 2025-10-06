@@ -143,7 +143,7 @@ export default function ManageDrinks() {
                 <Button
                     iconName={Constants.ICON_PLUS}
                     color={showAddDrink ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                    text={showAddDrink ? t('button_close') : t('button_add_drinks')}
+                    text={showAddDrink ? tCommon('buttons.button_close') : t('button_add_drinks')}
                     onClick={toggleAddDrink} />
             </CenterWrapper>
 

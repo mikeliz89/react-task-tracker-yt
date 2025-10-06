@@ -132,7 +132,7 @@ export default function ManageMusicRecords() {
                 <Button
                     iconName={Constants.ICON_PLUS}
                     color={showAddRecord ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                    text={showAddRecord ? t('button_close') : t('button_add_music')}
+                    text={showAddRecord ? tCommon('buttons.button_close') : t('button_add_music')}
                     onClick={toggleAddRecord} />
             </CenterWrapper>
 

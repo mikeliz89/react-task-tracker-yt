@@ -119,7 +119,7 @@ export default function ManageDrinkingProducts() {
                     iconName={Constants.ICON_PLUS}
                     secondIconName={Constants.ICON_WINE}
                     color={showAddDrinkingProduct ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                    text={showAddDrinkingProduct ? t('button_close') : t('button_add_drinkingproduct')}
+                    text={showAddDrinkingProduct ? tCommon('buttons.button_close') : t('button_add_drinkingproduct')}
                     onClick={toggleAddDrinkingProduct} />
             </CenterWrapper>
 

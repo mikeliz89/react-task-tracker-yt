@@ -15,6 +15,7 @@ export default function SetStarRating({ starCount, onSaveStars, onShow }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_STAR_RATING });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     async function onSubmit(e) {
         e.preventDefault();
@@ -40,7 +41,7 @@ export default function SetStarRating({ starCount, onSaveStars, onShow }) {
                 iconName={Constants.ICON_STAR}
                 disableStyle={true}
                 className={showStarRating ? 'btn btn-danger' : 'btn btn-primary'}
-                text={showStarRating ? t('button_close') : t('rate')}
+                text={showStarRating ? tCommon('buttons.button_close') : t('rate')}
                 onClick={() => showRating(!showStarRating)} />
             {
                 showStarRating ? (
@@ -56,7 +57,7 @@ export default function SetStarRating({ starCount, onSaveStars, onShow }) {
                                     </Form.Group>
                                     <Row>
                                         <ButtonGroup>
-                                            <Button type='button' text={t('button_close')} className='btn btn-block'
+                                            <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
                                                 onClick={() => showRating(false)} />
                                             <Button
                                                 disabled={loading} type='submit'

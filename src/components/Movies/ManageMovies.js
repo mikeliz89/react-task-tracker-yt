@@ -133,7 +133,7 @@ export default function ManageMovies() {
                 <Button
                     iconName={Constants.ICON_PLUS}
                     color={showAddMovie ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                    text={showAddMovie ? t('button_close') : t('button_add_movie')}
+                    text={showAddMovie ? tCommon('buttons.button_close') : t('button_add_movie')}
                     onClick={toggleAddMovie} />
             </CenterWrapper>
 

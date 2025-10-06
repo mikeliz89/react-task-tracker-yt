@@ -121,7 +121,7 @@ export default function Car() {
                     <Button
                         color={showAddFueling ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                         onClick={() => setShowAddFueling(!showAddFueling)}
-                        text={showAddFueling ? t('button_close') : t('add_fueling')}
+                        text={showAddFueling ? tCommon('buttons.button_close') : t('add_fueling')}
                         secondIconName={Constants.ICON_GAS_PUMP}
                         iconName={Constants.ICON_PLUS} />
                     {
@@ -172,7 +172,7 @@ export default function Car() {
                     <Button
                         color={showAddMaintenance ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
                         onClick={() => setShowAddMaintenance(!showAddMaintenance)}
-                        text={showAddFueling ? t('button_close') : t('add_maintenance')}
+                        text={showAddFueling ? tCommon('buttons.button_close') : t('add_maintenance')}
                         iconName={Constants.ICON_PLUS}
                         secondIconName={Constants.ICON_WRENCH} />
                     {

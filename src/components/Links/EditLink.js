@@ -9,6 +9,7 @@ export default function EditLink({ linkID, objID, linkUrl, onEditLink, onCloseEd
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LINKS });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //states
     const [url, setUrl] = useState('');
@@ -65,7 +66,7 @@ export default function EditLink({ linkID, objID, linkUrl, onEditLink, onCloseEd
             </Form.Group>
             <Row>
                 <ButtonGroup>
-                    <Button type='button' text={t('button_close')} className='btn btn-block' onClick={() => close()} />
+                    <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block' onClick={() => close()} />
                     <Button type='submit' text={t('save_link')} className='btn btn-block saveBtn' />
                 </ButtonGroup>
             </Row>

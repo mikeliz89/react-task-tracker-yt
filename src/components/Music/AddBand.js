@@ -10,6 +10,7 @@ export default function AddBand({ bandID, onSave, onClose, showLabels }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //states
     const [created, setCreated] = useState('');
@@ -113,9 +114,9 @@ export default function AddBand({ bandID, onSave, onClose, showLabels }) {
                 </Form.Group>
                 <Row>
                     <ButtonGroup>
-                        <Button type='button' text={t('button_close')} className='btn btn-block'
+                        <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
                             onClick={() => onClose()} />
-                        <Button type='submit' text={t('button_save_band')} className='btn btn-block saveBtn' />
+                        <Button type='submit' text={tCommon('buttons.button_save')} className='btn btn-block saveBtn' />
                     </ButtonGroup>
                 </Row>
             </Form>

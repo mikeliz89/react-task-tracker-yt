@@ -11,6 +11,7 @@ export default function AddWorkPhase({ dbUrl, translation, translationKeyPrefix,
 
   //translation
   const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
   //states
   const [name, setName] = useState('');
@@ -78,7 +79,7 @@ export default function AddWorkPhase({ dbUrl, translation, translationKeyPrefix,
         </Form.Group>
         <Row>
           <ButtonGroup>
-            <Button type='button' text={t('button_close')} onClick={() => onClose()} className='btn btn-block' />
+            <Button type='button' text={tCommon('buttons.button_close')} onClick={() => onClose()} className='btn btn-block' />
             <Button type='submit' text={t('button_save_workphase')} className='btn btn-block saveBtn' />
           </ButtonGroup>
         </Row>

@@ -6,7 +6,8 @@ import * as Constants from '../utils/Constants';
 
 export default function Alert({ message, showMessage, showError, error, onClose, variant }) {
 
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_BUTTONS });
+    //translation
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     return (
         <>
@@ -19,7 +20,7 @@ export default function Alert({ message, showMessage, showError, error, onClose,
                             onClose()
                         }}
                         className='btn btn-success'
-                        text={tCommon('button_close')} />
+                        text={tCommon('buttons.button_close')} />
                 </div>
             </BootstrapAlert>
             }
@@ -34,7 +35,7 @@ export default function Alert({ message, showMessage, showError, error, onClose,
                                 onClose()
                             }}
                             className='btn btn-success'
-                            text={tCommon('button_close')} />
+                            text={tCommon('buttons.button_close')} />
                     </div>
                 </BootstrapAlert>
             }

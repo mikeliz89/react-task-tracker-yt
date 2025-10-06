@@ -170,7 +170,7 @@ export default function DrinkDetails() {
                     <GoBackButton />
                     <Button
                         iconName={Constants.ICON_EDIT}
-                        text={showEditDrink ? t('button_close') : ''}
+                        text={showEditDrink ? tCommon('buttons.button_close') : ''}
                         color={showEditDrink ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
                         onClick={() => toggleSetShowEditDrink()} />
                 </ButtonGroup>
@@ -218,7 +218,7 @@ export default function DrinkDetails() {
                         iconName={Constants.ICON_PLUS}
                         secondIconName={Constants.ICON_CARROT}
                         color={showAddIncredient ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                        text={showAddIncredient ? t('button_close') : ''}
+                        text={showAddIncredient ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
                     {showAddIncredient &&
                         <AddIncredient
@@ -254,7 +254,7 @@ export default function DrinkDetails() {
                         iconName={Constants.ICON_PLUS}
                         secondIconName={Constants.ICON_HOURGLASS_1}
                         color={showAddWorkPhase ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                        text={showAddWorkPhase ? t('button_close') : ''}
+                        text={showAddWorkPhase ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                     {showAddWorkPhase && <AddWorkPhase
                         dbUrl={Constants.DB_DRINK_WORKPHASES}
@@ -284,7 +284,7 @@ export default function DrinkDetails() {
                         iconName={Constants.ICON_PLUS}
                         secondIconName={Constants.ICON_LEMON}
                         color={showAddGarnish ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                        text={showAddGarnish ? t('button_close') : ''}
+                        text={showAddGarnish ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddGarnish(!showAddGarnish)} />
                     {showAddGarnish &&
                         <AddGarnish

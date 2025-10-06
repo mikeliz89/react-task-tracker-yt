@@ -83,7 +83,7 @@ export default function MovementDetails() {
                     <GoBackButton />
                     <Button
                         iconName={Constants.ICON_EDIT}
-                        text={showEditMovement ? t('button_close') : ''}
+                        text={showEditMovement ? tCommon('buttons.button_close') : ''}
                         color={showEditMovement ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
                         onClick={() => setShowEditMovement(!showEditMovement)} />
                 </ButtonGroup>

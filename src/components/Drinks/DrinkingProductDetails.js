@@ -97,7 +97,7 @@ export default function DrinkingProductDetails() {
                     <GoBackButton />
                     <Button
                         iconName={Constants.ICON_EDIT}
-                        text={showEditDrinkingProduct ? t('button_close') : ''}
+                        text={showEditDrinkingProduct ? tCommon('buttons.button_close') : ''}
                         color={showEditDrinkingProduct ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
                         onClick={() => toggleSetShowEdit()} />
                 </ButtonGroup>

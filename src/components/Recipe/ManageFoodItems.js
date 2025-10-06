@@ -122,7 +122,7 @@ export default function ManageFoodItems() {
                 <Button
                     iconName={Constants.ICON_PLUS}
                     color={showAddFoodItem ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
-                    text={showAddFoodItem ? t('button_close') : t('button_add_fooditem')}
+                    text={showAddFoodItem ? tCommon('buttons.button_close') : t('button_add_fooditem')}
                     onClick={toggleAddFoodItem} />
             </CenterWrapper>
 

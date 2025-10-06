@@ -9,6 +9,7 @@ export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //states
     const [name, setName] = useState('');
@@ -61,7 +62,7 @@ export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {
             </Form.Group>
             <Row>
                 <ButtonGroup>
-                    <Button type='button' text={t('button_close')} className='btn btn-block'
+                    <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
                         onClick={() => onClose()} />
                     <Button type='submit' text={t('button_save_garnish')} className='btn btn-block saveBtn' />
                 </ButtonGroup>

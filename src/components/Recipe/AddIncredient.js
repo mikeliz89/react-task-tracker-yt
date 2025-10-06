@@ -11,6 +11,7 @@ export default function AddIncredient({ dbUrl, translation, translationKeyPrefix
 
   //translation
   const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
   //states
   const [name, setName] = useState('');
@@ -93,7 +94,7 @@ export default function AddIncredient({ dbUrl, translation, translationKeyPrefix
         </Row>
         <Row>
           <ButtonGroup>
-            <Button type='button' onClick={() => onClose()} className='btn btn-block' text={t('button_close')} />
+            <Button type='button' onClick={() => onClose()} className='btn btn-block' text={tCommon('buttons.button_close')} />
             <Button type='submit' text={t('button_save_incredient')} className='btn btn-block saveBtn' />
           </ButtonGroup>
         </Row>

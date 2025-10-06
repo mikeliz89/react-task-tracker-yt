@@ -94,7 +94,7 @@ export default function MovieDetails() {
                     <GoBackButton />
                     <Button
                         iconName={Constants.ICON_EDIT}
-                        text={showEdit ? t('button_close') : ''}
+                        text={showEdit ? tCommon('buttons.button_close') : ''}
                         color={showEdit ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
                         onClick={() => setShowEdit(!showEdit)} />
                 </ButtonGroup>
