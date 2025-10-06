@@ -29,6 +29,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+6.10.2025 Miika Kontio: use this to start development server (node22 not supporting webpack4 anymore etc)
+set NODE_OPTIONS=--openssl-legacy-provider && npm start
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
@@ -41,6 +44,9 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
+
+6.10.2025 Miika Kontio: use this to make it work
+set NODE_OPTIONS=--openssl-legacy-provider && npm run build
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
@@ -103,7 +109,7 @@ REACT_APP_FIREBASE_API_KEY="[ApiKeyHere]"
 REACT_APP_FIREBASE_PROJECT_ID="[ProjectIdHere]"
 
 ### Firebase login
-firebase login (once at the start of the project)
+firebase login (once at the start of the project)npm
 
 ### Firebase continuous integration deployment
 firebase deploy

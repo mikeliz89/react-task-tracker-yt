@@ -1,5 +1,6 @@
 {
   "hosting": {
+	"site": "lifesaver-production-new",
     "public": "build",
     "ignore": [
       "firebase.json",
