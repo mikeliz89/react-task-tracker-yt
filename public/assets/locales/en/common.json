@@ -2,7 +2,12 @@
     "common": {
         "loading": "Loading...",
         "buttons": {
-            "go_back_button_alt": "Go back"
+            "go_back_button_alt": "Go back",
+            "button_close": "Close",
+            "button_delete": "Delete",
+            "button_edit": "Edit",
+            "button_lists": "Lists",
+            "button_save": "Save"
         },
         "confirm": {
             "areyousure": "Are you sure?"

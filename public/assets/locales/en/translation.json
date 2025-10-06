@@ -84,6 +84,7 @@
         "add_info": "Car details",
         "add_info_title": "Car details",
         "add_maintenance": "Add maintenance",
+        "amount": "Amount",
         "car_fuelings_price_sum": "Fuelings sum (in euros)",
         "car_maintenances": "Maintenances",
         "car_title": "Car",
@@ -529,6 +530,7 @@
     "searchsortfilter": {
         "birthday": "Birthday",
         "created_date": "Created at",
+        "hide_search": "Hide Search",
         "name": "Name",
         "placeholder_name": "Name",
         "placeholder_description": "Description",
