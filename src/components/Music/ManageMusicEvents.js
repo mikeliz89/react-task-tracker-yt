@@ -135,7 +135,7 @@ export default function ManageMusicEvents() {
             <CenterWrapper>
                 <Button
                     iconName={ICONS.PLUS}
-                    color={showAddEvent ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
+                    color={showAddEvent ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddEvent ? tCommon('buttons.button_close') : t('button_add_music_event')}
                     onClick={toggleAddEvent} />
             </CenterWrapper>

@@ -284,7 +284,7 @@ export default function DrinkDetails() {
                     <Button
                         iconName={ICONS.PLUS}
                         secondIconName={ICONS.CARROT}
-                        color={showAddIncredient ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
+                        color={showAddIncredient ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                         text={showAddIncredient ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
                     {showAddIncredient &&
@@ -320,7 +320,7 @@ export default function DrinkDetails() {
                     <Button
                         iconName={ICONS.PLUS}
                         secondIconName={ICONS.HOURGLASS_1}
-                        color={showAddWorkPhase ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
+                        color={showAddWorkPhase ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                         text={showAddWorkPhase ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                     {showAddWorkPhase && <AddWorkPhase
@@ -350,7 +350,7 @@ export default function DrinkDetails() {
                     <Button
                         iconName={ICONS.PLUS}
                         secondIconName={ICONS.LEMON}
-                        color={showAddGarnish ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
+                        color={showAddGarnish ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                         text={showAddGarnish ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddGarnish(!showAddGarnish)} />
                     {showAddGarnish &&

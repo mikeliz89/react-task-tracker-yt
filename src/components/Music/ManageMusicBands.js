@@ -137,7 +137,7 @@ export default function ManageMusicBands() {
             <CenterWrapper>
                 <Button
                     iconName={ICONS.PLUS}
-                    color={showAddBand ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
+                    color={showAddBand ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddBand ? tCommon('buttons.button_close') : t('button_add_music_band')}
                     onClick={toggleAddBand} />
             </CenterWrapper>

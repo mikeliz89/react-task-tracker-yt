@@ -122,7 +122,7 @@ export default function ManageGear() {
             <CenterWrapper>
                 <Button
                     iconName={ICONS.PLUS}
-                    color={showAddGear ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
+                    color={showAddGear ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddGear ? tCommon('buttons.button_close') : t('button_add_gear')}
                     onClick={toggleAddGear} />
             </CenterWrapper>

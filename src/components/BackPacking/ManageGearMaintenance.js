@@ -58,7 +58,7 @@ export default function ManageGearMaintenance() {
                     <GoBackButton />
                     <Button
                         iconName={ICONS.PLUS}
-                        color={showAddGearMaintenance ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
+                        color={showAddGearMaintenance ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                         text={t('button_add_maintenance_instructions')} className='btn btn-primary'
                         onClick={toggleAddGearMaintenance} />
                 </ButtonGroup>
