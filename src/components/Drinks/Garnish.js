@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import AddGarnish from './AddGarnish';
@@ -12,8 +11,6 @@ export default function Garnish({ garnish, drinkID, onDelete }) {
 
     //states
     const [editable, setEditable] = useState(false);
-
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     const updateGarnish = (drinkID, newGarnish) => {
         updateToFirebaseByIdAndSubId(Constants.DB_DRINK_GARNISHES, drinkID, garnish.id, newGarnish);
@@ -34,7 +31,6 @@ export default function Garnish({ garnish, drinkID, onDelete }) {
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
 
                             <DeleteButton
-                                confirmMessage={tCommon('areyousure')}
                                 onDelete={onDelete}
                                 id={drinkID}
                                 subId={garnish.id}

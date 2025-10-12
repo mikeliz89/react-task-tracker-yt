@@ -13,7 +13,6 @@ export default function WorkPhase({ dbUrl, translation, translationKeyPrefix, wo
 
     //translation
     const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //states
     const [editable, setEditable] = useState(false);
@@ -37,7 +36,6 @@ export default function WorkPhase({ dbUrl, translation, translationKeyPrefix, wo
                                 style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             <DeleteButton
-                                confirmMessage={tCommon('areyousure')}
                                 onDelete={onDelete}
                                 id={recipeID}
                                 subId={workPhase.id}

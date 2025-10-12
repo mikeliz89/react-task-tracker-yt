@@ -1,12 +1,14 @@
 import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 export default function DeleteButton({
     confirmMessage,
     onDelete,
     id,
     subId,
+    skipConfirm,
     className = Constants.CLASSNAME_DELETEBTN,
     icon = Constants.ICON_DELETE,
     color = Constants.COLOR_DELETEBUTTON,
@@ -14,8 +16,12 @@ export default function DeleteButton({
     fontSize = '1.2em',
     ...props
 }) {
+
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+
     const handleClick = () => {
-        if (!confirmMessage || window.confirm(confirmMessage)) {
+        const message = confirmMessage || tCommon('confirm.areyousure');
+        if (skipConfirm || window.confirm(message)) {
             if (subId !== undefined) {
                 onDelete(id, subId);
             } else {
@@ -35,6 +41,11 @@ export default function DeleteButton({
     );
 }
 
+DeleteButton.defaultProps = {
+    skipConfirm: false,
+    confirmMessage: '',
+};
+
 DeleteButton.propTypes = {
     confirmMessage: PropTypes.string,
     onDelete: PropTypes.func.isRequired,
@@ -44,4 +55,5 @@ DeleteButton.propTypes = {
     color: PropTypes.string,
     style: PropTypes.object,
     fontSize: PropTypes.string,
+    skipConfirm: PropTypes.bool,
 };

@@ -13,7 +13,6 @@ export default function Gear({ gear, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -35,7 +34,6 @@ export default function Gear({ gear, onDelete }) {
                     {gear.name}
                 </span>
                 <DeleteButton
-                    confirmMessage={tCommon('areyousure')}
                     onDelete={onDelete}
                     id={gear.id}
                 />

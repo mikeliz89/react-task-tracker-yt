@@ -1,6 +1,5 @@
 import { Col, Row } from "react-bootstrap";
 import { useState } from "react";
-import { useTranslation } from 'react-i18next';
 import EditLink from "./EditLink";
 import Icon from "../Icon";
 import * as Constants from '../../utils/Constants';
@@ -8,10 +7,6 @@ import RightWrapper from "../Site/RightWrapper";
 import DeleteButton from '../Buttons/DeleteButton';
 
 export default function LinkInner({ link, objID, linkUrl, onEdit, onDelete }) {
-
-    //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LINKS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //states
     const [editable, setEditable] = useState(false);
@@ -34,7 +29,6 @@ export default function LinkInner({ link, objID, linkUrl, onEdit, onDelete }) {
                                 style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             <DeleteButton
-                                confirmMessage={tCommon('areyousure')}
                                 onDelete={onDelete}
                                 id={link.id}
                             />

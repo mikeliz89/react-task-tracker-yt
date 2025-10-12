@@ -14,7 +14,6 @@ export default function CarFueling({ fuelingRow, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM});
 
     //modal
     const { status: showEditFueling, toggleStatus: toggleShowEditFueling } = useToggle();
@@ -43,7 +42,6 @@ export default function CarFueling({ fuelingRow, onDelete }) {
                             style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                             onClick={() => toggleShowEditFueling()} />
                         <DeleteButton
-                            confirmMessage={tCommon('areyousure')}
                             onDelete={onDelete}
                             id={fuelingRow.id}
                         />

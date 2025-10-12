@@ -31,7 +31,6 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
 
     //translation
     const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -133,7 +132,6 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                         style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => editable ? setEditable(false) : setEditable(true)} />
                     <DeleteButton
-                        confirmMessage={tCommon('areyousure')}
                         onDelete={onDelete}
                         id={recipe.id}
                     />

@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import Icon from '../Icon';
 import DeleteButton from '../Buttons/DeleteButton';
 import * as Constants from '../../utils/Constants';
@@ -10,10 +9,6 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
 
 export default function TaskList({ taskList, archived, onDelete }) {
-
-    //translation
-    const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     //states
     const [editable, setEditable] = useState(false);
@@ -46,7 +41,6 @@ export default function TaskList({ taskList, archived, onDelete }) {
                                 />
                             }
                             <DeleteButton
-                                confirmMessage={t('delete_list_confirm_message')}
                                 onDelete={onDelete}
                                 id={taskList.id}
                             />

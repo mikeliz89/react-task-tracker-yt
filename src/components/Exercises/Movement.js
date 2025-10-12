@@ -9,7 +9,6 @@ export default function Movement({ movement, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     return (
         <div className='listContainer'>
@@ -18,7 +17,6 @@ export default function Movement({ movement, onDelete }) {
                     {movement.name}
                 </span>
                 <DeleteButton
-                    confirmMessage={tCommon('areyousure')}
                     onDelete={onDelete}
                     id={movement.id}
                 />

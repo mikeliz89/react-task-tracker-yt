@@ -12,7 +12,7 @@ export default function GymPart({ exerciseID, gymPart, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //states
     const [editable, setEditable] = useState(false);
@@ -36,7 +36,6 @@ export default function GymPart({ exerciseID, gymPart, onDelete }) {
                                 style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             <DeleteButton
-                                confirmMessage={tCommon('areyousure')}
                                 onDelete={onDelete}
                                 id={exerciseID}
                                 subId={gymPart.id}

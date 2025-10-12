@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import * as Constants from "../../utils/Constants";
-import Icon from '../Icon';
 import Alert from '../Alert';
 import DeleteButton from '../Buttons/DeleteButton';
 
@@ -10,7 +9,6 @@ export default function Person({ person, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_PEOPLE });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -32,7 +30,6 @@ export default function Person({ person, onDelete }) {
                     {person.name}
                 </span>
                 <DeleteButton
-                    confirmMessage={tCommon('areyousure')}
                     onDelete={onDelete}
                     id={person.id}
                 />

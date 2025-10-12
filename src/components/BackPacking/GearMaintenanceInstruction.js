@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import * as Constants from "../../utils/Constants";
 import Icon from '../Icon';
@@ -10,10 +9,6 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
 
 export default function GearMaintenanceInstruction({ instruction, onDelete }) {
-
-    //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //states
     const [editable, setEditable] = useState(false);
@@ -47,7 +42,6 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
                         style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => editable ? setEditable(false) : setEditable(true)} />
                     <DeleteButton
-                        confirmMessage={tCommon('areyousure')}
                         onDelete={onDelete}
                         id={instruction.id}
                     />

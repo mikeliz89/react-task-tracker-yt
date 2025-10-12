@@ -8,7 +8,6 @@ export default function EventBands({ bands, onDelete }) {
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
   const [sortedBands, setSortedBands] = useState([]);
 
@@ -46,7 +45,6 @@ export default function EventBands({ bands, onDelete }) {
                   <td>{showBandName(band)}</td>
                   <td>
                     <DeleteButton
-                      confirmMessage={t('areyousure')}
                       onDelete={onDelete}
                       id={band}
                     />

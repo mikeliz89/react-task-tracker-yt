@@ -11,7 +11,7 @@ export default function Exercise({ exercise, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     return (
         <div className='listContainer'>
@@ -24,7 +24,6 @@ export default function Exercise({ exercise, onDelete }) {
                     }
                 </span>
                 <DeleteButton
-                    confirmMessage={tCommon('areyousure')}
                     onDelete={onDelete}
                     id={exercise.id}
                 />

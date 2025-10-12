@@ -8,7 +8,7 @@ export default function CommentsInner({ comments, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_COMMENTS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     return (
         <div>
@@ -19,7 +19,6 @@ export default function CommentsInner({ comments, onDelete }) {
                             {getJsonAsDateTimeString(comment.created, i18n.language)} <br />
                             {comment.createdBy}: {comment.text}
                             <DeleteButton
-                                confirmMessage={tCommon('areyousure')}
                                 onDelete={onDelete}
                                 id={comment.id}
                             />

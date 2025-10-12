@@ -7,15 +7,11 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import { useToggle } from '../useToggle';
 import DeleteButton from '../Buttons/DeleteButton';
-import { useTranslation } from 'react-i18next';
 
 export default function Task({ taskListID, archived, task, onDelete, onToggle }) {
 
     //toggle
     const { status: editable, toggleStatus: toggleSetEditable } = useToggle();
-
-    //translation
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     const updateTask = (updateTaskListID, object) => {
         object["modified"] = getCurrentDateAsJson();
@@ -43,7 +39,6 @@ export default function Task({ taskListID, archived, task, onDelete, onToggle })
                                     style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                                     onClick={() => toggleSetEditable()} />
                                 <DeleteButton
-                                    confirmMessage={tCommon('areyousure')}
                                     onDelete={onDelete}
                                     id={taskListID}
                                     subId={task.id}

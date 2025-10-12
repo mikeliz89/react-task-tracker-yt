@@ -14,7 +14,6 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //states
     const [editable, setEditable] = useState(false);
@@ -42,7 +41,6 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
                             style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                             onClick={() => editable ? setEditable(false) : setEditable(true)} />
                         <DeleteButton
-                            confirmMessage={tCommon('areyousure')}
                             onDelete={onDelete}
                             id={carMaintenance.id}
                         />

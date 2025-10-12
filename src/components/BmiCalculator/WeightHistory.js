@@ -19,7 +19,6 @@ export default function WeightHistory() {
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BMICALCULATOR });
     const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
-    const { t: tCommonConfirm } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     //auth
     const { currentUser } = useAuth();
@@ -64,7 +63,6 @@ export default function WeightHistory() {
                         {getJsonAsDateTimeString(row.currentDateTime, i18n.language)}<br /> - {row.weight} kg, BMI: {row.bmi}
 
                         <DeleteButton
-                            confirmMessage={tCommon('confirm.areyousure')}
                             onDelete={deleteHistoryRow}
                             id={row.id}
                         />

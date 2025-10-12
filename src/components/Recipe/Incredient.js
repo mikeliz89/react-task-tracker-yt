@@ -11,8 +11,6 @@ import DeleteButton from '../Buttons/DeleteButton';
 
 export default function Incredient({ dbUrl, translation, translationKeyPrefix, incredient, recipeID, onDelete }) {
 
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
-
     //states
     const [editable, setEditable] = useState(false);
 
@@ -34,7 +32,6 @@ export default function Incredient({ dbUrl, translation, translationKeyPrefix, i
                                 style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                                 onClick={() => editable ? setEditable(false) : setEditable(true)} />
                             <DeleteButton
-                                confirmMessage={tCommon('areyousure')}
                                 onDelete={onDelete}
                                 id={recipeID}
                                 subId={incredient.id}

@@ -17,7 +17,6 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON_CONFIRM });
 
     const markHaveAtHome = () => {
         drinkingProduct["haveAtHome"] = true;
@@ -46,7 +45,6 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
                         style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
                         onClick={() => editable ? setEditable(false) : setEditable(true)} />
                     <DeleteButton
-                        confirmMessage={tCommon('areyousure')}
                         onDelete={onDelete}
                         id={drinkingProduct.id}
                     />
