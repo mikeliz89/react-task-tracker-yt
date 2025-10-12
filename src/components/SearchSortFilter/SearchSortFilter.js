@@ -68,10 +68,14 @@ export default function SearchSortFilter({ onSet,
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.SEARCHSORTFILTER });
 
-    //componentDidMount
+    // Aja filtteröinti + sorttaus aina kun originalList vaihtuu
     useEffect(() => {
         filterAndSort();
-    }, []);
+    }, [originalList]);
+
+    useEffect(() => {
+        setSortBy(defaultSort);
+    }, [defaultSort]);
 
     useEffect(() => {
         filterAndSort();
@@ -86,17 +90,7 @@ export default function SearchSortFilter({ onSet,
     );
 
     const filterAndSort = () => {
-        if (!originalList) {
-            return;
-        }
-
-        if (originalList.length < 1) {
-            return;
-        }
-
-        if (isEmpty(originalList)) {
-            return;
-        }
+        if (!Array.isArray(originalList) || originalList.length === 0) return;
 
         let newList = originalList;
         newList = searching(newList);
@@ -147,11 +141,11 @@ export default function SearchSortFilter({ onSet,
     }
 
     const filterCheckText = (newList, key, comparableString) => {
-        newList = newList.filter(x => x[key] != null &&
-            x[key].toLowerCase().includes(comparableString.toLowerCase())
+        const needle = String(comparableString).toLowerCase();
+        return newList.filter(x =>
+            x[key] != null && String(x[key]).toLowerCase().includes(needle)
         );
-        return newList;
-    }
+    };
 
     const filterCheckTrue = (newList, key) => {
         newList = newList.filter(x => x[key] === true);
@@ -513,7 +507,7 @@ SearchSortFilter.defaultProps = {
     showFilterHaveRated: false,
     showFilterNotHaveRated: false,
     showFilterCore: false,
-    showfilterReady: false,
+    showFilterReady: false,
     showFilterNotReady: false
 }
 
