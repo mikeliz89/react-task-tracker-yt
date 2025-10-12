@@ -1,4 +1,5 @@
 import GoBackButton from '../Buttons/GoBackButton';
+import NavButton from '../Buttons/NavButton';
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -11,13 +12,12 @@ import Counter from '../Site/Counter';
 import * as Constants from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
 import useFetch from '../useFetch';
-import Icon from '../Icon';
 
 export default function ManageExercises() {
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
   //fetch data
   const { data: exercises, setData: setExercises,
@@ -37,13 +37,14 @@ export default function ManageExercises() {
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <Link to={Constants.NAVIGATION_MANAGE_MOVEMENTS} className='btn btn-primary'>{t('manage_movements_button')}</Link>
-
-          <Link to={Constants.NAVIGATION_MANAGE_EXERCISE_LISTS} className='btn btn-primary'>
-            <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
+          <NavButton to={Constants.NAVIGATION_MANAGE_MOVEMENTS}>
+            {t('manage_movements_button')}
+          </NavButton>
+          <NavButton to={Constants.NAVIGATION_MANAGE_EXERCISE_LISTS}
+            icon={Constants.ICON_LIST_ALT}
+          >
             {tCommon('buttons.button_lists')}
-          </Link>
-          
+          </NavButton>
         </ButtonGroup>
       </Row>
 

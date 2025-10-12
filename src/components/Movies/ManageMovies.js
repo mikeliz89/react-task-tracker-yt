@@ -1,9 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
-import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
 import * as Constants from '../../utils/Constants';
@@ -21,12 +19,13 @@ import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../useToggle';
 import useFetch from '../useFetch';
+import NavButton from '../Buttons/NavButton';
 
 export default function ManageMovies() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MOVIES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //fetch data
     const { data: movies, setData: setMovies,
@@ -92,10 +91,10 @@ export default function ManageMovies() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Link to={Constants.NAVIGATION_MANAGE_MOVIELISTS} className='btn btn-primary'>
-                        <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
+                    <NavButton to={Constants.NAVIGATION_MANAGE_MOVIELISTS}
+                        icon={Constants.ICON_LIST_ALT}>
                         {t('button_movie_lists')}
-                    </Link>
+                    </NavButton>
                 </ButtonGroup>
             </Row>
 

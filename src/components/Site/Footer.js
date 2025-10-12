@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import * as Constants from '../../utils/Constants';
+import NavButton from '../Buttons/NavButton';
 
 export default function Footer() {
 
@@ -8,8 +8,10 @@ export default function Footer() {
 
     return (
         <footer>
-            <p>{t('copyright')} &copy; 2023</p>
-            <Link to={Constants.NAVIGATION_ABOUT}>{t('about')}</Link>
+            <p>{t('copyright')} &copy; 2025</p>
+            <NavButton to={Constants.NAVIGATION_ABOUT} className=''>
+                {t('about')}
+            </NavButton>
         </footer>
     )
 }

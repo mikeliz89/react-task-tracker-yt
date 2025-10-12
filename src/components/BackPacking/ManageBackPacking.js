@@ -1,17 +1,15 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import GoBackButton from '../Buttons/GoBackButton';
 import PageTitle from '../Site/PageTitle';
-import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import * as Constants from '../../utils/Constants';
 import { ButtonGroup, Row } from 'react-bootstrap';
+import NavButton from '../Buttons/NavButton';
 
 export default function ManageBackPacking() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
 
     return (
         <PageContentWrapper>
@@ -22,18 +20,16 @@ export default function ManageBackPacking() {
 
                 <ButtonGroup>
                     <GoBackButton />
-                    <Link to={Constants.NAVIGATION_MANAGE_GEAR} className='btn btn-primary'>
+                    <NavButton to={Constants.NAVIGATION_MANAGE_GEAR}>
                         {t('button_manage_gear')}
-                    </Link>
-
-                    <Link to={Constants.NAVIGATION_MANAGE_GEAR_MAINTENANCE} className='btn btn-primary'>
+                    </NavButton>
+                    <NavButton to={Constants.NAVIGATION_MANAGE_GEAR_MAINTENANCE}>
                         {t('button_manage_gear_maintenance')}
-                    </Link>
-
-                    <Link to={Constants.NAVIGATION_MANAGE_BACKPACKINGLISTS} className='btn btn-primary'>
-                        <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
+                    </NavButton>
+                    <NavButton to={Constants.NAVIGATION_MANAGE_BACKPACKINGLISTS}
+                        icon={Constants.ICON_LIST_ALT}>
                         {t('button_manage_backpacking_lists')}
-                    </Link>
+                    </NavButton >
                 </ButtonGroup>
             </Row>
         </PageContentWrapper>

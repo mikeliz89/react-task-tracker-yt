@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Recipes from '../Recipe/Recipes';
 import AddDrink from './AddDrink';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -13,7 +13,6 @@ import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import Alert from '../Alert';
 import { RecipeTypes } from '../../utils/Enums';
-import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import CenterWrapper from '../Site/CenterWrapper';
@@ -22,6 +21,7 @@ import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../useToggle';
 import useFetch from '../useFetch';
+import NavButton from '../Buttons/NavButton';
 
 export default function ManageDrinks() {
 
@@ -87,14 +87,15 @@ export default function ManageDrinks() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Link to={Constants.NAVIGATION_MANAGE_DRINKINPRODUCTS} className='btn btn-primary'>
-                        <Icon name={Constants.ICON_WINE} color={Constants.COLOR_WHITE} />
+                    <NavButton to={Constants.NAVIGATION_MANAGE_DRINKINPRODUCTS}
+                        icon={Constants.ICON_WINE}
+                    >
                         {t('button_manage_drinkingproducts')}
-                    </Link>
-                    <Link to={Constants.NAVIGATION_MANAGE_DRINKLISTS} className='btn btn-primary'>
-                        <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
+                    </NavButton>
+                    <NavButton to={Constants.NAVIGATION_MANAGE_DRINKLISTS}
+                        icon={Constants.ICON_LIST_ALT} >
                         {t('button_drinklists')}
-                    </Link>
+                    </NavButton>
                 </ButtonGroup>
             </Row>
 

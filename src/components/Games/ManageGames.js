@@ -21,12 +21,13 @@ import { FilterMode } from '../SearchSortFilter/FilterModes';
 import Counter from '../Site/Counter';
 import { useToggle } from '../useToggle';
 import useFetch from '../useFetch';
+import NavButton from '../Buttons/NavButton';
 
 export default function ManageGames() {
 
     //translation
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_GAMES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //fetch data
     const { data: games, setData: setGames,
@@ -93,10 +94,10 @@ export default function ManageGames() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Link to={Constants.NAVIGATION_MANAGE_GAMELISTS} className='btn btn-primary'>
-                        <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
+                    <NavButton to={Constants.NAVIGATION_MANAGE_GAMELISTS}
+                        icon={Constants.ICON_LIST_ALT}>
                         {t('button_game_lists')}
-                    </Link>
+                    </NavButton>
                 </ButtonGroup>
             </Row>
 

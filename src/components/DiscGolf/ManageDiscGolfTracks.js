@@ -6,15 +6,15 @@ import useFetch from '../useFetch';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
 import GoBackButton from '../Buttons/GoBackButton';
-import { Link } from 'react-router-dom';
 import CenterWrapper from '../Site/CenterWrapper';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+import NavButton from '../Buttons/NavButton';
 
 export default function TracksList() {
 
    //translation
    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
-   const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+   const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
    //fetch data
    const { data: tracks, originalData: originalTracks, loading, setData: setTracks } = useFetch(Constants.DB_DISC_GOLF_TRACKS);
@@ -33,9 +33,9 @@ export default function TracksList() {
          <Row>
             <ButtonGroup>
                <GoBackButton />
-               <Link to={Constants.NAVIGATION_DISC_GOLF_CREATE_TRACK} className='btn btn-primary'>
+               <NavButton to={Constants.NAVIGATION_DISC_GOLF_CREATE_TRACK}>
                   {t('add_new_track')}
-               </Link>
+               </NavButton>
             </ButtonGroup>
          </Row>
 

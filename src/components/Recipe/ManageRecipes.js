@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Modal, Row } from 'react-bootstrap';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddRecipe from './AddRecipe';
@@ -13,7 +13,6 @@ import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import Alert from '../Alert';
 import { RecipeTypes } from '../../utils/Enums';
-import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import CenterWrapper from '../Site/CenterWrapper';
@@ -22,6 +21,7 @@ import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../useToggle';
 import useFetch from '../useFetch';
+import NavButton from '../Buttons/NavButton';
 
 export default function ManageRecipes() {
 
@@ -85,14 +85,14 @@ export default function ManageRecipes() {
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <Link to={Constants.NAVIGATION_MANAGE_FOODITEMS} className='btn btn-primary'>
-            <Icon name={Constants.ICON_CARROT} color={Constants.COLOR_WHITE} />
+          <NavButton to={Constants.NAVIGATION_MANAGE_FOODITEMS}
+            icon={Constants.ICON_CARROT}>
             {t('button_manage_fooditems')}
-          </Link>
-          <Link to={Constants.NAVIGATION_MANAGE_RECIPELISTS} className='btn btn-primary'>
-            <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
+          </NavButton>
+          <NavButton to={Constants.NAVIGATION_MANAGE_RECIPELISTS}
+            icon={Constants.ICON_LIST_ALT}>
             {t('button_recipe_lists')}
-          </Link>
+          </NavButton>
         </ButtonGroup>
       </Row>
 

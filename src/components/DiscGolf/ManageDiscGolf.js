@@ -8,6 +8,7 @@ import PageTitle from '../Site/PageTitle';
 import useFetch from '../useFetch';
 import Rounds from './Rounds';
 import CenterWrapper from '../Site/CenterWrapper';
+import NavButton from '../Buttons/NavButton';
 
 export default function ManageDiscGolf() {
 
@@ -28,21 +29,19 @@ export default function ManageDiscGolf() {
 
          <Row>
             <ButtonGroup>
-
                <GoBackButton />
-
-               <Link to={Constants.NAVIGATION_MANAGE_DISC_GOLF_TRACKS} className='btn btn-primary'>
+               <NavButton to={Constants.NAVIGATION_MANAGE_DISC_GOLF_TRACKS}>
                   {t('button_tracks')}
-               </Link>
+               </NavButton>
             </ButtonGroup>
          </Row>
 
          <hr />
 
          <CenterWrapper>
-            <Link to={Constants.NAVIGATION_DISC_GOLF_START_NEW_ROUND} className='btn btn-primary'>
+            <NavButton to={Constants.NAVIGATION_DISC_GOLF_START_NEW_ROUND}>
                {t('start_new_round')}
-            </Link>
+            </NavButton>
          </CenterWrapper>
 
          {

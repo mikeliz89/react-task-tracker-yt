@@ -16,12 +16,11 @@ import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import * as Constants from '../../utils/Constants';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
-import Icon from '../Icon';
-import { Link } from 'react-router-dom';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from "../SearchSortFilter/SortModes";
 import useFetch from '../useFetch';
 import Counter from '../Site/Counter';
+import NavButton from '../Buttons/NavButton';
 
 export default function Car() {
 
@@ -112,10 +111,11 @@ export default function Car() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <Link to={Constants.NAVIGATION_MANAGE_CARLISTS} className='btn btn-primary'>
-                        <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_WHITE} />
+                    <NavButton to={Constants.NAVIGATION_MANAGE_CARLISTS}
+                        icon={Constants.ICON_LIST_ALT}
+                    >
                         {tCommon('buttons.button_lists')}
-                    </Link>
+                    </NavButton>
                 </ButtonGroup>
             </Row>
 

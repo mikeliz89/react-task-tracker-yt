@@ -7,6 +7,7 @@ import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import { useToggle } from '../useToggle';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
+import NavButton from '../Buttons/NavButton';
 
 export default function Task({ taskListID, archived, task, onDelete, onToggle }) {
 
@@ -30,7 +31,9 @@ export default function Task({ taskListID, archived, task, onDelete, onToggle })
                         { /* TODO: Rakenna view details arkiston taskin katselulle? */
                             archived ? <span>{task.text}</span> : !editable &&
                                 <span>
-                                    <Link to={`/task/${task.id}/${taskListID}`}>{task.text}</Link>
+                                    <NavButton to={`/task/${task.id}/${taskListID}`} className="">
+                                        {task.text}
+                                    </NavButton>
                                 </span>
                         }
                         {archived ? null :
