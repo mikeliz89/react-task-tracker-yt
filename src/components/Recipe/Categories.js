@@ -8,10 +8,16 @@ export const Categories = {
     None: 0,
     /** Kala */
     Fish: 3,
+    /** Bread */
+    Bread: 10,
     /** Pizza */
     Pizza: 11,
     /** hampurilainen */
-    Burger: 12
+    Burger: 12,
+    /** thai */
+    Thai: 16,
+    /** smoothie / blender */
+    Smoothie: 21,
     //todo: koodaa lisää ikoneita eri ruuille
 }
 
@@ -195,6 +201,12 @@ export function getIconNameByCategory(category) {
             return ICONS.PIZZA;
         case Categories.Fish:
             return ICONS.FISH;
+        case Categories.Thai:
+            return ICONS.THAI;
+        case Categories.Smoothie:
+            return ICONS.BLENDER;
+        case Categories.Bread:
+            return ICONS.BREAD_SLICE;
         //todo: koodaa lisää ikoneita eri ruuille
         default:
             return ICONS.UTENSILS;

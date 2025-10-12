@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, NAVIGATION, VARIANTS } from "../../utils/Constants";
+import { TRANSLATION, NAVIGATION, VARIANTS, COLORS } from "../../utils/Constants";
 import DeleteButton from '../Buttons/DeleteButton';
 import NavButton from '../Buttons/NavButton';
 import Alert from '../Alert';
@@ -31,7 +31,7 @@ export default function Gear({ gear, onDelete }) {
             <h5>
                 <span>
                     <NavButton to={`${NAVIGATION.GEAR}/${gear.id}`} className=""
-                        icon={getIconNameByCategory(gear.category)}>
+                        icon={getIconNameByCategory(gear.category)} iconColor={COLORS.LIGHT_GRAY}>
                         {gear.name}
                     </NavButton>
                 </span>
@@ -42,12 +42,14 @@ export default function Gear({ gear, onDelete }) {
                     />
                 </RightWrapper>
             </h5>
-            {gear.category !== "" ? (
-                <p> {'#' + t('gear_category_' + getGearCategoryNameByID(gear.category))}</p>
-            ) : ('')}
+            {
+                gear.category !== "" ? (
+                    <p> {'#' + t('gear_category_' + getGearCategoryNameByID(gear.category))}</p>
+                ) : ('')
+            }
             <p>{t('gear_weight')}: {gear.weightInGrams} g</p>
 
             <StarRating starCount={gear.stars} />
-        </div>
+        </div >
     )
 }

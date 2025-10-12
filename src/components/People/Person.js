@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
+import { TRANSLATION, NAVIGATION, VARIANTS } from "../../utils/Constants";
 import Alert from '../Alert';
 import DeleteButton from '../Buttons/DeleteButton';
 

@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { FaCheckSquare } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import { getMovieFormatNameByID } from '../../utils/ListUtils';
 import RightWrapper from '../Site/RightWrapper';
 import { useState } from 'react';
