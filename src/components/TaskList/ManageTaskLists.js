@@ -22,7 +22,7 @@ import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../useToggle';
 import useFetch from '../useFetch';
 
-export default function ManageTaskLists({ listType }) {
+export default function ManageTaskLists({ listType = ListTypes.None }) {
 
   //navigate
   const navigate = useNavigate();

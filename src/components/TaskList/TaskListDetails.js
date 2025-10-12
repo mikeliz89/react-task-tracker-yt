@@ -130,8 +130,26 @@ export default function TaskListDetails() {
   //tyhjennä valinnat
   const clearSelection = () => setSelectedIds(new Set());
 
-  const destinationOptions = tasklists.filter((t) => t.id !== sourceListId);
+  // Järjestys: 1) listType (nouseva), 2) title aakkosissa
+  const sortByTypeThenTitle = (a, b) => {
+    // varmista että listType on numero; jos puuttuu → menee viimeiseksi
+    const ta = Number.isFinite(+a.listType) ? +a.listType : Number.POSITIVE_INFINITY;
+    const tb = Number.isFinite(+b.listType) ? +b.listType : Number.POSITIVE_INFINITY;
 
+    if (ta !== tb) return ta - tb;
+
+    const titleA = (a.title ?? "").toString();
+    const titleB = (b.title ?? "").toString();
+
+    // aakkosjärjestys suomeksi, kirjainkoko neutraali
+    return titleA.localeCompare(titleB, "fi", { sensitivity: "base" });
+  };
+
+  // ...
+  const destinationOptions = tasklists
+    .filter((t) => t.id !== sourceListId)
+    .slice() // kopio, ettei mutatoida alkuperäistä
+    .sort(sortByTypeThenTitle);
   const canMove = selectedIds.size > 0 && destListId && !loadingMove;
 
   // Siirtologiikka (atominen update)
@@ -413,7 +431,8 @@ export default function TaskListDetails() {
               <option value="">— Valitse kohdelista —</option>
               {destinationOptions.map((tl) => (
                 <option key={tl.id} value={tl.id}>
-                  {tl.title || tl.id}
+                  {/* esim. "8 — Retkeilyideat 2022" */}
+                  {(Number.isFinite(+tl.listType) ? `${+tl.listType} — ` : "") + (tl.title || tl.id)}
                 </option>
               ))}
             </select>
