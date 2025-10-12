@@ -67,6 +67,9 @@ export const DB = {
     FOODITEMS: '/fooditems',
     // games
     GAMES: '/games',
+    GAME_COMMENTS: '/game-comments',
+    GAME_IMAGES: '/game-images',
+    GAME_LINKS: '/game-links',
     // links
     LINKS: '/links',
     // movie

@@ -22,6 +22,7 @@ export default function AddGame({ gameID, onSave, onClose, showLabels }) {
     const [haveAtHome, setHaveAtHome] = useState(false);
     const [isDigital, setIsDigital] = useState(false);
     const [isCollectorsEdition, setIsCollectorsEdition] = useState(false);
+    const [stars, setStars] = useState(0);
 
     const [console, setConsole] = useState();
     const [consoles, setConsoles] = useState(GameConsoles);
@@ -59,6 +60,7 @@ export default function AddGame({ gameID, onSave, onClose, showLabels }) {
             setName(val["name"]);
             setPublishYear(val["publishYear"]);
             setIsDigital(val["isDigital"]);
+            setStars(val["stars"]);
         });
     }
 
@@ -73,7 +75,8 @@ export default function AddGame({ gameID, onSave, onClose, showLabels }) {
 
         onSave(gameID, {
             created, createdBy, description, console,
-            haveAtHome, name, publishYear, isDigital, isCollectorsEdition
+            haveAtHome, name, publishYear, isDigital, isCollectorsEdition,
+            stars
         });
 
         if (gameID == null) {

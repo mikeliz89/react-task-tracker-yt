@@ -20,6 +20,7 @@ export default function AddBand({ bandID, onSave, onClose, showLabels }) {
     const [formingYear, setFormingYear] = useState(0);
     const [seenLive, setSeenLive] = useState(false);
     const [country, setCountry] = useState('');
+    const [stars, setStars] = useState(0);
 
     //load data
     useEffect(() => {
@@ -40,6 +41,7 @@ export default function AddBand({ bandID, onSave, onClose, showLabels }) {
             setFormingYear(val["formingYear"]);
             setSeenLive(val["seenLive"]);
             setCountry(val["country"]);
+            setStars(val["stars"]);
         });
     }
 
@@ -53,7 +55,7 @@ export default function AddBand({ bandID, onSave, onClose, showLabels }) {
         }
 
         onSave(bandID, {
-            created, createdBy, description, name, formingYear, seenLive, country
+            created, createdBy, description, name, formingYear, seenLive, country, stars
         });
 
         if (bandID == null) {
