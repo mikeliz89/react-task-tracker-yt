@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { FaCheckSquare } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
-import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
 import { getMovieFormatNameByID } from '../../utils/ListUtils';
 import RightWrapper from '../Site/RightWrapper';
@@ -11,6 +10,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import AddMovie from './AddMovie';
 import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 
 export default function Movie({ movie, onDelete, onEdit }) {
 
@@ -43,9 +43,10 @@ export default function Movie({ movie, onDelete, onEdit }) {
                     {movie.name} {movie.publishYear > 0 ? '(' + movie.publishYear + ')' : ''}
                 </span>
                 <RightWrapper>
-                    <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                        style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
-                        onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                    <EditButton
+                        editable={editable}
+                        setEditable={setEditable}
+                    />
                     <DeleteButton
                         onDelete={onDelete}
                         id={movie.id}

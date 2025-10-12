@@ -2,12 +2,11 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import AddWorkPhase from './AddWorkPhase';
-import Icon from '../Icon';
 import PropTypes from 'prop-types';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import RightWrapper from '../Site/RightWrapper';
-import * as Constants from '../../utils/Constants';
 import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 
 export default function WorkPhase({ dbUrl, translation, translationKeyPrefix, workPhase, recipeID, onDelete }) {
 
@@ -32,9 +31,10 @@ export default function WorkPhase({ dbUrl, translation, translationKeyPrefix, wo
                 <Col xs={3}>
                     {
                         <RightWrapper>
-                            <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                                style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
-                                onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                            <EditButton
+                                editable={editable}
+                                setEditable={setEditable}
+                            />
                             <DeleteButton
                                 onDelete={onDelete}
                                 id={recipeID}

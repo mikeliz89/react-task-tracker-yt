@@ -1,14 +1,14 @@
 import { Row, Col } from "react-bootstrap";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-import Icon from "../Icon";
 import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 import AddMaintenance from "./AddMaintenance";
 import { updateToFirebaseById } from "../../datatier/datatier";
 import RightWrapper from "../Site/RightWrapper";
+import { useToggle } from '../useToggle';
 
 export default function CarMaintenance({ carMaintenance, onDelete }) {
 
@@ -16,12 +16,12 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
     const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
 
     //states
-    const [editable, setEditable] = useState(false);
+    const { status: editable, toggleStatus: toggleEditable, setFalse } = useToggle();
 
     const updateMaintenance = (maintenance) => {
         maintenance["modified"] = getCurrentDateAsJson();
         updateToFirebaseById(Constants.DB_CAR_MAINTENANCE, carMaintenance.id, maintenance);
-        setEditable(false);
+        setFalse(); //Sulje edit tila
     }
 
     return (
@@ -35,11 +35,10 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
                     {t('maintenance_description')}: {carMaintenance.description} <br />
                     {t('maintenance_price')}: {carMaintenance.price} <br />
                     <RightWrapper>
-                        <Icon
-                            name={Constants.ICON_EDIT}
-                            className={Constants.CLASSNAME_EDITBTN}
-                            style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
-                            onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                        <EditButton
+                            editable={editable}
+                            setEditable={toggleEditable}
+                        />
                         <DeleteButton
                             onDelete={onDelete}
                             id={carMaintenance.id}
@@ -52,7 +51,7 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
                     {editable &&
                         <AddMaintenance
                             ID={carMaintenance.id}
-                            onClose={() => setEditable(false)}
+                            onClose={() => toggleEditable()}
                             onSave={updateMaintenance} />
                     }
                 </Col>

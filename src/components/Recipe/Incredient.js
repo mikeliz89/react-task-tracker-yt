@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import AddIncredient from './AddIncredient';
-import Icon from '../Icon';
 import PropTypes from 'prop-types';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import RightWrapper from '../Site/RightWrapper';
-import * as Constants from '../../utils/Constants';
-import { useTranslation } from 'react-i18next';
 import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 
 export default function Incredient({ dbUrl, translation, translationKeyPrefix, incredient, recipeID, onDelete }) {
 
@@ -28,9 +26,10 @@ export default function Incredient({ dbUrl, translation, translationKeyPrefix, i
                 <Col xs={3}>
                     {
                         <RightWrapper>
-                            <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                                style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
-                                onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                            <EditButton
+                                editable={editable}
+                                setEditable={setEditable}
+                            />
                             <DeleteButton
                                 onDelete={onDelete}
                                 id={recipeID}

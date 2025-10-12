@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
 import AddTask from './AddTask';
@@ -7,6 +6,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import { useToggle } from '../useToggle';
 import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 
 export default function Task({ taskListID, archived, task, onDelete, onToggle }) {
 
@@ -35,9 +35,10 @@ export default function Task({ taskListID, archived, task, onDelete, onToggle })
                         }
                         {archived ? null :
                             <RightWrapper>
-                                <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                                    style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
-                                    onClick={() => toggleSetEditable()} />
+                                <EditButton
+                                    editable={editable}
+                                    setEditable={toggleSetEditable}
+                                />
                                 <DeleteButton
                                     onDelete={onDelete}
                                     id={taskListID}

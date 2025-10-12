@@ -27,7 +27,7 @@ export default function Car() {
 
     //translation
     const { t } = useTranslation([Constants.TRANSLATION], { keyPrefix: Constants.TRANSLATION_CAR });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -208,7 +208,7 @@ export default function Car() {
                     {/* Maintenances Start */}
 
                     <>
-                        <Counter counter={maintenancesCounter} text={t('amount')} list={carMaintenances} originalList={originalCarMaintenances} />
+                        <Counter counter={maintenancesCounter} text={tCommon('amount')} list={carMaintenances} originalList={originalCarMaintenances} />
                         {
                             carMaintenances != null && carMaintenances.length > 0 ? (
                                 <CarMaintenances

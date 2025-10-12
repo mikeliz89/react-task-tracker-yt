@@ -20,6 +20,7 @@ import RightWrapper from '../Site/RightWrapper';
 import AddRecipe from './AddRecipe';
 import AddDrink from '../Drinks/AddDrink';
 import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 
 export default function Recipe({ recipeType, translation, translationKeyPrefix, recipe, onDelete }) {
 
@@ -128,9 +129,10 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                     {recipe.title}
                 </span>
                 <RightWrapper>
-                    <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                        style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
-                        onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                    <EditButton
+                        editable={editable}
+                        setEditable={setEditable}
+                    />
                     <DeleteButton
                         onDelete={onDelete}
                         id={recipe.id}

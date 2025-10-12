@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import * as Constants from '../../utils/Constants';
-import Icon from "../Icon";
 import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 import AddFueling from "./AddFueling";
 import { updateToFirebaseById } from "../../datatier/datatier";
 import RightWrapper from "../Site/RightWrapper";
@@ -38,9 +38,10 @@ export default function CarFueling({ fuelingRow, onDelete }) {
                     {t('purchase_location')}: {fuelingRow.purchaseLocation}<br />
                     {t('fueler_name')}: {fuelingRow.fuelerName}
                     <RightWrapper>
-                        <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                            style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
-                            onClick={() => toggleShowEditFueling()} />
+                        <EditButton
+                            editable={showEditFueling}
+                            setEditable={toggleShowEditFueling}
+                        />
                         <DeleteButton
                             onDelete={onDelete}
                             id={fuelingRow.id}

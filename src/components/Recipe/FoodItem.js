@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import AddFoodItem from './AddFoodItem';
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
 import * as Constants from '../../utils/Constants';
-import Icon from '../Icon';
 import RightWrapper from '../Site/RightWrapper';
 import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 
 export default function FoodItem({ foodItem, onDelete, onEdit }) {
 
@@ -39,9 +39,10 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
                     {foodItem.name}
                 </span>
                 <RightWrapper>
-                    <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                        style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
-                        onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                    <EditButton
+                        editable={editable}
+                        setEditable={setEditable}
+                    />
                     <DeleteButton
                         onDelete={onDelete}
                         id={foodItem.id}

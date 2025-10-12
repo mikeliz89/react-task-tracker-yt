@@ -1,10 +1,9 @@
 import { Col, Row } from "react-bootstrap";
 import { useState } from "react";
 import EditLink from "./EditLink";
-import Icon from "../Icon";
-import * as Constants from '../../utils/Constants';
 import RightWrapper from "../Site/RightWrapper";
 import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 
 export default function LinkInner({ link, objID, linkUrl, onEdit, onDelete }) {
 
@@ -25,9 +24,10 @@ export default function LinkInner({ link, objID, linkUrl, onEdit, onDelete }) {
                 <Col xs={3}>
                     {
                         <RightWrapper>
-                            <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                                style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
-                                onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                            <EditButton
+                                editable={editable}
+                                setEditable={setEditable}
+                            />
                             <DeleteButton
                                 onDelete={onDelete}
                                 id={link.id}

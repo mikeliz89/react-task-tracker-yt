@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
-import Icon from '../Icon';
 import * as Constants from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
 import { useState } from 'react';
@@ -9,6 +8,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import AddBand from './AddBand';
 import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 
 export default function Band({ band, onDelete, onEdit }) {
 
@@ -31,9 +31,10 @@ export default function Band({ band, onDelete, onEdit }) {
                     {band.name} {band.formingYear > 0 ? '(' + band.formingYear + ')' : ''}
                 </span>
                 <RightWrapper>
-                    <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                        style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
-                        onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                    <EditButton
+                        editable={editable}
+                        setEditable={setEditable}
+                    />
                     <DeleteButton
                         onDelete={onDelete}
                         id={band.id}

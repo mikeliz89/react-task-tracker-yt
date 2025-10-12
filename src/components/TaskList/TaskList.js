@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Icon from '../Icon';
 import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 import * as Constants from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
 import { useState } from 'react';
@@ -35,9 +36,9 @@ export default function TaskList({ taskList, archived, onDelete }) {
                         <RightWrapper>
                             {
                                 !archived &&
-                                <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                                    style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
-                                    onClick={() => editable ? setEditable(false) : setEditable(true)}
+                                <EditButton
+                                    editable={editable}
+                                    setEditable={setEditable}
                                 />
                             }
                             <DeleteButton

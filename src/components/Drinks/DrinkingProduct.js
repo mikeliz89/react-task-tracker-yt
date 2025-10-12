@@ -9,6 +9,7 @@ import Icon from '../Icon';
 import RightWrapper from '../Site/RightWrapper';
 import StarRating from '../StarRating/StarRating';
 import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 
 export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
 
@@ -41,9 +42,10 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
                     {drinkingProduct.name + (drinkingProduct.abv > 0 ? ' (' + drinkingProduct.abv + '%)' : '')}
                 </span>
                 <RightWrapper>
-                    <Icon name={Constants.ICON_EDIT} className={Constants.CLASSNAME_EDITBTN}
-                        style={{ color: Constants.COLOR_LIGHT_GRAY, cursor: 'pointer', fontSize: '1.2em' }}
-                        onClick={() => editable ? setEditable(false) : setEditable(true)} />
+                    <EditButton
+                        editable={editable}
+                        setEditable={setEditable}
+                    />
                     <DeleteButton
                         onDelete={onDelete}
                         id={drinkingProduct.id}
