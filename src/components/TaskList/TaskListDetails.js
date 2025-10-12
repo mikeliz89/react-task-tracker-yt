@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Col, Row, ButtonGroup, Tab, Tabs, Modal } from 'react-bootstrap';
@@ -22,7 +23,7 @@ import {
   removeFromFirebaseByIdAndSubId, pushToFirebaseChild, pushToFirebase,
   updateToFirebase, getFromFirebaseByIdAndSubId, getFromFirebaseById
 } from '../../datatier/datatier';
-import { getPageTitleContent } from '../../utils/ListUtils';
+import { getPageTitleContent, getManagePageByListType } from '../../utils/ListUtils';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
@@ -31,6 +32,9 @@ import { useToggle } from '../useToggle';
 import useFetch from '../useFetch';
 
 export default function TaskListDetails() {
+
+  //navigate
+  const navigate = useNavigate();
 
   //params
   const params = useParams();
@@ -156,6 +160,9 @@ export default function TaskListDetails() {
       updates[`${Constants.DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = val;
       updateToFirebase(updates);
     });
+
+    // Ohjaa managetasklists-sivulle
+    navigate(getManagePageByListType(taskList), { replace: true });
   }
 
   const addCommentToTaskList = async (comment) => {

@@ -7,6 +7,7 @@ import { ListTypes } from '../utils/Enums';
 import { GameConsoles } from "../components/Games/Categories";
 import { MovieFormats } from "../components/Movies/Categories";
 import { MusicFormats } from "../components/Music/Categories";
+import * as Constants from './Constants';
 
 export function getGearCategoryNameByID(id) {
     return getNameByID(GearCategories, id);
@@ -84,5 +85,36 @@ export const getPageTitleContent = (listType) => {
             return 'manage_exercise_lists_title';
         //TODO: Koodaa lisää caseja sitä mukaa kuin muistakin listatyypeistä on olemassa listasivu
         default: return 'manage_tasklists_title';
+    }
+}
+
+export function getManagePageByListType(taskList) {
+    const listType = taskList["listType"] || ListTypes.None;
+    switch (listType) {
+        case ListTypes.Programming:
+            return Constants.NAVIGATION_MANAGE_PROGRAMMING;
+        case ListTypes.Shopping:
+            return Constants.NAVIGATION_MANAGE_SHOPPINGLISTS;
+        case ListTypes.Food:
+            return Constants.NAVIGATION_MANAGE_RECIPELISTS;
+        case ListTypes.Drink:
+            return Constants.NAVIGATION_MANAGE_DRINKLISTS;
+        case ListTypes.BackPacking:
+            return Constants.NAVIGATION_MANAGE_BACKPACKINGLISTS;
+        case ListTypes.Music:
+            return Constants.NAVIGATION_MANAGE_MUSICLISTS;
+        case ListTypes.Games:
+            return Constants.NAVIGATION_MANAGE_GAMELISTS;
+        case ListTypes.Movies:
+            return Constants.NAVIGATION_MANAGE_MOVIELISTS;
+        case ListTypes.Exercises:
+            return Constants.NAVIGATION_MANAGE_EXERCISE_LISTS;
+        case ListTypes.Car:
+            return Constants.NAVIGATION_MANAGE_CARLISTS;
+        case ListTypes.Other:
+            return Constants.NAVIGATION_MANAGE_LISTS;
+        // Lisää muut tarvittavat tyypit
+        default:
+            return Constants.NAVIGATION_MANAGE_TASKLISTS;
     }
 }

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -14,11 +15,14 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
 import { getFromFirebaseById, pushToFirebase, updateToFirebase, updateToFirebaseById } from '../../datatier/datatier';
-import { getPageTitleContent } from '../../utils/ListUtils';
+import { getPageTitleContent, getManagePageByListType } from '../../utils/ListUtils';
 import AccordionElement from '../AccordionElement';
 import useFetch from '../useFetch';
 
 export default function ArchivedTaskListDetails() {
+
+  //navigate
+  const navigate = useNavigate();
 
   //params
   const params = useParams();
@@ -32,7 +36,7 @@ export default function ArchivedTaskListDetails() {
 
   //translation
   const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
 
   //fetch data
   const { data: taskList, loading } = useFetch(Constants.DB_TASKLIST_ARCHIVE, "", params.id);
@@ -98,6 +102,8 @@ export default function ArchivedTaskListDetails() {
       updates[`${Constants.DB_TASKS}/${taskListID}`] = val;
       updateToFirebase(updates);
     });
+
+    navigate(getManagePageByListType(taskList), { replace: true });
   }
 
   const getAccordionData = () => {

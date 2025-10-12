@@ -12,6 +12,9 @@ export default function GoBackButton() {
   const navigate = useNavigate();
 
   return (
-    <Button iconName={Constants.ICON_ARROW_LEFT} onClick={() => navigate(-1)} title={tCommon('buttons.go_back_button_alt')} />
+    <Button iconName={Constants.ICON_ARROW_LEFT}
+      onClick={() => {
+        navigate(-1)
+      }} title={tCommon('buttons.go_back_button_alt')} />
   )
 }
