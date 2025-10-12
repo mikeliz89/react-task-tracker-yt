@@ -1,4 +1,4 @@
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
+import { TRANSLATION } from "../../utils/Constants";
 import { useTranslation } from 'react-i18next';
 import { Row, Col, Table } from "react-bootstrap";
 import DeleteButton from '../Buttons/DeleteButton';
@@ -40,7 +40,7 @@ export default function EventBands({ bands, onDelete }) {
               </tr>
             </thead>
             <tbody>
-               {sortedBands != null && sortedBands.map((band) => (
+              {sortedBands != null && sortedBands.map((band) => (
                 <tr key={band.id}>
                   <td>{showBandName(band)}</td>
                   <td>

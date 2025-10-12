@@ -2,7 +2,7 @@ import { Row, Col, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import AddFueling from "./AddFueling";

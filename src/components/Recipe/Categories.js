@@ -1,6 +1,6 @@
 import { RecipeTypes } from '../../utils/Enums';
 import { getRecipeCategoryNameByID, getDrinkCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { DB, ICONS, NAVIGATION } from '../../utils/Constants';
 
 /** Categories */
 export const Categories = {

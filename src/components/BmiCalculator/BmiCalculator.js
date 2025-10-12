@@ -18,7 +18,6 @@ export default function BmiCalculator() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BMICALCULATOR });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //navigation
     const navigate = useNavigate();

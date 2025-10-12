@@ -2,7 +2,7 @@ import { Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import Button from '../Buttons/Button';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import { MovementCategories } from './Categories';
 import { getFromFirebaseById } from '../../datatier/datatier';
 

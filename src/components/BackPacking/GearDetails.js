@@ -5,7 +5,7 @@ import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
@@ -24,7 +24,7 @@ export default function GearDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);

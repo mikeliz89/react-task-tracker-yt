@@ -7,7 +7,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import i18n from "i18next";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import AddDrinkingProduct from './AddDrinkingProduct';
 import Alert from '../Alert';
@@ -37,7 +37,7 @@ export default function DrinkingProductDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: drinkingProduct, loading } = useFetch(DB.DRINKINGPRODUCTS, "", params.id);

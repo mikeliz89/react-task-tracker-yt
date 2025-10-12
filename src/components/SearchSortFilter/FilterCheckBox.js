@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Col, Row, Form } from 'react-bootstrap';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION } from '../../utils/Constants';
 
 export default function FilterCheckBox({ onSet, labelText, id }) {
 

@@ -2,7 +2,7 @@ import BigButton from '../Buttons/BigButton';
 import { useTranslation } from 'react-i18next';
 import { Row, Tabs } from 'react-bootstrap';
 import PageContentWrapper from '../Site/PageContentWrapper';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS, SESSIONSTORAGE } from '../../utils/Constants';
+import { TRANSLATION, ICONS, COLORS, NAVIGATION, SESSIONSTORAGE } from '../../utils/Constants';
 import DashboardItem from './DashboardItem';
 import { Tab } from 'bootstrap';
 import { useState, useEffect } from 'react';

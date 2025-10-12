@@ -9,7 +9,7 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
 import useFetch from '../useFetch';
 

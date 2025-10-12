@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import GoBackButton from '../Buttons/GoBackButton';
 import PageTitle from '../Site/PageTitle';
 import PageContentWrapper from '../Site/PageContentWrapper';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS, NAVIGATION } from '../../utils/Constants';
 import { ButtonGroup, Row } from 'react-bootstrap';
 import NavButton from '../Buttons/NavButton';
 

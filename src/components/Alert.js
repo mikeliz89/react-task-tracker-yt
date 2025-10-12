@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Alert as BootstrapAlert } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Button from './Buttons/Button';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../utils/Constants';
+import { TRANSLATION, VARIANTS } from '../utils/Constants';
 
 export default function Alert({ message, showMessage, showError, error, onClose, variant }) {
 

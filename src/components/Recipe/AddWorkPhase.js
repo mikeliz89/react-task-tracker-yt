@@ -5,7 +5,7 @@ import Button from '../Buttons/Button';
 import PropTypes from 'prop-types';
 import FormTitle from '../Site/FormTitle';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS } from '../../utils/Constants';
 
 export default function AddWorkPhase({ dbUrl, translation, translationKeyPrefix, workPhaseID, recipeID, onSave, onClose }) {
 

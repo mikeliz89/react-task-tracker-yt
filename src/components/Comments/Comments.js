@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
 import { ref, onValue, child } from 'firebase/database';
 import CommentsInner from './CommentsInner';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION } from '../../utils/Constants';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function Comments({ url, objID, onCounterChange }) {

@@ -1,5 +1,5 @@
 import { useTheme } from '../../contexts/ThemeContext';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION } from '../../utils/Constants';
 import { useTranslation } from 'react-i18next';
 
 export default function ThemeToggler() {

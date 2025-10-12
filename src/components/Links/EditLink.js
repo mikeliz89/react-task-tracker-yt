@@ -2,7 +2,7 @@ import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button'
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION } from '../../utils/Constants';
 import { getFromFirebaseById, getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function EditLink({ linkID, objID, linkUrl, onEditLink, onCloseEditLink }) {

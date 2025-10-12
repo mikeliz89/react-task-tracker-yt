@@ -1,7 +1,7 @@
 import useFirestore from '../../hooks/useFirestore';
 import styles from './imagegrid.module.css';
 import { useTranslation } from "react-i18next";
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
 import { Card } from 'react-bootstrap';
 import RightWrapper from '../Site/RightWrapper';
 import Button from '../Buttons/Button';

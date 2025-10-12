@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Col, Form, Row } from 'react-bootstrap';
 import Button from '../Buttons/Button';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS } from '../../utils/Constants';
 
 export default function AddLink({ onSaveLink }) {
 

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { SortMode } from './SortModes';
 import { FilterMode } from './FilterModes';
 import PropTypes from 'prop-types';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION } from '../../utils/Constants';
 import SortByButton from './SortByButton';
 import SearchTextInput from './SearchTextInput';
 import FilterCheckBox from './FilterCheckBox';

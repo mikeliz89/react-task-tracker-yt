@@ -6,7 +6,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { onValue, ref } from "firebase/database";
 import { db } from "../../firebase-config";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateTimeUtils";
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, VARIANTS } from '../../utils/Constants';
 import i18n from "i18next";
 import PageTitle from '../Site/PageTitle';
 import Alert from "../Alert";
@@ -35,7 +35,7 @@ export default function AddInfo() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //load data
     useEffect(() => {

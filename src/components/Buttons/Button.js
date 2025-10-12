@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Icon from '../Icon';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { COLORS } from '../../utils/Constants';
 
 export default function Button({ disabled, color, text, onClick, className,
     secondIconName, type, iconName, iconColor, disableStyle,

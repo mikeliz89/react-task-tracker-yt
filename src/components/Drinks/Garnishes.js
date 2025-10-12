@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import Garnish from './Garnish';
 import Icon from '../Icon';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants'
+import { TRANSLATION, ICONS } from '../../utils/Constants'
 
 export default function Garnishes({ garnishes, drinkID, onDelete }) {
 

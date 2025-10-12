@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useState } from 'react'
@@ -7,10 +7,9 @@ import StarRating from '../StarRating/StarRating';
 import { db } from '../../firebase-config';
 import { ref, child, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { COLORS, DB, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import i18n from "i18next";
-import Icon from '../Icon';
 import { getCategoryContent, getIncredientsUrl, getIconName, getViewDetailsUrl, getUrl } from './Categories';
 import Alert from '../Alert';
 import PropTypes from 'prop-types';
@@ -21,6 +20,7 @@ import AddRecipe from './AddRecipe';
 import AddDrink from '../Drinks/AddDrink';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
+import NavButton from '../Buttons/NavButton';
 
 export default function Recipe({ recipeType, translation, translationKeyPrefix, recipe, onDelete }) {
 
@@ -125,10 +125,24 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
         <div className={recipe.isCore === true ? `listContainer coreRecipe` : 'listContainer'}>
             <h5>
                 <span>
-                    <Icon name={getIconName(recipeType, recipe.category)} color={COLORS.GRAY} />
-                    {recipe.title}
+                    <NavButton to={`${getViewDetailsUrl(recipeType)}/${recipe.id}`} className=""
+                        icon={getIconName(recipeType, recipe.category)} iconColor={COLORS.LIGHT_GRAY}>
+                        {recipe.title}
+                    </NavButton>
                 </span>
+
                 <RightWrapper>
+                    <OverlayTrigger
+                        placement="right"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip}
+                    >
+                        <span>
+
+                            <FaShoppingCart style={{ cursor: 'pointer', marginRight: '5px', fontSize: '1.2em', color: COLORS.LIGHT_GRAY }}
+                                onClick={() => { if (window.confirm(t('create_shoppinglist_confirm_message'))) { makeShoppingList() } }} />
+                        </span>
+                    </OverlayTrigger>
                     <EditButton
                         editable={editable}
                         setEditable={setEditable}
@@ -154,21 +168,6 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
             }
             {!editable &&
                 <p>{recipe.incredients}</p>
-            }
-            {!editable &&
-                <p>
-                    <Link className='btn btn-primary' to={`${getViewDetailsUrl(recipeType)}/${recipe.id}`}>{t('view_details')}</Link>
-                    <OverlayTrigger
-                        placement="right"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={renderTooltip}
-                    >
-                        <span style={{ marginLeft: '5px' }}>
-                            <FaShoppingCart style={{ cursor: 'pointer', marginRight: '5px', fontSize: '1.2em' }}
-                                onClick={() => { if (window.confirm(t('create_shoppinglist_confirm_message'))) { makeShoppingList() } }} />
-                        </span>
-                    </OverlayTrigger>
-                </p>
             }
             <StarRating starCount={recipe.stars} />
             {

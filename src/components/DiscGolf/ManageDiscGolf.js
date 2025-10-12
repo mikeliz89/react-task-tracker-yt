@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
-import { ButtonGroup, Row, Col } from 'react-bootstrap';
+import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
+import { ButtonGroup, Row } from 'react-bootstrap';
 import GoBackButton from '../Buttons/GoBackButton';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';

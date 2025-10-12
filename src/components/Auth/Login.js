@@ -7,7 +7,7 @@ import Button from '../Buttons/Button';
 import Alert from '../Alert';
 import PageTitle from '../Site/PageTitle';
 import CenterWrapper from '../Site/CenterWrapper';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function Login() {
 

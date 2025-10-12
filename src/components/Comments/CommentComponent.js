@@ -3,7 +3,7 @@ import AddComment from "./AddComment";
 import Comments from "./Comments";
 import PageTitle from '../Site/PageTitle';
 import { useTranslation } from "react-i18next";
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
 
 export default function CommentComponent({ objID, url, onSave }) {
 

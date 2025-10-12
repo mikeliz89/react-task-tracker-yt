@@ -1,7 +1,7 @@
 import GoBackButton from '../Buttons/GoBackButton';
 import { useTranslation } from 'react-i18next';
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS, LIST_TYPES } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, LIST_TYPES } from '../../utils/Constants';
 import i18n from 'i18next';
 import { useAuth } from '../../contexts/AuthContext';
 import WeightChart from './WeightChart';

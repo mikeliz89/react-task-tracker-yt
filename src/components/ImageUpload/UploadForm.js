@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Alert from '../Alert';
 import { useTranslation } from 'react-i18next';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, VARIANTS } from '../../utils/Constants';
 import ProgressBar from './ProgressBar';
 import CenterWrapper from '../Site/CenterWrapper';
 

@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
-import Icon from '../Icon';
+import { TRANSLATION, NAVIGATION, VARIANTS } from "../../utils/Constants";
 import DeleteButton from '../Buttons/DeleteButton';
+import NavButton from '../Buttons/NavButton';
 import Alert from '../Alert';
 import { getIconNameByCategory } from './Categories';
 import StarRating from '../StarRating/StarRating';
+import RightWrapper from '../Site/RightWrapper';
 
 export default function Gear({ gear, onDelete }) {
 
@@ -30,21 +30,23 @@ export default function Gear({ gear, onDelete }) {
 
             <h5>
                 <span>
-                    <Icon name={getIconNameByCategory(gear.category)} />
-                    {gear.name}
+                    <NavButton to={`${NAVIGATION.GEAR}/${gear.id}`} className=""
+                        icon={getIconNameByCategory(gear.category)}>
+                        {gear.name}
+                    </NavButton>
                 </span>
-                <DeleteButton
-                    onDelete={onDelete}
-                    id={gear.id}
-                />
+                <RightWrapper>
+                    <DeleteButton
+                        onDelete={onDelete}
+                        id={gear.id}
+                    />
+                </RightWrapper>
             </h5>
             {gear.category !== "" ? (
                 <p> {'#' + t('gear_category_' + getGearCategoryNameByID(gear.category))}</p>
             ) : ('')}
             <p>{t('gear_weight')}: {gear.weightInGrams} g</p>
-            <p>
-                <Link className='btn btn-primary' to={`${NAVIGATION.GEAR}/${gear.id}`}>{t('view_details')}</Link>
-            </p>
+
             <StarRating starCount={gear.stars} />
         </div>
     )

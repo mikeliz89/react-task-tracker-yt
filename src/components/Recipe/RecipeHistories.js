@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { removeFromFirebaseByIdAndSubId } from "../../datatier/datatier";
 import PageTitle from '../Site/PageTitle';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { ICONS, COLORS } from '../../utils/Constants';
 
 export default function RecipeHistories({ dbUrl, translation, translationKeyPrefix, recipeHistories, recipeID }) {
 

@@ -2,7 +2,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebase } from '../../datatier/datatier';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import LinkComponent from './LinkComponent';
 import PageTitle from '../Site/PageTitle';
 import { useTranslation } from 'react-i18next';

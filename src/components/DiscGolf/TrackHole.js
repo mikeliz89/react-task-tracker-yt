@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
 
 export default function TrackHole({ hole, decreasePar, increasePar, deleteHole }) {
 

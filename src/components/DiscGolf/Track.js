@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
 import { Link } from "react-router-dom";
 
 export default function Track({ track }) {
@@ -15,7 +15,7 @@ export default function Track({ track }) {
                 </h5>
                 <h6>{t('track_city')}: {track.trackCity}</h6>
                 <p>{track.description}</p>
-                
+
                 <Link className='btn btn-primary' to={`${NAVIGATION.DISC_GOLF_TRACK}/${track.id}`}>{t('view_details')}</Link>
             </div>
         </>

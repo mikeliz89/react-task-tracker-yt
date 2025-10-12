@@ -1,7 +1,7 @@
 import { useState } from "react"
 import UploadForm from "./UploadForm";
 import { useTranslation } from "react-i18next";
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 
 export default function AddImage({ objectID, imagesUrl }) {

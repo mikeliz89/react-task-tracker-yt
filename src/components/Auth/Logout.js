@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/AuthContext';
 import Button from '../Buttons/Button';
 import Alert from '../Alert';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function Logout() {
 
@@ -16,7 +16,6 @@ export default function Logout() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.AUTH });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //alert
     const [showMessage, setShowMessage] = useState(false);

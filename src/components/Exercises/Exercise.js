@@ -4,14 +4,13 @@ import StarRating from '../StarRating/StarRating';
 import { getIconNameByCategory } from './Categories';
 import Icon from '../Icon';
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
 import DeleteButton from '../Buttons/DeleteButton';
 
 export default function Exercise({ exercise, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     return (
         <div className='listContainer'>

@@ -5,7 +5,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import PageContentWrapper from "../Site/PageContentWrapper";
 import PageTitle from '../Site/PageTitle';
 import AddGearMaintenanceInstruction from "./AddGearMaintenanceInstruction";
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
+import { TRANSLATION, DB, ICONS, COLORS } from "../../utils/Constants";
 import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebase } from "../../datatier/datatier";
@@ -28,7 +28,7 @@ export default function ManageGearMaintenance() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //user
     const { currentUser } = useAuth();

@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Button from '../Buttons/Button';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS } from '../../utils/Constants';
 
 export default function AddComment({ onSave }) {
 

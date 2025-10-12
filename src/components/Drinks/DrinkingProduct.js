@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import AddDrinkingProduct from './AddDrinkingProduct';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS, COLORS, NAVIGATION } from '../../utils/Constants';
 import Icon from '../Icon';
 import RightWrapper from '../Site/RightWrapper';
 import StarRating from '../StarRating/StarRating';

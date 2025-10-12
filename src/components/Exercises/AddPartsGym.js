@@ -7,7 +7,7 @@ import GymParts from './GymParts';
 import { onValue, child, ref } from 'firebase/database';
 import { db } from '../../firebase-config';
 import PageTitle from '../Site/PageTitle';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
 import { pushToFirebaseChild } from '../../datatier/datatier';
 
 export default function AddPartsGym() {

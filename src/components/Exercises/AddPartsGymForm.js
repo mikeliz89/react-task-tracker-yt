@@ -2,7 +2,7 @@ import Button from '../Buttons/Button';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from "react";
 import { Form, Row, Col, ButtonGroup } from "react-bootstrap";
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import { getFromFirebaseByIdAndSubId } from "../../datatier/datatier";
 
 export default function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AddFoodItem from './AddFoodItem';
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION } from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
 import StarRating from './StarRating';
 import PropTypes from 'prop-types';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS } from '../../utils/Constants';
 
 export default function SetStarRating({ starCount, onSaveStars, onShow }) {
 

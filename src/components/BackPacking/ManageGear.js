@@ -5,7 +5,7 @@ import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import AddGear from './AddGear';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
+import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from "../../utils/Constants";
 import { useAuth } from '../../contexts/AuthContext';
 import Gears from './Gears';
 import PageTitle from '../Site/PageTitle';
@@ -24,7 +24,7 @@ export default function ManageGear() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: gear, setData: setGear,

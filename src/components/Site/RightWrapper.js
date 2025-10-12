@@ -1,8 +1,14 @@
-
 export default function RightWrapper({ children }) {
     return (
-        <span style={{ float: 'right' }}>
+        <div
+            style={{
+                display: 'flex',
+                justifyContent: 'flex-end', // asettaa sisällön oikealle
+                alignItems: 'center',       // keskittää pystysuunnassa
+                gap: '8px',                 // väli nappeihin
+            }}
+        >
             {children}
-        </span>
-    )
+        </div>
+    );
 }

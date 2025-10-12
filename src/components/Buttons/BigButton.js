@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Icon from '../Icon';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { COLORS } from '../../utils/Constants';
 
 export default function BigButton({ color, textcolor, text, onClick, textBackgroundColor,
     imageName, comingsoon, iconName, iconColor }) {
 
     //translation
     const { t } = useTranslation();
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //images
     const background = `/images/${imageName}`;

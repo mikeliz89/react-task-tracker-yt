@@ -7,11 +7,11 @@ import { db } from '../../firebase-config';
 import { ref, child, onValue } from 'firebase/database';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS } from '../../utils/Constants';
 import PageTitle from '../Site/PageTitle';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
-export default function  AddPartsAerobics () {
+export default function AddPartsAerobics() {
 
   //states
   const [time, setTime] = useState(0);
@@ -26,7 +26,7 @@ export default function  AddPartsAerobics () {
 
   //translation  
   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
-  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
+  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   //load data
   useEffect(() => {

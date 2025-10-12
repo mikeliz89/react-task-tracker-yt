@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION } from '../../utils/Constants';
 import DeleteButton from '../Buttons/DeleteButton';
 
 export default function Movement({ movement, onDelete }) {

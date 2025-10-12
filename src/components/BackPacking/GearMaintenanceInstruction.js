@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
+import { DB, VARIANTS } from "../../utils/Constants";
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import Alert from '../Alert';

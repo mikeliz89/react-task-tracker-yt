@@ -7,13 +7,12 @@ import Button from '../Buttons/Button';
 import Alert from '../Alert';
 import PageTitle from '../Site/PageTitle';
 import CenterWrapper from '../Site/CenterWrapper';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function Signup() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.AUTH });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //states
     const [email, setEmail] = useState('');
@@ -88,7 +87,7 @@ export default function Signup() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }} 
+                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             <Form onSubmit={onSubmit}>

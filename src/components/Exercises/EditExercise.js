@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import { updateToFirebaseById } from '../../datatier/datatier';
 
 export default function EditExercise({ exerciseID, exercise, onClose }) {

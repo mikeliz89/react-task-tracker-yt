@@ -2,7 +2,7 @@
 import { useTranslation } from "react-i18next";
 import PageTitle from '../Site/PageTitle';
 import CarMaintenance from "./CarMaintenance";
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS } from '../../utils/Constants';
 
 export default function CarMaintenances({ carMaintenances, onDelete }) {
 

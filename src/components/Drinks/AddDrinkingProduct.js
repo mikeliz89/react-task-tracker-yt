@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { DrinkingProductCategories } from './Categories';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import { getFromFirebaseById } from '../../datatier/datatier';
 
 export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingProduct, onClose }) {

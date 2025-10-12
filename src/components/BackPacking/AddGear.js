@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { GearCategories } from './Categories';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
+import { TRANSLATION, DB } from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 
 export default function AddGear({ gearID, onSave, onClose }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [category, setCategory] = useState('');

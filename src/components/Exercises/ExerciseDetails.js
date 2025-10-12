@@ -13,7 +13,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import CommentComponent from "../Comments/CommentComponent";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
 import i18n from "i18next";
 import Alert from "../Alert";
 import PageContentWrapper from "../Site/PageContentWrapper";
@@ -40,7 +40,7 @@ export default function ExerciseDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //auth
     const { currentUser } = useAuth();

@@ -6,7 +6,7 @@ import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { Categories, ExerciseCategories } from './Categories';
 import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';

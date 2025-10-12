@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 import { useTranslation } from 'react-i18next';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS } from '../../utils/Constants';
 
 export default function GoBackButton() {
 

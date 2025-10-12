@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
 import { useState } from 'react';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';

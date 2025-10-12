@@ -6,7 +6,7 @@ import Button from '../Buttons/Button';
 import AddDrinkingProduct from './AddDrinkingProduct';
 import DrinkingProducts from './DrinkingProducts';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageTitle from '../Site/PageTitle';
@@ -26,7 +26,7 @@ export default function ManageDrinkingProducts() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: drinkingProducts, setData: setDrinkingProducts,

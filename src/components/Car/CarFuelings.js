@@ -2,7 +2,7 @@
 import { useTranslation } from "react-i18next";
 import PageTitle from '../Site/PageTitle';
 import CarFueling from "./CarFueling";
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, ICONS } from '../../utils/Constants';
 import GasPriceChart from './GasPriceChart';
 
 export default function CarFuelings({ carFuelings, onDelete }) {

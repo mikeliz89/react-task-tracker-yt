@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import AddGarnish from './AddGarnish';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { DB } from '../../utils/Constants';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import RightWrapper from '../Site/RightWrapper';
 import DeleteButton from '../Buttons/DeleteButton';

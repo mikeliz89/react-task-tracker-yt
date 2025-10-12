@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import Icon from '../Icon';
 import PropTypes from 'prop-types';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { COLORS } from '../../utils/Constants';
 
-export default function NavButton({ to, icon, iconColor = COLORS.WHITE, children, className = 'btn btn-primary', ...props }) {
+export default function NavButton({ to, icon, iconColor = COLORS.WHITE, color = COLORS.BLACK, children, className = 'btn btn-primary', ...props }) {
   return (
-    <Link to={to} className={className} {...props}>
+    <Link to={to} className={className} {...props} color={color}>
       {icon && <Icon name={icon} color={iconColor} />}
       {children}
     </Link>

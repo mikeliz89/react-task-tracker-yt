@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../utils/Constants';
+import { NAVIGATION } from '../utils/Constants';
 
 export default function PrivateRoute({ children }) {
 

@@ -7,7 +7,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import i18n from "i18next";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import Alert from '../Alert';
 import AddMovement from './AddMovement';
