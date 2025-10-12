@@ -1,6 +1,11 @@
 import Task from './Task';
 
-export default function Tasks({ taskListID, tasks, archived, onDelete, onToggle }) {
+export default function Tasks({
+  taskListID, tasks, archived,
+  onDelete,
+  onToggle,
+  selectedIds,
+  onSelectToggle }) {
 
   return (
     <>
@@ -10,7 +15,10 @@ export default function Tasks({ taskListID, tasks, archived, onDelete, onToggle 
           task={task}
           taskListID={taskListID}
           onDelete={onDelete}
-          onToggle={onToggle} />
+          isSelected={selectedIds?.has(task.id)}
+          selectedIds={selectedIds}
+          onToggle={onToggle}
+          onSelectToggle={onSelectToggle} />
       ))}
     </>
   )

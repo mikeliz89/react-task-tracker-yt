@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { Col, Row, ButtonGroup, Tab, Tabs, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,7 @@ import Tasks from '../Task/Tasks';
 import ChangeType from './ChangeType';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase-config';
-import { ref, onValue, child, get } from 'firebase/database';
+import { ref, onValue, child, get, off, push, update } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { ICONS, DB, TRANSLATION, COLORS } from '../../utils/Constants';
 import i18n from "i18next";
@@ -38,14 +38,20 @@ export default function TaskListDetails() {
 
   //params
   const params = useParams();
+  const sourceListId = params.id;
 
   //translation
   const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
   const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   //states
-  const [tasks, setTasks] = useState();
+  const [tasks, setTasks] = useState([]);
   const [originalTasks, setOriginalTasks] = useState();
+  const [selectedIds, setSelectedIds] = useState(new Set());
+  const [tasklists, setTasklists] = useState([]); // [{id, title, ...}]
+  const [destListId, setDestListId] = useState("");
+  const [loadingMove, setLoadingMove] = useState(false);
+  const [error, setError] = useState("");
 
   //modal & toggle
   const { status: showAddTask, toggleStatus: toggleAddTask } = useToggle();
@@ -62,34 +68,141 @@ export default function TaskListDetails() {
   //fetch data
   const { data: taskList, loading } = useFetch(DB.TASKLISTS, "", params.id);
 
-  //load data
+  // --- Lataa nykyisen listan taskit ---
   useEffect(() => {
-    const getTasks = async () => {
-      await fetchTasksFromFirebase();
-    }
-    getTasks();
-  }, [])
-
-  const fetchTasksFromFirebase = async () => {
-    const dbref = await child(ref(db, DB.TASKS), params.id);
-    onValue(dbref, (snapshot) => {
+    const dbref = child(ref(db, DB.TASKS), sourceListId);
+    const unsub = onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
-      const fromDB = [];
-      let taskCounterTemp = 0;
-      let taskReadyCounterTemp = 0;
-      for (let id in snap) {
-        taskCounterTemp++;
-        if (snap[id]["reminder"] === true) {
-          taskReadyCounterTemp++;
+      const arr = [];
+      if (snap) {
+        for (const id in snap) {
+          arr.push({ id, ...snap[id] });
         }
-        fromDB.push({ id, ...snap[id] });
       }
-      setTasks(fromDB);
-      setOriginalTasks(fromDB);
-      setTaskCounter(taskCounterTemp);
-      setTaskReadyCounter(taskReadyCounterTemp);
-    })
-  }
+      // säilytä valinnat, jotka vielä löytyvät
+      setTasks(arr);
+      setSelectedIds((prev) => new Set([...prev].filter((id) => snap?.[id])));
+    });
+
+    return () => {
+      off(dbref); // siivoa kuuntelija
+    };
+  }, [sourceListId]);
+
+  // --- Lataa kaikki tasklistat (kohdevalikkoa varten) ---
+  useEffect(() => {
+    const tlRef = ref(db, DB.TASKLISTS);
+    // kertalataus riittää
+    get(tlRef).then((snapshot) => {
+      const v = snapshot.val() || {};
+      const arr = Object.entries(v).map(([id, data]) => ({ id, ...data }));
+      setTasklists(arr);
+    });
+  }, []);
+
+  // Map-id → task nopeaan hakuun
+  const tasksById = useMemo(() => {
+    const m = new Map();
+    tasks.forEach((t) => m.set(t.id, t));
+    return m;
+  }, [tasks]);
+
+  const allSelected = tasks.length > 0 && selectedIds.size === tasks.length;
+
+  // Valinnan togglaus yksittäiselle taskille
+  const toggleSelect = (taskId) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      next.has(taskId) ? next.delete(taskId) : next.add(taskId);
+      return next;
+    });
+  };
+
+  // Valitse kaikki
+  const toggleAll = () => {
+    if (allSelected) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(tasks.map((t) => t.id)));
+    }
+  };
+
+  //tyhjennä valinnat
+  const clearSelection = () => setSelectedIds(new Set());
+
+  const destinationOptions = tasklists.filter((t) => t.id !== sourceListId);
+
+  const canMove = selectedIds.size > 0 && destListId && !loadingMove;
+
+  // Siirtologiikka (atominen update)
+  const handleMove = async () => {
+    setError("");
+    if (!canMove) return;
+    setLoadingMove(true);
+    try {
+      // Rakennetaan atominen päivitys
+      const rootRef = ref(db); // käytetään juurta, jotta voidaan päivittää monia polkuja kerralla
+      const updates = {};
+
+      // Kopioidaan jokainen valittu task kohteeseen uudella avaimella ja poistetaan lähteestä
+      selectedIds.forEach((taskId) => {
+        const taskData = tasksById.get(taskId);
+        if (!taskData) return;
+
+        // luodaan uusi avain kohteeseen
+        const newKey = push(child(ref(db), `${DB.TASKS}/${destListId}`)).key;
+
+        // poista id kenttä taskDatasta
+        const { id: _omit, ...payload } = taskData; // ⬅️ tässä id pudotetaan pois
+
+        // (valinnainen) lisää metadataa
+        // payload.movedAt = new Date().toISOString();
+
+        updates[`${DB.TASKS}/${destListId}/${newKey}`] = payload;
+        updates[`${DB.TASKS}/${sourceListId}/${taskId}`] = null; // poista lähteestä
+      });
+
+      await update(rootRef, updates);
+
+      // Optimistinen UI: tyhjennä valinnat ja kohde
+      clearSelection();
+      setDestListId("");
+    } catch (e) {
+      console.error(e);
+      setError("Siirto epäonnistui. Yritä uudelleen.");
+    } finally {
+      setLoadingMove(false);
+    }
+  };
+
+  // //load data
+  // useEffect(() => {
+  //   const getTasks = async () => {
+  //     await fetchTasksFromFirebase();
+  //   }
+  //   getTasks();
+  // }, [])
+
+  // const fetchTasksFromFirebase = async () => {
+  //   const dbref = await child(ref(db, DB.TASKS), params.id);
+  //   onValue(dbref, (snapshot) => {
+  //     const snap = snapshot.val();
+  //     const fromDB = [];
+  //     let taskCounterTemp = 0;
+  //     let taskReadyCounterTemp = 0;
+  //     for (let id in snap) {
+  //       taskCounterTemp++;
+  //       if (snap[id]["reminder"] === true) {
+  //         taskReadyCounterTemp++;
+  //       }
+  //       fromDB.push({ id, ...snap[id] });
+  //     }
+  //     setTasks(fromDB);
+  //     setOriginalTasks(fromDB);
+  //     setTaskCounter(taskCounterTemp);
+  //     setTaskReadyCounter(taskReadyCounterTemp);
+  //   })
+  // }
 
   const updateTask = async (taskListID, task) => {
     task["created"] = getCurrentDateAsJson();
@@ -220,7 +333,7 @@ export default function TaskListDetails() {
             color={showEditTaskList ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
             onClick={() => toggleShowTaskList()}
           />
-          <Button color={COLORS.BUTTON_GRAY} iconName={ICONS.Archive}
+          <Button color={COLORS.BUTTON_GRAY} iconName={ICONS.ARCHIVE}
             onClick={() => {
               if (window.confirm(t('archive_list_confirm_message'))) {
                 archiveTaskList(taskList);
@@ -287,7 +400,7 @@ export default function TaskListDetails() {
             &nbsp;
             <Button
               iconName={ICONS.PLUS}
-              color={showAddTask ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
+              color={showAddTask ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
               text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
               onClick={toggleAddTask} />
           </CenterWrapper>
@@ -304,6 +417,41 @@ export default function TaskListDetails() {
             </Modal.Body>
           </Modal>
 
+          {/* Työkalupalkki */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr auto auto auto",
+              gap: 8,
+              alignItems: "center",
+              marginBottom: 12,
+            }}
+          >
+            <button onClick={toggleAll} disabled={tasks.length === 0}>
+              {allSelected ? "Poista kaikki valinnat" : "Valitse kaikki"}
+            </button>
+            <button onClick={clearSelection} disabled={selectedIds.size === 0}>
+              Tyhjennä valinnat
+            </button>
+
+            <select
+              value={destListId}
+              onChange={(e) => setDestListId(e.target.value)}
+              style={{ minWidth: 220 }}
+            >
+              <option value="">— Valitse kohdelista —</option>
+              {destinationOptions.map((tl) => (
+                <option key={tl.id} value={tl.id}>
+                  {tl.title || tl.id}
+                </option>
+              ))}
+            </select>
+
+            <button onClick={handleMove} disabled={!canMove}>
+              {loadingMove ? "Siirretään..." : `Siirrä valitut (${selectedIds.size})`}
+            </button>
+          </div>
+
           {tasks != null && tasks.length > 0 ? (
             <>
               <Counter list={tasks} originalList={originalTasks} counter={taskCounter} text={t('tasks')} />
@@ -312,6 +460,8 @@ export default function TaskListDetails() {
                 tasks={tasks}
                 onDelete={deleteTask}
                 onToggle={toggleReminder}
+                selectedIds={selectedIds}
+                onSelectToggle={toggleSelect}
               />
             </>
           ) : (
