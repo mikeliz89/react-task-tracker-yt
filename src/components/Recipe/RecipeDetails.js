@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -18,7 +19,7 @@ import Alert from '../Alert';
 import RecipeHistories from './RecipeHistories';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
-import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
+import { pushToFirebase, pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
     from '../../datatier/datatier';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
@@ -27,8 +28,15 @@ import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
 import useFetch from '../useFetch';
 import useFetchChildren from '../useFetchChildren';
+import { db } from '../../firebase-config';
+import { ref, child, onValue } from 'firebase/database';
+import { ListTypes, RecipeTypes } from '../../utils/Enums';
+import { getIncredientsUrl } from './Categories';
 
 export default function RecipeDetails() {
+
+    //navigate
+    const navigate = useNavigate();
 
     //params
     const params = useParams();
@@ -146,6 +154,62 @@ export default function RecipeDetails() {
             { id: 4, name: t('core_recipe'), value: recipe.isCore === true ? t('yes') : t('no') },
             { id: 5, name: t('category'), value: t('category_' + getRecipeCategoryNameByID(recipe.category)) }
         ];
+    }
+
+    const makeShoppingList = async (recipeID) => {
+
+        const incredients = await fetchIncredientsFromFirebase(recipeID);
+
+        if (incredients && incredients.length > 0) {
+            let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
+            addTaskList({ title: `${t('shoppinglist')} ${currentDateTime}` }, incredients).then(() => {
+                navigate(Constants.NAVIGATION_MANAGE_SHOPPINGLISTS)
+            });
+        } else if (incredients && incredients.length <= 0) {
+            setError(t('shoppinglist_no_incredients')); 
+            setShowError(true);
+        }
+    }
+
+    const fetchIncredientsFromFirebase = async (recipeID) => {
+        console.log("recipeID ID ", recipeID);
+        const incredients = [];
+        const recipeType = RecipeTypes.Food;
+        const dbref = await child(ref(db, getIncredientsUrl(recipeType)), recipeID);
+        onValue(dbref, (snapshot) => {
+            const snap = snapshot.val();
+            for (let id in snap) {
+                incredients.push({ id, ...snap[id] });
+            }
+        });
+        return incredients;
+    }
+
+    const addTaskList = async (taskList, incredients) => {
+        taskList["created"] = getCurrentDateAsJson();
+        taskList["createdBy"] = currentUser.email;
+        taskList["description"] = "";
+        taskList["listType"] = ListTypes.Shopping;
+
+        const key = await pushToFirebase(Constants.DB_TASKLISTS, taskList);
+        addTasksToTaskList(key, incredients);
+    }
+
+    const addTasksToTaskList = async (tasklistID, incredients) => {
+        //tee reseptin aineksista taskilistaan taskeja
+        incredients.forEach(function (arrayItem) {
+            let name = arrayItem.name;
+            let amount = arrayItem.amount;
+            let unit = arrayItem.unit;
+
+            addTask(tasklistID, { text: name, 'day': amount + ' ' + unit, 'reminder': false });
+        });
+    }
+
+    const addTask = async (taskListID, task) => {
+        task["created"] = getCurrentDateAsJson()
+        task["createdBy"] = currentUser.email;
+        pushToFirebaseChild(Constants.DB_TASKS, taskListID, task);
     }
 
     return loading ? (
@@ -271,7 +335,19 @@ export default function RecipeDetails() {
                         <Button
                             iconName={Constants.ICON_PLUS_SQUARE}
                             text={t('do_recipe')}
-                            onClick={() => { if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); } }}
+                            onClick={() => {
+                                if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); }
+                            }}
+                        />
+                        &nbsp;
+                        <Button
+                            iconName={Constants.ICON_PLUS_SQUARE}
+                            text={t('shopcart_tooltip')}
+                            onClick={() => {
+                                if (window.confirm(t('shopcart_tooltip_confirm'))) {
+                                    makeShoppingList(params.id);
+                                }
+                            }}
                         />
                     </>
                 </Tab>

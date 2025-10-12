@@ -57,7 +57,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                 navigate(Constants.NAVIGATION_MANAGE_SHOPPINGLISTS)
             });
         } else if (incredients && incredients.length <= 0) {
-            setError("Ei yhtään ainesosaa. Ostoslistaa ei voitu luoda"); //todo: kieleistys
+            setError(t('shoppinglist_no_incredients'));
             setShowError(true);
         }
     }

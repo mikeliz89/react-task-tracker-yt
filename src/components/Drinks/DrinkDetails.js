@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col, Tabs, Tab, Modal } from 'react-bootstrap';
+import { getIncredientsUrl } from '../Recipe/Categories';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import i18n from "i18next";
@@ -20,7 +22,8 @@ import { useAuth } from '../../contexts/AuthContext';
 import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
-import { pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById } from '../../datatier/datatier';
+import { pushToFirebase, pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
+    from '../../datatier/datatier';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
@@ -29,8 +32,15 @@ import AccordionElement from '../AccordionElement';
 import { useToggle } from '../useToggle';
 import useFetch from '../useFetch';
 import useFetchChildren from '../useFetchChildren';
+import { db } from '../../firebase-config';
+import { ref, child, onValue } from 'firebase/database';
+import { ListTypes, RecipeTypes } from '../../utils/Enums';
+
 
 export default function DrinkDetails() {
+
+    //navigate
+    const navigate = useNavigate();
 
     //params
     const params = useParams();
@@ -159,6 +169,63 @@ export default function DrinkDetails() {
             { id: 4, name: t('glass'), value: drink.glass },
             { id: 5, name: t('category'), value: t('category_' + getDrinkCategoryNameByID(drink.category)) }
         ];
+    }
+
+
+    const makeShoppingList = async (drinkID) => {
+
+        const incredients = await fetchIncredientsFromFirebase(drinkID);
+
+        if (incredients && incredients.length > 0) {
+            let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
+            addTaskList({ title: `${t('shoppinglist')} ${currentDateTime}` }, incredients).then(() => {
+                navigate(Constants.NAVIGATION_MANAGE_SHOPPINGLISTS)
+            });
+        } else if (incredients && incredients.length <= 0) {
+            setError(t('shoppinglist_no_incredients'));
+            setShowError(true);
+        }
+    }
+
+    const fetchIncredientsFromFirebase = async (drinkID) => {
+        console.log("drink ID ", drinkID);
+        const incredients = [];
+        const recipeType = RecipeTypes.Drink;
+        const dbref = await child(ref(db, getIncredientsUrl(recipeType)), drinkID);
+        onValue(dbref, (snapshot) => {
+            const snap = snapshot.val();
+            for (let id in snap) {
+                incredients.push({ id, ...snap[id] });
+            }
+        });
+        return incredients;
+    }
+
+    const addTaskList = async (taskList, incredients) => {
+        taskList["created"] = getCurrentDateAsJson();
+        taskList["createdBy"] = currentUser.email;
+        taskList["description"] = "";
+        taskList["listType"] = ListTypes.Shopping;
+
+        const key = await pushToFirebase(Constants.DB_TASKLISTS, taskList);
+        addTasksToTaskList(key, incredients);
+    }
+
+    const addTasksToTaskList = async (tasklistID, incredients) => {
+        //tee reseptin aineksista taskilistaan taskeja
+        incredients.forEach(function (arrayItem) {
+            let name = arrayItem.name;
+            let amount = arrayItem.amount;
+            let unit = arrayItem.unit;
+
+            addTask(tasklistID, { text: name, 'day': amount + ' ' + unit, 'reminder': false });
+        });
+    }
+
+    const addTask = async (taskListID, task) => {
+        task["created"] = getCurrentDateAsJson()
+        task["createdBy"] = currentUser.email;
+        pushToFirebaseChild(Constants.DB_TASKS, taskListID, task);
     }
 
     return loading ? (
@@ -312,6 +379,16 @@ export default function DrinkDetails() {
                             onClick={() => {
                                 if (window.confirm(t('do_drink_confirm'))) {
                                     saveDrinkHistory(params.id);
+                                }
+                            }}
+                        />
+                        &nbsp;
+                        <Button
+                            iconName={Constants.ICON_PLUS_SQUARE}
+                            text={t('shopcart_tooltip')}
+                            onClick={() => {
+                                if (window.confirm(t('shopcart_tooltip_confirm'))) {
+                                    makeShoppingList(params.id);
                                 }
                             }}
                         />
