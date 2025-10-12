@@ -73,14 +73,23 @@ export default function TaskListDetails() {
     const dbref = child(ref(db, DB.TASKS), sourceListId);
     const unsub = onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
-      const arr = [];
+      const fromDB = [];
+      let taskCounterTemp = 0;
+      let taskReadyCounterTemp = 0;
       if (snap) {
         for (const id in snap) {
-          arr.push({ id, ...snap[id] });
+          taskCounterTemp++;
+          if (snap[id]["reminder"] === true) {
+            taskReadyCounterTemp++;
+          }
+          fromDB.push({ id, ...snap[id] });
         }
       }
       // säilytä valinnat, jotka vielä löytyvät
-      setTasks(arr);
+      setTasks(fromDB);
+      setOriginalTasks(fromDB);
+      setTaskCounter(taskCounterTemp);
+      setTaskReadyCounter(taskReadyCounterTemp);
       setSelectedIds((prev) => new Set([...prev].filter((id) => snap?.[id])));
     });
 
