@@ -37,8 +37,12 @@ export default function Dashboard() {
         setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS);
     }
 
-    const setFromMedia = () => {
-        setSessionStorage(SESSIONSTORAGE.DASHBOARD_MEDIA);
+    const setFromGames = () => {
+        setSessionStorage(SESSIONSTORAGE.DASHBOARD_GAMES);
+    }
+
+    const setFromMovies = () => {
+        setSessionStorage(SESSIONSTORAGE.DASHBOARD_MOVIES);
     }
 
     const setFromMusic = () => {
@@ -191,7 +195,7 @@ export default function Dashboard() {
                         </DashboardItem>
                     </Row>
                 </Tab>
-                <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MEDIA} title={t('title_media')}>
+                <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MOVIES} title={t('title_movies')}>
                     <Row>
                         <DashboardItem link={NAVIGATION.MANAGE_MOVIES}>
                             <BigButton
@@ -200,9 +204,13 @@ export default function Dashboard() {
                                 textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('movies')}
-                                onClick={() => setFromMedia()}
+                                onClick={() => setFromMovies()}
                             />
                         </DashboardItem>
+                    </Row>
+                </Tab>
+                <Tab eventKey={SESSIONSTORAGE.DASHBOARD_GAMES} title={t('title_games')}>
+                    <Row>
                         <DashboardItem link={NAVIGATION.MANAGE_GAMES}>
                             <BigButton
                                 imageName="games.jpg"
@@ -210,7 +218,7 @@ export default function Dashboard() {
                                 textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('games')}
-                                onClick={() => setFromMedia()}
+                                onClick={() => setFromGames()}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.MANAGE_DISC_GOLF}>
@@ -220,7 +228,7 @@ export default function Dashboard() {
                                 textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('discgolf')}
-                                onClick={() => setFromMedia()}
+                                onClick={() => setFromGames()}
                             />
                         </DashboardItem>
                     </Row>

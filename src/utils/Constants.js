@@ -253,8 +253,9 @@ export const NAVIGATION = {
 export const SESSIONSTORAGE = {
     FROM_PAGE: "fromPage",
     DASHBOARD_ACTIONS: "actions",
+    DASHBOARD_GAMES: "games",
     DASHBOARD_LISTS: "lists",
-    DASHBOARD_MEDIA: "media",
+    DASHBOARD_MOVIES: "movies",
     DASHBOARD_MUSIC: "music",
     THEME: "theme",
 }
