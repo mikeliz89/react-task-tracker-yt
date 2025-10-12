@@ -175,35 +175,6 @@ export default function TaskListDetails() {
     }
   };
 
-  // //load data
-  // useEffect(() => {
-  //   const getTasks = async () => {
-  //     await fetchTasksFromFirebase();
-  //   }
-  //   getTasks();
-  // }, [])
-
-  // const fetchTasksFromFirebase = async () => {
-  //   const dbref = await child(ref(db, DB.TASKS), params.id);
-  //   onValue(dbref, (snapshot) => {
-  //     const snap = snapshot.val();
-  //     const fromDB = [];
-  //     let taskCounterTemp = 0;
-  //     let taskReadyCounterTemp = 0;
-  //     for (let id in snap) {
-  //       taskCounterTemp++;
-  //       if (snap[id]["reminder"] === true) {
-  //         taskReadyCounterTemp++;
-  //       }
-  //       fromDB.push({ id, ...snap[id] });
-  //     }
-  //     setTasks(fromDB);
-  //     setOriginalTasks(fromDB);
-  //     setTaskCounter(taskCounterTemp);
-  //     setTaskReadyCounter(taskReadyCounterTemp);
-  //   })
-  // }
-
   const updateTask = async (taskListID, task) => {
     task["created"] = getCurrentDateAsJson();
     task["createdBy"] = currentUser.email;
