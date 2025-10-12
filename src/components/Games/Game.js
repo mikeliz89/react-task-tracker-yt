@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { FaCheckSquare } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getGameConsoleNameByID } from '../../utils/ListUtils';
 import RightWrapper from '../Site/RightWrapper';
 import { useState } from 'react';
@@ -15,14 +15,14 @@ import EditButton from '../Buttons/EditButton';
 export default function Game({ game, onDelete, onEdit }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_GAMES });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
 
     //states
     const [editable, setEditable] = useState(false);
 
     const updateGame = (updateGameID, object) => {
         object["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(Constants.DB_GAMES, updateGameID, object);
+        updateToFirebaseById(DB.GAMES, updateGameID, object);
         setEditable(false);
     }
 
@@ -76,7 +76,7 @@ export default function Game({ game, onDelete, onEdit }) {
             }
             {!editable &&
                 <p>
-                    <Link className='btn btn-primary' to={`${Constants.NAVIGATION_GAME}/${game.id}`}>{t('view_details')}</Link>
+                    <Link className='btn btn-primary' to={`${NAVIGATION.GAME}/${game.id}`}>{t('view_details')}</Link>
                 </p>
             }
             <StarRating starCount={game.stars} />

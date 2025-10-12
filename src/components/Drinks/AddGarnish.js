@@ -2,14 +2,14 @@ import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Button from '../Buttons/Button';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [name, setName] = useState('');
@@ -24,7 +24,7 @@ export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {
     }, [drinkID]);
 
     const fetchGarnishFromFirebase = async (drinkID) => {
-        getFromFirebaseByIdAndSubId(Constants.DB_DRINK_GARNISHES, drinkID, garnishID).then((val) => {
+        getFromFirebaseByIdAndSubId(DB.DRINK_GARNISHES, drinkID, garnishID).then((val) => {
             setName(val["name"]);
         });
     }

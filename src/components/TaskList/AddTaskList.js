@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import { getFromFirebaseById } from '../../datatier/datatier';
 import PropTypes from 'prop-types';
 
 export default function AddTaskList({ taskListID, onSave, onClose, showLabels, defaultTitle }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [title, setTitle] = useState('');
@@ -25,7 +25,7 @@ export default function AddTaskList({ taskListID, onSave, onClose, showLabels, d
                 await fetchTaskListFromFirebase(taskListID);
             }
             const fetchTaskListFromFirebase = async (taskListID) => {
-                getFromFirebaseById(Constants.DB_TASKLISTS, taskListID).then((val) => {
+                getFromFirebaseById(DB.TASKLISTS, taskListID).then((val) => {
                     setCreated(val["created"]);
                     setCreatedBy(val["createdBy"]);
                     setDescription(val["description"]);

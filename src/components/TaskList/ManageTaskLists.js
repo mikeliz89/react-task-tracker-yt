@@ -8,7 +8,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import { getPageTitleContent } from '../../utils/ListUtils';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { COLORS, TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
@@ -31,12 +31,12 @@ export default function ManageTaskLists({ listType }) {
   const { currentUser } = useAuth();
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+  const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
+  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   //fetch data
   const { data: taskLists, setData: setTaskLists,
-    originalData: originalTaskLists, counter, loading } = useFetch(Constants.DB_TASKLISTS, listType);
+    originalData: originalTaskLists, counter, loading } = useFetch(DB.TASKLISTS, listType);
 
   //modal
   const { status: showAddTaskList, toggleStatus: toggleAddTaskList } = useToggle();
@@ -49,19 +49,19 @@ export default function ManageTaskLists({ listType }) {
     } else {
       taskList["listType"] = listType;
     }
-    const key = await pushToFirebase(Constants.DB_TASKLISTS, taskList);
-    navigate(`${Constants.NAVIGATION_TASKLIST}/${key}`);
+    const key = await pushToFirebase(DB.TASKLISTS, taskList);
+    navigate(`${NAVIGATION.TASKLIST}/${key}`);
   }
 
   const deleteTaskList = async (id) => {
     //delete tasks
-    removeFromFirebaseById(Constants.DB_TASKS, id);
+    removeFromFirebaseById(DB.TASKS, id);
     //delete task list
-    removeFromFirebaseChild(Constants.DB_TASKLISTS, id);
+    removeFromFirebaseChild(DB.TASKLISTS, id);
   }
 
   function gotoTaskListArchive() {
-    navigate(Constants.NAVIGATION_TASKLIST_ARCHIVE, {
+    navigate(NAVIGATION.TASKLIST_ARCHIVE, {
       state: {
         listType: listType
       }
@@ -136,7 +136,7 @@ export default function ManageTaskLists({ listType }) {
         <ButtonGroup>
           <GoBackButton />
           <Button text={t('button_goto_tasklist_archive')}
-            color={Constants.COLOR_BUTTON_GRAY}
+            color={COLORS.BUTTON_GRAY}
             onClick={() => gotoTaskListArchive()}
           />
         </ButtonGroup>
@@ -161,11 +161,11 @@ export default function ManageTaskLists({ listType }) {
 
       <CenterWrapper>
         <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')}
-          iconName={Constants.ICON_COPY} />
+          iconName={ICONS.COPY} />
         &nbsp;
         <Button
-          iconName={Constants.ICON_PLUS}
-          color={showAddTaskList ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+          iconName={ICONS.PLUS}
+          color={showAddTaskList ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
           text={showAddTaskList ? tCommon('buttons.button_close') : t('button_add_list')}
           onClick={toggleAddTaskList} />
       </CenterWrapper>

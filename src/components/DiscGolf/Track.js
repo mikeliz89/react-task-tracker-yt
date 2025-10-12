@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { Link } from "react-router-dom";
 
 export default function Track({ track }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DISC_GOLF });
 
     return (
         <>
@@ -16,7 +16,7 @@ export default function Track({ track }) {
                 <h6>{t('track_city')}: {track.trackCity}</h6>
                 <p>{track.description}</p>
                 
-                <Link className='btn btn-primary' to={`${Constants.NAVIGATION_DISC_GOLF_TRACK}/${track.id}`}>{t('view_details')}</Link>
+                <Link className='btn btn-primary' to={`${NAVIGATION.DISC_GOLF_TRACK}/${track.id}`}>{t('view_details')}</Link>
             </div>
         </>
     )

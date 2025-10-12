@@ -9,22 +9,22 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
 import useFetch from '../useFetch';
 
 export default function ManageExercises() {
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+  const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
+  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   //fetch data
   const { data: exercises, setData: setExercises,
-    originalData: originalExercises, counter, loading } = useFetch(Constants.DB_EXERCISES);
+    originalData: originalExercises, counter, loading } = useFetch(DB.EXERCISES);
 
   const deleteExercise = async (id) => {
-    removeFromFirebaseById(Constants.DB_EXERCISES, id);
+    removeFromFirebaseById(DB.EXERCISES, id);
   }
 
   return loading ? (
@@ -37,11 +37,11 @@ export default function ManageExercises() {
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <NavButton to={Constants.NAVIGATION_MANAGE_MOVEMENTS}>
+          <NavButton to={NAVIGATION.MANAGE_MOVEMENTS}>
             {t('manage_movements_button')}
           </NavButton>
-          <NavButton to={Constants.NAVIGATION_MANAGE_EXERCISE_LISTS}
-            icon={Constants.ICON_LIST_ALT}
+          <NavButton to={NAVIGATION.MANAGE_EXERCISE_LISTS}
+            icon={ICONS.LIST_ALT}
           >
             {tCommon('buttons.button_lists')}
           </NavButton>
@@ -63,7 +63,7 @@ export default function ManageExercises() {
       }
 
       <CenterWrapper>
-        <Link className="btn btn-primary" to={Constants.NAVIGATION_CREATE_EXERCISE}>{t('create_exercise')}</Link>
+        <Link className="btn btn-primary" to={NAVIGATION.CREATE_EXERCISE}>{t('create_exercise')}</Link>
       </CenterWrapper>
 
       {

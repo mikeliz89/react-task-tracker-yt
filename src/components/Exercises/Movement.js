@@ -2,13 +2,13 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import DeleteButton from '../Buttons/DeleteButton';
 
 export default function Movement({ movement, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
 
     return (
         <div className='listContainer'>

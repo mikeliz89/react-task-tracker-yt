@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import * as Constants from '../../utils/Constants';
+import { DB } from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
 import AddTask from './AddTask';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
@@ -16,7 +15,7 @@ export default function Task({ taskListID, archived, task, onDelete, onToggle })
 
     const updateTask = (updateTaskListID, object) => {
         object["modified"] = getCurrentDateAsJson();
-        updateToFirebaseByIdAndSubId(Constants.DB_TASKS, updateTaskListID, task.id, object);
+        updateToFirebaseByIdAndSubId(DB.TASKS, updateTaskListID, task.id, object);
         toggleSetEditable();
     }
 

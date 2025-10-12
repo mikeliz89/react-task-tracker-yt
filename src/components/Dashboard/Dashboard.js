@@ -2,7 +2,7 @@ import BigButton from '../Buttons/BigButton';
 import { useTranslation } from 'react-i18next';
 import { Row, Tabs } from 'react-bootstrap';
 import PageContentWrapper from '../Site/PageContentWrapper';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS, SESSIONSTORAGE } from '../../utils/Constants';
 import DashboardItem from './DashboardItem';
 import { Tab } from 'bootstrap';
 import { useState, useEffect } from 'react';
@@ -13,15 +13,15 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_DASHBOARD, { keyPrefix: Constants.TRANSLATION_DASHBOARD_BUTTONS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.DASHBOARD, { keyPrefix: TRANSLATION.DASHBOARD_BUTTONS });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     useEffect(() => {
         // Access fromPage from session storage
-        var fromPageSession = sessionStorage.getItem(Constants.SESSION_FROM_PAGE);
+        var fromPageSession = sessionStorage.getItem(SESSIONSTORAGE.FROM_PAGE);
         if (fromPageSession == null) {
             //initialize as actions
-            fromPageSession = Constants.SESSION_DASHBOARD_ACTIONS;
+            fromPageSession = SESSIONSTORAGE.DASHBOARD_ACTIONS;
         }
         // Update session storage
         setSessionStorage(fromPageSession);
@@ -34,23 +34,23 @@ export default function Dashboard() {
     }, []); //No dependency to trigger in each page load
 
     const setFromActions = () => {
-        setSessionStorage(Constants.SESSION_DASHBOARD_ACTIONS);
+        setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS);
     }
 
     const setFromMedia = () => {
-        setSessionStorage(Constants.SESSION_DASHBOARD_MEDIA);
+        setSessionStorage(SESSIONSTORAGE.DASHBOARD_MEDIA);
     }
 
     const setFromMusic = () => {
-        setSessionStorage(Constants.SESSION_DASHBOARD_MUSIC);
+        setSessionStorage(SESSIONSTORAGE.DASHBOARD_MUSIC);
     }
 
     const setFromLists = () => {
-        setSessionStorage(Constants.SESSION_DASHBOARD_LISTS);
+        setSessionStorage(SESSIONSTORAGE.DASHBOARD_LISTS);
     }
 
     const setSessionStorage = (value) => {
-        sessionStorage.setItem(Constants.SESSION_FROM_PAGE, value);
+        sessionStorage.setItem(SESSIONSTORAGE.FROM_PAGE, value);
     }
 
     return loading ? (
@@ -63,161 +63,161 @@ export default function Dashboard() {
 
             <Tabs defaultActiveKey={fromPage} id="dashboard-Tab"
                 className="mb-3">
-                <Tab eventKey={Constants.SESSION_DASHBOARD_ACTIONS} title={t('title_actions')}>
+                <Tab eventKey={SESSIONSTORAGE.DASHBOARD_ACTIONS} title={t('title_actions')}>
                     {/* Create New Row For Sets of 4 buttons  */}
                     <Row>
-                        <DashboardItem link={Constants.NAVIGATION_CAR}>
+                        <DashboardItem link={NAVIGATION.CAR}>
                             <BigButton
                                 imageName="car.jpg"
-                                textcolor={Constants.COLOR_BLACK}
+                                textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('car')}
-                                iconName={Constants.ICON_CAR}
+                                iconName={ICONS.CAR}
                                 onClick={() => setFromActions()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_DRINKS}>
+                        <DashboardItem link={NAVIGATION.MANAGE_DRINKS}>
                             <BigButton
                                 imageName="cocktail.jpg"
-                                textcolor={Constants.COLOR_BLACK}
+                                textcolor={COLORS.BLACK}
                                 color="#f9a9d5"
                                 text={t('drinks')}
-                                iconName={Constants.ICON_GLASS_MARTINI}
+                                iconName={ICONS.GLASS_MARTINI}
                                 onClick={() => setFromActions()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_PEOPLE}>
+                        <DashboardItem link={NAVIGATION.MANAGE_PEOPLE}>
                             <BigButton
                                 imageName="people.jpg"
-                                textcolor={Constants.COLOR_BLACK}
-                                color={Constants.COLOR_WHITE}
+                                textcolor={COLORS.BLACK}
+                                color={COLORS.WHITE}
                                 text={t('personlist')}
-                                iconName={Constants.ICON_USER_ALT}
+                                iconName={ICONS.USER_ALT}
                                 onClick={() => setFromActions()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_EXERCISES}>
+                        <DashboardItem link={NAVIGATION.MANAGE_EXERCISES}>
                             <BigButton
                                 imageName="exercises.PNG"
-                                textcolor={Constants.COLOR_BLACK}
+                                textcolor={COLORS.BLACK}
                                 color="#ef7c1a"
                                 text={t('exercises')}
-                                iconName={Constants.ICON_RUNNING}
+                                iconName={ICONS.RUNNING}
                                 onClick={() => setFromActions()}
                             />
                         </DashboardItem>
                     </Row>
                     <Row>
-                        <DashboardItem link={Constants.NAVIGATION_LINKSLIST}>
+                        <DashboardItem link={NAVIGATION.LINKSLIST}>
                             <BigButton
                                 imageName="links.jpg"
-                                textcolor={Constants.COLOR_BLACK}
-                                color={Constants.COLOR_WHITE}
+                                textcolor={COLORS.BLACK}
+                                color={COLORS.WHITE}
                                 text={t('links_list')}
-                                iconName={Constants.ICON_EXTERNAL_LINK_ALT}
+                                iconName={ICONS.EXTERNAL_LINK_ALT}
                                 onClick={() => setFromActions()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_BMICALCULATOR}>
+                        <DashboardItem link={NAVIGATION.BMICALCULATOR}>
                             <BigButton
                                 imageName="calculator.PNG"
-                                textcolor={Constants.COLOR_BLACK}
+                                textcolor={COLORS.BLACK}
                                 text={t('bmi_calculator')}
-                                iconName={Constants.ICON_WEIGHT}
+                                iconName={ICONS.WEIGHT}
                                 onClick={() => setFromActions()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_RECIPES}>
+                        <DashboardItem link={NAVIGATION.MANAGE_RECIPES}>
                             <BigButton
                                 imageName="recipes.png"
-                                textcolor={Constants.COLOR_BLACK}
+                                textcolor={COLORS.BLACK}
                                 color="#b37401"
                                 text={t('recipes')}
-                                iconName={Constants.ICON_UTENSILS}
+                                iconName={ICONS.UTENSILS}
                                 onClick={() => setFromActions()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_BACKPACKING}>
+                        <DashboardItem link={NAVIGATION.MANAGE_BACKPACKING}>
                             <BigButton
                                 imageName="backpacking.jpg"
-                                textcolor={Constants.COLOR_BLACK}
+                                textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('backpacking')}
-                                iconName={Constants.ICON_CAMPGROUND}
+                                iconName={ICONS.CAMPGROUND}
                                 onClick={() => setFromActions()}
                             />
                         </DashboardItem>
                     </Row>
                 </Tab>
-                <Tab eventKey={Constants.SESSION_DASHBOARD_LISTS} title={t('title_lists')}>
+                <Tab eventKey={SESSIONSTORAGE.DASHBOARD_LISTS} title={t('title_lists')}>
                     <Row>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_PROGRAMMING}>
+                        <DashboardItem link={NAVIGATION.MANAGE_PROGRAMMING}>
                             <BigButton
                                 imageName="programming.jpg"
-                                iconName={Constants.ICON_LAPTOP}
-                                textcolor={Constants.COLOR_BLACK}
+                                iconName={ICONS.LAPTOP}
+                                textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('programming')}
                                 onClick={() => setFromLists()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_SHOPPINGLISTS}>
+                        <DashboardItem link={NAVIGATION.MANAGE_SHOPPINGLISTS}>
                             <BigButton
                                 imageName="shoppinglists.png"
-                                textcolor={Constants.COLOR_BLACK}
+                                textcolor={COLORS.BLACK}
                                 color="#fcba03"
                                 text={t('shoppinglists')}
-                                iconName={Constants.ICON_CHECK_SQUARE}
+                                iconName={ICONS.CHECK_SQUARE}
                                 onClick={() => setFromLists()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_TASKLISTS}>
+                        <DashboardItem link={NAVIGATION.MANAGE_TASKLISTS}>
                             <BigButton
                                 imageName="tasklists.PNG"
-                                textcolor={Constants.COLOR_BLACK}
+                                textcolor={COLORS.BLACK}
                                 color="#fcba03"
                                 text={t('tasklists')}
-                                iconName={Constants.ICON_CHECK_SQUARE}
+                                iconName={ICONS.CHECK_SQUARE}
                                 onClick={() => setFromLists()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_LISTS}>
+                        <DashboardItem link={NAVIGATION.MANAGE_LISTS}>
                             <BigButton
-                                textcolor={Constants.COLOR_BLACK}
-                                color={Constants.COLOR_WHITE}
+                                textcolor={COLORS.BLACK}
+                                color={COLORS.WHITE}
                                 text={t('other_lists')}
                                 onClick={() => setFromLists()}
                             />
                         </DashboardItem>
                     </Row>
                 </Tab>
-                <Tab eventKey={Constants.SESSION_DASHBOARD_MEDIA} title={t('title_media')}>
+                <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MEDIA} title={t('title_media')}>
                     <Row>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MOVIES}>
+                        <DashboardItem link={NAVIGATION.MANAGE_MOVIES}>
                             <BigButton
                                 imageName="movies.jpg"
-                                iconName={Constants.ICON_MOVIE}
-                                textcolor={Constants.COLOR_BLACK}
+                                iconName={ICONS.MOVIE}
+                                textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('movies')}
                                 onClick={() => setFromMedia()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_GAMES}>
+                        <DashboardItem link={NAVIGATION.MANAGE_GAMES}>
                             <BigButton
                                 imageName="games.jpg"
-                                iconName={Constants.ICON_GAMEPAD}
-                                textcolor={Constants.COLOR_BLACK}
+                                iconName={ICONS.GAMEPAD}
+                                textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('games')}
                                 onClick={() => setFromMedia()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_DISC_GOLF}>
+                        <DashboardItem link={NAVIGATION.MANAGE_DISC_GOLF}>
                             <BigButton
                                 imageName="discgolf.jpg"
-                                iconName={Constants.ICON_GAMEPAD}
-                                textcolor={Constants.COLOR_BLACK}
+                                iconName={ICONS.GAMEPAD}
+                                textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('discgolf')}
                                 onClick={() => setFromMedia()}
@@ -225,33 +225,33 @@ export default function Dashboard() {
                         </DashboardItem>
                     </Row>
                 </Tab>
-                <Tab eventKey={Constants.SESSION_DASHBOARD_MUSIC} title={t('title_music')}>
+                <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MUSIC} title={t('title_music')}>
                     <Row>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MUSIC_BANDS}>
+                        <DashboardItem link={NAVIGATION.MANAGE_MUSIC_BANDS}>
                             <BigButton
                                 imageName="bands.jpg"
-                                iconName={Constants.ICON_MUSIC}
-                                textcolor={Constants.COLOR_BLACK}
+                                iconName={ICONS.MUSIC}
+                                textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('music_bands')}
                                 onClick={() => setFromMusic()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MUSIC_RECORDS}>
+                        <DashboardItem link={NAVIGATION.MANAGE_MUSIC_RECORDS}>
                             <BigButton
                                 imageName="music.jpg"
-                                iconName={Constants.ICON_MUSIC}
-                                textcolor={Constants.COLOR_BLACK}
+                                iconName={ICONS.MUSIC}
+                                textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('music_records')}
                                 onClick={() => setFromMusic()}
                             />
                         </DashboardItem>
-                        <DashboardItem link={Constants.NAVIGATION_MANAGE_MUSIC_EVENTS}>
+                        <DashboardItem link={NAVIGATION.MANAGE_MUSIC_EVENTS}>
                             <BigButton
                                 imageName="events.jpg"
-                                iconName={Constants.ICON_MUSIC}
-                                textcolor={Constants.COLOR_BLACK}
+                                iconName={ICONS.MUSIC}
+                                textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('music_events')}
                                 onClick={() => setFromMusic()}

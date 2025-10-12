@@ -7,7 +7,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { db, uploadProfilePic } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
@@ -25,8 +25,8 @@ export default function ManageMyProfile() {
     const defaultPhotoUrl = `/images/${imageName}`;
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MYPROFILE });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MYPROFILE });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //user
     const { currentUser } = useAuth();
@@ -63,7 +63,7 @@ export default function ManageMyProfile() {
     }, [currentUser]);
 
     const fetchProfileFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_PROFILES}/${currentUser.uid}`);
+        const dbref = ref(db, `${DB.PROFILES}/${currentUser.uid}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
@@ -91,7 +91,7 @@ export default function ManageMyProfile() {
     const saveProfileToFirebase = async () => {
         let data = { name, height };
         data["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(Constants.DB_PROFILES, currentUser.uid, data);
+        updateToFirebaseById(DB.PROFILES, currentUser.uid, data);
     }
 
     const handleChange = (e) => {
@@ -132,7 +132,7 @@ export default function ManageMyProfile() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 

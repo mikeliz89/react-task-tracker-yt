@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
 import StarRating from './StarRating';
 import PropTypes from 'prop-types';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function SetStarRating({ starCount, onSaveStars, onShow }) {
 
@@ -14,8 +14,8 @@ export default function SetStarRating({ starCount, onSaveStars, onShow }) {
     const [loading, setLoading] = useState(false);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_STAR_RATING });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.STAR_RATING });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     async function onSubmit(e) {
         e.preventDefault();
@@ -38,7 +38,7 @@ export default function SetStarRating({ starCount, onSaveStars, onShow }) {
     return (
         <>
             <Button
-                iconName={Constants.ICON_STAR}
+                iconName={ICONS.STAR}
                 disableStyle={true}
                 className={showStarRating ? 'btn btn-danger' : 'btn btn-primary'}
                 text={showStarRating ? tCommon('buttons.button_close') : t('rate')}

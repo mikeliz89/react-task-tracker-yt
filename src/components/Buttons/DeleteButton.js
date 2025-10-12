@@ -1,5 +1,5 @@
 import Icon from '../Icon';
-import * as Constants from '../../utils/Constants';
+import { BUTTON_CLASSNAMES, COLORS, ICONS, TRANSLATION } from '../../utils/Constants';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -9,15 +9,15 @@ export default function DeleteButton({
     id,
     subId,
     skipConfirm,
-    className = Constants.CLASSNAME_DELETEBTN,
-    icon = Constants.ICON_DELETE,
-    color = Constants.COLOR_DELETEBUTTON,
+    className = BUTTON_CLASSNAMES.DELETEBTN,
+    icon = ICONS.DELETE,
+    color = COLORS.DELETEBUTTON,
     style = {},
     fontSize = '1.2em',
     ...props
 }) {
 
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     const handleClick = () => {
         const message = confirmMessage || tCommon('confirm.areyousure');

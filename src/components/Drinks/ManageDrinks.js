@@ -7,7 +7,7 @@ import AddDrink from './AddDrink';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
@@ -26,8 +26,8 @@ import NavButton from '../Buttons/NavButton';
 export default function ManageDrinks() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //navigate
     const navigate = useNavigate();
@@ -35,7 +35,7 @@ export default function ManageDrinks() {
     //fetch data
     const { data: drinks, setData: setDrinks,
         originalData: originalDrinks,
-        counter, loading } = useFetch(Constants.DB_DRINKS);
+        counter, loading } = useFetch(DB.DRINKS);
 
     //modal
     const { status: showAddDrink, toggleStatus: toggleAddDrink } = useToggle();
@@ -56,8 +56,8 @@ export default function ManageDrinks() {
             if (drink["isCore"] === undefined) {
                 drink["isCore"] = false;
             }
-            const key = await pushToFirebase(Constants.DB_DRINKS, drink);
-            navigate(`${Constants.NAVIGATION_DRINK}/${key}`);
+            const key = await pushToFirebase(DB.DRINKS, drink);
+            navigate(`${NAVIGATION.DRINK}/${key}`);
             showSuccess();
         } catch (ex) {
             showFailure();
@@ -75,7 +75,7 @@ export default function ManageDrinks() {
     }
 
     const deleteDrink = async (id) => {
-        removeFromFirebaseById(Constants.DB_DRINKS, id);
+        removeFromFirebaseById(DB.DRINKS, id);
     }
 
     return loading ? (
@@ -87,13 +87,13 @@ export default function ManageDrinks() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <NavButton to={Constants.NAVIGATION_MANAGE_DRINKINPRODUCTS}
-                        icon={Constants.ICON_WINE}
+                    <NavButton to={NAVIGATION.MANAGE_DRINKINPRODUCTS}
+                        icon={ICONS.WINE}
                     >
                         {t('button_manage_drinkingproducts')}
                     </NavButton>
-                    <NavButton to={Constants.NAVIGATION_MANAGE_DRINKLISTS}
-                        icon={Constants.ICON_LIST_ALT} >
+                    <NavButton to={NAVIGATION.MANAGE_DRINKLISTS}
+                        icon={ICONS.LIST_ALT} >
                         {t('button_drinklists')}
                     </NavButton>
                 </ButtonGroup>
@@ -101,7 +101,7 @@ export default function ManageDrinks() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -142,8 +142,8 @@ export default function ManageDrinks() {
 
             <CenterWrapper>
                 <Button
-                    iconName={Constants.ICON_PLUS}
-                    color={showAddDrink ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                    iconName={ICONS.PLUS}
+                    color={showAddDrink ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddDrink ? tCommon('buttons.button_close') : t('button_add_drinks')}
                     onClick={toggleAddDrink} />
             </CenterWrapper>
@@ -153,8 +153,8 @@ export default function ManageDrinks() {
                     <>
                         <Counter list={drinks} originalList={originalDrinks} counter={counter} />
                         <Recipes
-                            translation={Constants.TRANSLATION}
-                            translationKeyPrefix={Constants.TRANSLATION_DRINKS}
+                            translation={TRANSLATION.TRANSLATION}
+                            translationKeyPrefix={TRANSLATION.DRINKS}
                             recipes={drinks}
                             recipeType={RecipeTypes.Drink}
                             onDelete={deleteDrink} />

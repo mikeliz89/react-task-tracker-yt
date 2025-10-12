@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col, Form } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
@@ -27,8 +27,8 @@ import { useToggle } from '../useToggle';
 export default function EventDetails() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -48,9 +48,9 @@ export default function EventDetails() {
     const { currentUser } = useAuth();
 
     //fetch data
-    const { originalData: originalBands } = useFetch(Constants.DB_MUSIC_BANDS);
-    const { data: event, loading } = useFetch(Constants.DB_MUSIC_EVENTS, "", params.id);
-    const { data: eventBands } = useFetchChildren(Constants.DB_MUSIC_EVENT_BANDS, params.id);
+    const { originalData: originalBands } = useFetch(DB.MUSIC_BANDS);
+    const { data: event, loading } = useFetch(DB.MUSIC_EVENTS, "", params.id);
+    const { data: eventBands } = useFetchChildren(DB.MUSIC_EVENT_BANDS, params.id);
 
     //modal
     const { status: showEdit, toggleStatus: toggleShowEdit } = useToggle();
@@ -73,7 +73,7 @@ export default function EventDetails() {
         try {
             const eventID = params.id;
             event["modified"] = getCurrentDateAsJson();
-            updateToFirebaseById(Constants.DB_MUSIC_EVENTS, eventID, event);
+            updateToFirebaseById(DB.MUSIC_EVENTS, eventID, event);
         } catch (error) {
             setError(t('failed_to_save_music_event'));
             setShowError(true);
@@ -86,20 +86,20 @@ export default function EventDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_MUSIC_EVENT_COMMENTS, id, comment);
+        pushToFirebaseChild(DB.MUSIC_EVENT_COMMENTS, id, comment);
     }
 
     const addLinkToEvent = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_MUSIC_EVENT_LINKS, id, link);
+        pushToFirebaseChild(DB.MUSIC_EVENT_LINKS, id, link);
     }
 
     const saveStars = async (stars) => {
         const eventID = params.id;
         event["modified"] = getCurrentDateAsJson()
         event["stars"] = Number(stars);
-        updateToFirebaseById(Constants.DB_MUSIC_EVENTS, eventID, event);
+        updateToFirebaseById(DB.MUSIC_EVENTS, eventID, event);
     }
 
     const getAccordionData = () => {
@@ -126,8 +126,8 @@ export default function EventDetails() {
         }
 
         const id = params.id;
-        updateToFirebaseById(Constants.DB_MUSIC_EVENT_BANDS, id, currentEventBands);
-        updateToFirebaseById(Constants.DB_MUSIC_BAND_EVENTS, band.id, currentEventBands);
+        updateToFirebaseById(DB.MUSIC_EVENT_BANDS, id, currentEventBands);
+        updateToFirebaseById(DB.MUSIC_BAND_EVENTS, band.id, currentEventBands);
     }
 
     const deleteEventBand = (band) => {
@@ -135,7 +135,7 @@ export default function EventDetails() {
         //poimitaan vain muut kuin tämän bändin id eli tämä filtteröityy pois
         currentEventBands = currentEventBands.filter(e => e.id !== band.id);
         const id = params.id;
-        updateToFirebaseById(Constants.DB_MUSIC_EVENT_BANDS, id, currentEventBands);
+        updateToFirebaseById(DB.MUSIC_EVENT_BANDS, id, currentEventBands);
     }
 
     return loading ? (
@@ -146,9 +146,9 @@ export default function EventDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName={Constants.ICON_EDIT}
+                        iconName={ICONS.EDIT}
                         text={showEdit ? tCommon('buttons.button_close') : ''}
-                        color={showEdit ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
+                        color={showEdit ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
                         onClick={() => toggleShowEdit()} />
                 </ButtonGroup>
             </Row>
@@ -204,7 +204,7 @@ export default function EventDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -231,9 +231,9 @@ export default function EventDetails() {
                 )
             }
 
-            <ImageComponent url={Constants.DB_MUSIC_EVENT_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={Constants.DB_MUSIC_EVENT_COMMENTS} onSave={addCommentToEvent} />
-            <LinkComponent objID={params.id} url={Constants.DB_MUSIC_EVENT_LINKS} onSaveLink={addLinkToEvent} />
+            <ImageComponent url={DB.MUSIC_EVENT_IMAGES} objID={params.id} />
+            <CommentComponent objID={params.id} url={DB.MUSIC_EVENT_COMMENTS} onSave={addCommentToEvent} />
+            <LinkComponent objID={params.id} url={DB.MUSIC_EVENT_LINKS} onSaveLink={addLinkToEvent} />
         </PageContentWrapper>
     )
 }

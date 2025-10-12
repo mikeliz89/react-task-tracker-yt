@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { updateToFirebaseById } from '../../datatier/datatier';
 
 export default function EditExercise({ exerciseID, exercise, onClose }) {
@@ -21,7 +21,7 @@ export default function EditExercise({ exerciseID, exercise, onClose }) {
   const [description, setDescription] = useState('');
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+  const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
 
   useEffect(() => {
     if (exercise != null) {
@@ -45,7 +45,7 @@ export default function EditExercise({ exerciseID, exercise, onClose }) {
   const saveExercise = async (exerciseID, exercise) => {
     try {
       exercise["modified"] = getCurrentDateAsJson();
-      updateToFirebaseById(Constants.DB_EXERCISES, exerciseID, exercise);
+      updateToFirebaseById(DB.EXERCISES, exerciseID, exercise);
     } catch (ex) {
       setError(t('exercise_save_exception'));
     }

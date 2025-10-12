@@ -5,7 +5,7 @@ import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import AddGear from './AddGear';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from "../../utils/Constants";
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
 import { useAuth } from '../../contexts/AuthContext';
 import Gears from './Gears';
 import PageTitle from '../Site/PageTitle';
@@ -23,12 +23,12 @@ import useFetch from '../useFetch';
 export default function ManageGear() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //fetch data
     const { data: gear, setData: setGear,
-        originalData: originalGear, counter, loading } = useFetch(Constants.DB_BACKPACKING_GEAR);
+        originalData: originalGear, counter, loading } = useFetch(DB.BACKPACKING_GEAR);
 
     //modal
     const { status: showAddGear, toggleStatus: toggleAddGear } = useToggle();
@@ -47,7 +47,7 @@ export default function ManageGear() {
             clearMessages();
             gear["created"] = getCurrentDateAsJson();
             gear["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_BACKPACKING_GEAR, gear);
+            pushToFirebase(DB.BACKPACKING_GEAR, gear);
             showSuccess();
         } catch (ex) {
             showFailure();
@@ -72,7 +72,7 @@ export default function ManageGear() {
     }
 
     const deleteGear = (id) => {
-        removeFromFirebaseById(Constants.DB_BACKPACKING_GEAR, id);
+        removeFromFirebaseById(DB.BACKPACKING_GEAR, id);
     }
 
     return loading ? (
@@ -90,7 +90,7 @@ export default function ManageGear() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             <Modal show={showAddGear} onHide={toggleAddGear}>
@@ -121,8 +121,8 @@ export default function ManageGear() {
 
             <CenterWrapper>
                 <Button
-                    iconName={Constants.ICON_PLUS}
-                    color={showAddGear ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                    iconName={ICONS.PLUS}
+                    color={showAddGear ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddGear ? tCommon('buttons.button_close') : t('button_add_gear')}
                     onClick={toggleAddGear} />
             </CenterWrapper>

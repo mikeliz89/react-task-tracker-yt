@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import Button from '../Buttons/Button';
 import { onValue, ref } from "firebase/database";
 import { db } from "../../firebase-config";
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import FormTitle from '../Site/FormTitle';
 
 export default function AddFueling({ ID, onClose, onSave }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //states
     const [loading] = useState(false);
@@ -37,7 +37,7 @@ export default function AddFueling({ ID, onClose, onSave }) {
     }, [ID]);
 
     const fetchFuelingFromFirebase = async (ID) => {
-        const dbref = ref(db, `${Constants.DB_CAR_FUELING}/${ID}`);
+        const dbref = ref(db, `${DB.CAR_FUELING}/${ID}`);
         onValue(dbref, (snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

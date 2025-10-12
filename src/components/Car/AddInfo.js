@@ -6,7 +6,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { onValue, ref } from "firebase/database";
 import { db } from "../../firebase-config";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateTimeUtils";
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import i18n from "i18next";
 import PageTitle from '../Site/PageTitle';
 import Alert from "../Alert";
@@ -34,8 +34,8 @@ export default function AddInfo() {
     const [modified, setModified] = useState('');
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //load data
     useEffect(() => {
@@ -49,7 +49,7 @@ export default function AddInfo() {
     }, []);
 
     const fetchCarInfoFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_CAR_INFO}`);
+        const dbref = ref(db, `${DB.CAR_INFO}`);
         onValue(dbref, (snapshot) => {
             snapshot.forEach(function (child) {
                 const key = child.key;
@@ -115,7 +115,7 @@ export default function AddInfo() {
     const updateInfo = (info) => {
         try {
             info["modified"] = getCurrentDateAsJson();
-            updateToFirebaseById(Constants.DB_CAR_INFO, carId, info);
+            updateToFirebaseById(DB.CAR_INFO, carId, info);
             showSuccess();
         } catch (ex) {
             showException(ex);
@@ -129,7 +129,7 @@ export default function AddInfo() {
             }
             info["created"] = getCurrentDateAsJson();
             info["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_CAR_INFO, info);
+            pushToFirebase(DB.CAR_INFO, info);
             showSuccess();
         } catch (ex) {
             showException(ex);
@@ -148,12 +148,12 @@ export default function AddInfo() {
 
     return (
         <div>
-            <PageTitle title={t('add_info_title')} iconName={Constants.ICON_CAR} />
+            <PageTitle title={t('add_info_title')} iconName={ICONS.CAR} />
             {modified !== '' && <p style={{ marginBottom: '0' }}>{t('last_modified')}: {getJsonAsDateTimeString(modified, i18n.language)} &nbsp;</p>}
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             <Form onSubmit={onSubmit}>

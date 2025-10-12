@@ -5,7 +5,7 @@ import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import AddPerson from './AddPerson';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from "../../utils/Constants";
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
 import { useAuth } from '../../contexts/AuthContext';
 import PeopleList from './PeopleList';
 import PageTitle from '../Site/PageTitle';
@@ -23,12 +23,12 @@ import useFetch from '../useFetch';
 export default function ManagePeople() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_PEOPLE });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.PEOPLE });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //fetch data
     const { data: people, setData: setPeople,
-        originalData: originalPeople, counter, loading } = useFetch(Constants.DB_PEOPLE);
+        originalData: originalPeople, counter, loading } = useFetch(DB.PEOPLE);
 
     //modal
     const { status: showAddPerson, toggleStatus: toggleAddPerson } = useToggle();
@@ -47,7 +47,7 @@ export default function ManagePeople() {
             clearMessages();
             person["created"] = getCurrentDateAsJson();
             person["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_PEOPLE, person);
+            pushToFirebase(DB.PEOPLE, person);
             showSuccess();
         } catch (ex) {
             showFailure();
@@ -72,7 +72,7 @@ export default function ManagePeople() {
     }
 
     const deletePerson = (id) => {
-        removeFromFirebaseById(Constants.DB_PEOPLE, id);
+        removeFromFirebaseById(DB.PEOPLE, id);
     }
 
     return loading ? (
@@ -90,7 +90,7 @@ export default function ManagePeople() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -123,8 +123,8 @@ export default function ManagePeople() {
 
             <CenterWrapper>
                 <Button
-                    iconName={Constants.ICON_PLUS}
-                    color={showAddPerson ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                    iconName={ICONS.PLUS}
+                    color={showAddPerson ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddPerson ? tCommon('buttons.button_close') : t('button_add_person')}
                     onClick={toggleAddPerson} />
             </CenterWrapper>

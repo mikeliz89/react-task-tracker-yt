@@ -6,7 +6,7 @@ import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { Categories, ExerciseCategories } from './Categories';
 import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
@@ -28,7 +28,7 @@ export default function CreateExercise() {
     const [error, setError] = useState('');
 
     //translation
-    const { t, ready } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t, ready } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
 
     //auth
     const { currentUser } = useAuth();
@@ -71,8 +71,8 @@ export default function CreateExercise() {
         try {
             exercise["created"] = getCurrentDateAsJson();
             exercise["createdBy"] = currentUser.email;
-            const key = await pushToFirebase(Constants.DB_EXERCISES, exercise);
-            navigate(`${Constants.NAVIGATION_EXERCISE}/${key}`);
+            const key = await pushToFirebase(DB.EXERCISES, exercise);
+            navigate(`${NAVIGATION.EXERCISE}/${key}`);
         } catch (ex) {
             showFailure();
         }
@@ -92,7 +92,7 @@ export default function CreateExercise() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             <Form onSubmit={onSubmit}>

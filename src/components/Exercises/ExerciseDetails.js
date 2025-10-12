@@ -13,7 +13,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import CommentComponent from "../Comments/CommentComponent";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import i18n from "i18next";
 import Alert from "../Alert";
 import PageContentWrapper from "../Site/PageContentWrapper";
@@ -39,20 +39,20 @@ export default function ExerciseDetails() {
     const [error] = useState('');
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //auth
     const { currentUser } = useAuth();
 
     //fetch data
-    const { data: exercise, loading } = useFetch(Constants.DB_EXERCISES, "", params.id);
+    const { data: exercise, loading } = useFetch(DB.EXERCISES, "", params.id);
 
     const saveStars = async (stars) => {
         const exerciseID = params.id;
         exercise["modified"] = getCurrentDateAsJson()
         exercise["stars"] = Number(stars);
-        updateToFirebaseById(Constants.DB_EXERCISES, exerciseID, exercise);
+        updateToFirebaseById(DB.EXERCISES, exerciseID, exercise);
     }
 
     const addCommentToExercise = async (comment) => {
@@ -60,13 +60,13 @@ export default function ExerciseDetails() {
         comment["created"] = getCurrentDateAsJson()
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_EXERCISE_COMMENTS, id, comment);
+        pushToFirebaseChild(DB.EXERCISE_COMMENTS, id, comment);
     }
 
     const addLinkToExercise = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_EXERCISE_LINKS, id, link);
+        pushToFirebaseChild(DB.EXERCISE_LINKS, id, link);
     }
 
     const getAccordionData = () => {
@@ -87,9 +87,9 @@ export default function ExerciseDetails() {
                     <ButtonGroup>
                         <GoBackButton />
                         <Button
-                            iconName={Constants.ICON_EDIT}
+                            iconName={ICONS.EDIT}
                             onClick={() => setShowEditExercise(!showEditExercise)}
-                            color={showEditExercise ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
+                            color={showEditExercise ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
                             text={showEditExercise ? tCommon('buttons.button_close') : tCommon('buttons.button_edit')} />
                     </ButtonGroup>
                 </Row>
@@ -105,7 +105,7 @@ export default function ExerciseDetails() {
 
                 <Alert message={message} showMessage={showMessage}
                     error={error} showError={showError}
-                    variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+                    variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
                 />
 
                 <Table>
@@ -140,9 +140,9 @@ export default function ExerciseDetails() {
                     <AddPartsMoving title={getTitleByCategory(exercise.category)}
                         iconName={getIconNameByCategory(exercise.category)} />
                 }
-                <ImageComponent objID={params.id} url={Constants.DB_EXERCISE_IMAGES} />
-                <CommentComponent objID={params.id} url={Constants.DB_EXERCISE_COMMENTS} onSave={addCommentToExercise} />
-                <LinkComponent objID={params.id} url={Constants.DB_EXERCISE_LINKS} onSaveLink={addLinkToExercise} />
+                <ImageComponent objID={params.id} url={DB.EXERCISE_IMAGES} />
+                <CommentComponent objID={params.id} url={DB.EXERCISE_COMMENTS} onSave={addCommentToExercise} />
+                <LinkComponent objID={params.id} url={DB.EXERCISE_LINKS} onSaveLink={addLinkToExercise} />
             </PageContentWrapper >
         )
     )

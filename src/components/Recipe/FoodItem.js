@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AddFoodItem from './AddFoodItem';
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
@@ -14,7 +14,7 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
     const [editable, setEditable] = useState(false);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
 
     const markHaveAtHome = () => {
         foodItem["haveAtHome"] = true;

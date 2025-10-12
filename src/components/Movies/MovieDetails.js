@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
@@ -26,8 +26,8 @@ export default function MovieDetails() {
     const params = useParams();
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MOVIES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MOVIES });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -39,7 +39,7 @@ export default function MovieDetails() {
     const [showEdit, setShowEdit] = useState(false);
 
     //fetch data
-    const { data: movie, loading } = useFetch(Constants.DB_MOVIES, "", params.id);
+    const { data: movie, loading } = useFetch(DB.MOVIES, "", params.id);
 
     //auth
     const { currentUser } = useAuth();
@@ -48,7 +48,7 @@ export default function MovieDetails() {
         try {
             const movieID = params.id;
             movie["modified"] = getCurrentDateAsJson();
-            updateToFirebaseById(Constants.DB_MOVIES, movieID, movie);
+            updateToFirebaseById(DB.MOVIES, movieID, movie);
         } catch (error) {
             setError(t('failed_to_save_movie'));
             setShowError(true);
@@ -61,20 +61,20 @@ export default function MovieDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_MOVIE_COMMENTS, id, comment);
+        pushToFirebaseChild(DB.MOVIE_COMMENTS, id, comment);
     }
 
     const addLinkToMovie = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_MOVIE_LINKS, id, link);
+        pushToFirebaseChild(DB.MOVIE_LINKS, id, link);
     }
 
     const saveStars = async (stars) => {
         const movieID = params.id;
         movie["modified"] = getCurrentDateAsJson()
         movie["stars"] = Number(stars);
-        updateToFirebaseById(Constants.DB_MOVIES, movieID, movie);
+        updateToFirebaseById(DB.MOVIES, movieID, movie);
     }
 
     const getAccordionData = () => {
@@ -93,9 +93,9 @@ export default function MovieDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName={Constants.ICON_EDIT}
+                        iconName={ICONS.EDIT}
                         text={showEdit ? tCommon('buttons.button_close') : ''}
-                        color={showEdit ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
+                        color={showEdit ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
                         onClick={() => setShowEdit(!showEdit)} />
                 </ButtonGroup>
             </Row>
@@ -120,7 +120,7 @@ export default function MovieDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -128,9 +128,9 @@ export default function MovieDetails() {
                 <AddMovie onSave={updateMovie} movieID={params.id} onClose={() => setShowEdit(false)} />
             }
             <hr />
-            <ImageComponent url={Constants.DB_MOVIE_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={Constants.DB_MOVIE_COMMENTS} onSave={addCommentToMovie} />
-            <LinkComponent objID={params.id} url={Constants.DB_MOVIE_LINKS} onSaveLink={addLinkToMovie} />
+            <ImageComponent url={DB.MOVIE_IMAGES} objID={params.id} />
+            <CommentComponent objID={params.id} url={DB.MOVIE_COMMENTS} onSave={addCommentToMovie} />
+            <LinkComponent objID={params.id} url={DB.MOVIE_LINKS} onSaveLink={addLinkToMovie} />
         </PageContentWrapper>
     )
 }

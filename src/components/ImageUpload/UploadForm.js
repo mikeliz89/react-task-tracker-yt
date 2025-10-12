@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Alert from '../Alert';
 import { useTranslation } from 'react-i18next';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import ProgressBar from './ProgressBar';
 import CenterWrapper from '../Site/CenterWrapper';
 
 export default function UploadForm({ objectID, imagesUrl }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.UPLOAD_IMAGES });
 
     //states
     const [file, setFile] = useState(null);
@@ -37,7 +37,7 @@ export default function UploadForm({ objectID, imagesUrl }) {
         <>
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_INFO}
+                variant={VARIANTS.INFO}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 

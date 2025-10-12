@@ -1,7 +1,7 @@
 import GoBackButton from '../Buttons/GoBackButton';
 import { useTranslation } from 'react-i18next';
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS, LIST_TYPES } from '../../utils/Constants';
 import i18n from 'i18next';
 import { useAuth } from '../../contexts/AuthContext';
 import WeightChart from './WeightChart';
@@ -17,8 +17,8 @@ import { SortMode } from "../SearchSortFilter/SortModes";
 export default function WeightHistory() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BMICALCULATOR });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BMICALCULATOR });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //auth
     const { currentUser } = useAuth();
@@ -26,10 +26,10 @@ export default function WeightHistory() {
     //fetch data
     const { data: historyRows, setData: setHistoryRows,
         originalData: originalHistoryRows,
-        counter, loading } = useFetch(Constants.DB_WEIGHT_HISTORY, Constants.LIST_TYPE_COMMON, currentUser.uid);
+        counter, loading } = useFetch(DB.WEIGHT_HISTORY, LIST_TYPES.COMMON, currentUser.uid);
 
     const deleteHistoryRow = async (id) => {
-        removeFromFirebaseByIdAndSubId(Constants.DB_WEIGHT_HISTORY, currentUser.uid, id);
+        removeFromFirebaseByIdAndSubId(DB.WEIGHT_HISTORY, currentUser.uid, id);
     }
 
     return loading ? (
@@ -37,7 +37,7 @@ export default function WeightHistory() {
     ) : (
         <PageContentWrapper>
             <GoBackButton />
-            <PageTitle title={t('weighthistory')} iconName={Constants.ICON_WEIGHT} iconColor={Constants.COLOR_GRAY} />
+            <PageTitle title={t('weighthistory')} iconName={ICONS.WEIGHT} iconColor={COLORS.GRAY} />
             <WeightChart data={historyRows} />
             <Counter counter={counter} text={tCommon('amount')} list={historyRows} originalList={originalHistoryRows} />
 

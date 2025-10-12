@@ -1,7 +1,7 @@
 import useFirestore from '../../hooks/useFirestore';
 import styles from './imagegrid.module.css';
 import { useTranslation } from "react-i18next";
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { Card } from 'react-bootstrap';
 import RightWrapper from '../Site/RightWrapper';
 import Button from '../Buttons/Button';
@@ -15,7 +15,7 @@ export default function ImageGrid({ objectID, url, setSelectedImage, onCounterCh
     const [deleted, setDeleted] = useState(null);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.UPLOAD_IMAGES });
 
     useEffect(() => {
         onCounterChange(docs.length);
@@ -33,8 +33,8 @@ export default function ImageGrid({ objectID, url, setSelectedImage, onCounterCh
                                 </div>
                                 <Card.Body>
                                     <RightWrapper>
-                                        <Button iconName={Constants.ICON_DELETE}
-                                            color={Constants.COLOR_DELETEBUTTON}
+                                        <Button iconName={ICONS.DELETE}
+                                            color={COLORS.DELETEBUTTON}
                                             text={t('delete')} onClick={() => {
                                                 if (window.confirm(t('delete_image_confirm_message'))) { setDeleted(doc.url); }
                                             }} />

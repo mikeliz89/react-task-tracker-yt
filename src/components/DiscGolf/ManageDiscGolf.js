@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { ButtonGroup, Row, Col } from 'react-bootstrap';
 import GoBackButton from '../Buttons/GoBackButton';
-import { Link } from 'react-router-dom';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
 import useFetch from '../useFetch';
@@ -13,10 +12,10 @@ import NavButton from '../Buttons/NavButton';
 export default function ManageDiscGolf() {
 
    //translation
-   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DISC_GOLF });
 
    //fetch data
-   const { data: rounds } = useFetch(Constants.DB_DISC_GOLF_ROUNDS);
+   const { data: rounds } = useFetch(DB.DISC_GOLF_ROUNDS);
 
    const deleteRound = () => {
 
@@ -30,7 +29,7 @@ export default function ManageDiscGolf() {
          <Row>
             <ButtonGroup>
                <GoBackButton />
-               <NavButton to={Constants.NAVIGATION_MANAGE_DISC_GOLF_TRACKS}>
+               <NavButton to={NAVIGATION.MANAGE_DISC_GOLF_TRACKS}>
                   {t('button_tracks')}
                </NavButton>
             </ButtonGroup>
@@ -39,7 +38,7 @@ export default function ManageDiscGolf() {
          <hr />
 
          <CenterWrapper>
-            <NavButton to={Constants.NAVIGATION_DISC_GOLF_START_NEW_ROUND}>
+            <NavButton to={NAVIGATION.DISC_GOLF_START_NEW_ROUND}>
                {t('start_new_round')}
             </NavButton>
          </CenterWrapper>

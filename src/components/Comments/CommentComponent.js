@@ -3,12 +3,12 @@ import AddComment from "./AddComment";
 import Comments from "./Comments";
 import PageTitle from '../Site/PageTitle';
 import { useTranslation } from "react-i18next";
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function CommentComponent({ objID, url, onSave }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_COMMENTS });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.COMMENTS });
 
     //states
     const [counter, setCounter] = useState(0);
@@ -16,7 +16,7 @@ export default function CommentComponent({ objID, url, onSave }) {
     return (
         <>
             <PageTitle title={t('header') + (counter > 0 ? ' (' + counter + ')' : '')}
-                iconName={Constants.ICON_COMMENTS} iconColor={Constants.COLOR_GRAY} isSubTitle={true} />
+                iconName={ICONS.COMMENTS} iconColor={COLORS.GRAY} isSubTitle={true} />
             <AddComment onSave={onSave} />
             <Comments objID={objID} url={url} onCounterChange={setCounter} />
         </>

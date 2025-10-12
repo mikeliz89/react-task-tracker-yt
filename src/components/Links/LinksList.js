@@ -2,7 +2,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebase } from '../../datatier/datatier';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import LinkComponent from './LinkComponent';
 import PageTitle from '../Site/PageTitle';
 import { useTranslation } from 'react-i18next';
@@ -11,11 +11,11 @@ import { ButtonGroup, Row } from 'react-bootstrap';
 export default function LinksList() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LINKS });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LINKS });
 
     const addLink = (link) => {
         link["created"] = getCurrentDateAsJson();
-        pushToFirebase(Constants.DB_LINKS, link);
+        pushToFirebase(DB.LINKS, link);
     }
 
     return (
@@ -26,7 +26,7 @@ export default function LinksList() {
                     <GoBackButton />
                 </ButtonGroup>
             </Row>
-            <LinkComponent onSaveLink={addLink} url={Constants.DB_LINKS} />
+            <LinkComponent onSaveLink={addLink} url={DB.LINKS} />
         </PageContentWrapper>
     )
 }

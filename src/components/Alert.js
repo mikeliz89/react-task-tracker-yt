@@ -2,16 +2,16 @@ import PropTypes from 'prop-types';
 import { Alert as BootstrapAlert } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Button from './Buttons/Button';
-import * as Constants from '../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../utils/Constants';
 
 export default function Alert({ message, showMessage, showError, error, onClose, variant }) {
 
     //translation
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     return (
         <>
-            {error && <BootstrapAlert show={showError} variant={Constants.VARIANT_DANGER}>
+            {error && <BootstrapAlert show={showError} variant={VARIANTS.DANGER}>
                 {error}
                 <div className='d-flex justify-content-end'>
                     <Button
@@ -44,7 +44,7 @@ export default function Alert({ message, showMessage, showError, error, onClose,
 }
 
 Alert.defaultProps = {
-    variant: Constants.VARIANT_SUCCESS,
+    variant: VARIANTS.SUCCESS,
     message: '',
     error: '',
     showMessage: false,

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
-import * as Constants from '../../utils/Constants';
+import { ICONS, TRANSLATION } from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
 
 export default function ScrollToTop() {
 
     //translation  
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_SCROLL_TO_TOP });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.SCROLL_TO_TOP });
 
     //states
     const [isVisible, setIsVisible] = useState(false);
@@ -37,7 +37,7 @@ export default function ScrollToTop() {
     return (
         <RightWrapper>
             {isVisible &&
-                <Button onClick={scrollToTop} iconName={Constants.ICON_ARROW_UP} text={t('go_to_top')} />}
+                <Button onClick={scrollToTop} iconName={ICONS.ARROW_UP} text={t('go_to_top')} />}
         </RightWrapper>
     );
 }

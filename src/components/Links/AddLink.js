@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Col, Form, Row } from 'react-bootstrap';
 import Button from '../Buttons/Button';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function AddLink({ onSaveLink }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LINKS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LINKS });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [url, setUrl] = useState('');
@@ -40,7 +40,7 @@ export default function AddLink({ onSaveLink }) {
     return (
         <>
             <Button
-                iconName={Constants.ICON_EXTERNAL_LINK_ALT}
+                iconName={ICONS.EXTERNAL_LINK_ALT}
                 type='button'
                 disableStyle={true}
                 className={showForm ? 'btn btn-danger' : 'btn btn-primary'}

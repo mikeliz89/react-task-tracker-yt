@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form, Col } from 'react-bootstrap';
 import Button from '../Buttons/Button';
-import * as Constants from "../../utils/Constants";
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 
 export default function AddPerson({ personID, onSave, onClose }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_PEOPLE });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.PEOPLE });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [created, setCreated] = useState('');
@@ -30,7 +30,7 @@ export default function AddPerson({ personID, onSave, onClose }) {
     }, [personID]);
 
     const fetchPersonFromFirebase = async (personID) => {
-        getFromFirebaseById(Constants.DB_PEOPLE, personID).then((val) => {
+        getFromFirebaseById(DB.PEOPLE, personID).then((val) => {
             setAddress(val["address"]);
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);

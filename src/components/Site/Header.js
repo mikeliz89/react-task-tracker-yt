@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
-import * as Constants from '../../utils/Constants';
+import { NAVIGATION, ICONS } from '../../utils/Constants';
 import RightWrapper from './RightWrapper';
 import Button from '../Buttons/Button';
 import LeftWrapper from './LeftWrapper';
@@ -20,8 +20,8 @@ export default function Header() {
     const location = useLocation();
 
     const navigateTo = () => {
-        if (location.pathname !== Constants.NAVIGATION_MANAGE_MY_PROFILE) {
-            navigate(Constants.NAVIGATION_MANAGE_MY_PROFILE);
+        if (location.pathname !== NAVIGATION.MANAGE_MY_PROFILE) {
+            navigate(NAVIGATION.MANAGE_MY_PROFILE);
         }
     }
 
@@ -35,7 +35,7 @@ export default function Header() {
                     <RightWrapper>
                         {currentUser &&
                             <Button
-                                iconName={Constants.ICON_GEAR}
+                                iconName={ICONS.GEAR}
                                 onClick={() => navigateTo()} />
                         }
                     </RightWrapper>

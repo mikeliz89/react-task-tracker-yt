@@ -4,7 +4,7 @@ import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import CenterWrapper from '../Site/CenterWrapper';
@@ -24,12 +24,12 @@ import NavButton from '../Buttons/NavButton';
 export default function ManageMusicEvents() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: events, setData: setEvents,
-        originalData: originalEvents, counter, loading } = useFetch(Constants.DB_MUSIC_EVENTS);
+        originalData: originalEvents, counter, loading } = useFetch(DB.MUSIC_EVENTS);
 
     //modal
     const { status: showAddEvent, toggleStatus: toggleAddEvent } = useToggle();
@@ -44,7 +44,7 @@ export default function ManageMusicEvents() {
     const { currentUser } = useAuth();
 
     const deleteEvent = async (id) => {
-        removeFromFirebaseById(Constants.DB_MUSIC_EVENTS, id);
+        removeFromFirebaseById(DB.MUSIC_EVENTS, id);
     }
 
     const addEvent = async (eventID, event) => {
@@ -52,7 +52,7 @@ export default function ManageMusicEvents() {
             clearMessages();
             event["created"] = getCurrentDateAsJson();
             event["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_MUSIC_EVENTS, event);
+            pushToFirebase(DB.MUSIC_EVENTS, event);
             showSuccess();
         } catch (ex) {
             showFailure();
@@ -78,7 +78,7 @@ export default function ManageMusicEvents() {
 
     const editEvent = (event) => {
         const id = event.id;
-        updateToFirebaseById(Constants.DB_MUSIC_EVENTS, id, event);
+        updateToFirebaseById(DB.MUSIC_EVENTS, id, event);
     }
 
     return loading ? (
@@ -91,8 +91,8 @@ export default function ManageMusicEvents() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <NavButton to={Constants.NAVIGATION_MANAGE_MUSICLISTS}
-                        icon={Constants.ICON_LIST_ALT}>
+                    <NavButton to={NAVIGATION.MANAGE_MUSICLISTS}
+                        icon={ICONS.LIST_ALT}>
                         {t('button_music_lists')}
                     </NavButton>
                 </ButtonGroup>
@@ -100,7 +100,7 @@ export default function ManageMusicEvents() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -134,8 +134,8 @@ export default function ManageMusicEvents() {
 
             <CenterWrapper>
                 <Button
-                    iconName={Constants.ICON_PLUS}
-                    color={showAddEvent ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                    iconName={ICONS.PLUS}
+                    color={showAddEvent ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddEvent ? tCommon('buttons.button_close') : t('button_add_music_event')}
                     onClick={toggleAddEvent} />
             </CenterWrapper>

@@ -1,4 +1,4 @@
-import * as Constants from "../../utils/Constants";
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
 import { useTranslation } from 'react-i18next';
 import { Row, Col, Table } from "react-bootstrap";
 import DeleteButton from '../Buttons/DeleteButton';
@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 export default function EventBands({ bands, onDelete }) {
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
+  const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
 
   const [sortedBands, setSortedBands] = useState([]);
 

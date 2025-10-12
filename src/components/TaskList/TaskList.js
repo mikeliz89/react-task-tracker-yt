@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Icon from '../Icon';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
-import * as Constants from '../../utils/Constants';
+import { DB, ICONS, COLORS } from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
 import { useState } from 'react';
 import AddTaskList from './AddTaskList';
@@ -16,7 +16,7 @@ export default function TaskList({ taskList, archived, onDelete }) {
 
     const updateTaskList = (object) => {
         object["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(Constants.DB_TASKLISTS, taskList.id, object);
+        updateToFirebaseById(DB.TASKLISTS, taskList.id, object);
         setEditable(false);
     }
 
@@ -26,7 +26,7 @@ export default function TaskList({ taskList, archived, onDelete }) {
                 <>
                     <h5>
                         <span>
-                            <Icon name={Constants.ICON_LIST_ALT} color={Constants.COLOR_GRAY} />
+                            <Icon name={ICONS.LIST_ALT} color={COLORS.GRAY} />
                             <Link
                                 style={{ textDecoration: 'none' }}
                                 to={archived ? `/tasklistarchive/${taskList.id}` : `/tasklist/${taskList.id}`}>

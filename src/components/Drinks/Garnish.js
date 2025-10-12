@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import AddGarnish from './AddGarnish';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import RightWrapper from '../Site/RightWrapper';
 import DeleteButton from '../Buttons/DeleteButton';
@@ -13,7 +13,7 @@ export default function Garnish({ garnish, drinkID, onDelete }) {
     const [editable, setEditable] = useState(false);
 
     const updateGarnish = (drinkID, newGarnish) => {
-        updateToFirebaseByIdAndSubId(Constants.DB_DRINK_GARNISHES, drinkID, garnish.id, newGarnish);
+        updateToFirebaseByIdAndSubId(DB.DRINK_GARNISHES, drinkID, garnish.id, newGarnish);
         setEditable(false);
     }
 

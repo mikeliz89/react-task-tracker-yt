@@ -7,7 +7,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import i18n from "i18next";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import Alert from '../Alert';
 import AddMovement from './AddMovement';
@@ -32,8 +32,8 @@ export default function MovementDetails() {
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //params
     const params = useParams();
@@ -42,13 +42,13 @@ export default function MovementDetails() {
     const { currentUser } = useAuth();
 
     //fetch data
-    const { data: movement, loading } = useFetch(Constants.DB_EXERCISE_MOVEMENTS, "", params.id);
+    const { data: movement, loading } = useFetch(DB.EXERCISE_MOVEMENTS, "", params.id);
 
     const saveStars = async (stars) => {
         const movementID = params.id;
         movement["modified"] = getCurrentDateAsJson();
         movement["stars"] = Number(stars);
-        updateToFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, movementID, movement);
+        updateToFirebaseById(DB.EXERCISE_MOVEMENTS, movementID, movement);
     }
 
     const addCommentToMovement = (comment) => {
@@ -56,13 +56,13 @@ export default function MovementDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_EXERCISE_MOVEMENT_COMMENTS, movementID, comment);
+        pushToFirebaseChild(DB.EXERCISE_MOVEMENT_COMMENTS, movementID, comment);
     }
 
     const addLinkToMovement = (link) => {
         const movementID = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_EXERCISE_MOVEMENT_LINKS, movementID, link);
+        pushToFirebaseChild(DB.EXERCISE_MOVEMENT_LINKS, movementID, link);
     }
 
     const getAccordionData = () => {
@@ -78,7 +78,7 @@ export default function MovementDetails() {
         try {
             const movementID = params.id;
             movement["modified"] = getCurrentDateAsJson();
-            updateToFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, movementID, movement);
+            updateToFirebaseById(DB.EXERCISE_MOVEMENTS, movementID, movement);
         } catch (error) {
             showFailure(error);
         }
@@ -98,9 +98,9 @@ export default function MovementDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName={Constants.ICON_EDIT}
+                        iconName={ICONS.EDIT}
                         text={showEditMovement ? tCommon('buttons.button_close') : ''}
-                        color={showEditMovement ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
+                        color={showEditMovement ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
                         onClick={() => setShowEditMovement(!showEditMovement)} />
                 </ButtonGroup>
             </Row>
@@ -121,7 +121,7 @@ export default function MovementDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             {showEditMovement &&
@@ -130,9 +130,9 @@ export default function MovementDetails() {
 
             <hr />
 
-            <ImageComponent url={Constants.DB_EXERCISE_MOVEMENT_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={Constants.DB_EXERCISE_MOVEMENT_COMMENTS} onSave={addCommentToMovement} />
-            <LinkComponent objID={params.id} url={Constants.DB_EXERCISE_MOVEMENT_LINKS} onSaveLink={addLinkToMovement} />
+            <ImageComponent url={DB.EXERCISE_MOVEMENT_IMAGES} objID={params.id} />
+            <CommentComponent objID={params.id} url={DB.EXERCISE_MOVEMENT_COMMENTS} onSave={addCommentToMovement} />
+            <LinkComponent objID={params.id} url={DB.EXERCISE_MOVEMENT_LINKS} onSaveLink={addLinkToMovement} />
         </PageContentWrapper>
     )
 }

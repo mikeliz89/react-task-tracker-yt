@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col, Modal } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
@@ -25,8 +25,8 @@ export default function PersonDetails() {
     const params = useParams();
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_PEOPLE });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.PEOPLE });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -35,7 +35,7 @@ export default function PersonDetails() {
     const [error, setError] = useState('');
 
     //fetch data
-    const { data: person, loading } = useFetch(Constants.DB_PEOPLE, "", params.id);
+    const { data: person, loading } = useFetch(DB.PEOPLE, "", params.id);
 
     //auth
     const { currentUser } = useAuth();
@@ -47,7 +47,7 @@ export default function PersonDetails() {
         try {
             const personID = params.id;
             person["modified"] = getCurrentDateAsJson();
-            updateToFirebaseById(Constants.DB_PEOPLE, personID, person);
+            updateToFirebaseById(DB.PEOPLE, personID, person);
         } catch (error) {
             setError(t('failed_to_save_person'));
             setShowError(true);
@@ -62,13 +62,13 @@ export default function PersonDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_PEOPLE, id, comment);
+        pushToFirebaseChild(DB.PEOPLE, id, comment);
     }
 
     const addLinkToPerson = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_PEOPLE, id, link);
+        pushToFirebaseChild(DB.PEOPLE, id, link);
     }
 
     const getAccordionData = () => {
@@ -87,9 +87,9 @@ export default function PersonDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName={Constants.ICON_EDIT}
+                        iconName={ICONS.EDIT}
                         text={showEdit ? tCommon('buttons.button_close') : ''}
-                        color={showEdit ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
+                        color={showEdit ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
                         onClick={() => toggleShowEdit()} />
                 </ButtonGroup>
             </Row>
@@ -110,7 +110,7 @@ export default function PersonDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -125,9 +125,9 @@ export default function PersonDetails() {
             </Modal>
 
             <hr />
-            <ImageComponent url={Constants.DB_PERSON_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={Constants.DB_PERSON_COMMENTS} onSave={addCommentToPerson} />
-            <LinkComponent objID={params.id} url={Constants.DB_PERSON_LINKS} onSaveLink={addLinkToPerson} />
+            <ImageComponent url={DB.PERSON_IMAGES} objID={params.id} />
+            <CommentComponent objID={params.id} url={DB.PERSON_COMMENTS} onSave={addCommentToPerson} />
+            <LinkComponent objID={params.id} url={DB.PERSON_LINKS} onSaveLink={addLinkToPerson} />
         </PageContentWrapper>
     )
 }

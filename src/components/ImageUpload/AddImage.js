@@ -1,7 +1,7 @@
 import { useState } from "react"
 import UploadForm from "./UploadForm";
 import { useTranslation } from "react-i18next";
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 
 export default function AddImage({ objectID, imagesUrl }) {
@@ -10,14 +10,14 @@ export default function AddImage({ objectID, imagesUrl }) {
     const [showAddImage, setShowAddImage] = useState(false);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_UPLOAD_IMAGES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.UPLOAD_IMAGES });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     return (
         <>
             <Button type="button"
                 disableStyle={true}
-                iconName={Constants.ICON_IMAGES}
+                iconName={ICONS.IMAGES}
                 className={showAddImage ? 'btn btn-danger' : 'btn btn-primary'}
                 text={
                     showAddImage ? tCommon('buttons.button_close') : t('add_image')

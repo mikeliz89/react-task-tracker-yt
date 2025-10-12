@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
-import * as Constants from "../../utils/Constants";
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 import PropTypes from 'prop-types';
 
 export default function AddBand({ bandID, onSave, onClose, showLabels }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [created, setCreated] = useState('');
@@ -32,7 +32,7 @@ export default function AddBand({ bandID, onSave, onClose, showLabels }) {
     }, [bandID]);
 
     const fetchBandFromFirebase = async (bandID) => {
-        getFromFirebaseById(Constants.DB_MUSIC_BANDS, bandID).then((val) => {
+        getFromFirebaseById(DB.MUSIC_BANDS, bandID).then((val) => {
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
             setDescription(val["description"]);

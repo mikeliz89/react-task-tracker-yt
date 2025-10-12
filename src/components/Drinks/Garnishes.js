@@ -1,17 +1,17 @@
 import { useTranslation } from 'react-i18next';
 import Garnish from './Garnish';
 import Icon from '../Icon';
-import * as Constants from '../../utils/Constants'
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants'
 
 export default function Garnishes({ garnishes, drinkID, onDelete }) {
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
+  const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
 
   return (
     <>
       <h5>
-        <Icon name={Constants.ICON_LEMON} />
+        <Icon name={ICONS.LEMON} />
         {t('garnishes_header')}
       </h5>
 

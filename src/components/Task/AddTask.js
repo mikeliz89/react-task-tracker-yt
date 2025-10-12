@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../Buttons/Button';
-import * as Constants from '../../utils/Constants';
+import { DB, TRANSLATION } from '../../utils/Constants';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 import PropTypes from 'prop-types';
 
 export default function AddTask({ taskID, taskListID, onSave, onClose, showLabels }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [text, setText] = useState('');
@@ -29,7 +29,7 @@ export default function AddTask({ taskID, taskListID, onSave, onClose, showLabel
     }, [taskID, taskListID]);
 
     const fetchTaskFromFirebase = async (taskID, taskListID) => {
-        getFromFirebaseByIdAndSubId(Constants.DB_TASKS, taskListID, taskID).then((val) => {
+        getFromFirebaseByIdAndSubId(DB.TASKS, taskListID, taskID).then((val) => {
             setText(val["text"]);
             setDay(val["day"]);
             setReminder(val["reminder"]);

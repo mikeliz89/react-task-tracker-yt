@@ -4,12 +4,12 @@ import i18n from 'i18next';
 import cookies from 'js-cookie';
 import './Language.css';
 import { Languages } from '../../Languages';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, VARIANTS } from '../../utils/Constants';
 
 export default function Language() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_LANGUAGE });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LANGUAGE });
 
     const currentLanguageCode = cookies.get('i18next') || Languages.FI;
 
@@ -32,7 +32,7 @@ export default function Language() {
                 as={ButtonGroup}
                 id="dropdown-basic-languageBtn"
                 title={t('language')}
-                variant={Constants.VARIANT_SUCCESS}>
+                variant={VARIANTS.SUCCESS}>
                 {languages.map(({ code, name, country_code }) => (
                     <Dropdown.Item key={country_code}>
                         <button

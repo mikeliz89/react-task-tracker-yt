@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form, Col } from 'react-bootstrap';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import GoBackButton from '../Buttons/GoBackButton';
 import useFetch from '../useFetch';
@@ -16,13 +16,13 @@ import { pushToFirebase, pushToFirebaseChild } from '../../datatier/datatier';
 export default function StartNewRound() {
 
    //translation
-   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DISC_GOLF });
 
    //fetch tracks
-   const { originalData: originalTracks } = useFetch(Constants.DB_DISC_GOLF_TRACKS);
+   const { originalData: originalTracks } = useFetch(DB.DISC_GOLF_TRACKS);
 
    //fetch people for players
-   const { originalData: originalPeople } = useFetch(Constants.DB_PEOPLE);
+   const { originalData: originalPeople } = useFetch(DB.PEOPLE);
 
    //states for tack
    const [linkedTrackName, setLinkedTrackName] = useState('');
@@ -98,11 +98,11 @@ export default function StartNewRound() {
          round["createdBy"] = currentUser.email;
          round["trackID"] = track.id;
          round["trackName"] = track.name;
-         const key = await pushToFirebase(Constants.DB_DISC_GOLF_ROUNDS, round);
+         const key = await pushToFirebase(DB.DISC_GOLF_ROUNDS, round);
 
          savePlayers(key);
 
-         navigate(`${Constants.NAVIGATION_DISC_GOLF_PLAY_ROUND}`);
+         navigate(`${NAVIGATION.DISC_GOLF_PLAY_ROUND}`);
       } catch (ex) {
          setError(t('track_save_exception'));
          setShowError(true);
@@ -110,7 +110,7 @@ export default function StartNewRound() {
    }
 
    const savePlayers = async (roundID) => {
-      await pushToFirebaseChild(Constants.DB_DISC_GOLF_ROUND_PLAYERS, roundID, selectedPlayers);
+      await pushToFirebaseChild(DB.DISC_GOLF_ROUND_PLAYERS, roundID, selectedPlayers);
    }
 
    const selectedTrackChanged = (track) => {
@@ -186,7 +186,7 @@ export default function StartNewRound() {
                      <Row key={player.id}>
                         <Col>{player.name}</Col>
                         <Col>
-                           {<Button onClick={() => deletePlayer(player.id)} iconName={Constants.ICON_DELETE} />}
+                           {<Button onClick={() => deletePlayer(player.id)} iconName={ICONS.DELETE} />}
                         </Col>
                      </Row>
                   ))

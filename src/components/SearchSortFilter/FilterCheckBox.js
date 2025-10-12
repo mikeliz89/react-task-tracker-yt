@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { Col, Row, Form } from 'react-bootstrap';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function FilterCheckBox({ onSet, labelText, id }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.SEARCHSORTFILTER });
 
     return (
         <Form.Group as={Row} controlId={'searchSortFilter-CheckBox' + id}>

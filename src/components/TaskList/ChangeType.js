@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react';
 import { Row, Form, ButtonGroup } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { ListTypesArray } from '../../utils/Enums';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION } from '../../utils/Constants';
 
 export default function ChangeType({ taskList, onSave, onClose }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [category, setCategory] = useState('');

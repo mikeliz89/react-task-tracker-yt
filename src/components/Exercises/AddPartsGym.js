@@ -7,7 +7,7 @@ import GymParts from './GymParts';
 import { onValue, child, ref } from 'firebase/database';
 import { db } from '../../firebase-config';
 import PageTitle from '../Site/PageTitle';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { pushToFirebaseChild } from '../../datatier/datatier';
 
 export default function AddPartsGym() {
@@ -16,7 +16,7 @@ export default function AddPartsGym() {
   const params = useParams();
 
   //translation  
-  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+  const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
 
   //states
   const [showAddGymPart, setShowAddGymPart] = useState(false);
@@ -31,7 +31,7 @@ export default function AddPartsGym() {
   }, [])
 
   const fetchPartsFromFirebase = async () => {
-    const dbref = await child(ref(db, Constants.DB_EXERCISE_PARTS), params.id);
+    const dbref = await child(ref(db, DB.EXERCISE_PARTS), params.id);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -43,7 +43,7 @@ export default function AddPartsGym() {
   }
 
   const addPart = async (exerciseID, part) => {
-    pushToFirebaseChild(Constants.DB_EXERCISE_PARTS, exerciseID, part);
+    pushToFirebaseChild(DB.EXERCISE_PARTS, exerciseID, part);
   }
 
   const copyLast = () => {
@@ -54,10 +54,10 @@ export default function AddPartsGym() {
 
   return (
     <div>
-      <PageTitle title={t('title_gym')} iconName={Constants.ICON_DUMBBELL} />
+      <PageTitle title={t('title_gym')} iconName={ICONS.DUMBBELL} />
       <Button
-        iconName={Constants.ICON_BURN}
-        color={showAddGymPart ? Constants.COLOR_RED : Constants.COLOR_STEELBLUE}
+        iconName={ICONS.BURN}
+        color={showAddGymPart ? COLORS.RED : COLORS.STEELBLUE}
         text={showAddGymPart ? t('close') : t('gym_parts_add_button')}
         onClick={() => setShowAddGymPart(!showAddGymPart)} />
       {showAddGymPart &&

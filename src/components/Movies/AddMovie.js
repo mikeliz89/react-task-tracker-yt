@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
-import * as Constants from "../../utils/Constants";
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 import { MovieFormats } from './Categories';
 import PropTypes from 'prop-types';
@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MOVIES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MOVIES });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [created, setCreated] = useState('');
@@ -49,7 +49,7 @@ export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
     }
 
     const fetchMovieFromFirebase = async (movieID) => {
-        getFromFirebaseById(Constants.DB_MOVIES, movieID).then((val) => {
+        getFromFirebaseById(DB.MOVIES, movieID).then((val) => {
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
             setDescription(val["description"]);

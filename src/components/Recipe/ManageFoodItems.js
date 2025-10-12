@@ -6,7 +6,7 @@ import Button from '../Buttons/Button';
 import AddFoodItem from './AddFoodItem';
 import FoodItems from './FoodItems';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, COLORS, DB, ICONS, VARIANTS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageTitle from '../Site/PageTitle';
@@ -25,12 +25,12 @@ export default function ManageFoodItems() {
     const { currentUser } = useAuth();
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: foodItems, setData: setFoodItems,
-        originalData: originalFoodItems, counter, loading } = useFetch(Constants.DB_FOODITEMS);
+        originalData: originalFoodItems, counter, loading } = useFetch(DB.FOODITEMS);
 
     //modal
     const { status: showAddFoodItem, toggleStatus: toggleAddFoodItem } = useToggle();
@@ -45,7 +45,7 @@ export default function ManageFoodItems() {
         try {
             foodItem["created"] = getCurrentDateAsJson();
             foodItem["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_FOODITEMS, foodItem);
+            pushToFirebase(DB.FOODITEMS, foodItem);
             showSuccess();
         } catch (ex) {
             showFailure();
@@ -63,12 +63,12 @@ export default function ManageFoodItems() {
     }
 
     const deleteFoodItem = (id) => {
-        removeFromFirebaseById(Constants.DB_FOODITEMS, id);
+        removeFromFirebaseById(DB.FOODITEMS, id);
     }
 
     const editFoodItem = (foodItem) => {
         const id = foodItem.id;
-        updateToFirebaseById(Constants.DB_FOODITEMS, id, foodItem);
+        updateToFirebaseById(DB.FOODITEMS, id, foodItem);
     }
 
     return loading ? (
@@ -86,7 +86,7 @@ export default function ManageFoodItems() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -120,8 +120,8 @@ export default function ManageFoodItems() {
 
             <CenterWrapper>
                 <Button
-                    iconName={Constants.ICON_PLUS}
-                    color={showAddFoodItem ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                    iconName={ICONS.PLUS}
+                    color={showAddFoodItem ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddFoodItem ? tCommon('buttons.button_close') : t('button_add_fooditem')}
                     onClick={toggleAddFoodItem} />
             </CenterWrapper>

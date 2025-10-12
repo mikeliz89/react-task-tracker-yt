@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { db } from '../firebase-config';
 import { ref, onValue } from 'firebase/database';
-import * as Constants from '../utils/Constants';
+import { LIST_TYPES } from '../utils/Constants';
 
 const useFetch = (url, listType, objectID, subObjectID) => {
 
@@ -64,7 +64,7 @@ const useFetch = (url, listType, objectID, subObjectID) => {
                         (item["listType"] === undefined && listType === 0)) {
                         counterTemp++;
                         fromDB.push({ id, ...snap[id] });
-                    } else if(listType === Constants.LIST_TYPE_COMMON) {
+                    } else if (listType === LIST_TYPES.COMMON) {
                         counterTemp++;
                         fromDB.push({ id, ...snap[id] });
                     }

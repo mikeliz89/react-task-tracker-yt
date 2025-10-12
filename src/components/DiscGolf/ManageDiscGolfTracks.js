@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { ButtonGroup, Row } from 'react-bootstrap';
 import Tracks from './Tracks';
 import useFetch from '../useFetch';
@@ -13,11 +13,11 @@ import NavButton from '../Buttons/NavButton';
 export default function TracksList() {
 
    //translation
-   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
-   const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DISC_GOLF });
+   const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
    //fetch data
-   const { data: tracks, originalData: originalTracks, loading, setData: setTracks } = useFetch(Constants.DB_DISC_GOLF_TRACKS);
+   const { data: tracks, originalData: originalTracks, loading, setData: setTracks } = useFetch(DB.DISC_GOLF_TRACKS);
 
    const deleteTrack = () => {
 
@@ -33,7 +33,7 @@ export default function TracksList() {
          <Row>
             <ButtonGroup>
                <GoBackButton />
-               <NavButton to={Constants.NAVIGATION_DISC_GOLF_CREATE_TRACK}>
+               <NavButton to={NAVIGATION.DISC_GOLF_CREATE_TRACK}>
                   {t('add_new_track')}
                </NavButton>
             </ButtonGroup>

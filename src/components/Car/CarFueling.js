@@ -2,7 +2,7 @@ import { Row, Col, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import AddFueling from "./AddFueling";
@@ -13,14 +13,14 @@ import { useToggle } from '../useToggle';
 export default function CarFueling({ fuelingRow, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
 
     //modal
     const { status: showEditFueling, toggleStatus: toggleShowEditFueling } = useToggle();
 
     const updateFueling = (fueling) => {
         fueling["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(Constants.DB_CAR_FUELING, fuelingRow.id, fueling);
+        updateToFirebaseById(DB.CAR_FUELING, fuelingRow.id, fueling);
         toggleShowEditFueling();
     }
 

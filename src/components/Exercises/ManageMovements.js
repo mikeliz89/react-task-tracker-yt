@@ -8,7 +8,7 @@ import Movements from './Movements';
 import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
 import { removeFromFirebaseById, pushToFirebase } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import Button from '../Buttons/Button';
@@ -21,13 +21,13 @@ import useFetch from '../useFetch';
 export default function ManageMovements() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: movements, setData: setMovements,
         originalData: originalMovements,
-        counter, loading } = useFetch(Constants.DB_EXERCISE_MOVEMENTS);
+        counter, loading } = useFetch(DB.EXERCISE_MOVEMENTS);
 
     //modal
     const { status: showAddMovement, toggleStatus: toggleAddMovement } = useToggle();
@@ -42,7 +42,7 @@ export default function ManageMovements() {
     const { currentUser } = useAuth();
 
     const deleteMovement = async (id) => {
-        removeFromFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, id);
+        removeFromFirebaseById(DB.EXERCISE_MOVEMENTS, id);
     }
 
     function clearMessages() {
@@ -57,7 +57,7 @@ export default function ManageMovements() {
             clearMessages();
             movement["created"] = getCurrentDateAsJson();
             movement["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_EXERCISE_MOVEMENTS, movement);
+            pushToFirebase(DB.EXERCISE_MOVEMENTS, movement);
             showSuccess();
         } catch (ex) {
             showFailure();
@@ -106,15 +106,15 @@ export default function ManageMovements() {
 
             <CenterWrapper>
                 <Button
-                    iconName={Constants.ICON_PLUS}
-                    color={showAddMovement ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                    iconName={ICONS.PLUS}
+                    color={showAddMovement ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddMovement ? tCommon('buttons.button_close') : tCommon('buttons.button_save')}
                     onClick={toggleAddMovement} />
             </CenterWrapper>
 
             <Modal show={showAddMovement} onHide={toggleAddMovement}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_add_movement')}</Modal.Title> 
+                    <Modal.Title>{t('modal_header_add_movement')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <AddMovement onSave={addMovement} onClose={toggleAddMovement} />

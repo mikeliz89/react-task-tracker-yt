@@ -6,7 +6,7 @@ import Button from '../Buttons/Button';
 import AddDrinkingProduct from './AddDrinkingProduct';
 import DrinkingProducts from './DrinkingProducts';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageTitle from '../Site/PageTitle';
@@ -25,13 +25,13 @@ export default function ManageDrinkingProducts() {
     const { currentUser } = useAuth();
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //fetch data
     const { data: drinkingProducts, setData: setDrinkingProducts,
         originalData: originalDrinkingProducts,
-        counter, loading } = useFetch(Constants.DB_DRINKINGPRODUCTS);
+        counter, loading } = useFetch(DB.DRINKINGPRODUCTS);
 
     //modal
     const { status: showAddDrinkingProduct, toggleStatus: toggleAddDrinkingProduct } = useToggle();
@@ -46,7 +46,7 @@ export default function ManageDrinkingProducts() {
         try {
             drinkingProduct["created"] = getCurrentDateAsJson();
             drinkingProduct["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_DRINKINGPRODUCTS, drinkingProduct);
+            pushToFirebase(DB.DRINKINGPRODUCTS, drinkingProduct);
             showSuccess();
         } catch (ex) {
             showFailure();
@@ -64,12 +64,12 @@ export default function ManageDrinkingProducts() {
     }
 
     const deleteDrinkingProduct = (id) => {
-        removeFromFirebaseById(Constants.DB_DRINKINGPRODUCTS, id);
+        removeFromFirebaseById(DB.DRINKINGPRODUCTS, id);
     }
 
     const editDrinkingProduct = (drinkingProduct) => {
         const id = drinkingProduct.id;
-        updateToFirebaseById(Constants.DB_DRINKINGPRODUCTS, id, drinkingProduct);
+        updateToFirebaseById(DB.DRINKINGPRODUCTS, id, drinkingProduct);
     }
 
     return loading ? (
@@ -87,7 +87,7 @@ export default function ManageDrinkingProducts() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -124,9 +124,9 @@ export default function ManageDrinkingProducts() {
 
             <CenterWrapper>
                 <Button
-                    iconName={Constants.ICON_PLUS}
-                    secondIconName={Constants.ICON_WINE}
-                    color={showAddDrinkingProduct ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                    iconName={ICONS.PLUS}
+                    secondIconName={ICONS.WINE}
+                    color={showAddDrinkingProduct ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddDrinkingProduct ? tCommon('buttons.button_close') : t('button_add_drinkingproduct')}
                     onClick={toggleAddDrinkingProduct} />
             </CenterWrapper>

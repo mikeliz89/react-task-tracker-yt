@@ -13,7 +13,7 @@ import AddRecipe from './AddRecipe';
 import i18n from "i18next";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
-import * as Constants from '../../utils/Constants';
+import { COLORS, NAVIGATION, DB, TRANSLATION, ICONS, VARIANTS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import Alert from '../Alert';
 import RecipeHistories from './RecipeHistories';
@@ -53,24 +53,24 @@ export default function RecipeDetails() {
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //auth
     const { currentUser } = useAuth();
 
     //fetch data
-    const { data: recipe, loading } = useFetch(Constants.DB_RECIPES, "", params.id);
-    const { data: incredients } = useFetchChildren(Constants.DB_RECIPE_INCREDIENTS, params.id);
-    const { data: workPhases } = useFetchChildren(Constants.DB_RECIPE_WORKPHASES, params.id);
-    const { data: recipeHistory } = useFetchChildren(Constants.DB_RECIPE_HISTORY, params.id);
+    const { data: recipe, loading } = useFetch(DB.RECIPES, "", params.id);
+    const { data: incredients } = useFetchChildren(DB.RECIPE_INCREDIENTS, params.id);
+    const { data: workPhases } = useFetchChildren(DB.RECIPE_WORKPHASES, params.id);
+    const { data: recipeHistory } = useFetchChildren(DB.RECIPE_HISTORY, params.id);
 
     const deleteIncredient = async (recipeID, id) => {
-        removeFromFirebaseByIdAndSubId(Constants.DB_RECIPE_INCREDIENTS, recipeID, id);
+        removeFromFirebaseByIdAndSubId(DB.RECIPE_INCREDIENTS, recipeID, id);
     }
 
     const deleteWorkPhase = async (recipeID, id) => {
-        removeFromFirebaseByIdAndSubId(Constants.DB_RECIPE_WORKPHASES, recipeID, id);
+        removeFromFirebaseByIdAndSubId(DB.RECIPE_WORKPHASES, recipeID, id);
     }
 
     const addRecipe = async (recipe) => {
@@ -80,7 +80,7 @@ export default function RecipeDetails() {
             if (recipe["isCore"] === undefined) {
                 recipe["isCore"] = false;
             }
-            updateToFirebaseById(Constants.DB_RECIPES, recipeID, recipe);
+            updateToFirebaseById(DB.RECIPES, recipeID, recipe);
         } catch (error) {
             console.log(error)
             setError(t('failed_to_save_recipe'));
@@ -92,15 +92,15 @@ export default function RecipeDetails() {
         const recipeID = params.id;
         recipe["modified"] = getCurrentDateAsJson()
         recipe["stars"] = Number(stars);
-        updateToFirebaseById(Constants.DB_RECIPES, recipeID, recipe);
+        updateToFirebaseById(DB.RECIPES, recipeID, recipe);
     }
 
     const addIncredient = async (recipeID, incredient) => {
-        pushToFirebaseChild(Constants.DB_RECIPE_INCREDIENTS, recipeID, incredient);
+        pushToFirebaseChild(DB.RECIPE_INCREDIENTS, recipeID, incredient);
     }
 
     const addWorkPhase = async (recipeID, workPhase) => {
-        pushToFirebaseChild(Constants.DB_RECIPE_WORKPHASES, recipeID, workPhase);
+        pushToFirebaseChild(DB.RECIPE_WORKPHASES, recipeID, workPhase);
     }
 
     const addCommentToRecipe = (comment) => {
@@ -108,20 +108,20 @@ export default function RecipeDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_RECIPE_COMMENTS, recipeID, comment);
+        pushToFirebaseChild(DB.RECIPE_COMMENTS, recipeID, comment);
     }
 
     const addLinkToRecipe = (link) => {
         const recipeID = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_RECIPE_LINKS, recipeID, link);
+        pushToFirebaseChild(DB.RECIPE_LINKS, recipeID, link);
     }
 
     const saveRecipeHistory = async (recipeID) => {
         const currentDateTime = getCurrentDateAsJson();
         const userID = currentUser.uid;
 
-        pushToFirebaseById(Constants.DB_RECIPE_HISTORY, recipeID, { currentDateTime, userID });
+        pushToFirebaseById(DB.RECIPE_HISTORY, recipeID, { currentDateTime, userID });
 
         setShowMessage(true);
         setMessage(t('save_success_recipehistoryhistory'));
@@ -130,7 +130,7 @@ export default function RecipeDetails() {
     const updateRecipeIncredients = async () => {
         var recipeID = params.id;
         recipe["incredients"] = getIncredientsAsText();
-        updateToFirebaseById(Constants.DB_RECIPES, recipeID, recipe);
+        updateToFirebaseById(DB.RECIPES, recipeID, recipe);
     }
 
     const getIncredientsAsText = () => {
@@ -163,10 +163,10 @@ export default function RecipeDetails() {
         if (incredients && incredients.length > 0) {
             let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
             addTaskList({ title: `${t('shoppinglist')} ${currentDateTime}` }, incredients).then(() => {
-                navigate(Constants.NAVIGATION_MANAGE_SHOPPINGLISTS)
+                navigate(NAVIGATION.MANAGE_SHOPPINGLISTS)
             });
         } else if (incredients && incredients.length <= 0) {
-            setError(t('shoppinglist_no_incredients')); 
+            setError(t('shoppinglist_no_incredients'));
             setShowError(true);
         }
     }
@@ -191,7 +191,7 @@ export default function RecipeDetails() {
         taskList["description"] = "";
         taskList["listType"] = ListTypes.Shopping;
 
-        const key = await pushToFirebase(Constants.DB_TASKLISTS, taskList);
+        const key = await pushToFirebase(DB.TASKLISTS, taskList);
         addTasksToTaskList(key, incredients);
     }
 
@@ -209,7 +209,7 @@ export default function RecipeDetails() {
     const addTask = async (taskListID, task) => {
         task["created"] = getCurrentDateAsJson()
         task["createdBy"] = currentUser.email;
-        pushToFirebaseChild(Constants.DB_TASKS, taskListID, task);
+        pushToFirebaseChild(DB.TASKS, taskListID, task);
     }
 
     return loading ? (
@@ -220,14 +220,14 @@ export default function RecipeDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName={Constants.ICON_EDIT}
+                        iconName={ICONS.EDIT}
                         text={showEditRecipe ? tCommon('buttons.button_close') : ''}
-                        color={showEditRecipe ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
+                        color={showEditRecipe ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
                         onClick={() => setShowEditRecipe(!showEditRecipe)} />
                 </ButtonGroup>
             </Row>
 
-            <AccordionElement array={getAccordionData()} title={recipe.title} iconName={Constants.ICON_UTENSILS} />
+            <AccordionElement array={getAccordionData()} title={recipe.title} iconName={ICONS.UTENSILS} />
 
             <Row>
                 <Col>
@@ -247,7 +247,7 @@ export default function RecipeDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -261,16 +261,16 @@ export default function RecipeDetails() {
                 className="mb-3">
                 <Tab eventKey="home" title={t("incredients_header")}>
                     <Button
-                        iconName={Constants.ICON_PLUS}
-                        secondIconName={Constants.ICON_CARROT}
-                        color={showAddIncredient ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                        iconName={ICONS.PLUS}
+                        secondIconName={ICONS.CARROT}
+                        color={showAddIncredient ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                         text={showAddIncredient ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
                     {showAddIncredient &&
                         <AddIncredient
-                            dbUrl={Constants.DB_RECIPE_INCREDIENTS}
-                            translation={Constants.TRANSLATION}
-                            translationKeyPrefix={Constants.TRANSLATION_RECIPE}
+                            dbUrl={DB.RECIPE_INCREDIENTS}
+                            translation={TRANSLATION.TRANSLATION}
+                            translationKeyPrefix={TRANSLATION.RECIPE}
                             onSave={addIncredient}
                             recipeID={params.id}
                             onClose={() => setShowAddIncredient(false)}
@@ -278,11 +278,11 @@ export default function RecipeDetails() {
                     {incredients != null}
                     {incredients != null && incredients.length > 0 ? (
                         <>
-                            <Button iconName={Constants.ICON_SYNC} onClick={updateRecipeIncredients} />
+                            <Button iconName={ICONS.SYNC} onClick={updateRecipeIncredients} />
                             <Incredients
-                                dbUrl={Constants.DB_RECIPE_INCREDIENTS}
-                                translation={Constants.TRANSLATION}
-                                translationKeyPrefix={Constants.TRANSLATION_RECIPE}
+                                dbUrl={DB.RECIPE_INCREDIENTS}
+                                translation={TRANSLATION.TRANSLATION}
+                                translationKeyPrefix={TRANSLATION.RECIPE}
                                 recipeID={params.id}
                                 incredients={incredients}
                                 onDelete={deleteIncredient}
@@ -298,16 +298,16 @@ export default function RecipeDetails() {
                 </Tab>
                 <Tab eventKey="workPhases" title={t('workphases_header')}>
                     <Button
-                        iconName={Constants.ICON_PLUS}
-                        secondIconName={Constants.ICON_HOURGLASS_1}
-                        color={showAddWorkPhase ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                        iconName={ICONS.PLUS}
+                        secondIconName={ICONS.HOURGLASS_1}
+                        color={showAddWorkPhase ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                         text={showAddWorkPhase ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                     {showAddWorkPhase &&
                         <AddWorkPhase
-                            dbUrl={Constants.DB_RECIPE_WORKPHASES}
-                            translation={Constants.TRANSLATION}
-                            translationKeyPrefix={Constants.TRANSLATION_RECIPE}
+                            dbUrl={DB.RECIPE_WORKPHASES}
+                            translation={TRANSLATION.TRANSLATION}
+                            translationKeyPrefix={TRANSLATION.RECIPE}
                             onSave={addWorkPhase}
                             recipeID={params.id}
                             onClose={() => setShowAddWorkPhase(false)} />
@@ -315,9 +315,9 @@ export default function RecipeDetails() {
                     {workPhases != null}
                     {workPhases != null && workPhases.length > 0 ? (
                         <WorkPhases
-                            dbUrl={Constants.DB_RECIPE_WORKPHASES}
-                            translation={Constants.TRANSLATION}
-                            translationKeyPrefix={Constants.TRANSLATION_RECIPE}
+                            dbUrl={DB.RECIPE_WORKPHASES}
+                            translation={TRANSLATION.TRANSLATION}
+                            translationKeyPrefix={TRANSLATION.RECIPE}
                             recipeID={params.id}
                             workPhases={workPhases}
                             onDelete={deleteWorkPhase}
@@ -333,7 +333,7 @@ export default function RecipeDetails() {
                 <Tab eventKey="actions" title={t('tabheader_actions')}>
                     <>
                         <Button
-                            iconName={Constants.ICON_PLUS_SQUARE}
+                            iconName={ICONS.PLUS_SQUARE}
                             text={t('do_recipe')}
                             onClick={() => {
                                 if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); }
@@ -341,7 +341,7 @@ export default function RecipeDetails() {
                         />
                         &nbsp;
                         <Button
-                            iconName={Constants.ICON_PLUS_SQUARE}
+                            iconName={ICONS.PLUS_SQUARE}
                             text={t('shopcart_tooltip')}
                             onClick={() => {
                                 if (window.confirm(t('shopcart_tooltip_confirm'))) {
@@ -356,20 +356,20 @@ export default function RecipeDetails() {
             {
                 recipeHistory != null && recipeHistory.length > 0 ? (
                     <RecipeHistories
-                        dbUrl={Constants.DB_RECIPE_HISTORY}
-                        translation={Constants.TRANSLATION}
-                        translationKeyPrefix={Constants.TRANSLATION_RECIPE}
+                        dbUrl={DB.RECIPE_HISTORY}
+                        translation={TRANSLATION.TRANSLATION}
+                        translationKeyPrefix={TRANSLATION.RECIPE}
                         recipeHistories={recipeHistory} recipeID={params.id} />
                 ) : (
                     t('no_recipe_history')
                 )
             }
 
-            <ImageComponent objID={params.id} url={Constants.DB_RECIPE_IMAGES} />
+            <ImageComponent objID={params.id} url={DB.RECIPE_IMAGES} />
 
-            <CommentComponent objID={params.id} url={Constants.DB_RECIPE_COMMENTS} onSave={addCommentToRecipe} />
+            <CommentComponent objID={params.id} url={DB.RECIPE_COMMENTS} onSave={addCommentToRecipe} />
 
-            <LinkComponent objID={params.id} url={Constants.DB_RECIPE_LINKS} onSaveLink={addLinkToRecipe} />
+            <LinkComponent objID={params.id} url={DB.RECIPE_LINKS} onSaveLink={addLinkToRecipe} />
 
         </PageContentWrapper>
     )

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { SortMode } from './SortModes';
 import { FilterMode } from './FilterModes';
 import PropTypes from 'prop-types';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import SortByButton from './SortByButton';
 import SearchTextInput from './SearchTextInput';
 import FilterCheckBox from './FilterCheckBox';
@@ -66,7 +66,7 @@ export default function SearchSortFilter({ onSet,
     const [showOnlyNotReady, setShowOnlyNotReady] = useState(false);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_SEARCHSORTFILTER });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.SEARCHSORTFILTER });
 
     //componentDidMount
     useEffect(() => {

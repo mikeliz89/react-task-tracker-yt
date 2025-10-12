@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import AddDrinkingProduct from './AddDrinkingProduct';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import Icon from '../Icon';
 import RightWrapper from '../Site/RightWrapper';
 import StarRating from '../StarRating/StarRating';
@@ -17,7 +17,7 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
     const [editable, setEditable] = useState(false);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
 
     const markHaveAtHome = () => {
         drinkingProduct["haveAtHome"] = true;
@@ -38,7 +38,7 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
         <div className='listContainer'>
             <h5>
                 <span>
-                    <Icon name={Constants.ICON_COCKTAIL} color={Constants.COLOR_GRAY} />
+                    <Icon name={ICONS.COCKTAIL} color={COLORS.GRAY} />
                     {drinkingProduct.name + (drinkingProduct.abv > 0 ? ' (' + drinkingProduct.abv + '%)' : '')}
                 </span>
                 <RightWrapper>
@@ -64,7 +64,7 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
                     drinkingProductID={drinkingProduct.id} />
             }
             <p>
-                <Link className='btn btn-primary' to={`${Constants.NAVIGATION_DRINKINGPRODUCT}/${drinkingProduct.id}`}>{t('view_details')}</Link>
+                <Link className='btn btn-primary' to={`${NAVIGATION.DRINKINGPRODUCT}/${drinkingProduct.id}`}>{t('view_details')}</Link>
                 {
                     drinkingProduct.haveAtHome &&
                     <span

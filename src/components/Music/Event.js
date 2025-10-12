@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
 import { useState } from 'react';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
@@ -13,14 +13,14 @@ import EditButton from '../Buttons/EditButton';
 export default function Event({ event, onDelete, onEdit }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
 
     //states
     const [editable, setEditable] = useState(false);
 
     const updateEvent = (updateEventID, object) => {
         object["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(Constants.DB_MUSIC_EVENTS, updateEventID, object);
+        updateToFirebaseById(DB.MUSIC_EVENTS, updateEventID, object);
         setEditable(false);
     }
 
@@ -48,7 +48,7 @@ export default function Event({ event, onDelete, onEdit }) {
             }
             {!editable &&
                 <p>
-                    <Link className='btn btn-primary' to={`${Constants.NAVIGATION_MUSIC_EVENT}/${event.id}`}>{t('view_details')}</Link>
+                    <Link className='btn btn-primary' to={`${NAVIGATION.MUSIC_EVENT}/${event.id}`}>{t('view_details')}</Link>
                 </p>
             }
             <StarRating starCount={event.stars} />

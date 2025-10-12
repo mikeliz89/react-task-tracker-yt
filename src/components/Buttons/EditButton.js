@@ -1,13 +1,13 @@
 import Icon from '../Icon';
-import * as Constants from '../../utils/Constants';
+import { BUTTON_CLASSNAMES, ICONS, COLORS } from '../../utils/Constants';
 import PropTypes from 'prop-types';
 
 export default function EditButton({
     editable,
     setEditable,
-    className = Constants.CLASSNAME_EDITBTN,
-    icon = Constants.ICON_EDIT,
-    color = Constants.COLOR_LIGHT_GRAY,
+    className = BUTTON_CLASSNAMES.EDITBTN,
+    icon = ICONS.EDIT,
+    color = COLORS.LIGHT_GRAY,
     style = {},
     fontSize = '1.2em',
     ...props

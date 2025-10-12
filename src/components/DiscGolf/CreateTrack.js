@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
 import TrackHoles from './TrackHoles';
 import { pushToFirebase, pushToFirebaseChild } from '../../datatier/datatier';
@@ -16,7 +16,7 @@ import CenterWrapper from '../Site/CenterWrapper';
 export default function CreateTrack() {
 
    //translation
-   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
+   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DISC_GOLF });
 
    //constants
    const maxHoleCount = 24;
@@ -104,11 +104,11 @@ export default function CreateTrack() {
       try {
          track["created"] = getCurrentDateAsJson();
          track["createdBy"] = currentUser.email;
-         const key = await pushToFirebase(Constants.DB_DISC_GOLF_TRACKS, track);
+         const key = await pushToFirebase(DB.DISC_GOLF_TRACKS, track);
 
          saveHoles(key);
 
-         navigate(`${Constants.NAVIGATION_MANAGE_DISC_GOLF_TRACKS}`);
+         navigate(`${NAVIGATION.MANAGE_DISC_GOLF_TRACKS}`);
       } catch (ex) {
          setError(t('track_save_exception'));
          setShowError(true);
@@ -116,7 +116,7 @@ export default function CreateTrack() {
    }
 
    const saveHoles = async (trackID) => {
-      await pushToFirebaseChild(Constants.DB_DISC_GOLF_TRACK_HOLES, trackID, holes);
+      await pushToFirebaseChild(DB.DISC_GOLF_TRACK_HOLES, trackID, holes);
    }
 
    const deleteHole = (holeID) => {
@@ -193,7 +193,7 @@ export default function CreateTrack() {
 
             <Row>
                <ButtonGroup>
-                  <Button text={t('button_add_holes')} iconName={Constants.ICON_PLUS}
+                  <Button text={t('button_add_holes')} iconName={ICONS.PLUS}
                      type='button' onClick={() => addHole()} />
                </ButtonGroup>
 

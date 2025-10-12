@@ -8,7 +8,7 @@ import { db } from '../../firebase-config';
 import { ref, child, onValue } from 'firebase/database';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import PageTitle from '../Site/PageTitle';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
@@ -27,8 +27,8 @@ export default function AddPartsMoving({ title, iconName }) {
   const params = useParams();
 
   //translation  
-  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+  const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
+  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
   //load data
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function AddPartsMoving({ title, iconName }) {
   }, [])
 
   const fetchExercisePartFromFirebase = async () => {
-    const dbref = child(ref(db, Constants.DB_EXERCISE_PARTS), params.id);
+    const dbref = child(ref(db, DB.EXERCISE_PARTS), params.id);
     onValue(dbref, (snapshot) => {
       const val = snapshot.val();
       const fromDB = [];
@@ -74,14 +74,14 @@ export default function AddPartsMoving({ title, iconName }) {
   const updateMoving = async (moving, partID) => {
     const exerciseID = params.id;
     moving["modified"] = getCurrentDateAsJson();
-    updateToFirebaseByIdAndSubId(Constants.DB_EXERCISE_PARTS, exerciseID, partID, moving);
+    updateToFirebaseByIdAndSubId(DB.EXERCISE_PARTS, exerciseID, partID, moving);
   }
 
   const save = async (moving) => {
     const exerciseID = params.id;
     moving["created"] = getCurrentDateAsJson();
     moving["createdBy"] = currentUser.email;
-    pushToFirebaseChild(Constants.DB_EXERCISE_PARTS, exerciseID, moving);
+    pushToFirebaseChild(DB.EXERCISE_PARTS, exerciseID, moving);
   }
 
   return (

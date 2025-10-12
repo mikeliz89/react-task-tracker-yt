@@ -1,7 +1,7 @@
 import { Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import AddPartsGymForm from './AddPartsGymForm';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import RightWrapper from '../Site/RightWrapper';
 import DeleteButton from '../Buttons/DeleteButton';
@@ -13,7 +13,7 @@ export default function GymPart({ exerciseID, gymPart, onDelete }) {
     const [editable, setEditable] = useState(false);
 
     const updateGymPart = (exerciseID, newGymPart) => {
-        updateToFirebaseByIdAndSubId(Constants.DB_EXERCISE_PARTS, exerciseID, gymPart.id, newGymPart);
+        updateToFirebaseByIdAndSubId(DB.EXERCISE_PARTS, exerciseID, gymPart.id, newGymPart);
         setEditable(false);
     }
 

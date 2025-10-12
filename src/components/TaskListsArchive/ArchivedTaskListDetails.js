@@ -10,7 +10,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import i18n from "i18next";
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { ICONS, TRANSLATION, DB, COLORS } from '../../utils/Constants';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
@@ -35,11 +35,11 @@ export default function ArchivedTaskListDetails() {
   const [taskReadyCounter, setTaskReadyCounter] = useState(0);
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+  const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
+  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   //fetch data
-  const { data: taskList, loading } = useFetch(Constants.DB_TASKLIST_ARCHIVE, "", params.id);
+  const { data: taskList, loading } = useFetch(DB.TASKLIST_ARCHIVE, "", params.id);
 
   //load data
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function ArchivedTaskListDetails() {
 
 
   const fetchTasksFromFirebase = async () => {
-    const dbref = await child(ref(db, Constants.DB_TASKLIST_ARCHIVE_TASKS), params.id);
+    const dbref = await child(ref(db, DB.TASKLIST_ARCHIVE_TASKS), params.id);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -86,20 +86,20 @@ export default function ArchivedTaskListDetails() {
     taskList["archived"] = "";
     taskList["archivedBy"] = "";
 
-    let taskListID = await pushToFirebase(Constants.DB_TASKLISTS, taskList);
+    let taskListID = await pushToFirebase(DB.TASKLISTS, taskList);
 
     const archiveTaskListID = params.id;
 
     //2. delete old archived task lists
-    getFromFirebaseById(Constants.DB_TASKLIST_ARCHIVE, archiveTaskListID).then((val) => {
-      updateToFirebaseById(Constants.DB_TASKLIST_ARCHIVE, archiveTaskListID, null);
+    getFromFirebaseById(DB.TASKLIST_ARCHIVE, archiveTaskListID).then((val) => {
+      updateToFirebaseById(DB.TASKLIST_ARCHIVE, archiveTaskListID, null);
     })
 
     //3. delete old archived tasks, create new tasklist-tasks
-    getFromFirebaseById(Constants.DB_TASKLIST_ARCHIVE_TASKS, archiveTaskListID).then((val) => {
+    getFromFirebaseById(DB.TASKLIST_ARCHIVE_TASKS, archiveTaskListID).then((val) => {
       let updates = {};
-      updates[`${Constants.DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = null;
-      updates[`${Constants.DB_TASKS}/${taskListID}`] = val;
+      updates[`${DB.TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = null;
+      updates[`${DB.TASKS}/${taskListID}`] = val;
       updateToFirebase(updates);
     });
 
@@ -124,7 +124,7 @@ export default function ArchivedTaskListDetails() {
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <Button color={Constants.COLOR_BUTTON_GRAY} iconName={Constants.ICON_ARCHIVE}
+          <Button color={COLORS.BUTTON_GRAY} iconName={ICONS.ARCHIVE}
             onClick={() => {
               if (window.confirm(t('return_from_archive_list_confirm_message'))) {
                 returnFromArchive(taskList);
@@ -136,7 +136,7 @@ export default function ArchivedTaskListDetails() {
 
       {/* TODO: Arkistoidun listan palautustoiminto -nappi */}
 
-      <AccordionElement array={getAccordionData()} title={taskList.title} iconName={Constants.ICON_LIST_ALT} forceOpen={true} />
+      <AccordionElement array={getAccordionData()} title={taskList.title} iconName={ICONS.LIST_ALT} forceOpen={true} />
 
       {tasks != null && tasks.length > 0 ? (
         <>

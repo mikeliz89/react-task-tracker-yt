@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import * as Constants from "../../utils/Constants";
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import Alert from '../Alert';
@@ -21,7 +21,7 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
 
     const updateInstruction = (object) => {
         object["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(Constants.DB_BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS, object.id, object);
+        updateToFirebaseById(DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS, object.id, object);
         setEditable(false);
     }
 
@@ -30,7 +30,7 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             <h5>

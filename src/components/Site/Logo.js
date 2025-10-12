@@ -1,7 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
-import * as Constants from '../../utils/Constants';
+import { THEMES } from '../../utils/Constants';
 
 export default function Logo() {
 
@@ -17,14 +17,14 @@ export default function Logo() {
     const logoHover = `/images/logo_hover.png`;
 
     const getLogoSource = () => {
-        if (theme === Constants.THEME_LIGHT) {
+        if (theme === THEMES.LIGHT) {
             return logo;
         }
         return logo_dark;
     }
 
     const getLogoSourceHover = () => {
-        if (theme === Constants.THEME_LIGHT) {
+        if (theme === THEMES.LIGHT) {
             return logoHover;
         }
         return logoHover;

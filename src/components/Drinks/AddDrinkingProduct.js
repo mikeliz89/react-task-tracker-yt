@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { DrinkingProductCategories } from './Categories';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getFromFirebaseById } from '../../datatier/datatier';
 
 export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingProduct, onClose }) {
 
    //translation
-   const { t, ready } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
-   const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+   const { t, ready } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
+   const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
    //states
    const [category, setCategory] = useState('');
@@ -49,7 +49,7 @@ export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingPro
    }
 
    const fetchDrinkingProductFromFirebase = async (id) => {
-      getFromFirebaseById(Constants.DB_DRINKINGPRODUCTS, id).then((val) => {
+      getFromFirebaseById(DB.DRINKINGPRODUCTS, id).then((val) => {
          setAbv(val["abv"]);
          setAmount(val["amount"]);
          setCategory(val["category"]);

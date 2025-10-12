@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { FoodItemCategories } from './Categories';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getFromFirebaseById } from '../../datatier/datatier';
 
 export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
 
     //translation
-    const { t, ready } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t, ready } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [category, setCategory] = useState('');
@@ -53,7 +53,7 @@ export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
     }
 
     const fetchFoodItemFromFirebase = async (id) => {
-        getFromFirebaseById(Constants.DB_FOODITEMS, id).then((val) => {
+        getFromFirebaseById(DB.FOODITEMS, id).then((val) => {
             setCalories(val["calories"]);
             setCarbs(val["carbs"]);
             setCategory(val["category"]);

@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { FaCheckSquare } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import StarRating from '../StarRating/StarRating';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getMovieFormatNameByID } from '../../utils/ListUtils';
 import RightWrapper from '../Site/RightWrapper';
 import { useState } from 'react';
@@ -15,14 +15,14 @@ import EditButton from '../Buttons/EditButton';
 export default function Movie({ movie, onDelete, onEdit }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MOVIES });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MOVIES });
 
     //states
     const [editable, setEditable] = useState(false);
 
     const updateMovie = (updateMovieID, object) => {
         object["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(Constants.DB_MOVIES, updateMovieID, object);
+        updateToFirebaseById(DB.MOVIES, updateMovieID, object);
         setEditable(false);
     }
 
@@ -73,7 +73,7 @@ export default function Movie({ movie, onDelete, onEdit }) {
             }
             {!editable &&
                 <p>
-                    <Link className='btn btn-primary' to={`${Constants.NAVIGATION_MOVIE}/${movie.id}`}>{t('view_details')}</Link>
+                    <Link className='btn btn-primary' to={`${NAVIGATION.MOVIE}/${movie.id}`}>{t('view_details')}</Link>
                 </p>
             }
             <StarRating starCount={movie.stars} />

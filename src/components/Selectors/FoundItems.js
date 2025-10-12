@@ -1,5 +1,5 @@
 import Button from "../Buttons/Button";
-import * as Constants from "../../utils/Constants";
+import { ICONS } from "../../utils/Constants";
 import PropTypes from 'prop-types';
 
 export default function FoundItems({ itemsToFind, nameField, onSelection, linkedName }) {
@@ -19,7 +19,7 @@ export default function FoundItems({ itemsToFind, nameField, onSelection, linked
       {itemsToFind != null && itemsToFind.slice(0, 3).map((item) => (
         <span key={item.id}>
           <Button key={item.id}
-            iconName={Constants.ICON_PLUS}
+            iconName={ICONS.PLUS}
             onClick={() => setSelected(item)}
             text={showName(item)}
           />

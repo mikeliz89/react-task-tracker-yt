@@ -1,11 +1,11 @@
 import { useTheme } from '../../contexts/ThemeContext';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { useTranslation } from 'react-i18next';
 
 export default function ThemeToggler() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_THEME });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.THEME });
 
     const { toggleTheme, theme } = useTheme();
 

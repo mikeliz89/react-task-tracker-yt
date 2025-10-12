@@ -4,7 +4,7 @@ import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import CenterWrapper from '../Site/CenterWrapper';
@@ -24,12 +24,12 @@ import NavButton from '../Buttons/NavButton';
 export default function ManageMusicRecords() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: records, setData: setRecords,
-        originalData: originalRecords, counter, loading } = useFetch(Constants.DB_MUSIC_RECORDS);
+        originalData: originalRecords, counter, loading } = useFetch(DB.MUSIC_RECORDS);
 
     //modal
     const { status: showAddRecord, toggleStatus: toggleAddRecord } = useToggle();
@@ -44,7 +44,7 @@ export default function ManageMusicRecords() {
     const { currentUser } = useAuth();
 
     const deleteRecord = async (id) => {
-        removeFromFirebaseById(Constants.DB_MUSIC_RECORDS, id);
+        removeFromFirebaseById(DB.MUSIC_RECORDS, id);
     }
 
     const addRecord = async (recordID, record) => {
@@ -52,7 +52,7 @@ export default function ManageMusicRecords() {
             clearMessages();
             record["created"] = getCurrentDateAsJson();
             record["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_MUSIC_RECORDS, record);
+            pushToFirebase(DB.MUSIC_RECORDS, record);
             showSuccess();
         } catch (ex) {
             showFailure();
@@ -78,7 +78,7 @@ export default function ManageMusicRecords() {
 
     const editRecord = (record) => {
         const id = record.id;
-        updateToFirebaseById(Constants.DB_MUSIC_RECORDS, id, record);
+        updateToFirebaseById(DB.MUSIC_RECORDS, id, record);
     }
 
     return loading ? (
@@ -91,8 +91,8 @@ export default function ManageMusicRecords() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <NavButton to={Constants.NAVIGATION_MANAGE_MUSICLISTS}
-                        icon={Constants.ICON_LIST_ALT} >
+                    <NavButton to={NAVIGATION.MANAGE_MUSICLISTS}
+                        icon={ICONS.LIST_ALT} >
                         {t('button_music_lists')}
                     </NavButton>
                 </ButtonGroup>
@@ -100,7 +100,7 @@ export default function ManageMusicRecords() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -137,8 +137,8 @@ export default function ManageMusicRecords() {
 
             <CenterWrapper>
                 <Button
-                    iconName={Constants.ICON_PLUS}
-                    color={showAddRecord ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                    iconName={ICONS.PLUS}
+                    color={showAddRecord ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddRecord ? tCommon('buttons.button_close') : t('button_add_music')}
                     onClick={toggleAddRecord} />
             </CenterWrapper>

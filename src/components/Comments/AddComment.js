@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function AddComment({ onSave }) {
 
@@ -13,8 +13,8 @@ export default function AddComment({ onSave }) {
     const [loading, setLoading] = useState(false);
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_COMMENTS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.COMMENTS });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -41,7 +41,7 @@ export default function AddComment({ onSave }) {
     return (
         <>
             <Button type="button"
-                iconName={Constants.ICON_COMMENTS}
+                iconName={ICONS.COMMENTS}
                 disabled={loading}
                 disableStyle={true}
                 className={showAddComment ? 'btn btn-danger' : 'btn btn-primary'}

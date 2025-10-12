@@ -14,7 +14,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAuth } from '../../contexts/AuthContext';
 import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from "../SearchSortFilter/SortModes";
@@ -25,8 +25,8 @@ import NavButton from '../Buttons/NavButton';
 export default function Car() {
 
     //translation
-    const { t } = useTranslation([Constants.TRANSLATION], { keyPrefix: Constants.TRANSLATION_CAR });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation([TRANSLATION.TRANSLATION], { keyPrefix: TRANSLATION.CAR });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -43,8 +43,8 @@ export default function Car() {
     }
 
     //fetch data
-    const { data: carFuelings, setData: setCarFuelings, originalData: originalCarFuelings, counter: fuelingsCounter, loading } = useFetch(Constants.DB_CAR_FUELING);
-    const { data: carMaintenances, originalData: originalCarMaintenances, counter: maintenancesCounter } = useFetch(Constants.DB_CAR_MAINTENANCE);
+    const { data: carFuelings, setData: setCarFuelings, originalData: originalCarFuelings, counter: fuelingsCounter, loading } = useFetch(DB.CAR_FUELING);
+    const { data: carMaintenances, originalData: originalCarMaintenances, counter: maintenancesCounter } = useFetch(DB.CAR_MAINTENANCE);
 
     //user
     const { currentUser } = useAuth();
@@ -53,7 +53,7 @@ export default function Car() {
         try {
             fueling["created"] = getCurrentDateAsJson();
             fueling["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_CAR_FUELING, fueling);
+            pushToFirebase(DB.CAR_FUELING, fueling);
             showSuccess();
         } catch (ex) {
             showFailure(ex);
@@ -72,14 +72,14 @@ export default function Car() {
     }
 
     const deleteFueling = async (id) => {
-        removeFromFirebaseById(Constants.DB_CAR_FUELING, id);
+        removeFromFirebaseById(DB.CAR_FUELING, id);
     }
 
     const addMaintenance = (maintenance) => {
         try {
             maintenance["created"] = getCurrentDateAsJson();
             maintenance["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_CAR_MAINTENANCE, maintenance);
+            pushToFirebase(DB.CAR_MAINTENANCE, maintenance);
             showSuccess();
         } catch (ex) {
             showFailure(ex);
@@ -98,7 +98,7 @@ export default function Car() {
     }
 
     const deleteMaintenance = async (id) => {
-        removeFromFirebaseById(Constants.DB_CAR_MAINTENANCE, id);
+        removeFromFirebaseById(DB.CAR_MAINTENANCE, id);
     }
 
     return loading ? (
@@ -111,8 +111,8 @@ export default function Car() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <NavButton to={Constants.NAVIGATION_MANAGE_CARLISTS}
-                        icon={Constants.ICON_LIST_ALT}
+                    <NavButton to={NAVIGATION.MANAGE_CARLISTS}
+                        icon={ICONS.LIST_ALT}
                     >
                         {tCommon('buttons.button_lists')}
                     </NavButton>
@@ -121,7 +121,7 @@ export default function Car() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             <Tabs defaultActiveKey="fuelings"
@@ -135,11 +135,11 @@ export default function Car() {
                 <Tab eventKey="fuelings" title={t('fuelings')}>
 
                     <Button
-                        color={showAddFueling ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                        color={showAddFueling ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                         onClick={() => setShowAddFueling(!showAddFueling)}
                         text={showAddFueling ? tCommon('buttons.button_close') : t('add_fueling')}
-                        secondIconName={Constants.ICON_GAS_PUMP}
-                        iconName={Constants.ICON_PLUS} />
+                        secondIconName={ICONS.GAS_PUMP}
+                        iconName={ICONS.PLUS} />
                     {
 
                         <Modal show={showAddFueling} onHide={handleClose}>
@@ -186,11 +186,11 @@ export default function Car() {
                 </Tab>
                 <Tab eventKey="carMaintenances" title={t('car_maintenances')}>
                     <Button
-                        color={showAddMaintenance ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                        color={showAddMaintenance ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                         onClick={() => setShowAddMaintenance(!showAddMaintenance)}
                         text={showAddFueling ? tCommon('buttons.button_close') : t('add_maintenance')}
-                        iconName={Constants.ICON_PLUS}
-                        secondIconName={Constants.ICON_WRENCH} />
+                        iconName={ICONS.PLUS}
+                        secondIconName={ICONS.WRENCH} />
                     {
 
                         <Modal show={showAddMaintenance} onHide={handleClose}>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
-import * as Constants from "../../utils/Constants";
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
 import { getFromFirebaseById } from '../../datatier/datatier';
 import { GameConsoles } from './Categories';
 import PropTypes from 'prop-types';
@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 export default function AddGame({ gameID, onSave, onClose, showLabels }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_GAMES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [created, setCreated] = useState('');
@@ -50,7 +50,7 @@ export default function AddGame({ gameID, onSave, onClose, showLabels }) {
     }
 
     const fetchGameFromFirebase = async (gameID) => {
-        getFromFirebaseById(Constants.DB_GAMES, gameID).then((val) => {
+        getFromFirebaseById(DB.GAMES, gameID).then((val) => {
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
             setDescription(val["description"]);

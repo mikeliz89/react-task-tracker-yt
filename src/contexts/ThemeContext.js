@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import * as Constants from '../utils/Constants';
+import { THEMES, SESSIONSTORAGE } from '../utils/Constants';
 
-const ThemeContext = createContext(Constants.THEME_LIGHT);
+const ThemeContext = createContext(THEMES.LIGHT);
 
 export function useTheme() {
     return useContext(ThemeContext);
@@ -15,10 +15,10 @@ export function ThemeProvider({ children }) {
     useEffect(() => {
 
         // Access fromPage from session storage
-        var themeFromSession = localStorage.getItem(Constants.SESSION_THEME);
+        var themeFromSession = localStorage.getItem(SESSIONSTORAGE.THEME);
         if (themeFromSession == null) {
             //initialize as light
-            themeFromSession = Constants.THEME_LIGHT;
+            themeFromSession = THEMES.LIGHT;
             // Update session storage
             setLocalStorage(themeFromSession);
         }
@@ -29,12 +29,12 @@ export function ThemeProvider({ children }) {
     }, []); //No dependency to trigger in each page load
 
     const setLocalStorage = (value) => {
-        localStorage.setItem(Constants.SESSION_THEME, value);
+        localStorage.setItem(SESSIONSTORAGE.THEME, value);
     }
 
     const toggleTheme = () => {
-        setTheme((curr) => curr === Constants.THEME_LIGHT ? Constants.THEME_DARK : Constants.THEME_LIGHT);
-        setLocalStorage(theme === Constants.THEME_LIGHT ? Constants.THEME_DARK : Constants.THEME_LIGHT);
+        setTheme((curr) => curr === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT);
+        setLocalStorage(theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT);
     }
 
     const value = { theme, toggleTheme };

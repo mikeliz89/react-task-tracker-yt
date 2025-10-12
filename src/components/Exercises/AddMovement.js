@@ -2,7 +2,7 @@ import { Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import Button from '../Buttons/Button';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { MovementCategories } from './Categories';
 import { getFromFirebaseById } from '../../datatier/datatier';
 
@@ -19,8 +19,8 @@ export default function AddMovement({ movementID, onClose, onSave }) {
     const [modified, setModified] = useState('');
 
     //translation
-    const { t, ready } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t, ready } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     useEffect(() => {
         sortCategoriesByName();
@@ -36,7 +36,7 @@ export default function AddMovement({ movementID, onClose, onSave }) {
     }, [movementID]);
 
     const fetchMovementFromFirebase = async (movementID) => {
-        getFromFirebaseById(Constants.DB_EXERCISE_MOVEMENTS, movementID).then((val) => {
+        getFromFirebaseById(DB.EXERCISE_MOVEMENTS, movementID).then((val) => {
             setCreated(val["created"]);
             setCreatedBy(val["createdBy"]);
             setModified(val["modified"]);

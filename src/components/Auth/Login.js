@@ -7,11 +7,11 @@ import Button from '../Buttons/Button';
 import Alert from '../Alert';
 import PageTitle from '../Site/PageTitle';
 import CenterWrapper from '../Site/CenterWrapper';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function Login() {
 
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_AUTH });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.AUTH });
 
     //states
     const [loading, setLoading] = useState(false);
@@ -62,7 +62,7 @@ export default function Login() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             <Form onSubmit={onSubmit}>
@@ -77,10 +77,10 @@ export default function Login() {
                 <Button disabled={loading} type='submit' text={t('log_in')} className='btn btn-block' />
             </Form>
             <CenterWrapper>
-                <Link to={Constants.NAVIGATION_FORGOT_PASSWORD}>{t('forgot_password')}</Link>
+                <Link to={NAVIGATION.FORGOT_PASSWORD}>{t('forgot_password')}</Link>
             </CenterWrapper>
             <CenterWrapper>
-                {t('need_an_account')} <Link to={Constants.NAVIGATION_SIGNUP}>{t('sign_up')}</Link>
+                {t('need_an_account')} <Link to={NAVIGATION.SIGNUP}>{t('sign_up')}</Link>
             </CenterWrapper>
         </div>
     )

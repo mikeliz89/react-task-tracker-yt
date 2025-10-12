@@ -2,12 +2,12 @@ import GoBackButton from '../Buttons/GoBackButton';
 import { useTranslation } from 'react-i18next';
 import PageTitle from '../Site/PageTitle';
 import PageContentWrapper from '../Site/PageContentWrapper';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION } from '../../utils/Constants';
 
 export default function About() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_ABOUT });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.ABOUT });
 
     return (
         <PageContentWrapper>

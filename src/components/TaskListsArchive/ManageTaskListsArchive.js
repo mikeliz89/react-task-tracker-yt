@@ -6,7 +6,7 @@ import PageTitle from '../Site/PageTitle';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
 import { ButtonGroup, Row } from 'react-bootstrap';
 import useFetch from '../useFetch';
@@ -14,21 +14,21 @@ import useFetch from '../useFetch';
 export default function ManageTaskListsArchive() {
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+  const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
+  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   const location = useLocation();
 
   //fetch data
   const { data: taskLists,
     originalData: originalTaskLists, counter, loading } =
-    useFetch(Constants.DB_TASKLIST_ARCHIVE, location.state.listType);
+    useFetch(DB.TASKLIST_ARCHIVE, location.state.listType);
 
   const deleteTaskList = async (id) => {
     //delete tasks
-    removeFromFirebaseById(Constants.DB_TASKLIST_ARCHIVE_TASKS, id);
+    removeFromFirebaseById(DB.TASKLIST_ARCHIVE_TASKS, id);
     //delete task list
-    removeFromFirebaseById(Constants.DB_TASKLIST_ARCHIVE, id);
+    removeFromFirebaseById(DB.TASKLIST_ARCHIVE, id);
   }
 
   return loading ? (

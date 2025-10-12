@@ -1,7 +1,7 @@
 import { Accordion, Table, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import PageTitle from './Site/PageTitle';
-import * as Constants from '../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../utils/Constants';
 
 export default function AccordionElement({ title, array, iconName, forceOpen }) {
     return (
@@ -10,7 +10,7 @@ export default function AccordionElement({ title, array, iconName, forceOpen }) 
                 <Accordion defaultActiveKey={forceOpen === true ? '0' : ''}>
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>
-                            <PageTitle title={title} iconName={iconName} iconColor={Constants.COLOR_GRAY} />
+                            <PageTitle title={title} iconName={iconName} iconColor={COLORS.GRAY} />
                         </Accordion.Header>
                         <Accordion.Body>
                             <Table striped bordered hover>

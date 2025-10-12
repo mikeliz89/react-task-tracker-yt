@@ -4,7 +4,7 @@ import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import CenterWrapper from '../Site/CenterWrapper';
@@ -24,12 +24,12 @@ import NavButton from '../Buttons/NavButton';
 export default function ManageMovies() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MOVIES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MOVIES });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: movies, setData: setMovies,
-        originalData: originalMovies, counter, loading } = useFetch(Constants.DB_MOVIES);
+        originalData: originalMovies, counter, loading } = useFetch(DB.MOVIES);
 
     //modal
     const { status: showAddMovie, toggleStatus: toggleAddMovie } = useToggle();
@@ -44,7 +44,7 @@ export default function ManageMovies() {
     const { currentUser } = useAuth();
 
     const deleteMovie = async (id) => {
-        removeFromFirebaseById(Constants.DB_MOVIES, id);
+        removeFromFirebaseById(DB.MOVIES, id);
     }
 
     const addMovie = async (movieID, movie) => {
@@ -52,7 +52,7 @@ export default function ManageMovies() {
             clearMessages();
             movie["created"] = getCurrentDateAsJson();
             movie["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_MOVIES, movie);
+            pushToFirebase(DB.MOVIES, movie);
             showSuccess();
         } catch (ex) {
             showFailure();
@@ -78,7 +78,7 @@ export default function ManageMovies() {
 
     const editMovie = (movie) => {
         const id = movie.id;
-        updateToFirebaseById(Constants.DB_MOVIES, id, movie);
+        updateToFirebaseById(DB.MOVIES, id, movie);
     }
 
     return loading ? (
@@ -91,8 +91,8 @@ export default function ManageMovies() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <NavButton to={Constants.NAVIGATION_MANAGE_MOVIELISTS}
-                        icon={Constants.ICON_LIST_ALT}>
+                    <NavButton to={NAVIGATION.MANAGE_MOVIELISTS}
+                        icon={ICONS.LIST_ALT}>
                         {t('button_movie_lists')}
                     </NavButton>
                 </ButtonGroup>
@@ -100,7 +100,7 @@ export default function ManageMovies() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -138,8 +138,8 @@ export default function ManageMovies() {
 
             <CenterWrapper>
                 <Button
-                    iconName={Constants.ICON_PLUS}
-                    color={showAddMovie ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                    iconName={ICONS.PLUS}
+                    color={showAddMovie ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddMovie ? tCommon('buttons.button_close') : t('button_add_movie')}
                     onClick={toggleAddMovie} />
             </CenterWrapper>

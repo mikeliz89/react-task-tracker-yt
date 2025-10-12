@@ -5,7 +5,7 @@ import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
@@ -23,8 +23,8 @@ import useFetch from '../useFetch';
 export default function GearDetails() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -42,20 +42,20 @@ export default function GearDetails() {
     const { currentUser } = useAuth();
 
     //fetch data
-    const { data: gear, loading } = useFetch(Constants.DB_BACKPACKING_GEAR, "", params.id);
+    const { data: gear, loading } = useFetch(DB.BACKPACKING_GEAR, "", params.id);
 
     const saveStars = async (stars) => {
         const id = params.id;
         gear["modified"] = getCurrentDateAsJson()
         gear["stars"] = Number(stars);
-        updateToFirebaseById(Constants.DB_BACKPACKING_GEAR, id, gear);
+        updateToFirebaseById(DB.BACKPACKING_GEAR, id, gear);
     }
 
     const updateGear = async (gear) => {
         try {
             const gearID = params.id;
             gear["modified"] = getCurrentDateAsJson();
-            updateToFirebaseById(Constants.DB_BACKPACKING_GEAR, gearID, gear);
+            updateToFirebaseById(DB.BACKPACKING_GEAR, gearID, gear);
         } catch (error) {
             setError(t('failed_to_save_gear'));
             setShowError(true);
@@ -68,13 +68,13 @@ export default function GearDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_BACKPACKING_GEAR_COMMENTS, id, comment);
+        pushToFirebaseChild(DB.BACKPACKING_GEAR_COMMENTS, id, comment);
     }
 
     const addLinkToGear = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_BACKPACKING_GEAR_LINKS, id, link);
+        pushToFirebaseChild(DB.BACKPACKING_GEAR_LINKS, id, link);
     }
 
     const getAccordionData = () => {
@@ -95,9 +95,9 @@ export default function GearDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName={Constants.ICON_EDIT}
+                        iconName={ICONS.EDIT}
                         text={showEdit ? tCommon('buttons.button_close') : ''}
-                        color={showEdit ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
+                        color={showEdit ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
                         onClick={() => setShowEdit(!showEdit)} />
                 </ButtonGroup>
             </Row>
@@ -117,7 +117,7 @@ export default function GearDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             {showEdit &&
@@ -125,9 +125,9 @@ export default function GearDetails() {
             }
 
             <hr />
-            <ImageComponent url={Constants.DB_BACKPACKING_GEAR_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={Constants.DB_BACKPACKING_GEAR_COMMENTS} onSave={addCommentToGear} />
-            <LinkComponent objID={params.id} url={Constants.DB_BACKPACKING_GEAR_LINKS} onSaveLink={addLinkToGear} />
+            <ImageComponent url={DB.BACKPACKING_GEAR_IMAGES} objID={params.id} />
+            <CommentComponent objID={params.id} url={DB.BACKPACKING_GEAR_COMMENTS} onSave={addCommentToGear} />
+            <LinkComponent objID={params.id} url={DB.BACKPACKING_GEAR_LINKS} onSaveLink={addLinkToGear} />
         </PageContentWrapper>
     )
 }

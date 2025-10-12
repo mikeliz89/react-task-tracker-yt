@@ -9,7 +9,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import i18n from "i18next";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import AddDrink from './AddDrink';
 import AddGarnish from './AddGarnish';
 import AddWorkPhase from '../Recipe/AddWorkPhase';
@@ -60,18 +60,18 @@ export default function DrinkDetails() {
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //auth
     const { currentUser } = useAuth();
 
     //fetch data
-    const { data: drink, loading } = useFetch(Constants.DB_DRINKS, "", params.id);
-    const { data: incredients } = useFetchChildren(Constants.DB_DRINK_INCREDIENTS, params.id);
-    const { data: workPhases } = useFetchChildren(Constants.DB_DRINK_WORKPHASES, params.id);
-    const { data: garnishes } = useFetchChildren(Constants.DB_DRINK_GARNISHES, params.id);
-    const { data: drinkHistory } = useFetchChildren(Constants.DB_DRINK_HISTORY, params.id);
+    const { data: drink, loading } = useFetch(DB.DRINKS, "", params.id);
+    const { data: incredients } = useFetchChildren(DB.DRINK_INCREDIENTS, params.id);
+    const { data: workPhases } = useFetchChildren(DB.DRINK_WORKPHASES, params.id);
+    const { data: garnishes } = useFetchChildren(DB.DRINK_GARNISHES, params.id);
+    const { data: drinkHistory } = useFetchChildren(DB.DRINK_HISTORY, params.id);
 
     const updateDrink = async (drinkToUpdate) => {
         try {
@@ -80,7 +80,7 @@ export default function DrinkDetails() {
             if (drinkToUpdate["isCore"] === undefined) {
                 drinkToUpdate["isCore"] = false;
             }
-            updateToFirebaseById(Constants.DB_DRINKS, drinkID, drinkToUpdate);
+            updateToFirebaseById(DB.DRINKS, drinkID, drinkToUpdate);
             toggleSetShowEditDrink();
         } catch (error) {
             setError(t('failed_to_save_drink'));
@@ -92,7 +92,7 @@ export default function DrinkDetails() {
     const updateDrinkIncredients = async () => {
         var drinkID = params.id;
         drink["incredients"] = getIncredientsAsText();
-        updateToFirebaseById(Constants.DB_DRINKS, drinkID, drink);
+        updateToFirebaseById(DB.DRINKS, drinkID, drink);
     }
 
     const getIncredientsAsText = () => {
@@ -109,22 +109,22 @@ export default function DrinkDetails() {
     }
 
     const deleteIncredient = async (drinkID, id) => {
-        removeFromFirebaseByIdAndSubId(Constants.DB_DRINK_INCREDIENTS, drinkID, id);
+        removeFromFirebaseByIdAndSubId(DB.DRINK_INCREDIENTS, drinkID, id);
     }
 
     const deleteWorkPhase = async (drinkID, id) => {
-        removeFromFirebaseByIdAndSubId(Constants.DB_DRINK_WORKPHASES, drinkID, id);
+        removeFromFirebaseByIdAndSubId(DB.DRINK_WORKPHASES, drinkID, id);
     }
 
     const deleteGarnish = async (drinkID, id) => {
-        removeFromFirebaseByIdAndSubId(Constants.DB_DRINK_GARNISHES, drinkID, id);
+        removeFromFirebaseByIdAndSubId(DB.DRINK_GARNISHES, drinkID, id);
     }
 
     const saveStars = async (stars) => {
         const drinkID = params.id;
         drink["modified"] = getCurrentDateAsJson()
         drink["stars"] = Number(stars);
-        updateToFirebaseById(Constants.DB_DRINKS, drinkID, drink);
+        updateToFirebaseById(DB.DRINKS, drinkID, drink);
     }
 
     const addCommentToDrink = (comment) => {
@@ -132,31 +132,31 @@ export default function DrinkDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_DRINK_COMMENTS, drinkID, comment);
+        pushToFirebaseChild(DB.DRINK_COMMENTS, drinkID, comment);
     }
 
     const addLinkToDrink = (link) => {
         const drinkID = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_DRINK_LINKS, drinkID, link);
+        pushToFirebaseChild(DB.DRINK_LINKS, drinkID, link);
     }
 
     const addIncredient = async (drinkID, incredient) => {
-        await pushToFirebaseChild(Constants.DB_DRINK_INCREDIENTS, drinkID, incredient);
+        await pushToFirebaseChild(DB.DRINK_INCREDIENTS, drinkID, incredient);
     }
 
     const addWorkPhase = async (drinkID, workPhase) => {
-        pushToFirebaseChild(Constants.DB_DRINK_WORKPHASES, drinkID, workPhase);
+        pushToFirebaseChild(DB.DRINK_WORKPHASES, drinkID, workPhase);
     }
 
     const addGarnish = async (drinkID, garnish) => {
-        pushToFirebaseChild(Constants.DB_DRINK_GARNISHES, drinkID, garnish);
+        pushToFirebaseChild(DB.DRINK_GARNISHES, drinkID, garnish);
     }
 
     const saveDrinkHistory = async (drinkID) => {
         const currentDateTime = getCurrentDateAsJson();
         const userID = currentUser.uid;
-        pushToFirebaseById(Constants.DB_DRINK_HISTORY, drinkID, { currentDateTime, userID });
+        pushToFirebaseById(DB.DRINK_HISTORY, drinkID, { currentDateTime, userID });
         setShowMessage(true);
         setMessage(t('save_success_drinkinghistory'));
     }
@@ -179,7 +179,7 @@ export default function DrinkDetails() {
         if (incredients && incredients.length > 0) {
             let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
             addTaskList({ title: `${t('shoppinglist')} ${currentDateTime}` }, incredients).then(() => {
-                navigate(Constants.NAVIGATION_MANAGE_SHOPPINGLISTS)
+                navigate(NAVIGATION.MANAGE_SHOPPINGLISTS)
             });
         } else if (incredients && incredients.length <= 0) {
             setError(t('shoppinglist_no_incredients'));
@@ -207,7 +207,7 @@ export default function DrinkDetails() {
         taskList["description"] = "";
         taskList["listType"] = ListTypes.Shopping;
 
-        const key = await pushToFirebase(Constants.DB_TASKLISTS, taskList);
+        const key = await pushToFirebase(DB.TASKLISTS, taskList);
         addTasksToTaskList(key, incredients);
     }
 
@@ -225,7 +225,7 @@ export default function DrinkDetails() {
     const addTask = async (taskListID, task) => {
         task["created"] = getCurrentDateAsJson()
         task["createdBy"] = currentUser.email;
-        pushToFirebaseChild(Constants.DB_TASKS, taskListID, task);
+        pushToFirebaseChild(DB.TASKS, taskListID, task);
     }
 
     return loading ? (
@@ -236,14 +236,14 @@ export default function DrinkDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName={Constants.ICON_EDIT}
+                        iconName={ICONS.EDIT}
                         text={showEditDrink ? tCommon('buttons.button_close') : ''}
-                        color={showEditDrink ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
+                        color={showEditDrink ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
                         onClick={() => toggleSetShowEditDrink()} />
                 </ButtonGroup>
             </Row>
 
-            <AccordionElement array={getAccordionData()} title={drink.title} iconName={Constants.ICON_GLASS_MARTINI} />
+            <AccordionElement array={getAccordionData()} title={drink.title} iconName={ICONS.GLASS_MARTINI} />
 
             <Row>
                 <Col>
@@ -264,7 +264,7 @@ export default function DrinkDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             <Modal show={showEditDrink} onHide={toggleSetShowEditDrink}>
@@ -282,27 +282,27 @@ export default function DrinkDetails() {
                 className="mb-3">
                 <Tab eventKey="incredients" title={t('incredients_header')}>
                     <Button
-                        iconName={Constants.ICON_PLUS}
-                        secondIconName={Constants.ICON_CARROT}
-                        color={showAddIncredient ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                        iconName={ICONS.PLUS}
+                        secondIconName={ICONS.CARROT}
+                        color={showAddIncredient ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                         text={showAddIncredient ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddIncredient(!showAddIncredient)} />
                     {showAddIncredient &&
                         <AddIncredient
-                            dbUrl={Constants.DB_DRINK_INCREDIENTS}
-                            translation={Constants.TRANSLATION}
-                            translationKeyPrefix={Constants.TRANSLATION_RECIPE}
+                            dbUrl={DB.DRINK_INCREDIENTS}
+                            translation={TRANSLATION.TRANSLATION}
+                            translationKeyPrefix={TRANSLATION.RECIPE}
                             recipeID={params.id}
                             onSave={addIncredient}
                             onClose={() => setShowAddIncredient(false)} />
                     }
                     {incredients != null && incredients.length > 0 ? (
                         <>
-                            <Button iconName={Constants.ICON_SYNC} onClick={updateDrinkIncredients} />
+                            <Button iconName={ICONS.SYNC} onClick={updateDrinkIncredients} />
                             <Incredients
-                                dbUrl={Constants.DB_DRINK_INCREDIENTS}
-                                translation={Constants.TRANSLATION}
-                                translationKeyPrefix={Constants.TRANSLATION_DRINKS}
+                                dbUrl={DB.DRINK_INCREDIENTS}
+                                translation={TRANSLATION.TRANSLATION}
+                                translationKeyPrefix={TRANSLATION.DRINKS}
                                 recipeID={params.id}
                                 incredients={incredients}
                                 onDelete={deleteIncredient}
@@ -318,22 +318,22 @@ export default function DrinkDetails() {
                 </Tab>
                 <Tab eventKey="workPhases" title={t('workphases_header')}>
                     <Button
-                        iconName={Constants.ICON_PLUS}
-                        secondIconName={Constants.ICON_HOURGLASS_1}
-                        color={showAddWorkPhase ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                        iconName={ICONS.PLUS}
+                        secondIconName={ICONS.HOURGLASS_1}
+                        color={showAddWorkPhase ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                         text={showAddWorkPhase ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddWorkPhase(!showAddWorkPhase)} />
                     {showAddWorkPhase && <AddWorkPhase
-                        dbUrl={Constants.DB_DRINK_WORKPHASES}
-                        translation={Constants.TRANSLATION}
-                        translationKeyPrefix={Constants.TRANSLATION_DRINKS}
+                        dbUrl={DB.DRINK_WORKPHASES}
+                        translation={TRANSLATION.TRANSLATION}
+                        translationKeyPrefix={TRANSLATION.DRINKS}
                         recipeID={params.id}
                         onSave={addWorkPhase} onClose={() => setShowAddWorkPhase(false)} />}
                     {workPhases != null && workPhases.length > 0 ? (
                         <WorkPhases
-                            dbUrl={Constants.DB_DRINK_WORKPHASES}
-                            translation={Constants.TRANSLATION}
-                            translationKeyPrefix={Constants.TRANSLATION_DRINKS}
+                            dbUrl={DB.DRINK_WORKPHASES}
+                            translation={TRANSLATION.TRANSLATION}
+                            translationKeyPrefix={TRANSLATION.DRINKS}
                             recipeID={params.id}
                             workPhases={workPhases}
                             onDelete={deleteWorkPhase}
@@ -348,9 +348,9 @@ export default function DrinkDetails() {
                 </Tab>
                 <Tab eventKey="garnishes" title={t('garnishes_header')}>
                     <Button
-                        iconName={Constants.ICON_PLUS}
-                        secondIconName={Constants.ICON_LEMON}
-                        color={showAddGarnish ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                        iconName={ICONS.PLUS}
+                        secondIconName={ICONS.LEMON}
+                        color={showAddGarnish ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                         text={showAddGarnish ? tCommon('buttons.button_close') : ''}
                         onClick={() => setShowAddGarnish(!showAddGarnish)} />
                     {showAddGarnish &&
@@ -374,7 +374,7 @@ export default function DrinkDetails() {
                 <Tab eventKey="actions" title={t('tabheader_actions')}>
                     <>
                         <Button
-                            iconName={Constants.ICON_PLUS_SQUARE}
+                            iconName={ICONS.PLUS_SQUARE}
                             text={t('do_drink')}
                             onClick={() => {
                                 if (window.confirm(t('do_drink_confirm'))) {
@@ -384,7 +384,7 @@ export default function DrinkDetails() {
                         />
                         &nbsp;
                         <Button
-                            iconName={Constants.ICON_PLUS_SQUARE}
+                            iconName={ICONS.PLUS_SQUARE}
                             text={t('shopcart_tooltip')}
                             onClick={() => {
                                 if (window.confirm(t('shopcart_tooltip_confirm'))) {
@@ -399,9 +399,9 @@ export default function DrinkDetails() {
             {
                 drinkHistory != null && drinkHistory.length > 0 ? (
                     <RecipeHistories
-                        dbUrl={Constants.DB_DRINK_HISTORY}
-                        translation={Constants.TRANSLATION}
-                        translationKeyPrefix={Constants.TRANSLATION_DRINKS}
+                        dbUrl={DB.DRINK_HISTORY}
+                        translation={TRANSLATION.TRANSLATION}
+                        translationKeyPrefix={TRANSLATION.DRINKS}
                         recipeHistories={drinkHistory}
                         recipeID={params.id} />
                 ) : (
@@ -412,9 +412,9 @@ export default function DrinkDetails() {
                     </>
                 )
             }
-            <ImageComponent objID={params.id} url={Constants.DB_DRINK_IMAGES} />
-            <CommentComponent objID={params.id} url={Constants.DB_DRINK_COMMENTS} onSave={addCommentToDrink} />
-            <LinkComponent objID={params.id} url={Constants.DB_DRINK_LINKS} onSaveLink={addLinkToDrink} />
+            <ImageComponent objID={params.id} url={DB.DRINK_IMAGES} />
+            <CommentComponent objID={params.id} url={DB.DRINK_COMMENTS} onSave={addCommentToDrink} />
+            <LinkComponent objID={params.id} url={DB.DRINK_LINKS} onSaveLink={addLinkToDrink} />
         </PageContentWrapper>
     )
 }

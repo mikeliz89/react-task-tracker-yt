@@ -4,14 +4,14 @@ import StarRating from '../StarRating/StarRating';
 import { getIconNameByCategory } from './Categories';
 import Icon from '../Icon';
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import DeleteButton from '../Buttons/DeleteButton';
 
 export default function Exercise({ exercise, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     return (
         <div className='listContainer'>
@@ -38,7 +38,7 @@ export default function Exercise({ exercise, onDelete }) {
                 {exercise.description}
             </p>
             <p>
-                <Link className='btn btn-primary' to={`${Constants.NAVIGATION_EXERCISE}/${exercise.id}`}>{t('view_details')}</Link>
+                <Link className='btn btn-primary' to={`${NAVIGATION.EXERCISE}/${exercise.id}`}>{t('view_details')}</Link>
             </p>
             <StarRating starCount={exercise.stars} />
         </div>

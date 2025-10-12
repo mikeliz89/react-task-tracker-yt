@@ -2,13 +2,13 @@ import Button from '../Buttons/Button';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from "react";
 import { Form, Row, Col, ButtonGroup } from "react-bootstrap";
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getFromFirebaseByIdAndSubId } from "../../datatier/datatier";
 
 export default function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {
 
     //translation  
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
 
     //states
     const [name, setName] = useState('');
@@ -30,7 +30,7 @@ export default function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose
     const fetchGymPartFromFirebase = async (gymPartID) => {
 
 
-        getFromFirebaseByIdAndSubId(Constants.DB_EXERCISE_PARTS, exerciseID, gymPartID).then((val) => {
+        getFromFirebaseByIdAndSubId(DB.EXERCISE_PARTS, exerciseID, gymPartID).then((val) => {
             setName(val["name"]);
             setWeight(val["weight"]);
             setRepeat(val["repeat"]);

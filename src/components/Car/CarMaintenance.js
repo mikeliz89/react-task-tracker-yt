@@ -2,7 +2,7 @@ import { Row, Col } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import AddMaintenance from "./AddMaintenance";
@@ -13,14 +13,14 @@ import { useToggle } from '../useToggle';
 export default function CarMaintenance({ carMaintenance, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_CAR });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
 
     //states
     const { status: editable, toggleStatus: toggleEditable, setFalse } = useToggle();
 
     const updateMaintenance = (maintenance) => {
         maintenance["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(Constants.DB_CAR_MAINTENANCE, carMaintenance.id, maintenance);
+        updateToFirebaseById(DB.CAR_MAINTENANCE, carMaintenance.id, maintenance);
         setFalse(); //Sulje edit tila
     }
 

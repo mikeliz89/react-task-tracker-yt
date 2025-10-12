@@ -7,7 +7,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import i18n from "i18next";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import AddDrinkingProduct from './AddDrinkingProduct';
 import Alert from '../Alert';
@@ -36,11 +36,11 @@ export default function DrinkingProductDetails() {
     const [error, setError] = useState('');
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //fetch data
-    const { data: drinkingProduct, loading } = useFetch(Constants.DB_DRINKINGPRODUCTS, "", params.id);
+    const { data: drinkingProduct, loading } = useFetch(DB.DRINKINGPRODUCTS, "", params.id);
 
     //auth
     const { currentUser } = useAuth();
@@ -50,20 +50,20 @@ export default function DrinkingProductDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_DRINKINGPRODUCT_COMMENTS, drinkID, comment);
+        pushToFirebaseChild(DB.DRINKINGPRODUCT_COMMENTS, drinkID, comment);
     }
 
     const addLinkToDrinkingProduct = (link) => {
         const drinkID = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_DRINKINGPRODUCT_LINKS, drinkID, link);
+        pushToFirebaseChild(DB.DRINKINGPRODUCT_LINKS, drinkID, link);
     }
 
     const addDrinkingProduct = async (drinkingProduct) => {
         try {
             const drinkingProductID = params.id;
             drinkingProduct["modified"] = getCurrentDateAsJson();
-            updateToFirebaseById(Constants.DB_DRINKINGPRODUCTS, drinkingProductID, drinkingProduct);
+            updateToFirebaseById(DB.DRINKINGPRODUCTS, drinkingProductID, drinkingProduct);
         } catch (error) {
             console.log(error)
             setError(t('failed_to_save_drink'));
@@ -75,7 +75,7 @@ export default function DrinkingProductDetails() {
         const drinkingProductID = params.id;
         drinkingProduct["modified"] = getCurrentDateAsJson();
         drinkingProduct["stars"] = Number(stars);
-        updateToFirebaseById(Constants.DB_DRINKINGPRODUCTS, drinkingProductID, drinkingProduct);
+        updateToFirebaseById(DB.DRINKINGPRODUCTS, drinkingProductID, drinkingProduct);
     }
 
     const getAccordionData = () => {
@@ -96,16 +96,16 @@ export default function DrinkingProductDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName={Constants.ICON_EDIT}
+                        iconName={ICONS.EDIT}
                         text={showEditDrinkingProduct ? tCommon('buttons.button_close') : ''}
-                        color={showEditDrinkingProduct ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
+                        color={showEditDrinkingProduct ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
                         onClick={() => toggleSetShowEdit()} />
                 </ButtonGroup>
             </Row>
 
             <AccordionElement array={getAccordionData()}
                 title={drinkingProduct.name + (drinkingProduct.abv > 0 ? ' (' + drinkingProduct.abv + '%)' : '')}
-                iconName={Constants.ICON_COCKTAIL}
+                iconName={ICONS.COCKTAIL}
             />
 
             <Row>
@@ -122,7 +122,7 @@ export default function DrinkingProductDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => {
                     setShowMessage(false); setShowError(false);
                 }}
@@ -140,11 +140,11 @@ export default function DrinkingProductDetails() {
 
             <hr />
 
-            <ImageComponent url={Constants.DB_DRINKINGPRODUCT_IMAGES} objID={params.id} />
+            <ImageComponent url={DB.DRINKINGPRODUCT_IMAGES} objID={params.id} />
 
-            <CommentComponent objID={params.id} url={Constants.DB_DRINKINGPRODUCT_COMMENTS} onSave={addCommentToDrinkingProduct} />
+            <CommentComponent objID={params.id} url={DB.DRINKINGPRODUCT_COMMENTS} onSave={addCommentToDrinkingProduct} />
 
-            <LinkComponent objID={params.id} url={Constants.DB_DRINKINGPRODUCT_LINKS} onSaveLink={addLinkToDrinkingProduct} />
+            <LinkComponent objID={params.id} url={DB.DRINKINGPRODUCT_LINKS} onSaveLink={addLinkToDrinkingProduct} />
 
         </PageContentWrapper>
     )

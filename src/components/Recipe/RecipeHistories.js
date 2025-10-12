@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { removeFromFirebaseByIdAndSubId } from "../../datatier/datatier";
 import PageTitle from '../Site/PageTitle';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function RecipeHistories({ dbUrl, translation, translationKeyPrefix, recipeHistories, recipeID }) {
 
@@ -25,7 +25,7 @@ export default function RecipeHistories({ dbUrl, translation, translationKeyPref
 
     return (
         <div>
-            <PageTitle iconName={Constants.ICON_HISTORY} iconColor={Constants.COLOR_GRAY}
+            <PageTitle iconName={ICONS.HISTORY} iconColor={COLORS.GRAY}
                 isSubTitle={true}
                 title={t('recipehistory_title') + (counter > 0 ? ' (' + counter + ')' : '')} />
             {recipeHistories.map((recipeHistory) => (

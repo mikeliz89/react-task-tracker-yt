@@ -8,7 +8,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
@@ -17,8 +17,8 @@ import { pushToFirebaseById } from '../../datatier/datatier';
 export default function BmiCalculator() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BMICALCULATOR });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BMICALCULATOR });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //navigation
     const navigate = useNavigate();
@@ -50,7 +50,7 @@ export default function BmiCalculator() {
     }, [])
 
     const fetchProfileFromFirebase = async () => {
-        const dbref = ref(db, `${Constants.DB_PROFILES}/${currentUser.uid}`);
+        const dbref = ref(db, `${DB.PROFILES}/${currentUser.uid}`);
         onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
@@ -102,7 +102,7 @@ export default function BmiCalculator() {
 
     const saveWeightToFirebase = async (weight, bmi) => {
         let currentDateTime = getCurrentDateAsJson();
-        pushToFirebaseById(Constants.DB_WEIGHT_HISTORY, currentUser.uid, { weight, currentDateTime, bmi });
+        pushToFirebaseById(DB.WEIGHT_HISTORY, currentUser.uid, { weight, currentDateTime, bmi });
     }
 
     return (
@@ -114,16 +114,16 @@ export default function BmiCalculator() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName={Constants.ICON_WEIGHT}
-                        color={Constants.COLOR_BUTTON_GRAY}
+                        iconName={ICONS.WEIGHT}
+                        color={COLORS.BUTTON_GRAY}
                         text={t('button_weight_history')}
-                        onClick={() => navigate(Constants.NAVIGATION_WEIGHTHISTORY)} />
+                        onClick={() => navigate(NAVIGATION.WEIGHTHISTORY)} />
                 </ButtonGroup>
             </Row>
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_PRIMARY} onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={VARIANTS.PRIMARY} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             <Form onSubmit={onSubmit}>

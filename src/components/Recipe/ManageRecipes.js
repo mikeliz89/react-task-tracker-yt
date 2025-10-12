@@ -7,7 +7,7 @@ import Button from '../Buttons/Button';
 import AddRecipe from './AddRecipe';
 import Recipes from './Recipes';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, VARIANTS, ICONS, NAVIGATION, COLORS, DB } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
@@ -26,8 +26,8 @@ import NavButton from '../Buttons/NavButton';
 export default function ManageRecipes() {
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+  const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
+  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   //navigate
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ export default function ManageRecipes() {
   //fetch data
   const { data: recipes, setData: setRecipes,
     originalData: originalRecipes,
-    counter, loading } = useFetch(Constants.DB_RECIPES);
+    counter, loading } = useFetch(DB.RECIPES);
 
   //modal
   const { status: showAddRecipe, toggleStatus: toggleAddRecipe } = useToggle();
@@ -53,8 +53,8 @@ export default function ManageRecipes() {
     try {
       recipe["created"] = getCurrentDateAsJson();
       recipe["createdBy"] = currentUser.email;
-      const key = await pushToFirebase(Constants.DB_RECIPES, recipe);
-      navigate(`${Constants.NAVIGATION_RECIPE}/${key}`);
+      const key = await pushToFirebase(DB.RECIPES, recipe);
+      navigate(`${NAVIGATION.RECIPE}/${key}`);
       showSuccess();
     } catch (ex) {
       showFailure();
@@ -72,7 +72,7 @@ export default function ManageRecipes() {
   }
 
   const deleteRecipe = async (id) => {
-    removeFromFirebaseById(Constants.DB_RECIPES, id);
+    removeFromFirebaseById(DB.RECIPES, id);
   }
 
   return loading ? (
@@ -85,12 +85,12 @@ export default function ManageRecipes() {
       <Row>
         <ButtonGroup>
           <GoBackButton />
-          <NavButton to={Constants.NAVIGATION_MANAGE_FOODITEMS}
-            icon={Constants.ICON_CARROT}>
+          <NavButton to={NAVIGATION.MANAGE_FOODITEMS}
+            icon={ICONS.CARROT}>
             {t('button_manage_fooditems')}
           </NavButton>
-          <NavButton to={Constants.NAVIGATION_MANAGE_RECIPELISTS}
-            icon={Constants.ICON_LIST_ALT}>
+          <NavButton to={NAVIGATION.MANAGE_RECIPELISTS}
+            icon={ICONS.LIST_ALT}>
             {t('button_recipe_lists')}
           </NavButton>
         </ButtonGroup>
@@ -98,7 +98,7 @@ export default function ManageRecipes() {
 
       <Alert message={message} showMessage={showMessage}
         error={error} showError={showError}
-        variant={Constants.VARIANT_SUCCESS}
+        variant={VARIANTS.SUCCESS}
         onClose={() => { setShowMessage(false); setShowError(false); }}
       />
 
@@ -136,8 +136,8 @@ export default function ManageRecipes() {
 
       <CenterWrapper>
         <Button
-          iconName={Constants.ICON_PLUS}
-          color={showAddRecipe ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+          iconName={ICONS.PLUS}
+          color={showAddRecipe ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
           text={showAddRecipe ? tCommon('buttons.button_close') : t('button_add_recipe')}
           onClick={toggleAddRecipe} />
       </CenterWrapper>
@@ -148,8 +148,8 @@ export default function ManageRecipes() {
             <Counter list={recipes} originalList={originalRecipes} counter={counter} />
             <Recipes
               recipeType={RecipeTypes.Food}
-              translation={Constants.TRANSLATION}
-              translationKeyPrefix={Constants.TRANSLATION_RECIPE}
+              translation={TRANSLATION.TRANSLATION}
+              translationKeyPrefix={TRANSLATION.RECIPE}
               recipes={recipes}
               onDelete={deleteRecipe} />
           </>

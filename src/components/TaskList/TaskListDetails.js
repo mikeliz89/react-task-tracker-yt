@@ -13,7 +13,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase-config';
 import { ref, onValue, child, get } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { ICONS, DB, TRANSLATION, COLORS } from '../../utils/Constants';
 import i18n from "i18next";
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageContentWrapper from '../Site/PageContentWrapper';
@@ -40,8 +40,8 @@ export default function TaskListDetails() {
   const params = useParams();
 
   //translation
-  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+  const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
+  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   //states
   const [tasks, setTasks] = useState();
@@ -60,7 +60,7 @@ export default function TaskListDetails() {
   const { currentUser } = useAuth();
 
   //fetch data
-  const { data: taskList, loading } = useFetch(Constants.DB_TASKLISTS, "", params.id);
+  const { data: taskList, loading } = useFetch(DB.TASKLISTS, "", params.id);
 
   //load data
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function TaskListDetails() {
   }, [])
 
   const fetchTasksFromFirebase = async () => {
-    const dbref = await child(ref(db, Constants.DB_TASKS), params.id);
+    const dbref = await child(ref(db, DB.TASKS), params.id);
     onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
@@ -94,30 +94,30 @@ export default function TaskListDetails() {
   const updateTask = async (taskListID, task) => {
     task["created"] = getCurrentDateAsJson();
     task["createdBy"] = currentUser.email;
-    pushToFirebaseChild(Constants.DB_TASKS, taskListID, task);
+    pushToFirebaseChild(DB.TASKS, taskListID, task);
   }
 
   const deleteTask = async (taskListID, id) => {
-    removeFromFirebaseByIdAndSubId(Constants.DB_TASKS, taskListID, id);
+    removeFromFirebaseByIdAndSubId(DB.TASKS, taskListID, id);
   }
 
   const toggleReminder = async (taskListID, id) => {
-    getFromFirebaseByIdAndSubId(Constants.DB_TASKS, taskListID, id).then((val) => {
+    getFromFirebaseByIdAndSubId(DB.TASKS, taskListID, id).then((val) => {
       const updates = {};
       const oldReminder = val["reminder"];
-      updates[`${Constants.DB_TASKS}/${taskListID}/${id}/reminder`] = !oldReminder;
+      updates[`${DB.TASKS}/${taskListID}/${id}/reminder`] = !oldReminder;
       updateToFirebase(updates);
     });
   }
 
   const markAllTasksDone = async (taskListID) => {
-    const dbref = child(ref(db, Constants.DB_TASKS), taskListID);
+    const dbref = child(ref(db, DB.TASKS), taskListID);
     get(dbref).then((snapshot) => {
       if (snapshot.exists()) {
         //update each snapshot data separately (child)
         snapshot.forEach((data) => {
           const updates = {};
-          updates[`${Constants.DB_TASKS}/${taskListID}/${data.key}/reminder`] = true;
+          updates[`${DB.TASKS}/${taskListID}/${data.key}/reminder`] = true;
           updateToFirebase(updates);
         });
       } else {
@@ -133,7 +133,7 @@ export default function TaskListDetails() {
     }
     taskList["modified"] = getCurrentDateAsJson();
     const updates = {};
-    updates[`${Constants.DB_TASKLISTS}/${taskListID}`] = taskList;
+    updates[`${DB.TASKLISTS}/${taskListID}`] = taskList;
     updateToFirebase(updates);
   }
 
@@ -142,22 +142,22 @@ export default function TaskListDetails() {
     taskList["archived"] = getCurrentDateAsJson();
     taskList["archivedBy"] = currentUser.email;
 
-    let archiveTaskListID = await pushToFirebase(Constants.DB_TASKLIST_ARCHIVE, taskList);
+    let archiveTaskListID = await pushToFirebase(DB.TASKLIST_ARCHIVE, taskList);
 
     const taskListID = params.id;
 
     //2. delete old task lists
-    getFromFirebaseById(Constants.DB_TASKLISTS, taskListID).then((val) => {
+    getFromFirebaseById(DB.TASKLISTS, taskListID).then((val) => {
       let updates = {};
-      updates[`${Constants.DB_TASKLISTS}/${taskListID}`] = null;
+      updates[`${DB.TASKLISTS}/${taskListID}`] = null;
       updateToFirebase(updates);
     })
 
     //3. delete old tasks, create new tasklist-archive-tasks
-    getFromFirebaseById(Constants.DB_TASKS, taskListID).then((val) => {
+    getFromFirebaseById(DB.TASKS, taskListID).then((val) => {
       let updates = {};
-      updates[`${Constants.DB_TASKS}/${taskListID}`] = null;
-      updates[`${Constants.DB_TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = val;
+      updates[`${DB.TASKS}/${taskListID}`] = null;
+      updates[`${DB.TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = val;
       updateToFirebase(updates);
     });
 
@@ -170,13 +170,13 @@ export default function TaskListDetails() {
     comment["created"] = getCurrentDateAsJson()
     comment["createdBy"] = currentUser.email;
     comment["creatorUserID"] = currentUser.uid;
-    pushToFirebaseChild(Constants.DB_TASKLIST_COMMENTS, taskListID, comment);
+    pushToFirebaseChild(DB.TASKLIST_COMMENTS, taskListID, comment);
   }
 
   const addLinkToTaskList = (link) => {
     const taskListID = params.id;
     link["created"] = getCurrentDateAsJson();
-    pushToFirebaseChild(Constants.DB_TASKLIST_LINKS, taskListID, link);
+    pushToFirebaseChild(DB.TASKLIST_LINKS, taskListID, link);
   }
 
   const copyToClipboard = () => {
@@ -215,12 +215,12 @@ export default function TaskListDetails() {
         <ButtonGroup aria-label="Button group">
           <GoBackButton />
           <Button
-            iconName={Constants.ICON_EDIT}
+            iconName={ICONS.EDIT}
             text={showEditTaskList ? tCommon('buttons.button_close') : ''}
-            color={showEditTaskList ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
+            color={showEditTaskList ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
             onClick={() => toggleShowTaskList()}
           />
-          <Button color={Constants.COLOR_BUTTON_GRAY} iconName={Constants.ICON_ARCHIVE}
+          <Button color={COLORS.BUTTON_GRAY} iconName={ICONS.Archive}
             onClick={() => {
               if (window.confirm(t('archive_list_confirm_message'))) {
                 archiveTaskList(taskList);
@@ -231,7 +231,7 @@ export default function TaskListDetails() {
       </Row>
 
       <AccordionElement array={getAccordionData()} title={taskList.title}
-        iconName={Constants.ICON_LIST_ALT} />
+        iconName={ICONS.LIST_ALT} />
 
       <Row>
         <Col>
@@ -283,11 +283,11 @@ export default function TaskListDetails() {
 
           <CenterWrapper>
             <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')}
-              iconName={Constants.ICON_COPY} />
+              iconName={ICONS.COPY} />
             &nbsp;
             <Button
-              iconName={Constants.ICON_PLUS}
-              color={showAddTask ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+              iconName={ICONS.PLUS}
+              color={showAddTask ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
               text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
               onClick={toggleAddTask} />
           </CenterWrapper>
@@ -323,21 +323,21 @@ export default function TaskListDetails() {
           )}
         </Tab>
         <Tab eventKey="links" title={t('tabheader_links')}>
-          <LinkComponent objID={params.id} url={Constants.DB_TASKLIST_LINKS} onSaveLink={addLinkToTaskList} />
+          <LinkComponent objID={params.id} url={DB.TASKLIST_LINKS} onSaveLink={addLinkToTaskList} />
         </Tab>
         <Tab eventKey="comments" title={t('tabheader_comments')}>
-          <CommentComponent objID={params.id} url={Constants.DB_TASKLIST_COMMENTS} onSave={addCommentToTaskList} />
+          <CommentComponent objID={params.id} url={DB.TASKLIST_COMMENTS} onSave={addCommentToTaskList} />
         </Tab>
         <Tab eventKey="actions" title={t('tabheader_actions')}>
           <div style={{ marginBottom: '10px' }}>
-            <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={Constants.ICON_COPY} /> &nbsp;
+            <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={ICONS.COPY} /> &nbsp;
             <Button onClick={() => {
               if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
                 markAllTasksDone(params.id)
               }
-            }} text={t('mark_all_tasks_done')} iconName={Constants.ICON_SQUARE_CHECK} /> &nbsp;
+            }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} /> &nbsp;
             <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
-              iconName={Constants.ICON_EDIT} />
+              iconName={ICONS.EDIT} />
           </div>
         </Tab>
       </Tabs>

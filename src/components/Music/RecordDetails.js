@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col, Modal } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
@@ -27,8 +27,8 @@ export default function RecordDetails() {
     const params = useParams();
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_MUSIC });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -43,13 +43,13 @@ export default function RecordDetails() {
     const { status: showEdit, toggleStatus: toggleShowEdit } = useToggle();
 
     //fetch data
-    const { data: record, loading } = useFetch(Constants.DB_MUSIC_RECORDS, "", params.id);
+    const { data: record, loading } = useFetch(DB.MUSIC_RECORDS, "", params.id);
 
     const updateRecord = async (updateRecordID, record) => {
         try {
             const recordID = params.id;
             record["modified"] = getCurrentDateAsJson();
-            updateToFirebaseById(Constants.DB_MUSIC_RECORDS, recordID, record);
+            updateToFirebaseById(DB.MUSIC_RECORDS, recordID, record);
         } catch (error) {
             setError(t('failed_to_save_music'));
             setShowError(true);
@@ -62,20 +62,20 @@ export default function RecordDetails() {
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(Constants.DB_MUSIC_COMMENTS, id, comment);
+        pushToFirebaseChild(DB.MUSIC_COMMENTS, id, comment);
     }
 
     const addLinkToRecord = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(Constants.DB_MUSIC_LINKS, id, link);
+        pushToFirebaseChild(DB.MUSIC_LINKS, id, link);
     }
 
     const saveStars = async (stars) => {
         const recordID = params.id;
         record["modified"] = getCurrentDateAsJson()
         record["stars"] = Number(stars);
-        updateToFirebaseById(Constants.DB_MUSIC_RECORDS, recordID, record);
+        updateToFirebaseById(DB.MUSIC_RECORDS, recordID, record);
     }
 
     const getAccordionData = () => {
@@ -95,9 +95,9 @@ export default function RecordDetails() {
                 <ButtonGroup>
                     <GoBackButton />
                     <Button
-                        iconName={Constants.ICON_EDIT}
+                        iconName={ICONS.EDIT}
                         text={showEdit ? tCommon('buttons.button_close') : ''}
-                        color={showEdit ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
+                        color={showEdit ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
                         onClick={() => toggleShowEdit()} />
                 </ButtonGroup>
             </Row>
@@ -122,7 +122,7 @@ export default function RecordDetails() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -136,9 +136,9 @@ export default function RecordDetails() {
             </Modal>
 
             <hr />
-            <ImageComponent url={Constants.DB_MUSIC_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={Constants.DB_MUSIC_COMMENTS} onSave={addCommentToRecord} />
-            <LinkComponent objID={params.id} url={Constants.DB_MUSIC_LINKS} onSaveLink={addLinkToRecord} />
+            <ImageComponent url={DB.MUSIC_IMAGES} objID={params.id} />
+            <CommentComponent objID={params.id} url={DB.MUSIC_COMMENTS} onSave={addCommentToRecord} />
+            <LinkComponent objID={params.id} url={DB.MUSIC_LINKS} onSaveLink={addLinkToRecord} />
         </PageContentWrapper>
     )
 }

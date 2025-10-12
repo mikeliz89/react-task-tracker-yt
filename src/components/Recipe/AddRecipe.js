@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { RecipeCategories } from './Categories';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getFromFirebaseById } from '../../datatier/datatier';
 import PropTypes from 'prop-types';
 
 export default function AddRecipe({ recipeID, onSave, onClose, showLabels }) {
 
    //translation
-   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_RECIPE });
-   const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
+   const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
    //states
    const [category, setCategory] = useState('');
@@ -38,7 +38,7 @@ export default function AddRecipe({ recipeID, onSave, onClose, showLabels }) {
    }, [recipeID]);
 
    const fetchRecipeFromFirebase = async (recipeID) => {
-      getFromFirebaseById(Constants.DB_RECIPES, recipeID).then((val) => {
+      getFromFirebaseById(DB.RECIPES, recipeID).then((val) => {
          setCategory(val["category"]);
          setCreated(val["created"]);
          setCreatedBy(val["createdBy"]);

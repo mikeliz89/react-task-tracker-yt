@@ -1,15 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import GymPart from './GymPart';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function GymParts({ exerciseID, parts }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_EXERCISES });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
 
     const deleteGymPart = (exerciseID, gymPartID) => {
-        removeFromFirebaseByIdAndSubId(Constants.DB_EXERCISE_PARTS, exerciseID, gymPartID);
+        removeFromFirebaseByIdAndSubId(DB.EXERCISE_PARTS, exerciseID, gymPartID);
     }
 
     return (

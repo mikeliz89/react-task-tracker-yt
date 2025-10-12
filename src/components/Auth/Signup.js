@@ -7,13 +7,13 @@ import Button from '../Buttons/Button';
 import Alert from '../Alert';
 import PageTitle from '../Site/PageTitle';
 import CenterWrapper from '../Site/CenterWrapper';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function Signup() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_AUTH });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, {keyPrefix: Constants.TRANSLATION_COMMON});
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.AUTH });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
 
     //states
     const [email, setEmail] = useState('');
@@ -88,7 +88,7 @@ export default function Signup() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }} 
+                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }} 
             />
 
             <Form onSubmit={onSubmit}>
@@ -107,7 +107,7 @@ export default function Signup() {
                 <Button disabled={loading} type='submit' text={t('sign_up')} className='btn btn-block' />
             </Form>
             <CenterWrapper>
-                {t('already_have_an_account')} <Link to={Constants.NAVIGATION_LOGIN}>{t('log_in')}</Link>
+                {t('already_have_an_account')} <Link to={NAVIGATION.LOGIN}>{t('log_in')}</Link>
             </CenterWrapper>
         </div>
     )

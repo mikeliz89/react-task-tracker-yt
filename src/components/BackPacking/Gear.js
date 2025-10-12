@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
-import * as Constants from "../../utils/Constants";
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
 import Icon from '../Icon';
 import DeleteButton from '../Buttons/DeleteButton';
 import Alert from '../Alert';
@@ -12,7 +12,7 @@ import StarRating from '../StarRating/StarRating';
 export default function Gear({ gear, onDelete }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_BACKPACKING });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
 
     //alert
     const [showMessage, setShowMessage] = useState(false);
@@ -25,7 +25,7 @@ export default function Gear({ gear, onDelete }) {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
             <h5>
@@ -43,7 +43,7 @@ export default function Gear({ gear, onDelete }) {
             ) : ('')}
             <p>{t('gear_weight')}: {gear.weightInGrams} g</p>
             <p>
-                <Link className='btn btn-primary' to={`${Constants.NAVIGATION_GEAR}/${gear.id}`}>{t('view_details')}</Link>
+                <Link className='btn btn-primary' to={`${NAVIGATION.GEAR}/${gear.id}`}>{t('view_details')}</Link>
             </p>
             <StarRating starCount={gear.stars} />
         </div>

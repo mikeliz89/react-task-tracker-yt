@@ -1,6 +1,6 @@
 import { RecipeTypes } from '../../utils/Enums';
 import { getRecipeCategoryNameByID, getDrinkCategoryNameByID } from '../../utils/ListUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 /** Categories */
 export const Categories = {
@@ -190,14 +190,14 @@ export const FoodItemCategories = [
 export function getIconNameByCategory(category) {
     switch (Number(category)) {
         case Categories.Burger:
-            return Constants.ICON_HAMBURGER;
+            return ICONS.HAMBURGER;
         case Categories.Pizza:
-            return Constants.ICON_PIZZA;
+            return ICONS.PIZZA;
         case Categories.Fish:
-            return Constants.ICON_FISH;
+            return ICONS.FISH;
         //todo: koodaa lisää ikoneita eri ruuille
         default:
-            return Constants.ICON_UTENSILS;
+            return ICONS.UTENSILS;
     }
 }
 
@@ -206,7 +206,7 @@ export const getIconName = (recipeType, category) => {
         case RecipeTypes.Food:
             return getIconNameByCategory(category);
         case RecipeTypes.Drink:
-            return Constants.ICON_GLASS_MARTINI;
+            return ICONS.GLASS_MARTINI;
         default: return '';
     }
 }
@@ -224,9 +224,9 @@ export const getCategoryContent = (recipeType, category) => {
 export const getIncredientsUrl = (recipeType) => {
     switch (recipeType) {
         case RecipeTypes.Food:
-            return Constants.DB_RECIPE_INCREDIENTS;
+            return DB.RECIPE_INCREDIENTS;
         case RecipeTypes.Drink:
-            return Constants.DB_DRINK_INCREDIENTS;
+            return DB.DRINK_INCREDIENTS;
         default: return '';
     }
 }
@@ -234,9 +234,9 @@ export const getIncredientsUrl = (recipeType) => {
 export const getViewDetailsUrl = (recipeType) => {
     switch (recipeType) {
         case RecipeTypes.Food:
-            return Constants.NAVIGATION_RECIPE;
+            return NAVIGATION.RECIPE;
         case RecipeTypes.Drink:
-            return Constants.NAVIGATION_DRINK;
+            return NAVIGATION.DRINK;
         default: return '';
     }
 }
@@ -244,9 +244,9 @@ export const getViewDetailsUrl = (recipeType) => {
 export const getUrl = (recipeType) => {
     switch (recipeType) {
         case RecipeTypes.Food:
-            return Constants.DB_RECIPES;
+            return DB.RECIPES;
         case RecipeTypes.Drink:
-            return Constants.DB_DRINKS;
+            return DB.DRINKS;
         default: return '';
     }
 }

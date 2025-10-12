@@ -1,12 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import GoBackButton from '../Buttons/GoBackButton';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { useState } from 'react';
-import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import AddGame from './AddGame';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
@@ -26,13 +24,13 @@ import NavButton from '../Buttons/NavButton';
 export default function ManageGames() {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_GAMES });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: games, setData: setGames,
         originalData: originalGames,
-        counter, loading } = useFetch(Constants.DB_GAMES);
+        counter, loading } = useFetch(DB.GAMES);
 
     //modal
     const { status: showAddGame, toggleStatus: toggleAddGame } = useToggle();
@@ -47,7 +45,7 @@ export default function ManageGames() {
     const { currentUser } = useAuth();
 
     const deleteGame = async (id) => {
-        removeFromFirebaseById(Constants.DB_GAMES, id);
+        removeFromFirebaseById(DB.GAMES, id);
     }
 
     const addGame = async (gameID, game) => {
@@ -55,7 +53,7 @@ export default function ManageGames() {
             clearMessages();
             game["created"] = getCurrentDateAsJson();
             game["createdBy"] = currentUser.email;
-            pushToFirebase(Constants.DB_GAMES, game);
+            pushToFirebase(DB.GAMES, game);
             showSuccess();
         } catch (ex) {
             showFailure();
@@ -81,7 +79,7 @@ export default function ManageGames() {
 
     const editGame = (game) => {
         const id = game.id;
-        updateToFirebaseById(Constants.DB_GAMES, id, game);
+        updateToFirebaseById(DB.GAMES, id, game);
     }
 
     return loading ? (
@@ -94,8 +92,8 @@ export default function ManageGames() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <NavButton to={Constants.NAVIGATION_MANAGE_GAMELISTS}
-                        icon={Constants.ICON_LIST_ALT}>
+                    <NavButton to={NAVIGATION.MANAGE_GAMELISTS}
+                        icon={ICONS.LIST_ALT}>
                         {t('button_game_lists')}
                     </NavButton>
                 </ButtonGroup>
@@ -103,7 +101,7 @@ export default function ManageGames() {
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 
@@ -140,8 +138,8 @@ export default function ManageGames() {
 
             <CenterWrapper>
                 <Button
-                    iconName={Constants.ICON_PLUS}
-                    color={showAddGame ? Constants.COLOR_ADDBUTTON_OPEN : Constants.COLOR_ADDBUTTON_CLOSED}
+                    iconName={ICONS.PLUS}
+                    color={showAddGame ? COLORS.ADDBUTTON.OPEN : COLORS.ADDBUTTON_CLOSED}
                     text={showAddGame ? tCommon('buttons.button_close') : t('button_add_game')}
                     onClick={toggleAddGame} />
             </CenterWrapper>

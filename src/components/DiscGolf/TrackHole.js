@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function TrackHole({ hole, decreasePar, increasePar, deleteHole }) {
 
     //translation
-    const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DISC_GOLF });
-    const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DISC_GOLF });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     return (
         <>
@@ -18,7 +18,7 @@ export default function TrackHole({ hole, decreasePar, increasePar, deleteHole }
 
                 <Button type='button'
                     onClick={() => decreasePar(hole.id)}
-                    iconName={Constants.ICON_MINUS} className='btn btn-inline'
+                    iconName={ICONS.MINUS} className='btn btn-inline'
                 />
 
                 <span className={hole.par < 3 || hole.par > 3 ? 'btn bolded' : 'btn'}>
@@ -27,18 +27,18 @@ export default function TrackHole({ hole, decreasePar, increasePar, deleteHole }
 
                 <Button type='button'
                     onClick={() => increasePar(hole.id)}
-                    iconName={Constants.ICON_PLUS}
+                    iconName={ICONS.PLUS}
                 />
             </td >
 
             <td>
                 <Button
-                    color={Constants.COLOR_DELETEBUTTON}
+                    color={COLORS.DELETEBUTTON}
                     type='button'
                     text={tCommon('buttons.button_delete')}
                     onClick={() => deleteHole(hole.id)}
-                    iconName={Constants.ICON_DELETE}
-                    style={{ backgroundColor: Constants.COLOR_ADDBUTTON_CLOSED }}
+                    iconName={ICONS.DELETE}
+                    style={{ backgroundColor: COLORS.ADDBUTTON_CLOSED }}
                 />
             </td>
         </>

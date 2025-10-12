@@ -5,13 +5,13 @@ import Button from '../Buttons/Button';
 import PropTypes from 'prop-types';
 import FormTitle from '../Site/FormTitle';
 import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 
 export default function AddWorkPhase({ dbUrl, translation, translationKeyPrefix, workPhaseID, recipeID, onSave, onClose }) {
 
   //translation
   const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   //states
   const [name, setName] = useState('');
@@ -56,7 +56,7 @@ export default function AddWorkPhase({ dbUrl, translation, translationKeyPrefix,
   return (
     <>
       {(workPhaseID === "" || workPhaseID === undefined) &&
-        <FormTitle iconName={Constants.ICON_HOURGLASS_1} title={t('add_workphase_formtitle')} />
+        <FormTitle iconName={ICONS.HOURGLASS_1} title={t('add_workphase_formtitle')} />
       }
       <Form onSubmit={onSubmit}>
         <Form.Group className="mb-3" controlId="addWorkPhaseFormName">

@@ -6,7 +6,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddTask from './AddTask';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
 import i18n from "i18next";
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../Site/PageTitle';
@@ -22,14 +22,14 @@ export default function TaskDetails() {
   const params = useParams();
 
   //translation  
-  const { t } = useTranslation(Constants.TRANSLATION_TASKLIST, { keyPrefix: Constants.TRANSLATION_TASKLIST });
-  const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+  const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
+  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   //states
   const [showEditTask, setShowEditTask] = useState(false);
 
   //fetch data
-  const { data: task, loading } = useFetch(Constants.DB_TASKS, "", params.tasklistid, params.id);
+  const { data: task, loading } = useFetch(DB.TASKS, "", params.tasklistid, params.id);
 
   //auth
   const { currentUser } = useAuth();
@@ -37,7 +37,7 @@ export default function TaskDetails() {
   const updateTask = async (taskListID, task) => {
     let taskID = params.id;
     task["modified"] = getCurrentDateAsJson();
-    updateToFirebaseByIdAndSubId(Constants.DB_TASKS, taskListID, taskID, task);
+    updateToFirebaseByIdAndSubId(DB.TASKS, taskListID, taskID, task);
   }
 
   const addCommentToTask = async (comment) => {
@@ -45,13 +45,13 @@ export default function TaskDetails() {
     comment["created"] = getCurrentDateAsJson()
     comment["createdBy"] = currentUser.email;
     comment["creatorUserID"] = currentUser.uid;
-    pushToFirebaseChild(Constants.DB_TASK_COMMENTS, taskID, comment);
+    pushToFirebaseChild(DB.TASK_COMMENTS, taskID, comment);
   }
 
   const addLinkToTask = (link) => {
     const taskID = params.id;
     link["created"] = getCurrentDateAsJson();
-    pushToFirebaseChild(Constants.DB_TASK_LINKS, taskID, link);
+    pushToFirebaseChild(DB.TASK_LINKS, taskID, link);
   }
 
   return loading ? (
@@ -62,9 +62,9 @@ export default function TaskDetails() {
         <ButtonGroup aria-label="Button group">
           <GoBackButton />
           <Button
-            iconName={Constants.ICON_EDIT}
+            iconName={ICONS.EDIT}
             text={showEditTask ? tCommon('buttons.button_close') : tCommon('buttons.button_edit')}
-            color={showEditTask ? Constants.COLOR_EDITBUTTON_OPEN : Constants.COLOR_EDITBUTTON_CLOSED}
+            color={showEditTask ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
             onClick={() => setShowEditTask(!showEditTask)} />
         </ButtonGroup>
       </Row>
@@ -90,9 +90,9 @@ export default function TaskDetails() {
         </Table>
       </div>
 
-      <CommentComponent objID={params.id} url={Constants.DB_TASK_COMMENTS} onSave={addCommentToTask} />
+      <CommentComponent objID={params.id} url={DB.TASK_COMMENTS} onSave={addCommentToTask} />
 
-      <LinkComponent objID={params.id} url={Constants.DB_TASK_LINKS} onSaveLink={addLinkToTask} />
+      <LinkComponent objID={params.id} url={DB.TASK_LINKS} onSaveLink={addLinkToTask} />
     </PageContentWrapper>
   );
 }

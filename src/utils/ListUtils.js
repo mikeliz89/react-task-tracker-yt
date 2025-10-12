@@ -7,7 +7,7 @@ import { ListTypes } from '../utils/Enums';
 import { GameConsoles } from "../components/Games/Categories";
 import { MovieFormats } from "../components/Movies/Categories";
 import { MusicFormats } from "../components/Music/Categories";
-import * as Constants from './Constants';
+import { NAVIGATION } from './Constants';
 
 export function getGearCategoryNameByID(id) {
     return getNameByID(GearCategories, id);
@@ -92,29 +92,29 @@ export function getManagePageByListType(taskList) {
     const listType = taskList["listType"] || ListTypes.None;
     switch (listType) {
         case ListTypes.Programming:
-            return Constants.NAVIGATION_MANAGE_PROGRAMMING;
+            return NAVIGATION.MANAGE_PROGRAMMING;
         case ListTypes.Shopping:
-            return Constants.NAVIGATION_MANAGE_SHOPPINGLISTS;
+            return NAVIGATION.MANAGE_SHOPPINGLISTS;
         case ListTypes.Food:
-            return Constants.NAVIGATION_MANAGE_RECIPELISTS;
+            return NAVIGATION.MANAGE_RECIPELISTS;
         case ListTypes.Drink:
-            return Constants.NAVIGATION_MANAGE_DRINKLISTS;
+            return NAVIGATION.MANAGE_DRINKLISTS;
         case ListTypes.BackPacking:
-            return Constants.NAVIGATION_MANAGE_BACKPACKINGLISTS;
+            return NAVIGATION.MANAGE_BACKPACKINGLISTS;
         case ListTypes.Music:
-            return Constants.NAVIGATION_MANAGE_MUSICLISTS;
+            return NAVIGATION.MANAGE_MUSICLISTS;
         case ListTypes.Games:
-            return Constants.NAVIGATION_MANAGE_GAMELISTS;
+            return NAVIGATION.MANAGE_GAMELISTS;
         case ListTypes.Movies:
-            return Constants.NAVIGATION_MANAGE_MOVIELISTS;
+            return NAVIGATION.MANAGE_MOVIELISTS;
         case ListTypes.Exercises:
-            return Constants.NAVIGATION_MANAGE_EXERCISE_LISTS;
+            return NAVIGATION.MANAGE_EXERCISE_LISTS;
         case ListTypes.Car:
-            return Constants.NAVIGATION_MANAGE_CARLISTS;
+            return NAVIGATION.MANAGE_CARLISTS;
         case ListTypes.Other:
-            return Constants.NAVIGATION_MANAGE_LISTS;
+            return NAVIGATION.MANAGE_LISTS;
         // Lisää muut tarvittavat tyypit
         default:
-            return Constants.NAVIGATION_MANAGE_TASKLISTS;
+            return NAVIGATION.MANAGE_TASKLISTS;
     }
 }

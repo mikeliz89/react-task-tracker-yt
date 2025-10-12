@@ -7,7 +7,7 @@ import StarRating from '../StarRating/StarRating';
 import { db } from '../../firebase-config';
 import { ref, child, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import i18n from "i18next";
 import Icon from '../Icon';
@@ -55,7 +55,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
         if (incredients && incredients.length > 0) {
             let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
             addTaskList({ title: `${t('shoppinglist')} ${currentDateTime}` }, incredients).then(() => {
-                navigate(Constants.NAVIGATION_MANAGE_SHOPPINGLISTS)
+                navigate(NAVIGATION.MANAGE_SHOPPINGLISTS)
             });
         } else if (incredients && incredients.length <= 0) {
             setError(t('shoppinglist_no_incredients'));
@@ -81,7 +81,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
         taskList["description"] = "";
         taskList["listType"] = ListTypes.Shopping;
 
-        const key = await pushToFirebase(Constants.DB_TASKLISTS, taskList);
+        const key = await pushToFirebase(DB.TASKLISTS, taskList);
         addTasksToTaskList(key, incredients);
     }
 
@@ -99,7 +99,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
     const addTask = async (taskListID, task) => {
         task["created"] = getCurrentDateAsJson()
         task["createdBy"] = currentUser.email;
-        pushToFirebaseChild(Constants.DB_TASKS, taskListID, task);
+        pushToFirebaseChild(DB.TASKS, taskListID, task);
     }
 
     const getCategory = (category) => {
@@ -125,7 +125,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
         <div className={recipe.isCore === true ? `listContainer coreRecipe` : 'listContainer'}>
             <h5>
                 <span>
-                    <Icon name={getIconName(recipeType, recipe.category)} color={Constants.COLOR_GRAY} />
+                    <Icon name={getIconName(recipeType, recipe.category)} color={COLORS.GRAY} />
                     {recipe.title}
                 </span>
                 <RightWrapper>
@@ -142,7 +142,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
 
             <Alert message={message} showMessage={showMessage}
                 error={error} showError={showError}
-                variant={Constants.VARIANT_SUCCESS}
+                variant={VARIANTS.SUCCESS}
                 onClose={() => { setShowMessage(false); setShowError(false); }}
             />
 

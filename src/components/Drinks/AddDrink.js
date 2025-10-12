@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { DrinkCategories } from './Categories';
-import * as Constants from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getFromFirebaseById } from '../../datatier/datatier';
 import PropTypes from 'prop-types';
 
 export default function AddDrink({ drinkID, onSave, onClose, showLabels }) {
 
    //translation
-   const { t } = useTranslation(Constants.TRANSLATION, { keyPrefix: Constants.TRANSLATION_DRINKS });
-   const { t: tCommon } = useTranslation(Constants.TRANSLATION_COMMON, { keyPrefix: Constants.TRANSLATION_COMMON });
+   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
+   const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
    //states
    const [category, setCategory] = useState('');
@@ -49,7 +49,7 @@ export default function AddDrink({ drinkID, onSave, onClose, showLabels }) {
    }
 
    const fetchDrinkFromFirebase = async (drinkID) => {
-      getFromFirebaseById(Constants.DB_DRINKS, drinkID)
+      getFromFirebaseById(DB.DRINKS, drinkID)
          .then((val) => {
             setCategory(val["category"]);
             setCreated(val["created"]);
