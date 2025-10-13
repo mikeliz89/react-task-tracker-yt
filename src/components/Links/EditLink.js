@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button'
 import { TRANSLATION } from '../../utils/Constants';
-import { getFromFirebaseById, getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import useFetchByIdAndSubId from '../Hooks/useFetchByIdAndSubId';
+import useFetchById from '../Hooks/useFetchById';
 
 export default function EditLink({ linkID, objID, linkUrl, onEditLink, onCloseEditLink }) {
 
@@ -15,28 +16,18 @@ export default function EditLink({ linkID, objID, linkUrl, onEditLink, onCloseEd
     const [url, setUrl] = useState('');
     const [urlText, setUrlText] = useState('');
 
-    useEffect(() => {
-        if (linkID != null) {
-            const getLink = async () => {
-                if (objID != null) {
-                    const val = await getFromFirebaseByIdAndSubId(linkUrl, objID, linkID);
-                    setValues(val);
-                } else {
-                    const val = await getFromFirebaseById(linkUrl, linkID);
-                    setValues(val);
-                }
-            }
-            getLink();
-        }
-    }, [linkID]);
+    //load data
+    const linkDataBySubId = useFetchByIdAndSubId(linkUrl, objID, linkID);
+    const linkDataById = useFetchById(linkUrl, linkID);
 
-    const setValues = (val) => {
-        if (val === null) {
-            return;
+    const linkData = objID != null ? linkDataBySubId : linkDataById;
+
+    useEffect(() => {
+        if (linkData) {
+            setUrl(linkData.url || '');
+            setUrlText(linkData.urlText || '');
         }
-        setUrl(val["url"]);
-        setUrlText(val["urlText"]);
-    }
+    }, [linkData]);
 
     const onSubmit = (e) => {
         e.preventDefault();

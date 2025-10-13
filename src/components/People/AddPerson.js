@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form, Col } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { TRANSLATION, DB } from "../../utils/Constants";
-import { getFromFirebaseById } from '../../datatier/datatier';
+import useFetchById from '../Hooks/useFetchById';
 
 export default function AddPerson({ personID, onSave, onClose }) {
 
@@ -20,25 +20,18 @@ export default function AddPerson({ personID, onSave, onClose }) {
     const [address, setAddress] = useState('');
 
     //load data
-    useEffect(() => {
-        if (personID != null) {
-            const getPerson = async () => {
-                await fetchPersonFromFirebase(personID);
-            }
-            getPerson();
-        }
-    }, [personID]);
+    const personData = useFetchById(DB.PEOPLE, personID);
 
-    const fetchPersonFromFirebase = async (personID) => {
-        getFromFirebaseById(DB.PEOPLE, personID).then((val) => {
-            setAddress(val["address"]);
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setDescription(val["description"]);
-            setName(val["name"]);
-            setBirthday(val["birthday"]);
-        });
-    }
+    useEffect(() => {
+        if (personData) {
+            setAddress(personData.address || '');
+            setCreated(personData.created || '');
+            setCreatedBy(personData.createdBy || '');
+            setDescription(personData.description || '');
+            setName(personData.name || '');
+            setBirthday(personData.birthday || '');
+        }
+    }, [personData]);
 
     const onSubmit = (e) => {
         e.preventDefault();

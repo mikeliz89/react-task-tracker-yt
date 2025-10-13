@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { TRANSLATION, DB } from '../../utils/Constants';
-import { getFromFirebaseById } from '../../datatier/datatier';
+import useFetchById from '../Hooks/useFetchById';
 import PropTypes from 'prop-types';
 
 export default function AddTaskList({ taskListID, onSave, onClose, showLabels, defaultTitle }) {
@@ -19,25 +19,20 @@ export default function AddTaskList({ taskListID, onSave, onClose, showLabels, d
     const [createdBy, setCreatedBy] = useState('');
     const [listType, setListType] = useState();
 
+    //load data
+    const taskListData = useFetchById(DB.TASKLISTS, taskListID);
+
     useEffect(() => {
-        if (taskListID != null) {
-            const getTaskList = async () => {
-                await fetchTaskListFromFirebase(taskListID);
-            }
-            const fetchTaskListFromFirebase = async (taskListID) => {
-                getFromFirebaseById(DB.TASKLISTS, taskListID).then((val) => {
-                    setCreated(val["created"]);
-                    setCreatedBy(val["createdBy"]);
-                    setDescription(val["description"]);
-                    setListType(val["listType"]);
-                    setTitle(val["title"]);
-                });
-            }
-            getTaskList();
-        } else {
+        if (taskListID == null) {
             setTitle(defaultTitle);
+        } else if (taskListData) {
+            setCreated(taskListData.created || '');
+            setCreatedBy(taskListData.createdBy || '');
+            setDescription(taskListData.description || '');
+            setListType(taskListData.listType);
+            setTitle(taskListData.title || '');
         }
-    }, [taskListID, defaultTitle]);
+    }, [taskListID, defaultTitle, taskListData]);
 
     const onSubmit = (e) => {
         e.preventDefault()

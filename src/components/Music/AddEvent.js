@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { TRANSLATION, DB } from "../../utils/Constants";
-import { getFromFirebaseById } from '../../datatier/datatier';
+import useFetchById from '../Hooks/useFetchById';
 import PropTypes from 'prop-types';
 
 export default function AddEvent({ eventID, onSave, onClose, showLabels }) {
@@ -20,24 +20,17 @@ export default function AddEvent({ eventID, onSave, onClose, showLabels }) {
     const [eventYear, setEventYear] = useState(0);
 
     //load data
-    useEffect(() => {
-        if (eventID != null) {
-            const getEvent = async () => {
-                await fetchEventFromFirebase(eventID);
-            }
-            getEvent();
-        }
-    }, [eventID]);
+    const eventData = useFetchById(DB.MUSIC_EVENTS, eventID);
 
-    const fetchEventFromFirebase = async (eventID) => {
-        getFromFirebaseById(DB.MUSIC_EVENTS, eventID).then((val) => {
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setDescription(val["description"]);
-            setName(val["name"]);
-            setEventYear(val["eventYear"]);
-        });
-    }
+    useEffect(() => {
+        if (eventData) {
+            setCreated(eventData.created || '');
+            setCreatedBy(eventData.createdBy || '');
+            setDescription(eventData.description || '');
+            setName(eventData.name || '');
+            setEventYear(eventData.eventYear || 0);
+        }
+    }, [eventData]);
 
     const onSubmit = (e) => {
         e.preventDefault();

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { DB, TRANSLATION } from '../../utils/Constants';
-import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import useFetchByIdAndSubId from '../Hooks/useFetchByIdAndSubId';
 import PropTypes from 'prop-types';
 
 export default function AddTask({ taskID, taskListID, onSave, onClose, showLabels }) {
@@ -19,24 +19,18 @@ export default function AddTask({ taskID, taskListID, onSave, onClose, showLabel
     const [created, setCreated] = useState('');
     const [createdBy, setCreatedBy] = useState('');
 
-    useEffect(() => {
-        if (taskID != null) {
-            const getTask = async () => {
-                await fetchTaskFromFirebase(taskID, taskListID);
-            }
-            getTask();
-        }
-    }, [taskID, taskListID]);
+    //load data
+    const taskData = useFetchByIdAndSubId(DB.TASKS, taskListID, taskID);
 
-    const fetchTaskFromFirebase = async (taskID, taskListID) => {
-        getFromFirebaseByIdAndSubId(DB.TASKS, taskListID, taskID).then((val) => {
-            setText(val["text"]);
-            setDay(val["day"]);
-            setReminder(val["reminder"]);
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-        });
-    }
+    useEffect(() => {
+        if (taskData) {
+            setText(taskData.text || '');
+            setDay(taskData.day || '');
+            setReminder(taskData.reminder || false);
+            setCreated(taskData.created || '');
+            setCreatedBy(taskData.createdBy || '');
+        }
+    }, [taskData]);
 
     const onSubmit = (e) => {
         e.preventDefault()

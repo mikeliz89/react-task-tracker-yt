@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { TRANSLATION, DB } from "../../utils/Constants";
-import { getFromFirebaseById } from '../../datatier/datatier';
+import useFetchById from '../Hooks/useFetchById';
 import { GameConsoles } from './Categories';
 import PropTypes from 'prop-types';
 
@@ -28,14 +28,21 @@ export default function AddGame({ gameID, onSave, onClose, showLabels }) {
     const [consoles, setConsoles] = useState(GameConsoles);
 
     //load data
+    const gameData = useFetchById(DB.GAMES, gameID);
+
     useEffect(() => {
-        if (gameID != null) {
-            const getGame = async () => {
-                await fetchGameFromFirebase(gameID);
-            }
-            getGame();
+        if (gameData) {
+            setCreated(gameData.created || '');
+            setCreatedBy(gameData.createdBy || '');
+            setDescription(gameData.description || '');
+            setConsole(gameData.console || '');
+            setHaveAtHome(gameData.haveAtHome || false);
+            setName(gameData.name || '');
+            setPublishYear(gameData.publishYear || 0);
+            setIsDigital(gameData.isDigital || false);
+            setStars(gameData.stars || 0);
         }
-    }, [gameID]);
+    }, [gameData]);
 
     useEffect(() => {
         sortConsolesByName();
@@ -48,20 +55,6 @@ export default function AddGame({ gameID, onSave, onClose, showLabels }) {
             return aName > bName ? 1 : -1;
         });
         setConsoles(sorted);
-    }
-
-    const fetchGameFromFirebase = async (gameID) => {
-        getFromFirebaseById(DB.GAMES, gameID).then((val) => {
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setDescription(val["description"]);
-            setConsole(val["console"]);
-            setHaveAtHome(val["haveAtHome"]);
-            setName(val["name"]);
-            setPublishYear(val["publishYear"]);
-            setIsDigital(val["isDigital"]);
-            setStars(val["stars"]);
-        });
     }
 
     const onSubmit = (e) => {

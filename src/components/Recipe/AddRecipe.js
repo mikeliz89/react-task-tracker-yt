@@ -4,7 +4,7 @@ import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { RecipeCategories } from './Categories';
 import { TRANSLATION, DB } from '../../utils/Constants';
-import { getFromFirebaseById } from '../../datatier/datatier';
+import useFetchById from '../Hooks/useFetchById';
 import PropTypes from 'prop-types';
 
 export default function AddRecipe({ recipeID, onSave, onClose, showLabels }) {
@@ -24,31 +24,25 @@ export default function AddRecipe({ recipeID, onSave, onClose, showLabels }) {
    const [stars, setStars] = useState(0);
    const [incredients, setIncredients] = useState('');
 
+   //load data
+   const recipeData = useFetchById(DB.RECIPES, recipeID);
+
+   useEffect(() => {
+      if (recipeData) {
+         setCategory(recipeData.category || '');
+         setCreated(recipeData.created || '');
+         setCreatedBy(recipeData.createdBy || '');
+         setDescription(recipeData.description || '');
+         setIncredients(recipeData.incredients || '');
+         setIsCore(recipeData.isCore || false);
+         setStars(recipeData.stars || 0);
+         setTitle(recipeData.title || '');
+      }
+   }, [recipeData]);
+
    useEffect(() => {
       sortCategoriesByName();
    }, []);
-
-   useEffect(() => {
-      if (recipeID != null) {
-         const getRecipe = async () => {
-            await fetchRecipeFromFirebase(recipeID);
-         }
-         getRecipe();
-      }
-   }, [recipeID]);
-
-   const fetchRecipeFromFirebase = async (recipeID) => {
-      getFromFirebaseById(DB.RECIPES, recipeID).then((val) => {
-         setCategory(val["category"]);
-         setCreated(val["created"]);
-         setCreatedBy(val["createdBy"]);
-         setDescription(val["description"]);
-         setIncredients(val["incredients"]);
-         setIsCore(val["isCore"]);
-         setStars(val["stars"]);
-         setTitle(val["title"]);
-      });
-   }
 
    const sortCategoriesByName = () => {
       const sortedCategories = [...categories].sort((a, b) => {

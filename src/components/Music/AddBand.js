@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { TRANSLATION, DB } from "../../utils/Constants";
-import { getFromFirebaseById } from '../../datatier/datatier';
 import PropTypes from 'prop-types';
+import useFetchById from '../Hooks/useFetchById';
 
 export default function AddBand({ bandID, onSave, onClose, showLabels }) {
 
@@ -23,27 +23,20 @@ export default function AddBand({ bandID, onSave, onClose, showLabels }) {
     const [stars, setStars] = useState(0);
 
     //load data
-    useEffect(() => {
-        if (bandID != null) {
-            const getBand = async () => {
-                await fetchBandFromFirebase(bandID);
-            }
-            getBand();
-        }
-    }, [bandID]);
+    const bandData = useFetchById(DB.MUSIC_BANDS, bandID);
 
-    const fetchBandFromFirebase = async (bandID) => {
-        getFromFirebaseById(DB.MUSIC_BANDS, bandID).then((val) => {
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setDescription(val["description"]);
-            setName(val["name"]);
-            setFormingYear(val["formingYear"]);
-            setSeenLive(val["seenLive"]);
-            setCountry(val["country"]);
-            setStars(val["stars"]);
-        });
-    }
+    useEffect(() => {
+        if (bandData) {
+            setCreated(bandData.created || '');
+            setCreatedBy(bandData.createdBy || '');
+            setDescription(bandData.description || '');
+            setName(bandData.name || '');
+            setFormingYear(bandData.formingYear || 0);
+            setSeenLive(bandData.seenLive || false);
+            setCountry(bandData.country || '');
+            setStars(bandData.stars || 0);
+        }
+    }, [bandData]);
 
     const onSubmit = (e) => {
         e.preventDefault();

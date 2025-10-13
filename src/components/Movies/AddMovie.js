@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
-import { getFromFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB } from "../../utils/Constants";
+import useFetchById from '../Hooks/useFetchById';
 import { MovieFormats } from './Categories';
 import PropTypes from 'prop-types';
 
@@ -26,14 +26,20 @@ export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
     const [formats, setFormats] = useState(MovieFormats);
 
     //load data
+    const movieData = useFetchById(DB.MOVIES, movieID);
+
     useEffect(() => {
-        if (movieID != null) {
-            const getMovie = async () => {
-                await fetchMovieFromFirebase(movieID);
-            }
-            getMovie();
+        if (movieData) {
+            setCreated(movieData.created || '');
+            setCreatedBy(movieData.createdBy || '');
+            setDescription(movieData.description || '');
+            setFormat(movieData.format || '');
+            setHaveAtHome(movieData.haveAtHome || false);
+            setName(movieData.name || '');
+            setNameFi(movieData.nameFi || '');
+            setPublishYear(movieData.publishYear || 0);
         }
-    }, [movieID]);
+    }, [movieData]);
 
     useEffect(() => {
         sortFormatsByName();
@@ -46,19 +52,6 @@ export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
             return aName > bName ? 1 : -1;
         });
         setFormats(sorted);
-    }
-
-    const fetchMovieFromFirebase = async (movieID) => {
-        getFromFirebaseById(DB.MOVIES, movieID).then((val) => {
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setDescription(val["description"]);
-            setFormat(val["format"]);
-            setHaveAtHome(val["haveAtHome"]);
-            setName(val["name"]);
-            setNameFi(val["nameFi"]);
-            setPublishYear(val["publishYear"]);
-        });
     }
 
     const onSubmit = (e) => {

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Button from '../Buttons/Button';
 import PropTypes from 'prop-types';
 import FormTitle from '../Site/FormTitle';
-import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import useFetchByIdAndSubId from '../Hooks/useFetchByIdAndSubId';
 import { TRANSLATION, ICONS } from '../../utils/Constants';
 
 export default function AddWorkPhase({ dbUrl, translation, translationKeyPrefix, workPhaseID, recipeID, onSave, onClose }) {
@@ -17,21 +17,15 @@ export default function AddWorkPhase({ dbUrl, translation, translationKeyPrefix,
   const [name, setName] = useState('');
   const [estimatedLength, setEstimatedLength] = useState(0);
 
-  useEffect(() => {
-    if (workPhaseID != null) {
-      const getWorkPhase = async () => {
-        await fetchWorkPhaseFromFirebase(recipeID, workPhaseID);
-      }
-      getWorkPhase();
-    }
-  }, [recipeID, workPhaseID]);
+  //load data
+  const workPhaseData = useFetchByIdAndSubId(dbUrl, recipeID, workPhaseID);
 
-  const fetchWorkPhaseFromFirebase = async (recipeID, workPhaseID) => {
-    getFromFirebaseByIdAndSubId(dbUrl, recipeID, workPhaseID).then((val) => {
-      setName(val["name"]);
-      setEstimatedLength(val["estimatedLength"]);
-    });
-  }
+  useEffect(() => {
+    if (workPhaseData) {
+      setName(workPhaseData.name || '');
+      setEstimatedLength(workPhaseData.estimatedLength || 0);
+    }
+  }, [workPhaseData]);
 
   const onSubmit = (e) => {
     e.preventDefault();

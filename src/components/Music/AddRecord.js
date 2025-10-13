@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from "../../utils/Constants";
-import { getFromFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB } from "../../utils/Constants";
+import useFetchById from '../Hooks/useFetchById';
 import { MusicFormats } from './Categories';
 import PropTypes from 'prop-types';
 
@@ -26,14 +26,20 @@ export default function AddRecord({ recordID, onSave, onClose, showLabels }) {
     const [formats, setFormats] = useState(MusicFormats);
 
     //load data
+    const recordData = useFetchById(DB.MUSIC_RECORDS, recordID);
+
     useEffect(() => {
-        if (recordID != null) {
-            const getMusic = async () => {
-                await fetchMusicFromFirebase(recordID);
-            }
-            getMusic();
+        if (recordData) {
+            setCreated(recordData.created || '');
+            setCreatedBy(recordData.createdBy || '');
+            setBand(recordData.band || '');
+            setDescription(recordData.description || '');
+            setFormat(recordData.format || '');
+            setHaveAtHome(recordData.haveAtHome || false);
+            setName(recordData.name || '');
+            setPublishYear(recordData.publishYear || 0);
         }
-    }, [recordID]);
+    }, [recordData]);
 
     useEffect(() => {
         sortFormatsByName();
@@ -46,19 +52,6 @@ export default function AddRecord({ recordID, onSave, onClose, showLabels }) {
             return aName > bName ? 1 : -1;
         });
         setFormats(sorted);
-    }
-
-    const fetchMusicFromFirebase = async (recordID) => {
-        getFromFirebaseById(DB.MUSIC_RECORDS, recordID).then((val) => {
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setBand(val["band"]);
-            setDescription(val["description"]);
-            setFormat(val["format"]);
-            setHaveAtHome(val["haveAtHome"]);
-            setName(val["name"]);
-            setPublishYear(val["publishYear"]);
-        });
     }
 
     const onSubmit = (e) => {

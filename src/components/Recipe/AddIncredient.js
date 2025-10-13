@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Button from '../Buttons/Button';
 import PropTypes from 'prop-types';
 import FormTitle from '../Site/FormTitle';
-import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import useFetchByIdAndSubId from '../Hooks/useFetchByIdAndSubId';
 import { TRANSLATION, ICONS } from '../../utils/Constants';
 
 export default function AddIncredient({ dbUrl, translation, translationKeyPrefix, onSave, incredientID, recipeID, onClose }) {
@@ -19,22 +19,15 @@ export default function AddIncredient({ dbUrl, translation, translationKeyPrefix
   const [amount, setAmount] = useState(0);
 
   //load data
-  useEffect(() => {
-    if (recipeID != null) {
-      const getIncredient = async () => {
-        await fetchIncredientFromFirebase(recipeID)
-      }
-      getIncredient()
-    }
-  }, [recipeID]);
+  const incredientData = useFetchByIdAndSubId(dbUrl, recipeID, incredientID);
 
-  const fetchIncredientFromFirebase = async (recipeID) => {
-    getFromFirebaseByIdAndSubId(dbUrl, recipeID, incredientID).then((val) => {
-      setName(val["name"]);
-      setUnit(val["unit"]);
-      setAmount(val["amount"]);
-    });
-  }
+  useEffect(() => {
+    if (incredientData) {
+      setName(incredientData.name || '');
+      setUnit(incredientData.unit || '');
+      setAmount(incredientData.amount || 0);
+    }
+  }, [incredientData]);
 
   const onSubmit = (e) => {
     e.preventDefault();

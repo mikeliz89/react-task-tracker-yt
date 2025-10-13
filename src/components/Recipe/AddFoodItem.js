@@ -4,7 +4,7 @@ import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { FoodItemCategories } from './Categories';
 import { TRANSLATION, DB } from '../../utils/Constants';
-import { getFromFirebaseById } from '../../datatier/datatier';
+import useFetchById from '../Hooks/useFetchById';
 
 export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
 
@@ -30,14 +30,24 @@ export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
     const [sugars, setSugars] = useState(0);
 
     //load data
+    const foodItemData = useFetchById(DB.FOODITEMS, foodItemID);
+
     useEffect(() => {
-        if (foodItemID != null) {
-            const getFoodItem = async () => {
-                await fetchFoodItemFromFirebase(foodItemID)
-            }
-            getFoodItem()
+        if (foodItemData) {
+            setCalories(foodItemData.calories || 0);
+            setCarbs(foodItemData.carbs || 0);
+            setCategory(foodItemData.category || '');
+            setCreated(foodItemData.created || '');
+            setCreatedBy(foodItemData.createdBy || '');
+            setFat(foodItemData.fat || 0);
+            setFiber(foodItemData.fiber || 0);
+            setHaveAtHome(foodItemData.haveAtHome || false);
+            setName(foodItemData.name || '');
+            setProtein(foodItemData.protein || 0);
+            setSalt(foodItemData.salt || 0);
+            setSugars(foodItemData.sugars || 0);
         }
-    }, [foodItemID]);
+    }, [foodItemData]);
 
     useEffect(() => {
         sortCategoriesByName();
@@ -50,23 +60,6 @@ export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
             return aName > bName ? 1 : -1;
         });
         setCategories(sortedCategories);
-    }
-
-    const fetchFoodItemFromFirebase = async (id) => {
-        getFromFirebaseById(DB.FOODITEMS, id).then((val) => {
-            setCalories(val["calories"]);
-            setCarbs(val["carbs"]);
-            setCategory(val["category"]);
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setFat(val["fat"]);
-            setFiber(val["fiber"]);
-            setHaveAtHome(val["haveAtHome"]);
-            setName(val["name"]);
-            setProtein(val["protein"]);
-            setSalt(val["salt"]);
-            setSugars(val["sugars"]);
-        });
     }
 
     const onSubmit = (e) => {
