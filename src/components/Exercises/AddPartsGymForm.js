@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from "react";
 import { Form, Row, Col, ButtonGroup } from "react-bootstrap";
 import { TRANSLATION, DB } from '../../utils/Constants';
-import { getFromFirebaseByIdAndSubId } from "../../datatier/datatier";
+import useFetchByIdAndSubId from '../Hooks/useFetchByIdAndSubId';
 
 export default function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {
 
@@ -17,26 +17,17 @@ export default function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose
     const [repeat, setRepeat] = useState(0); //toistot
     const [series, setSeries] = useState(1); //sarjoja
 
+    //load data
+    const gymPartData = useFetchByIdAndSubId(DB.EXERCISE_PARTS, exerciseID, gymPartID);
+
     useEffect(() => {
-        console.log(gymPartID);
-        if (gymPartID != null) {
-            const getGymPart = async () => {
-                await fetchGymPartFromFirebase(gymPartID);
-            }
-            getGymPart();
+        if (gymPartData) {
+            setName(gymPartData.name || '');
+            setWeight(gymPartData.weight || 0);
+            setRepeat(gymPartData.repeat || 0);
+            setSeries(gymPartData.series || 1);
         }
-    }, [gymPartID]);
-
-    const fetchGymPartFromFirebase = async (gymPartID) => {
-
-
-        getFromFirebaseByIdAndSubId(DB.EXERCISE_PARTS, exerciseID, gymPartID).then((val) => {
-            setName(val["name"]);
-            setWeight(val["weight"]);
-            setRepeat(val["repeat"]);
-            setSeries(val["series"]);
-        });
-    }
+    }, [gymPartData]);
 
     const onSubmit = (e) => {
         e.preventDefault();

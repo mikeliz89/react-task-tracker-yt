@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Button from '../Buttons/Button';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { MovementCategories } from './Categories';
-import { getFromFirebaseById } from '../../datatier/datatier';
+import useFetchById from '../Hooks/useFetchById';
 
 export default function AddMovement({ movementID, onClose, onSave }) {
 
@@ -22,30 +22,23 @@ export default function AddMovement({ movementID, onClose, onSave }) {
     const { t, ready } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
+    const movementData = useFetchById(DB.EXERCISE_MOVEMENTS, movementID);
+
+    useEffect(() => {
+        if (movementData) {
+            setCreated(movementData.created || '');
+            setCreatedBy(movementData.createdBy || '');
+            setModified(movementData.modified || '');
+            setCategory(movementData.category || '');
+            setDescription(movementData.description || '');
+            setName(movementData.name || '');
+            setStars(movementData.stars || 0);
+        }
+    }, [movementData]);
+
     useEffect(() => {
         sortCategoriesByName();
     }, [ready]);
-
-    useEffect(() => {
-        if (movementID != null) {
-            const getMovement = async () => {
-                await fetchMovementFromFirebase(movementID);
-            }
-            getMovement();
-        }
-    }, [movementID]);
-
-    const fetchMovementFromFirebase = async (movementID) => {
-        getFromFirebaseById(DB.EXERCISE_MOVEMENTS, movementID).then((val) => {
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setModified(val["modified"]);
-            setCategory(val["category"]);
-            setDescription(val["description"]);
-            setName(val["name"]);
-            setStars(val["stars"]);
-        });
-    }
 
     const sortCategoriesByName = () => {
         const sortedCategories = [...categories].sort((a, b) => {

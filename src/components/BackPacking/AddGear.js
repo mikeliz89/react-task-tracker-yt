@@ -4,7 +4,7 @@ import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { GearCategories } from './Categories';
 import { TRANSLATION, DB } from "../../utils/Constants";
-import { getFromFirebaseById } from '../../datatier/datatier';
+import useFetchById from '../Hooks/useFetchById';
 
 export default function AddGear({ gearID, onSave, onClose }) {
 
@@ -23,14 +23,18 @@ export default function AddGear({ gearID, onSave, onClose }) {
     const [description, setDescription] = useState('');
 
     //load data
+    const gearData = useFetchById(DB.BACKPACKING_GEAR, gearID);
     useEffect(() => {
-        if (gearID != null) {
-            const getGear = async () => {
-                await fetchGearFromFirebase(gearID);
-            }
-            getGear();
+        if (gearData) {
+            setCategory(gearData.category || '');
+            setCreated(gearData.created || '');
+            setCreatedBy(gearData.createdBy || '');
+            setDescription(gearData.description || '');
+            setName(gearData.name || '');
+            setWeightInGrams(gearData.weightInGrams || 0);
+            setStars(gearData.stars || 0);
         }
-    }, [gearID]);
+    }, [gearData]);
 
     useEffect(() => {
         const sortCategoriesByName = () => {
@@ -43,18 +47,6 @@ export default function AddGear({ gearID, onSave, onClose }) {
         }
         sortCategoriesByName();
     }, [t]);
-
-    const fetchGearFromFirebase = async (gearID) => {
-        getFromFirebaseById(DB.BACKPACKING_GEAR, gearID).then((val) => {
-            setCategory(val["category"]);
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setDescription(val["description"]);
-            setName(val["name"]);
-            setWeightInGrams(val["weightInGrams"]);
-            setStars(val["stars"]);
-        });
-    }
 
     const onSubmit = (e) => {
         e.preventDefault();

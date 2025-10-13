@@ -3,7 +3,7 @@ import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Button from '../Buttons/Button';
 import { TRANSLATION, DB } from '../../utils/Constants';
-import { getFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import useFetchByIdAndSubId from '../Hooks/useFetchByIdAndSubId';
 
 export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {
 
@@ -14,20 +14,14 @@ export default function AddGarnish({ onSave, garnishID, drinkID, onClose }) {
     //states
     const [name, setName] = useState('');
 
-    useEffect(() => {
-        if (drinkID != null) {
-            const getGarnish = async () => {
-                await fetchGarnishFromFirebase(drinkID);
-            }
-            getGarnish();
-        }
-    }, [drinkID]);
+    //load data
+    const garnishData = useFetchByIdAndSubId(DB.DRINK_GARNISHES, drinkID, garnishID);
 
-    const fetchGarnishFromFirebase = async (drinkID) => {
-        getFromFirebaseByIdAndSubId(DB.DRINK_GARNISHES, drinkID, garnishID).then((val) => {
-            setName(val["name"]);
-        });
-    }
+    useEffect(() => {
+        if (garnishData) {
+            setName(garnishData.name || '');
+        }
+    }, [garnishData]);
 
     const onSubmit = (e) => {
         e.preventDefault();

@@ -4,7 +4,7 @@ import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { DrinkingProductCategories } from './Categories';
 import { TRANSLATION, DB } from '../../utils/Constants';
-import { getFromFirebaseById } from '../../datatier/datatier';
+import useFetchById from '../Hooks/useFetchById';
 
 export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingProduct, onClose }) {
 
@@ -26,14 +26,21 @@ export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingPro
    const [amount, setAmount] = useState(0);
 
    //load data
+   const drinkingProductData = useFetchById(DB.DRINKINGPRODUCTS, drinkingProductID);
    useEffect(() => {
-      if (drinkingProductID != null) {
-         const getDrinkingProduct = async () => {
-            await fetchDrinkingProductFromFirebase(drinkingProductID);
-         }
-         getDrinkingProduct();
+      if (drinkingProductData) {
+         setAbv(drinkingProductData.abv || 0);
+         setAmount(drinkingProductData.amount || 0);
+         setCategory(drinkingProductData.category || '');
+         setCreated(drinkingProductData.created || '');
+         setCreatedBy(drinkingProductData.createdBy || '');
+         setDescription(drinkingProductData.description || '');
+         setHaveAtHome(drinkingProductData.haveAtHome || '');
+         setManufacturer(drinkingProductData.manufacturer || '');
+         setName(drinkingProductData.name || '');
+         setStars(drinkingProductData.stars || 0);
       }
-   }, [drinkingProductID]);
+   }, [drinkingProductData]);
 
    useEffect(() => {
       sortCategoriesByName();
@@ -46,21 +53,6 @@ export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingPro
          return aName > bName ? 1 : -1;
       });
       setCategories(sortedCategories);
-   }
-
-   const fetchDrinkingProductFromFirebase = async (id) => {
-      getFromFirebaseById(DB.DRINKINGPRODUCTS, id).then((val) => {
-         setAbv(val["abv"]);
-         setAmount(val["amount"]);
-         setCategory(val["category"]);
-         setCreated(val["created"]);
-         setCreatedBy(val["createdBy"]);
-         setDescription(val["description"]);
-         setHaveAtHome(val["haveAtHome"]);
-         setManufacturer(val["manufacturer"]);
-         setName(val["name"]);
-         setStars(val["stars"]);
-      });
    }
 
    const onSubmit = (e) => {

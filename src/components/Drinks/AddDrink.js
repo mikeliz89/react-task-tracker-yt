@@ -4,8 +4,8 @@ import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { DrinkCategories } from './Categories';
 import { TRANSLATION, DB } from '../../utils/Constants';
-import { getFromFirebaseById } from '../../datatier/datatier';
 import PropTypes from 'prop-types';
+import useFetchById from '../Hooks/useFetchById';
 
 export default function AddDrink({ drinkID, onSave, onClose, showLabels }) {
 
@@ -26,14 +26,21 @@ export default function AddDrink({ drinkID, onSave, onClose, showLabels }) {
    const [title, setTitle] = useState('');
 
    //load data
+   const drinkData = useFetchById(DB.DRINKS, drinkID);
+
    useEffect(() => {
-      if (drinkID != null) {
-         const getDrink = async () => {
-            await fetchDrinkFromFirebase(drinkID);
-         }
-         getDrink();
+      if (drinkData) {
+         setCategory(drinkData.category || '');
+         setCreated(drinkData.created || '');
+         setCreatedBy(drinkData.createdBy || '');
+         setDescription(drinkData.description || '');
+         setGlass(drinkData.glass || '');
+         setIncredients(drinkData.incredients || '');
+         setIsCore(drinkData.isCore || false);
+         setStars(drinkData.stars || 0);
+         setTitle(drinkData.title || '');
       }
-   }, [drinkID]);
+   }, [drinkData]);
 
    useEffect(() => {
       sortCategoriesByName();
@@ -46,21 +53,6 @@ export default function AddDrink({ drinkID, onSave, onClose, showLabels }) {
          return aName > bName ? 1 : -1;
       });
       setCategories(sortedCategories);
-   }
-
-   const fetchDrinkFromFirebase = async (drinkID) => {
-      getFromFirebaseById(DB.DRINKS, drinkID)
-         .then((val) => {
-            setCategory(val["category"]);
-            setCreated(val["created"]);
-            setCreatedBy(val["createdBy"]);
-            setDescription(val["description"]);
-            setGlass(val["glass"]);
-            setIncredients(val["incredients"]);
-            setIsCore(val["isCore"]);
-            setStars(val["stars"]);
-            setTitle(val["title"]);
-         });
    }
 
    const onSubmit = (e) => {

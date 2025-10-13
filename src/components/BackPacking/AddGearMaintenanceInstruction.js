@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { TRANSLATION, DB } from "../../utils/Constants";
-import { getFromFirebaseById } from '../../datatier/datatier';
+import useFetchById from '../Hooks/useFetchById';
+
 
 export default function AddGearMaintenanceInstruction({ gearMaintenanceInstructionID, onSave, onClose }) {
 
@@ -18,25 +19,15 @@ export default function AddGearMaintenanceInstruction({ gearMaintenanceInstructi
     const [text, setText] = useState('');
 
     //load data
+    const gearMaintenanceInstructionData = useFetchById(DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS, gearMaintenanceInstructionID);
     useEffect(() => {
-        if (gearMaintenanceInstructionID != null) {
-            const getGear = async () => {
-                await fetchGearFromFirebase(gearMaintenanceInstructionID);
-            }
-            getGear();
+        if (gearMaintenanceInstructionData) {
+            setCreated(gearMaintenanceInstructionData.created || '');
+            setCreatedBy(gearMaintenanceInstructionData.createdBy || '');
+            setName(gearMaintenanceInstructionData.name || '');
+            setText(gearMaintenanceInstructionData.text || '');
         }
-    }, [gearMaintenanceInstructionID]);
-
-    const fetchGearFromFirebase = async (gearMaintenanceInstructionID) => {
-
-        getFromFirebaseById(DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS, gearMaintenanceInstructionID)
-            .then((val) => {
-                setCreated(val["created"]);
-                setCreatedBy(val["createdBy"]);
-                setName(val["name"]);
-                setText(val["text"]);
-            });
-    }
+    }, [gearMaintenanceInstructionData]);
 
     const onSubmit = (e) => {
         e.preventDefault();
