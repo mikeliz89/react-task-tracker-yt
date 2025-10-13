@@ -18,8 +18,8 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import { getMusicFormatNameByID } from '../../utils/ListUtils';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
-import useFetch from '../useFetch';
-import { useToggle } from '../useToggle';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
 
 export default function RecordDetails() {
 

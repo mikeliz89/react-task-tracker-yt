@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { db } from '../firebase-config';
+import { db } from '../../firebase-config';
 import { ref, onValue, child } from 'firebase/database';
 
 const useFetchChildren = (url, objectID) => {

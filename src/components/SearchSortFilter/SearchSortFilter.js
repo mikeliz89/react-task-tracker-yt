@@ -9,7 +9,7 @@ import SortByButton from './SortByButton';
 import SearchTextInput from './SearchTextInput';
 import FilterCheckBox from './FilterCheckBox';
 import Button from '../Buttons/Button';
-import { useToggle } from '../useToggle';
+import { useToggle } from '../Hooks/useToggle';
 import Collapse from 'react-bootstrap/Collapse';
 
 export default function SearchSortFilter({ onSet,

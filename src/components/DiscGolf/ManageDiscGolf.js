@@ -4,7 +4,7 @@ import { ButtonGroup, Row } from 'react-bootstrap';
 import GoBackButton from '../Buttons/GoBackButton';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
-import useFetch from '../useFetch';
+import useFetch from '../Hooks/useFetch';
 import Rounds from './Rounds';
 import CenterWrapper from '../Site/CenterWrapper';
 import NavButton from '../Buttons/NavButton';

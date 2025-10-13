@@ -16,8 +16,8 @@ import Alert from '../Alert';
 import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import AccordionElement from '../AccordionElement';
-import useFetch from '../useFetch';
-import { useToggle } from '../useToggle';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
 
 export default function PersonDetails() {
 

@@ -11,7 +11,7 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
-import useFetch from '../useFetch';
+import useFetch from '../Hooks/useFetch';
 
 export default function ManageExercises() {
 

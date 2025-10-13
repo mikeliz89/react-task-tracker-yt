@@ -19,8 +19,8 @@ import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../useToggle';
-import useFetch from '../useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import useFetch from '../Hooks/useFetch';
 import NavButton from '../Buttons/NavButton';
 
 export default function ManageRecipes() {

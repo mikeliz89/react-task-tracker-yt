@@ -8,7 +8,7 @@ import WeightChart from './WeightChart';
 import PageTitle from '../Site/PageTitle';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
-import useFetch from '../useFetch';
+import useFetch from '../Hooks/useFetch';
 import DeleteButton from '../Buttons/DeleteButton';
 import Counter from '../Site/Counter';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';

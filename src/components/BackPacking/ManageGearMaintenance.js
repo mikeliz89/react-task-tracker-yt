@@ -13,8 +13,8 @@ import GearMaintenanceInstructions from "./GearMaintenanceInstructions";
 import { removeFromFirebaseById } from "../../datatier/datatier";
 import Counter from "../Site/Counter";
 import CenterWrapper from '../Site/CenterWrapper';
-import { useToggle } from "../useToggle";
-import useFetch from "../useFetch";
+import { useToggle } from "../Hooks/useToggle";
+import useFetch from '../Hooks/useFetch';
 
 export default function ManageGearMaintenance() {
 

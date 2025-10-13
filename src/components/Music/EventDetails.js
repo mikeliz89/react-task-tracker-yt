@@ -19,10 +19,10 @@ import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
 import FoundItems from '../Selectors/FoundItems';
 import EventBands from './EventBands';
-import useFetch from '../useFetch';
-import useFetchChildren from '../useFetchChildren';
+import useFetch from '../Hooks/useFetch';
+import useFetchChildren from '../Hooks/useFetchChildren';
 import { Modal } from 'react-bootstrap';
-import { useToggle } from '../useToggle';
+import { useToggle } from '../Hooks/useToggle';
 
 export default function EventDetails() {
 

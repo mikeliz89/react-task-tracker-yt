@@ -15,8 +15,8 @@ import Button from '../Buttons/Button';
 import AddMovement from './AddMovement';
 import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { useToggle } from '../useToggle';
-import useFetch from '../useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import useFetch from '../Hooks/useFetch';
 
 export default function ManageMovements() {
 

@@ -28,8 +28,8 @@ import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import AccordionElement from '../AccordionElement';
-import { useToggle } from '../useToggle';
-import useFetch from '../useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import useFetch from '../Hooks/useFetch';
 
 export default function TaskListDetails() {
 

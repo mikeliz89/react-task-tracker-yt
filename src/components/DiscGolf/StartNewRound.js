@@ -4,7 +4,7 @@ import { Row, ButtonGroup, Form, Col } from 'react-bootstrap';
 import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import GoBackButton from '../Buttons/GoBackButton';
-import useFetch from '../useFetch';
+import useFetch from '../Hooks/useFetch';
 import { useRef } from 'react';
 import Button from '../Buttons/Button';
 import FoundItems from '../Selectors/FoundItems';

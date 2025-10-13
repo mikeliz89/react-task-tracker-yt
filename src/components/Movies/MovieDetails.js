@@ -18,7 +18,7 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import { getMovieFormatNameByID } from '../../utils/ListUtils';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
-import useFetch from '../useFetch';
+import useFetch from '../Hooks/useFetch';
 
 export default function MovieDetails() {
 

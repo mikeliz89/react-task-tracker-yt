@@ -19,8 +19,8 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../useToggle';
-import useFetch from '../useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import useFetch from '../Hooks/useFetch';
 
 export default function ManageTaskLists({ listType = ListTypes.None }) {
 

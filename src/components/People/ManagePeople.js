@@ -17,8 +17,8 @@ import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../useToggle';
-import useFetch from '../useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import useFetch from '../Hooks/useFetch';
 
 export default function ManagePeople() {
 

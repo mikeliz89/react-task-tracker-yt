@@ -18,7 +18,7 @@ import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../util
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from "../SearchSortFilter/SortModes";
-import useFetch from '../useFetch';
+import useFetch from '../Hooks/useFetch';
 import Counter from '../Site/Counter';
 import NavButton from '../Buttons/NavButton';
 

@@ -18,7 +18,7 @@ import CommentComponent from '../Comments/CommentComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
-import useFetch from '../useFetch';
+import useFetch from '../Hooks/useFetch';
 
 export default function MovementDetails() {
 

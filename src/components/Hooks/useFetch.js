@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { db } from '../firebase-config';
+import { db } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
-import { LIST_TYPES } from '../utils/Constants';
+import { LIST_TYPES } from '../../utils/Constants';
 
 const useFetch = (url, listType, objectID, subObjectID) => {
 
@@ -20,7 +20,7 @@ const useFetch = (url, listType, objectID, subObjectID) => {
             }
             await fetchDataFromFirebase();
         }
-        getData();
+        getData(); 
 
         return () => {
             cancel = true;

@@ -14,7 +14,7 @@ import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
-import useFetch from '../useFetch';
+import useFetch from '../Hooks/useFetch';
 
 export default function TaskDetails() {
 

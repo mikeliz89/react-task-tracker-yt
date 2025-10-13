@@ -17,9 +17,9 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AddBand from './AddBand';
 import AccordionElement from '../AccordionElement';
-import useFetch from '../useFetch';
+import useFetch from '../Hooks/useFetch';
 import { Modal } from 'react-bootstrap';
-import { useToggle } from '../useToggle';
+import { useToggle } from '../Hooks/useToggle';
 
 export default function BandDetails() {
 
