@@ -25,7 +25,9 @@ export default function Login() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //auth
@@ -44,9 +46,8 @@ export default function Login() {
             //navigate to dashboard
             navigate('/');
         } catch (error) {
-            setError(t('failed_to_log_in'));
-            setShowError(true);
-            console.log(error);
+            showFailure(t('failed_to_log_in'));
+            console.warn(error);
         }
 
         setLoading(false);

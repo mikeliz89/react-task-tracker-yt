@@ -40,7 +40,9 @@ export default function ManageMusicEvents() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //user
@@ -56,19 +58,10 @@ export default function ManageMusicEvents() {
             event["created"] = getCurrentDateAsJson();
             event["createdBy"] = currentUser.email;
             pushToFirebase(DB.MUSIC_EVENTS, event);
-            showSuccess();
+            showSuccess(t('save_success'));
         } catch (ex) {
-            showFailure();
-        }
-
-        function showFailure() {
-            setError(t('save_exception'));
-            setShowError(true);
-        }
-
-        function showSuccess() {
-            setMessage(t('save_success'));
-            setShowMessage(true);
+            showFailure(t('save_exception'));
+            console.warn(ex);
         }
     }
 

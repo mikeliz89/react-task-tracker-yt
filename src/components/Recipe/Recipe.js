@@ -40,7 +40,9 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //states
@@ -62,8 +64,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                 navigate(NAVIGATION.MANAGE_SHOPPINGLISTS)
             });
         } else if (incredients && incredients.length <= 0) {
-            setError(t('shoppinglist_no_incredients'));
-            setShowError(true);
+            showFailure(t('shoppinglist_no_incredients'));
         }
     }
 
@@ -119,9 +120,8 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
             }
             updateToFirebaseById(getUrl(recipeType), recipeID, recipeToUpdate);
         } catch (error) {
-            setError(t('failed_to_save_drink'));
-            setShowError(true);
-            console.log(error)
+            showFailure(t('failed_to_save_drink'));
+            console.warn(error);
         }
     }
 

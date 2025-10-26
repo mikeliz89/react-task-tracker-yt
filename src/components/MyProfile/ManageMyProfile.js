@@ -46,7 +46,9 @@ export default function ManageMyProfile() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //load data
@@ -84,13 +86,13 @@ export default function ManageMyProfile() {
         //validation
         if (height > 220) {
             alert("maksimi pituus on 220 cm!");
-            showFailure();
+            showFailure(t('saving_failed'));
             return;
         }
 
         saveProfileToFirebase();
 
-        showSuccess();
+        showSuccess(t('saving_done'));
     }
 
     const saveProfileToFirebase = async () => {
@@ -108,19 +110,9 @@ export default function ManageMyProfile() {
     const handleClick = () => {
         const res = uploadProfilePic(photo, currentUser, setLoading);
         if (res) {
-            showSuccess();
+            showSuccess(t('saving_done'));
             setPhotoUrl(currentUser.photoURL);
         }
-    }
-
-    function showFailure() {
-        setShowError(true);
-        setError(t('saving_failed'));
-    }
-
-    function showSuccess() {
-        setShowMessage(true);
-        setMessage(t('saving_done'));
     }
 
     return (

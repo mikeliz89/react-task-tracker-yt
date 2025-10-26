@@ -36,7 +36,9 @@ export default function MovieDetails() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //states
@@ -54,9 +56,8 @@ export default function MovieDetails() {
             movie["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.MOVIES, movieID, movie);
         } catch (error) {
-            setError(t('failed_to_save_movie'));
-            setShowError(true);
-            console.log(error);
+            showFailure(t('failed_to_save_movie'));
+            console.warn(error);
         }
     }
 

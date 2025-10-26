@@ -39,7 +39,9 @@ export default function ManageMovements() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //user
@@ -56,19 +58,10 @@ export default function ManageMovements() {
             movement["created"] = getCurrentDateAsJson();
             movement["createdBy"] = currentUser.email;
             pushToFirebase(DB.EXERCISE_MOVEMENTS, movement);
-            showSuccess();
+            showSuccess(t('save_success'));
         } catch (ex) {
-            showFailure();
-        }
-
-        function showFailure() {
-            setError(t('movement_save_exception'));
-            setShowError(true);
-        }
-
-        function showSuccess() {
-            setMessage(t('save_success'));
-            setShowMessage(true);
+            showFailure(t('movement_save_exception'));
+            console.warn(ex);
         }
     }
 

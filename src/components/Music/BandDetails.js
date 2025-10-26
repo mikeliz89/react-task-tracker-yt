@@ -36,7 +36,9 @@ export default function BandDetails() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //modal
@@ -54,9 +56,8 @@ export default function BandDetails() {
             band["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.MUSIC_BANDS, bandID, band);
         } catch (error) {
-            setError(t('failed_to_save_music_band'));
-            setShowError(true);
-            console.log(error);
+            showFailure(t('failed_to_save_music_band'));
+            console.warn(error);
         }
     }
 

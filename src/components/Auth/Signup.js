@@ -27,7 +27,9 @@ export default function Signup() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //auth
@@ -57,18 +59,13 @@ export default function Signup() {
             //navigate to dashboard
             navigate('/');
         } catch (error) {
-            console.log(error);
             showFailure('failed_to_create_account');
+            console.warn(error);
         }
 
         setLoading(false);
 
         clearForm();
-    }
-
-    function showFailure(content) {
-        setShowError(true);
-        setError(t(content));
     }
 
 

@@ -27,7 +27,9 @@ export default function AddInfo() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //car data states
@@ -103,9 +105,8 @@ export default function AddInfo() {
                 updateInfo(info);
             }
         } catch (error) {
-            console.log(error)
-            setError(t('failed_to_add_info'));
-            setShowError(true);
+            showFailure(t('failed_to_add_info'));
+            console.warn(error);
         }
 
         setLoading(false)
@@ -115,9 +116,10 @@ export default function AddInfo() {
         try {
             info["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.CAR_INFO, carId, info);
-            showSuccess();
+            showSuccess(t('save_successful'));
         } catch (ex) {
-            showException(ex);
+            showFailure(t('save_exception'));
+            console.warn(ex);
         }
     }
 
@@ -129,20 +131,11 @@ export default function AddInfo() {
             info["created"] = getCurrentDateAsJson();
             info["createdBy"] = currentUser.email;
             pushToFirebase(DB.CAR_INFO, info);
-            showSuccess();
+            showSuccess(t('save_successful'));
         } catch (ex) {
-            showException(ex);
+            showFailure(t('save_exception'));
+            console.warn(ex);
         }
-    }
-
-    function showException(ex) {
-        setError(t('save_exception'));
-        console.warn(ex);
-    }
-
-    function showSuccess() {
-        setMessage(t('save_successful'));
-        setShowMessage(true);
     }
 
     return (

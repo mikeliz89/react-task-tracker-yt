@@ -32,7 +32,9 @@ export default function MovementDetails() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //translation
@@ -84,13 +86,8 @@ export default function MovementDetails() {
             movement["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.EXERCISE_MOVEMENTS, movementID, movement);
         } catch (error) {
-            showFailure(error);
-        }
-
-        function showFailure(error) {
-            setError(t('movement_save_exception'));
-            setShowError(true);
-            console.log(error);
+            showFailure(t('movement_save_exception'));
+            console.warn(error);
         }
     }
 

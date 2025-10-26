@@ -35,7 +35,9 @@ export default function DrinkingProductDetails() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //translation
@@ -68,9 +70,8 @@ export default function DrinkingProductDetails() {
             drinkingProduct["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.DRINKINGPRODUCTS, drinkingProductID, drinkingProduct);
         } catch (error) {
-            console.log(error)
-            setError(t('failed_to_save_drink'));
-            setShowError(true);
+            showFailure(t('failed_to_save_drink'));
+            console.warn(error)
         }
     }
 
