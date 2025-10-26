@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import PageTitle from '../Site/PageTitle';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function CreateTrack() {
 
@@ -49,8 +50,13 @@ export default function CreateTrack() {
    const { currentUser } = useAuth();
 
    //alert
-   const [setShowError] = useState(false);
-   const [setError] = useState('');
+   const {
+      message, setMessage,
+      showMessage, setShowMessage,
+      error, setError,
+      showError, setShowError,
+      clearMessages
+   } = useAlert();
 
    //listen to holes changes
    useEffect(() => {

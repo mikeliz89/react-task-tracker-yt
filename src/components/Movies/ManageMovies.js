@@ -9,7 +9,6 @@ import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import CenterWrapper from '../Site/CenterWrapper';
 import Movies from './Movies';
-import { useState } from 'react';
 import Counter from '../Site/Counter';
 import Alert from '../Alert';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
@@ -20,6 +19,7 @@ import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
 import NavButton from '../Buttons/NavButton';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function ManageMovies() {
 
@@ -35,10 +35,13 @@ export default function ManageMovies() {
     const { status: showAddMovie, toggleStatus: toggleAddMovie } = useToggle();
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //user
     const { currentUser } = useAuth();
@@ -69,13 +72,6 @@ export default function ManageMovies() {
         }
     }
 
-    function clearMessages() {
-        setError('');
-        setShowError(false);
-        setMessage('');
-        setShowMessage(false);
-    }
-
     const editMovie = (movie) => {
         const id = movie.id;
         updateToFirebaseById(DB.MOVIES, id, movie);
@@ -98,10 +94,12 @@ export default function ManageMovies() {
                 </ButtonGroup>
             </Row>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
                 variant={VARIANTS.SUCCESS}
-                onClose={() => { setShowMessage(false); setShowError(false); }}
+                onClose={clearMessages}
             />
 
             <Modal show={showAddMovie} onHide={toggleAddMovie}>

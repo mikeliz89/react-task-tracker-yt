@@ -13,6 +13,7 @@ import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseById } from '../../datatier/datatier';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function BmiCalculator() {
 
@@ -31,10 +32,13 @@ export default function BmiCalculator() {
     const [weight, setWeight] = useState();
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //load data
     useEffect(() => {
@@ -120,9 +124,12 @@ export default function BmiCalculator() {
                 </ButtonGroup>
             </Row>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.PRIMARY} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.PRIMARY}
+                onClose={clearMessages}
             />
 
             <Form onSubmit={onSubmit}>

@@ -3,7 +3,7 @@ import Links from './Links';
 import { useState } from 'react';
 import PageTitle from '../Site/PageTitle';
 import { useTranslation } from 'react-i18next';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, COLORS } from '../../utils/Constants';
 
 export default function LinkComponent({ objID, url, onSaveLink }) {
 

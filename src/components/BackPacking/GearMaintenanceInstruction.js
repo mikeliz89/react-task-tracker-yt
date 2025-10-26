@@ -7,6 +7,7 @@ import RightWrapper from '../Site/RightWrapper';
 import AddGearMaintenanceInstruction from './AddGearMaintenanceInstruction';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { updateToFirebaseById } from '../../datatier/datatier';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function GearMaintenanceInstruction({ instruction, onDelete }) {
 
@@ -14,10 +15,13 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
     const [editable, setEditable] = useState(false);
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message] = useState('')
-    const [showError, setShowError] = useState(false);
-    const [error] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     const updateInstruction = (object) => {
         object["modified"] = getCurrentDateAsJson();
@@ -28,9 +32,12 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
     return (
         <div className='listContainer'>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.SUCCESS}
+                onClose={clearMessages}
             />
 
             <h5>

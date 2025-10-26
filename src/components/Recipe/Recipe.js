@@ -7,7 +7,7 @@ import StarRating from '../StarRating/StarRating';
 import { db } from '../../firebase-config';
 import { ref, child, onValue } from 'firebase/database';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { COLORS, DB, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { COLORS, DB, NAVIGATION } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import i18n from "i18next";
 import { getCategoryContent, getIncredientsUrl, getIconName, getViewDetailsUrl, getUrl } from './Categories';
@@ -21,6 +21,7 @@ import AddDrink from '../Drinks/AddDrink';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import NavButton from '../Buttons/NavButton';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function Recipe({ recipeType, translation, translationKeyPrefix, recipe, onDelete }) {
 
@@ -34,10 +35,13 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
     const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //states
     const [editable, setEditable] = useState(false);
@@ -154,12 +158,13 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                 </RightWrapper>
             </h5>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert
+                message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                onClose={clearMessages}
             />
-
             {recipe.category > 0 ? !editable && (
                 <p> {getCategory(recipe.category)}</p>
             ) : ('')}

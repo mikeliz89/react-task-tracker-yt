@@ -23,6 +23,7 @@ import ImageComponent from "../ImageUpload/ImageComponent";
 import StarRatingWrapper from "../StarRating/StarRatingWrapper";
 import AccordionElement from "../AccordionElement";
 import useFetch from '../Hooks/useFetch';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function ExerciseDetails() {
 
@@ -33,10 +34,13 @@ export default function ExerciseDetails() {
     const [showEditExercise, setShowEditExercise] = useState(false);
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
@@ -103,9 +107,12 @@ export default function ExerciseDetails() {
                 </Row>
                 {showEditExercise && <EditExercise exerciseID={params.id} exercise={exercise} onClose={() => setShowEditExercise(false)} />}
 
-                <Alert message={message} showMessage={showMessage}
-                    error={error} showError={showError}
-                    variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+                <Alert message={message}
+                    showMessage={showMessage}
+                    error={error}
+                    showError={showError}
+                    variant={VARIANTS.SUCCESS}
+                    onClose={clearMessages}
                 />
 
                 <Table>

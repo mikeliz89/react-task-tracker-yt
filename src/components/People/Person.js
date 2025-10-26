@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { TRANSLATION, NAVIGATION, VARIANTS } from "../../utils/Constants";
+import { TRANSLATION, NAVIGATION } from "../../utils/Constants";
 import Alert from '../Alert';
 import DeleteButton from '../Buttons/DeleteButton';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function Person({ person, onDelete }) {
 
@@ -11,18 +11,23 @@ export default function Person({ person, onDelete }) {
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.PEOPLE });
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message] = useState('')
-    const [showError, setShowError] = useState(false);
-    const [error] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     return (
         <div className='listContainer'>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert
+                message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                onClose={clearMessages}
             />
 
             <h5>

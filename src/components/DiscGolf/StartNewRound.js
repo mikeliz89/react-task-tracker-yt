@@ -12,6 +12,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { pushToFirebase, pushToFirebaseChild } from '../../datatier/datatier';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function StartNewRound() {
 
@@ -41,8 +42,13 @@ export default function StartNewRound() {
    const { currentUser } = useAuth();
 
    //alert
-   const [setShowError] = useState(false);
-   const [setError] = useState('');
+   const {
+      message, setMessage,
+      showMessage, setShowMessage,
+      error, setError,
+      showError, setShowError,
+      clearMessages
+   } = useAlert();
 
    const inputRef = useRef();
    const inputPlayerRef = useRef();

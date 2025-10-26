@@ -8,6 +8,7 @@ import Alert from '../Alert';
 import PageTitle from '../Site/PageTitle';
 import CenterWrapper from '../Site/CenterWrapper';
 import { TRANSLATION, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function Login() {
 
@@ -19,10 +20,13 @@ export default function Login() {
     const [password, setPassword] = useState('');
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //auth
     const { login } = useAuth();
@@ -48,21 +52,17 @@ export default function Login() {
         setLoading(false);
     }
 
-    function clearMessages() {
-        setError('');
-        setShowError(false);
-        setMessage('');
-        setShowMessage(false);
-    }
-
     return (
         <div className="login-container">
 
             <PageTitle title={t('log_in')} />
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.SUCCESS}
+                onClose={clearMessages}
             />
 
             <Form onSubmit={onSubmit}>

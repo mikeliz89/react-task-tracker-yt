@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Alert from '../Alert';
 import { useTranslation } from 'react-i18next';
-import { TRANSLATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION } from '../../utils/Constants';
 import ProgressBar from './ProgressBar';
 import CenterWrapper from '../Site/CenterWrapper';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function UploadForm({ objectID, imagesUrl }) {
 
@@ -13,11 +14,15 @@ export default function UploadForm({ objectID, imagesUrl }) {
 
     //states
     const [file, setFile] = useState(null);
+
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     const types = ['image/png', 'image/jpeg'];
 
@@ -35,10 +40,12 @@ export default function UploadForm({ objectID, imagesUrl }) {
     }
     return (
         <>
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.INFO}
-                onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert
+                message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                onClose={clearMessages}
             />
 
             <Form>

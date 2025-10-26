@@ -8,6 +8,8 @@ import Alert from '../Alert';
 import { getIconNameByCategory } from './Categories';
 import StarRating from '../StarRating/StarRating';
 import RightWrapper from '../Site/RightWrapper';
+import { useAlert } from '../Hooks/useAlert';
+
 
 export default function Gear({ gear, onDelete }) {
 
@@ -15,17 +17,24 @@ export default function Gear({ gear, onDelete }) {
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message] = useState('')
-    const [showError, setShowError] = useState(false);
-    const [error] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     return (
         <div className='listContainer'>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert
+                message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.SUCCESS}
+                onClose={clearMessages}
             />
 
             <h5>

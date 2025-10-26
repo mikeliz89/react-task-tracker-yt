@@ -20,6 +20,7 @@ import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
 import NavButton from '../Buttons/NavButton';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function ManageMusicRecords() {
 
@@ -35,10 +36,13 @@ export default function ManageMusicRecords() {
     const { status: showAddRecord, toggleStatus: toggleAddRecord } = useToggle();
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //user
     const { currentUser } = useAuth();
@@ -69,13 +73,6 @@ export default function ManageMusicRecords() {
         }
     }
 
-    function clearMessages() {
-        setError('');
-        setShowError(false);
-        setMessage('');
-        setShowMessage(false);
-    }
-
     const editRecord = (record) => {
         const id = record.id;
         updateToFirebaseById(DB.MUSIC_RECORDS, id, record);
@@ -98,10 +95,11 @@ export default function ManageMusicRecords() {
                 </ButtonGroup>
             </Row>
 
-            <Alert message={message} showMessage={showMessage}
+            <Alert message={message}
+                showMessage={showMessage}
                 error={error} showError={showError}
                 variant={VARIANTS.SUCCESS}
-                onClose={() => { setShowMessage(false); setShowError(false); }}
+                onClose={clearMessages}
             />
 
             <Modal show={showAddRecord} onHide={toggleAddRecord}>

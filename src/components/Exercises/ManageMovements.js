@@ -1,6 +1,5 @@
 import { ButtonGroup, Modal, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
 import GoBackButton from '../Buttons/GoBackButton';
 import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
@@ -8,7 +7,7 @@ import Movements from './Movements';
 import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
-import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
 import { removeFromFirebaseById, pushToFirebase } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import Button from '../Buttons/Button';
@@ -17,6 +16,8 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
+import { useAlert } from '../Hooks/useAlert';
+import Alert from '../Alert';
 
 export default function ManageMovements() {
 
@@ -33,10 +34,13 @@ export default function ManageMovements() {
     const { status: showAddMovement, toggleStatus: toggleAddMovement } = useToggle();
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //user
     const { currentUser } = useAuth();
@@ -45,12 +49,6 @@ export default function ManageMovements() {
         removeFromFirebaseById(DB.EXERCISE_MOVEMENTS, id);
     }
 
-    function clearMessages() {
-        setError('');
-        setShowError(false);
-        setMessage('');
-        setShowMessage(false);
-    }
 
     const addMovement = async (movementID, movement) => {
         try {
@@ -86,6 +84,14 @@ export default function ManageMovements() {
                     <GoBackButton />
                 </ButtonGroup>
             </Row>
+
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.SUCCESS}
+                onClose={clearMessages}
+            />
 
             {
                 originalMovements != null && originalMovements.length > 0 ? (
