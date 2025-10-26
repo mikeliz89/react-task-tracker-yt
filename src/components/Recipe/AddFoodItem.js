@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../Buttons/Button';
@@ -8,189 +8,140 @@ import useFetchById from '../Hooks/useFetchById';
 
 export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
 
-    //translation
     const { t, ready } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
-    //states
-    const [category, setCategory] = useState('');
-    const [categories, setCategories] = useState(FoodItemCategories);
-    const [name, setName] = useState('');
-    const [created, setCreated] = useState('');
-    const [createdBy, setCreatedBy] = useState('');
-    const [haveAtHome, setHaveAtHome] = useState('');
+    const defaultFoodItem = {
+        name: '',
+        category: '',
+        haveAtHome: false,
+        calories: 0,
+        carbs: 0,
+        fat: 0,
+        fiber: 0,
+        protein: 0,
+        salt: 0,
+        sugars: 0,
+        created: '',
+        createdBy: ''
+    };
 
-    //nutrition info
-    const [carbs, setCarbs] = useState(0);
-    const [calories, setCalories] = useState(0);
-    const [fat, setFat] = useState(0);
-    const [fiber, setFiber] = useState(0);
-    const [protein, setProtein] = useState(0);
-    const [salt, setSalt] = useState(0);
-    const [sugars, setSugars] = useState(0);
+    const [foodItem, setFoodItem] = useState(defaultFoodItem);
 
-    //load data
     const foodItemData = useFetchById(DB.FOODITEMS, foodItemID);
 
     useEffect(() => {
         if (foodItemData) {
-            setCalories(foodItemData.calories || 0);
-            setCarbs(foodItemData.carbs || 0);
-            setCategory(foodItemData.category || '');
-            setCreated(foodItemData.created || '');
-            setCreatedBy(foodItemData.createdBy || '');
-            setFat(foodItemData.fat || 0);
-            setFiber(foodItemData.fiber || 0);
-            setHaveAtHome(foodItemData.haveAtHome || false);
-            setName(foodItemData.name || '');
-            setProtein(foodItemData.protein || 0);
-            setSalt(foodItemData.salt || 0);
-            setSugars(foodItemData.sugars || 0);
+            setFoodItem(prev => ({
+                ...prev,
+                ...foodItemData
+            }));
         }
     }, [foodItemData]);
 
-    useEffect(() => {
-        sortCategoriesByName();
-    }, [ready]);
-
-    const sortCategoriesByName = () => {
-        const sortedCategories = [...categories].sort((a, b) => {
+    const sortedCategories = useMemo(() => {
+        return [...FoodItemCategories].sort((a, b) => {
             const aName = t(`fooditem_category_${a.name}`);
             const bName = t(`fooditem_category_${b.name}`);
-            return aName > bName ? 1 : -1;
+            return aName.localeCompare(bName);
         });
-        setCategories(sortedCategories);
-    }
+    }, [ready, t]);
+
+    const handleChange = (key, value) => {
+        setFoodItem(prev => ({ ...prev, [key]: value }));
+    };
+
+    const nutritionFields = [
+        { key: 'calories', label: 'fooditem_calories' },
+        { key: 'fat', label: 'fooditem_fat' },
+        { key: 'carbs', label: 'fooditem_carbs' },
+        { key: 'sugars', label: 'fooditem_sugars' },
+        { key: 'protein', label: 'fooditem_protein' },
+        { key: 'salt', label: 'fooditem_salt' },
+        { key: 'fiber', label: 'fooditem_fiber' }
+    ];
 
     const onSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        //validation
-        if (!name) {
-            alert(t('fooditem_please_add_name'))
-            return
+        if (!foodItem.name.trim()) {
+            alert(t('fooditem_please_add_name'));
+            return;
         }
 
-        onAddFoodItem({
-            created, createdBy,
-            calories, carbs, category,
-            fat, fiber,
-            haveAtHome,
-            name, protein, salt,
-            sugars
-        });
+        onAddFoodItem(foodItem);
 
-        if (foodItemID == null) {
-            clearForm();
+        if (foodItemID === null) {
+            setFoodItem(defaultFoodItem);
         }
-    }
-
-    const clearForm = () => {
-        setCalories(0);
-        setCarbs(0);
-        setCategory('');
-        setFat(0);
-        setFiber(0);
-        setHaveAtHome(false);
-        setName('');
-        setProtein(0);
-        setSalt(0);
-        setSugars(0);
-    }
+    };
 
     return (
-        <>
-            <Form onSubmit={onSubmit}>
-                <Form.Group className="mb-3" controlId="addFoodItemForm-Name">
-                    <Form.Label>{t('fooditem_name')}</Form.Label>
-                    <Form.Control type='text'
+        <Form onSubmit={onSubmit}>
+            <Form.Group className="mb-3" controlId="addFoodItemForm-Name">
+                <Form.Label>{t('fooditem_name')}</Form.Label>
+                <Form.Control
+                    type='text'
+                    autoComplete="off"
+                    placeholder={t('fooditem_name')}
+                    value={foodItem.name}
+                    onChange={(e) => handleChange('name', e.target.value)}
+                />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="addFoodItemForm-Category">
+                <Form.Label>{t('fooditem_category')}</Form.Label>
+                <Form.Select
+                    value={foodItem.category}
+                    onChange={(e) => handleChange('category', e.target.value)}
+                >
+                    {sortedCategories.map(({ id, name }) => (
+                        <option key={id} value={id}>
+                            {t(`fooditem_category_${name}`)}
+                        </option>
+                    ))}
+                </Form.Select>
+            </Form.Group>
+
+            {/* Generoidaan ravintoarvokentät */}
+            {nutritionFields.map(({ key, label }) => (
+                <Form.Group key={key} className="mb-3" controlId={`addFoodItemForm-${key}`}>
+                    <Form.Label>{t(label)}</Form.Label>
+                    <Form.Control
+                        type='number'
                         autoComplete="off"
-                        placeholder={t('fooditem_name')}
-                        value={name}
-                        onChange={(e) => setName(e.target.value)} />
+                        step="any"
+                        placeholder={t(label)}
+                        value={foodItem[key]}
+                        onChange={(e) => handleChange(key, Number(e.target.value))}
+                    />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addFoodItemForm-Category">
-                    <Form.Label>{t('fooditem_category')}</Form.Label>
-                    <Form.Select
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}>
-                        {categories.map(({ id, name }) => (
-                            <option value={id}
-                                key={id}>{t(`fooditem_category_${name}`)}</option>
-                        ))}
-                    </Form.Select>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="addFoodItemForm-Calories">
-                    <Form.Label>{t('fooditem_calories')}</Form.Label>
-                    <Form.Control type='number'
-                        autoComplete="off"
-                        placeholder={t('fooditem_calories')}
-                        value={calories}
-                        onChange={(e) => setCalories(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="addFoodItemForm-Fat">
-                    <Form.Label>{t('fooditem_fat')}</Form.Label>
-                    <Form.Control type='number'
-                        autoComplete="off"
-                        placeholder={t('fooditem_fat')}
-                        value={fat}
-                        onChange={(e) => setFat(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="addFoodItemForm-Carbs">
-                    <Form.Label>{t('fooditem_carbs')}</Form.Label>
-                    <Form.Control type='number'
-                        autoComplete="off"
-                        placeholder={t('fooditem_carbs')}
-                        value={carbs}
-                        onChange={(e) => setCarbs(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="addFoodItemForm-Sugars">
-                    <Form.Label>{t('fooditem_sugars')}</Form.Label>
-                    <Form.Control type='number'
-                        autoComplete="off"
-                        placeholder={t('fooditem_sugars')}
-                        value={sugars}
-                        onChange={(e) => setSugars(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="addFoodItemForm-Protein">
-                    <Form.Label>{t('fooditem_protein')}</Form.Label>
-                    <Form.Control type='number'
-                        autoComplete="off"
-                        placeholder={t('fooditem_protein')}
-                        value={protein}
-                        onChange={(e) => setProtein(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="addFoodItemForm-Salt">
-                    <Form.Label>{t('fooditem_salt')}</Form.Label>
-                    <Form.Control type='number'
-                        autoComplete="off"
-                        placeholder={t('fooditem_salt')}
-                        value={salt}
-                        onChange={(e) => setSalt(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="addFoodItemForm-Fiber">
-                    <Form.Label>{t('fooditem_fiber')}</Form.Label>
-                    <Form.Control type='number'
-                        autoComplete="off"
-                        placeholder={t('fooditem_fiber')}
-                        value={fiber}
-                        onChange={(e) => setFiber(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="addFoodItemForm-HaveAtHome">
-                    <Form.Check
-                        type='checkbox'
-                        label={t('fooditem_have_at_home')}
-                        checked={haveAtHome}
-                        value={haveAtHome}
-                        onChange={(e) => setHaveAtHome(e.currentTarget.checked)} />
-                </Form.Group>
-                <Row>
-                    <ButtonGroup>
-                        <Button type="button" text={tCommon('buttons.button_close')} className='btn btn-block' onClick={() => onClose()} />
-                        <Button type='submit' text={t('button_save_fooditem')} className='btn btn-block saveBtn' />
-                    </ButtonGroup>
-                </Row>
-            </Form>
-        </>
-    )
+            ))}
+
+            <Form.Group className="mb-3" controlId="addFoodItemForm-HaveAtHome">
+                <Form.Check
+                    type='checkbox'
+                    label={t('fooditem_have_at_home')}
+                    checked={foodItem.haveAtHome}
+                    onChange={(e) => handleChange('haveAtHome', e.currentTarget.checked)}
+                />
+            </Form.Group>
+
+            <Row>
+                <ButtonGroup>
+                    <Button
+                        type="button"
+                        text={tCommon('buttons.button_close')}
+                        className='btn btn-block'
+                        onClick={onClose}
+                    />
+                    <Button
+                        type='submit'
+                        text={t('button_save_fooditem')}
+                        className='btn btn-block saveBtn'
+                    />
+                </ButtonGroup>
+            </Row>
+        </Form>
+    );
 }
