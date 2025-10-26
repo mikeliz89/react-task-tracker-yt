@@ -1,4 +1,4 @@
-import useUploadToStorage from "../../hooks/useUploadToStorage";
+import useUploadToStorage from "../../Hooks/useUploadToStorage";
 import { useEffect } from "react";
 import styles from './progressbar.module.css';
 

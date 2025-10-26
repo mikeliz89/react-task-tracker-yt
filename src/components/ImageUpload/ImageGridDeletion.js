@@ -1,4 +1,4 @@
-import useRemoveFromStorage from "../../hooks/useRemoveFromStorage";
+import useRemoveFromStorage from "../../Hooks/useRemoveFromStorage";
 
 export default function ImageGridDeletion({ url, mainID, subID, fileName }) {
 
