@@ -194,9 +194,9 @@ export default function TaskListDetails() {
       // Optimistinen UI: tyhjennä valinnat ja kohde
       clearSelection();
       setDestListId("");
-    } catch (e) {
-      console.error(e);
+    } catch (ex) {
       setError("Siirto epäonnistui. Yritä uudelleen.");
+      console.warn(ex);
     } finally {
       setLoadingMove(false);
     }

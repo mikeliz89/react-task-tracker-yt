@@ -41,7 +41,9 @@ export default function ManageFoodItems() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     const addFoodItem = (foodItem) => {
@@ -49,20 +51,11 @@ export default function ManageFoodItems() {
             foodItem["created"] = getCurrentDateAsJson();
             foodItem["createdBy"] = currentUser.email;
             pushToFirebase(DB.FOODITEMS, foodItem);
-            showSuccess();
+            showSuccess(t('fooditem_save_successful'));
         } catch (ex) {
-            showFailure();
+            showFailure(t('fooditem_save_exception'));
+            console.warn(ex);
         }
-    }
-
-    function showSuccess() {
-        setMessage(t('fooditem_save_successful'));
-        setShowMessage(true);
-    }
-
-    function showFailure() {
-        setError(t('fooditem_save_exception'));
-        setShowError(true);
     }
 
     const deleteFoodItem = (id) => {

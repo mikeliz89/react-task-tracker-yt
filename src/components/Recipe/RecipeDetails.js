@@ -53,7 +53,9 @@ export default function RecipeDetails() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //translation
@@ -86,9 +88,8 @@ export default function RecipeDetails() {
             }
             updateToFirebaseById(DB.RECIPES, recipeID, recipe);
         } catch (error) {
-            console.log(error)
-            setError(t('failed_to_save_recipe'));
-            setShowError(true);
+            showFailure(t('failed_to_save_recipe'));
+            console.warn(error);
         }
     }
 
@@ -127,8 +128,7 @@ export default function RecipeDetails() {
 
         pushToFirebaseById(DB.RECIPE_HISTORY, recipeID, { currentDateTime, userID });
 
-        setShowMessage(true);
-        setMessage(t('save_success_recipehistoryhistory'));
+        showSuccess(t('save_success_recipehistoryhistory'));
     }
 
     const updateRecipeIncredients = async () => {
@@ -170,8 +170,7 @@ export default function RecipeDetails() {
                 navigate(NAVIGATION.MANAGE_SHOPPINGLISTS)
             });
         } else if (incredients && incredients.length <= 0) {
-            setError(t('shoppinglist_no_incredients'));
-            setShowError(true);
+            showFailure(t('shoppinglist_no_incredients'));
         }
     }
 

@@ -23,7 +23,9 @@ export default function Logout() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     async function handleLogout() {
@@ -32,9 +34,8 @@ export default function Logout() {
             await logout();
             navigate(NAVIGATION.LOGIN);
         } catch (error) {
-            console.log(error);
-            setError(t('failed_to_log_out'));
-            setShowError(true);
+            showFailure(t('failed_to_log_out'));
+            console.warn(error);
         }
     }
 

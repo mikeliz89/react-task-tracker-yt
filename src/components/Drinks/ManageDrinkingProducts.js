@@ -42,7 +42,9 @@ export default function ManageDrinkingProducts() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     const addDrinkingProduct = (drinkingProduct) => {
@@ -50,19 +52,9 @@ export default function ManageDrinkingProducts() {
             drinkingProduct["created"] = getCurrentDateAsJson();
             drinkingProduct["createdBy"] = currentUser.email;
             pushToFirebase(DB.DRINKINGPRODUCTS, drinkingProduct);
-            showSuccess();
+            showSuccess(t('drinkingproduct_save_successful'));
         } catch (ex) {
-            showFailure();
-        }
-
-        function showFailure() {
-            setError(t('drinkingproduct_save_exception'));
-            setShowError(true);
-        }
-
-        function showSuccess() {
-            setMessage(t('drinkingproduct_save_successful'));
-            setShowMessage(true);
+            showFailure(t('drinkingproduct_save_exception'));
         }
     }
 

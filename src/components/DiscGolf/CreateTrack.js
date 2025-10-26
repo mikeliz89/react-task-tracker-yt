@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import Button from '../Buttons/Button';
-import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
 import TrackHoles from './TrackHoles';
 import { pushToFirebase, pushToFirebaseChild } from '../../datatier/datatier';
@@ -13,6 +13,7 @@ import PageTitle from '../Site/PageTitle';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import CenterWrapper from '../Site/CenterWrapper';
 import { useAlert } from '../Hooks/useAlert';
+import Alert from '../Alert';
 
 export default function CreateTrack() {
 
@@ -55,7 +56,9 @@ export default function CreateTrack() {
       showMessage, setShowMessage,
       error, setError,
       showError, setShowError,
-      clearMessages
+      clearMessages,
+      showSuccess,
+      showFailure
    } = useAlert();
 
    //listen to holes changes
@@ -69,7 +72,7 @@ export default function CreateTrack() {
 
       if (counter === maxHoleCount) {
          //TODO: kieleistys
-         alert("Rataan ei voi lisätä enempää väyliä kuin " + maxHoleCount);
+         showFailure("Rataan ei voi lisätä enempää väyliä kuin " + maxHoleCount);
          return;
       }
 
@@ -87,13 +90,13 @@ export default function CreateTrack() {
 
       if (holes.length < 1) {
          //TODO: kieleistys
-         alert("Lisää vähintään yksi väylä");
+         showFailure("Lisää vähintään yksi väylä");
          return;
       }
 
       if (trackName === "") {
          //TODO: kieleistys
-         alert("Ole hyvä ja anna radalle nimi");
+         showFailure("Ole hyvä ja anna radalle nimi");
          return;
       }
 
@@ -102,7 +105,7 @@ export default function CreateTrack() {
          saveTrack({ trackName, trackCity, description });
 
       } catch (error) {
-         console.log(error);
+         console.warn(error);
       }
    }
 
@@ -116,8 +119,8 @@ export default function CreateTrack() {
 
          navigate(`${NAVIGATION.MANAGE_DISC_GOLF_TRACKS}`);
       } catch (ex) {
-         setError(t('track_save_exception'));
-         setShowError(true);
+         showFailure(t('track_save_exception'));
+         console.warn(ex);
       }
    }
 
@@ -171,6 +174,15 @@ export default function CreateTrack() {
          <PageTitle title={t('add_new_track')} />
 
          <GoBackButton />
+
+         <Alert
+            message={message}
+            showMessage={showMessage}
+            error={error}
+            showError={showError}
+            variant={VARIANTS.SUCCESS}
+            onClose={clearMessages}
+         />
          <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="createTrackForm-TrackName">
                <Form.Label>{t('track_name')}</Form.Label>

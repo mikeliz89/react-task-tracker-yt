@@ -46,7 +46,9 @@ export default function ManageRecipes() {
     showMessage, setShowMessage,
     error, setError,
     showError, setShowError,
-    clearMessages
+    clearMessages,
+    showSuccess,
+    showFailure
   } = useAlert();
 
   //user
@@ -58,19 +60,10 @@ export default function ManageRecipes() {
       recipe["createdBy"] = currentUser.email;
       const key = await pushToFirebase(DB.RECIPES, recipe);
       navigate(`${NAVIGATION.RECIPE}/${key}`);
-      showSuccess();
+      showSuccess(t('recipe_save_successful'));
     } catch (ex) {
-      showFailure();
-    }
-
-    function showSuccess() {
-      setMessage(t('recipe_save_successful'));
-      setShowMessage(true);
-    }
-
-    function showFailure() {
-      setError(t('recipe_save_exception'));
-      setShowError(true);
+      showFailure(t('recipe_save_exception'));
+      console.warn(ex);
     }
   }
 

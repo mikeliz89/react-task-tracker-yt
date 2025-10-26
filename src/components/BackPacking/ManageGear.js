@@ -39,7 +39,9 @@ export default function ManageGear() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //user
@@ -51,19 +53,9 @@ export default function ManageGear() {
             gear["created"] = getCurrentDateAsJson();
             gear["createdBy"] = currentUser.email;
             pushToFirebase(DB.BACKPACKING_GEAR, gear);
-            showSuccess();
+            showSuccess(t('save_success'));
         } catch (ex) {
-            showFailure();
-        }
-
-        function showFailure() {
-            setError(t('save_exception'));
-            setShowError(true);
-        }
-
-        function showSuccess() {
-            setMessage(t('save_success'));
-            setShowMessage(true);
+            showFailure(t('save_exception'));
         }
     }
 

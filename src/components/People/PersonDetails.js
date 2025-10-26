@@ -34,7 +34,9 @@ export default function PersonDetails() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //fetch data
@@ -52,9 +54,8 @@ export default function PersonDetails() {
             person["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.PEOPLE, personID, person);
         } catch (error) {
-            setError(t('failed_to_save_person'));
-            setShowError(true);
-            console.log(error);
+            showFailure(t('failed_to_save_person'));
+            console.warn(error);
         }
 
         toggleShowEdit();

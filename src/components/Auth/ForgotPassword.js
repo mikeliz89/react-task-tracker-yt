@@ -25,7 +25,9 @@ export default function ForgotPassword() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     async function onSubmit(e) {
@@ -35,23 +37,13 @@ export default function ForgotPassword() {
             setLoading(true);
             clearMessages();
             await resetPassword(email);
-            showSuccess();
+            showSuccess(t('check_your_inbox'));
         } catch (error) {
-            console.log(error);
-            showFailure();
+            showFailure(t('failed_to_reset_password'));
+            console.warn(error);
         }
 
         setLoading(false);
-    }
-
-    function showSuccess() {
-        setMessage(t('check_your_inbox'));
-        setShowMessage(true);
-    }
-
-    function showFailure() {
-        setError(t('failed_to_reset_password'));
-        setShowError(true);
     }
 
     return (

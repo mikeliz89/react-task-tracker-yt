@@ -47,7 +47,9 @@ export default function ManageDrinks() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //user
@@ -62,19 +64,10 @@ export default function ManageDrinks() {
             }
             const key = await pushToFirebase(DB.DRINKS, drink);
             navigate(`${NAVIGATION.DRINK}/${key}`);
-            showSuccess();
+            showSuccess(t('save_success'));
         } catch (ex) {
-            showFailure();
-        }
-
-        function showSuccess() {
-            setMessage(t('save_success'));
-            setShowMessage(true);
-        }
-
-        function showFailure() {
-            setShowError(true);
-            setError(t('save_exception'));
+            showFailure(t('save_exception'));
+            console.warn(ex);
         }
     }
 

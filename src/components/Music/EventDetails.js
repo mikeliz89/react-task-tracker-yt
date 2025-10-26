@@ -37,7 +37,9 @@ export default function EventDetails() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //states
@@ -79,9 +81,8 @@ export default function EventDetails() {
             event["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.MUSIC_EVENTS, eventID, event);
         } catch (error) {
-            setError(t('failed_to_save_music_event'));
-            setShowError(true);
-            console.log(error);
+            showFailure(t('failed_to_save_music_event'));
+            console.warn(error);
         }
     }
 

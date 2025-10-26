@@ -39,7 +39,9 @@ export default function GameDetails() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //auth
@@ -51,9 +53,8 @@ export default function GameDetails() {
             game["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.GAMES, gameID, game);
         } catch (error) {
-            setError(t('failed_to_save_game'));
-            setShowError(true);
-            console.log(error);
+            showFailure(t('failed_to_save_game'));
+            console.warn(error);
         }
     }
 

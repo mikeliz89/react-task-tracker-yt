@@ -35,7 +35,9 @@ export default function Car() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //modal
@@ -58,20 +60,10 @@ export default function Car() {
             fueling["created"] = getCurrentDateAsJson();
             fueling["createdBy"] = currentUser.email;
             pushToFirebase(DB.CAR_FUELING, fueling);
-            showSuccess();
+            showSuccess(t('save_successful'));
         } catch (ex) {
-            showFailure(ex);
-        }
-
-        function showFailure(ex) {
-            setError(t('save_exception'));
-            setShowError(true);
+            showFailure(t('save_exception'));
             console.warn(ex);
-        }
-
-        function showSuccess() {
-            setMessage(t('save_successful'));
-            setShowMessage(true);
         }
     }
 
@@ -84,20 +76,10 @@ export default function Car() {
             maintenance["created"] = getCurrentDateAsJson();
             maintenance["createdBy"] = currentUser.email;
             pushToFirebase(DB.CAR_MAINTENANCE, maintenance);
-            showSuccess();
+            showSuccess(t('save_successful'));
         } catch (ex) {
-            showFailure(ex);
-        }
-
-        function showFailure(ex) {
-            setError(t('save_exception'));
-            setShowError(true);
+            showFailure(t('save_exception'));
             console.warn(ex);
-        }
-
-        function showSuccess() {
-            setMessage(t('save_successful'));
-            setShowMessage(true);
         }
     }
 

@@ -33,7 +33,9 @@ export default function GearDetails() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //states
@@ -61,9 +63,8 @@ export default function GearDetails() {
             gear["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.BACKPACKING_GEAR, gearID, gear);
         } catch (error) {
-            setError(t('failed_to_save_gear'));
-            setShowError(true);
-            console.log(error);
+            showFailure(t('failed_to_save_gear'));
+            console.warn(error);
         }
     }
 

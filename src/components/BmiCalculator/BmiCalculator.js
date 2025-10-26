@@ -37,7 +37,9 @@ export default function BmiCalculator() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //load data
@@ -65,20 +67,15 @@ export default function BmiCalculator() {
     async function onSubmit(e) {
         e.preventDefault();
 
-        setShowError(false);
-        setShowMessage(false);
-        setError('');
-        setMessage('');
+        clearMessages();
 
         //validation
         if (height <= 0 || height === undefined) {
-            setShowError(true);
-            setError(t('please_give_height'));
+            showSuccess(t('please_give_height'));
             return;
         }
         if (weight <= 0 || weight === undefined) {
-            setShowError(true);
-            setError(t('please_give_weight'));
+            showFailure(t('please_give_weight'));
             return;
         }
 
@@ -86,11 +83,9 @@ export default function BmiCalculator() {
         setBMI(bmi);
 
         if (bmi === 0 || isNaN(bmi)) {
-            setError(t('bmi_is_zero'));
-            setShowError(true);
+            showFailure(t('bmi_is_zero'));
         } else {
-            setMessage(t('your_bmi_is') + ': ' + bmi);
-            setShowMessage(true);
+            showSuccess(t('your_bmi_is') + ': ' + bmi);
             saveWeightToFirebase(weight, bmi);
         }
     }

@@ -28,7 +28,9 @@ export default function CreateExercise() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //translation
@@ -78,12 +80,7 @@ export default function CreateExercise() {
             const key = await pushToFirebase(DB.EXERCISES, exercise);
             navigate(`${NAVIGATION.EXERCISE}/${key}`);
         } catch (ex) {
-            showFailure();
-        }
-
-        function showFailure() {
-            setError(t('exercise_save_exception'));
-            setShowError(true);
+            showFailure(t('exercise_save_exception'));
         }
     }
 

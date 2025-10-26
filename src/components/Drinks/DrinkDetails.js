@@ -59,7 +59,9 @@ export default function DrinkDetails() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //translation
@@ -86,9 +88,8 @@ export default function DrinkDetails() {
             updateToFirebaseById(DB.DRINKS, drinkID, drinkToUpdate);
             toggleSetShowEditDrink();
         } catch (error) {
-            setError(t('failed_to_save_drink'));
-            setShowError(true);
-            console.log(error)
+            showFailure(t('failed_to_save_drink'));
+            console.warn(error)
         }
     }
 
@@ -160,8 +161,7 @@ export default function DrinkDetails() {
         const currentDateTime = getCurrentDateAsJson();
         const userID = currentUser.uid;
         pushToFirebaseById(DB.DRINK_HISTORY, drinkID, { currentDateTime, userID });
-        setShowMessage(true);
-        setMessage(t('save_success_drinkinghistory'));
+        showSuccess(t('save_success_drinkinghistory'));
     }
 
     const getAccordionData = () => {
@@ -185,8 +185,7 @@ export default function DrinkDetails() {
                 navigate(NAVIGATION.MANAGE_SHOPPINGLISTS)
             });
         } else if (incredients && incredients.length <= 0) {
-            setError(t('shoppinglist_no_incredients'));
-            setShowError(true);
+            showFailure(t('shoppinglist_no_incredients'));
         }
     }
 

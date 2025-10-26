@@ -36,7 +36,9 @@ export default function RecordDetails() {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     //auth
@@ -54,9 +56,8 @@ export default function RecordDetails() {
             record["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.MUSIC_RECORDS, recordID, record);
         } catch (error) {
-            setError(t('failed_to_save_music'));
-            setShowError(true);
-            console.log(error);
+            showFailure(t('failed_to_save_music'));
+            console.warn(error);
         }
     }
 
