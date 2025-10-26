@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col, Modal } from 'react-bootstrap';
@@ -7,7 +6,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import i18n from "i18next";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import AddDrinkingProduct from './AddDrinkingProduct';
 import Alert from '../Alert';
@@ -20,6 +19,7 @@ import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function DrinkingProductDetails() {
 
@@ -30,10 +30,13 @@ export default function DrinkingProductDetails() {
     const { status: showEditDrinkingProduct, toggleStatus: toggleSetShowEdit } = useToggle();
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
@@ -120,12 +123,13 @@ export default function DrinkingProductDetails() {
                 </Col>
             </Row>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={() => {
-                    setShowMessage(false); setShowError(false);
-                }}
+
+            <Alert
+                message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                onClose={clearMessages}
             />
 
             <Modal show={showEditDrinkingProduct} onHide={toggleSetShowEdit}>

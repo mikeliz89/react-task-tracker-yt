@@ -1,13 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Modal, Row } from 'react-bootstrap';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
 import AddRecipe from './AddRecipe';
 import Recipes from './Recipes';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, VARIANTS, ICONS, NAVIGATION, COLORS, DB } from '../../utils/Constants';
+import { TRANSLATION, ICONS, NAVIGATION, COLORS, DB } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import PageTitle from '../Site/PageTitle';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
@@ -22,6 +21,7 @@ import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
 import NavButton from '../Buttons/NavButton';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function ManageRecipes() {
 
@@ -41,10 +41,13 @@ export default function ManageRecipes() {
   const { status: showAddRecipe, toggleStatus: toggleAddRecipe } = useToggle();
 
   //alert
-  const [message, setMessage] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [error, setError] = useState('');
+  const {
+    message, setMessage,
+    showMessage, setShowMessage,
+    error, setError,
+    showError, setShowError,
+    clearMessages
+  } = useAlert();
 
   //user
   const { currentUser } = useAuth();
@@ -96,10 +99,12 @@ export default function ManageRecipes() {
         </ButtonGroup>
       </Row>
 
-      <Alert message={message} showMessage={showMessage}
-        error={error} showError={showError}
-        variant={VARIANTS.SUCCESS}
-        onClose={() => { setShowMessage(false); setShowError(false); }}
+      <Alert
+        message={message}
+        showMessage={showMessage}
+        error={error}
+        showError={showError}
+        onClose={clearMessages}
       />
 
       <Modal show={showAddRecipe} onHide={toggleAddRecipe}>

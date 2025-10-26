@@ -7,7 +7,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { db, uploadProfilePic } from '../../firebase-config';
 import { ref, onValue } from 'firebase/database';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
@@ -17,6 +17,7 @@ import Logout from '../Auth/Logout';
 import RightWrapper from '../Site/RightWrapper';
 import Language from '../Language/Language';
 import ThemeToggler from '../Site/ThemeToggler';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function ManageMyProfile() {
 
@@ -38,11 +39,15 @@ export default function ManageMyProfile() {
     const [photo, setPhoto] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
+
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //load data
     useEffect(() => {
@@ -130,10 +135,12 @@ export default function ManageMyProfile() {
                 <Logout />
             </RightWrapper>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert
+                message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                onClose={clearMessages}
             />
 
             {/* <p>PhotoUrl: {photoUrl}</p> */}

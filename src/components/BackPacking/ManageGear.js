@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import { useState } from 'react';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import AddGear from './AddGear';
@@ -19,6 +18,7 @@ import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier'
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function ManageGear() {
 
@@ -34,10 +34,13 @@ export default function ManageGear() {
     const { status: showAddGear, toggleStatus: toggleAddGear } = useToggle();
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //user
     const { currentUser } = useAuth();
@@ -64,13 +67,6 @@ export default function ManageGear() {
         }
     }
 
-    function clearMessages() {
-        setError('');
-        setShowError(false);
-        setMessage('');
-        setShowMessage(false);
-    }
-
     const deleteGear = (id) => {
         removeFromFirebaseById(DB.BACKPACKING_GEAR, id);
     }
@@ -88,9 +84,12 @@ export default function ManageGear() {
                 </ButtonGroup>
             </Row>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.SUCCESS}
+                onClose={clearMessages}
             />
 
             <Modal show={showAddGear} onHide={toggleAddGear}>

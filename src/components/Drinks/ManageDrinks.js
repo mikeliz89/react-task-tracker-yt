@@ -22,6 +22,7 @@ import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
 import NavButton from '../Buttons/NavButton';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function ManageDrinks() {
 
@@ -41,10 +42,13 @@ export default function ManageDrinks() {
     const { status: showAddDrink, toggleStatus: toggleAddDrink } = useToggle();
 
     //alert
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
-    const [message, setMessage] = useState('');
-    const [showMessage, setShowMessage] = useState(false);
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //user
     const { currentUser } = useAuth();
@@ -99,10 +103,12 @@ export default function ManageDrinks() {
                 </ButtonGroup>
             </Row>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
                 variant={VARIANTS.SUCCESS}
-                onClose={() => { setShowMessage(false); setShowError(false); }}
+                onClose={clearMessages}
             />
 
             <Modal show={showAddDrink} onHide={toggleAddDrink}>

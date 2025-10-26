@@ -35,7 +35,7 @@ import useFetchChildren from '../Hooks/useFetchChildren';
 import { db } from '../../firebase-config';
 import { ref, child, onValue } from 'firebase/database';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
-
+import { useAlert } from '../Hooks/useAlert';
 
 export default function DrinkDetails() {
 
@@ -54,10 +54,13 @@ export default function DrinkDetails() {
     const { status: showEditDrink, toggleStatus: toggleSetShowEditDrink } = useToggle();
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
@@ -262,9 +265,12 @@ export default function DrinkDetails() {
             </Row>
             {/* {<pre>{JSON.stringify(drinkHistory)}</pre>} */}
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.SUCCESS}
+                onClose={clearMessages}
             />
 
             <Modal show={showEditDrink} onHide={toggleSetShowEditDrink}>

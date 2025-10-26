@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import { useState } from 'react';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import AddPerson from './AddPerson';
@@ -19,6 +18,7 @@ import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier'
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function ManagePeople() {
 
@@ -33,11 +33,14 @@ export default function ManagePeople() {
     //modal
     const { status: showAddPerson, toggleStatus: toggleAddPerson } = useToggle();
 
-    //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //user
     const { currentUser } = useAuth();
@@ -64,13 +67,6 @@ export default function ManagePeople() {
         }
     }
 
-    function clearMessages() {
-        setError('');
-        setShowError(false);
-        setMessage('');
-        setShowMessage(false);
-    }
-
     const deletePerson = (id) => {
         removeFromFirebaseById(DB.PEOPLE, id);
     }
@@ -88,10 +84,13 @@ export default function ManagePeople() {
                 </ButtonGroup>
             </Row>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
+            <Alert
+                message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
                 variant={VARIANTS.SUCCESS}
-                onClose={() => { setShowMessage(false); setShowError(false); }}
+                onClose={clearMessages}
             />
 
             <Modal show={showAddPerson} onHide={toggleAddPerson}>

@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import GoBackButton from '../Buttons/GoBackButton';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import { useState } from 'react';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
 import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
@@ -20,6 +19,7 @@ import Counter from '../Site/Counter';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
 import NavButton from '../Buttons/NavButton';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function ManageGames() {
 
@@ -36,10 +36,13 @@ export default function ManageGames() {
     const { status: showAddGame, toggleStatus: toggleAddGame } = useToggle();
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //user
     const { currentUser } = useAuth();
@@ -70,13 +73,6 @@ export default function ManageGames() {
         }
     }
 
-    function clearMessages() {
-        setError('');
-        setShowError(false);
-        setMessage('');
-        setShowMessage(false);
-    }
-
     const editGame = (game) => {
         const id = game.id;
         updateToFirebaseById(DB.GAMES, id, game);
@@ -99,10 +95,12 @@ export default function ManageGames() {
                 </ButtonGroup>
             </Row>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
                 variant={VARIANTS.SUCCESS}
-                onClose={() => { setShowMessage(false); setShowError(false); }}
+                onClose={clearMessages}
             />
 
             <Modal show={showAddGame} onHide={toggleAddGame}>

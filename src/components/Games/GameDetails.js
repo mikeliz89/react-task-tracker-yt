@@ -11,7 +11,6 @@ import AccordionElement from '../AccordionElement';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useFetch from '../Hooks/useFetch';
 import { Modal } from 'react-bootstrap';
@@ -20,6 +19,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import CommentComponent from '../Comments/CommentComponent';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function GameDetails() {
 
@@ -34,10 +34,13 @@ export default function GameDetails() {
     const { data: game, loading } = useFetch(DB.GAMES, "", params.id);
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //auth
     const { currentUser } = useAuth();
@@ -114,9 +117,12 @@ export default function GameDetails() {
                 </Col>
             </Row>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.SUCCESS}
+                onClose={clearMessages}
             />
 
             <Modal show={showEdit} onHide={toggleShowEdit}>

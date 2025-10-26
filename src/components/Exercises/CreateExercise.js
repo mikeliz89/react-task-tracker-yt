@@ -12,6 +12,7 @@ import PageTitle from '../Site/PageTitle';
 import Alert from '../Alert';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebase } from '../../datatier/datatier';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function CreateExercise() {
 
@@ -22,10 +23,13 @@ export default function CreateExercise() {
     const [time, setTime] = useState(new Date());
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //translation
     const { t, ready } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
@@ -90,9 +94,12 @@ export default function CreateExercise() {
             </ButtonGroup>
             <PageTitle title={t('create_exercise')} />
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.SUCCESS}
+                onClose={clearMessages}
             />
 
             <Form onSubmit={onSubmit}>

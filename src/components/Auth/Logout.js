@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/AuthContext';
 import Button from '../Buttons/Button';
 import Alert from '../Alert';
 import { TRANSLATION, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function Logout() {
 
@@ -18,10 +18,13 @@ export default function Logout() {
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.AUTH });
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     async function handleLogout() {
         try {
@@ -35,18 +38,15 @@ export default function Logout() {
         }
     }
 
-    function clearMessages() {
-        setError('');
-        setShowError(false);
-        setMessage('');
-        setShowMessage(false);
-    }
 
     return (
         <>
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.SUCCESS}
+                onClose={clearMessages}
             />
 
             <Button

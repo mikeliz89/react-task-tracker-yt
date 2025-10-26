@@ -13,7 +13,7 @@ import AddRecipe from './AddRecipe';
 import i18n from "i18next";
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
-import { COLORS, NAVIGATION, DB, TRANSLATION, ICONS, VARIANTS } from '../../utils/Constants';
+import { COLORS, NAVIGATION, DB, TRANSLATION, ICONS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import Alert from '../Alert';
 import RecipeHistories from './RecipeHistories';
@@ -32,6 +32,7 @@ import { db } from '../../firebase-config';
 import { ref, child, onValue } from 'firebase/database';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
 import { getIncredientsUrl } from './Categories';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function RecipeDetails() {
 
@@ -47,10 +48,13 @@ export default function RecipeDetails() {
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
@@ -245,10 +249,12 @@ export default function RecipeDetails() {
                 </Col>
             </Row>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert
+                message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                onClose={clearMessages}
             />
 
             {/* <pre>{JSON.stringify(recipe)}</pre> */}

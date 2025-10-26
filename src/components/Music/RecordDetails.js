@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col, Modal } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
@@ -20,6 +19,7 @@ import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AccordionElement from '../AccordionElement';
 import useFetch from '../Hooks/useFetch';
 import { useToggle } from '../Hooks/useToggle';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function RecordDetails() {
 
@@ -28,13 +28,16 @@ export default function RecordDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //auth
     const { currentUser } = useAuth();
@@ -120,10 +123,12 @@ export default function RecordDetails() {
                 </Col>
             </Row>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert
+                message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                onClose={clearMessages}
             />
 
             <Modal show={showEdit} onHide={toggleShowEdit}>

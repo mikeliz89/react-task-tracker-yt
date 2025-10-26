@@ -11,6 +11,7 @@ import i18n from "i18next";
 import PageTitle from '../Site/PageTitle';
 import Alert from "../Alert";
 import { pushToFirebase, updateToFirebaseById } from "../../datatier/datatier";
+import { useAlert } from "../Hooks/useAlert";
 
 export default function AddInfo() {
 
@@ -19,11 +20,16 @@ export default function AddInfo() {
 
     //states
     const [loading, setLoading] = useState(false);
-    //states
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+
+    //alert
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
+
     //car data states
     const [carId, setCarId] = useState('');
     const [registerNumber, setRegisterNumber] = useState('');
@@ -105,13 +111,6 @@ export default function AddInfo() {
         setLoading(false)
     }
 
-    function clearMessages() {
-        setError('');
-        setShowError(false);
-        setMessage('');
-        setShowMessage(false);
-    }
-
     const updateInfo = (info) => {
         try {
             info["modified"] = getCurrentDateAsJson();
@@ -151,9 +150,12 @@ export default function AddInfo() {
             <PageTitle title={t('add_info_title')} iconName={ICONS.CAR} />
             {modified !== '' && <p style={{ marginBottom: '0' }}>{t('last_modified')}: {getJsonAsDateTimeString(modified, i18n.language)} &nbsp;</p>}
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.SUCCESS}
+                onClose={clearMessages}
             />
 
             <Form onSubmit={onSubmit}>

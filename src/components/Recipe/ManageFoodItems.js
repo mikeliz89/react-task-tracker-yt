@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -6,7 +5,7 @@ import Button from '../Buttons/Button';
 import AddFoodItem from './AddFoodItem';
 import FoodItems from './FoodItems';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, COLORS, DB, ICONS, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, COLORS, DB, ICONS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import PageTitle from '../Site/PageTitle';
@@ -18,6 +17,7 @@ import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '..
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function ManageFoodItems() {
 
@@ -36,10 +36,13 @@ export default function ManageFoodItems() {
     const { status: showAddFoodItem, toggleStatus: toggleAddFoodItem } = useToggle();
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     const addFoodItem = (foodItem) => {
         try {
@@ -84,12 +87,13 @@ export default function ManageFoodItems() {
                 </ButtonGroup>
             </Row>
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert
+                message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                onClose={clearMessages}
             />
-
             <Modal show={showAddFoodItem} onHide={toggleAddFoodItem}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t('modal_header_add_food_item')}</Modal.Title>

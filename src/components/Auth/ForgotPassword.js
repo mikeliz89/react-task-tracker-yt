@@ -8,6 +8,7 @@ import Alert from '../Alert';
 import PageTitle from '../Site/PageTitle';
 import CenterWrapper from '../Site/CenterWrapper';
 import { TRANSLATION, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function ForgotPassword() {
 
@@ -19,10 +20,13 @@ export default function ForgotPassword() {
     const { resetPassword } = useAuth();
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     async function onSubmit(e) {
         e.preventDefault();
@@ -40,13 +44,6 @@ export default function ForgotPassword() {
         setLoading(false);
     }
 
-    function clearMessages() {
-        setError('');
-        setShowError(false);
-        setMessage('');
-        setShowMessage(false);
-    }
-
     function showSuccess() {
         setMessage(t('check_your_inbox'));
         setShowMessage(true);
@@ -62,9 +59,12 @@ export default function ForgotPassword() {
 
             <PageTitle title={t('password_reset')} />
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.INFO} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.INFO}
+                onClose={clearMessages}
             />
 
             <Form onSubmit={onSubmit}>

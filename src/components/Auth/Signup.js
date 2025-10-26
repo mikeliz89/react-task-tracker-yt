@@ -8,6 +8,7 @@ import Alert from '../Alert';
 import PageTitle from '../Site/PageTitle';
 import CenterWrapper from '../Site/CenterWrapper';
 import { TRANSLATION, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function Signup() {
 
@@ -21,10 +22,13 @@ export default function Signup() {
     const [loading, setLoading] = useState(false);
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //auth
     const { signup } = useAuth();
@@ -67,12 +71,6 @@ export default function Signup() {
         setError(t(content));
     }
 
-    function clearMessages() {
-        setError('');
-        setShowError(false);
-        setMessage('');
-        setShowMessage(false);
-    }
 
     const clearForm = () => {
         setEmail('');
@@ -85,9 +83,12 @@ export default function Signup() {
 
             <PageTitle title={t('sign_up')} />
 
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                variant={VARIANTS.SUCCESS}
+                onClose={clearMessages}
             />
 
             <Form onSubmit={onSubmit}>

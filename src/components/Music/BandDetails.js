@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { Row, ButtonGroup, Col } from 'react-bootstrap';
@@ -20,6 +19,7 @@ import AccordionElement from '../AccordionElement';
 import useFetch from '../Hooks/useFetch';
 import { Modal } from 'react-bootstrap';
 import { useToggle } from '../Hooks/useToggle';
+import { useAlert } from '../Hooks/useAlert';
 
 export default function BandDetails() {
 
@@ -28,13 +28,16 @@ export default function BandDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, {keyPrefix: TRANSLATION.COMMON});
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //alert
-    const [showMessage, setShowMessage] = useState(false);
-    const [message] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
+    const {
+        message, setMessage,
+        showMessage, setShowMessage,
+        error, setError,
+        showError, setShowError,
+        clearMessages
+    } = useAlert();
 
     //modal
     const { status: showEdit, toggleStatus: toggleShowEdit } = useToggle();
@@ -113,10 +116,12 @@ export default function BandDetails() {
                     <StarRatingWrapper stars={band.stars} onSaveStars={saveStars} />
                 </Col>
             </Row>
-
-            <Alert message={message} showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS} onClose={() => { setShowMessage(false); setShowError(false); }}
+            <Alert
+                message={message}
+                showMessage={showMessage}
+                error={error}
+                showError={showError}
+                onClose={clearMessages}
             />
 
             <Modal show={showEdit} onHide={toggleShowEdit}>
