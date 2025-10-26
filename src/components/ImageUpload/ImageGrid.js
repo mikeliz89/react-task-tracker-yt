@@ -1,4 +1,4 @@
-import useFirestore from '../../Hooks/useFirestore';
+import useFirestore from '../Hooks/useFirestore';
 import styles from './imagegrid.module.css';
 import { useTranslation } from "react-i18next";
 import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';

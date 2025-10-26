@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { onValue, ref } from "firebase/database";
-import { db } from '../firebase-config';
+import { db } from '../../firebase-config';
 
 const useFireStore = (collection, url, objectID) => {
 

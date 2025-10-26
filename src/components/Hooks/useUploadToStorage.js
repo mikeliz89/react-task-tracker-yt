@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { storage } from "../firebase-config";
+import { storage } from "../../firebase-config";
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { pushToFirebaseById } from "../datatier/datatier";
-import { getCurrentDateAsJson } from "../utils/DateTimeUtils";
+import { pushToFirebaseById } from "../../datatier/datatier";
+import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 
 //based on tutorial https://www.youtube.com/watch?v=vUe91uOx7R0
 const useUploadToStorage = (file, imagesUrl, objectID) => {
