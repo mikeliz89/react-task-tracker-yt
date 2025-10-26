@@ -1,134 +1,146 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import Button from '../Buttons/Button';
 import { RecipeCategories } from './Categories';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import useFetchById from '../Hooks/useFetchById';
-import PropTypes from 'prop-types';
 
-export default function AddRecipe({ recipeID, onSave, onClose, showLabels }) {
+export default function AddRecipe({ recipeID, onSave, onClose, showLabels = true }) {
 
-   //translation
+   // translations
    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
-   //states
-   const [category, setCategory] = useState('');
-   const [categories, setCategories] = useState(RecipeCategories);
-   const [title, setTitle] = useState('');
-   const [description, setDescription] = useState('');
-   const [created, setCreated] = useState('');
-   const [createdBy, setCreatedBy] = useState('');
-   const [isCore, setIsCore] = useState(false);
-   const [stars, setStars] = useState(0);
-   const [incredients, setIncredients] = useState('');
+   // default state
+   const defaultRecipe = {
+      title: '',
+      description: '',
+      category: '',
+      created: '',
+      createdBy: '',
+      isCore: false,
+      stars: 0,
+      incredients: ''
+   };
 
-   //load data
+   const [recipe, setRecipe] = useState(defaultRecipe);
+
+   // fetch existing recipe (if editing)
    const recipeData = useFetchById(DB.RECIPES, recipeID);
 
    useEffect(() => {
       if (recipeData) {
-         setCategory(recipeData.category || '');
-         setCreated(recipeData.created || '');
-         setCreatedBy(recipeData.createdBy || '');
-         setDescription(recipeData.description || '');
-         setIncredients(recipeData.incredients || '');
-         setIsCore(recipeData.isCore || false);
-         setStars(recipeData.stars || 0);
-         setTitle(recipeData.title || '');
+         setRecipe(prev => ({
+            ...prev,
+            ...recipeData
+         }));
       }
    }, [recipeData]);
 
-   useEffect(() => {
-      sortCategoriesByName();
-   }, []);
-
-   const sortCategoriesByName = () => {
-      const sortedCategories = [...categories].sort((a, b) => {
+   // memoized category sorting
+   const sortedCategories = useMemo(() => {
+      return [...RecipeCategories].sort((a, b) => {
          const aName = t(`category_${a.name}`);
          const bName = t(`category_${b.name}`);
-         return aName > bName ? 1 : -1;
+         return aName.localeCompare(bName);
       });
-      setCategories(sortedCategories);
-   }
+   }, [t]);
+
+   const handleChange = (key, value) => {
+      setRecipe(prev => ({ ...prev, [key]: value }));
+   };
 
    const onSubmit = (e) => {
-      e.preventDefault()
+      e.preventDefault();
 
-      //validation
-      if (!title) {
-         alert(t('please_add_recipe'))
-         return
+      if (!recipe.title.trim()) {
+         alert(t('please_add_recipe'));
+         return;
       }
 
-      onSave({ category, created, createdBy, description, incredients, isCore, stars, title });
+      onSave(recipe);
 
       if (recipeID == null) {
-         clearForm();
+         setRecipe(defaultRecipe);
       }
-   }
-
-   const clearForm = () => {
-      setTitle('');
-      setDescription('');
-      setIsCore(false);
-      setCategory('');
-   }
+   };
 
    return (
-      <>
-         <Form onSubmit={onSubmit}>
-            <Form.Group className="mb-3" controlId="addRecipeForm-Name">
-               {showLabels && <Form.Label>{t('recipe_name')}</Form.Label>}
-               <Form.Control type='text'
-                  autoComplete="off"
-                  placeholder={recipeID == null ? t('recipe_name') : t('edit_recipe_name')}
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="addRecipeForm-Description">
-               {showLabels && <Form.Label>{t('description')}</Form.Label>}
-               <Form.Control type='text'
-                  autoComplete="off"
-                  placeholder={recipeID == null ? t('add_description') : t('edit_description')}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="addRecipeForm-Category">
-               {showLabels && <Form.Label>{t('category')}</Form.Label>}
-               <Form.Select
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}>
-                  {categories.map(({ id, name }) => (
-                     <option value={id} key={id}>{t(`category_${name}`)}</option>
-                  ))}
-               </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="addRecipeForm-IsCore">
-               <Form.Check
-                  type='checkbox'
-                  label={t('set_isCore')}
-                  checked={isCore}
-                  value={isCore}
-                  onChange={(e) => setIsCore(e.currentTarget.checked)} />
-            </Form.Group>
-            <Row>
-               <ButtonGroup>
-                  <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
-                     onClick={() => onClose()} />
-                  <Button type='submit' text={t('button_save_recipe')} className='btn btn-block saveBtn' />
-               </ButtonGroup>
-            </Row>
-         </Form>
-      </>
-   )
-}
+      <Form onSubmit={onSubmit}>
+         {/* Title */}
+         <Form.Group className="mb-3" controlId="addRecipeForm-Title">
+            {showLabels && <Form.Label>{t('recipe_name')}</Form.Label>}
+            <Form.Control
+               type="text"
+               autoComplete="off"
+               placeholder={recipeID == null ? t('recipe_name') : t('edit_recipe_name')}
+               value={recipe.title}
+               onChange={(e) => handleChange('title', e.target.value)}
+            />
+         </Form.Group>
 
-AddRecipe.defaultProps = {
-   showLabels: true
+         {/* Description */}
+         <Form.Group className="mb-3" controlId="addRecipeForm-Description">
+            {showLabels && <Form.Label>{t('description')}</Form.Label>}
+            <Form.Control
+               type="text"
+               autoComplete="off"
+               placeholder={recipeID == null ? t('add_description') : t('edit_description')}
+               value={recipe.description}
+               onChange={(e) => handleChange('description', e.target.value)}
+            />
+         </Form.Group>
+
+         {/* Category */}
+         <Form.Group className="mb-3" controlId="addRecipeForm-Category">
+            {showLabels && <Form.Label>{t('category')}</Form.Label>}
+            <Form.Select
+               value={recipe.category}
+               onChange={(e) => handleChange('category', e.target.value)}
+            >
+               {sortedCategories.map(({ id, name }) => (
+                  <option key={id} value={id}>
+                     {t(`category_${name}`)}
+                  </option>
+               ))}
+            </Form.Select>
+         </Form.Group>
+
+         {/* Core checkbox */}
+         <Form.Group className="mb-3" controlId="addRecipeForm-IsCore">
+            <Form.Check
+               type="checkbox"
+               label={t('set_isCore')}
+               checked={recipe.isCore}
+               onChange={(e) => handleChange('isCore', e.currentTarget.checked)}
+            />
+         </Form.Group>
+
+         {/* Buttons */}
+         <Row>
+            <ButtonGroup>
+               <Button
+                  type="button"
+                  text={tCommon('buttons.button_close')}
+                  className="btn btn-block"
+                  onClick={onClose}
+               />
+               <Button
+                  type="submit"
+                  text={t('button_save_recipe')}
+                  className="btn btn-block saveBtn"
+               />
+            </ButtonGroup>
+         </Row>
+      </Form>
+   );
 }
 
 AddRecipe.propTypes = {
+   recipeID: PropTypes.string,
+   onSave: PropTypes.func.isRequired,
+   onClose: PropTypes.func.isRequired,
    showLabels: PropTypes.bool
-}
+};
