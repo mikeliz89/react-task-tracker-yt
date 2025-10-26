@@ -21,7 +21,9 @@ export default function UploadForm({ objectID, imagesUrl }) {
         showMessage, setShowMessage,
         error, setError,
         showError, setShowError,
-        clearMessages
+        clearMessages,
+        showSuccess,
+        showFailure
     } = useAlert();
 
     const types = ['image/png', 'image/jpeg'];
@@ -30,12 +32,10 @@ export default function UploadForm({ objectID, imagesUrl }) {
         let selected = e.target.files[0];
         if (selected && types.includes(selected.type)) {
             setFile(selected);
-            setShowError(false);
-            setError('');
+            showSuccess('');
         } else {
             setFile(null);
-            setShowError(true);
-            setError(t('please_use_correct_format'));
+            showFailure(t('please_use_correct_format'));
         }
     }
     return (

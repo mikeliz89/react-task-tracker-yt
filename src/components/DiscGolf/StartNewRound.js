@@ -47,7 +47,9 @@ export default function StartNewRound() {
       showMessage, setShowMessage,
       error, setError,
       showError, setShowError,
-      clearMessages
+      clearMessages,
+      showSuccess,
+      showFailure
    } = useAlert();
 
    const inputRef = useRef();
@@ -110,8 +112,8 @@ export default function StartNewRound() {
 
          navigate(`${NAVIGATION.DISC_GOLF_PLAY_ROUND}`);
       } catch (ex) {
-         setError(t('track_save_exception'));
-         setShowError(true);
+         showFailure(t('track_save_exception'));
+         console.warn(ex);
       }
    }
 
