@@ -28,47 +28,19 @@ export default function Dashboard() {
         setFromPage(fromPageSession);
 
         setLoading(false);
-
-        //console.log("FrompageSession", fromPageSession);
-
-    }, []); //No dependency to trigger in each page load
-
-    const setFromActions = () => {
-        setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS);
-    }
-
-    const setFromGames = () => {
-        setSessionStorage(SESSIONSTORAGE.DASHBOARD_GAMES);
-    }
-
-    const setFromMovies = () => {
-        setSessionStorage(SESSIONSTORAGE.DASHBOARD_MOVIES);
-    }
-
-    const setFromMusic = () => {
-        setSessionStorage(SESSIONSTORAGE.DASHBOARD_MUSIC);
-    }
-
-    const setFromLists = () => {
-        setSessionStorage(SESSIONSTORAGE.DASHBOARD_LISTS);
-    }
+    }, []);
 
     const setSessionStorage = (value) => {
         sessionStorage.setItem(SESSIONSTORAGE.FROM_PAGE, value);
-    }
+    };
 
     return loading ? (
         <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
-
-            {/* <div>FromPage:</div>
-            {fromPage} */}
-
             <Tabs defaultActiveKey={fromPage} id="dashboard-Tab"
                 className="mb-3">
                 <Tab eventKey={SESSIONSTORAGE.DASHBOARD_ACTIONS} title={t('title_actions')}>
-                    {/* Create New Row For Sets of 4 buttons  */}
                     <Row>
                         <DashboardItem link={NAVIGATION.CAR}>
                             <BigButton
@@ -77,7 +49,7 @@ export default function Dashboard() {
                                 color="#0cb058"
                                 text={t('car')}
                                 iconName={ICONS.CAR}
-                                onClick={() => setFromActions()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.MANAGE_DRINKS}>
@@ -87,7 +59,7 @@ export default function Dashboard() {
                                 color="#f9a9d5"
                                 text={t('drinks')}
                                 iconName={ICONS.GLASS_MARTINI}
-                                onClick={() => setFromActions()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.MANAGE_PEOPLE}>
@@ -97,7 +69,7 @@ export default function Dashboard() {
                                 color={COLORS.WHITE}
                                 text={t('personlist')}
                                 iconName={ICONS.USER_ALT}
-                                onClick={() => setFromActions()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.MANAGE_EXERCISES}>
@@ -107,7 +79,7 @@ export default function Dashboard() {
                                 color="#ef7c1a"
                                 text={t('exercises')}
                                 iconName={ICONS.RUNNING}
-                                onClick={() => setFromActions()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
                             />
                         </DashboardItem>
                     </Row>
@@ -119,7 +91,7 @@ export default function Dashboard() {
                                 color={COLORS.WHITE}
                                 text={t('links_list')}
                                 iconName={ICONS.EXTERNAL_LINK_ALT}
-                                onClick={() => setFromActions()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.BMICALCULATOR}>
@@ -128,7 +100,7 @@ export default function Dashboard() {
                                 textcolor={COLORS.BLACK}
                                 text={t('bmi_calculator')}
                                 iconName={ICONS.WEIGHT}
-                                onClick={() => setFromActions()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.MANAGE_RECIPES}>
@@ -138,7 +110,7 @@ export default function Dashboard() {
                                 color="#b37401"
                                 text={t('recipes')}
                                 iconName={ICONS.UTENSILS}
-                                onClick={() => setFromActions()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.MANAGE_BACKPACKING}>
@@ -148,7 +120,7 @@ export default function Dashboard() {
                                 color="#0cb058"
                                 text={t('backpacking')}
                                 iconName={ICONS.CAMPGROUND}
-                                onClick={() => setFromActions()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
                             />
                         </DashboardItem>
                     </Row>
@@ -162,7 +134,7 @@ export default function Dashboard() {
                                 textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('programming')}
-                                onClick={() => setFromLists()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_LISTS)}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.MANAGE_SHOPPINGLISTS}>
@@ -172,7 +144,7 @@ export default function Dashboard() {
                                 color="#fcba03"
                                 text={t('shoppinglists')}
                                 iconName={ICONS.CHECK_SQUARE}
-                                onClick={() => setFromLists()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_LISTS)}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.MANAGE_TASKLISTS}>
@@ -182,7 +154,7 @@ export default function Dashboard() {
                                 color="#fcba03"
                                 text={t('tasklists')}
                                 iconName={ICONS.CHECK_SQUARE}
-                                onClick={() => setFromLists()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_LISTS)}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.MANAGE_LISTS}>
@@ -190,7 +162,7 @@ export default function Dashboard() {
                                 textcolor={COLORS.BLACK}
                                 color={COLORS.WHITE}
                                 text={t('other_lists')}
-                                onClick={() => setFromLists()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_LISTS)}
                             />
                         </DashboardItem>
                     </Row>
@@ -204,7 +176,7 @@ export default function Dashboard() {
                                 textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('movies')}
-                                onClick={() => setFromMovies()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_MOVIES)}
                             />
                         </DashboardItem>
                     </Row>
@@ -218,7 +190,7 @@ export default function Dashboard() {
                                 textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('games')}
-                                onClick={() => setFromGames()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_GAMES)}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.MANAGE_DISC_GOLF}>
@@ -228,7 +200,7 @@ export default function Dashboard() {
                                 textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('discgolf')}
-                                onClick={() => setFromGames()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_GAMES)}
                             />
                         </DashboardItem>
                     </Row>
@@ -242,7 +214,7 @@ export default function Dashboard() {
                                 textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('music_bands')}
-                                onClick={() => setFromMusic()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_MUSIC)}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.MANAGE_MUSIC_RECORDS}>
@@ -252,7 +224,7 @@ export default function Dashboard() {
                                 textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('music_records')}
-                                onClick={() => setFromMusic()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_MUSIC)}
                             />
                         </DashboardItem>
                         <DashboardItem link={NAVIGATION.MANAGE_MUSIC_EVENTS}>
@@ -262,14 +234,12 @@ export default function Dashboard() {
                                 textcolor={COLORS.BLACK}
                                 color="#0cb058"
                                 text={t('music_events')}
-                                onClick={() => setFromMusic()}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_MUSIC)}
                             />
                         </DashboardItem>
                     </Row>
                 </Tab>
             </Tabs>
-
-
         </PageContentWrapper>
-    )
+    );
 }
