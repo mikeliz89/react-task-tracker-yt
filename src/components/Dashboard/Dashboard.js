@@ -237,6 +237,16 @@ export default function Dashboard() {
                                 onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_MUSIC)}
                             />
                         </DashboardItem>
+                        <DashboardItem link={NAVIGATION.MANAGE_MUSIC_KARAOKE_SONGS}>
+                            <BigButton
+                                imageName="events.jpg"
+                                iconName={ICONS.MUSIC}
+                                textcolor={COLORS.BLACK}
+                                color="#0cb058"
+                                text={t('music_karaoke_songs')}
+                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_MUSIC)}
+                            />
+                        </DashboardItem>
                     </Row>
                 </Tab>
             </Tabs>

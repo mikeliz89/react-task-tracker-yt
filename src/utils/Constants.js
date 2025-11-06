@@ -94,6 +94,8 @@ export const DB = {
     MUSIC_EVENT_COMMENTS: '/music-event-comments',
     MUSIC_EVENT_IMAGES: '/music-event-images',
     MUSIC_EVENT_LINKS: '/music-event-links',
+    // music-karaoke songs
+    MUSIC_KARAOKE_SONGS: '/music-karaoke-songs',
     // people / person
     PEOPLE: '/people',
     PERSON_COMMENTS: '/person-comments',
@@ -225,6 +227,7 @@ export const NAVIGATION = {
     MANAGE_MUSIC_RECORDS: '/managemusicrecords',
     MANAGE_MUSIC_EVENTS: '/managemusicevents',
     MANAGE_MUSICLISTS: '/managemusiclists',
+    MANAGE_MUSIC_KARAOKE_SONGS: '/managemusickaraokesongs',
     // profile
     MANAGE_MY_PROFILE: '/managemyprofile',
     MANAGE_PROGRAMMING: '/manageprogramming',

@@ -75,6 +75,7 @@ import RecordDetails from './components/Music/RecordDetails';
 import BandDetails from './components/Music/BandDetails';
 import EventDetails from './components/Music/EventDetails';
 import ManageMusicBands from './components/Music/ManageMusicBands';
+import ManageMusicKaraokeSongs from './components/Music/ManageKaraokeSongs';
 import ManageMusicEvents from './components/Music/ManageMusicEvents';
 import ManageMusicLists from './components/Music/ManageMusicLists';
 import ManageMusicRecords from './components/Music/ManageMusicRecords';
@@ -235,6 +236,7 @@ function App() {
             <Route path={NAVIGATION.MANAGE_MUSIC_BANDS} element={<PrivateRoute><ManageMusicBands /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_MUSIC_EVENTS} element={<PrivateRoute><ManageMusicEvents /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_MUSICLISTS} element={<PrivateRoute><ManageMusicLists /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_MUSIC_KARAOKE_SONGS} element={<PrivateRoute><ManageMusicKaraokeSongs /></PrivateRoute>} />
             <Route path={NAVIGATION.MUSIC_RECORD + '/:id'} element={<PrivateRoute><RecordDetails /></PrivateRoute>} />
             <Route path={NAVIGATION.MUSIC_EVENT + '/:id'} element={<PrivateRoute><EventDetails /></PrivateRoute>} />
             <Route path={NAVIGATION.MUSIC_BAND + '/:id'} element={<PrivateRoute><BandDetails /></PrivateRoute>} />
