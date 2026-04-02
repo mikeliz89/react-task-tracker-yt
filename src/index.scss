@@ -293,14 +293,14 @@ form {
 
 .dashboard-search-input .dashboard-search-control {
     border-radius: 14px;
-    background-color: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    color: white;
+    background-color: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #212529;
     padding-left: 3.5rem !important;
 }
 
 .dashboard-search-control::placeholder {
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(0, 0, 0, 0.45);
 }
 
 .dashboard-header .tab-content {
