@@ -3,7 +3,7 @@ import Button from '../Buttons/Button';
 import Icon from '../Icon';
 import PageTitle from './PageTitle';
 import PageContentWrapper from './PageContentWrapper';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ICONS, COLORS, TRANSLATION } from '../../utils/Constants';
 
@@ -21,6 +21,7 @@ export default function DetailsPage({
     ratingSection,
     metaItems,
     editSection,
+    editModalTitle,
     alertSection,
     alertColLg = 12,
     imageSection,
@@ -74,7 +75,16 @@ export default function DetailsPage({
                     </div>
                 </div>
 
-                {editSection && <div className="detailspage-edit-card">{editSection}</div>}
+                {editSection && (
+                    <Modal show={Boolean(isEditOpen)} onHide={onToggleEdit}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>{editModalTitle || tCommon('buttons.button_edit')}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            {editSection}
+                        </Modal.Body>
+                    </Modal>
+                )}
 
                 <hr></hr>
 

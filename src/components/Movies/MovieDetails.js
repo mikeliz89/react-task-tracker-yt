@@ -92,7 +92,7 @@ export default function MovieDetails() {
                 { id: 2, content: <>{t('created_by')}: {movie?.createdBy}</> },
                 { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(movie?.modified, i18n.language)}</> }
             ]}
-            editSection={showEdit ? <AddMovie onSave={updateMovie} movieID={params.id} onClose={() => setShowEdit(false)} /> : null}
+            editSection={<AddMovie onSave={updateMovie} movieID={params.id} onClose={() => setShowEdit(false)} />}
             alertSection={
                 <Alert
                     message={message}

@@ -78,7 +78,7 @@ export default function Links({ url, objID, onCounterChange, onSaveLink }) {
             {
                 links != null && links.length > 0 ? (
                     <LinksInner objID={objID} linkUrl={url} links={links} onDelete={deleteLink} onEdit={editLink} />
-                ) : t('no_links')
+                ) : <div className="links-empty-state">{t('no_links')}</div>
             }
         </div>
     )

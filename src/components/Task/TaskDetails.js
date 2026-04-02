@@ -57,14 +57,18 @@ export default function TaskDetails() {
       isEditOpen={showEditTask}
       onToggleEdit={() => setShowEditTask(!showEditTask)}
       title={<PageTitle title={task?.text} />}
-      titleSuffix={<span className="task-pill">{t('task_ready')}: {task?.reminder === true ? t('yes') : t('no')}</span>}
+      titleSuffix={
+        <span className={`task-pill ${task?.reminder === true ? 'task-pill-ready' : 'task-pill-not-ready'}`}>
+          {t('task_ready')}: {task?.reminder === true ? t('yes') : t('no')}
+        </span>
+      }
       summary={`${t('task_text')}: ${task?.day || '-'}`}
       metaItems={[
         { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(task?.created, i18n.language)}</> },
         { id: 2, content: <>{t('modified')}: {getJsonAsDateTimeString(task?.modified, i18n.language)}</> },
         { id: 3, content: <>{t('by')}: {task?.createdBy}</> }
       ]}
-      editSection={showEditTask ? <AddTask onClose={() => setShowEditTask(false)} onSave={updateTask} taskID={params.id} taskListID={params.tasklistid} /> : null}
+      editSection={<AddTask onClose={() => setShowEditTask(false)} onSave={updateTask} taskID={params.id} taskListID={params.tasklistid} />}
       commentColLg={6}
       commentSection={<CommentComponent objID={params.id} url={DB.TASK_COMMENTS} onSave={addCommentToTask} />}
       linkSection={<LinkComponent objID={params.id} url={DB.TASK_LINKS} onSaveLink={addLinkToTask} />}
