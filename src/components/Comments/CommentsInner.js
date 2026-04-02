@@ -43,7 +43,7 @@ export default function CommentsInner({ comments, onDelete }) {
                             <div className="comment-item-text">
                                 {comment.text}
                             </div>
-                            <div className="comment-item-actions">
+                            {/* <div className="comment-item-actions">
                                 <button type="button" className="comment-action-button">Vastaa</button>
                                 <span className="comment-action-divider">|</span>
                                 <button type="button" className="comment-action-icon-button" title="Kommentti">
@@ -52,7 +52,7 @@ export default function CommentsInner({ comments, onDelete }) {
                                 <button type="button" className="comment-action-icon-button" title="Poista kommentti" onClick={() => onDelete(comment.id)}>
                                     <Icon name={ICONS.DELETE} color="currentColor" />
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 ) : '-'

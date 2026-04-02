@@ -44,7 +44,7 @@ export default function AddComment({ onSave }) {
                 iconName={ICONS.PLUS}
                 disabled={loading}
                 disableStyle={true}
-                className={showAddComment ? 'btn comments-add-button comments-add-button-open' : 'btn comments-add-button'}
+                className={showAddComment ? 'btn btn-primary comments-add-button comments-add-button-open' : 'btn btn-primary comments-add-button'}
                 text={
                     showAddComment ? tCommon('buttons.button_close') : t('add_comment')
                 }
