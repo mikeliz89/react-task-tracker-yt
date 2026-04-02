@@ -6,6 +6,7 @@ import { TRANSLATION, ICONS, COLORS, NAVIGATION, SESSIONSTORAGE } from '../../ut
 import DashboardItem from './DashboardItem';
 import { Tab } from 'bootstrap';
 import { useState, useEffect } from 'react';
+import { Form, InputGroup } from 'react-bootstrap';
 
 export default function Dashboard() {
 
@@ -38,6 +39,18 @@ export default function Dashboard() {
         <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
+
+            <div className="dashboard-header">
+                <Tabs defaultActiveKey={fromPage} id="dashboard-Tab"
+                    className="mb-3">
+                    <Tab eventKey={SESSIONSTORAGE.DASHBOARD_ACTIONS} title={t('title_actions')}>
+                    </Tab>
+                </Tabs>
+                <InputGroup className="mb-4">
+                    <Form.Control placeholder="Hae..." />
+                </InputGroup>
+            </div>
+
             <Tabs defaultActiveKey={fromPage} id="dashboard-Tab"
                 className="mb-3">
                 <Tab eventKey={SESSIONSTORAGE.DASHBOARD_ACTIONS} title={t('title_actions')}>
