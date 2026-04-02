@@ -3,19 +3,15 @@ import Button from '../Buttons/Button';
 import Icon from '../Icon';
 import PageTitle from './PageTitle';
 import PageContentWrapper from './PageContentWrapper';
-import { ICONS } from '../../utils/Constants';
+import { Row, Col } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { ICONS, COLORS, TRANSLATION } from '../../utils/Constants';
 
 export default function DetailsPage({
     loading,
     loadingText,
-    showGoBackButton = true,
     showEditButton = false,
     isEditOpen = false,
-    editButtonClosedText = '',
-    editButtonOpenText = '',
-    editButtonIconName,
-    editButtonOpenColor,
-    editButtonClosedColor,
     onToggleEdit,
     title,
     titleSuffix,
@@ -25,10 +21,20 @@ export default function DetailsPage({
     ratingSection,
     metaItems,
     editSection,
+    alertSection,
+    alertColLg = 12,
+    imageSection,
+    imageColLg = 12,
+    commentSection,
+    commentColLg = 12,
+    linkSection,
+    linkColLg = 12,
     children
 }) {
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+
     if (loading) {
-        return <h3>{loadingText}</h3>;
+        return <h3>{loadingText || tCommon('loading')}</h3>;
     }
 
     return (
@@ -36,12 +42,12 @@ export default function DetailsPage({
             <div className="detailspage-page">
                 <div className="detailspage-header">
                     <div className="detailspage-actions-row">
-                        {showGoBackButton && <GoBackButton />}
+                        <GoBackButton />
                         {showEditButton && (
                             <Button
-                                iconName={editButtonIconName}
-                                text={isEditOpen ? editButtonOpenText : editButtonClosedText}
-                                color={isEditOpen ? editButtonOpenColor : editButtonClosedColor}
+                                iconName={ICONS.EDIT}
+                                text={isEditOpen ? tCommon('buttons.button_close') : tCommon('buttons.button_edit')}
+                                color={isEditOpen ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
                                 onClick={onToggleEdit}
                             />
                         )}
@@ -71,6 +77,46 @@ export default function DetailsPage({
                 {editSection && <div className="detailspage-edit-card">{editSection}</div>}
 
                 <hr></hr>
+
+                {alertSection && (
+                    <div className="detailspage-alert-section">
+                        <Row className="detailspage-grid">
+                            <Col lg={alertColLg}>
+                                {alertSection}
+                            </Col>
+                        </Row>
+                    </div>
+                )}
+
+                {imageSection && (
+                    <div className="detailspage-image-section">
+                        <Row className="detailspage-grid">
+                            <Col lg={imageColLg}>
+                                {imageSection}
+                            </Col>
+                        </Row>
+                    </div>
+                )}
+
+                {commentSection && (
+                    <div className="detailspage-comment-section">
+                        <Row className="detailspage-grid">
+                            <Col lg={commentColLg}>
+                                {commentSection}
+                            </Col>
+                        </Row>
+                    </div>
+                )}
+
+                {linkSection && (
+                    <div className="detailspage-link-section">
+                        <Row className="detailspage-grid">
+                            <Col lg={linkColLg}>
+                                {linkSection}
+                            </Col>
+                        </Row>
+                    </div>
+                )}
 
                 {children}
             </div>

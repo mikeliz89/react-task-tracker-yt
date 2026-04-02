@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { Row, Col } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
 import DetailsPage from '../Site/DetailsPage';
@@ -25,7 +24,6 @@ export default function MovieDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MOVIES });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //alert
     const {
@@ -82,15 +80,8 @@ export default function MovieDetails() {
     return (
         <DetailsPage
             loading={loading}
-            loadingText={tCommon("loading")}
-            showGoBackButton={true}
             showEditButton={true}
             isEditOpen={showEdit}
-            editButtonClosedText=""
-            editButtonOpenText={tCommon('buttons.button_close')}
-            editButtonIconName={ICONS.EDIT}
-            editButtonOpenColor={COLORS.EDITBUTTON_OPEN}
-            editButtonClosedColor={COLORS.EDITBUTTON_CLOSED}
             onToggleEdit={() => setShowEdit(!showEdit)}
             title={movie?.name}
             preSummaryContent={<span className="detailspage-field">{t('format')}: {t('movie_format_' + getMovieFormatNameByID(movie?.format))}</span>}
@@ -102,27 +93,18 @@ export default function MovieDetails() {
                 { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(movie?.modified, i18n.language)}</> }
             ]}
             editSection={showEdit ? <AddMovie onSave={updateMovie} movieID={params.id} onClose={() => setShowEdit(false)} /> : null}
-        >
-            <Row className="detailspage-grid">
-                <Col lg={12}>
-                    <Alert
-                        message={message}
-                        showMessage={showMessage}
-                        error={error}
-                        showError={showError}
-                        onClose={clearMessages}
-                    />
-                </Col>
-                <Col lg={12}>
-                    <ImageComponent url={DB.MOVIE_IMAGES} objID={params.id} />
-                </Col>
-                <Col lg={12}>
-                    <CommentComponent objID={params.id} url={DB.MOVIE_COMMENTS} onSave={addCommentToMovie} />
-                </Col>
-                <Col lg={12}>
-                    <LinkComponent objID={params.id} url={DB.MOVIE_LINKS} onSaveLink={addLinkToMovie} />
-                </Col>
-            </Row>
-        </DetailsPage>
+            alertSection={
+                <Alert
+                    message={message}
+                    showMessage={showMessage}
+                    error={error}
+                    showError={showError}
+                    onClose={clearMessages}
+                />
+            }
+            imageSection={<ImageComponent url={DB.MOVIE_IMAGES} objID={params.id} />}
+            commentSection={<CommentComponent objID={params.id} url={DB.MOVIE_COMMENTS} onSave={addCommentToMovie} />}
+            linkSection={<LinkComponent objID={params.id} url={DB.MOVIE_LINKS} onSaveLink={addLinkToMovie} />}
+        />
     )
 }
