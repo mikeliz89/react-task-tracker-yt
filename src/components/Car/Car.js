@@ -161,7 +161,9 @@ export default function Car() {
                         {
                             carFuelings != null && carFuelings.length > 0 ? (
                                 <CarFuelings
-                                    carFuelings={carFuelings} onDelete={deleteFueling} />
+                                    carFuelings={carFuelings}
+                                    chartFuelings={originalCarFuelings}
+                                    onDelete={deleteFueling} />
                             ) : (
                                 <>
                                     <CenterWrapper>
