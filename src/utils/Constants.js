@@ -167,6 +167,7 @@ export const ICONS = {
     SYNC: 'sync',
     THAI: 'user-ninja',
     USER_ALT: 'user-alt',
+    SEARCH: 'search',
     UTENSILS: 'utensils',
     WEIGHT: 'weight',
     WINE: 'wine-bottle',

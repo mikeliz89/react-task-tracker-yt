@@ -182,13 +182,45 @@ form {
 .bigBtn {
     width: 100%;
     height: 220px;
-    color: #fff;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 1rem;
+    color: var(--bigBtn-text, #fff);
+    background-color: var(--bigBtn-bg, steelblue);
     border: none;
     border-radius: 10px;
     cursor: pointer;
     text-decoration: none;
     font-size: 15px;
     font-family: inherit;
+}
+
+.bigBtnContent {
+    background-color: transparent;
+    padding: 0;
+}
+
+.bigBtnText {
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+.bigBtnIcon {
+    font-size: 1.4rem;
+}
+
+.comingsoon {
+    color: gray;
+}
+
+.bigBtnComingSoonText {
+    color: gray;
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
 }
 
 .loggedin-user {
@@ -205,6 +237,75 @@ form {
 }
 
 /* Custom End */
+
+.dashboard-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-header .nav,
+.dashboard-header .nav-tabs {
+    order: 0;
+}
+
+.dashboard-header .nav-tabs .nav-item {
+    margin-right: 0.25rem;
+}
+
+.dashboard-header .nav-tabs .nav-item:last-child {
+    margin-right: 0;
+}
+
+.dashboard-header .nav-tabs {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 0.2rem;
+}
+
+.dashboard-header .nav-tabs .nav-link {
+    border-radius: 8px;
+}
+
+.dashboard-header .nav-tabs .nav-link.active {
+    background-color: steelblue;
+    color: white !important;
+}
+
+.dashboard-header .dashboard-search-input {
+    order: 1;
+    margin: 0.5rem 0 0.75rem;
+    position: relative;
+    width: 100%;
+}
+
+.dashboard-search-input {
+    width: 100%;
+}
+
+.dashboard-search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #8f9bb3;
+}
+
+.dashboard-search-input .dashboard-search-control {
+    border-radius: 14px;
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: white;
+    padding-left: 3.5rem !important;
+}
+
+.dashboard-search-control::placeholder {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.dashboard-header .tab-content {
+    order: 2;
+}
 
 /* React-Bootstrap changes Start */
 
@@ -258,8 +359,20 @@ form {
     background-color: black;
 }
 
-#dark .bigBtn div {
-    color: black;
+#dark .dashboard-header .nav-tabs .nav-link.active {
+    background-color: rgba(0, 86, 179, 1);
+    color: white !important;
+    border: none;
+}
+
+#dark .bigBtn,
+#dark .bigBtn *,
+#dark .bigBtnText,
+#dark .bigBtnIcon,
+#dark .bigBtn b,
+#dark .bigBtn span {
+    color: #dcdcdc !important;
+    fill: #dcdcdc !important;
 }
 
 #dark .table-striped>tbody>tr:nth-of-type(even)>* {

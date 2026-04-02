@@ -27,24 +27,24 @@ export default function Header() {
 
     return (
         <div className="headerContainer">
-            <Row>
+            <Row className="align-items-center">
                 <Col>
                     <LeftWrapper>
                         <Logo />
                     </LeftWrapper>
+                </Col>
+                <Col>
                     <RightWrapper>
+                        {currentUser &&
+                            <span style={{ whiteSpace: 'nowrap' }}>
+                                {currentUser.email}
+                            </span>
+                        }
                         {currentUser &&
                             <Button
                                 iconName={ICONS.GEAR}
                                 onClick={() => navigateTo()} />
                         }
-                    </RightWrapper>
-                </Col>
-            </Row>
-            <Row className="loggedin-user">
-                <Col>
-                    <RightWrapper>
-                        {currentUser && '' + currentUser.email}
                     </RightWrapper>
                 </Col>
             </Row>

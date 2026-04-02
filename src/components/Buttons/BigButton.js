@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Icon from '../Icon';
-import { COLORS } from '../../utils/Constants';
+import { COLORS, THEMES } from '../../utils/Constants';
+import { useTheme } from '../../contexts/ThemeContext';
 
-export default function BigButton({ color, textcolor, text, onClick, textBackgroundColor,
+export default function BigButton({ color, textcolor, text, onClick,
     imageName, comingsoon, iconName, iconColor }) {
+    const { theme } = useTheme();
 
     //translation
     const { t } = useTranslation();
@@ -12,22 +14,33 @@ export default function BigButton({ color, textcolor, text, onClick, textBackgro
     //images
     const background = `/images/${imageName}`;
 
+    const buttonStyle = {
+        '--bigBtn-bg': imageName === '' ? color : 'transparent',
+        '--bigBtn-text': COLORS.WHITE,
+        color: COLORS.WHITE,
+        backgroundColor: imageName === ''
+            ? color
+            : theme === THEMES.DARK
+                ? 'rgba(0, 0, 0, 0.35)'
+                : 'rgba(0, 0, 0, 0.20)'
+    };
+
+    const iconColorValue = COLORS.WHITE;
+
     return (
-        <div style={{ backgroundImage: `url(${background})` }}>
+        <div style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '8px', overflow: 'hidden' }}>
             <button
                 onClick={onClick}
-                style={imageName === "" ?
-                    { backgroundColor: color, color: textcolor } :
-                    { backgroundColor: 'rgba(0, 0, 0, 0)', color: textcolor }}
-                className='bigBtn'>
-                <div style={{ backgroundColor: textBackgroundColor, paddingTop: '5px', paddingBottom: '5px' }}>
-                    <span style={comingsoon ? { color: COLORS.GRAY } : {}}>
+                style={buttonStyle}
+                className={`bigBtn ${comingsoon ? 'bigBtnComingSoon' : ''}`}>
+                <div className="bigBtnContent">
+                    <span className={`bigBtnText ${comingsoon ? 'comingsoon' : ''}`}>
                         <b>
-                            <Icon name={iconName} color={iconColor} />
+                            <Icon name={iconName} color={iconColorValue} className="bigBtnIcon" />
                             {text}
                         </b>
                     </span>
-                    {comingsoon && <div style={{ color: COLORS.GRAY }}>{t('coming_soon')}</div>}
+                    {comingsoon && <div className="bigBtnComingSoonText">{t('coming_soon')}</div>}
                 </div>
             </button>
         </div>

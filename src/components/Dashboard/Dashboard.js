@@ -1,17 +1,18 @@
 import BigButton from '../Buttons/BigButton';
+import Icon from '../Icon';
 import { useTranslation } from 'react-i18next';
-import { Row, Tabs } from 'react-bootstrap';
+import { Row, Tabs, Form } from 'react-bootstrap';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { TRANSLATION, ICONS, COLORS, NAVIGATION, SESSIONSTORAGE } from '../../utils/Constants';
 import DashboardItem from './DashboardItem';
 import { Tab } from 'bootstrap';
 import { useState, useEffect } from 'react';
-import { Form, InputGroup } from 'react-bootstrap';
 
 export default function Dashboard() {
 
     const [fromPage, setFromPage] = useState('');
     const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
 
     //translation
     const { t } = useTranslation(TRANSLATION.DASHBOARD, { keyPrefix: TRANSLATION.DASHBOARD_BUTTONS });
@@ -35,234 +36,254 @@ export default function Dashboard() {
         sessionStorage.setItem(SESSIONSTORAGE.FROM_PAGE, value);
     };
 
+    const searchText = searchQuery.trim().toLowerCase();
+    const isVisible = (text) => !searchText || text.toLowerCase().includes(searchText);
+
+    const frequentlyUsedItems = [
+        {
+            link: NAVIGATION.CAR,
+            imageName: 'car.jpg',
+            text: t('car'),
+            iconName: ICONS.CAR,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.MANAGE_DRINKS,
+            imageName: 'cocktail.jpg',
+            text: t('drinks'),
+            iconName: ICONS.GLASS_MARTINI,
+            color: '#f9a9d5',
+            textcolor: COLORS.BLACK
+        }
+    ];
+
+    const allCategoryItems = [
+        {
+            link: NAVIGATION.MANAGE_PEOPLE,
+            imageName: 'people.jpg',
+            text: t('personlist'),
+            iconName: ICONS.USER_ALT,
+            color: COLORS.WHITE,
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.MANAGE_EXERCISES,
+            imageName: 'exercises.PNG',
+            text: t('exercises'),
+            iconName: ICONS.RUNNING,
+            color: '#ef7c1a',
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.LINKSLIST,
+            imageName: 'links.jpg',
+            text: t('links_list'),
+            iconName: ICONS.EXTERNAL_LINK_ALT,
+            color: COLORS.WHITE,
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.BMICALCULATOR,
+            imageName: 'calculator.PNG',
+            text: t('bmi_calculator'),
+            iconName: ICONS.WEIGHT,
+            color: COLORS.WHITE,
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.MANAGE_RECIPES,
+            imageName: 'recipes.png',
+            text: t('recipes'),
+            iconName: ICONS.UTENSILS,
+            color: '#b37401',
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.MANAGE_BACKPACKING,
+            imageName: 'backpacking.jpg',
+            text: t('backpacking'),
+            iconName: ICONS.CAMPGROUND,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        }
+    ];
+
+    const listItems = [
+        {
+            link: NAVIGATION.MANAGE_PROGRAMMING,
+            imageName: 'programming.jpg',
+            text: t('programming'),
+            iconName: ICONS.LAPTOP,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.MANAGE_SHOPPINGLISTS,
+            imageName: 'shoppinglists.png',
+            text: t('shoppinglists'),
+            iconName: ICONS.CHECK_SQUARE,
+            color: '#fcba03',
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.MANAGE_TASKLISTS,
+            imageName: 'tasklists.PNG',
+            text: t('tasklists'),
+            iconName: ICONS.CHECK_SQUARE,
+            color: '#fcba03',
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.MANAGE_LISTS,
+            imageName: 'otherlists.PNG',
+            text: t('other_lists'),
+            iconName: ICONS.CHECK_SQUARE,
+            color: '#fcba03',
+            textcolor: COLORS.BLACK
+        }
+    ];
+
+    const moviesItems = [
+        {
+            link: NAVIGATION.MANAGE_MOVIES,
+            imageName: 'movies.jpg',
+            text: t('movies'),
+            iconName: ICONS.MOVIE,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        }
+    ];
+
+    const gamesItems = [
+        {
+            link: NAVIGATION.MANAGE_GAMES,
+            imageName: 'games.jpg',
+            text: t('games'),
+            iconName: ICONS.GAMEPAD,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.MANAGE_DISC_GOLF,
+            imageName: 'discgolf.jpg',
+            text: t('discgolf'),
+            iconName: ICONS.GAMEPAD,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        }
+    ];
+
+    const musicItems = [
+        {
+            link: NAVIGATION.MANAGE_MUSIC_BANDS,
+            imageName: 'bands.jpg',
+            text: t('music_bands'),
+            iconName: ICONS.MUSIC,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.MANAGE_MUSIC_RECORDS,
+            imageName: 'music.jpg',
+            text: t('music_records'),
+            iconName: ICONS.MUSIC,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.MANAGE_MUSIC_EVENTS,
+            imageName: 'events.jpg',
+            text: t('music_events'),
+            iconName: ICONS.MUSIC,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.MANAGE_MUSIC_KARAOKE_SONGS,
+            imageName: 'events.jpg',
+            text: t('music_karaoke_songs'),
+            iconName: ICONS.MUSIC,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        }
+    ];
+
+    const renderButtons = (items) => items
+        .filter(item => isVisible(item.text))
+        .map(item => (
+            <DashboardItem key={item.text} link={item.link}>
+                <BigButton
+                    imageName={item.imageName}
+                    textcolor={item.textcolor}
+                    color={item.color}
+                    text={item.text}
+                    iconName={item.iconName}
+                    onClick={() => setSessionStorage(fromPage)}
+                />
+            </DashboardItem>
+        ));
+
     return loading ? (
         <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
 
             <div className="dashboard-header">
-                <Tabs defaultActiveKey={fromPage} id="dashboard-Tab"
-                    className="mb-3">
+                <Tabs
+                    activeKey={fromPage}
+                    onSelect={(key) => {
+                        setFromPage(key);
+                        setSessionStorage(key);
+                    }}
+                    id="dashboard-Tab"
+                    className="mb-3"
+                >
                     <Tab eventKey={SESSIONSTORAGE.DASHBOARD_ACTIONS} title={t('title_actions')}>
+                        <section>
+                            <h3>{t('title_frequently_used')}</h3>
+                            <Row>
+                                {renderButtons(frequentlyUsedItems)}
+                            </Row>
+                        </section>
+                        <section>
+                            <h3>Kaikki kategoriat</h3>
+                            <Row>
+                                {renderButtons(allCategoryItems)}
+                            </Row>
+                        </section>
+                    </Tab>
+                    <Tab eventKey={SESSIONSTORAGE.DASHBOARD_LISTS} title={t('title_lists')}>
+                        <Row>
+                            {renderButtons(listItems)}
+                        </Row>
+                    </Tab>
+                    <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MOVIES} title={t('title_movies')}>
+                        <Row>
+                            {renderButtons(moviesItems)}
+                        </Row>
+                    </Tab>
+                    <Tab eventKey={SESSIONSTORAGE.DASHBOARD_GAMES} title={t('title_games')}>
+                        <Row>
+                            {renderButtons(gamesItems)}
+                        </Row>
+                    </Tab>
+                    <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MUSIC} title={t('title_music')}>
+                        <Row>
+                            {renderButtons(musicItems)}
+                        </Row>
                     </Tab>
                 </Tabs>
-                <InputGroup className="mb-4">
-                    <Form.Control placeholder="Hae..." />
-                </InputGroup>
+                <div className="dashboard-search-input">
+                    <Icon name={ICONS.SEARCH} color="#8f9bb3" fontSize="1rem" className="dashboard-search-icon" />
+                    <Form.Control
+                        className="dashboard-search-control"
+                        placeholder={t('search')}
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
             </div>
-
-            <Tabs defaultActiveKey={fromPage} id="dashboard-Tab"
-                className="mb-3">
-                <Tab eventKey={SESSIONSTORAGE.DASHBOARD_ACTIONS} title={t('title_actions')}>
-                    <Row>
-                        <DashboardItem link={NAVIGATION.CAR}>
-                            <BigButton
-                                imageName="car.jpg"
-                                textcolor={COLORS.BLACK}
-                                color="#0cb058"
-                                text={t('car')}
-                                iconName={ICONS.CAR}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.MANAGE_DRINKS}>
-                            <BigButton
-                                imageName="cocktail.jpg"
-                                textcolor={COLORS.BLACK}
-                                color="#f9a9d5"
-                                text={t('drinks')}
-                                iconName={ICONS.GLASS_MARTINI}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.MANAGE_PEOPLE}>
-                            <BigButton
-                                imageName="people.jpg"
-                                textcolor={COLORS.BLACK}
-                                color={COLORS.WHITE}
-                                text={t('personlist')}
-                                iconName={ICONS.USER_ALT}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.MANAGE_EXERCISES}>
-                            <BigButton
-                                imageName="exercises.PNG"
-                                textcolor={COLORS.BLACK}
-                                color="#ef7c1a"
-                                text={t('exercises')}
-                                iconName={ICONS.RUNNING}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
-                            />
-                        </DashboardItem>
-                    </Row>
-                    <Row>
-                        <DashboardItem link={NAVIGATION.LINKSLIST}>
-                            <BigButton
-                                imageName="links.jpg"
-                                textcolor={COLORS.BLACK}
-                                color={COLORS.WHITE}
-                                text={t('links_list')}
-                                iconName={ICONS.EXTERNAL_LINK_ALT}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.BMICALCULATOR}>
-                            <BigButton
-                                imageName="calculator.PNG"
-                                textcolor={COLORS.BLACK}
-                                text={t('bmi_calculator')}
-                                iconName={ICONS.WEIGHT}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.MANAGE_RECIPES}>
-                            <BigButton
-                                imageName="recipes.png"
-                                textcolor={COLORS.BLACK}
-                                color="#b37401"
-                                text={t('recipes')}
-                                iconName={ICONS.UTENSILS}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.MANAGE_BACKPACKING}>
-                            <BigButton
-                                imageName="backpacking.jpg"
-                                textcolor={COLORS.BLACK}
-                                color="#0cb058"
-                                text={t('backpacking')}
-                                iconName={ICONS.CAMPGROUND}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_ACTIONS)}
-                            />
-                        </DashboardItem>
-                    </Row>
-                </Tab>
-                <Tab eventKey={SESSIONSTORAGE.DASHBOARD_LISTS} title={t('title_lists')}>
-                    <Row>
-                        <DashboardItem link={NAVIGATION.MANAGE_PROGRAMMING}>
-                            <BigButton
-                                imageName="programming.jpg"
-                                iconName={ICONS.LAPTOP}
-                                textcolor={COLORS.BLACK}
-                                color="#0cb058"
-                                text={t('programming')}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_LISTS)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.MANAGE_SHOPPINGLISTS}>
-                            <BigButton
-                                imageName="shoppinglists.png"
-                                textcolor={COLORS.BLACK}
-                                color="#fcba03"
-                                text={t('shoppinglists')}
-                                iconName={ICONS.CHECK_SQUARE}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_LISTS)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.MANAGE_TASKLISTS}>
-                            <BigButton
-                                imageName="tasklists.PNG"
-                                textcolor={COLORS.BLACK}
-                                color="#fcba03"
-                                text={t('tasklists')}
-                                iconName={ICONS.CHECK_SQUARE}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_LISTS)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.MANAGE_LISTS}>
-                            <BigButton
-                                textcolor={COLORS.BLACK}
-                                color={COLORS.WHITE}
-                                text={t('other_lists')}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_LISTS)}
-                            />
-                        </DashboardItem>
-                    </Row>
-                </Tab>
-                <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MOVIES} title={t('title_movies')}>
-                    <Row>
-                        <DashboardItem link={NAVIGATION.MANAGE_MOVIES}>
-                            <BigButton
-                                imageName="movies.jpg"
-                                iconName={ICONS.MOVIE}
-                                textcolor={COLORS.BLACK}
-                                color="#0cb058"
-                                text={t('movies')}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_MOVIES)}
-                            />
-                        </DashboardItem>
-                    </Row>
-                </Tab>
-                <Tab eventKey={SESSIONSTORAGE.DASHBOARD_GAMES} title={t('title_games')}>
-                    <Row>
-                        <DashboardItem link={NAVIGATION.MANAGE_GAMES}>
-                            <BigButton
-                                imageName="games.jpg"
-                                iconName={ICONS.GAMEPAD}
-                                textcolor={COLORS.BLACK}
-                                color="#0cb058"
-                                text={t('games')}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_GAMES)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.MANAGE_DISC_GOLF}>
-                            <BigButton
-                                imageName="discgolf.jpg"
-                                iconName={ICONS.GAMEPAD}
-                                textcolor={COLORS.BLACK}
-                                color="#0cb058"
-                                text={t('discgolf')}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_GAMES)}
-                            />
-                        </DashboardItem>
-                    </Row>
-                </Tab>
-                <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MUSIC} title={t('title_music')}>
-                    <Row>
-                        <DashboardItem link={NAVIGATION.MANAGE_MUSIC_BANDS}>
-                            <BigButton
-                                imageName="bands.jpg"
-                                iconName={ICONS.MUSIC}
-                                textcolor={COLORS.BLACK}
-                                color="#0cb058"
-                                text={t('music_bands')}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_MUSIC)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.MANAGE_MUSIC_RECORDS}>
-                            <BigButton
-                                imageName="music.jpg"
-                                iconName={ICONS.MUSIC}
-                                textcolor={COLORS.BLACK}
-                                color="#0cb058"
-                                text={t('music_records')}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_MUSIC)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.MANAGE_MUSIC_EVENTS}>
-                            <BigButton
-                                imageName="events.jpg"
-                                iconName={ICONS.MUSIC}
-                                textcolor={COLORS.BLACK}
-                                color="#0cb058"
-                                text={t('music_events')}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_MUSIC)}
-                            />
-                        </DashboardItem>
-                        <DashboardItem link={NAVIGATION.MANAGE_MUSIC_KARAOKE_SONGS}>
-                            <BigButton
-                                imageName="events.jpg"
-                                iconName={ICONS.MUSIC}
-                                textcolor={COLORS.BLACK}
-                                color="#0cb058"
-                                text={t('music_karaoke_songs')}
-                                onClick={() => setSessionStorage(SESSIONSTORAGE.DASHBOARD_MUSIC)}
-                            />
-                        </DashboardItem>
-                    </Row>
-                </Tab>
-            </Tabs>
         </PageContentWrapper>
     );
 }
