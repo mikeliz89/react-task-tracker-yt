@@ -23,7 +23,7 @@ export default function Logo() {
                 color: logoColor
             }}
         >
-            <Icon name={ICONS.LIST_ALT} color={logoColor} fontSize="1.8rem" />
+            {/* <Icon name={ICONS.LIST_ALT} color={logoColor} fontSize="1.8rem" /> */}
             <div>
                 <div style={{ fontSize: '1.9rem', fontWeight: '700', color: logoColor }}>LifeSaver</div>
                 <div style={{ fontSize: '1rem', fontWeight: '400', color: logoColor, marginLeft: '0.3rem' }}>App</div>
