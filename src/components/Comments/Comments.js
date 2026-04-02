@@ -3,12 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
 import { ref, onValue, child } from 'firebase/database';
+import AddComment from './AddComment';
 import CommentsInner from './CommentsInner';
 import Icon from '../Icon';
 import { TRANSLATION, ICONS } from '../../utils/Constants';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
-export default function Comments({ url, objID, onCounterChange }) {
+export default function Comments({ url, objID, onCounterChange, onSave }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.COMMENTS });
@@ -46,7 +47,8 @@ export default function Comments({ url, objID, onCounterChange }) {
     }
 
     return (
-        <div className="comments-content-card">
+        <div className="content-card">
+            <AddComment onSave={onSave} />
             {/* <pre>{JSON.stringify(comments)}</pre> */}
 
             {

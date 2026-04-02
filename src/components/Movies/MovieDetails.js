@@ -1,23 +1,20 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { Row, ButtonGroup, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
-import GoBackButton from '../Buttons/GoBackButton';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
-import PageContentWrapper from '../Site/PageContentWrapper';
+import DetailsPage from '../Site/DetailsPage';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import Button from '../Buttons/Button';
 import AddMovie from './AddMovie';
 import Alert from '../Alert';
 import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import { getMovieFormatNameByID } from '../../utils/ListUtils';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
-import AccordionElement from '../AccordionElement';
 import useFetch from '../Hooks/useFetch';
 import { useAlert } from '../Hooks/useAlert';
 
@@ -82,62 +79,50 @@ export default function MovieDetails() {
         updateToFirebaseById(DB.MOVIES, movieID, movie);
     }
 
-    const getAccordionData = () => {
-        return [
-            { id: 1, name: t('created'), value: getJsonAsDateTimeString(movie.created, i18n.language) },
-            { id: 2, name: t('created_by'), value: movie.createdBy },
-            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(movie.modified, i18n.language) }
-        ];
-    }
-
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                    <Button
-                        iconName={ICONS.EDIT}
-                        text={showEdit ? tCommon('buttons.button_close') : ''}
-                        color={showEdit ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
-                        onClick={() => setShowEdit(!showEdit)} />
-                </ButtonGroup>
-            </Row>
-
-            <AccordionElement array={getAccordionData()} title={movie.name} />
-
-            <Row>
-                <Col>
-                    {t('format') + ':'} {t('movie_format_' + getMovieFormatNameByID(movie.format))}
+    return (
+        <DetailsPage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            showGoBackButton={true}
+            showEditButton={true}
+            isEditOpen={showEdit}
+            editButtonClosedText=""
+            editButtonOpenText={tCommon('buttons.button_close')}
+            editButtonIconName={ICONS.EDIT}
+            editButtonOpenColor={COLORS.EDITBUTTON_OPEN}
+            editButtonClosedColor={COLORS.EDITBUTTON_CLOSED}
+            onToggleEdit={() => setShowEdit(!showEdit)}
+            title={movie?.name}
+            preSummaryContent={<span className="detailspage-field">{t('format')}: {t('movie_format_' + getMovieFormatNameByID(movie?.format))}</span>}
+            summary={`${t('description')}: ${movie?.description || '-'}`}
+            ratingSection={<StarRatingWrapper stars={movie?.stars} onSaveStars={saveStars} />}
+            metaItems={[
+                { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(movie?.created, i18n.language)}</> },
+                { id: 2, content: <>{t('created_by')}: {movie?.createdBy}</> },
+                { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(movie?.modified, i18n.language)}</> }
+            ]}
+            editSection={showEdit ? <AddMovie onSave={updateMovie} movieID={params.id} onClose={() => setShowEdit(false)} /> : null}
+        >
+            <Row className="detailspage-grid">
+                <Col lg={12}>
+                    <Alert
+                        message={message}
+                        showMessage={showMessage}
+                        error={error}
+                        showError={showError}
+                        onClose={clearMessages}
+                    />
+                </Col>
+                <Col lg={12}>
+                    <ImageComponent url={DB.MOVIE_IMAGES} objID={params.id} />
+                </Col>
+                <Col lg={12}>
+                    <CommentComponent objID={params.id} url={DB.MOVIE_COMMENTS} onSave={addCommentToMovie} />
+                </Col>
+                <Col lg={12}>
+                    <LinkComponent objID={params.id} url={DB.MOVIE_LINKS} onSaveLink={addLinkToMovie} />
                 </Col>
             </Row>
-            <Row>
-                <Col>
-                    {t('description') + ':'} {movie.description}
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <StarRatingWrapper stars={movie.stars} onSaveStars={saveStars} />
-                </Col>
-            </Row>
-
-            <Alert
-                message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                onClose={clearMessages}
-            />
-
-            {showEdit &&
-                <AddMovie onSave={updateMovie} movieID={params.id} onClose={() => setShowEdit(false)} />
-            }
-            <hr />
-            <ImageComponent url={DB.MOVIE_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={DB.MOVIE_COMMENTS} onSave={addCommentToMovie} />
-            <LinkComponent objID={params.id} url={DB.MOVIE_LINKS} onSaveLink={addLinkToMovie} />
-        </PageContentWrapper>
+        </DetailsPage>
     )
 }

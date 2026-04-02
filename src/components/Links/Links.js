@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
 import { ref, onValue, child } from 'firebase/database';
+import AddLink from './AddLink';
 import LinksInner from './LinksInner';
 import { TRANSLATION } from '../../utils/Constants';
 import { removeFromFirebaseById, removeFromFirebaseByIdAndSubId, updateToFirebaseById, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
-export default function Links({ url, objID, onCounterChange }) {
+export default function Links({ url, objID, onCounterChange, onSaveLink }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LINKS });
@@ -71,7 +72,8 @@ export default function Links({ url, objID, onCounterChange }) {
     return loading ? (
         <h3>{tCommon("loading")}</h3>
     ) : (
-        <div>
+        <div className="content-card">
+            <AddLink onSaveLink={onSaveLink} />
             {/* <pre>{JSON.stringify(links)}</pre> */}
             {
                 links != null && links.length > 0 ? (

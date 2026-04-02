@@ -236,23 +236,19 @@ form {
     margin-top: 0px;
 }
 
-.task-details-page {
+.detailspage-page {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-}
-
-.task-details-header {
-    background: rgba(15, 23, 45, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
     padding: 1.75rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
-    backdrop-filter: blur(18px);
 }
 
-.task-details-actions-row {
+.detailspage-header {
+    margin-bottom: 1.5rem;
+}
+
+.detailspage-actions-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -260,7 +256,7 @@ form {
     margin-bottom: 1.25rem;
 }
 
-.task-details-top-row {
+.detailspage-top-row {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -268,7 +264,19 @@ form {
     gap: 1rem;
 }
 
-.task-details-pill-row {
+.detailspage-title-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.detailspage-title-suffix {
+    display: inline-flex;
+    align-items: center;
+}
+
+.detailspage-pill-row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
@@ -287,28 +295,46 @@ form {
     letter-spacing: 0.01em;
 }
 
-.task-details-summary {
+.detailspage-summary {
     color: #c6d0ff;
     margin-top: 1rem;
     line-height: 1.7;
 }
 
-.task-details-meta-row {
+.detailspage-pre-summary {
+    margin-top: 0.9rem;
+}
+
+.detailspage-field {
+    color: rgba(255, 255, 255, 0.86);
+    font-weight: 500;
+}
+
+.detailspage-meta-row {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     margin-top: 1.25rem;
-    color: rgba(255, 255, 255, 0.72);
+    color: rgba(0, 0, 0, 0.78);
     font-size: 0.95rem;
 }
 
-.comments-panel {
+.detailspage-meta-history-icon {
+    display: inline-flex;
+    align-items: center;
+}
+
+.detailspage-rating-row {
+    margin-top: 0.85rem;
+}
+
+.content-panel {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.comments-panel-header {
+.content-panel-header {
     display: flex;
     gap: 1rem;
     justify-content: space-between;
@@ -316,7 +342,7 @@ form {
     flex-wrap: wrap;
 }
 
-.comments-content-card {
+.content-card {
     background: rgba(18, 28, 50, 0.92);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
@@ -325,12 +351,13 @@ form {
 }
 
 .comments-empty-state {
-    min-height: 170px;
+    min-height: 110px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
+    margin-top: 0.5rem;
     color: rgba(255, 255, 255, 0.7);
     text-align: center;
 }
@@ -339,6 +366,10 @@ form {
     background: rgba(255, 255, 255, 0.08);
     padding: 1rem;
     border-radius: 50%;
+}
+
+.comments-add-button {
+    margin-bottom: 6px;
 }
 
 .comments-list {
@@ -354,7 +385,6 @@ form {
     padding: 1rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
 }
 
 .comment-avatar {
@@ -403,19 +433,19 @@ form {
     line-height: 1.6;
 }
 
-.task-details-grid {
+.detailspage-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
 }
 
 @media screen and (min-width: 992px) {
-    .task-details-grid {
+    .detailspage-grid {
         grid-template-columns: 1fr 1fr;
     }
 }
 
-.task-detail-card {
+.detailspage-card {
     background: rgba(18, 28, 50, 0.88);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 22px;
@@ -423,7 +453,7 @@ form {
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
 }
 
-.task-detail-card-title {
+.detailspage-card-title {
     font-size: 0.95rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -431,17 +461,17 @@ form {
     margin-bottom: 1rem;
 }
 
-.task-detail-meta-table td {
+.detailspage-meta-table td {
     color: #e7eaf1;
     padding: 0.45rem 0;
 }
 
 @media screen and (max-width: 768px) {
-    .task-details-header {
+    .detailspage-page {
         padding: 1.25rem;
     }
 
-    .task-details-top-row {
+    .detailspage-top-row {
         flex-direction: column;
     }
 }
@@ -654,6 +684,17 @@ form {
 
 #dark .card-body {
     background-color: dimgrey;
+}
+
+#dark .detailspage-page {
+    background: rgba(15, 23, 45, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(18px);
+}
+
+#dark .detailspage-meta-row {
+    color: rgba(255, 255, 255, 0.72);
 }
 
 #dark .deleteBtn {
