@@ -49,11 +49,11 @@ export default function Dashboard() {
             textcolor: COLORS.BLACK
         },
         {
-            link: NAVIGATION.MANAGE_DRINKS,
-            imageName: 'cocktail.jpg',
-            text: t('drinks'),
-            iconName: ICONS.GLASS_MARTINI,
-            color: '#f9a9d5',
+            link: NAVIGATION.BMICALCULATOR,
+            imageName: 'calculator.PNG',
+            text: t('bmi_calculator'),
+            iconName: ICONS.WEIGHT,
+            color: COLORS.WHITE,
             textcolor: COLORS.BLACK
         }
     ];
@@ -84,19 +84,19 @@ export default function Dashboard() {
             textcolor: COLORS.BLACK
         },
         {
-            link: NAVIGATION.BMICALCULATOR,
-            imageName: 'calculator.PNG',
-            text: t('bmi_calculator'),
-            iconName: ICONS.WEIGHT,
-            color: COLORS.WHITE,
-            textcolor: COLORS.BLACK
-        },
-        {
             link: NAVIGATION.MANAGE_RECIPES,
             imageName: 'recipes.png',
             text: t('recipes'),
             iconName: ICONS.UTENSILS,
             color: '#b37401',
+            textcolor: COLORS.BLACK
+        },
+        {
+            link: NAVIGATION.MANAGE_DRINKS,
+            imageName: 'cocktail.jpg',
+            text: t('drinks'),
+            iconName: ICONS.GLASS_MARTINI,
+            color: '#f9a9d5',
             textcolor: COLORS.BLACK
         },
         {
