@@ -38,7 +38,9 @@ export default function WeightHistory() {
         <PageContentWrapper>
             <GoBackButton />
             <PageTitle title={t('weighthistory')} iconName={ICONS.WEIGHT} iconColor={COLORS.GRAY} />
-            <WeightChart data={historyRows} />
+
+            {/* Kaavio */}
+            <WeightChart data={historyRows} chartData={originalHistoryRows} />
             <Counter counter={counter} text={tCommon('amount')} list={historyRows} originalList={originalHistoryRows} />
 
             <>
@@ -56,6 +58,7 @@ export default function WeightHistory() {
                 }
             </>
 
+            <h3>{t('history_rows')}</h3>
             {/* { <pre>{JSON.stringify(historyRows)}</pre> }  */}
             {historyRows != null && historyRows.length > 0 ? historyRows.map((row, index) =>
                 <div key={row.id}>
