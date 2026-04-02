@@ -79,7 +79,8 @@ export default function ManageDrinks() {
         <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
-            <PageTitle title={t('manage_drinks_title')} />
+
+            <PageTitle title={t('manage_drinks_title')} iconName={ICONS.COCKTAIL} />
 
             <Row>
                 <ButtonGroup>
@@ -133,7 +134,6 @@ export default function ManageDrinks() {
                         showFilterCore={true}
                         filterMode={FilterMode.Title}
                         showFilterHaveRated={true}
-                        showFilterNotHaveRated={true}
                     />
 
                 ) : (<></>)

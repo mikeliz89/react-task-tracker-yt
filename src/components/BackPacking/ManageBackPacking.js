@@ -14,7 +14,7 @@ export default function ManageBackPacking() {
     return (
         <PageContentWrapper>
 
-            <PageTitle title={t('manage_backpacking_title')} />
+            <PageTitle title={t('manage_backpacking_title')} iconName={ICONS.CAMPGROUND} />
 
             <Row>
 

@@ -13,6 +13,7 @@ import DeleteButton from '../Buttons/DeleteButton';
 import Counter from '../Site/Counter';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from "../SearchSortFilter/SortModes";
+import { ButtonGroup, Row } from 'react-bootstrap';
 
 export default function WeightHistory() {
 
@@ -36,11 +37,24 @@ export default function WeightHistory() {
         <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
-            <GoBackButton />
             <PageTitle title={t('weighthistory')} iconName={ICONS.WEIGHT} iconColor={COLORS.GRAY} />
-            <WeightChart data={historyRows} />
-            <Counter counter={counter} text={tCommon('amount')} list={historyRows} originalList={originalHistoryRows} />
 
+            <Row>
+                <ButtonGroup>
+                    <GoBackButton />
+                </ButtonGroup>
+            </Row>
+
+            <p></p>
+
+
+            {/* Kaavio */}
+            <WeightChart data={historyRows} chartData={originalHistoryRows} />
+
+
+            {/* Historiarivit */}
+            <hr />
+            <Counter counter={counter} text={tCommon('amount')} list={historyRows} originalList={originalHistoryRows} />
             <>
                 {
                     originalHistoryRows != null && originalHistoryRows.length > 0 ? (
@@ -56,6 +70,7 @@ export default function WeightHistory() {
                 }
             </>
 
+            <h3>{t('history_rows')}</h3>
             {/* { <pre>{JSON.stringify(historyRows)}</pre> }  */}
             {historyRows != null && historyRows.length > 0 ? historyRows.map((row, index) =>
                 <div key={row.id}>

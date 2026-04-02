@@ -76,7 +76,7 @@ export default function ManageRecipes() {
   ) : (
     <PageContentWrapper>
 
-      <PageTitle title={t('manage_recipes_title')} />
+      <PageTitle title={t('manage_recipes_title')} iconName={ICONS.UTENSILS} />
 
       <Row>
         <ButtonGroup>
@@ -127,7 +127,6 @@ export default function ManageRecipes() {
             filterMode={FilterMode.Title}
             showFilterCore={true}
             showFilterHaveRated={true}
-            showFilterNotHaveRated={true}
           />
         ) : (<></>)
       }

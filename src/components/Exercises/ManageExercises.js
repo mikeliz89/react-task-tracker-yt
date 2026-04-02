@@ -32,7 +32,7 @@ export default function ManageExercises() {
   ) : (
     <PageContentWrapper>
 
-      <PageTitle title={t('manage_exercises_title')} />
+      <PageTitle title={t('manage_exercises_title')} iconName={ICONS.RUNNING} />
 
       <Row>
         <ButtonGroup>
@@ -58,6 +58,8 @@ export default function ManageExercises() {
             //sort
             showSortByStarRating={true}
             showSortByCreatedDate={true}
+            //filter
+            showFilterHaveRated={true}
           />
         ) : (<></>)
       }

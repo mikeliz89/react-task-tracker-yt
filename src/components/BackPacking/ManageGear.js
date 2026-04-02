@@ -68,7 +68,7 @@ export default function ManageGear() {
     ) : (
         <PageContentWrapper>
 
-            <PageTitle title={t('my_gear_title')} />
+            <PageTitle title={t('my_gear_title')} iconName={ICONS.WRENCH} />
 
             <Row>
                 <ButtonGroup>
@@ -106,6 +106,7 @@ export default function ManageGear() {
                         showSortByStarRating={true}
                         //filter
                         filterMode={FilterMode.Name}
+                        showFilterHaveRated={true}
                     />
                 ) : (<></>)
             }

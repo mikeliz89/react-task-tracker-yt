@@ -9,7 +9,7 @@ export default function SearchTextInput({ setSearchString, placeholderText }) {
 
     return (
         <Form.Group as={Row}>
-            <Form.Label column xs={3} sm={2}>{t('search')}</Form.Label>
+            <Form.Label column xs={3} sm={2}>{t(placeholderText)}</Form.Label>
             <Col xs={9} sm={10}>
                 <Form.Control
                     autoComplete='off'

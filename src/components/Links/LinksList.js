@@ -2,7 +2,7 @@ import GoBackButton from '../Buttons/GoBackButton';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebase } from '../../datatier/datatier';
-import { TRANSLATION, DB } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS } from '../../utils/Constants';
 import LinkComponent from './LinkComponent';
 import PageTitle from '../Site/PageTitle';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +20,9 @@ export default function LinksList() {
 
     return (
         <PageContentWrapper>
-            <PageTitle title={t('header')} />
+
+            <PageTitle title={t('header')} iconName={ICONS.EXTERNAL_LINK_ALT} />
+
             <Row>
                 <ButtonGroup>
                     <GoBackButton />

@@ -69,7 +69,7 @@ export default function ManagePeople() {
     ) : (
         <PageContentWrapper>
 
-            <PageTitle title={t('title')} />
+            <PageTitle title={t('title')} iconName={ICONS.USER_ALT} />
 
             <Row>
                 <ButtonGroup>

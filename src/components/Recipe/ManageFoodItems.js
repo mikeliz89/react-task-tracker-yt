@@ -72,7 +72,7 @@ export default function ManageFoodItems() {
     ) : (
         <PageContentWrapper>
 
-            <PageTitle title={t('manage_fooditems_title')} />
+            <PageTitle title={t('manage_fooditems_title')} iconName={ICONS.CARROT} />
 
             <Row>
                 <ButtonGroup>
@@ -110,7 +110,6 @@ export default function ManageFoodItems() {
                         //filter
                         filterMode={FilterMode.Name}
                         showFilterHaveAtHome={true}
-                        showFilterNotHaveAtHome={true}
                     />
                 ) : (<></>)
             }

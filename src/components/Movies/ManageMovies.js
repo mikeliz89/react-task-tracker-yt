@@ -75,7 +75,7 @@ export default function ManageMovies() {
     ) : (
         <PageContentWrapper>
 
-            <PageTitle title={t('movies_title')} />
+            <PageTitle title={t('movies_title')} iconName={ICONS.MOVIE} />
 
             <Row>
                 <ButtonGroup>
@@ -122,7 +122,7 @@ export default function ManageMovies() {
                         //filter
                         filterMode={FilterMode.Name}
                         showFilterHaveAtHome={true}
-                        showFilterNotHaveAtHome={true}
+                        showFilterHaveRated={true}
                     />
                 ) : (<></>)
             }

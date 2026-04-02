@@ -92,7 +92,7 @@ export default function Car() {
     ) : (
         <PageContentWrapper>
 
-            <PageTitle title={t('car_title')} />
+            <PageTitle title={t('car_title')} iconName={ICONS.CAR} />
 
             <Row>
                 <ButtonGroup>
@@ -161,7 +161,9 @@ export default function Car() {
                         {
                             carFuelings != null && carFuelings.length > 0 ? (
                                 <CarFuelings
-                                    carFuelings={carFuelings} onDelete={deleteFueling} />
+                                    carFuelings={carFuelings}
+                                    chartFuelings={originalCarFuelings}
+                                    onDelete={deleteFueling} />
                             ) : (
                                 <>
                                     <CenterWrapper>

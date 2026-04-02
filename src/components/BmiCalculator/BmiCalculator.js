@@ -106,7 +106,7 @@ export default function BmiCalculator() {
     return (
         <PageContentWrapper>
 
-            <PageTitle title={t('title')} />
+            <PageTitle title={t('title')} iconName={ICONS.WEIGHT} />
 
             <Row>
                 <ButtonGroup>

@@ -5,7 +5,7 @@ import CarFueling from "./CarFueling";
 import { TRANSLATION, ICONS } from '../../utils/Constants';
 import GasPriceChart from './GasPriceChart';
 
-export default function CarFuelings({ carFuelings, onDelete }) {
+export default function CarFuelings({ carFuelings, chartFuelings, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
@@ -37,7 +37,7 @@ export default function CarFuelings({ carFuelings, onDelete }) {
 
             <hr />
             <p>{t('fuel_price_chart')}</p>
-            <GasPriceChart data={carFuelings} />
+            <GasPriceChart data={chartFuelings ?? carFuelings} />
         </>
     )
 }

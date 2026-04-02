@@ -8,9 +8,34 @@ import { TRANSLATION } from '../../utils/Constants';
 import SortByButton from './SortByButton';
 import SearchTextInput from './SearchTextInput';
 import FilterCheckBox from './FilterCheckBox';
+import FilterDropDown from './FilterDropDown';
 import Button from '../Buttons/Button';
 import { useToggle } from '../Hooks/useToggle';
 import Collapse from 'react-bootstrap/Collapse';
+
+const ReadyFilterMode = {
+    All: 'all',
+    Ready: 'ready',
+    NotReady: 'not_ready'
+}
+
+const RatedFilterMode = {
+    All: 'all',
+    Rated: 'rated',
+    NotRated: 'not_rated'
+}
+
+const HomeFilterMode = {
+    All: 'all',
+    Have: 'have',
+    NotHave: 'not_have'
+}
+
+const SeenLiveFilterMode = {
+    All: 'all',
+    Seen: 'seen',
+    NotSeen: 'not_seen'
+}
 
 export default function SearchSortFilter({ onSet,
     originalList,
@@ -31,14 +56,10 @@ export default function SearchSortFilter({ onSet,
     showSearchByIncredients,
     //filtering
     showFilterSeenLive,
-    showFilterNotHaveSeenLive,
     showFilterHaveAtHome,
-    showFilterNotHaveAtHome,
     showFilterHaveRated,
-    showFilterNotHaveRated,
     showFilterCore,
     showFilterReady,
-    showFilterNotReady,
     //filtermode
     filterMode
 }) {
@@ -55,15 +76,11 @@ export default function SearchSortFilter({ onSet,
     //sort states
     const [sortBy, setSortBy] = useState(defaultSort);
     //filter states
-    const [showOnlySeenLive, setShowOnlySeenLive] = useState(false);
-    const [showOnlyNotHaveSeenLive, setShowOnlyNotHaveSeenLive] = useState(false);
-    const [showOnlyHaveAtHome, setShowOnlyHaveAtHome] = useState(false);
-    const [showOnlyNotHaveAtHome, setShowOnlyNotHaveAtHome] = useState(false);
-    const [showOnlyHaveRated, setShowOnlyHaveRated] = useState(false);
-    const [showOnlyNotHaveRated, setShowOnlyNotHaveRated] = useState(false);
+    const [seenLiveFilterMode, setSeenLiveFilterMode] = useState(SeenLiveFilterMode.All);
+    const [homeFilterMode, setHomeFilterMode] = useState(HomeFilterMode.All);
+    const [ratedFilterMode, setRatedFilterMode] = useState(RatedFilterMode.All);
     const [showOnlyCore, setShowOnlyCore] = useState(false);
-    const [showOnlyReady, setShowOnlyReady] = useState(false);
-    const [showOnlyNotReady, setShowOnlyNotReady] = useState(false);
+    const [readyFilterMode, setReadyFilterMode] = useState(ReadyFilterMode.All);
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.SEARCHSORTFILTER });
@@ -82,11 +99,11 @@ export default function SearchSortFilter({ onSet,
     }, [sortBy,
         searchString, searchStringFinnishName, searchStringDescription,
         searchStringIncredients, searchStringDay,
-        showOnlySeenLive, showOnlyNotHaveSeenLive,
-        showOnlyHaveAtHome, showOnlyNotHaveAtHome,
-        showOnlyHaveRated, showOnlyNotHaveRated,
+        seenLiveFilterMode,
+        homeFilterMode,
+        ratedFilterMode,
         showOnlyCore,
-        showOnlyReady, showOnlyNotReady]
+        readyFilterMode]
     );
 
     const filterAndSort = () => {
@@ -169,40 +186,36 @@ export default function SearchSortFilter({ onSet,
 
     const filtering = (newList) => {
 
-        //have at home
-        if (showOnlyHaveAtHome) {
+        //have at home status
+        if (homeFilterMode === HomeFilterMode.Have) {
             newList = filterCheckTrue(newList, "haveAtHome");
         }
-        //not have at home
-        if (showOnlyNotHaveAtHome) {
+        if (homeFilterMode === HomeFilterMode.NotHave) {
             newList = filterCheckFalse(newList, "haveAtHome");
         }
-        //seen live
-        if (showOnlySeenLive) {
+        //seen live status
+        if (seenLiveFilterMode === SeenLiveFilterMode.Seen) {
             newList = filterCheckTrue(newList, "seenLive");
         }
-        //not have seen live
-        if (showOnlyNotHaveSeenLive) {
+        if (seenLiveFilterMode === SeenLiveFilterMode.NotSeen) {
             newList = filterCheckFalse(newList, "seenLive");
         }
-        //rated
-        if (showOnlyHaveRated) {
+        //rated status
+        if (ratedFilterMode === RatedFilterMode.Rated) {
             newList = filterCheckIntMoreThanZero(newList, "stars");
         }
-        //not rated
-        if (showOnlyNotHaveRated) {
+        if (ratedFilterMode === RatedFilterMode.NotRated) {
             newList = filterCheckIntZero(newList, "stars");
         }
         //core
         if (showOnlyCore) {
             newList = filterCheckTrue(newList, "isCore");
         }
-        //ready
-        if (showOnlyReady) {
+        //ready status
+        if (readyFilterMode === ReadyFilterMode.Ready) {
             newList = filterCheckTrue(newList, "reminder");
         }
-        //notready
-        if (showOnlyNotReady) {
+        if (readyFilterMode === ReadyFilterMode.NotReady) {
             newList = filterCheckFalse(newList, "reminder");
         }
 
@@ -402,50 +415,44 @@ export default function SearchSortFilter({ onSet,
                         }
                         {
                             showFilterSeenLive &&
-                            <FilterCheckBox
-                                onSet={setShowOnlySeenLive}
+                            <FilterDropDown
+                                id='seenLiveStatusFilter'
                                 labelText='show_only_seen_live'
-                                id='seenlive'
-                            />
-                        }
-                        {
-                            showFilterNotHaveSeenLive &&
-                            <FilterCheckBox
-                                onSet={setShowOnlyNotHaveSeenLive}
-                                labelText='show_only_not_have_seen_live'
-                                id='notseenlive'
+                                value={seenLiveFilterMode}
+                                onSet={setSeenLiveFilterMode}
+                                options={[
+                                    { value: SeenLiveFilterMode.All, labelText: 'seen_live_filter_all' },
+                                    { value: SeenLiveFilterMode.Seen, labelText: 'seen_live_filter_seen' },
+                                    { value: SeenLiveFilterMode.NotSeen, labelText: 'seen_live_filter_not_seen' },
+                                ]}
                             />
                         }
                         {
                             showFilterHaveAtHome &&
-                            <FilterCheckBox
-                                onSet={setShowOnlyHaveAtHome}
-                                labelText='show_only_have_at_home'
-                                id='haveathome'
-                            />
-                        }
-                        {
-                            showFilterNotHaveAtHome &&
-                            <FilterCheckBox
-                                onSet={setShowOnlyNotHaveAtHome}
-                                labelText='show_only_not_have_at_home'
-                                id='nothaveathome'
+                            <FilterDropDown
+                                id='haveAtHomeStatusFilter'
+                                labelText='home_filter_have'
+                                value={homeFilterMode}
+                                onSet={setHomeFilterMode}
+                                options={[
+                                    { value: HomeFilterMode.All, labelText: 'home_filter_all' },
+                                    { value: HomeFilterMode.Have, labelText: 'home_filter_have' },
+                                    { value: HomeFilterMode.NotHave, labelText: 'home_filter_not_have' },
+                                ]}
                             />
                         }
                         {
                             showFilterHaveRated &&
-                            <FilterCheckBox
-                                onSet={setShowOnlyHaveRated}
-                                labelText='show_only_have_rated'
-                                id='haverated'
-                            />
-                        }
-                        {
-                            showFilterNotHaveRated &&
-                            <FilterCheckBox
-                                onSet={setShowOnlyNotHaveRated}
-                                labelText='show_only_not_have_rated'
-                                id='nothaverated'
+                            <FilterDropDown
+                                id='ratedStatusFilter'
+                                labelText='rated'
+                                value={ratedFilterMode}
+                                onSet={setRatedFilterMode}
+                                options={[
+                                    { value: RatedFilterMode.All, labelText: 'rated_filter_all' },
+                                    { value: RatedFilterMode.Rated, labelText: 'rated_filter_rated' },
+                                    { value: RatedFilterMode.NotRated, labelText: 'rated_filter_not_rated' },
+                                ]}
                             />
                         }
                         {
@@ -458,18 +465,16 @@ export default function SearchSortFilter({ onSet,
                         }
                         {
                             showFilterReady &&
-                            <FilterCheckBox
-                                onSet={setShowOnlyReady}
-                                labelText='show_only_ready'
-                                id='isready'
-                            />
-                        }
-                        {
-                            showFilterNotReady &&
-                            <FilterCheckBox
-                                onSet={setShowOnlyNotReady}
-                                labelText='show_only_not_ready'
-                                id='notisready'
+                            <FilterDropDown
+                                id='readyStatusFilter'
+                                labelText='ready'
+                                value={readyFilterMode}
+                                onSet={setReadyFilterMode}
+                                options={[
+                                    { value: ReadyFilterMode.All, labelText: 'ready_filter_all' },
+                                    { value: ReadyFilterMode.Ready, labelText: 'ready_filter_ready' },
+                                    { value: ReadyFilterMode.NotReady, labelText: 'ready_filter_not_ready' },
+                                ]}
                             />
                         }
                     </Form>
@@ -501,14 +506,10 @@ SearchSortFilter.defaultProps = {
     //filtering
     filterMode: FilterMode.Name,
     showFilterSeenLive: false,
-    showFilterNotHaveSeenLive: false,
     showFilterHaveAtHome: false,
-    showFilterNotHaveAtHome: false,
     showFilterHaveRated: false,
-    showFilterNotHaveRated: false,
     showFilterCore: false,
-    showFilterReady: false,
-    showFilterNotReady: false
+    showFilterReady: false
 }
 
 SearchSortFilter.propTypes = {
@@ -530,14 +531,10 @@ SearchSortFilter.propTypes = {
     //filtering
     filterMode: PropTypes.string,
     showFilterSeenLive: PropTypes.bool,
-    showFilterNotHaveSeenLive: PropTypes.bool,
     showFilterHaveAtHome: PropTypes.bool,
-    showFilterNotHaveAtHome: PropTypes.bool,
     showFilterHaveRated: PropTypes.bool,
-    showFilterNotHaveRated: PropTypes.bool,
     showFilterCore: PropTypes.bool,
     showFilterReady: PropTypes.bool,
-    showFilterNotReady: PropTypes.bool,
     //other
     onSet: PropTypes.func
 }
