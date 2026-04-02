@@ -122,6 +122,7 @@ export default function ManageMusicRecords() {
                         filterMode={FilterMode.Name}
                         showFilterHaveAtHome={true}
                         showFilterNotHaveAtHome={true}
+                        showFilterHaveRated={true}
                     />
                 ) : (<></>)
             }

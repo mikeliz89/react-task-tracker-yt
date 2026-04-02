@@ -58,6 +58,8 @@ export default function ManageExercises() {
             //sort
             showSortByStarRating={true}
             showSortByCreatedDate={true}
+            //filter
+            showFilterHaveRated={true}
           />
         ) : (<></>)
       }

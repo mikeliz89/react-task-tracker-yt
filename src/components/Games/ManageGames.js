@@ -123,6 +123,7 @@ export default function ManageGames() {
                         filterMode={FilterMode.Name}
                         showFilterHaveAtHome={true}
                         showFilterNotHaveAtHome={true}
+                        showFilterHaveRated={true}
                     />
                 ) : (<></>)
             }

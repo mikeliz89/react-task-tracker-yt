@@ -99,6 +99,7 @@ export default function ManageMovements() {
                         showSortByName={true}
                         //filter
                         filterMode={FilterMode.Name}
+                        showFilterHaveRated={true}
                     />
                 ) : (<></>)
             }

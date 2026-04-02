@@ -115,6 +115,7 @@ export default function ManageDrinkingProducts() {
                         filterMode={FilterMode.Name}
                         showFilterHaveAtHome={true}
                         showFilterNotHaveAtHome={true}
+                        showFilterHaveRated={true}
                     />
                 ) : (<></>)
             }

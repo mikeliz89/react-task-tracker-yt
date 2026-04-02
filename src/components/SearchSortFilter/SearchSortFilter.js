@@ -8,6 +8,7 @@ import { TRANSLATION } from '../../utils/Constants';
 import SortByButton from './SortByButton';
 import SearchTextInput from './SearchTextInput';
 import FilterCheckBox from './FilterCheckBox';
+import FilterDropDown from './FilterDropDown';
 import Button from '../Buttons/Button';
 import { useToggle } from '../Hooks/useToggle';
 import Collapse from 'react-bootstrap/Collapse';
@@ -440,20 +441,17 @@ export default function SearchSortFilter({ onSet,
                         }
                         {
                             showFilterHaveRated &&
-                            <Form.Group as={Row} className="mb-2">
-                                <Form.Label column xs={3} sm={2}>{t('rated')}</Form.Label>
-                                <Col xs={9} sm={10}>
-                                    <Form.Select
-                                        value={ratedFilterMode}
-                                        onChange={(event) => setRatedFilterMode(event.target.value)}
-                                        id="ratedStatusFilter"
-                                    >
-                                        <option value={RatedFilterMode.All}>{t('rated_filter_all')}</option>
-                                        <option value={RatedFilterMode.Rated}>{t('rated_filter_rated')}</option>
-                                        <option value={RatedFilterMode.NotRated}>{t('rated_filter_not_rated')}</option>
-                                    </Form.Select>
-                                </Col>
-                            </Form.Group>
+                            <FilterDropDown
+                                id='ratedStatusFilter'
+                                labelText='rated'
+                                value={ratedFilterMode}
+                                onSet={setRatedFilterMode}
+                                options={[
+                                    { value: RatedFilterMode.All, labelText: 'rated_filter_all' },
+                                    { value: RatedFilterMode.Rated, labelText: 'rated_filter_rated' },
+                                    { value: RatedFilterMode.NotRated, labelText: 'rated_filter_not_rated' },
+                                ]}
+                            />
                         }
                         {
                             showFilterCore &&
@@ -465,20 +463,17 @@ export default function SearchSortFilter({ onSet,
                         }
                         {
                             showFilterReady &&
-                            <Form.Group as={Row} className="mb-2">
-                                <Form.Label column xs={3} sm={2}>{t('ready')}</Form.Label>
-                                <Col xs={9} sm={10}>
-                                    <Form.Select
-                                        value={readyFilterMode}
-                                        onChange={(event) => setReadyFilterMode(event.target.value)}
-                                        id="readyStatusFilter"
-                                    >
-                                        <option value={ReadyFilterMode.All}>{t('ready_filter_all')}</option>
-                                        <option value={ReadyFilterMode.Ready}>{t('ready_filter_ready')}</option>
-                                        <option value={ReadyFilterMode.NotReady}>{t('ready_filter_not_ready')}</option>
-                                    </Form.Select>
-                                </Col>
-                            </Form.Group>
+                            <FilterDropDown
+                                id='readyStatusFilter'
+                                labelText='ready'
+                                value={readyFilterMode}
+                                onSet={setReadyFilterMode}
+                                options={[
+                                    { value: ReadyFilterMode.All, labelText: 'ready_filter_all' },
+                                    { value: ReadyFilterMode.Ready, labelText: 'ready_filter_ready' },
+                                    { value: ReadyFilterMode.NotReady, labelText: 'ready_filter_not_ready' },
+                                ]}
+                            />
                         }
                     </Form>
                 </div>

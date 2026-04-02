@@ -106,6 +106,7 @@ export default function ManageGear() {
                         showSortByStarRating={true}
                         //filter
                         filterMode={FilterMode.Name}
+                        showFilterHaveRated={true}
                     />
                 ) : (<></>)
             }
