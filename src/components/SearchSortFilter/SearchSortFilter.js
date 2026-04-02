@@ -31,6 +31,12 @@ const HomeFilterMode = {
     NotHave: 'not_have'
 }
 
+const SeenLiveFilterMode = {
+    All: 'all',
+    Seen: 'seen',
+    NotSeen: 'not_seen'
+}
+
 export default function SearchSortFilter({ onSet,
     originalList,
     //sorting
@@ -50,7 +56,6 @@ export default function SearchSortFilter({ onSet,
     showSearchByIncredients,
     //filtering
     showFilterSeenLive,
-    showFilterNotHaveSeenLive,
     showFilterHaveAtHome,
     showFilterHaveRated,
     showFilterCore,
@@ -71,8 +76,7 @@ export default function SearchSortFilter({ onSet,
     //sort states
     const [sortBy, setSortBy] = useState(defaultSort);
     //filter states
-    const [showOnlySeenLive, setShowOnlySeenLive] = useState(false);
-    const [showOnlyNotHaveSeenLive, setShowOnlyNotHaveSeenLive] = useState(false);
+    const [seenLiveFilterMode, setSeenLiveFilterMode] = useState(SeenLiveFilterMode.All);
     const [homeFilterMode, setHomeFilterMode] = useState(HomeFilterMode.All);
     const [ratedFilterMode, setRatedFilterMode] = useState(RatedFilterMode.All);
     const [showOnlyCore, setShowOnlyCore] = useState(false);
@@ -95,7 +99,7 @@ export default function SearchSortFilter({ onSet,
     }, [sortBy,
         searchString, searchStringFinnishName, searchStringDescription,
         searchStringIncredients, searchStringDay,
-        showOnlySeenLive, showOnlyNotHaveSeenLive,
+        seenLiveFilterMode,
         homeFilterMode,
         ratedFilterMode,
         showOnlyCore,
@@ -189,12 +193,11 @@ export default function SearchSortFilter({ onSet,
         if (homeFilterMode === HomeFilterMode.NotHave) {
             newList = filterCheckFalse(newList, "haveAtHome");
         }
-        //seen live
-        if (showOnlySeenLive) {
+        //seen live status
+        if (seenLiveFilterMode === SeenLiveFilterMode.Seen) {
             newList = filterCheckTrue(newList, "seenLive");
         }
-        //not have seen live
-        if (showOnlyNotHaveSeenLive) {
+        if (seenLiveFilterMode === SeenLiveFilterMode.NotSeen) {
             newList = filterCheckFalse(newList, "seenLive");
         }
         //rated status
@@ -412,18 +415,16 @@ export default function SearchSortFilter({ onSet,
                         }
                         {
                             showFilterSeenLive &&
-                            <FilterCheckBox
-                                onSet={setShowOnlySeenLive}
+                            <FilterDropDown
+                                id='seenLiveStatusFilter'
                                 labelText='show_only_seen_live'
-                                id='seenlive'
-                            />
-                        }
-                        {
-                            showFilterNotHaveSeenLive &&
-                            <FilterCheckBox
-                                onSet={setShowOnlyNotHaveSeenLive}
-                                labelText='show_only_not_have_seen_live'
-                                id='notseenlive'
+                                value={seenLiveFilterMode}
+                                onSet={setSeenLiveFilterMode}
+                                options={[
+                                    { value: SeenLiveFilterMode.All, labelText: 'seen_live_filter_all' },
+                                    { value: SeenLiveFilterMode.Seen, labelText: 'seen_live_filter_seen' },
+                                    { value: SeenLiveFilterMode.NotSeen, labelText: 'seen_live_filter_not_seen' },
+                                ]}
                             />
                         }
                         {
@@ -505,7 +506,6 @@ SearchSortFilter.defaultProps = {
     //filtering
     filterMode: FilterMode.Name,
     showFilterSeenLive: false,
-    showFilterNotHaveSeenLive: false,
     showFilterHaveAtHome: false,
     showFilterHaveRated: false,
     showFilterCore: false,
@@ -531,7 +531,6 @@ SearchSortFilter.propTypes = {
     //filtering
     filterMode: PropTypes.string,
     showFilterSeenLive: PropTypes.bool,
-    showFilterNotHaveSeenLive: PropTypes.bool,
     showFilterHaveAtHome: PropTypes.bool,
     showFilterHaveRated: PropTypes.bool,
     showFilterCore: PropTypes.bool,

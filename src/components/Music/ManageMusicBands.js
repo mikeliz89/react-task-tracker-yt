@@ -120,7 +120,6 @@ export default function ManageMusicBands() {
                         //filter
                         filterMode={FilterMode.Name}
                         showFilterSeenLive={true}
-                        showFilterNotHaveSeenLive={true}
                         showFilterHaveRated={true}
                     />
                 ) : (<></>)
