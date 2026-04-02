@@ -88,7 +88,7 @@ export default function AddTask({ taskID, taskListID, onSave, onClose, showLabel
                 <Form.Check
                     type='checkbox'
                     controlId="formBasicCheckbox"
-                    label={t('set_reminder')}
+                    label={t('task_ready')}
                     checked={reminder}
                     value={reminder}
                     onChange={(e) => setReminder(e.currentTarget.checked)} />

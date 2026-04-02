@@ -1,24 +1,20 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
-import GoBackButton from '../Buttons/GoBackButton';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
-import PageContentWrapper from '../Site/PageContentWrapper';
+import DetailsPage from '../Site/DetailsPage';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import Button from '../Buttons/Button';
 import Alert from '../Alert';
 import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import AddBand from './AddBand';
-import AccordionElement from '../AccordionElement';
 import useFetch from '../Hooks/useFetch';
-import { Modal } from 'react-bootstrap';
-import { useToggle } from '../Hooks/useToggle';
+import PageTitle from '../Site/PageTitle';
 import { useAlert } from '../Hooks/useAlert';
 
 export default function BandDetails() {
@@ -28,21 +24,19 @@ export default function BandDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //alert
     const {
-        message, setMessage,
-        showMessage, setShowMessage,
-        error, setError,
-        showError, setShowError,
+        message,
+        showMessage,
+        error,
+        showError,
         clearMessages,
-        showSuccess,
         showFailure
     } = useAlert();
 
-    //modal
-    const { status: showEdit, toggleStatus: toggleShowEdit } = useToggle();
+    //states
+    const [showEdit, setShowEdit] = useState(false);
 
     //auth
     const { currentUser } = useAuth();
@@ -82,62 +76,34 @@ export default function BandDetails() {
         updateToFirebaseById(DB.MUSIC_BANDS, bandID, band);
     }
 
-    const getAccordionData = () => {
-        return [
-            { id: 1, name: t('created'), value: getJsonAsDateTimeString(band.created, i18n.language) },
-            { id: 2, name: t('created_by'), value: band.createdBy },
-            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(band.modified, i18n.language) }
-        ];
-    }
-
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                    <Button
-                        iconName={ICONS.EDIT}
-                        text={showEdit ? tCommon('buttons.button_close') : ''}
-                        color={showEdit ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
-                        onClick={() => toggleShowEdit()} />
-                </ButtonGroup>
-            </Row>
-
-            <AccordionElement array={getAccordionData()} title={band.name} />
-
-            <Row>
-                <Col>
-                    {t('description') + ':'} {band.description}
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <StarRatingWrapper stars={band.stars} onSaveStars={saveStars} />
-                </Col>
-            </Row>
-            <Alert
-                message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showEdit} onHide={toggleShowEdit}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_edit_band')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddBand onSave={updateBand} bandID={params.id} onClose={() => toggleShowEdit()} />
-                </Modal.Body>
-            </Modal>
-
-            <hr />
-            <ImageComponent url={DB.MUSIC_BAND_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={DB.MUSIC_BAND_COMMENTS} onSave={addCommentToBand} />
-            <LinkComponent objID={params.id} url={DB.MUSIC_BAND_LINKS} onSaveLink={addLinkToBand} />
-        </PageContentWrapper>
+    return (
+        <DetailsPage
+            loading={loading}
+            showEditButton={true}
+            isEditOpen={showEdit}
+            onToggleEdit={() => setShowEdit(!showEdit)}
+            title={<PageTitle title={band?.name} />}
+            summary={`${t('description')}: ${band?.description || '-'}`}
+            ratingSection={<StarRatingWrapper stars={band?.stars} onSaveStars={saveStars} />}
+            metaItems={[
+                { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(band?.created, i18n.language)}</> },
+                { id: 2, content: <>{t('created_by')}: {band?.createdBy}</> },
+                { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(band?.modified, i18n.language)}</> }
+            ]}
+            editModalTitle={t('modal_header_edit_band')}
+            editSection={<AddBand onSave={updateBand} bandID={params.id} onClose={() => setShowEdit(false)} />}
+            alertSection={
+                <Alert
+                    message={message}
+                    showMessage={showMessage}
+                    error={error}
+                    showError={showError}
+                    onClose={clearMessages}
+                />
+            }
+            imageSection={<ImageComponent url={DB.MUSIC_BAND_IMAGES} objID={params.id} />}
+            commentSection={<CommentComponent objID={params.id} url={DB.MUSIC_BAND_COMMENTS} onSave={addCommentToBand} />}
+            linkSection={<LinkComponent objID={params.id} url={DB.MUSIC_BAND_LINKS} onSaveLink={addLinkToBand} />}
+        />
     )
 }

@@ -40,7 +40,7 @@ export default function AddLink({ onSaveLink }) {
     return (
         <>
             <Button
-                iconName={ICONS.EXTERNAL_LINK_ALT}
+                iconName={ICONS.PLUS}
                 type='button'
                 disableStyle={true}
                 className={showForm ? 'btn btn-danger' : 'btn btn-primary'}

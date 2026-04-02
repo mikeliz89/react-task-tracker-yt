@@ -127,7 +127,7 @@
         "text": "Lisätieto"
     },
     "comments": {
-        "add_comment": "Kommentoi",
+        "add_comment": "Lisää kommentti",
         "header": "Kommentit",
         "no_comments": "Ei kommentteja",
         "text": "Teksti"
@@ -395,7 +395,6 @@
     "links": {
         "add_link": "Lisää linkki",
         "header": "Linkit",
-        "links_list_title": "Linkit",
         "no_links": "Ei linkkejä",
         "save_link": "Tallenna linkki",
         "url": "url-osoite",

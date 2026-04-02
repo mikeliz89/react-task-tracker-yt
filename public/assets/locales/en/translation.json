@@ -127,7 +127,7 @@
     "no_car_maintenances": "Ei huoltoja_en"
   },
   "comments": {
-    "add_comment": "Comment",
+    "add_comment": "Add comment",
     "header": "Comments",
     "no_comments": "No comments",
     "text": "Text"
@@ -398,7 +398,6 @@
   "links": {
     "add_link": "Add Link",
     "header": "Links",
-    "links_list_title": "Links",
     "no_links": "No links",
     "save_link": "Save Link",
     "url": "url-address",
@@ -665,9 +664,9 @@
     "text": "Title",
     "title": "Title",
     "publishYear": "Publish year",
-    "placeholder_day": "Teksti_en",
-    "placeholder_finnishname": "Suomenkielinen nimi_en",
-    "placeholder_incredients": "Ainesosat_en",
+    "placeholder_day": "Day",
+    "placeholder_finnishname": "Finnish name",
+    "placeholder_incredients": "Incredients",
     "show_search": "Show search"
   },
   "starrating": {
@@ -687,6 +686,6 @@
     "load_image": "Load image",
     "no_images": "No images",
     "please_use_correct_format": "Please select an image file (png or jpeg)",
-    "delete_image_confirm_message": "Haluatko varmasti poistaa tämän kuvan?_en"
+    "delete_image_confirm_message": "Are you sure you want to delete this picture?"
   }
 }

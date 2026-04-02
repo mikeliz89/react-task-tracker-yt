@@ -13,7 +13,7 @@ export default function PageTitle({ title, iconName, iconColor, isSubTitle }) {
             }
             {
                 isSubTitle &&
-                <h4 className='page-title'>
+                <h4 className='page-title page-title-subtitle'>
                     <Icon name={iconName} color={iconColor} />
                     {title}
                 </h4>

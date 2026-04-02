@@ -3,11 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
 import { ref, onValue, child } from 'firebase/database';
+import AddComment from './AddComment';
 import CommentsInner from './CommentsInner';
-import { TRANSLATION } from '../../utils/Constants';
+import Icon from '../Icon';
+import { TRANSLATION, ICONS } from '../../utils/Constants';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
-export default function Comments({ url, objID, onCounterChange }) {
+export default function Comments({ url, objID, onCounterChange, onSave }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.COMMENTS });
@@ -45,13 +47,19 @@ export default function Comments({ url, objID, onCounterChange }) {
     }
 
     return (
-        <div>
+        <div className="content-card">
+            <AddComment onSave={onSave} />
             {/* <pre>{JSON.stringify(comments)}</pre> */}
 
             {
                 comments != null && comments.length > 0 ? (
                     <CommentsInner onDelete={deleteComment} comments={comments} />
-                ) : t('no_comments')
+                ) : (
+                    <div className="comments-empty-state">
+                        <Icon name={ICONS.COMMENTS} color="rgba(255,255,255,0.55)" fontSize="2.25rem" className="comments-empty-icon" />
+                        <p>{t('no_comments')}</p>
+                    </div>
+                )
             }
         </div>
     )

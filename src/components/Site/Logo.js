@@ -1,41 +1,33 @@
 
 import { useNavigate } from 'react-router-dom';
+import Icon from '../Icon';
 import { useTheme } from '../../contexts/ThemeContext';
-import { THEMES } from '../../utils/Constants';
+import { ICONS, COLORS, THEMES } from '../../utils/Constants';
 
 export default function Logo() {
-
-    //navigation
     const navigate = useNavigate();
-
-    //theme
     const { theme } = useTheme();
-
-    //images
-    const logo = `/images/logo.png`;
-    const logo_dark = `/images/logo_dark.png`;
-    const logoHover = `/images/logo_hover.png`;
-
-    const getLogoSource = () => {
-        if (theme === THEMES.LIGHT) {
-            return logo;
-        }
-        return logo_dark;
-    }
-
-    const getLogoSourceHover = () => {
-        if (theme === THEMES.LIGHT) {
-            return logoHover;
-        }
-        return logoHover;
-    }
+    const logoColor = theme === THEMES.DARK ? COLORS.WHITE : COLORS.BLACK;
 
     return (
-
-        <img alt="logo" id="logo" onClick={() => navigate('/')}
-            src={getLogoSource()}
-            onMouseOver={e => (e.currentTarget.src = getLogoSourceHover())}
-            onMouseOut={e => (e.currentTarget.src = getLogoSource())}
-        />
-    )
+        <div
+            id="logo"
+            onClick={() => navigate('/')}
+            style={{
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.6rem',
+                lineHeight: 1,
+                textAlign: 'left',
+                color: logoColor
+            }}
+        >
+            {/* <Icon name={ICONS.LIST_ALT} color={logoColor} fontSize="1.8rem" /> */}
+            <div>
+                <div style={{ fontSize: '1.9rem', fontWeight: '700', color: logoColor }}>LifeSaver</div>
+                <div style={{ fontSize: '1rem', fontWeight: '400', color: logoColor, marginLeft: '0.3rem' }}>App</div>
+            </div>
+        </div>
+    );
 }
