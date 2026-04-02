@@ -16,11 +16,13 @@ export default function CommentComponent({ objID, url, onSave }) {
     return (
         <div className="comments-panel">
             <div className="comments-panel-header">
-                <PageTitle title={t('header') + (counter > 0 ? ' (' + counter + ')' : '')}
+                <PageTitle title={counter > 0 ? `${t('header')} (${counter})` : t('header')}
                     iconName={ICONS.COMMENTS} iconColor={COLORS.GRAY} isSubTitle={true} />
-                <AddComment onSave={onSave} />
             </div>
-            <Comments objID={objID} url={url} onCounterChange={setCounter} />
+            <div className="comments-panel-card">
+                <AddComment onSave={onSave} />
+                <Comments objID={objID} url={url} onCounterChange={setCounter} />
+            </div>
         </div>
     )
 }

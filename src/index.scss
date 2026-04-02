@@ -59,7 +59,7 @@ header {
 }
 
 .headerContainer {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 .btn:focus {
@@ -348,10 +348,28 @@ form {
 }
 
 .comment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
     padding: 1rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
+}
+
+.comment-avatar {
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 50%;
+    flex: 0 0 2.35rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.08));
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.comment-item-body {
+    flex: 1;
+    min-width: 0;
 }
 
 .comment-item-meta {
@@ -361,6 +379,22 @@ form {
     align-items: center;
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.9rem;
+}
+
+.comment-item-author-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.comment-item-author {
+    color: rgba(255, 255, 255, 0.94);
+    font-weight: 600;
+}
+
+.comment-item-date {
+    color: rgba(255, 255, 255, 0.62);
 }
 
 .comment-item-text {

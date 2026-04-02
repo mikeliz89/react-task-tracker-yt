@@ -93,9 +93,7 @@ export default function TaskDetails() {
 
         <Row className="task-details-grid">
           <Col lg={6}>
-            <div className="task-detail-card">
               <CommentComponent objID={params.id} url={DB.TASK_COMMENTS} onSave={addCommentToTask} />
-            </div>
           </Col>
           <Col lg={12}>
             <div className="task-detail-card">

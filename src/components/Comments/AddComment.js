@@ -30,7 +30,7 @@ export default function AddComment({ onSave }) {
         onSave({ created, text });
 
         clearForm();
-
+        setShowAddComment(false);
         setLoading(false);
     }
 
@@ -44,7 +44,7 @@ export default function AddComment({ onSave }) {
                 iconName={ICONS.PLUS}
                 disabled={loading}
                 disableStyle={true}
-                className={showAddComment ? 'btn btn-danger' : 'btn btn-primary'}
+                className={showAddComment ? 'btn comments-add-button comments-add-button-open' : 'btn comments-add-button'}
                 text={
                     showAddComment ? tCommon('buttons.button_close') : t('add_comment')
                 }
@@ -53,19 +53,20 @@ export default function AddComment({ onSave }) {
                 showAddComment &&
                 <div className="add-comment-form-row">
                     <Form onSubmit={onSubmit}>
-                        <Form.Group className="mb-3" controlId="addCommentForm-Text">
+                        <Form.Group className="mb-3 comments-form-group" controlId="addCommentForm-Text">
                             <Form.Label>{t('text')}</Form.Label>
                             <Form.Control
                                 autoComplete="off"
-                                type='text'
+                                as='textarea'
+                                rows={4}
                                 placeholder={t('text')}
                                 value={text}
                                 onChange={(e) => setText(e.target.value)} />
-                            <Row>
+                            <Row className="comments-form-actions">
                                 <ButtonGroup>
-                                    <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
+                                    <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block comments-secondary-button'
                                         onClick={() => setShowAddComment(false)} />
-                                    <Button type="submit" text={tCommon('buttons.button_save')} className="btn btn-block saveBtn" />
+                                    <Button type="submit" text={tCommon('buttons.button_save')} className="btn btn-block saveBtn comments-save-button" />
                                 </ButtonGroup>
                             </Row>
                         </Form.Group>
