@@ -39,9 +39,9 @@ export default function AddComment({ onSave }) {
     }
 
     return (
-        <>
+        <div className="add-comment-wrapper">
             <Button type="button"
-                iconName={ICONS.COMMENTS}
+                iconName={ICONS.PLUS}
                 disabled={loading}
                 disableStyle={true}
                 className={showAddComment ? 'btn btn-danger' : 'btn btn-primary'}
@@ -51,25 +51,27 @@ export default function AddComment({ onSave }) {
                 onClick={() => setShowAddComment(!showAddComment)} />
             {
                 showAddComment &&
-                <Form onSubmit={onSubmit}>
-                    <Form.Group className="mb-3" controlId="addCommentForm-Text">
-                        <Form.Label>{t('text')}</Form.Label>
-                        <Form.Control
-                            autoComplete="off"
-                            type='text'
-                            placeholder={t('text')}
-                            value={text}
-                            onChange={(e) => setText(e.target.value)} />
-                        <Row>
-                            <ButtonGroup>
-                                <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
-                                    onClick={() => setShowAddComment(false)} />
-                                <Button type="submit" text={tCommon('buttons.button_save')} className="btn btn-block saveBtn" />
-                            </ButtonGroup>
-                        </Row>
-                    </Form.Group>
-                </Form>
+                <div className="add-comment-form-row">
+                    <Form onSubmit={onSubmit}>
+                        <Form.Group className="mb-3" controlId="addCommentForm-Text">
+                            <Form.Label>{t('text')}</Form.Label>
+                            <Form.Control
+                                autoComplete="off"
+                                type='text'
+                                placeholder={t('text')}
+                                value={text}
+                                onChange={(e) => setText(e.target.value)} />
+                            <Row>
+                                <ButtonGroup>
+                                    <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
+                                        onClick={() => setShowAddComment(false)} />
+                                    <Button type="submit" text={tCommon('buttons.button_save')} className="btn btn-block saveBtn" />
+                                </ButtonGroup>
+                            </Row>
+                        </Form.Group>
+                    </Form>
+                </div>
             }
-        </>
+        </div>
     )
 }

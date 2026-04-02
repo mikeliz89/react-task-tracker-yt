@@ -5,18 +5,20 @@ import DeleteButton from '../Buttons/DeleteButton';
 export default function CommentsInner({ comments, onDelete }) {
 
     return (
-        <div>
+        <div className="comments-list">
             {comments
                 ? comments.map((comment) =>
-                    <div key={comment.id}>
-                        <p>
-                            {getJsonAsDateTimeString(comment.created, i18n.language)} <br />
-                            {comment.createdBy}: {comment.text}
+                    <div key={comment.id} className="comment-item">
+                        <div className="comment-item-meta">
+                            <span>{getJsonAsDateTimeString(comment.created, i18n.language)}</span>
                             <DeleteButton
                                 onDelete={onDelete}
                                 id={comment.id}
                             />
-                        </p>
+                        </div>
+                        <div className="comment-item-text">
+                            <strong>{comment.createdBy}</strong>: {comment.text}
+                        </div>
                     </div>
                 ) : '-'
             }

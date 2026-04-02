@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ButtonGroup, Row, Table } from 'react-bootstrap';
+import { Row, Col, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import GoBackButton from '../Buttons/GoBackButton';
 import Button from '../Buttons/Button';
@@ -9,6 +9,7 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
 import i18n from "i18next";
 import { useAuth } from '../../contexts/AuthContext';
+import Icon from '../Icon';
 import PageTitle from '../Site/PageTitle';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
@@ -58,41 +59,51 @@ export default function TaskDetails() {
     <h3>{tCommon("loading")}</h3>
   ) : (
     <PageContentWrapper>
-      <Row>
-        <ButtonGroup aria-label="Button group">
-          <GoBackButton />
-          <Button
-            iconName={ICONS.EDIT}
-            text={showEditTask ? tCommon('buttons.button_close') : tCommon('buttons.button_edit')}
-            color={showEditTask ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
-            onClick={() => setShowEditTask(!showEditTask)} />
-        </ButtonGroup>
-      </Row>
-      <div className={task.reminder === true ? 'listContainer reminder' : ''}>
-        <PageTitle title={task.text} />
-        <p>{t('task_text')}: {task.day}</p>
-        {showEditTask && <AddTask onClose={() => setShowEditTask(false)} onSave={updateTask} taskID={params.id} taskListID={params.tasklistid} />}
-        <Table>
-          <tbody>
-            <tr>
-              <td>{t('created')}: {getJsonAsDateTimeString(task.created, i18n.language)}</td>
-            </tr>
-            <tr>
-              <td>{t('created_by')}: {task.createdBy}</td>
-            </tr>
-            <tr>
-              <td>{t('modified')}: {getJsonAsDateTimeString(task.modified, i18n.language)}</td>
-            </tr>
-            <tr>
-              <td>{t('set_reminder')}: {task.reminder === true ? t('yes') : t('no')}</td>
-            </tr>
-          </tbody>
-        </Table>
+      <div className="task-details-page">
+        <div className="task-details-header">
+          <div className="task-details-actions-row">
+            <GoBackButton />
+            <Button
+              iconName={ICONS.EDIT}
+              text={showEditTask ? tCommon('buttons.button_close') : tCommon('buttons.button_edit')}
+              color={showEditTask ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
+              onClick={() => setShowEditTask(!showEditTask)} />
+          </div>
+
+          <div className="task-details-top-row">
+            <div>
+              <PageTitle title={task.text} />
+              <div className="task-details-pill-row">
+                <span className="task-pill">Deadline: {task.day || '-'}</span>
+                <span className="task-pill">{t('task_ready')}: {task.reminder === true ? t('yes') : t('no')}</span>
+              </div>
+            </div>
+          </div>
+
+          <p className="task-details-summary">{t('task_text')}: {task.day}</p>
+
+          <div className="task-details-meta-row">
+            <span><Icon name={ICONS.HISTORY} color="#8f9bb3" fontSize="0.95rem" /> {t('created')}: {getJsonAsDateTimeString(task.created, i18n.language)}</span>
+            <span>{t('modified')}: {getJsonAsDateTimeString(task.modified, i18n.language)}</span>
+            <span>{t('by')}: {task.createdBy}</span>
+          </div>
+        </div>
+
+        {showEditTask && <div className="task-details-edit-card"><AddTask onClose={() => setShowEditTask(false)} onSave={updateTask} taskID={params.id} taskListID={params.tasklistid} /></div>}
+
+        <Row className="task-details-grid">
+          <Col lg={6}>
+            <div className="task-detail-card">
+              <CommentComponent objID={params.id} url={DB.TASK_COMMENTS} onSave={addCommentToTask} />
+            </div>
+          </Col>
+          <Col lg={12}>
+            <div className="task-detail-card">
+              <LinkComponent objID={params.id} url={DB.TASK_LINKS} onSaveLink={addLinkToTask} />
+            </div>
+          </Col>
+        </Row>
       </div>
-
-      <CommentComponent objID={params.id} url={DB.TASK_COMMENTS} onSave={addCommentToTask} />
-
-      <LinkComponent objID={params.id} url={DB.TASK_LINKS} onSaveLink={addLinkToTask} />
     </PageContentWrapper>
   );
 }

@@ -14,11 +14,13 @@ export default function CommentComponent({ objID, url, onSave }) {
     const [counter, setCounter] = useState(0);
 
     return (
-        <>
-            <PageTitle title={t('header') + (counter > 0 ? ' (' + counter + ')' : '')}
-                iconName={ICONS.COMMENTS} iconColor={COLORS.GRAY} isSubTitle={true} />
-            <AddComment onSave={onSave} />
+        <div className="comments-panel">
+            <div className="comments-panel-header">
+                <PageTitle title={t('header') + (counter > 0 ? ' (' + counter + ')' : '')}
+                    iconName={ICONS.COMMENTS} iconColor={COLORS.GRAY} isSubTitle={true} />
+                <AddComment onSave={onSave} />
+            </div>
             <Comments objID={objID} url={url} onCounterChange={setCounter} />
-        </>
+        </div>
     )
 }
