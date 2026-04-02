@@ -127,7 +127,6 @@ export default function ManageRecipes() {
             filterMode={FilterMode.Title}
             showFilterCore={true}
             showFilterHaveRated={true}
-            showFilterNotHaveRated={true}
           />
         ) : (<></>)
       }

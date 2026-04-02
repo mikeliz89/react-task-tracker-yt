@@ -12,6 +12,18 @@ import Button from '../Buttons/Button';
 import { useToggle } from '../Hooks/useToggle';
 import Collapse from 'react-bootstrap/Collapse';
 
+const ReadyFilterMode = {
+    All: 'all',
+    Ready: 'ready',
+    NotReady: 'not_ready'
+}
+
+const RatedFilterMode = {
+    All: 'all',
+    Rated: 'rated',
+    NotRated: 'not_rated'
+}
+
 export default function SearchSortFilter({ onSet,
     originalList,
     //sorting
@@ -35,10 +47,8 @@ export default function SearchSortFilter({ onSet,
     showFilterHaveAtHome,
     showFilterNotHaveAtHome,
     showFilterHaveRated,
-    showFilterNotHaveRated,
     showFilterCore,
     showFilterReady,
-    showFilterNotReady,
     //filtermode
     filterMode
 }) {
@@ -59,11 +69,9 @@ export default function SearchSortFilter({ onSet,
     const [showOnlyNotHaveSeenLive, setShowOnlyNotHaveSeenLive] = useState(false);
     const [showOnlyHaveAtHome, setShowOnlyHaveAtHome] = useState(false);
     const [showOnlyNotHaveAtHome, setShowOnlyNotHaveAtHome] = useState(false);
-    const [showOnlyHaveRated, setShowOnlyHaveRated] = useState(false);
-    const [showOnlyNotHaveRated, setShowOnlyNotHaveRated] = useState(false);
+    const [ratedFilterMode, setRatedFilterMode] = useState(RatedFilterMode.All);
     const [showOnlyCore, setShowOnlyCore] = useState(false);
-    const [showOnlyReady, setShowOnlyReady] = useState(false);
-    const [showOnlyNotReady, setShowOnlyNotReady] = useState(false);
+    const [readyFilterMode, setReadyFilterMode] = useState(ReadyFilterMode.All);
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.SEARCHSORTFILTER });
@@ -84,9 +92,9 @@ export default function SearchSortFilter({ onSet,
         searchStringIncredients, searchStringDay,
         showOnlySeenLive, showOnlyNotHaveSeenLive,
         showOnlyHaveAtHome, showOnlyNotHaveAtHome,
-        showOnlyHaveRated, showOnlyNotHaveRated,
+        ratedFilterMode,
         showOnlyCore,
-        showOnlyReady, showOnlyNotReady]
+        readyFilterMode]
     );
 
     const filterAndSort = () => {
@@ -185,24 +193,22 @@ export default function SearchSortFilter({ onSet,
         if (showOnlyNotHaveSeenLive) {
             newList = filterCheckFalse(newList, "seenLive");
         }
-        //rated
-        if (showOnlyHaveRated) {
+        //rated status
+        if (ratedFilterMode === RatedFilterMode.Rated) {
             newList = filterCheckIntMoreThanZero(newList, "stars");
         }
-        //not rated
-        if (showOnlyNotHaveRated) {
+        if (ratedFilterMode === RatedFilterMode.NotRated) {
             newList = filterCheckIntZero(newList, "stars");
         }
         //core
         if (showOnlyCore) {
             newList = filterCheckTrue(newList, "isCore");
         }
-        //ready
-        if (showOnlyReady) {
+        //ready status
+        if (readyFilterMode === ReadyFilterMode.Ready) {
             newList = filterCheckTrue(newList, "reminder");
         }
-        //notready
-        if (showOnlyNotReady) {
+        if (readyFilterMode === ReadyFilterMode.NotReady) {
             newList = filterCheckFalse(newList, "reminder");
         }
 
@@ -434,19 +440,20 @@ export default function SearchSortFilter({ onSet,
                         }
                         {
                             showFilterHaveRated &&
-                            <FilterCheckBox
-                                onSet={setShowOnlyHaveRated}
-                                labelText='show_only_have_rated'
-                                id='haverated'
-                            />
-                        }
-                        {
-                            showFilterNotHaveRated &&
-                            <FilterCheckBox
-                                onSet={setShowOnlyNotHaveRated}
-                                labelText='show_only_not_have_rated'
-                                id='nothaverated'
-                            />
+                            <Form.Group as={Row} className="mb-2">
+                                <Form.Label column xs={3} sm={2}>{t('rated')}</Form.Label>
+                                <Col xs={9} sm={10}>
+                                    <Form.Select
+                                        value={ratedFilterMode}
+                                        onChange={(event) => setRatedFilterMode(event.target.value)}
+                                        id="ratedStatusFilter"
+                                    >
+                                        <option value={RatedFilterMode.All}>{t('rated_filter_all')}</option>
+                                        <option value={RatedFilterMode.Rated}>{t('rated_filter_rated')}</option>
+                                        <option value={RatedFilterMode.NotRated}>{t('rated_filter_not_rated')}</option>
+                                    </Form.Select>
+                                </Col>
+                            </Form.Group>
                         }
                         {
                             showFilterCore &&
@@ -458,19 +465,20 @@ export default function SearchSortFilter({ onSet,
                         }
                         {
                             showFilterReady &&
-                            <FilterCheckBox
-                                onSet={setShowOnlyReady}
-                                labelText='show_only_ready'
-                                id='isready'
-                            />
-                        }
-                        {
-                            showFilterNotReady &&
-                            <FilterCheckBox
-                                onSet={setShowOnlyNotReady}
-                                labelText='show_only_not_ready'
-                                id='notisready'
-                            />
+                            <Form.Group as={Row} className="mb-2">
+                                <Form.Label column xs={3} sm={2}>{t('ready')}</Form.Label>
+                                <Col xs={9} sm={10}>
+                                    <Form.Select
+                                        value={readyFilterMode}
+                                        onChange={(event) => setReadyFilterMode(event.target.value)}
+                                        id="readyStatusFilter"
+                                    >
+                                        <option value={ReadyFilterMode.All}>{t('ready_filter_all')}</option>
+                                        <option value={ReadyFilterMode.Ready}>{t('ready_filter_ready')}</option>
+                                        <option value={ReadyFilterMode.NotReady}>{t('ready_filter_not_ready')}</option>
+                                    </Form.Select>
+                                </Col>
+                            </Form.Group>
                         }
                     </Form>
                 </div>
@@ -505,10 +513,8 @@ SearchSortFilter.defaultProps = {
     showFilterHaveAtHome: false,
     showFilterNotHaveAtHome: false,
     showFilterHaveRated: false,
-    showFilterNotHaveRated: false,
     showFilterCore: false,
-    showFilterReady: false,
-    showFilterNotReady: false
+    showFilterReady: false
 }
 
 SearchSortFilter.propTypes = {
@@ -534,10 +540,8 @@ SearchSortFilter.propTypes = {
     showFilterHaveAtHome: PropTypes.bool,
     showFilterNotHaveAtHome: PropTypes.bool,
     showFilterHaveRated: PropTypes.bool,
-    showFilterNotHaveRated: PropTypes.bool,
     showFilterCore: PropTypes.bool,
     showFilterReady: PropTypes.bool,
-    showFilterNotReady: PropTypes.bool,
     //other
     onSet: PropTypes.func
 }

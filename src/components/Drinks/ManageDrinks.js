@@ -133,7 +133,6 @@ export default function ManageDrinks() {
                         showFilterCore={true}
                         filterMode={FilterMode.Title}
                         showFilterHaveRated={true}
-                        showFilterNotHaveRated={true}
                     />
 
                 ) : (<></>)

@@ -387,7 +387,6 @@ export default function TaskListDetails() {
                 //filter
                 filterMode={FilterMode.Text}
                 showFilterReady={true}
-                showFilterNotReady={true}
               />
             ) : (<></>)
           }
