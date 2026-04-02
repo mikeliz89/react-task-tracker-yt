@@ -64,9 +64,18 @@ export default function TaskDetails() {
       }
       summary={`${t('task_text')}: ${task?.day || '-'}`}
       metaItems={[
-        { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(task?.created, i18n.language)}</> },
-        { id: 2, content: <>{t('modified')}: {getJsonAsDateTimeString(task?.modified, i18n.language)}</> },
-        { id: 3, content: <>{t('by')}: {task?.createdBy}</> }
+        {
+          id: 1,
+          content: <><span className="detailspage-meta-label">{t('created')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(task?.created, i18n.language)}</span></>
+        },
+        {
+          id: 2,
+          content: <><span className="detailspage-meta-label">{t('modified')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(task?.modified, i18n.language)}</span></>
+        },
+        {
+          id: 3,
+          content: <><span className="detailspage-meta-label">{t('by')}:</span> <span className="detailspage-meta-value">{task?.createdBy}</span></>
+        }
       ]}
       editSection={<AddTask onClose={() => setShowEditTask(false)} onSave={updateTask} taskID={params.id} taskListID={params.tasklistid} />}
       commentColLg={6}

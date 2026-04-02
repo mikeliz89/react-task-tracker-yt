@@ -340,6 +340,14 @@ form {
     align-items: center;
 }
 
+.detailspage-meta-label {
+    color: rgba(0, 0, 0, 0.46);
+}
+
+.detailspage-meta-value {
+    color: rgba(0, 0, 0, 0.9);
+}
+
 .detailspage-rating-row {
     margin-top: 0.85rem;
 }
@@ -379,7 +387,6 @@ form {
 }
 
 .content-card {
-    background: rgba(18, 28, 50, 0.92);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 1.25rem 1.5rem;
@@ -612,6 +619,66 @@ form {
     background-color: white;
 }
 
+#light .content-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+}
+
+#light .detailspage-field {
+    color: rgba(0, 0, 0, 0.86);
+}
+
+#light .detailspage-summary {
+    color: rgba(0, 0, 0, 0.82);
+}
+
+#light .task-pill-ready {
+    background: rgba(45, 150, 70, 0.16);
+    border: 1px solid rgba(35, 120, 55, 0.55);
+    color: rgba(12, 74, 33, 0.95);
+}
+
+#light .task-pill-not-ready {
+    background: rgba(238, 191, 52, 0.22);
+    border: 1px solid rgba(184, 126, 16, 0.6);
+    color: rgba(102, 64, 0, 0.95);
+}
+
+#light .comments-empty-state {
+    color: rgba(0, 0, 0, 0.62);
+}
+
+#light .comments-empty-icon {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+#light .comment-item {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+#light .comment-avatar {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: radial-gradient(circle at 30% 30%, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.04));
+}
+
+#light .comment-item-meta {
+    color: rgba(0, 0, 0, 0.65);
+}
+
+#light .comment-item-author {
+    color: rgba(0, 0, 0, 0.92);
+}
+
+#light .comment-item-date {
+    color: rgba(0, 0, 0, 0.56);
+}
+
+#light .comment-item-text {
+    color: rgba(0, 0, 0, 0.88);
+}
+
 #dark {
     background-color: #212529;
 }
@@ -722,14 +789,37 @@ form {
 }
 
 #dark .detailspage-page {
-    background: rgba(15, 23, 45, 0.9);
+    background: rgba(28, 34, 46, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
     backdrop-filter: blur(18px);
 }
 
+#dark .content-card {
+    background: rgba(29, 36, 50, 0.92);
+}
+
+#dark .comments-list {
+    background: rgba(18, 22, 30, 0.72);
+}
+
 #dark .detailspage-meta-row {
     color: rgba(255, 255, 255, 0.72);
+}
+
+#dark .detailspage-meta-row span {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+#dark .detailspage-meta-row span.detailspage-meta-label {
+    color: rgba(255, 255, 255, 0.58);
+    font-weight: 400;
+}
+
+#dark .detailspage-meta-row span.detailspage-meta-value {
+    color: rgba(255, 255, 255, 0.97);
+    font-weight: 600;
 }
 
 #dark .deleteBtn {
