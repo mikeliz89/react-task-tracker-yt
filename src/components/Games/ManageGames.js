@@ -122,7 +122,6 @@ export default function ManageGames() {
                         //filter
                         filterMode={FilterMode.Name}
                         showFilterHaveAtHome={true}
-                        showFilterNotHaveAtHome={true}
                         showFilterHaveRated={true}
                     />
                 ) : (<></>)

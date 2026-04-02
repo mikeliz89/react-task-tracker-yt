@@ -110,7 +110,6 @@ export default function ManageFoodItems() {
                         //filter
                         filterMode={FilterMode.Name}
                         showFilterHaveAtHome={true}
-                        showFilterNotHaveAtHome={true}
                     />
                 ) : (<></>)
             }
