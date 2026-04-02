@@ -76,7 +76,7 @@ export default function ManageGames() {
     ) : (
         <PageContentWrapper>
 
-            <PageTitle title={t('games_title')} />
+            <PageTitle title={t('games_title')} iconName={ICONS.GAMEPAD} />
 
             <Row>
                 <ButtonGroup>

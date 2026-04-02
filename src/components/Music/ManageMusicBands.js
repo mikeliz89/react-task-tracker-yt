@@ -75,7 +75,7 @@ export default function ManageMusicBands() {
     ) : (
         <PageContentWrapper>
 
-            <PageTitle title={t('music_bands_title')} />
+            <PageTitle title={t('music_bands_title')} iconName={ICONS.MUSIC} />
 
             <Row>
                 <ButtonGroup>

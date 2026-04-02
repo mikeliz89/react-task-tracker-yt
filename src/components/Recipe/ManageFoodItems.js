@@ -72,7 +72,7 @@ export default function ManageFoodItems() {
     ) : (
         <PageContentWrapper>
 
-            <PageTitle title={t('manage_fooditems_title')} />
+            <PageTitle title={t('manage_fooditems_title')} iconName={ICONS.CARROT} />
 
             <Row>
                 <ButtonGroup>

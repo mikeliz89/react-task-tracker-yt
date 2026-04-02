@@ -72,7 +72,7 @@ export default function ManageDrinkingProducts() {
     ) : (
         <PageContentWrapper>
 
-            <PageTitle title={t('manage_drinkingproducts_title')} />
+            <PageTitle title={t('manage_drinkingproducts_title')} iconName={ICONS.WINE} />
 
             <Row>
                 <ButtonGroup>

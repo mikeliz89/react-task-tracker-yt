@@ -130,7 +130,7 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
   ) : (
     <PageContentWrapper>
 
-      <PageTitle title={getPageTitle(listType)} />
+      <PageTitle title={getPageTitle(listType)} iconName={ICONS.LIST_ALT} />
 
       <Row>
         <ButtonGroup>

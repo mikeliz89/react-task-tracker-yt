@@ -92,7 +92,7 @@ export default function Car() {
     ) : (
         <PageContentWrapper>
 
-            <PageTitle title={t('car_title')} />
+            <PageTitle title={t('car_title')} iconName={ICONS.CAR} />
 
             <Row>
                 <ButtonGroup>

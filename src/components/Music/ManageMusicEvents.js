@@ -75,7 +75,7 @@ export default function ManageMusicEvents() {
     ) : (
         <PageContentWrapper>
 
-            <PageTitle title={t('music_events_title')} />
+            <PageTitle title={t('music_events_title')} iconName={ICONS.MUSIC} />
 
             <Row>
                 <ButtonGroup>
