@@ -180,6 +180,7 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
           <AddTaskList
             onClose={toggleAddTaskList}
             onSave={addTaskList} showLabels={true}
+            autoFocusTitle={true}
             defaultTitle={getDefaultTitle(listType)} />
         </Modal.Body>
       </Modal>

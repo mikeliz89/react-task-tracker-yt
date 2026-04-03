@@ -7,7 +7,7 @@ import { TRANSLATION, DB } from '../../utils/Constants';
 import PropTypes from 'prop-types';
 import useFetchById from '../Hooks/useFetchById';
 
-export default function AddDrink({ drinkID, onSave, onClose, showLabels }) {
+export default function AddDrink({ drinkID, onSave, onClose, showLabels, autoFocusTitle }) {
 
    //translation
    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
@@ -89,6 +89,7 @@ export default function AddDrink({ drinkID, onSave, onClose, showLabels }) {
                {showLabels && <Form.Label>{t('name')}</Form.Label>}
                <Form.Control type='text'
                   autoComplete="off"
+                  autoFocus={autoFocusTitle}
                   placeholder={drinkID == null ? t('name') : t('name')}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)} />
@@ -141,9 +142,11 @@ export default function AddDrink({ drinkID, onSave, onClose, showLabels }) {
 }
 
 AddDrink.defaultProps = {
-   showLabels: true
+   showLabels: true,
+   autoFocusTitle: false
 }
 
 AddDrink.propTypes = {
-   showLabels: PropTypes.bool
+   showLabels: PropTypes.bool,
+   autoFocusTitle: PropTypes.bool
 }

@@ -426,6 +426,7 @@ export default function TaskListDetails() {
               <AddTask
                 onClose={toggleAddTask}
                 taskListID={params.id} onSave={updateTask}
+                autoFocusText={true}
               />
             </Modal.Body>
           </Modal>
@@ -441,10 +442,10 @@ export default function TaskListDetails() {
             }}
           >
             <button onClick={toggleAll} disabled={tasks.length === 0}>
-              {allSelected ? "Poista kaikki valinnat" : "Valitse kaikki"}
+              {allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
             </button>
             <button onClick={clearSelection} disabled={selectedIds.size === 0}>
-              Tyhjennä valinnat
+              {t('toolbar_clear_selection')}
             </button>
 
             <select
@@ -452,17 +453,16 @@ export default function TaskListDetails() {
               onChange={(e) => setDestListId(e.target.value)}
               style={{ minWidth: 220 }}
             >
-              <option value="">— Valitse kohdelista —</option>
+              <option value="">{t('toolbar_select_destination_list')}</option>
               {destinationOptions.map((tl) => (
                 <option key={tl.id} value={tl.id}>
-                  {/* esim. "8 — Retkeilyideat 2022" */}
-                  {(Number.isFinite(+tl.listType) ? `${+tl.listType} — ` : "") + (tl.title || tl.id)}
+                  {`${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} — ${tl.title || tl.id}`}
                 </option>
               ))}
             </select>
 
             <button onClick={handleMove} disabled={!canMove}>
-              {loadingMove ? "Siirretään..." : `Siirrä valitut (${selectedIds.size})`}
+              {loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected')} (${selectedIds.size})`}
             </button>
           </div>
 

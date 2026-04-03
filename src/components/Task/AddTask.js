@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import Button from '../Buttons/Button';
@@ -6,7 +6,7 @@ import { DB, TRANSLATION } from '../../utils/Constants';
 import useFetchByIdAndSubId from '../Hooks/useFetchByIdAndSubId';
 import PropTypes from 'prop-types';
 
-export default function AddTask({ taskID, taskListID, onSave, onClose, showLabels }) {
+export default function AddTask({ taskID, taskListID, onSave, onClose, showLabels, autoFocusText }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
@@ -18,6 +18,7 @@ export default function AddTask({ taskID, taskListID, onSave, onClose, showLabel
     const [reminder, setReminder] = useState(false);
     const [created, setCreated] = useState('');
     const [createdBy, setCreatedBy] = useState('');
+    const firstFieldRef = useRef(null);
 
     //load data
     const taskData = useFetchByIdAndSubId(DB.TASKS, taskListID, taskID);
@@ -45,6 +46,8 @@ export default function AddTask({ taskID, taskListID, onSave, onClose, showLabel
 
         if (taskID == null) {
             clearForm();
+            // Keep rapid-entry flow: focus first field again after save.
+            setTimeout(() => firstFieldRef.current?.focus(), 0);
         }
     }
 
@@ -69,7 +72,9 @@ export default function AddTask({ taskID, taskListID, onSave, onClose, showLabel
             <Form.Group className="mb-3" controlId="addTaskFormTaskName">
                 {showLabels && <Form.Label>{getTaskName()}</Form.Label>}
                 <Form.Control
+                    ref={firstFieldRef}
                     autoComplete="off"
+                    autoFocus={autoFocusText}
                     type='text'
                     placeholder={getTaskName()}
                     value={text}
@@ -106,9 +111,11 @@ export default function AddTask({ taskID, taskListID, onSave, onClose, showLabel
 }
 
 AddTask.defaultProps = {
-    showLabels: true
+    showLabels: true,
+    autoFocusText: false
 }
 
 AddTask.propTypes = {
-    showLabels: PropTypes.bool
+    showLabels: PropTypes.bool,
+    autoFocusText: PropTypes.bool
 }
