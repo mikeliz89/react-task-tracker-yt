@@ -7,7 +7,7 @@ import { ref, child, onValue } from 'firebase/database';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase-config';
-import { pushToFirebase, pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
+import { pushToFirebase, pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseById, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
     from '../../datatier/datatier';
 import { COLORS, NAVIGATION, DB, TRANSLATION, ICONS } from '../../utils/Constants';
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
@@ -154,6 +154,19 @@ export default function RecipeDetails() {
         updateToFirebaseById(DB.RECIPES, recipeID, recipe);
     }
 
+    const deleteAllIncredients = async () => {
+        if (incredients == null || incredients.length === 0) {
+            showFailure(t('no_incredients_to_show'));
+            return;
+        }
+
+        if (!window.confirm(`${tCommon('buttons.button_delete')} ${t('incredients_header')}?`)) {
+            return;
+        }
+
+        await removeFromFirebaseById(DB.RECIPE_INCREDIENTS, params.id);
+    }
+
     const getIncredientsAsText = () => {
         //hakee kaikki namet taulukoksi
         var names = incredients.map(function (item) {
@@ -295,7 +308,10 @@ export default function RecipeDetails() {
 
 
                                 {incredients != null && incredients.length > 0 &&
-                                    <Button iconName={ICONS.SYNC} onClick={updateRecipeIncredients} />
+                                    <>
+                                        <Button iconName={ICONS.SYNC} onClick={updateRecipeIncredients} />
+                                        <Button iconName={ICONS.DELETE} onClick={deleteAllIncredients} text={tCommon('buttons.button_delete_all')} />
+                                    </>
                                 }
                             </ButtonGroup>
 
