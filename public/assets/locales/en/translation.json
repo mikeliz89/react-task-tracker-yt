@@ -491,7 +491,12 @@
     "modal_header_edit_event": "Edit Event",
     "modal_header_edit_record": "Edit Record",
     "no_bands_to_show": "No bands to show",
-    "no_events_to_show": "No events to show"
+    "no_events_to_show": "No events to show",
+    "button_add_karaoke_song": "Lisää karaokekappale_en",
+    "karaoke_song_name": "Karaokekappaleen nimi_en",
+    "karaoke_songs_title": "Karaokelaulut_en",
+    "modal_header_add_karaoke_song": "Lisää karaokekappale_en",
+    "no_karaoke_songs_to_show": "Ei kappaleita_en"
   },
   "myprofile": {
     "account_settings_title": "Account Settings",
@@ -650,7 +655,8 @@
     "no_recipe_history": "No Recipe History",
     "save_success_recipehistoryhistory": "Recipe History Save Successful",
     "sum_in_minutes": "Total (minutes)",
-    "tasks_ready_counter": "Tasks Ready"
+    "tasks_ready_counter": "Tasks Ready",
+    "shoppinglist_no_incredients": "Ei yhtään ainesosaa. Ostoslistaa ei voitu luoda_en"
   },
   "scrolltotop": {
     "go_to_top": "Go up"
