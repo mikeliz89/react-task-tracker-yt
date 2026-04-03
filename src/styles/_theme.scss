@@ -144,7 +144,20 @@
 }
 
 #dark .linkContainer {
-    border: 0.2rem solid #535353;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(24, 30, 41, 0.9);
+}
+
+#dark .link-item-title {
+    color: rgba(226, 236, 255, 0.95);
+}
+
+#dark .link-item-title:hover {
+    color: #ffffff;
+}
+
+#dark .link-item-url {
+    color: rgba(193, 207, 236, 0.78);
 }
 
 #dark .nav-tabs .nav-link {

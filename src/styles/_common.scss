@@ -138,9 +138,44 @@ footer {
 }
 
 .linkContainer {
-    padding: 5px;
-    margin-top: 5px;
-    border: 0.2rem solid #ececec;
+    padding: 0.75rem 0.85rem;
+    margin-top: 0.5rem;
+    border: 1px solid #e3e7ef;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.78);
+}
+
+.link-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.link-item-main {
+    min-width: 0;
+    flex: 1;
+}
+
+.link-item-title {
+    display: inline-block;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link-item-url {
+    margin-top: 0.2rem;
+    font-size: 0.86rem;
+    color: rgba(0, 0, 0, 0.58);
+    word-break: break-all;
+}
+
+.link-item-actions {
+    flex: 0 0 auto;
+}
+
+.link-item-edit-row {
+    margin-top: 0.6rem;
 }
 
 /** Common End */
