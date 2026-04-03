@@ -1,21 +1,23 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import i18n from 'i18next';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB } from '../../utils/Constants';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 
 import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
-import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import DetailsPage from '../Site/DetailsPage';
+import useFetch from '../Hooks/useFetch';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
+import DetailsPage from '../Site/DetailsPage';
 import PageTitle from '../Site/PageTitle';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
+
 import AddGame from './AddGame';
-import useFetch from '../Hooks/useFetch';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB } from '../../utils/Constants';
 import { useAlert } from '../Hooks/useAlert';
 
 export default function GameDetails() {

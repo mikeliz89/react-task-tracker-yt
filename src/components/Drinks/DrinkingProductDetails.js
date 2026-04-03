@@ -1,21 +1,24 @@
+import i18n from "i18next";
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import i18n from "i18next";
+
+import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB } from '../../utils/Constants';
-import { useAuth } from '../../contexts/AuthContext';
-import AddDrinkingProduct from './AddDrinkingProduct';
+
 import Alert from '../Alert';
-import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
-import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
 import { useAlert } from '../Hooks/useAlert';
+import { useToggle } from '../Hooks/useToggle';
+import ImageComponent from '../ImageUpload/ImageComponent';
+import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
+import StarRatingWrapper from '../StarRating/StarRatingWrapper';
+
+import AddDrinkingProduct from './AddDrinkingProduct';
 
 export default function DrinkingProductDetails() {
 

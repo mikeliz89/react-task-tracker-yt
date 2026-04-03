@@ -1,27 +1,30 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 import { Table } from "react-bootstrap";
-import AddPartsGym from "./AddPartsGym";
-import AddPartsMoving from "./AddPartsMoving";
-import AddPartsAerobics from "./AddPartsAerobics";
-import EditExercise from "./EditExercise";
-import { Categories, getTitleByCategory, getIconNameByCategory } from './Categories';
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+
 import { useAuth } from '../../contexts/AuthContext';
-import CommentComponent from "../Comments/CommentComponent";
+import { pushToFirebaseChild, updateToFirebaseById } from "../../datatier/datatier";
+import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
-import { TRANSLATION, DB } from '../../utils/Constants';
-import i18n from "i18next";
+
 import Alert from "../Alert";
-import { pushToFirebaseChild, updateToFirebaseById } from "../../datatier/datatier";
-import LinkComponent from "../Links/LinkComponent";
-import ImageComponent from "../ImageUpload/ImageComponent";
-import StarRatingWrapper from "../StarRating/StarRatingWrapper";
+import CommentComponent from "../Comments/CommentComponent";
 import useFetch from '../Hooks/useFetch';
 import { useAlert } from '../Hooks/useAlert';
+import ImageComponent from "../ImageUpload/ImageComponent";
+import LinkComponent from "../Links/LinkComponent";
 import DetailsPage from '../Site/DetailsPage';
 import PageTitle from '../Site/PageTitle';
+import StarRatingWrapper from "../StarRating/StarRatingWrapper";
+
+import AddPartsAerobics from "./AddPartsAerobics";
+import AddPartsGym from "./AddPartsGym";
+import AddPartsMoving from "./AddPartsMoving";
+import { Categories, getTitleByCategory, getIconNameByCategory } from './Categories';
+import EditExercise from "./EditExercise";
 
 export default function ExerciseDetails() {
 
@@ -109,40 +112,43 @@ export default function ExerciseDetails() {
                     onClose={clearMessages}
                 />
             }
+            preImageSection={
+                <>
+                    <Table>
+                        <tbody>
+                            <tr>
+                                <td>{t('date_and_time')}: {exercise?.date} {exercise?.time}</td>
+                            </tr>
+                            <tr>
+                                <td>{t('end_date')}: {exercise?.endDate} {exercise?.endTime}</td>
+                            </tr>
+                            <tr>
+                                <td>{t('duration')} : {t('coming_soon')}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+
+                    {
+                        Number(exercise?.category) === Categories.Gym &&
+                        <AddPartsGym />
+                    }
+                    {
+                        Number(exercise?.category) === Categories.Aerobics &&
+                        <AddPartsAerobics />
+                    }
+                    {
+                        showAddMoving(exercise) &&
+                        <AddPartsMoving
+                            title={getTitleByCategory(exercise?.category)}
+                            iconName={getIconNameByCategory(exercise?.category)}
+                        />
+                    }
+                </>
+            }
             imageSection={<ImageComponent objID={params.id} url={DB.EXERCISE_IMAGES} />}
             commentSection={<CommentComponent objID={params.id} url={DB.EXERCISE_COMMENTS} onSave={addCommentToExercise} />}
             linkSection={<LinkComponent objID={params.id} url={DB.EXERCISE_LINKS} onSaveLink={addLinkToExercise} />}
-        >
-            <Table>
-                <tbody>
-                    <tr>
-                        <td>{t('date_and_time')}: {exercise?.date} {exercise?.time}</td>
-                    </tr>
-                    <tr>
-                        <td>{t('end_date')}: {exercise?.endDate} {exercise?.endTime}</td>
-                    </tr>
-                    <tr>
-                        <td>{t('duration')} : {t('coming_soon')}</td>
-                    </tr>
-                </tbody>
-            </Table>
-
-            {
-                Number(exercise?.category) === Categories.Gym &&
-                <AddPartsGym />
-            }
-            {
-                Number(exercise?.category) === Categories.Aerobics &&
-                <AddPartsAerobics />
-            }
-            {
-                showAddMoving(exercise) &&
-                <AddPartsMoving
-                    title={getTitleByCategory(exercise?.category)}
-                    iconName={getIconNameByCategory(exercise?.category)}
-                />
-            }
-        </DetailsPage>
+        />
     )
 }
 
