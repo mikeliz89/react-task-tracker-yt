@@ -86,6 +86,11 @@ export default function DrinkingProductDetails() {
             isEditOpen={showEditDrinkingProduct}
             onToggleEdit={toggleSetShowEdit}
             title={`${drinkingProduct?.name || ''}${Number(drinkingProduct?.abv) > 0 ? ` (${drinkingProduct?.abv}%)` : ''}`}
+            titleSuffix={
+                <span className={`details-pill ${drinkingProduct?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
+                    {drinkingProduct?.haveAtHome === true ? t('drinkingproduct_have_at_home') : t('drinkingproduct_not_have_at_home')}
+                </span>
+            }
             preSummaryContent={
                 <>
                     <div className="detailspage-field">
