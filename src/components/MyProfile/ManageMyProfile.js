@@ -209,15 +209,35 @@ export default function ManageMyProfile() {
                 <div className='row g-3'>
                     <div className='col-12 col-lg-6'>
                         <div className='content-card myprofile-sub-card'>
-                            <h4 className='myprofile-card-title'>{t('settings_title')}</h4>
+                            <h4 className='myprofile-card-title'>
+                                <Icon name={ICONS.BELL} />
+                                {t('settings_title')}
+                            </h4>
 
                             <div className='myprofile-setting-row'>
-                                <span>{t('language')}</span>
+                                <span>
+                                    <Icon name={ICONS.BELL} />
+                                    {t('notifications')}
+                                </span>
+                                <span className='myprofile-setting-value d-flex align-items-center gap-2'>
+                                    <Form.Check type='switch' checked={false} disabled readOnly />
+                                    {t('coming_soon')}
+                                </span>
+                            </div>
+
+                            <div className='myprofile-setting-row'>
+                                <span>
+                                    <Icon name={ICONS.GLOBE} />
+                                    {t('language')}
+                                </span>
                                 <Language />
                             </div>
 
                             <div className='myprofile-setting-row'>
-                                <span>{t('theme')}</span>
+                                <span>
+                                    <Icon name={ICONS.SUN} />
+                                    {t('theme')}
+                                </span>
                                 <ThemeToggler />
                             </div>
 
@@ -231,7 +251,10 @@ export default function ManageMyProfile() {
 
                     <div className='col-12 col-lg-6'>
                         <div className='content-card myprofile-sub-card'>
-                            <h4 className='myprofile-card-title'>{t('account_settings_title')}</h4>
+                            <h4 className='myprofile-card-title'>
+                                <Icon name={ICONS.ENVELOPE} />
+                                {t('account_settings_title')}
+                            </h4>
 
                             <div className='myprofile-setting-row'>
                                 <span>{t('email')}</span>

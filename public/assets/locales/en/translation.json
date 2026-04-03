@@ -504,6 +504,7 @@
     "logout": "Log out",
     "max_height_220_cm": "Maximum height is 220 cm!",
     "new_password": "New password",
+    "notifications": "Notifications",
     "password": "Password",
     "profilepic": "Profile picture",
     "profile_section": "Profile",
@@ -511,6 +512,7 @@
     "saving_done": "Saving was successful",
     "upload": "Upload",
     "saving_failed": "Saving failed",
+    "coming_soon": "Coming soon",
     "settings_title": "Settings",
     "theme": "Theme",
     "username": "Username"
