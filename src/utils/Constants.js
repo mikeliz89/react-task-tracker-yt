@@ -211,6 +211,7 @@ export const NAVIGATION = {
     MANAGE_GAMES: '/managegames',
     MANAGE_BOARD_GAMES: '/manageboardgames',
     MANAGE_GAMELISTS: '/managegamelists',
+    MANAGE_BOARD_GAMELISTS: '/manageboardgamelists',
     // disc golf
     MANAGE_DISC_GOLF: '/managediscgolf',
     MANAGE_DISC_GOLF_TRACKS: '/managediscgolftracks',

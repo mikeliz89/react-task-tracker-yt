@@ -84,7 +84,7 @@ export default function ManageBoardGames() {
             <Row>
                 <ButtonGroup>
                     <GoBackButton />
-                    <NavButton to={NAVIGATION.MANAGE_GAMELISTS}
+                    <NavButton to={NAVIGATION.MANAGE_BOARD_GAMELISTS}
                         icon={ICONS.LIST_ALT}>
                         {t('button_game_lists')}
                     </NavButton>

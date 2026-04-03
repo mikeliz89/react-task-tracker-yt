@@ -85,10 +85,6 @@ export default function ManageGames() {
                         icon={ICONS.LIST_ALT}>
                         {t('button_game_lists')}
                     </NavButton>
-                    <NavButton to={NAVIGATION.MANAGE_BOARD_GAMES}
-                        icon={ICONS.GAMEPAD}>
-                        {t('board_games_title')}
-                    </NavButton>
                 </ButtonGroup>
             </Row>
 

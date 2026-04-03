@@ -84,6 +84,7 @@ import Games from './components/Games/Games';
 import ManageGames from './components/Games/ManageGames';
 import ManageBoardGames from './components/Games/ManageBoardGames';
 import ManageGameLists from './components/Games/ManageGameLists';
+import ManageBoardGameLists from './components/Games/ManageBoardGameLists';
 import GameDetails from './components/Games/GameDetails';
 import BoardGameDetails from './components/Games/BoardGameDetails';
 //Disc Golf
@@ -248,6 +249,7 @@ function App() {
             <Route path={NAVIGATION.MANAGE_GAMES} element={<PrivateRoute><ManageGames /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_BOARD_GAMES} element={<PrivateRoute><ManageBoardGames /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_GAMELISTS} element={<PrivateRoute><ManageGameLists /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_BOARD_GAMELISTS} element={<PrivateRoute><ManageBoardGameLists /></PrivateRoute>} />
             <Route path={NAVIGATION.GAME + '/:id'} element={<PrivateRoute><GameDetails /></PrivateRoute>} />
             <Route path={NAVIGATION.BOARD_GAME + '/:id'} element={<PrivateRoute><BoardGameDetails /></PrivateRoute>} />
             {/* Games */}

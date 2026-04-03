@@ -106,6 +106,8 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
           return 'countertext_musiclists';
         case ListTypes.Games:
           return 'countertext_gamelists';
+        case ListTypes.BoardGames:
+          return 'countertext_boardgamelists';
         case ListTypes.Movies:
           return 'countertext_movielists';
         case ListTypes.Other:
