@@ -237,6 +237,22 @@ export default function TaskListDetails() {
     });
   }
 
+  const markAllTasksUndone = async (taskListID) => {
+    const dbref = child(ref(db, DB.TASKS), taskListID);
+    get(dbref).then((snapshot) => {
+      if (snapshot.exists()) {
+        //update each snapshot data separately (child)
+        snapshot.forEach((data) => {
+          const updates = {};
+          updates[`${DB.TASKS}/${taskListID}/${data.key}/reminder`] = false;
+          updateToFirebase(updates);
+        });
+      } else {
+        console.log("No data available");
+      }
+    });
+  }
+
   const updateTaskList = async (taskList) => {
     var taskListID = params.id;
     if (taskList["listType"] === undefined || taskList["listType"] === 0) {
@@ -484,6 +500,11 @@ export default function TaskListDetails() {
                 markAllTasksDone(params.id)
               }
             }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} /> &nbsp;
+            <Button onClick={() => {
+              if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
+                markAllTasksUndone(params.id)
+              }
+            }} text={t('mark_all_tasks_undone')} iconName={ICONS.HOURGLASS_1} /> &nbsp;
             <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
               iconName={ICONS.EDIT} />
           </div>

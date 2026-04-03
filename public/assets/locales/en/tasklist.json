@@ -58,6 +58,8 @@
         "manage_tasklists_title": "Task Lists",
         "mark_all_tasks_done": "Mark all as done",
         "mark_all_tasks_done_confirm_message": "Are you sure?",
+        "mark_all_tasks_undone": "Mark all as undone",
+        "mark_all_tasks_undone_confirm_message": "Are you sure?",
         "modal_header_add_list": "Add List",
         "modal_header_add_task": "Add Task",
         "modal_header_edit_task_list": "Edit Task List",
