@@ -1,17 +1,19 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import AddTask from './AddTask';
+import i18n from "i18next";
+import { useParams } from 'react-router-dom';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { TRANSLATION, DB } from '../../utils/Constants';
-import i18n from "i18next";
-import { useAuth } from '../../contexts/AuthContext';
-import PageTitle from '../Site/PageTitle';
-import DetailsPage from '../Site/DetailsPage';
-import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import LinkComponent from '../Links/LinkComponent';
-import CommentComponent from '../Comments/CommentComponent';
 import useFetch from '../Hooks/useFetch';
+
+import AddTask from './AddTask';
+import CommentComponent from '../Comments/CommentComponent';
+import DetailsPage from '../Site/DetailsPage';
+import LinkComponent from '../Links/LinkComponent';
+import PageTitle from '../Site/PageTitle';
 
 export default function TaskDetails() {
 

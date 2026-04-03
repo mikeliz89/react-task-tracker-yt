@@ -1,24 +1,21 @@
-import GoBackButton from "../Buttons/GoBackButton"
-import PageContentWrapper from "../Site/PageContentWrapper"
-import { Row, ButtonGroup, Col } from 'react-bootstrap';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import AddGame from "./AddGame";
-import Button from '../Buttons/Button';
-import Alert from '../Alert';
-import i18n from 'i18next';
-import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
-import AccordionElement from '../AccordionElement';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
-import LinkComponent from '../Links/LinkComponent';
-import ImageComponent from '../ImageUpload/ImageComponent';
 import { useTranslation } from 'react-i18next';
-import useFetch from '../Hooks/useFetch';
-import { Modal } from 'react-bootstrap';
-import { useToggle } from '../Hooks/useToggle';
-import { useAuth } from '../../contexts/AuthContext';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import i18n from 'i18next';
+
+import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
+import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import DetailsPage from '../Site/DetailsPage';
+import ImageComponent from '../ImageUpload/ImageComponent';
+import LinkComponent from '../Links/LinkComponent';
+import PageTitle from '../Site/PageTitle';
+import StarRatingWrapper from '../StarRating/StarRatingWrapper';
+import AddGame from './AddGame';
+import useFetch from '../Hooks/useFetch';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import { useAlert } from '../Hooks/useAlert';
 
 export default function GameDetails() {
@@ -28,19 +25,17 @@ export default function GameDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: game, loading } = useFetch(DB.GAMES, "", params.id);
 
     //alert
     const {
-        message, setMessage,
-        showMessage, setShowMessage,
-        error, setError,
-        showError, setShowError,
+        message,
+        showMessage,
+        error,
+        showError,
         clearMessages,
-        showSuccess,
         showFailure
     } = useAlert();
 
@@ -79,66 +74,37 @@ export default function GameDetails() {
         updateToFirebaseById(DB.GAMES, gameID, game);
     }
 
-    const getAccordionData = () => {
-        return [
-            { id: 1, name: t('created'), value: getJsonAsDateTimeString(game.created, i18n.language) },
-            { id: 2, name: t('created_by'), value: game.createdBy },
-            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(game.modified, i18n.language) }
-        ];
-    }
+    //states
+    const [showEdit, setShowEdit] = useState(false);
 
-    //modal
-    const { status: showEdit, toggleStatus: toggleShowEdit } = useToggle();
-
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                    <Button
-                        iconName={ICONS.EDIT}
-                        text={showEdit ? tCommon('buttons.button_close') : ''}
-                        color={showEdit ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
-                        onClick={() => toggleShowEdit()} />
-                </ButtonGroup>
-            </Row>
-
-            <AccordionElement array={getAccordionData()} title={game.name} />
-
-            <Row>
-                <Col>
-                    {t('description') + ':'} {game.description}
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <StarRatingWrapper stars={game.stars} onSaveStars={saveStars} />
-                </Col>
-            </Row>
-
-            <Alert message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showEdit} onHide={toggleShowEdit}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_edit_game')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddGame onSave={updateGame} gameID={params.id} onClose={() => toggleShowEdit()} />
-                </Modal.Body>
-            </Modal>
-
-            <hr />
-            <ImageComponent url={DB.GAME_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={DB.GAME_COMMENTS} onSave={addCommentToGame} />
-            <LinkComponent objID={params.id} url={DB.GAME_LINKS} onSaveLink={addLinkToGame} />
-        </PageContentWrapper>
+    return (
+        <DetailsPage
+            loading={loading}
+            showEditButton={true}
+            isEditOpen={showEdit}
+            onToggleEdit={() => setShowEdit(!showEdit)}
+            title={<PageTitle title={game?.name} />}
+            summary={`${t('description')}: ${game?.description || '-'}`}
+            ratingSection={<StarRatingWrapper stars={game?.stars} onSaveStars={saveStars} />}
+            metaItems={[
+                { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(game?.created, i18n.language)}</> },
+                { id: 2, content: <>{t('created_by')}: {game?.createdBy}</> },
+                { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(game?.modified, i18n.language)}</> }
+            ]}
+            editModalTitle={t('modal_header_edit_game')}
+            editSection={<AddGame onSave={updateGame} gameID={params.id} onClose={() => setShowEdit(false)} />}
+            alertSection={
+                <Alert
+                    message={message}
+                    showMessage={showMessage}
+                    error={error}
+                    showError={showError}
+                    onClose={clearMessages}
+                />
+            }
+            imageSection={<ImageComponent url={DB.GAME_IMAGES} objID={params.id} />}
+            commentSection={<CommentComponent objID={params.id} url={DB.GAME_COMMENTS} onSave={addCommentToGame} />}
+            linkSection={<LinkComponent objID={params.id} url={DB.GAME_LINKS} onSaveLink={addLinkToGame} />}
+        />
     )
 }

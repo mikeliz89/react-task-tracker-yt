@@ -30,10 +30,59 @@ p {
     height: 85px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 765px) {
     #logo {
         width: 190px;
         height: 50px;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        margin: 2px auto;
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    h3.page-title,
+    h4.page-title {
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+
+    .listContainer {
+        margin: 4px;
+        padding: 8px 12px;
+    }
+
+    .content-card {
+        padding: 0.9rem 1rem;
+        border-radius: 14px;
+    }
+
+    .detailspage-page {
+        padding: 1rem;
+    }
+
+    .detailspage-top-row {
+        flex-direction: column;
+    }
+
+    .task-pill {
+        padding: 0.35rem 0.65rem;
+        font-size: 0.8rem;
+    }
+
+    .comments-list {
+        gap: 0.75rem;
+    }
+
+    .comment-item {
+        padding: 0.75rem;
     }
 }
 
@@ -161,7 +210,7 @@ form {
 .titleBtn:hover,
 .editBtn:hover,
 .deleteBtn:hover {
-    font-style: bold;
+    font-weight: bold;
     color: orange !important;
 }
 
@@ -506,16 +555,6 @@ form {
 .detailspage-meta-table td {
     color: #e7eaf1;
     padding: 0.45rem 0;
-}
-
-@media screen and (max-width: 768px) {
-    .detailspage-page {
-        padding: 1.25rem;
-    }
-
-    .detailspage-top-row {
-        flex-direction: column;
-    }
 }
 
 /* Custom End */
