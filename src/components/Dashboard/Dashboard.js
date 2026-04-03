@@ -165,6 +165,14 @@ export default function Dashboard() {
             textcolor: COLORS.BLACK
         },
         {
+            link: NAVIGATION.MANAGE_BOARD_GAMES,
+            imageName: 'boardgames.jpg',
+            text: t('board_games'),
+            iconName: ICONS.GAMEPAD,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        },
+        {
             link: NAVIGATION.MANAGE_DISC_GOLF,
             imageName: 'discgolf.jpg',
             text: t('discgolf'),

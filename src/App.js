@@ -82,8 +82,10 @@ import ManageMusicRecords from './components/Music/ManageMusicRecords';
 //Games
 import Games from './components/Games/Games';
 import ManageGames from './components/Games/ManageGames';
+import ManageBoardGames from './components/Games/ManageBoardGames';
 import ManageGameLists from './components/Games/ManageGameLists';
 import GameDetails from './components/Games/GameDetails';
+import BoardGameDetails from './components/Games/BoardGameDetails';
 //Disc Golf
 import ManageDiscGolf from './components/DiscGolf/ManageDiscGolf';
 import ManageDiscGolfTracks from './components/DiscGolf/ManageDiscGolfTracks';
@@ -244,8 +246,10 @@ function App() {
             {/* Games */}
             <Route path={NAVIGATION.GAMES} element={<PrivateRoute><Games /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_GAMES} element={<PrivateRoute><ManageGames /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_BOARD_GAMES} element={<PrivateRoute><ManageBoardGames /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_GAMELISTS} element={<PrivateRoute><ManageGameLists /></PrivateRoute>} />
             <Route path={NAVIGATION.GAME + '/:id'} element={<PrivateRoute><GameDetails /></PrivateRoute>} />
+            <Route path={NAVIGATION.BOARD_GAME + '/:id'} element={<PrivateRoute><BoardGameDetails /></PrivateRoute>} />
             {/* Games */}
             {/* Disc Golf */}
             <Route path={NAVIGATION.MANAGE_DISC_GOLF} element={<PrivateRoute><ManageDiscGolf /></PrivateRoute>} />

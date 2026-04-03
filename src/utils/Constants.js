@@ -70,6 +70,10 @@ export const DB = {
     GAME_COMMENTS: '/game-comments',
     GAME_IMAGES: '/game-images',
     GAME_LINKS: '/game-links',
+    BOARD_GAMES: '/board-games',
+    BOARD_GAME_COMMENTS: '/board-game-comments',
+    BOARD_GAME_IMAGES: '/board-game-images',
+    BOARD_GAME_LINKS: '/board-game-links',
     // links
     LINKS: '/links',
     // movie
@@ -185,6 +189,7 @@ export const NAVIGATION = {
     MANAGE_FOODITEMS: '/managefooditems',
     FORGOT_PASSWORD: '/forgot-password',
     GAME: '/game',
+    BOARD_GAME: '/boardgame',
     GAMES: '/games',
     GEAR: '/gear',
     LINKSLIST: '/linkslist',
@@ -204,6 +209,7 @@ export const NAVIGATION = {
     MANAGE_EXERCISE_LISTS: '/manageexerciselists',
     // games
     MANAGE_GAMES: '/managegames',
+    MANAGE_BOARD_GAMES: '/manageboardgames',
     MANAGE_GAMELISTS: '/managegamelists',
     // disc golf
     MANAGE_DISC_GOLF: '/managediscgolf',

@@ -1,6 +1,6 @@
 import Game from './Game';
 
-export default function Games({ games, onDelete, onEdit }) {
+export default function Games({ games, onDelete, onEdit, dbUrl, detailsNavigation, showConsole }) {
 
   return (
     <div>
@@ -8,7 +8,10 @@ export default function Games({ games, onDelete, onEdit }) {
         <Game key={game.id}
           game={game}
           onDelete={onDelete}
-          onEdit={onEdit} />
+          onEdit={onEdit}
+          dbUrl={dbUrl}
+          detailsNavigation={detailsNavigation}
+          showConsole={showConsole} />
       ))}
     </div>
   )
