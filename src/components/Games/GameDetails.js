@@ -7,6 +7,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import { getGameConsoleNameByID } from '../../utils/ListUtils';
 
 import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
@@ -90,6 +91,12 @@ export default function GameDetails() {
                 <span className={`details-pill ${game?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
                     {t('have')}: {game?.haveAtHome === true ? t('yes') : t('no')}
                 </span>
+            }
+            preSummaryContent={
+                <div className="detailspage-field">
+                    <span className="detailspage-meta-label">{t('console')}:</span>{' '}
+                    <span className="detailspage-meta-value">{t(`game_console_${getGameConsoleNameByID(game?.console)}`)}</span>
+                </div>
             }
             summary={`${t('description')}: ${game?.description || '-'}`}
             ratingSection={<StarRatingWrapper stars={game?.stars} onSaveStars={saveStars} />}
