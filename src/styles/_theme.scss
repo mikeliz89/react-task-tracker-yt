@@ -73,6 +73,14 @@
     color: rgba(0, 0, 0, 0.88);
 }
 
+#light .comment-delete-button {
+    color: rgba(154, 18, 18, 0.9) !important;
+}
+
+#light .comment-delete-button:hover {
+    color: rgba(201, 24, 24, 1) !important;
+}
+
 #dark {
     background-color: var(--color-neutral-900);
     --detailspage-meta-label-color: rgba(255, 255, 255, 0.78);
@@ -211,6 +219,10 @@
 
 #dark .comments-list {
     background: rgba(18, 22, 30, 0.72);
+}
+
+#dark .comment-delete-button {
+    color: rgba(226, 232, 255, 0.58) !important;
 }
 
 /* Theme Dark: DetailsPage Start */

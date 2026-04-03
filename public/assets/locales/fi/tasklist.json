@@ -38,6 +38,7 @@
         "countertext_movielists": "Leffalistat",
         "countertext_exercises": "Liikuntalistat",
         "countertext_backpacking": "Retkeilylistat",
+        "created_by": "Luonut",
         "description": "Kuvaus",
         "edit_description": "Muokkaa kuvausta",
         "edit_task_list": "Muokkaa listan nimeä",
