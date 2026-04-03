@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import i18n from "i18next";
-import { Tab, Tabs } from 'react-bootstrap';
+import { ButtonGroup, Form, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ref, child, onValue } from 'firebase/database';
@@ -46,6 +46,8 @@ export default function RecipeDetails() {
     const [showEditRecipe, setShowEditRecipe] = useState(false);
     const [showAddIncredient, setShowAddIncredient] = useState(false);
     const [showAddWorkPhase, setShowAddWorkPhase] = useState(false);
+    const [showBulkIncredients, setShowBulkIncredients] = useState(false);
+    const [bulkIncredientsText, setBulkIncredientsText] = useState('');
 
     //alert
     const {
@@ -102,6 +104,21 @@ export default function RecipeDetails() {
 
     const addIncredient = async (recipeID, incredient) => {
         pushToFirebaseChild(DB.RECIPE_INCREDIENTS, recipeID, incredient);
+    }
+
+    const addBulkIncredients = async () => {
+        const names = bulkIncredientsText
+            .split(/[\n,]+/)
+            .map((name) => name.trim())
+            .filter((name) => name.length > 0);
+
+        if (names.length === 0) {
+            showFailure(t('no_incredients_to_show'));
+            return;
+        }
+
+        await Promise.all(names.map((name) => addIncredient(params.id, { name, unit: '', amount: 0 })));
+        setBulkIncredientsText('');
     }
 
     const addWorkPhase = async (recipeID, workPhase) => {
@@ -260,12 +277,48 @@ export default function RecipeDetails() {
                         id="recipeDetails-Tab"
                         className="mb-3">
                         <Tab eventKey="home" title={t("incredients_header")}>
-                            <Button
-                                iconName={ICONS.PLUS}
-                                secondIconName={ICONS.CARROT}
-                                color={showAddIncredient ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-                                text={showAddIncredient ? tCommon('buttons.button_close') : ''}
-                                onClick={() => setShowAddIncredient(!showAddIncredient)} />
+
+                            <ButtonGroup className="mb-2">
+                                <Button
+                                    iconName={ICONS.PLUS}
+                                    secondIconName={ICONS.CARROT}
+                                    color={showBulkIncredients ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
+                                    text={showBulkIncredients ? tCommon('buttons.button_close') : `${t('incredient_name')} (a, b, c)`}
+                                    onClick={() => setShowBulkIncredients(!showBulkIncredients)} />
+
+                                <Button
+                                    iconName={ICONS.PLUS}
+                                    secondIconName={ICONS.CARROT}
+                                    color={showAddIncredient ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
+                                    text={showAddIncredient ? tCommon('buttons.button_close') : ''}
+                                    onClick={() => setShowAddIncredient(!showAddIncredient)} />
+
+
+                                {incredients != null && incredients.length > 0 &&
+                                    <Button iconName={ICONS.SYNC} onClick={updateRecipeIncredients} />
+                                }
+                            </ButtonGroup>
+
+                            {showBulkIncredients &&
+                                <>
+                                    <Form.Group className="mb-3" controlId="bulkIncredientsInput">
+                                        <Form.Label>{t('incredient_name')} (a, b, c)</Form.Label>
+                                        <Form.Control
+                                            autoComplete="off"
+                                            type="text"
+                                            placeholder={t('incredient_name')}
+                                            value={bulkIncredientsText}
+                                            onChange={(e) => setBulkIncredientsText(e.target.value)}
+                                        />
+                                    </Form.Group>
+                                    <Button
+                                        iconName={ICONS.PLUS}
+                                        text={t('button_save_multiple_incredients')}
+                                        onClick={addBulkIncredients}
+                                    />
+                                </>
+                            }
+
                             {showAddIncredient &&
                                 <AddIncredient
                                     dbUrl={DB.RECIPE_INCREDIENTS}
@@ -278,7 +331,6 @@ export default function RecipeDetails() {
                             {incredients != null}
                             {incredients != null && incredients.length > 0 ? (
                                 <>
-                                    <Button iconName={ICONS.SYNC} onClick={updateRecipeIncredients} />
                                     <Incredients
                                         dbUrl={DB.RECIPE_INCREDIENTS}
                                         translation={TRANSLATION.TRANSLATION}
