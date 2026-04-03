@@ -1,25 +1,24 @@
+import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { Row, ButtonGroup, Col, Modal } from 'react-bootstrap';
-import i18n from 'i18next';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
-import GoBackButton from '../Buttons/GoBackButton';
-import CommentComponent from '../Comments/CommentComponent';
+
 import { useAuth } from '../../contexts/AuthContext';
-import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import Button from '../Buttons/Button';
-import AddRecord from './AddRecord';
-import Alert from '../Alert';
-import LinkComponent from '../Links/LinkComponent';
-import ImageComponent from '../ImageUpload/ImageComponent';
+import { TRANSLATION, DB } from '../../utils/Constants';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getMusicFormatNameByID } from '../../utils/ListUtils';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
-import AccordionElement from '../AccordionElement';
+
+import Alert from '../Alert';
+import CommentComponent from '../Comments/CommentComponent';
 import useFetch from '../Hooks/useFetch';
+import ImageComponent from '../ImageUpload/ImageComponent';
+import LinkComponent from '../Links/LinkComponent';
+import DetailsPage from '../Site/DetailsPage';
+import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import { useToggle } from '../Hooks/useToggle';
 import { useAlert } from '../Hooks/useAlert';
+
+import AddRecord from './AddRecord';
 
 export default function RecordDetails() {
 
@@ -28,16 +27,14 @@ export default function RecordDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //alert
     const {
-        message, setMessage,
-        showMessage, setShowMessage,
-        error, setError,
-        showError, setShowError,
+        message,
+        showMessage,
+        error,
+        showError,
         clearMessages,
-        showSuccess,
         showFailure
     } = useAlert();
 
@@ -82,69 +79,49 @@ export default function RecordDetails() {
         updateToFirebaseById(DB.MUSIC_RECORDS, recordID, record);
     }
 
-    const getAccordionData = () => {
-        return [
-            { id: 1, name: t('created'), value: getJsonAsDateTimeString(record.created, i18n.language) },
-            { id: 2, name: t('created_by'), value: record.createdBy },
-            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(record.modified, i18n.language) }
-        ];
-    }
-
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-
-        <PageContentWrapper>
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                    <Button
-                        iconName={ICONS.EDIT}
-                        text={showEdit ? tCommon('buttons.button_close') : ''}
-                        color={showEdit ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
-                        onClick={() => toggleShowEdit()} />
-                </ButtonGroup>
-            </Row>
-
-            <AccordionElement array={getAccordionData()} title={record.band + ' ' + record.name} />
-
-            <Row>
-                <Col>
-                    {t('format') + ':'} {t('music_format_' + getMusicFormatNameByID(record.format))}
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    {t('description') + ':'} {record.description}
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <StarRatingWrapper stars={record.stars} onSaveStars={saveStars} />
-                </Col>
-            </Row>
-
-            <Alert
-                message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showEdit} onHide={toggleShowEdit}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_edit_record')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddRecord onSave={updateRecord} recordID={params.id} onClose={() => toggleShowEdit()} />
-                </Modal.Body>
-            </Modal>
-
-            <hr />
-            <ImageComponent url={DB.MUSIC_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={DB.MUSIC_COMMENTS} onSave={addCommentToRecord} />
-            <LinkComponent objID={params.id} url={DB.MUSIC_LINKS} onSaveLink={addLinkToRecord} />
-        </PageContentWrapper>
+    return (
+        <DetailsPage
+            loading={loading}
+            showEditButton={true}
+            isEditOpen={showEdit}
+            onToggleEdit={toggleShowEdit}
+            title={`${record?.band || ''} ${record?.name || ''}`.trim()}
+            preSummaryContent={
+                <div className="detailspage-field">
+                    <span className="detailspage-meta-label">{t('format')}:</span>{' '}
+                    <span className="detailspage-meta-value">{t(`music_format_${getMusicFormatNameByID(record?.format)}`)}</span>
+                </div>
+            }
+            summary={`${t('description')}: ${record?.description || '-'}`}
+            ratingSection={<StarRatingWrapper stars={record?.stars} onSaveStars={saveStars} />}
+            metaItems={[
+                {
+                    id: 1,
+                    content: <><span className="detailspage-meta-label">{t('created')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(record?.created, i18n.language)}</span></>
+                },
+                {
+                    id: 2,
+                    content: <><span className="detailspage-meta-label">{t('created_by')}:</span> <span className="detailspage-meta-value">{record?.createdBy || '-'}</span></>
+                },
+                {
+                    id: 3,
+                    content: <><span className="detailspage-meta-label">{t('modified')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(record?.modified, i18n.language)}</span></>
+                }
+            ]}
+            editModalTitle={t('modal_header_edit_record')}
+            editSection={<AddRecord onSave={updateRecord} recordID={params.id} onClose={toggleShowEdit} />}
+            alertSection={
+                <Alert
+                    message={message}
+                    showMessage={showMessage}
+                    error={error}
+                    showError={showError}
+                    onClose={clearMessages}
+                />
+            }
+            imageSection={<ImageComponent url={DB.MUSIC_IMAGES} objID={params.id} />}
+            commentSection={<CommentComponent objID={params.id} url={DB.MUSIC_COMMENTS} onSave={addCommentToRecord} />}
+            linkSection={<LinkComponent objID={params.id} url={DB.MUSIC_LINKS} onSaveLink={addLinkToRecord} />}
+        />
     )
 }

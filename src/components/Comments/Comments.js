@@ -47,7 +47,7 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
     }
 
     return (
-        <div className="content-card">
+        <div className="comments-content">
             <AddComment onSave={onSave} />
             {/* <pre>{JSON.stringify(comments)}</pre> */}
 

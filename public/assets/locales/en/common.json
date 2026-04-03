@@ -6,6 +6,7 @@
             "go_back_button_alt": "Go back",
             "button_close": "Close",
             "button_delete": "Delete",
+            "button_delete_all": "Delete All",
             "button_edit": "Edit",
             "button_lists": "Lists",
             "button_save": "Save"

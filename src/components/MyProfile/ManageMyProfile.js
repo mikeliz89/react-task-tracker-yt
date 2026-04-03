@@ -1,23 +1,25 @@
-import GoBackButton from '../Buttons/GoBackButton';
-import Button from '../Buttons/Button';
-import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { db, uploadProfilePic } from '../../firebase-config';
+import { Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { ref, onValue } from 'firebase/database';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB } from '../../utils/Constants';
-import PageTitle from '../Site/PageTitle';
-import Alert from '../Alert';
-import PageContentWrapper from '../Site/PageContentWrapper';
+import { useAuth } from '../../contexts/AuthContext';
 import { updateToFirebaseById } from '../../datatier/datatier';
-import Modal from '../ImageUpload/Modal';
+import { db, uploadProfilePic } from '../../firebase-config';
+import { TRANSLATION, DB } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import Alert from '../Alert';
 import Logout from '../Auth/Logout';
-import RightWrapper from '../Site/RightWrapper';
-import Language from '../Language/Language';
-import ThemeToggler from '../Site/ThemeToggler';
+import Button from '../Buttons/Button';
+import GoBackButton from '../Buttons/GoBackButton';
 import { useAlert } from '../Hooks/useAlert';
+import Icon from '../Icon';
+import Modal from '../ImageUpload/Modal';
+import Language from '../Language/Language';
+import PageContentWrapper from '../Site/PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
+//import RightWrapper from '../Site/RightWrapper';
+import ThemeToggler from '../Site/ThemeToggler';
+import { ICONS } from '../../utils/Constants';
 
 export default function ManageMyProfile() {
 
@@ -42,10 +44,10 @@ export default function ManageMyProfile() {
 
     //alert
     const {
-        message, setMessage,
-        showMessage, setShowMessage,
-        error, setError,
-        showError, setShowError,
+        message,
+        showMessage,
+        error,
+        showError,
         clearMessages,
         showSuccess,
         showFailure
@@ -84,9 +86,8 @@ export default function ManageMyProfile() {
         e.preventDefault()
 
         //validation
-        if (height > 220) {
-            alert("maksimi pituus on 220 cm!");
-            showFailure(t('saving_failed'));
+        if (Number(height) > 220) {
+            showFailure(t('max_height_220_cm'));
             return;
         }
 
@@ -115,17 +116,19 @@ export default function ManageMyProfile() {
         }
     }
 
+    const username = currentUser?.email?.split('@')[0] || '';
+
     return (
         <PageContentWrapper>
             <GoBackButton />
 
-            <PageTitle title={t('title')} />
+            <PageTitle title={t('title')} iconName={ICONS.GEAR} />
 
-            <RightWrapper>
+            {/* <RightWrapper>
                 <Language />
                 <ThemeToggler />
                 <Logout />
-            </RightWrapper>
+            </RightWrapper> */}
 
             <Alert
                 message={message}
@@ -135,36 +138,144 @@ export default function ManageMyProfile() {
                 onClose={clearMessages}
             />
 
-            {/* <p>PhotoUrl: {photoUrl}</p> */}
-            <img src={photoUrl} alt='avatar' className='avatar' onClick={() => setSelectedImage(photoUrl)} />
+            <Form onSubmit={onSubmit} className='myprofile-page'>
+                <div className='content-card myprofile-main-card'>
+                    <h3 className='myprofile-card-title'>
+                        <Icon name={ICONS.USER_ALT} />
+                        {t('profile_section')}
+                    </h3>
+
+                    <div className='row g-4'>
+                        <div className='col-12 col-lg-6'>
+                            <div className='myprofile-avatar-section'>
+                                <div className='myprofile-identity'>
+                                    <img
+                                        src={photoUrl}
+                                        alt='avatar'
+                                        className='avatar myprofile-avatar'
+                                        onClick={() => setSelectedImage(photoUrl)}
+                                    />
+                                    <div className='myprofile-identity-texts'>
+                                        <div className='myprofile-display-name'>{name || t('name')}</div>
+                                        <div className='myprofile-email-chip'>{currentUser?.email}</div>
+                                    </div>
+                                </div>
+
+                                <div className='myprofile-upload-box'>
+                                    <Form.Label>{t('profilepic')}</Form.Label>
+                                    <Form.Control type='file' onChange={handleChange} className='myprofile-file-input' />
+                                    <Button
+                                        disabled={loading || !photo}
+                                        type='button'
+                                        text={t('upload')}
+                                        className='btn btn-block myprofile-upload-btn'
+                                        onClick={handleClick}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='col-12 col-lg-6'>
+                            <div className='myprofile-fields'>
+                                <Form.Group className='mb-3' controlId='myProfileFormDisplayName'>
+                                    <Form.Label>{t('display_name')}</Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        placeholder={t('name')}
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                    />
+                                </Form.Group>
+
+                                <Form.Group className='mb-3' controlId='myProfileFormUserName'>
+                                    <Form.Label>{t('username')}</Form.Label>
+                                    <Form.Control type='text' value={username} readOnly />
+                                </Form.Group>
+
+                                <Form.Group className='mb-3' controlId='myProfileFormHeight'>
+                                    <Form.Label>{t('height')}</Form.Label>
+                                    <Form.Control
+                                        type='number'
+                                        placeholder={t('height')}
+                                        value={height}
+                                        onChange={(e) => setHeight(e.target.value)}
+                                    />
+                                </Form.Group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className='row g-3'>
+                    <div className='col-12 col-lg-6'>
+                        <div className='content-card myprofile-sub-card'>
+                            <h4 className='myprofile-card-title'>
+                                <Icon name={ICONS.BELL} />
+                                {t('settings_title')}
+                            </h4>
+
+                            <div className='myprofile-setting-row'>
+                                <span>
+                                    <Icon name={ICONS.BELL} />
+                                    {t('notifications')}
+                                </span>
+                                <span className='myprofile-setting-value d-flex align-items-center gap-2'>
+                                    <Form.Check type='switch' checked={false} disabled readOnly />
+                                    {t('coming_soon')}
+                                </span>
+                            </div>
+
+                            <div className='myprofile-setting-row'>
+                                <span>
+                                    <Icon name={ICONS.GLOBE} />
+                                    {t('language')}
+                                </span>
+                                <Language />
+                            </div>
+
+                            <div className='myprofile-setting-row'>
+                                <span>
+                                    <Icon name={ICONS.SUN} />
+                                    {t('theme')}
+                                </span>
+                                <ThemeToggler />
+                            </div>
+
+                            <Button
+                                type='submit'
+                                text={tCommon('buttons.button_save')}
+                                className='btn btn-block saveBtn myprofile-save-btn'
+                            />
+                        </div>
+                    </div>
+
+                    <div className='col-12 col-lg-6'>
+                        <div className='content-card myprofile-sub-card'>
+                            <h4 className='myprofile-card-title'>
+                                <Icon name={ICONS.ENVELOPE} />
+                                {t('account_settings_title')}
+                            </h4>
+
+                            <div className='myprofile-setting-row'>
+                                <span>{t('email')}</span>
+                                <span className='myprofile-setting-value'>{currentUser?.email}</span>
+                            </div>
+
+                            <div className='myprofile-setting-row'>
+                                <span>{t('password')}</span>
+                                <span className='myprofile-setting-value'>********</span>
+                            </div>
+
+                            <div className='myprofile-setting-row myprofile-setting-row-danger'>
+                                <span>{t('logout')}</span>
+                                <Logout />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Form>
 
             {selectedImage && <Modal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
-
-            <Form onSubmit={onSubmit}>
-                <Form.Group>
-                    <Form.Label>{t('profilepic')}</Form.Label>
-                    <Form.Control type="file" onChange={handleChange} />
-                    <Button disabled={loading || !photo} type='button' text={t('upload')}
-                        className='btn btn-block'
-                        onClick={handleClick} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="myProfileFormName">
-                    <Form.Label>{t('name')}</Form.Label>
-                    <Form.Control type='text'
-                        placeholder={t('name')}
-                        value={name}
-                        onChange={(e) => setName(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="addIncredientFormAmount">
-                    <Form.Label>{t('height')}</Form.Label>
-                    <Form.Control
-                        type='number'
-                        placeholder={t('height')}
-                        value={height}
-                        onChange={(e) => setHeight(e.target.value)} />
-                </Form.Group>
-                <Button type='submit' text={tCommon('buttons.button_save')} className='btn btn-block saveBtn' />
-            </Form>
         </PageContentWrapper>
     )
 }

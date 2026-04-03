@@ -18,9 +18,7 @@ export default function CommentComponent({ objID, url, onSave }) {
                 <PageTitle title={counter > 0 ? `${t('header')} (${counter})` : t('header')}
                     iconName={ICONS.COMMENTS} iconColor={COLORS.GRAY} isSubTitle={true} />
             </div>
-            <div className="content-panel-card">
-                <Comments objID={objID} url={url} onCounterChange={setCounter} onSave={onSave} />
-            </div>
+            <Comments objID={objID} url={url} onCounterChange={setCounter} onSave={onSave} />
         </div>
     )
 }

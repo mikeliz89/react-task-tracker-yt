@@ -1,21 +1,23 @@
 import { useState } from 'react';
+import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import i18n from 'i18next';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB } from '../../utils/Constants';
-import CommentComponent from '../Comments/CommentComponent';
+
 import { useAuth } from '../../contexts/AuthContext';
-import DetailsPage from '../Site/DetailsPage';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import AddMovie from './AddMovie';
-import Alert from '../Alert';
-import LinkComponent from '../Links/LinkComponent';
-import ImageComponent from '../ImageUpload/ImageComponent';
+import { TRANSLATION, DB } from '../../utils/Constants';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getMovieFormatNameByID } from '../../utils/ListUtils';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
+
+import Alert from '../Alert';
+import CommentComponent from '../Comments/CommentComponent';
 import useFetch from '../Hooks/useFetch';
+import ImageComponent from '../ImageUpload/ImageComponent';
+import LinkComponent from '../Links/LinkComponent';
+import DetailsPage from '../Site/DetailsPage';
+import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import { useAlert } from '../Hooks/useAlert';
+import AddMovie from './AddMovie';
 
 export default function MovieDetails() {
 

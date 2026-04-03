@@ -33,7 +33,9 @@ export const ListTypes = {
     /** Leffat */
     Movies: 10,
     /** Muut listat */
-    Other: 11
+    Other: 11,
+    /** Lautapelit */
+    BoardGames: 12
 }
 
 /* Listatyypit (kategoriat alasvetovalikossa) */
@@ -97,5 +99,10 @@ export const ListTypesArray = [
         //muut listat
         "id": 11,
         "name": "other"
+    },
+    {
+        //lautapelit
+        "id": 12,
+        "name": "boardgames"
     }
 ]

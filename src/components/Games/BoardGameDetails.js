@@ -7,7 +7,6 @@ import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { getGameConsoleNameByID } from '../../utils/ListUtils';
 
 import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
@@ -17,11 +16,11 @@ import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 import PageTitle from '../Site/PageTitle';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
-
-import AddGame from './AddGame';
 import { useAlert } from '../Hooks/useAlert';
 
-export default function GameDetails() {
+import AddGame from './AddGame';
+
+export default function BoardGameDetails() {
 
     //params
     const params = useParams();
@@ -30,7 +29,7 @@ export default function GameDetails() {
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
 
     //fetch data
-    const { data: game, loading } = useFetch(DB.GAMES, "", params.id);
+    const { data: boardGame, loading } = useFetch(DB.BOARD_GAMES, "", params.id);
 
     //alert
     const {
@@ -45,36 +44,36 @@ export default function GameDetails() {
     //auth
     const { currentUser } = useAuth();
 
-    const updateGame = async (updateGameID, game) => {
+    const updateBoardGame = async (updateBoardGameID, boardGame) => {
         try {
-            const gameID = params.id;
-            game["modified"] = getCurrentDateAsJson();
-            updateToFirebaseById(DB.GAMES, gameID, game);
+            const boardGameID = params.id;
+            boardGame["modified"] = getCurrentDateAsJson();
+            updateToFirebaseById(DB.BOARD_GAMES, boardGameID, boardGame);
         } catch (error) {
             showFailure(t('failed_to_save_game'));
             console.warn(error);
         }
     }
 
-    const addCommentToGame = (comment) => {
+    const addCommentToBoardGame = (comment) => {
         const id = params.id;
         comment["created"] = getCurrentDateAsJson();
         comment["createdBy"] = currentUser.email;
         comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.GAME_COMMENTS, id, comment);
+        pushToFirebaseChild(DB.BOARD_GAME_COMMENTS, id, comment);
     }
 
-    const addLinkToGame = (link) => {
+    const addLinkToBoardGame = (link) => {
         const id = params.id;
         link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.GAME_LINKS, id, link);
+        pushToFirebaseChild(DB.BOARD_GAME_LINKS, id, link);
     }
 
     const saveStars = async (stars) => {
-        const gameID = params.id;
-        game["modified"] = getCurrentDateAsJson()
-        game["stars"] = Number(stars);
-        updateToFirebaseById(DB.GAMES, gameID, game);
+        const boardGameID = params.id;
+        boardGame["modified"] = getCurrentDateAsJson()
+        boardGame["stars"] = Number(stars);
+        updateToFirebaseById(DB.BOARD_GAMES, boardGameID, boardGame);
     }
 
     //states
@@ -86,27 +85,21 @@ export default function GameDetails() {
             showEditButton={true}
             isEditOpen={showEdit}
             onToggleEdit={() => setShowEdit(!showEdit)}
-            title={<PageTitle title={game?.name} />}
+            title={<PageTitle title={boardGame?.name} />}
             titleSuffix={
-                <span className={`details-pill ${game?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
-                    {t('have')}: {game?.haveAtHome === true ? t('yes') : t('no')}
+                <span className={`details-pill ${boardGame?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
+                    {t('have')}: {boardGame?.haveAtHome === true ? t('yes') : t('no')}
                 </span>
             }
-            preSummaryContent={
-                <div className="detailspage-field">
-                    <span className="detailspage-meta-label">{t('console')}:</span>{' '}
-                    <span className="detailspage-meta-value">{t(`game_console_${getGameConsoleNameByID(game?.console)}`)}</span>
-                </div>
-            }
-            summary={`${t('description')}: ${game?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={game?.stars} onSaveStars={saveStars} />}
+            summary={`${t('description')}: ${boardGame?.description || '-'}`}
+            ratingSection={<StarRatingWrapper stars={boardGame?.stars} onSaveStars={saveStars} />}
             metaItems={[
-                { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(game?.created, i18n.language)}</> },
-                { id: 2, content: <>{t('created_by')}: {game?.createdBy}</> },
-                { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(game?.modified, i18n.language)}</> }
+                { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(boardGame?.created, i18n.language)}</> },
+                { id: 2, content: <>{t('created_by')}: {boardGame?.createdBy}</> },
+                { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(boardGame?.modified, i18n.language)}</> }
             ]}
-            editModalTitle={t('modal_header_edit_game')}
-            editSection={<AddGame onSave={updateGame} gameID={params.id} onClose={() => setShowEdit(false)} />}
+            editModalTitle={t('modal_header_edit_board_game')}
+            editSection={<AddGame onSave={updateBoardGame} gameID={params.id} onClose={() => setShowEdit(false)} dbUrl={DB.BOARD_GAMES} showConsoleField={false} />}
             alertSection={
                 <Alert
                     message={message}
@@ -116,9 +109,9 @@ export default function GameDetails() {
                     onClose={clearMessages}
                 />
             }
-            imageSection={<ImageComponent url={DB.GAME_IMAGES} objID={params.id} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.GAME_COMMENTS} onSave={addCommentToGame} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.GAME_LINKS} onSaveLink={addLinkToGame} />}
+            imageSection={<ImageComponent url={DB.BOARD_GAME_IMAGES} objID={params.id} />}
+            commentSection={<CommentComponent objID={params.id} url={DB.BOARD_GAME_COMMENTS} onSave={addCommentToBoardGame} />}
+            linkSection={<LinkComponent objID={params.id} url={DB.BOARD_GAME_LINKS} onSaveLink={addLinkToBoardGame} />}
         />
     )
 }

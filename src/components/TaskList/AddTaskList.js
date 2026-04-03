@@ -6,7 +6,7 @@ import { TRANSLATION, DB } from '../../utils/Constants';
 import useFetchById from '../Hooks/useFetchById';
 import PropTypes from 'prop-types';
 
-export default function AddTaskList({ taskListID, onSave, onClose, showLabels, defaultTitle }) {
+export default function AddTaskList({ taskListID, onSave, onClose, showLabels, defaultTitle, autoFocusTitle }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
@@ -61,6 +61,7 @@ export default function AddTaskList({ taskListID, onSave, onClose, showLabels, d
                 {showLabels && <Form.Label>{t('task_list')}</Form.Label>}
                 <Form.Control type='text'
                     autoComplete="off"
+                    autoFocus={autoFocusTitle}
                     placeholder={taskListID == null ? t('task_list') : t('edit_task_list')}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)} />
@@ -85,10 +86,12 @@ export default function AddTaskList({ taskListID, onSave, onClose, showLabels, d
 }
 
 AddTaskList.defaultProps = {
-    showLabels: true
+    showLabels: true,
+    autoFocusTitle: false
 }
 
 AddTaskList.propTypes = {
     showLabels: PropTypes.bool,
-    defaultTitle: PropTypes.string
+    defaultTitle: PropTypes.string,
+    autoFocusTitle: PropTypes.bool
 }

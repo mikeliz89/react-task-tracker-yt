@@ -7,7 +7,7 @@ import useFetchById from '../Hooks/useFetchById';
 import { GameConsoles } from './Categories';
 import PropTypes from 'prop-types';
 
-export default function AddGame({ gameID, onSave, onClose, showLabels }) {
+export default function AddGame({ gameID, onSave, onClose, showLabels, dbUrl, showConsoleField }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
@@ -28,7 +28,7 @@ export default function AddGame({ gameID, onSave, onClose, showLabels }) {
     const [consoles, setConsoles] = useState(GameConsoles);
 
     //load data
-    const gameData = useFetchById(DB.GAMES, gameID);
+    const gameData = useFetchById(dbUrl, gameID);
 
     useEffect(() => {
         if (gameData) {
@@ -43,6 +43,12 @@ export default function AddGame({ gameID, onSave, onClose, showLabels }) {
             setStars(gameData.stars || 0);
         }
     }, [gameData]);
+
+    useEffect(() => {
+        if (!showConsoleField) {
+            setConsole('');
+        }
+    }, [showConsoleField]);
 
     useEffect(() => {
         sortConsolesByName();
@@ -66,11 +72,17 @@ export default function AddGame({ gameID, onSave, onClose, showLabels }) {
             return;
         }
 
-        onSave(gameID, {
+        const payload = {
             created, createdBy, description, console,
             haveAtHome, name, publishYear, isDigital, isCollectorsEdition,
             stars
-        });
+        };
+
+        if (!showConsoleField) {
+            delete payload.console;
+        }
+
+        onSave(gameID, payload);
 
         if (gameID == null) {
             clearForm();
@@ -102,16 +114,18 @@ export default function AddGame({ gameID, onSave, onClose, showLabels }) {
                         value={publishYear}
                         onChange={(e) => setPublishYear(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="addGameForm-Console">
-                    {showLabels && <Form.Label>{t('console')}</Form.Label>}
-                    <Form.Select
-                        value={console}
-                        onChange={(e) => setConsole(e.target.value)}>
-                        {consoles.map(({ id, name }) => (
-                            <option value={id} key={id}>{t(`game_console_${name}`)}</option>
-                        ))}
-                    </Form.Select>
-                </Form.Group>
+                {showConsoleField && (
+                    <Form.Group className="mb-3" controlId="addGameForm-Console">
+                        {showLabels && <Form.Label>{t('console')}</Form.Label>}
+                        <Form.Select
+                            value={console}
+                            onChange={(e) => setConsole(e.target.value)}>
+                            {consoles.map(({ id, name }) => (
+                                <option value={id} key={id}>{t(`game_console_${name}`)}</option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+                )}
                 <Form.Group className="mb-3" controlId="addGameForm-Description">
                     {showLabels && <Form.Label>{t('description')}</Form.Label>}
                     <Form.Control type='text'
@@ -158,9 +172,13 @@ export default function AddGame({ gameID, onSave, onClose, showLabels }) {
 }
 
 AddGame.defaultProps = {
-    showLabels: true
+    showLabels: true,
+    dbUrl: DB.GAMES,
+    showConsoleField: true
 }
 
 AddGame.propTypes = {
-    showLabels: PropTypes.bool
+    showLabels: PropTypes.bool,
+    dbUrl: PropTypes.string,
+    showConsoleField: PropTypes.bool
 }

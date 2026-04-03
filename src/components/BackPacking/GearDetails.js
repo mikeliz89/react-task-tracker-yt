@@ -1,40 +1,35 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import i18n from 'i18next';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
-import GoBackButton from '../Buttons/GoBackButton';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAuth } from '../../contexts/AuthContext';
-import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import Button from '../Buttons/Button';
 import AddGear from './AddGear';
 import Alert from '../Alert';
 import LinkComponent from '../Links/LinkComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
-import AccordionElement from '../AccordionElement';
 import useFetch from '../Hooks/useFetch';
 import { useAlert } from '../Hooks/useAlert';
+import DetailsPage from '../Site/DetailsPage';
+import PageTitle from '../Site/PageTitle';
 
 export default function GearDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //alert
     const {
-        message, setMessage,
-        showMessage, setShowMessage,
-        error, setError,
-        showError, setShowError,
+        message,
+        showMessage,
+        error,
+        showError,
         clearMessages,
-        showSuccess,
         showFailure
     } = useAlert();
 
@@ -82,60 +77,54 @@ export default function GearDetails() {
         pushToFirebaseChild(DB.BACKPACKING_GEAR_LINKS, id, link);
     }
 
-    const getAccordionData = () => {
-        return [
-            { id: 1, name: t('gear_weight_in_grams'), value: gear.weightInGrams },
-            { id: 2, name: t('created'), value: getJsonAsDateTimeString(gear.created, i18n.language) },
-            { id: 3, name: t('created_by'), value: gear.createdBy },
-            { id: 4, name: t('modified'), value: getJsonAsDateTimeString(gear.modified, i18n.language) },
-            { id: 5, name: t('category'), value: t('gear_category_' + getGearCategoryNameByID(gear.category)) }
-        ];
-    }
-
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                    <Button
-                        iconName={ICONS.EDIT}
-                        text={showEdit ? tCommon('buttons.button_close') : ''}
-                        color={showEdit ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
-                        onClick={() => setShowEdit(!showEdit)} />
-                </ButtonGroup>
-            </Row>
-
-            <AccordionElement title={gear.name} array={getAccordionData()} />
-
-            <Row>
-                <Col>
-                    {gear.description}
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <StarRatingWrapper stars={gear.stars} onSaveStars={saveStars} />
-                </Col>
-            </Row>
-
-            <Alert message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={clearMessages}
-            />
-
-            {showEdit &&
-                <AddGear onSave={updateGear} gearID={params.id} onClose={() => setShowEdit(false)} />
+    return (
+        <DetailsPage
+            loading={loading}
+            showEditButton={true}
+            isEditOpen={showEdit}
+            onToggleEdit={() => setShowEdit(!showEdit)}
+            title={<PageTitle title={gear?.name} />}
+            preSummaryContent={
+                <>
+                    <div className="detailspage-field">
+                        <span className="detailspage-meta-label">{t('category')}:</span>{' '}
+                        <span className="detailspage-meta-value">{t(`gear_category_${getGearCategoryNameByID(gear?.category)}`)}</span>
+                    </div>
+                    <div className="detailspage-field">
+                        <span className="detailspage-meta-label">{t('gear_weight_in_grams')}:</span>{' '}
+                        <span className="detailspage-meta-value">{gear?.weightInGrams ?? '-'}</span>
+                    </div>
+                </>
             }
-
-            <hr />
-            <ImageComponent url={DB.BACKPACKING_GEAR_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={DB.BACKPACKING_GEAR_COMMENTS} onSave={addCommentToGear} />
-            <LinkComponent objID={params.id} url={DB.BACKPACKING_GEAR_LINKS} onSaveLink={addLinkToGear} />
-        </PageContentWrapper>
+            summary={`${t('description')}: ${gear?.description || '-'}`}
+            ratingSection={<StarRatingWrapper stars={gear?.stars} onSaveStars={saveStars} />}
+            metaItems={[
+                {
+                    id: 1,
+                    content: <><span className="detailspage-meta-label">{t('created')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(gear?.created, i18n.language)}</span></>
+                },
+                {
+                    id: 2,
+                    content: <><span className="detailspage-meta-label">{t('created_by')}:</span> <span className="detailspage-meta-value">{gear?.createdBy || '-'}</span></>
+                },
+                {
+                    id: 3,
+                    content: <><span className="detailspage-meta-label">{t('modified')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(gear?.modified, i18n.language)}</span></>
+                }
+            ]}
+            editSection={<AddGear onSave={updateGear} gearID={params.id} onClose={() => setShowEdit(false)} />}
+            alertSection={
+                <Alert
+                    message={message}
+                    showMessage={showMessage}
+                    error={error}
+                    showError={showError}
+                    onClose={clearMessages}
+                />
+            }
+            imageSection={<ImageComponent url={DB.BACKPACKING_GEAR_IMAGES} objID={params.id} />}
+            commentSection={<CommentComponent objID={params.id} url={DB.BACKPACKING_GEAR_COMMENTS} onSave={addCommentToGear} />}
+            linkSection={<LinkComponent objID={params.id} url={DB.BACKPACKING_GEAR_LINKS} onSaveLink={addLinkToGear} />}
+        />
     )
 }

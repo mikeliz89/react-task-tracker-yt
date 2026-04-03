@@ -75,6 +75,8 @@ export const getPageTitleContent = (listType) => {
             return 'manage_drinks_title';
         case ListTypes.Games:
             return 'manage_games_title';
+        case ListTypes.BoardGames:
+            return 'manage_board_games_title';
         case ListTypes.Shopping:
             return 'manage_shoppinglists_title';
         case ListTypes.Movies:
@@ -105,6 +107,8 @@ export function getManagePageByListType(taskList) {
             return NAVIGATION.MANAGE_MUSICLISTS;
         case ListTypes.Games:
             return NAVIGATION.MANAGE_GAMELISTS;
+        case ListTypes.BoardGames:
+            return NAVIGATION.MANAGE_BOARD_GAMELISTS;
         case ListTypes.Movies:
             return NAVIGATION.MANAGE_MOVIELISTS;
         case ListTypes.Exercises:

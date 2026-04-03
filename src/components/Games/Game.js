@@ -11,8 +11,9 @@ import { updateToFirebaseById } from '../../datatier/datatier';
 import AddGame from './AddGame';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
+import PropTypes from 'prop-types';
 
-export default function Game({ game, onDelete, onEdit }) {
+export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation, showConsole }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
@@ -22,7 +23,7 @@ export default function Game({ game, onDelete, onEdit }) {
 
     const updateGame = (updateGameID, object) => {
         object["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(DB.GAMES, updateGameID, object);
+        updateToFirebaseById(dbUrl, updateGameID, object);
         setEditable(false);
     }
 
@@ -66,7 +67,7 @@ export default function Game({ game, onDelete, onEdit }) {
                     {game.description}
                 </p>
             }
-            {!editable &&
+            {!editable && showConsole &&
                 <p>
                     {game.console > 0 ?
                         (<span> {
@@ -76,7 +77,7 @@ export default function Game({ game, onDelete, onEdit }) {
             }
             {!editable &&
                 <p>
-                    <Link className='btn btn-primary' to={`${NAVIGATION.GAME}/${game.id}`}>{t('view_details')}</Link>
+                    <Link className='btn btn-primary' to={`${detailsNavigation}/${game.id}`}>{t('view_details')}</Link>
                 </p>
             }
             <StarRating starCount={game.stars} />
@@ -86,6 +87,8 @@ export default function Game({ game, onDelete, onEdit }) {
                     gameID={game.id}
                     onClose={() => setEditable(false)}
                     onSave={updateGame}
+                    dbUrl={dbUrl}
+                    showConsoleField={showConsole}
                     showLabels={false} />
             }
 
@@ -111,4 +114,16 @@ export default function Game({ game, onDelete, onEdit }) {
             </p>
         </div>
     )
+}
+
+Game.defaultProps = {
+    dbUrl: DB.GAMES,
+    detailsNavigation: NAVIGATION.GAME,
+    showConsole: true
+}
+
+Game.propTypes = {
+    dbUrl: PropTypes.string,
+    detailsNavigation: PropTypes.string,
+    showConsole: PropTypes.bool
 }

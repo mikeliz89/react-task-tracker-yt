@@ -1,4 +1,3 @@
-import { Col, Row } from "react-bootstrap";
 import { useState } from "react";
 import EditLink from "./EditLink";
 import RightWrapper from "../Site/RightWrapper";
@@ -17,36 +16,35 @@ export default function LinkInner({ link, objID, linkUrl, onEdit, onDelete }) {
 
     return (
         <>
-            <Row>
-                <Col xs={9}>
-                    <a href={link.url} target="_blank" rel="noreferrer">{link.urlText}</a>
-                </Col>
-                <Col xs={3}>
-                    {
-                        <RightWrapper>
-                            <EditButton
-                                editable={editable}
-                                setEditable={setEditable}
-                            />
-                            <DeleteButton
-                                onDelete={onDelete}
-                                id={link.id}
-                            />
-                        </RightWrapper>
-                    }
-                </Col>
-            </Row>
+            <div className="link-item-row">
+                <div className="link-item-main">
+                    <a className="link-item-title" href={link.url} target="_blank" rel="noreferrer">
+                        {link.urlText}
+                    </a>
+                    <div className="link-item-url">{link.url}</div>
+                </div>
+                <div className="link-item-actions">
+                    <RightWrapper>
+                        <EditButton
+                            editable={editable}
+                            setEditable={setEditable}
+                        />
+                        <DeleteButton
+                            onDelete={onDelete}
+                            id={link.id}
+                        />
+                    </RightWrapper>
+                </div>
+            </div>
             {editable &&
-                <Row>
-                    <Col>
+                <div className="link-item-edit-row">
                         <EditLink
                             objID={objID}
                             linkUrl={linkUrl}
                             linkID={link.id}
                             onEditLink={editLink}
                             onCloseEditLink={() => setEditable(false)} />
-                    </Col>
-                </Row>
+                </div>
             }
         </>
     )

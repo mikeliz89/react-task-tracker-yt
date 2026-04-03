@@ -119,7 +119,7 @@ export default function ManageMusicRecords() {
                         showSortByCreatedDate={true}
                         showSortByPublishYear={true}
                         //filter
-                        filterMode={FilterMode.Name}
+                        filterMode={FilterMode.NameOrBand}
                         showFilterHaveAtHome={true}
                         showFilterHaveRated={true}
                     />

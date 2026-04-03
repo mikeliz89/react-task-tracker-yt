@@ -82,8 +82,11 @@ import ManageMusicRecords from './components/Music/ManageMusicRecords';
 //Games
 import Games from './components/Games/Games';
 import ManageGames from './components/Games/ManageGames';
+import ManageBoardGames from './components/Games/ManageBoardGames';
 import ManageGameLists from './components/Games/ManageGameLists';
+import ManageBoardGameLists from './components/Games/ManageBoardGameLists';
 import GameDetails from './components/Games/GameDetails';
+import BoardGameDetails from './components/Games/BoardGameDetails';
 //Disc Golf
 import ManageDiscGolf from './components/DiscGolf/ManageDiscGolf';
 import ManageDiscGolfTracks from './components/DiscGolf/ManageDiscGolfTracks';
@@ -120,14 +123,14 @@ import {
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt, faSearch,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
   faFish, faUserAlt, faHistory, faPlus, faMinus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
-  faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm, faWrench, faUserNinja, faBlender, faBreadSlice
+  faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm, faWrench, faUserNinja, faBlender, faBreadSlice, faSun, faBell, faEnvelope, faGlobe
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt, faSearch,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
   faFish, faUserAlt, faHistory, faPlus, faMinus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
-  faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm, faWrench, faUserNinja, faBlender, faBreadSlice
+  faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm, faWrench, faUserNinja, faBlender, faBreadSlice, faSun, faBell, faEnvelope, faGlobe
 );
 
 //languagization
@@ -244,8 +247,11 @@ function App() {
             {/* Games */}
             <Route path={NAVIGATION.GAMES} element={<PrivateRoute><Games /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_GAMES} element={<PrivateRoute><ManageGames /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_BOARD_GAMES} element={<PrivateRoute><ManageBoardGames /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_GAMELISTS} element={<PrivateRoute><ManageGameLists /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_BOARD_GAMELISTS} element={<PrivateRoute><ManageBoardGameLists /></PrivateRoute>} />
             <Route path={NAVIGATION.GAME + '/:id'} element={<PrivateRoute><GameDetails /></PrivateRoute>} />
+            <Route path={NAVIGATION.BOARD_GAME + '/:id'} element={<PrivateRoute><BoardGameDetails /></PrivateRoute>} />
             {/* Games */}
             {/* Disc Golf */}
             <Route path={NAVIGATION.MANAGE_DISC_GOLF} element={<PrivateRoute><ManageDiscGolf /></PrivateRoute>} />

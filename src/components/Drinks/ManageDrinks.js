@@ -110,10 +110,9 @@ export default function ManageDrinks() {
                     <Modal.Title>{t('modal_header_add_drink')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddDrink onSave={addDrink} onClose={toggleAddDrink} />
+                    <AddDrink onSave={addDrink} onClose={toggleAddDrink} autoFocusTitle={true} />
                 </Modal.Body>
             </Modal>
-
 
             {
                 originalDrinks != null && originalDrinks.length > 0 ? (

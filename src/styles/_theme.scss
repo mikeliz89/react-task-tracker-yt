@@ -1,0 +1,315 @@
+/* Theme start */
+
+#light {
+    background-color: var(--color-white);
+    --detailspage-meta-label-color: rgba(0, 0, 0, 0.46);
+    --detailspage-meta-value-color: rgba(0, 0, 0, 0.9);
+    --detailspage-meta-row-color: rgba(0, 0, 0, 0.54);
+}
+
+#light .content-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+}
+
+/* Theme Light: DetailsPage Start */
+
+#light .detailspage-field {
+    color: rgba(0, 0, 0, 0.86);
+}
+
+#light .detailspage-summary {
+    color: rgba(0, 0, 0, 0.82);
+    background: rgba(0, 0, 0, 0.03);
+    border-left-color: rgba(0, 0, 0, 0.24);
+}
+
+#light .details-pill-ready {
+    background: rgba(45, 150, 70, 0.16);
+    border: 1px solid rgba(35, 120, 55, 0.55);
+    color: rgba(12, 74, 33, 0.95);
+}
+
+#light .details-pill-not-ready {
+    background: rgba(238, 191, 52, 0.22);
+    border: 1px solid rgba(184, 126, 16, 0.6);
+    color: rgba(102, 64, 0, 0.95);
+}
+
+/* Theme Light: DetailsPage End */
+
+#light .comments-empty-state {
+    color: rgba(0, 0, 0, 0.62);
+}
+
+#light .comments-empty-icon {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+#light .comment-item {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+#light .comment-avatar {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: radial-gradient(circle at 30% 30%, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.04));
+}
+
+#light .comment-item-meta {
+    color: rgba(0, 0, 0, 0.65);
+}
+
+#light .comment-item-author {
+    color: rgba(0, 0, 0, 0.92);
+}
+
+#light .comment-item-date {
+    color: rgba(0, 0, 0, 0.56);
+}
+
+#light .comment-item-text {
+    color: rgba(0, 0, 0, 0.88);
+}
+
+#light .comment-delete-button {
+    color: rgba(154, 18, 18, 0.9) !important;
+}
+
+#light .comment-delete-button:hover {
+    color: rgba(201, 24, 24, 1) !important;
+}
+
+#light .myprofile-main-card,
+#light .myprofile-sub-card {
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.98), rgba(242, 247, 255, 0.95));
+}
+
+#light .myprofile-email-chip {
+    background: rgba(0, 0, 0, 0.06);
+    color: rgba(0, 0, 0, 0.75);
+}
+
+#light .myprofile-upload-box {
+    border-color: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.015);
+}
+
+#light .myprofile-setting-row {
+    border-bottom-color: rgba(0, 0, 0, 0.11);
+}
+
+#dark {
+    background-color: var(--color-neutral-900);
+    --detailspage-meta-label-color: rgba(255, 255, 255, 0.78);
+    --detailspage-meta-value-color: rgba(255, 255, 255, 0.97);
+    --detailspage-meta-row-color: rgba(255, 255, 255, 0.63);
+}
+
+#dark body,
+#dark header,
+#dark p,
+#dark h3,
+#dark h4,
+#dark label,
+#dark div {
+    color: rgb(209, 209, 209);
+}
+
+#dark .listContainer {
+    background-color: #333333;
+}
+
+#dark .accordion-header .accordion-button {
+    background-color: var(--color-black);
+}
+
+#dark .dashboard-header .nav-tabs .nav-link.active {
+    background-color: rgba(0, 86, 179, 1);
+    color: var(--color-white) !important;
+    border: none;
+}
+
+#dark .bigBtn,
+#dark .bigBtn *,
+#dark .bigBtnText,
+#dark .bigBtnIcon,
+#dark .bigBtn b,
+#dark .bigBtn span {
+    color: #dcdcdc !important;
+    fill: #dcdcdc !important;
+}
+
+#dark .table-striped>tbody>tr:nth-of-type(even)>* {
+    color: rgb(179, 179, 179);
+    background-color: rgb(65, 65, 65);
+}
+
+#dark .table-striped>tbody>tr:nth-of-type(odd)>* {
+    color: var(--color-white);
+    background-color: rgb(31, 30, 30);
+}
+
+#dark .accordion-body,
+#dark .accordion-item {
+    background-color: var(--color-black);
+}
+
+#dark .btn-primary {
+    background-color: #0c479f;
+}
+
+#dark .form-control,
+#dark select {
+    background-color: rgb(117, 117, 117);
+    color: var(--color-white);
+}
+
+#dark ::placeholder {
+    color: rgb(182, 182, 182);
+}
+
+#dark .linkContainer {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(24, 30, 41, 0.9);
+}
+
+#dark .link-item-title {
+    color: rgba(226, 236, 255, 0.95);
+}
+
+#dark .link-item-title:hover {
+    color: #ffffff;
+}
+
+#dark .link-item-url {
+    color: rgba(193, 207, 236, 0.78);
+}
+
+#dark .nav-tabs .nav-link {
+    background-color: rgb(65, 65, 65);
+    color: rgb(209, 209, 209);
+}
+
+#dark .nav-link.active {
+    background-color: rgb(139, 139, 139);
+    color: var(--color-black);
+}
+
+#dark .table {
+    color: rgb(224, 224, 224);
+}
+
+#dark .alert-success {
+    background-color: #146c43;
+}
+
+#dark .alert-danger {
+    background-color: #97000e;
+}
+
+#dark .alert-info {
+    background-color: #00576a;
+}
+
+#dark .alert-warning {
+    background-color: #7a720d;
+}
+
+#dark .alert-primary {
+    background-color: #002c6e;
+}
+
+#dark .card-body {
+    background-color: dimgrey;
+}
+
+#dark .detailspage-page {
+    background: rgba(28, 34, 46, 0.9);
+    border: 1px solid var(--color-white-08);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(18px);
+}
+
+#dark .content-card {
+    background: rgba(29, 36, 50, 0.92);
+}
+
+#dark .comments-list {
+    background: rgba(18, 22, 30, 0.72);
+}
+
+#dark .comment-delete-button {
+    color: rgba(226, 232, 255, 0.58) !important;
+}
+
+#dark .myprofile-main-card,
+#dark .myprofile-sub-card {
+    background: linear-gradient(160deg, rgba(23, 34, 61, 0.9), rgba(14, 23, 43, 0.92));
+    border: 1px solid rgba(130, 168, 247, 0.18);
+    box-shadow: 0 18px 38px rgba(3, 8, 24, 0.45);
+}
+
+#dark .myprofile-email-chip {
+    background: rgba(118, 158, 235, 0.15);
+    color: rgba(226, 236, 255, 0.92);
+}
+
+#dark .myprofile-upload-box {
+    border-color: rgba(163, 194, 255, 0.3);
+    background: rgba(122, 154, 224, 0.08);
+}
+
+#dark .myprofile-setting-row {
+    border-bottom-color: rgba(160, 188, 242, 0.2);
+}
+
+#dark .myprofile-setting-value {
+    color: rgba(237, 243, 255, 0.9);
+}
+
+/* Theme Dark: DetailsPage Start */
+
+#dark .detailspage-meta-row {
+    color: rgba(255, 255, 255, 0.72);
+}
+
+#dark .detailspage-meta-row span {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+#dark .detailspage-meta-row span.detailspage-meta-label {
+    color: var(--detailspage-meta-label-color);
+    font-weight: 500;
+}
+
+#dark .detailspage-meta-row span.detailspage-meta-value {
+    color: var(--detailspage-meta-value-color);
+    font-weight: 600;
+}
+
+#dark .detailspage-meta-label {
+    color: var(--detailspage-meta-label-color);
+    font-weight: 500;
+}
+
+#dark .detailspage-meta-value {
+    color: var(--detailspage-meta-value-color);
+    font-weight: 600;
+}
+
+/* Theme Dark: DetailsPage End */
+
+#dark .deleteBtn {
+    color: red;
+}
+
+#dark .table td {
+    background-color: #333333;
+    color: var(--color-white);
+}
+
+/* Theme end */
+

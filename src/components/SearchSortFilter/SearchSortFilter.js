@@ -132,6 +132,9 @@ export default function SearchSortFilter({ onSet,
                 case FilterMode.Name:
                     newList = filterCheckText(newList, "name", searchString);
                     break;
+                case FilterMode.NameOrBand:
+                    newList = filterCheckAnyText(newList, ["name", "band"], searchString);
+                    break;
                 case FilterMode.Text:
                     newList = filterCheckText(newList, "text", searchString);
                     break;
@@ -161,6 +164,13 @@ export default function SearchSortFilter({ onSet,
         const needle = String(comparableString).toLowerCase();
         return newList.filter(x =>
             x[key] != null && String(x[key]).toLowerCase().includes(needle)
+        );
+    };
+
+    const filterCheckAnyText = (newList, keys, comparableString) => {
+        const needle = String(comparableString).toLowerCase();
+        return newList.filter(x =>
+            keys.some(key => x[key] != null && String(x[key]).toLowerCase().includes(needle))
         );
     };
 

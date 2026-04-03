@@ -1,29 +1,29 @@
 import { useState, useEffect, useRef } from 'react';
+import i18n from 'i18next';
+import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { Row, ButtonGroup, Col, Form } from 'react-bootstrap';
-import i18n from 'i18next';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
-import GoBackButton from '../Buttons/GoBackButton';
-import CommentComponent from '../Comments/CommentComponent';
+
 import { useAuth } from '../../contexts/AuthContext';
-import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import Button from '../Buttons/Button';
-import AddEvent from './AddEvent';
+import { TRANSLATION, DB } from '../../utils/Constants';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+
 import Alert from '../Alert';
-import LinkComponent from '../Links/LinkComponent';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
-import AccordionElement from '../AccordionElement';
-import FoundItems from '../Selectors/FoundItems';
-import EventBands from './EventBands';
+import Button from '../Buttons/Button';
+import CommentComponent from '../Comments/CommentComponent';
 import useFetch from '../Hooks/useFetch';
 import useFetchChildren from '../Hooks/useFetchChildren';
-import { Modal } from 'react-bootstrap';
-import { useToggle } from '../Hooks/useToggle';
 import { useAlert } from '../Hooks/useAlert';
+import { useToggle } from '../Hooks/useToggle';
+import ImageComponent from '../ImageUpload/ImageComponent';
+import LinkComponent from '../Links/LinkComponent';
+import FoundItems from '../Selectors/FoundItems';
+import DetailsPage from '../Site/DetailsPage';
+import StarRatingWrapper from '../StarRating/StarRatingWrapper';
+
+import AddEvent from './AddEvent';
+import EventBands from './EventBands';
 
 export default function EventDetails() {
 
@@ -33,12 +33,11 @@ export default function EventDetails() {
 
     //alert
     const {
-        message, setMessage,
-        showMessage, setShowMessage,
-        error, setError,
-        showError, setShowError,
+        message,
+        showMessage,
+        error,
+        showError,
         clearMessages,
-        showSuccess,
         showFailure
     } = useAlert();
 
@@ -107,20 +106,6 @@ export default function EventDetails() {
         updateToFirebaseById(DB.MUSIC_EVENTS, eventID, event);
     }
 
-    const getAccordionData = () => {
-        return [
-            { id: 1, name: t('created'), value: getJsonAsDateTimeString(event.created, i18n.language) },
-            { id: 2, name: t('created_by'), value: event.createdBy },
-            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(event.modified, i18n.language) }
-        ];
-    }
-
-    /*
-    const logBands = async () => {
-        console.log(bands);
-    }
-    */
-
     const selectedBandChanged = (band) => {
 
         var currentEventBands = eventBands;
@@ -143,104 +128,76 @@ export default function EventDetails() {
         updateToFirebaseById(DB.MUSIC_EVENT_BANDS, id, currentEventBands);
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                    <Button
-                        iconName={ICONS.EDIT}
-                        text={showEdit ? tCommon('buttons.button_close') : ''}
-                        color={showEdit ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
-                        onClick={() => toggleShowEdit()} />
-                </ButtonGroup>
-            </Row>
-
-            <AccordionElement array={getAccordionData()} title={event.name} />
-
-            <Row>
-                <Col>
-                    {t('description') + ':'} {event.description}
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <StarRatingWrapper stars={event.stars} onSaveStars={saveStars} />
-                </Col>
-            </Row>
-
-            <Row>
-                <Col>
+    return (
+        <DetailsPage
+            loading={loading}
+            showEditButton={true}
+            isEditOpen={showEdit}
+            onToggleEdit={toggleShowEdit}
+            title={event?.name}
+            summary={`${t('description')}: ${event?.description || '-'}`}
+            ratingSection={<StarRatingWrapper stars={event?.stars} onSaveStars={saveStars} />}
+            metaItems={[
+                { id: 1, content: <><span className="detailspage-meta-label">{t('created')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(event?.created, i18n.language)}</span></> },
+                { id: 2, content: <><span className="detailspage-meta-label">{t('created_by')}:</span> <span className="detailspage-meta-value">{event?.createdBy || '-'}</span></> },
+                { id: 3, content: <><span className="detailspage-meta-label">{t('modified')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(event?.modified, i18n.language)}</span></> }
+            ]}
+            editModalTitle={t('modal_header_edit_event')}
+            editSection={<AddEvent onSave={updateEvent} eventID={params.id} onClose={toggleShowEdit} />}
+            alertSection={
+                <Alert
+                    message={message}
+                    showMessage={showMessage}
+                    error={error}
+                    showError={showError}
+                    onClose={clearMessages}
+                />
+            }
+            preImageSection={
+                <>
                     <Button
                         disableStyle={true}
                         className={showLinkBands ? 'btn btn-danger' : 'btn btn-primary'}
                         text={showLinkBands ? tCommon('buttons.button_close') : t('add_bands_to_event')}
                         onClick={() => {
                             setShowLinkBands(!showLinkBands);
-                            //logBands();
                         }}
                     />
-                </Col>
-            </Row>
 
-            {
-                showLinkBands &&
-                <>
-                    <Form style={{ paddingBottom: 0 }}>
-                        <Form.Group className="mb-3" controlId="linkBandForm-BandName">
-                            <Form.Label>{t('band_name')}</Form.Label>
-                            <Form.Control type='text'
-                                ref={inputRef}
-                                autoComplete="off"
-                                placeholder={t('band_name')}
-                                value={linkedBandName}
-                                onChange={(e) => setLinkedBandName(e.target.value)} />
-                        </Form.Group>
-                    </Form>
-                    <FoundItems itemsToFind={foundBands}
-                        nameField='name'
-                        onSelection={selectedBandChanged}
-                        linkedName={linkedBandName}
-                    />
+                    {
+                        showLinkBands &&
+                        <>
+                            <Form style={{ paddingBottom: 0 }}>
+                                <Form.Group className="mb-3" controlId="linkBandForm-BandName">
+                                    <Form.Label>{t('band_name')}</Form.Label>
+                                    <Form.Control type='text'
+                                        ref={inputRef}
+                                        autoComplete="off"
+                                        placeholder={t('band_name')}
+                                        value={linkedBandName}
+                                        onChange={(e) => setLinkedBandName(e.target.value)} />
+                                </Form.Group>
+                            </Form>
+                            <FoundItems itemsToFind={foundBands}
+                                nameField='name'
+                                onSelection={selectedBandChanged}
+                                linkedName={linkedBandName}
+                            />
+                        </>
+                    }
+
+                    {
+                        eventBands != null && eventBands.length > 0 ? (
+                            <EventBands bands={eventBands} onDelete={deleteEventBand} />
+                        ) : (
+                            t('no_bands_to_show')
+                        )
+                    }
                 </>
             }
-
-            <Alert
-                message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showEdit} onHide={toggleShowEdit}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_edit_event')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddEvent onSave={updateEvent} eventID={params.id} onClose={() => toggleShowEdit()} />
-                </Modal.Body>
-            </Modal>
-
-            <hr />
-
-            {
-                eventBands != null && eventBands.length > 0 ? (
-                    <>
-                        <EventBands bands={eventBands} onDelete={deleteEventBand} />
-                    </>
-                ) : (
-                    <>
-                        {t('no_bands_to_show')}
-                    </>
-                )
-            }
-
-            <ImageComponent url={DB.MUSIC_EVENT_IMAGES} objID={params.id} />
-            <CommentComponent objID={params.id} url={DB.MUSIC_EVENT_COMMENTS} onSave={addCommentToEvent} />
-            <LinkComponent objID={params.id} url={DB.MUSIC_EVENT_LINKS} onSaveLink={addLinkToEvent} />
-        </PageContentWrapper>
+            imageSection={<ImageComponent url={DB.MUSIC_EVENT_IMAGES} objID={params.id} />}
+            commentSection={<CommentComponent objID={params.id} url={DB.MUSIC_EVENT_COMMENTS} onSave={addCommentToEvent} />}
+            linkSection={<LinkComponent objID={params.id} url={DB.MUSIC_EVENT_LINKS} onSaveLink={addLinkToEvent} />}
+        />
     )
 }
