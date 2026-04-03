@@ -24,6 +24,8 @@ export default function DetailsPage({
     editModalTitle,
     alertSection,
     alertColLg = 12,
+    preImageSection,
+    preImageColLg = 12,
     imageSection,
     imageColLg = 12,
     commentSection,
@@ -93,6 +95,16 @@ export default function DetailsPage({
                         <Row className="detailspage-grid">
                             <Col lg={alertColLg}>
                                 {alertSection}
+                            </Col>
+                        </Row>
+                    </div>
+                )}
+
+                {preImageSection && (
+                    <div className="detailspage-pre-image-section">
+                        <Row className="detailspage-grid">
+                            <Col lg={preImageColLg}>
+                                {preImageSection}
                             </Col>
                         </Row>
                     </div>

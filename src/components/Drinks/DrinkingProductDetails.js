@@ -1,25 +1,21 @@
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { Row, ButtonGroup, Col, Modal } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import GoBackButton from '../Buttons/GoBackButton';
 import i18n from "i18next";
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
 import AddDrinkingProduct from './AddDrinkingProduct';
 import Alert from '../Alert';
-import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import LinkComponent from '../Links/LinkComponent';
 import CommentComponent from '../Comments/CommentComponent';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
-import AccordionElement from '../AccordionElement';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
 import { useAlert } from '../Hooks/useAlert';
+import DetailsPage from '../Site/DetailsPage';
 
 export default function DrinkingProductDetails() {
 
@@ -31,18 +27,16 @@ export default function DrinkingProductDetails() {
 
     //alert
     const {
-        message, setMessage,
-        showMessage, setShowMessage,
-        error, setError,
-        showError, setShowError,
+        message,
+        showMessage,
+        error,
+        showError,
         clearMessages,
-        showSuccess,
         showFailure
     } = useAlert();
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: drinkingProduct, loading } = useFetch(DB.DRINKINGPRODUCTS, "", params.id);
@@ -82,75 +76,61 @@ export default function DrinkingProductDetails() {
         updateToFirebaseById(DB.DRINKINGPRODUCTS, drinkingProductID, drinkingProduct);
     }
 
-    const getAccordionData = () => {
-        return [
-            { id: 1, name: t('created'), value: getJsonAsDateTimeString(drinkingProduct.created, i18n.language) },
-            { id: 2, name: t('created_by'), value: drinkingProduct.createdBy },
-            { id: 3, name: t('modified'), value: getJsonAsDateTimeString(drinkingProduct.modified, i18n.language) },
-            { id: 4, name: t('category'), value: t('drinkingproduct_category_' + getDrinkingProductCategoryNameByID(drinkingProduct.category)) },
-            { id: 5, name: t('drinkingproduct_amount'), value: drinkingProduct.amount }
-        ];
-    }
-
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                    <Button
-                        iconName={ICONS.EDIT}
-                        text={showEditDrinkingProduct ? tCommon('buttons.button_close') : ''}
-                        color={showEditDrinkingProduct ? COLORS.EDITBUTTON_OPEN : COLORS.EDITBUTTON_CLOSED}
-                        onClick={() => toggleSetShowEdit()} />
-                </ButtonGroup>
-            </Row>
-
-            <AccordionElement array={getAccordionData()}
-                title={drinkingProduct.name + (drinkingProduct.abv > 0 ? ' (' + drinkingProduct.abv + '%)' : '')}
-                iconName={ICONS.COCKTAIL}
-            />
-
-            <Row>
-                <Col>
-                    {t('description') + ': '}{drinkingProduct.description}
-                </Col>
-            </Row>
-
-            <Row>
-                <Col>
-                    <StarRatingWrapper stars={drinkingProduct.stars} onSaveStars={saveStars} />
-                </Col>
-            </Row>
-
-
-            <Alert
-                message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showEditDrinkingProduct} onHide={toggleSetShowEdit}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_edit_drinking_product')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddDrinkingProduct onAddDrinkingProduct={addDrinkingProduct} drinkingProductID={params.id}
-                        onClose={() => toggleSetShowEdit()} />
-                </Modal.Body>
-            </Modal>
-
-            <hr />
-
-            <ImageComponent url={DB.DRINKINGPRODUCT_IMAGES} objID={params.id} />
-
-            <CommentComponent objID={params.id} url={DB.DRINKINGPRODUCT_COMMENTS} onSave={addCommentToDrinkingProduct} />
-
-            <LinkComponent objID={params.id} url={DB.DRINKINGPRODUCT_LINKS} onSaveLink={addLinkToDrinkingProduct} />
-
-        </PageContentWrapper>
+    return (
+        <DetailsPage
+            loading={loading}
+            showEditButton={true}
+            isEditOpen={showEditDrinkingProduct}
+            onToggleEdit={toggleSetShowEdit}
+            title={`${drinkingProduct?.name || ''}${Number(drinkingProduct?.abv) > 0 ? ` (${drinkingProduct?.abv}%)` : ''}`}
+            preSummaryContent={
+                <>
+                    <div className="detailspage-field">
+                        <span className="detailspage-meta-label">{t('category')}:</span>{' '}
+                        <span className="detailspage-meta-value">{t(`drinkingproduct_category_${getDrinkingProductCategoryNameByID(drinkingProduct?.category)}`)}</span>
+                    </div>
+                    <div className="detailspage-field">
+                        <span className="detailspage-meta-label">{t('drinkingproduct_amount')}:</span>{' '}
+                        <span className="detailspage-meta-value">{drinkingProduct?.amount || '-'}</span>
+                    </div>
+                </>
+            }
+            summary={`${t('description')}: ${drinkingProduct?.description || '-'}`}
+            ratingSection={<StarRatingWrapper stars={drinkingProduct?.stars} onSaveStars={saveStars} />}
+            metaItems={[
+                {
+                    id: 1,
+                    content: <><span className="detailspage-meta-label">{t('created')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(drinkingProduct?.created, i18n.language)}</span></>
+                },
+                {
+                    id: 2,
+                    content: <><span className="detailspage-meta-label">{t('created_by')}:</span> <span className="detailspage-meta-value">{drinkingProduct?.createdBy || '-'}</span></>
+                },
+                {
+                    id: 3,
+                    content: <><span className="detailspage-meta-label">{t('modified')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(drinkingProduct?.modified, i18n.language)}</span></>
+                }
+            ]}
+            editModalTitle={t('modal_header_edit_drinking_product')}
+            editSection={
+                <AddDrinkingProduct
+                    onAddDrinkingProduct={addDrinkingProduct}
+                    drinkingProductID={params.id}
+                    onClose={toggleSetShowEdit}
+                />
+            }
+            alertSection={
+                <Alert
+                    message={message}
+                    showMessage={showMessage}
+                    error={error}
+                    showError={showError}
+                    onClose={clearMessages}
+                />
+            }
+            imageSection={<ImageComponent url={DB.DRINKINGPRODUCT_IMAGES} objID={params.id} />}
+            commentSection={<CommentComponent objID={params.id} url={DB.DRINKINGPRODUCT_COMMENTS} onSave={addCommentToDrinkingProduct} />}
+            linkSection={<LinkComponent objID={params.id} url={DB.DRINKINGPRODUCT_LINKS} onSaveLink={addLinkToDrinkingProduct} />}
+        />
     )
 }
