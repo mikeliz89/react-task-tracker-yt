@@ -1,23 +1,23 @@
-import GoBackButton from '../Buttons/GoBackButton';
-import Button from '../Buttons/Button';
-import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { db, uploadProfilePic } from '../../firebase-config';
+import { Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { ref, onValue } from 'firebase/database';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB } from '../../utils/Constants';
-import PageTitle from '../Site/PageTitle';
-import Alert from '../Alert';
-import PageContentWrapper from '../Site/PageContentWrapper';
+import { useAuth } from '../../contexts/AuthContext';
 import { updateToFirebaseById } from '../../datatier/datatier';
-import Modal from '../ImageUpload/Modal';
+import { db, uploadProfilePic } from '../../firebase-config';
+import { TRANSLATION, DB } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import Alert from '../Alert';
 import Logout from '../Auth/Logout';
-import RightWrapper from '../Site/RightWrapper';
-import Language from '../Language/Language';
-import ThemeToggler from '../Site/ThemeToggler';
+import Button from '../Buttons/Button';
+import GoBackButton from '../Buttons/GoBackButton';
 import { useAlert } from '../Hooks/useAlert';
+import Modal from '../ImageUpload/Modal';
+import Language from '../Language/Language';
+import PageContentWrapper from '../Site/PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
+import RightWrapper from '../Site/RightWrapper';
+import ThemeToggler from '../Site/ThemeToggler';
 
 export default function ManageMyProfile() {
 
@@ -85,7 +85,7 @@ export default function ManageMyProfile() {
 
         //validation
         if (height > 220) {
-            alert("maksimi pituus on 220 cm!");
+            alert(t('max_height_220_cm'));
             showFailure(t('saving_failed'));
             return;
         }

@@ -497,6 +497,7 @@
     },
     "myprofile": {
         "height": "Pituus",
+        "max_height_220_cm": "Maksimipituus on 220 cm!",
         "name": "Nimi",
         "profilepic": "Profiilikuva",
         "saving_done": "Tallennus onnistui",

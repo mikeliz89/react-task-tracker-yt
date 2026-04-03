@@ -497,6 +497,7 @@
     "title": "My Profile",
     "name": "Name",
     "height": "Height",
+    "max_height_220_cm": "Maximum height is 220 cm!",
     "profilepic": "Profile picture",
     "saving_done": "Saving was successful",
     "upload": "Upload",
