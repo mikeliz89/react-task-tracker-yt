@@ -61,7 +61,7 @@ export default function TaskDetails() {
       title={<PageTitle title={task?.text} />}
       titleSuffix={
         <span className={`details-pill ${task?.reminder === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
-          {t('task_ready')}: {task?.reminder === true ? t('yes') : t('no')}
+          {task?.reminder === true ? t('ready') : t('unfinished')}
         </span>
       }
       summary={`${t('task_text')}: ${task?.day || '-'}`}

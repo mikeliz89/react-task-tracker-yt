@@ -319,9 +319,24 @@ form {
 
 .detailspage-title-wrap {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+}
+
+.detailspage-title-row {
+    display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.55rem;
+    width: 100%;
+}
+
+.detailspage-title-row .page-title {
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    line-height: 1.2;
 }
 
 .detailspage-title-suffix {
@@ -362,12 +377,18 @@ form {
 
 .detailspage-summary {
     color: #c6d0ff;
-    margin-top: 1rem;
-    line-height: 1.7;
+    margin-top: 0.7rem;
+    margin-bottom: 0;
+    line-height: 1.55;
+    padding: 0.7rem 0.85rem;
+    border-radius: 10px;
+    border-left: 3px solid rgba(255, 255, 255, 0.34);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .detailspage-pre-summary {
-    margin-top: 0.9rem;
+    margin-top: 0.55rem;
+    margin-bottom: 0.25rem;
 }
 
 .detailspage-field {
@@ -379,9 +400,9 @@ form {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 1.25rem;
-    color: rgba(0, 0, 0, 0.78);
-    font-size: 0.95rem;
+    margin-top: 0.85rem;
+    color: var(--detailspage-meta-row-color, rgba(255, 255, 255, 0.64));
+    font-size: 0.83rem;
 }
 
 .detailspage-meta-history-icon {
@@ -398,7 +419,7 @@ form {
 }
 
 .detailspage-rating-row {
-    margin-top: 0.85rem;
+    margin-top: 0.35rem;
 }
 
 .detailspage-comment-section {
@@ -415,6 +436,10 @@ form {
 
 .detailspage-link-section {
     margin-bottom: 1rem;
+}
+
+.detailspage-columns-row {
+    align-items: flex-start;
 }
 
 /* DetailsPage: Layout & Structure End */
@@ -435,6 +460,13 @@ form {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.comments-content {
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
 }
 
 .content-card {

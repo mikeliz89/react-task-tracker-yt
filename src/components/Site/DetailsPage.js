@@ -58,8 +58,10 @@ export default function DetailsPage({
 
                     <div className="detailspage-top-row">
                         <div className="detailspage-title-wrap">
-                            {typeof title === 'string' ? <PageTitle title={title} /> : title}
-                            {titleSuffix && <div className="detailspage-title-suffix">{titleSuffix}</div>}
+                            <div className="detailspage-title-row">
+                                {typeof title === 'string' ? <PageTitle title={title} /> : title}
+                                {titleSuffix && <div className="detailspage-title-suffix">{titleSuffix}</div>}
+                            </div>
                             {ratingSection && <div className="detailspage-rating-row">{ratingSection}</div>}
                             {topContent}
                         </div>
@@ -110,32 +112,31 @@ export default function DetailsPage({
                     </div>
                 )}
 
-                {imageSection && (
-                    <div className="detailspage-image-section">
-                        <Row className="detailspage-grid">
-                            <Col lg={imageColLg}>
-                                {imageSection}
-                            </Col>
-                        </Row>
-                    </div>
-                )}
+                {(imageSection || commentSection || linkSection) && (
+                    <div className="detailspage-content-columns">
+                        <Row className="detailspage-columns-row g-3">
+                            {(imageSection || linkSection) && (
+                                <Col xs={12} md={commentSection ? 6 : 12}>
+                                    {imageSection && (
+                                        <div className="detailspage-image-section">
+                                            {imageSection}
+                                        </div>
+                                    )}
+                                    {linkSection && (
+                                        <div className="detailspage-link-section">
+                                            {linkSection}
+                                        </div>
+                                    )}
+                                </Col>
+                            )}
 
-                {commentSection && (
-                    <div className="detailspage-comment-section">
-                        <Row className="detailspage-grid">
-                            <Col lg={commentColLg}>
-                                {commentSection}
-                            </Col>
-                        </Row>
-                    </div>
-                )}
-
-                {linkSection && (
-                    <div className="detailspage-link-section">
-                        <Row className="detailspage-grid">
-                            <Col lg={linkColLg}>
-                                {linkSection}
-                            </Col>
+                            {commentSection && (
+                                <Col xs={12} md={(imageSection || linkSection) ? 6 : 12}>
+                                    <div className="detailspage-comment-section">
+                                        {commentSection}
+                                    </div>
+                                </Col>
+                            )}
                         </Row>
                     </div>
                 )}

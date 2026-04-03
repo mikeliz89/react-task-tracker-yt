@@ -68,6 +68,7 @@
         "please_add_task": "Ole hyvä ja annan tehtävän nimi",
         "please_add_tasklist": "Ole hyvä ja anna tehtävälistan nimi",
         "return_from_archive_list_confirm_message": "Palauta normaaliksi?",
+        "ready": "Valmis",
         "search": "Hae",
         "shoppinglist": "Ostoslista",
         "show": "Näytä",
@@ -83,6 +84,7 @@
         "task_text": "Teksti",
         "tasks": "Tehtäviä",
         "tasks_ready_counter": "Tehtäviä valmiina",
+        "unfinished": "Kesken",
         "view_details": "Katso lisätiedot",
         "yes": "Kyllä"
     }

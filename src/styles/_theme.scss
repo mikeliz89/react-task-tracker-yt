@@ -4,6 +4,7 @@
     background-color: var(--color-white);
     --detailspage-meta-label-color: rgba(0, 0, 0, 0.46);
     --detailspage-meta-value-color: rgba(0, 0, 0, 0.9);
+    --detailspage-meta-row-color: rgba(0, 0, 0, 0.54);
 }
 
 #light .content-card {
@@ -20,6 +21,8 @@
 
 #light .detailspage-summary {
     color: rgba(0, 0, 0, 0.82);
+    background: rgba(0, 0, 0, 0.03);
+    border-left-color: rgba(0, 0, 0, 0.24);
 }
 
 #light .details-pill-ready {
@@ -74,6 +77,7 @@
     background-color: var(--color-neutral-900);
     --detailspage-meta-label-color: rgba(255, 255, 255, 0.78);
     --detailspage-meta-value-color: rgba(255, 255, 255, 0.97);
+    --detailspage-meta-row-color: rgba(255, 255, 255, 0.63);
 }
 
 #dark body,
