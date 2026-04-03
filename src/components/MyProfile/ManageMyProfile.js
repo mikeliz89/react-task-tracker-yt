@@ -12,12 +12,14 @@ import Logout from '../Auth/Logout';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import { useAlert } from '../Hooks/useAlert';
+import Icon from '../Icon';
 import Modal from '../ImageUpload/Modal';
 import Language from '../Language/Language';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
-import RightWrapper from '../Site/RightWrapper';
+//import RightWrapper from '../Site/RightWrapper';
 import ThemeToggler from '../Site/ThemeToggler';
+import { ICONS } from '../../utils/Constants';
 
 export default function ManageMyProfile() {
 
@@ -120,13 +122,13 @@ export default function ManageMyProfile() {
         <PageContentWrapper>
             <GoBackButton />
 
-            <PageTitle title={t('title')} />
+            <PageTitle title={t('title')} iconName={ICONS.GEAR} />
 
-            <RightWrapper>
+            {/* <RightWrapper>
                 <Language />
                 <ThemeToggler />
                 <Logout />
-            </RightWrapper>
+            </RightWrapper> */}
 
             <Alert
                 message={message}
@@ -138,7 +140,10 @@ export default function ManageMyProfile() {
 
             <Form onSubmit={onSubmit} className='myprofile-page'>
                 <div className='content-card myprofile-main-card'>
-                    <h3 className='myprofile-card-title'>{t('profile_section')}</h3>
+                    <h3 className='myprofile-card-title'>
+                        <Icon name={ICONS.USER_ALT} />
+                        {t('profile_section')}
+                    </h3>
 
                     <div className='row g-4'>
                         <div className='col-12 col-lg-6'>
