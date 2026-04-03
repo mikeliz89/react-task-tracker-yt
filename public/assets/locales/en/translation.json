@@ -494,14 +494,26 @@
     "no_events_to_show": "No events to show"
   },
   "myprofile": {
+    "account_settings_title": "Account Settings",
+    "display_name": "Display Name",
+    "email": "Email",
     "title": "My Profile",
     "name": "Name",
     "height": "Height",
+    "language": "Language",
+    "logout": "Log out",
     "max_height_220_cm": "Maximum height is 220 cm!",
+    "new_password": "New password",
+    "password": "Password",
     "profilepic": "Profile picture",
+    "profile_section": "Profile",
+    "repeat_new_password": "Repeat new password",
     "saving_done": "Saving was successful",
     "upload": "Upload",
-    "saving_failed": "Saving failed"
+    "saving_failed": "Saving failed",
+    "settings_title": "Settings",
+    "theme": "Theme",
+    "username": "Username"
   },
   "people": {
     "address": "Home address",

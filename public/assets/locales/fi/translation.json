@@ -101,7 +101,7 @@
         "car_title": "Auto",
         "failed_to_add_info": "Infon tallennus epäonnistui",
         "failed_to_add_fueling": "Tankkauksen tallennus epäonnistui",
-        "fuel_price": "Bensan hinta €/L",
+        "fuel_price": "Bensan hinta EUR/L",
         "fuel_price_simple": "Bensan hinta",
         "fuel_price_chart": "Bensan hinnan kehitys",
         "fuelings": "Tankkaukset",
@@ -495,14 +495,27 @@
         "sort_by_name": "Lajittele nimen mukaan",
         "view_details": "Katso lisätiedot"
     },
+
     "myprofile": {
+        "account_settings_title": "Tiliasetukset",
+        "display_name": "Näyttönimi",
+        "email": "Sähköposti",
         "height": "Pituus",
+        "language": "Kieli",
+        "logout": "Kirjaudu ulos",
         "max_height_220_cm": "Maksimipituus on 220 cm!",
         "name": "Nimi",
+        "new_password": "Uusi salasana",
+        "password": "Salasana",
         "profilepic": "Profiilikuva",
+        "profile_section": "Profiili",
+        "repeat_new_password": "Toista uusi salasana",
         "saving_done": "Tallennus onnistui",
         "saving_failed": "Tallennus epäonnistui",
+        "settings_title": "Asetukset",
+        "theme": "Teema",
         "title": "Oma profiili",
+        "username": "Käyttäjänimi",
         "upload": "Lähetä"
     },
     "people": {

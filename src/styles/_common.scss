@@ -726,6 +726,115 @@ form {
     border-style: outset;
 }
 
+.myprofile-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.myprofile-main-card,
+.myprofile-sub-card {
+    border-radius: 20px;
+}
+
+.myprofile-card-title {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.myprofile-avatar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.myprofile-identity {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.myprofile-avatar {
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.myprofile-identity-texts {
+    min-width: 0;
+}
+
+.myprofile-display-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.myprofile-email-chip {
+    margin-top: 0.45rem;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 12px;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.95rem;
+}
+
+.myprofile-upload-box {
+    border: 1px dashed var(--color-white-08);
+    border-radius: 14px;
+    padding: 0.85rem;
+}
+
+.myprofile-file-input {
+    margin-bottom: 0.65rem;
+}
+
+.myprofile-upload-btn,
+.myprofile-save-btn {
+    width: 100%;
+}
+
+.myprofile-setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-white-08);
+}
+
+.myprofile-setting-row:last-of-type {
+    border-bottom: none;
+}
+
+.myprofile-setting-value {
+    font-weight: 600;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.myprofile-setting-row-danger {
+    margin-top: 0.6rem;
+}
+
+@media (max-width: 992px) {
+    .myprofile-identity {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .myprofile-avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .myprofile-display-name {
+        font-size: 1.45rem;
+    }
+}
+
 .searchSortFilter {
     margin-top: 10px;
 }
