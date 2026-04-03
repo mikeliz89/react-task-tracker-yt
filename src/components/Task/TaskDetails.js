@@ -60,7 +60,7 @@ export default function TaskDetails() {
       onToggleEdit={() => setShowEditTask(!showEditTask)}
       title={<PageTitle title={task?.text} />}
       titleSuffix={
-        <span className={`task-pill ${task?.reminder === true ? 'task-pill-ready' : 'task-pill-not-ready'}`}>
+        <span className={`details-pill ${task?.reminder === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
           {t('task_ready')}: {task?.reminder === true ? t('yes') : t('no')}
         </span>
       }

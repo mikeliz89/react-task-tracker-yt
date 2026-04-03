@@ -387,7 +387,9 @@
     "no_games_to_show": "No Games",
     "publish_year": "Publish Year",
     "save_success": "Saving game was succesfull",
-    "view_details": "View Details"
+    "view_details": "View Details",
+    "yes": "Yes",
+    "no": "No"
   },
   "header": {
     "header_logged_in_as_text": "Logged in as",

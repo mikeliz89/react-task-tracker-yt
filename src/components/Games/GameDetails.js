@@ -86,6 +86,11 @@ export default function GameDetails() {
             isEditOpen={showEdit}
             onToggleEdit={() => setShowEdit(!showEdit)}
             title={<PageTitle title={game?.name} />}
+            titleSuffix={
+                <span className={`details-pill ${game?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
+                    {t('have')}: {game?.haveAtHome === true ? t('yes') : t('no')}
+                </span>
+            }
             summary={`${t('description')}: ${game?.description || '-'}`}
             ratingSection={<StarRatingWrapper stars={game?.stars} onSaveStars={saveStars} />}
             metaItems={[

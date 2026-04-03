@@ -70,7 +70,7 @@ p {
         flex-direction: column;
     }
 
-    .task-pill {
+    .details-pill {
         padding: 0.35rem 0.65rem;
         font-size: 0.8rem;
     }
@@ -336,7 +336,7 @@ form {
     margin-top: 0.75rem;
 }
 
-.task-pill {
+.details-pill {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -348,13 +348,13 @@ form {
     letter-spacing: 0.01em;
 }
 
-.task-pill-ready {
+.details-pill-ready {
     background: rgba(43, 138, 62, 0.28);
     border: 1px solid rgba(90, 200, 120, 0.55);
     color: #d9ffe3;
 }
 
-.task-pill-not-ready {
+.details-pill-not-ready {
     background: rgba(227, 176, 31, 0.28);
     border: 1px solid rgba(255, 213, 110, 0.6);
     color: #fff4cf;

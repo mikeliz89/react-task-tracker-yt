@@ -384,7 +384,9 @@
         "no_games_to_show": "Ei pelejä",
         "publish_year": "Julkaisuvuosi",
         "save_success": "Pelin tallennus onnistui",
-        "view_details": "Katso lisätiedot"
+        "view_details": "Katso lisätiedot",
+        "yes": "Kyllä",
+        "no": "Ei"
     },
     "header": {
         "header_logged_in_as_text": "Kirjautunut käyttäjä",
