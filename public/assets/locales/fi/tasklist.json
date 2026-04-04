@@ -87,6 +87,7 @@
         "tasklists": "Tehtävälistat",
         "task_list": "Listan nimi",
         "task_name": "Tehtävän nimi",
+        "task_done_badge": "Valmis",
         "task_ready": "Tehtävä valmis",
         "task_text": "Teksti",
         "toolbar_select_all": "Valitse kaikki",

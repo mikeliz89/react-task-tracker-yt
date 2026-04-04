@@ -131,6 +131,12 @@
     border-left-color: #59c28b;
 }
 
+#dark .taskRowContainer.taskDone {
+    border-left: 10px solid #59c28b;
+    background: linear-gradient(92deg, rgba(43, 83, 66, 0.82), rgba(30, 52, 43, 0.9));
+    box-shadow: inset 0 0 0 1px rgba(117, 226, 165, 0.18);
+}
+
 #dark .taskRowLink,
 #dark .taskRowTitle {
     color: rgba(233, 239, 250, 0.97);

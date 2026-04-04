@@ -86,6 +86,7 @@
     "tasks": "Tasks",
     "task_list": "Task List",
     "task_name": "Task",
+    "task_done_badge": "Done",
     "task_ready": "Task ready",
     "task_text": "Text",
     "toolbar_select_all": "Select all",

@@ -1,4 +1,4 @@
-import { DB } from '../../utils/Constants';
+import { DB, TRANSLATION } from '../../utils/Constants';
 import RightWrapper from '../Site/RightWrapper';
 import AddTask from './AddTask';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
@@ -8,6 +8,7 @@ import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import NavButton from '../Buttons/NavButton';
 import { Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 export default function Task({
     taskListID,
@@ -20,6 +21,9 @@ export default function Task({
 
     //toggle
     const { status: editable, toggleStatus: toggleSetEditable, setStatus: setEditable } = useToggle();
+
+    //translation
+    const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
 
     const updateTask = (updateTaskListID, object) => {
         object["modified"] = getCurrentDateAsJson();
@@ -63,7 +67,7 @@ export default function Task({
                                     </span>
                             }
 
-                            {task.reminder && <span className="taskDoneBadge">Done</span>}
+                            {task.reminder && <span className="taskDoneBadge">{t('task_done_badge')}</span>}
                         </div>
 
                         {/* Oikean reunan napit (ei arkistossa) */}
