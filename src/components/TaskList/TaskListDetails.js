@@ -407,17 +407,6 @@ export default function TaskListDetails() {
             ) : (<></>)
           }
 
-          <CenterWrapper>
-            <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')}
-              iconName={ICONS.COPY} />
-            &nbsp;
-            <Button
-              iconName={ICONS.PLUS}
-              color={showAddTask ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-              text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
-              onClick={toggleAddTask} />
-          </CenterWrapper>
-
           <Modal show={showAddTask} onHide={toggleAddTask}>
             <Modal.Header closeButton>
               <Modal.Title>{t('modal_header_add_task')}</Modal.Title>
@@ -430,6 +419,17 @@ export default function TaskListDetails() {
               />
             </Modal.Body>
           </Modal>
+
+          <CenterWrapper>
+            <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')}
+              iconName={ICONS.COPY} />
+            &nbsp;
+            <Button
+              iconName={ICONS.PLUS}
+              color={showAddTask ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
+              text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
+              onClick={toggleAddTask} />
+          </CenterWrapper>
 
           {/* Työkalupalkki */}
           <div
