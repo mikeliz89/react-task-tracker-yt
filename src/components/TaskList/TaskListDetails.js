@@ -30,6 +30,7 @@ import { FilterMode } from '../SearchSortFilter/FilterModes';
 import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
 import PageContentWrapper from '../Site/PageContentWrapper';
+import Icon from '../Icon';
 import AddTask from '../Task/AddTask';
 import Tasks from '../Task/Tasks';
 import AddTaskList from '../TaskList/AddTaskList';
@@ -503,7 +504,7 @@ export default function TaskListDetails() {
       <Tabs defaultActiveKey="home"
         id="taskListDetails-Tab"
         className="mb-3">
-        <Tab eventKey="home" title={t('tabheader_tasks')}>
+        <Tab eventKey="home" title={<><Icon name={ICONS.LIST_ALT} />{t('tabheader_tasks')}</>}>
 
           {
             originalTasks != null && originalTasks.length > 0 ? (
@@ -545,10 +546,10 @@ export default function TaskListDetails() {
             </>
           )}
         </Tab>
-        <Tab eventKey="links" title={t('tabheader_links')}>
+        <Tab eventKey="links" title={<><Icon name={ICONS.EXTERNAL_LINK_ALT} />{t('tabheader_links')}</>}>
           <LinkComponent objID={params.id} url={DB.TASKLIST_LINKS} onSaveLink={addLinkToTaskList} />
         </Tab>
-        <Tab eventKey="comments" title={t('tabheader_comments')}>
+        <Tab eventKey="comments" title={<><Icon name={ICONS.COMMENTS} />{t('tabheader_comments')}</>}>
           <CommentComponent objID={params.id} url={DB.TASKLIST_COMMENTS} onSave={addCommentToTaskList} />
         </Tab>
       </Tabs>
