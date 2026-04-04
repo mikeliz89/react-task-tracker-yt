@@ -70,7 +70,7 @@ export default function AddTask({ taskID, taskListID, onSave, onClose, showLabel
     return (
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="addTaskFormTaskName">
-                {showLabels && <Form.Label>{getTaskName()}</Form.Label>}
+                <Form.Label>{getTaskName()}</Form.Label>
                 <Form.Control
                     ref={firstFieldRef}
                     autoComplete="off"
@@ -81,7 +81,7 @@ export default function AddTask({ taskID, taskListID, onSave, onClose, showLabel
                     onChange={(e) => setText(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addTaskFormDayAndTime">
-                {showLabels && <Form.Label>{getTaskText()}</Form.Label>}
+                <Form.Label>{getTaskText()}</Form.Label>
                 <Form.Control
                     autoComplete="off"
                     type='text'

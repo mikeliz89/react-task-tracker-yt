@@ -19,7 +19,6 @@ import { COLORS, DB, ICONS, TRANSLATION } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getManagePageByListType, getPageTitleContent } from '../../utils/ListUtils';
 
-import AccordionElement from '../AccordionElement';
 import Button from '../Buttons/Button';
 import CommentComponent from '../Comments/CommentComponent';
 import { useToggle } from '../Hooks/useToggle';
@@ -30,6 +29,7 @@ import { FilterMode } from '../SearchSortFilter/FilterModes';
 import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
 import PageContentWrapper from '../Site/PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
 import Icon from '../Icon';
 import AddTask from '../Task/AddTask';
 import Tasks from '../Task/Tasks';
@@ -374,16 +374,6 @@ export default function TaskListDetails() {
     navigator.clipboard.writeText(text);
   }
 
-  const getAccordionData = () => {
-    return [
-      { id: 1, name: t('created'), value: getJsonAsDateTimeString(taskList.created, i18n.language) },
-      { id: 2, name: t('created_by'), value: taskList.createdBy },
-      { id: 3, name: t('modified'), value: getJsonAsDateTimeString(taskList.modified, i18n.language) },
-      { id: 4, name: t('tasks_ready_counter'), value: taskReadyCounter + '/' + taskCounter },
-      { id: 5, name: t('category'), value: t(getPageTitleContent(taskList.listType)) }
-    ];
-  }
-
   const toolsMenu = (
     <details style={{ marginBottom: 12 }}>
       <summary style={{ cursor: 'pointer', fontWeight: 600, marginBottom: 8 }}>
@@ -393,12 +383,6 @@ export default function TaskListDetails() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 8 }}>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={ICONS.COPY} />
-          <Button
-            iconName={ICONS.PLUS}
-            color={showAddTask ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-            text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
-            onClick={toggleAddTask}
-          />
           <Button
             iconName={ICONS.PLUS}
             color={showBulkAddTasks ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
@@ -516,14 +500,22 @@ export default function TaskListDetails() {
         </ButtonGroup>
       </Row>
 
-      <AccordionElement array={getAccordionData()} title={taskList.title}
-        iconName={ICONS.LIST_ALT} />
-
       <Row>
         <Col>
-          {t('description') + ': '}{taskList.description}
+          <PageTitle title={taskList.title} iconName={ICONS.LIST_ALT} />
+          <p className="detailspage-summary">{taskList.description}</p>
+          <div className="detailspage-meta-row">
+            <span className="detailspage-meta-history-icon">
+              <Icon name={ICONS.HISTORY} color="#8f9bb3" fontSize="0.95rem" />
+            </span>
+            <><span className="detailspage-meta-label">{t('created')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(taskList?.created, i18n.language)}</span></>
+            <><span className="detailspage-meta-label">{t('modified')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(taskList?.modified, i18n.language)}</span></>
+            <><span className="detailspage-meta-label">{t('created_by')}:</span> <span className="detailspage-meta-value">{taskList?.createdBy || '-'}</span></>
+          </div>
         </Col>
       </Row>
+
+      <hr />
 
       <Modal show={showEditTaskList} onHide={toggleShowTaskList}>
         <Modal.Header closeButton>
@@ -571,6 +563,15 @@ export default function TaskListDetails() {
               />
             ) : (<></>)
           }
+
+          <div style={{ marginBottom: 10 }}>
+            <Button
+              iconName={ICONS.PLUS}
+              color={showAddTask ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
+              text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
+              onClick={toggleAddTask}
+            />
+          </div>
 
           {toolsMenu}
 
