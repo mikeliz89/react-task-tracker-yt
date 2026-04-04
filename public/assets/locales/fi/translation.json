@@ -1,9 +1,11 @@
 {
     "coming_soon": "Tulossa pian...",
     "about": {
+        "title": "Versiotiedot",
         "about_version": "Versio",
         "about_author": "Tekijä",
-        "version_upgraded": "Versiota nostettu viimeksi"
+        "version_upgraded": "Julkaistu",
+        "description": "Kuvaus"
     },
     "auth": {
         "already_have_an_account": "Oletko jo rekisteröitynyt?",

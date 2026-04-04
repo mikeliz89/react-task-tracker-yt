@@ -137,6 +137,22 @@ footer {
     text-align: center;
 }
 
+.about-version-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: 0.4rem;
+}
+
+.about-version-card p {
+    margin-bottom: 0.35rem;
+}
+
+.about-version-description {
+    margin-top: 0.4rem;
+    line-height: 1.5;
+}
+
 .linkContainer {
     padding: 0.75rem 0.85rem;
     margin-top: 0.5rem;

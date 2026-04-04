@@ -1,9 +1,11 @@
 {
   "coming_soon": "Coming soon...",
   "about": {
+    "title": "Version History",
     "about_version": "Version",
     "about_author": "Author",
-    "version_upgraded": "Version upgraded last"
+    "version_upgraded": "Released",
+    "description": "Description"
   },
   "auth": {
     "already_have_an_account": "Already have an account?",
