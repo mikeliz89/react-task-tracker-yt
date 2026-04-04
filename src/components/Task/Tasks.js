@@ -8,7 +8,7 @@ export default function Tasks({
   onSelectToggle }) {
 
   return (
-    <>
+    <div className="tasksList">
       {tasks.map((task) => (
         <Task key={task.id}
           archived={archived}
@@ -20,6 +20,6 @@ export default function Tasks({
           onToggle={onToggle}
           onSelectToggle={onSelectToggle} />
       ))}
-    </>
+    </div>
   )
 }

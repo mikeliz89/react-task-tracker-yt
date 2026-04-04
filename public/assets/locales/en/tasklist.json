@@ -6,6 +6,9 @@
     "archive_list_confirm_message": "Archive List?",
     "button_add_list": "Add List",
     "button_add_task": "Add Task",
+    "button_add_tasks_bulk": "Add multiple tasks (a, b, c)",
+    "button_save_multiple_tasks": "Save multiple tasks",
+    "bulk_tasks_placeholder": "E.g. Call doctor, Take out trash, Pay bill",
     "button_goto_tasklist_archive": "Archive",
     "by": "By",
     "category": "Category",
@@ -97,8 +100,8 @@
     "tasks_ready_counter": "Tasks ready",
     "view_details": "View Details",
     "yes": "Yes",
-    "category_boardgames": "Lautapeli_en",
-    "ready": "Valmis_en",
-    "unfinished": "Kesken_en"
+    "category_boardgames": "Boardgame",
+    "ready": "Ready",
+    "unfinished": "Unfinished"
   }
 }

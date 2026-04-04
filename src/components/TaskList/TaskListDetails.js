@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import i18n from 'i18next';
 import { child, get, off, onValue, push, ref, update } from 'firebase/database';
-import { ButtonGroup, Col, Modal, Row, Tab, Tabs } from 'react-bootstrap';
+import { ButtonGroup, Col, Form, Modal, Row, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -61,8 +61,10 @@ export default function TaskListDetails() {
 
   //modal & toggle
   const { status: showAddTask, toggleStatus: toggleAddTask } = useToggle();
+  const { status: showBulkAddTasks, toggleStatus: toggleBulkAddTasks } = useToggle();
   const { status: showEditTaskList, toggleStatus: toggleShowTaskList } = useToggle();
   const { status: showChangeListType, toggleStatus: toggleShowChangeListType } = useToggle();
+  const [bulkTasksText, setBulkTasksText] = useState('');
 
   //counters
   const [taskCounter, setTaskCounter] = useState(0);
@@ -239,6 +241,24 @@ export default function TaskListDetails() {
     pushToFirebaseChild(DB.TASKS, taskListID, task);
   }
 
+  const addBulkTasks = async () => {
+    const names = bulkTasksText
+      .split(/[\n,]+/)
+      .map((name) => name.trim())
+      .filter((name) => name.length > 0);
+
+    if (names.length === 0) {
+      return;
+    }
+
+    await Promise.all(names.map((text) =>
+      updateTask(params.id, { text, day: '', reminder: false })
+    ));
+
+    setBulkTasksText('');
+    toggleBulkAddTasks();
+  }
+
   const deleteTask = async (taskListID, id) => {
     removeFromFirebaseByIdAndSubId(DB.TASKS, taskListID, id);
   }
@@ -370,76 +390,104 @@ export default function TaskListDetails() {
         {t('tabheader_actions')}
       </summary>
 
-      <div style={{ marginBottom: '10px' }}>
-        <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={ICONS.COPY} /> &nbsp;
-        <Button
-          iconName={ICONS.PLUS}
-          color={showAddTask ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-          text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
-          onClick={toggleAddTask}
-        /> &nbsp;
-        <Button onClick={() => {
-          if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
-            markAllTasksDone(params.id)
-          }
-        }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} /> &nbsp;
-        <Button onClick={() => {
-          if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
-            markAllTasksUndone(params.id)
-          }
-        }} text={t('mark_all_tasks_undone')} iconName={ICONS.HOURGLASS_1} /> &nbsp;
-        <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
-          iconName={ICONS.EDIT} />
-      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 8 }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={ICONS.COPY} />
+          <Button
+            iconName={ICONS.PLUS}
+            color={showAddTask ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
+            text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
+            onClick={toggleAddTask}
+          />
+          <Button
+            iconName={ICONS.PLUS}
+            color={showBulkAddTasks ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
+            text={showBulkAddTasks ? tCommon('buttons.button_close') : t('button_add_tasks_bulk')}
+            onClick={toggleBulkAddTasks}
+          />
+          <Button onClick={() => {
+            if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
+              markAllTasksDone(params.id)
+            }
+          }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} />
+          <Button onClick={() => {
+            if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
+              markAllTasksUndone(params.id)
+            }
+          }} text={t('mark_all_tasks_undone')} iconName={ICONS.HOURGLASS_1} />
+          <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
+            iconName={ICONS.EDIT} />
+        </div>
 
-      {
-        showChangeListType &&
-        <ChangeType taskList={taskList}
-          onSave={updateTaskList}
-          onClose={() => toggleShowChangeListType()} />
-      }
+        {
+          showChangeListType &&
+          <ChangeType taskList={taskList}
+            onSave={updateTaskList}
+            onClose={() => toggleShowChangeListType()} />
+        }
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr auto auto auto',
-          gap: 8,
-          alignItems: 'center',
-          marginBottom: 8,
-        }}
-      >
-        <button onClick={toggleAll} disabled={tasks.length === 0}>
-          {allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
-        </button>
+        {showBulkAddTasks &&
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <Form.Group controlId="bulkTasksInput">
+              <Form.Label>{t('button_add_tasks_bulk')}</Form.Label>
+              <Form.Control
+                autoComplete="off"
+                type="text"
+                placeholder={t('bulk_tasks_placeholder')}
+                value={bulkTasksText}
+                onChange={(e) => setBulkTasksText(e.target.value)}
+              />
+            </Form.Group>
+            <Button
+              iconName={ICONS.PLUS}
+              onClick={addBulkTasks}
+              text={t('button_save_multiple_tasks')}
+              disabled={bulkTasksText.trim().length === 0}
+            />
+          </div>
+        }
 
-        <Button
-          onClick={handleDeleteSelected}
-          disabled={!canDeleteSelected}
-          color={COLORS.DELETEBUTTON}
-          iconName={ICONS.DELETE}
-          text={`${t('toolbar_delete_selected')} (${selectedIds.size})`}
-        />
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+          <span style={{ fontWeight: 600 }}>{`${selectedIds.size}/${tasks.length} ${t('tasks')}`}</span>
+          <Button
+            onClick={toggleAll}
+            disabled={tasks.length === 0}
+            color={COLORS.BUTTON_GRAY}
+            iconName={allSelected ? ICONS.MINUS : ICONS.CHECK_SQUARE}
+            text={allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
+          />
+          <Button
+            onClick={handleDeleteSelected}
+            disabled={!canDeleteSelected}
+            color={COLORS.DELETEBUTTON}
+            iconName={ICONS.DELETE}
+            text={`${t('toolbar_delete_selected')} (${selectedIds.size})`}
+          />
+        </div>
 
-        <span style={{ fontWeight: 600 }}>
-          {t('toolbar_move_to_another_list')}
-        </span>
-
-        <select
-          value={destListId}
-          onChange={(e) => setDestListId(e.target.value)}
-          style={{ minWidth: 220 }}
-        >
-          <option value="">{t('toolbar_select_destination_list')}</option>
-          {destinationOptions.map((tl) => (
-            <option key={tl.id} value={tl.id}>
-              {`${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} — ${tl.title || tl.id}`}
-            </option>
-          ))}
-        </select>
-
-        <button onClick={handleMove} disabled={!canMove}>
-          {loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected_to_another_list')} (${selectedIds.size})`}
-        </button>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <span style={{ fontWeight: 600 }}>{t('toolbar_move_to_another_list')}</span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+            <select
+              value={destListId}
+              onChange={(e) => setDestListId(e.target.value)}
+              style={{ minWidth: 260 }}
+            >
+              <option value="">{t('toolbar_select_destination_list')}</option>
+              {destinationOptions.map((tl) => (
+                <option key={tl.id} value={tl.id}>
+                  {`${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} — ${tl.title || tl.id}`}
+                </option>
+              ))}
+            </select>
+            <Button
+              onClick={handleMove}
+              disabled={!canMove}
+              color={COLORS.BUTTON_GRAY}
+              text={loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected_to_another_list')} (${selectedIds.size})`}
+            />
+          </div>
+        </div>
       </div>
     </details>
   );
