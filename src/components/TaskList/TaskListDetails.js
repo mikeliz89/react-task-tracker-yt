@@ -503,7 +503,7 @@ export default function TaskListDetails() {
       <Row>
         <Col>
           <PageTitle title={taskList.title} iconName={ICONS.LIST_ALT} />
-          <p className="detailspage-summary">{taskList.description}</p>
+          <p className="detailspage-summary">{`${t('description')}: ${taskList?.description || '-'}`}</p>
           <div className="detailspage-meta-row">
             <span className="detailspage-meta-history-icon">
               <Icon name={ICONS.HISTORY} color="#8f9bb3" fontSize="0.95rem" />
