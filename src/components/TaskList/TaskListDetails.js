@@ -165,6 +165,7 @@ export default function TaskListDetails() {
     .slice() // kopio, ettei mutatoida alkuperäistä
     .sort(sortByTypeThenTitle);
   const canMove = selectedIds.size > 0 && destListId && !loadingMove;
+  const canDeleteSelected = selectedIds.size > 0 && !loadingMove;
 
   // Siirtologiikka (atominen update)
   const handleMove = async () => {
@@ -201,6 +202,30 @@ export default function TaskListDetails() {
       setDestListId("");
     } catch (ex) {
       setError("Siirto epäonnistui. Yritä uudelleen.");
+      console.warn(ex);
+    } finally {
+      setLoadingMove(false);
+    }
+  };
+
+  const handleDeleteSelected = async () => {
+    setError("");
+    if (!canDeleteSelected) return;
+    if (!window.confirm(tCommon('confirm.areyousure'))) return;
+
+    setLoadingMove(true);
+    try {
+      const rootRef = ref(db);
+      const updates = {};
+
+      selectedIds.forEach((taskId) => {
+        updates[`${DB.TASKS}/${sourceListId}/${taskId}`] = null;
+      });
+
+      await update(rootRef, updates);
+      clearSelection();
+    } catch (ex) {
+      setError("Poisto epäonnistui. Yritä uudelleen.");
       console.warn(ex);
     } finally {
       setLoadingMove(false);
@@ -386,6 +411,18 @@ export default function TaskListDetails() {
           {allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
         </button>
 
+        <Button
+          onClick={handleDeleteSelected}
+          disabled={!canDeleteSelected}
+          color={COLORS.DELETEBUTTON}
+          iconName={ICONS.DELETE}
+          text={`${t('toolbar_delete_selected')} (${selectedIds.size})`}
+        />
+
+        <span style={{ fontWeight: 600 }}>
+          {t('toolbar_move_to_another_list')}
+        </span>
+
         <select
           value={destListId}
           onChange={(e) => setDestListId(e.target.value)}
@@ -400,7 +437,7 @@ export default function TaskListDetails() {
         </select>
 
         <button onClick={handleMove} disabled={!canMove}>
-          {loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected')} (${selectedIds.size})`}
+          {loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected_to_another_list')} (${selectedIds.size})`}
         </button>
       </div>
     </details>
