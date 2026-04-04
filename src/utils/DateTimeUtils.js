@@ -29,6 +29,38 @@ export function getJsonAsDateString(json, language) {
     return getDateString(json, language);
 }
 
+/** Format date as dd.mm.YYYY for chart labels */
+export function formatDate(value) {
+    if (!value) {
+        return "";
+    }
+
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) {
+        return value;
+    }
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${day}.${month}.${year}`;
+}
+
+/** Sort chart data by given date field in asc/desc order */
+export function sortChartDataByDate(data, dateKey, isAsc = true) {
+    if (!Array.isArray(data)) {
+        return [];
+    }
+
+    const sorted = [...data].sort((a, b) => new Date(a[dateKey]) - new Date(b[dateKey]));
+    if (!isAsc) {
+        sorted.reverse();
+    }
+
+    return sorted;
+}
+
 /** Get both date and time parts from Json datetime */
 export function getJsonAsDateTimeString(json, language) {
     return getDateTimeString(json, language);

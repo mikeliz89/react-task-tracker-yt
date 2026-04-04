@@ -835,6 +835,137 @@ form {
     }
 }
 
+@media (max-width: 768px) {
+    body {
+        font-size: 13px;
+    }
+
+    .container {
+        margin: 2px auto;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 4px;
+        padding-bottom: 6px;
+    }
+
+    form {
+        padding-top: 0.55rem;
+        padding-bottom: 0.55rem;
+    }
+
+    h3.page-title,
+    h4.page-title {
+        margin-top: 4px;
+        margin-bottom: 4px;
+        font-size: 1.12rem;
+    }
+
+    .content-card {
+        padding: 0.85rem 0.95rem;
+        border-radius: 14px;
+    }
+
+    .detailspage-page {
+        padding: 0.8rem;
+        border-radius: 18px;
+    }
+
+    .detailspage-title-row .page-title {
+        font-size: clamp(1.2rem, 5vw, 1.45rem);
+    }
+
+    .detailspage-summary {
+        padding: 0.55rem 0.65rem;
+        line-height: 1.45;
+    }
+
+    .detailspage-card {
+        padding: 1rem;
+        border-radius: 16px;
+    }
+
+    .detailspage-meta-row {
+        gap: 0.7rem;
+        font-size: 0.78rem;
+    }
+
+    .myprofile-card-title {
+        font-size: 1.05rem;
+        margin-bottom: 0.7rem;
+    }
+
+    .myprofile-avatar {
+        width: 96px;
+        height: 96px;
+    }
+
+    .myprofile-display-name {
+        font-size: 1.25rem;
+    }
+
+    .myprofile-email-chip {
+        font-size: 0.85rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .myprofile-setting-row {
+        padding: 0.45rem 0;
+        font-size: 0.92rem;
+    }
+
+    .bigBtn {
+        height: 170px;
+        padding: 0.75rem;
+    }
+
+    .bigBtnText {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 12.5px;
+    }
+
+    .container {
+        margin: 0 auto;
+        padding-left: 6px;
+        padding-right: 6px;
+        padding-top: 3px;
+        padding-bottom: 4px;
+    }
+
+    .content-card {
+        padding: 0.72rem 0.75rem;
+        border-radius: 12px;
+    }
+
+    .detailspage-page {
+        padding: 0.65rem;
+        border-radius: 16px;
+    }
+
+    .detailspage-card {
+        padding: 0.85rem;
+        border-radius: 14px;
+    }
+
+    .comment-item {
+        padding: 0.75rem;
+        gap: 0.6rem;
+    }
+
+    .myprofile-avatar {
+        width: 84px;
+        height: 84px;
+    }
+
+    .myprofile-display-name {
+        font-size: 1.12rem;
+    }
+}
+
 .searchSortFilter {
     margin-top: 10px;
 }

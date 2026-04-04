@@ -104,6 +104,7 @@
         "fuel_price": "Bensan hinta EUR/L",
         "fuel_price_simple": "Bensan hinta",
         "fuel_price_chart": "Bensan hinnan kehitys",
+        "fuel_price_chart_unit": "EUR / Litra",
         "fuelings": "Tankkaukset",
         "fueler_name": "Tankkaaja",
         "last_modified": "Muokattu viimeksi",

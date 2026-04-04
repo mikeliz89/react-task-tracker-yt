@@ -1,26 +1,19 @@
-
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 import Button from '../Buttons/Button';
 import { ICONS, TRANSLATION } from '../../utils/Constants';
+import { formatDate, sortChartDataByDate } from '../../utils/DateTimeUtils';
 
 export default function GasPriceChart({ data }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.SEARCHSORTFILTER });
+    const { t: tCar } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
 
     const [isCreatedDateAsc, setIsCreatedDateAsc] = useState(true);
 
-    const sortedChartData = useMemo(() => {
-        if (!Array.isArray(data)) return [];
-
-        const sorted = [...data].sort((a, b) => new Date(a.created) - new Date(b.created));
-        if (!isCreatedDateAsc) {
-            sorted.reverse();
-        }
-        return sorted;
-    }, [data, isCreatedDateAsc]);
+    const sortedChartData = useMemo(() => sortChartDataByDate(data, 'created', isCreatedDateAsc), [data, isCreatedDateAsc]);
 
     return (
         <div>
@@ -32,11 +25,11 @@ export default function GasPriceChart({ data }) {
 
             {/* <pre>{JSON.stringify(data)}</pre> */}
             <LineChart width={800} height={300} data={sortedChartData}>
-                <Line type="monotone" dataKey="fuelPricePerLiter" stroke="#8884d8" />
+                <Line type="monotone" dataKey="fuelPricePerLiter" name={tCar('fuel_price_chart_unit')} stroke="#8884d8" />
                 <CartesianGrid stroke="#ccc" />
-                <XAxis dataKey="created" />
+                <XAxis dataKey="created" tickFormatter={formatDate} />
                 <YAxis type="number" domain={[1, 3]} />
-                <Tooltip />
+                <Tooltip labelFormatter={formatDate} />
                 <Legend />
             </LineChart>
         </div>
