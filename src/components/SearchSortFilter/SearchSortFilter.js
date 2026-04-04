@@ -9,9 +9,7 @@ import SortByButton from './SortByButton';
 import SearchTextInput from './SearchTextInput';
 import FilterCheckBox from './FilterCheckBox';
 import FilterDropDown from './FilterDropDown';
-import Button from '../Buttons/Button';
 import { useToggle } from '../Hooks/useToggle';
-import Collapse from 'react-bootstrap/Collapse';
 
 const ReadyFilterMode = {
     All: 'all',
@@ -64,8 +62,9 @@ export default function SearchSortFilter({ onSet,
     filterMode
 }) {
 
-    //toggle
-    const { status: showAll, toggleStatus: toggleShowAll } = useToggle(true);
+    //details open state
+    const { status: showAllToggle, toggleStatus: toggleShowAll } = useToggle(true);
+    const [showAll, setShowAll] = useState(showAllToggle);
 
     //search states
     const [searchString, setSearchString] = useState('');
@@ -105,6 +104,10 @@ export default function SearchSortFilter({ onSet,
         showOnlyCore,
         readyFilterMode]
     );
+
+    useEffect(() => {
+        setShowAll(showAllToggle);
+    }, [showAllToggle]);
 
     const filterAndSort = () => {
         if (!Array.isArray(originalList) || originalList.length === 0) return;
@@ -315,7 +318,19 @@ export default function SearchSortFilter({ onSet,
 
     return (
         <>
-            <Collapse in={showAll} dimension="height">
+            <details
+                open={showAll}
+                onToggle={(e) => {
+                    const isOpen = e.currentTarget.open;
+                    setShowAll(isOpen);
+                    if (isOpen !== showAllToggle) {
+                        toggleShowAll();
+                    }
+                }}
+            >
+                <summary style={{ cursor: 'pointer', fontWeight: 600, marginBottom: 8 }}>
+                    {t('search_tools')}
+                </summary>
                 <div className="searchSortFilter">
                     <Form className='form-no-paddings'>
                         <Form.Group as={Row}>
@@ -489,8 +504,7 @@ export default function SearchSortFilter({ onSet,
                         }
                     </Form>
                 </div>
-            </Collapse>
-            <Button text={showAll ? t('hide_search') : t('show_search')} onClick={() => toggleShowAll()} />
+            </details>
         </>
     )
 }

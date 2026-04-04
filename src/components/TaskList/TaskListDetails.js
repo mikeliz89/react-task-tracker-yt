@@ -1,35 +1,40 @@
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import { Col, Row, ButtonGroup, Tab, Tabs, Modal } from 'react-bootstrap';
+import { useEffect, useMemo, useState } from 'react';
+import i18n from 'i18next';
+import { child, get, off, onValue, push, ref, update } from 'firebase/database';
+import { ButtonGroup, Col, Modal, Row, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import Button from '../Buttons/Button';
-import GoBackButton from '../Buttons/GoBackButton';
-import AddTask from '../Task/AddTask';
-import AddTaskList from '../TaskList/AddTaskList';
-import Tasks from '../Task/Tasks';
-import ChangeType from './ChangeType';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { useAuth } from '../../contexts/AuthContext';
-import { db } from '../../firebase-config';
-import { ref, onValue, child, get, off, push, update } from 'firebase/database';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { ICONS, DB, TRANSLATION, COLORS } from '../../utils/Constants';
-import i18n from "i18next";
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import CenterWrapper from '../Site/CenterWrapper';
-import Counter from '../Site/Counter';
 import {
-  removeFromFirebaseByIdAndSubId, pushToFirebaseChild, pushToFirebase,
-  updateToFirebase, getFromFirebaseByIdAndSubId, getFromFirebaseById
+  getFromFirebaseById,
+  getFromFirebaseByIdAndSubId,
+  pushToFirebase,
+  pushToFirebaseChild,
+  removeFromFirebaseByIdAndSubId,
+  updateToFirebase
 } from '../../datatier/datatier';
-import { getPageTitleContent, getManagePageByListType } from '../../utils/ListUtils';
-import LinkComponent from '../Links/LinkComponent';
-import CommentComponent from '../Comments/CommentComponent';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { db } from '../../firebase-config';
+import { COLORS, DB, ICONS, TRANSLATION } from '../../utils/Constants';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import { getManagePageByListType, getPageTitleContent } from '../../utils/ListUtils';
+
 import AccordionElement from '../AccordionElement';
+import Button from '../Buttons/Button';
+import CommentComponent from '../Comments/CommentComponent';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
+import LinkComponent from '../Links/LinkComponent';
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import CenterWrapper from '../Site/CenterWrapper';
+import Counter from '../Site/Counter';
+import PageContentWrapper from '../Site/PageContentWrapper';
+import AddTask from '../Task/AddTask';
+import Tasks from '../Task/Tasks';
+import AddTaskList from '../TaskList/AddTaskList';
+import GoBackButton from '../Buttons/GoBackButton';
+import ChangeType from './ChangeType';
 
 export default function TaskListDetails() {
 
@@ -333,6 +338,74 @@ export default function TaskListDetails() {
     ];
   }
 
+  const toolsMenu = (
+    <details style={{ marginBottom: 12 }}>
+      <summary style={{ cursor: 'pointer', fontWeight: 600, marginBottom: 8 }}>
+        {t('tabheader_actions')}
+      </summary>
+
+      <div style={{ marginBottom: '10px' }}>
+        <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={ICONS.COPY} /> &nbsp;
+        <Button
+          iconName={ICONS.PLUS}
+          color={showAddTask ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
+          text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
+          onClick={toggleAddTask}
+        /> &nbsp;
+        <Button onClick={() => {
+          if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
+            markAllTasksDone(params.id)
+          }
+        }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} /> &nbsp;
+        <Button onClick={() => {
+          if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
+            markAllTasksUndone(params.id)
+          }
+        }} text={t('mark_all_tasks_undone')} iconName={ICONS.HOURGLASS_1} /> &nbsp;
+        <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
+          iconName={ICONS.EDIT} />
+      </div>
+
+      {
+        showChangeListType &&
+        <ChangeType taskList={taskList}
+          onSave={updateTaskList}
+          onClose={() => toggleShowChangeListType()} />
+      }
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr auto auto auto',
+          gap: 8,
+          alignItems: 'center',
+          marginBottom: 8,
+        }}
+      >
+        <button onClick={toggleAll} disabled={tasks.length === 0}>
+          {allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
+        </button>
+
+        <select
+          value={destListId}
+          onChange={(e) => setDestListId(e.target.value)}
+          style={{ minWidth: 220 }}
+        >
+          <option value="">{t('toolbar_select_destination_list')}</option>
+          {destinationOptions.map((tl) => (
+            <option key={tl.id} value={tl.id}>
+              {`${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} — ${tl.title || tl.id}`}
+            </option>
+          ))}
+        </select>
+
+        <button onClick={handleMove} disabled={!canMove}>
+          {loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected')} (${selectedIds.size})`}
+        </button>
+      </div>
+    </details>
+  );
+
   return loading ? (
     <h3>{tCommon("loading")}</h3>
   ) : (
@@ -366,13 +439,6 @@ export default function TaskListDetails() {
         </Col>
       </Row>
 
-      {
-        showChangeListType &&
-        <ChangeType taskList={taskList}
-          onSave={updateTaskList}
-          onClose={() => toggleShowChangeListType()} />
-      }
-
       <Modal show={showEditTaskList} onHide={toggleShowTaskList}>
         <Modal.Header closeButton>
           <Modal.Title>{t('modal_header_edit_task_list')}</Modal.Title>
@@ -380,6 +446,19 @@ export default function TaskListDetails() {
         <Modal.Body>
           <AddTaskList onSave={updateTaskList}
             taskListID={params.id} onClose={toggleShowTaskList}
+          />
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showAddTask} onHide={toggleAddTask}>
+        <Modal.Header closeButton>
+          <Modal.Title>{t('modal_header_add_task')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddTask
+            onClose={toggleAddTask}
+            taskListID={params.id} onSave={updateTask}
+            autoFocusText={true}
           />
         </Modal.Body>
       </Modal>
@@ -407,61 +486,7 @@ export default function TaskListDetails() {
             ) : (<></>)
           }
 
-          <Modal show={showAddTask} onHide={toggleAddTask}>
-            <Modal.Header closeButton>
-              <Modal.Title>{t('modal_header_add_task')}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <AddTask
-                onClose={toggleAddTask}
-                taskListID={params.id} onSave={updateTask}
-                autoFocusText={true}
-              />
-            </Modal.Body>
-          </Modal>
-
-          <CenterWrapper>
-            <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')}
-              iconName={ICONS.COPY} />
-            &nbsp;
-            <Button
-              iconName={ICONS.PLUS}
-              color={showAddTask ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-              text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
-              onClick={toggleAddTask} />
-          </CenterWrapper>
-
-          {/* Työkalupalkki */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr auto auto auto",
-              gap: 8,
-              alignItems: "center",
-              marginBottom: 12,
-            }}
-          >
-            <button onClick={toggleAll} disabled={tasks.length === 0}>
-              {allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
-            </button>
-
-            <select
-              value={destListId}
-              onChange={(e) => setDestListId(e.target.value)}
-              style={{ minWidth: 220 }}
-            >
-              <option value="">{t('toolbar_select_destination_list')}</option>
-              {destinationOptions.map((tl) => (
-                <option key={tl.id} value={tl.id}>
-                  {`${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} — ${tl.title || tl.id}`}
-                </option>
-              ))}
-            </select>
-
-            <button onClick={handleMove} disabled={!canMove}>
-              {loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected')} (${selectedIds.size})`}
-            </button>
-          </div>
+          {toolsMenu}
 
           {tasks != null && tasks.length > 0 ? (
             <>
@@ -488,23 +513,6 @@ export default function TaskListDetails() {
         </Tab>
         <Tab eventKey="comments" title={t('tabheader_comments')}>
           <CommentComponent objID={params.id} url={DB.TASKLIST_COMMENTS} onSave={addCommentToTaskList} />
-        </Tab>
-        <Tab eventKey="actions" title={t('tabheader_actions')}>
-          <div style={{ marginBottom: '10px' }}>
-            <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={ICONS.COPY} /> &nbsp;
-            <Button onClick={() => {
-              if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
-                markAllTasksDone(params.id)
-              }
-            }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} /> &nbsp;
-            <Button onClick={() => {
-              if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
-                markAllTasksUndone(params.id)
-              }
-            }} text={t('mark_all_tasks_undone')} iconName={ICONS.HOURGLASS_1} /> &nbsp;
-            <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
-              iconName={ICONS.EDIT} />
-          </div>
         </Tab>
       </Tabs>
 
