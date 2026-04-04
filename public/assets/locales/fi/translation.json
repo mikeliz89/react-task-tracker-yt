@@ -707,7 +707,8 @@
     "theme": {
         "title": "Teema",
         "dark": "tumma",
-        "light": "vaalea"
+        "light": "vaalea",
+        "colorful": "värikäs"
     },
     "uploadimages": {
         "add_image": "Lisää kuva",

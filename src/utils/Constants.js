@@ -282,8 +282,7 @@ export const SESSIONSTORAGE = {
 export const THEMES = {
     LIGHT: 'light',
     DARK: 'dark',
-    BLACK: 'black',
-    WHITE: 'white'
+    COLORFUL: 'colorful'
 }
 
 //TRANSLATIONS

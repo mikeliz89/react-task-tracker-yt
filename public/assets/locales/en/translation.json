@@ -711,7 +711,8 @@
   "theme": {
     "title": "Theme",
     "dark": "dark",
-    "light": "light"
+    "light": "light",
+    "colorful": "colorful"
   },
   "uploadimages": {
     "add_image": "Add image",
