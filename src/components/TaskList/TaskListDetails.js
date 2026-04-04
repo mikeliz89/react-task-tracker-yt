@@ -444,9 +444,6 @@ export default function TaskListDetails() {
             <button onClick={toggleAll} disabled={tasks.length === 0}>
               {allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
             </button>
-            <button onClick={clearSelection} disabled={selectedIds.size === 0}>
-              {t('toolbar_clear_selection')}
-            </button>
 
             <select
               value={destListId}
