@@ -2,14 +2,20 @@
 
 #light {
     background-color: var(--color-white);
+    --light-surface: #ffffff;
+    --light-border-soft: rgba(0, 0, 0, 0.12);
+    --light-text-strong: rgba(0, 0, 0, 0.88);
+    --light-text-muted: rgba(0, 0, 0, 0.62);
+    --light-comment-bg: rgba(0, 0, 0, 0.03);
+    --light-chip-bg: rgba(0, 0, 0, 0.06);
     --detailspage-meta-label-color: rgba(0, 0, 0, 0.46);
     --detailspage-meta-value-color: rgba(0, 0, 0, 0.9);
     --detailspage-meta-row-color: rgba(0, 0, 0, 0.54);
 }
 
 #light .content-card {
-    background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: var(--light-surface);
+    border: 1px solid var(--light-border-soft);
     box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
 }
 
@@ -40,16 +46,16 @@
 /* Theme Light: DetailsPage End */
 
 #light .comments-empty-state {
-    color: rgba(0, 0, 0, 0.62);
+    color: var(--light-text-muted);
 }
 
 #light .comments-empty-icon {
-    background: rgba(0, 0, 0, 0.06);
+    background: var(--light-chip-bg);
 }
 
 #light .comment-item {
-    background: rgba(0, 0, 0, 0.03);
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: var(--light-comment-bg);
+    border: 1px solid var(--light-border-soft);
 }
 
 #light .comment-avatar {
@@ -70,7 +76,7 @@
 }
 
 #light .comment-item-text {
-    color: rgba(0, 0, 0, 0.88);
+    color: var(--light-text-strong);
 }
 
 #light .comment-delete-button {
@@ -87,7 +93,7 @@
 }
 
 #light .myprofile-email-chip {
-    background: rgba(0, 0, 0, 0.06);
+    background: var(--light-chip-bg);
     color: rgba(0, 0, 0, 0.75);
 }
 
@@ -102,6 +108,20 @@
 
 #dark {
     background-color: var(--color-neutral-900);
+    --dark-text-base: rgb(209, 209, 209);
+    --dark-surface: #333333;
+    --dark-task-title: rgba(233, 239, 250, 0.97);
+    --dark-task-subtitle: rgba(194, 206, 229, 0.82);
+    --dark-nav-border-soft: rgba(154, 179, 230, 0.2);
+    --dark-nav-border-strong: rgba(154, 179, 230, 0.35);
+    --dark-nav-border-bottom: rgba(154, 179, 230, 0.28);
+    --dark-nav-text: rgba(216, 226, 245, 0.88);
+    --dark-nav-text-hover: rgba(242, 248, 255, 0.96);
+    --dark-nav-bg: rgba(52, 60, 78, 0.9);
+    --dark-nav-bg-hover: rgba(72, 86, 114, 0.9);
+    --dark-link-title: rgba(226, 236, 255, 0.95);
+    --dark-link-url: rgba(193, 207, 236, 0.78);
+    --dark-placeholder: rgb(182, 182, 182);
     --detailspage-meta-label-color: rgba(255, 255, 255, 0.78);
     --detailspage-meta-value-color: rgba(255, 255, 255, 0.97);
     --detailspage-meta-row-color: rgba(255, 255, 255, 0.63);
@@ -114,11 +134,11 @@
 #dark h4,
 #dark label,
 #dark div {
-    color: rgb(209, 209, 209);
+    color: var(--dark-text-base);
 }
 
 #dark .listContainer {
-    background-color: #333333;
+    background-color: var(--dark-surface);
 }
 
 #dark .taskRowContainer {
@@ -139,11 +159,11 @@
 
 #dark .taskRowLink,
 #dark .taskRowTitle {
-    color: rgba(233, 239, 250, 0.97);
+    color: var(--dark-task-title);
 }
 
 #dark .taskRowDay {
-    color: rgba(194, 206, 229, 0.82);
+    color: var(--dark-task-subtitle);
 }
 
 #dark .taskDoneBadge {
@@ -210,7 +230,7 @@
 }
 
 #dark ::placeholder {
-    color: rgb(182, 182, 182);
+    color: var(--dark-placeholder);
 }
 
 #dark .linkContainer {
@@ -219,7 +239,7 @@
 }
 
 #dark .link-item-title {
-    color: rgba(226, 236, 255, 0.95);
+    color: var(--dark-link-title);
 }
 
 #dark .link-item-title:hover {
@@ -227,24 +247,24 @@
 }
 
 #dark .link-item-url {
-    color: rgba(193, 207, 236, 0.78);
+    color: var(--dark-link-url);
 }
 
 #dark .nav-tabs {
-    border-bottom-color: rgba(154, 179, 230, 0.28);
+    border-bottom-color: var(--dark-nav-border-bottom);
 }
 
 #dark .nav-tabs .nav-link {
-    background-color: rgba(52, 60, 78, 0.9);
-    color: rgba(216, 226, 245, 0.88);
-    border: 1px solid rgba(154, 179, 230, 0.2);
+    background-color: var(--dark-nav-bg);
+    color: var(--dark-nav-text);
+    border: 1px solid var(--dark-nav-border-soft);
 }
 
 #dark .nav-tabs .nav-link:hover,
 #dark .nav-tabs .nav-link:focus {
-    background-color: rgba(72, 86, 114, 0.9);
-    color: rgba(242, 248, 255, 0.96);
-    border-color: rgba(154, 179, 230, 0.35);
+    background-color: var(--dark-nav-bg-hover);
+    color: var(--dark-nav-text-hover);
+    border-color: var(--dark-nav-border-strong);
 }
 
 #dark .nav-tabs .nav-link.active,
@@ -371,7 +391,7 @@
 }
 
 #dark .table td {
-    background-color: #333333;
+    background-color: var(--dark-surface);
     color: var(--color-white);
 }
 
