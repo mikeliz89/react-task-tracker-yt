@@ -1,4 +1,3 @@
-
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
@@ -72,7 +71,7 @@ export default function Links({ url, objID, onCounterChange, onSaveLink }) {
     return loading ? (
         <h3>{tCommon("loading")}</h3>
     ) : (
-        <div className="content-card">
+        <div className="inner-content">
             <AddLink onSaveLink={onSaveLink} />
             {/* <pre>{JSON.stringify(links)}</pre> */}
             {

@@ -10,13 +10,14 @@ export function useTheme() {
 export function ThemeProvider({ children }) {
 
     //states
-    const [theme, setTheme] = useState('');
+    const [theme, setTheme] = useState(THEMES.LIGHT);
 
     useEffect(() => {
 
         // Access fromPage from session storage
+        const allowedThemes = Object.values(THEMES);
         var themeFromSession = localStorage.getItem(SESSIONSTORAGE.THEME);
-        if (themeFromSession == null) {
+        if (themeFromSession == null || !allowedThemes.includes(themeFromSession)) {
             //initialize as light
             themeFromSession = THEMES.LIGHT;
             // Update session storage
@@ -33,8 +34,13 @@ export function ThemeProvider({ children }) {
     }
 
     const toggleTheme = () => {
-        setTheme((curr) => curr === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT);
-        setLocalStorage(theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT);
+        const orderedThemes = [THEMES.LIGHT, THEMES.DARK];
+        setTheme((curr) => {
+            const currentIndex = orderedThemes.indexOf(curr);
+            const nextTheme = orderedThemes[(currentIndex + 1) % orderedThemes.length];
+            setLocalStorage(nextTheme);
+            return nextTheme;
+        });
     }
 
     const value = { theme, toggleTheme };

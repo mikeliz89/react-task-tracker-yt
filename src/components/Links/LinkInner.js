@@ -1,5 +1,5 @@
 import { useState } from "react";
-import EditLink from "./EditLink";
+import AddLink from "./AddLink";
 import RightWrapper from "../Site/RightWrapper";
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
@@ -38,12 +38,14 @@ export default function LinkInner({ link, objID, linkUrl, onEdit, onDelete }) {
             </div>
             {editable &&
                 <div className="link-item-edit-row">
-                        <EditLink
-                            objID={objID}
-                            linkUrl={linkUrl}
-                            linkID={link.id}
-                            onEditLink={editLink}
-                            onCloseEditLink={() => setEditable(false)} />
+                    <AddLink
+                        linkID={link.id}
+                        initialUrl={link.url}
+                        initialUrlText={link.urlText}
+                        onSaveLink={editLink}
+                        onClose={() => setEditable(false)}
+                        showToggleButton={false}
+                    />
                 </div>
             }
         </>

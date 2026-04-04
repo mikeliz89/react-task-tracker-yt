@@ -1,20 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Col, Form, Row } from 'react-bootstrap';
 import Button from '../Buttons/Button';
 import { TRANSLATION, ICONS } from '../../utils/Constants';
 
-export default function AddLink({ onSaveLink }) {
+export default function AddLink({
+    onSaveLink,
+    linkID,
+    initialUrl,
+    initialUrlText,
+    onClose,
+    showToggleButton
+}) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LINKS });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
-    const [url, setUrl] = useState('');
-    const [urlText, setUrlText] = useState('');
-    const [showForm, setShowForm] = useState(false);
+    const [url, setUrl] = useState(initialUrl || '');
+    const [urlText, setUrlText] = useState(initialUrlText || '');
+    const [showForm, setShowForm] = useState(showToggleButton ? false : true);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setUrl(initialUrl || '');
+        setUrlText(initialUrlText || '');
+    }, [initialUrl, initialUrlText, linkID]);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -26,7 +38,17 @@ export default function AddLink({ onSaveLink }) {
 
         setLoading(true);
 
-        onSaveLink({ url, urlText });
+        const payload = linkID != null
+            ? { id: linkID, url, urlText }
+            : { url, urlText };
+
+        onSaveLink(payload);
+
+        if (linkID != null) {
+            setLoading(false);
+            onClose();
+            return;
+        }
 
         clearForm();
     }
@@ -39,13 +61,15 @@ export default function AddLink({ onSaveLink }) {
 
     return (
         <>
-            <Button
-                iconName={ICONS.PLUS}
-                type='button'
-                disableStyle={true}
-                className={showForm ? 'btn btn-danger' : 'btn btn-primary'}
-                text={showForm ? tCommon('buttons.button_close') : t('add_link')}
-                onClick={() => setShowForm(!showForm)} />
+            {showToggleButton &&
+                <Button
+                    iconName={ICONS.PLUS}
+                    type='button'
+                    disableStyle={true}
+                    className={showForm ? 'btn btn-danger' : 'btn btn-primary'}
+                    text={showForm ? tCommon('buttons.button_close') : t('add_link')}
+                    onClick={() => setShowForm(!showForm)} />
+            }
             {
                 showForm ? (
                     <>
@@ -53,6 +77,7 @@ export default function AddLink({ onSaveLink }) {
                             <Col>
                                 <Form onSubmit={onSubmit}>
                                     <Form.Group className="mb-3" controlId="addLinkForm-UrlText">
+                                        <Form.Label>{t('urlText')}</Form.Label>
                                         <Form.Control type='text'
                                             autoComplete="off"
                                             placeholder={t('urlText')}
@@ -60,6 +85,7 @@ export default function AddLink({ onSaveLink }) {
                                             onChange={(e) => setUrlText(e.target.value)} />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="addLinkForm-Url">
+                                        <Form.Label>{t('url')}</Form.Label>
                                         <Form.Control type='text'
                                             autoComplete="off"
                                             placeholder={t('url')}
@@ -69,7 +95,13 @@ export default function AddLink({ onSaveLink }) {
                                     <Row>
                                         <ButtonGroup>
                                             <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
-                                                onClick={() => setShowForm(false)} />
+                                                onClick={() => {
+                                                    if (showToggleButton) {
+                                                        setShowForm(false);
+                                                    } else {
+                                                        onClose();
+                                                    }
+                                                }} />
                                             <Button disabled={loading} type='submit' text={t('save_link')} className='btn btn-block saveBtn' />
                                         </ButtonGroup>
                                     </Row>
@@ -80,4 +112,12 @@ export default function AddLink({ onSaveLink }) {
             }
         </>
     )
+}
+
+AddLink.defaultProps = {
+    linkID: null,
+    initialUrl: '',
+    initialUrlText: '',
+    onClose: () => { },
+    showToggleButton: true
 }

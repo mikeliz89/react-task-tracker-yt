@@ -22,9 +22,7 @@ export default function LinkComponent({ objID, url, onSaveLink }) {
                     isSubTitle={true}
                 />
             </div>
-            <div className="content-panel-card">
-                <Links objID={objID} url={url} onCounterChange={setCounter} onSaveLink={onSaveLink} />
-            </div>
+            <Links objID={objID} url={url} onCounterChange={setCounter} onSaveLink={onSaveLink} />
         </div>
     )
 }

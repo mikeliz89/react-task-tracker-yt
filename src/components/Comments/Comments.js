@@ -1,4 +1,3 @@
-
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase-config';
@@ -13,8 +12,10 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.COMMENTS });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
+    const [loading, setLoading] = useState(true);
     const [comments, setComments] = useState({});
 
     //load data
@@ -24,6 +25,8 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
         }
         if (url !== "") {
             getComments();
+        } else {
+            setLoading(false);
         }
     }, []);
 
@@ -33,12 +36,15 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
             const snap = snapshot.val();
             const fromDB = [];
             let commentCounterTemp = 0;
-            for (let id in snap) {
-                commentCounterTemp++;
-                fromDB.push({ id, ...snap[id] });
+            if (snap) {
+                for (let id in snap) {
+                    commentCounterTemp++;
+                    fromDB.push({ id, ...snap[id] });
+                }
             }
             setComments(fromDB);
             onCounterChange(commentCounterTemp);
+            setLoading(false);
         })
     }
 
@@ -46,8 +52,10 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
         removeFromFirebaseByIdAndSubId(url, objID, commentID);
     }
 
-    return (
-        <div className="comments-content">
+    return loading ? (
+        <h3>{tCommon("loading")}</h3>
+    ) : (
+        <div className="inner-content">
             <AddComment onSave={onSave} />
             {/* <pre>{JSON.stringify(comments)}</pre> */}
 

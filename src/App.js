@@ -111,7 +111,7 @@ import ManageLists from './components/Lists/ManageLists';
 import ManagePeople from './components/People/ManagePeople';
 import PersonDetails from './components/People/PersonDetails';
 //Constants
-import { NAVIGATION, THEMES } from './utils/Constants';
+import { COLORS, NAVIGATION, THEMES } from './utils/Constants';
 
 //ICONIT
 //React icons: https://react-icons.github.io/react-icons/icons?name=fa (old link)
@@ -164,11 +164,14 @@ function App() {
     const htmlElement = document.documentElement;
 
     if (theme === THEMES.DARK) {
-      rootElement.style.backgroundColor = THEMES.BLACK;
-      htmlElement.style.backgroundColor = THEMES.BLACK;
+      rootElement.style.backgroundColor = COLORS.BLACK;
+      htmlElement.style.backgroundColor = COLORS.BLACK;
     } else if (theme === THEMES.LIGHT) {
-      rootElement.style.backgroundColor = THEMES.WHITE;
-      htmlElement.style.backgroundColor = THEMES.WHITE;
+      rootElement.style.backgroundColor = COLORS.WHITE;
+      htmlElement.style.backgroundColor = COLORS.WHITE;
+    } else if (theme === THEMES.COLORFUL) {
+      rootElement.style.backgroundColor = '#dcff7a';
+      htmlElement.style.backgroundColor = '#d6ff65';
     }
   }
 

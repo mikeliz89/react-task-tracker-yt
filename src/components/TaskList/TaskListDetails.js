@@ -1,35 +1,41 @@
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import { Col, Row, ButtonGroup, Tab, Tabs, Modal } from 'react-bootstrap';
+import { useEffect, useMemo, useState } from 'react';
+import i18n from 'i18next';
+import { child, get, off, onValue, push, ref, update } from 'firebase/database';
+import { ButtonGroup, Col, Form, Modal, Row, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import Button from '../Buttons/Button';
-import GoBackButton from '../Buttons/GoBackButton';
-import AddTask from '../Task/AddTask';
-import AddTaskList from '../TaskList/AddTaskList';
-import Tasks from '../Task/Tasks';
-import ChangeType from './ChangeType';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { useAuth } from '../../contexts/AuthContext';
-import { db } from '../../firebase-config';
-import { ref, onValue, child, get, off, push, update } from 'firebase/database';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { ICONS, DB, TRANSLATION, COLORS } from '../../utils/Constants';
-import i18n from "i18next";
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import CenterWrapper from '../Site/CenterWrapper';
-import Counter from '../Site/Counter';
 import {
-  removeFromFirebaseByIdAndSubId, pushToFirebaseChild, pushToFirebase,
-  updateToFirebase, getFromFirebaseByIdAndSubId, getFromFirebaseById
+  getFromFirebaseById,
+  getFromFirebaseByIdAndSubId,
+  pushToFirebase,
+  pushToFirebaseChild,
+  removeFromFirebaseByIdAndSubId,
+  updateToFirebase
 } from '../../datatier/datatier';
-import { getPageTitleContent, getManagePageByListType } from '../../utils/ListUtils';
-import LinkComponent from '../Links/LinkComponent';
+import { db } from '../../firebase-config';
+import { COLORS, DB, ICONS, TRANSLATION } from '../../utils/Constants';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import { getManagePageByListType, getPageTitleContent } from '../../utils/ListUtils';
+
+import Button from '../Buttons/Button';
 import CommentComponent from '../Comments/CommentComponent';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import AccordionElement from '../AccordionElement';
 import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
+import LinkComponent from '../Links/LinkComponent';
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import CenterWrapper from '../Site/CenterWrapper';
+import Counter from '../Site/Counter';
+import PageContentWrapper from '../Site/PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
+import Icon from '../Icon';
+import AddTask from '../Task/AddTask';
+import Tasks from '../Task/Tasks';
+import AddTaskList from '../TaskList/AddTaskList';
+import GoBackButton from '../Buttons/GoBackButton';
+import ChangeType from './ChangeType';
 
 export default function TaskListDetails() {
 
@@ -55,8 +61,10 @@ export default function TaskListDetails() {
 
   //modal & toggle
   const { status: showAddTask, toggleStatus: toggleAddTask } = useToggle();
+  const { status: showBulkAddTasks, toggleStatus: toggleBulkAddTasks } = useToggle();
   const { status: showEditTaskList, toggleStatus: toggleShowTaskList } = useToggle();
   const { status: showChangeListType, toggleStatus: toggleShowChangeListType } = useToggle();
+  const [bulkTasksText, setBulkTasksText] = useState('');
 
   //counters
   const [taskCounter, setTaskCounter] = useState(0);
@@ -160,6 +168,7 @@ export default function TaskListDetails() {
     .slice() // kopio, ettei mutatoida alkuperäistä
     .sort(sortByTypeThenTitle);
   const canMove = selectedIds.size > 0 && destListId && !loadingMove;
+  const canDeleteSelected = selectedIds.size > 0 && !loadingMove;
 
   // Siirtologiikka (atominen update)
   const handleMove = async () => {
@@ -202,10 +211,52 @@ export default function TaskListDetails() {
     }
   };
 
+  const handleDeleteSelected = async () => {
+    setError("");
+    if (!canDeleteSelected) return;
+    if (!window.confirm(tCommon('confirm.areyousure'))) return;
+
+    setLoadingMove(true);
+    try {
+      const rootRef = ref(db);
+      const updates = {};
+
+      selectedIds.forEach((taskId) => {
+        updates[`${DB.TASKS}/${sourceListId}/${taskId}`] = null;
+      });
+
+      await update(rootRef, updates);
+      clearSelection();
+    } catch (ex) {
+      setError("Poisto epäonnistui. Yritä uudelleen.");
+      console.warn(ex);
+    } finally {
+      setLoadingMove(false);
+    }
+  };
+
   const updateTask = async (taskListID, task) => {
     task["created"] = getCurrentDateAsJson();
     task["createdBy"] = currentUser.email;
     pushToFirebaseChild(DB.TASKS, taskListID, task);
+  }
+
+  const addBulkTasks = async () => {
+    const names = bulkTasksText
+      .split(/[\n,]+/)
+      .map((name) => name.trim())
+      .filter((name) => name.length > 0);
+
+    if (names.length === 0) {
+      return;
+    }
+
+    await Promise.all(names.map((text) =>
+      updateTask(params.id, { text, day: '', reminder: false })
+    ));
+
+    setBulkTasksText('');
+    toggleBulkAddTasks();
   }
 
   const deleteTask = async (taskListID, id) => {
@@ -323,15 +374,107 @@ export default function TaskListDetails() {
     navigator.clipboard.writeText(text);
   }
 
-  const getAccordionData = () => {
-    return [
-      { id: 1, name: t('created'), value: getJsonAsDateTimeString(taskList.created, i18n.language) },
-      { id: 2, name: t('created_by'), value: taskList.createdBy },
-      { id: 3, name: t('modified'), value: getJsonAsDateTimeString(taskList.modified, i18n.language) },
-      { id: 4, name: t('tasks_ready_counter'), value: taskReadyCounter + '/' + taskCounter },
-      { id: 5, name: t('category'), value: t(getPageTitleContent(taskList.listType)) }
-    ];
-  }
+  const toolsMenu = (
+    <details style={{ marginBottom: 12 }}>
+      <summary style={{ cursor: 'pointer', fontWeight: 600, marginBottom: 8 }}>
+        {t('tabheader_actions')}
+      </summary>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 8 }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={ICONS.COPY} />
+          <Button
+            iconName={ICONS.PLUS}
+            color={showBulkAddTasks ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
+            text={showBulkAddTasks ? tCommon('buttons.button_close') : t('button_add_tasks_bulk')}
+            onClick={toggleBulkAddTasks}
+          />
+          <Button onClick={() => {
+            if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
+              markAllTasksDone(params.id)
+            }
+          }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} />
+          <Button onClick={() => {
+            if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
+              markAllTasksUndone(params.id)
+            }
+          }} text={t('mark_all_tasks_undone')} iconName={ICONS.HOURGLASS_1} />
+          <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
+            iconName={ICONS.EDIT} />
+        </div>
+
+        {
+          showChangeListType &&
+          <ChangeType taskList={taskList}
+            onSave={updateTaskList}
+            onClose={() => toggleShowChangeListType()} />
+        }
+
+        {showBulkAddTasks &&
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <Form.Group controlId="bulkTasksInput">
+              <Form.Label>{t('button_add_tasks_bulk')}</Form.Label>
+              <Form.Control
+                autoComplete="off"
+                type="text"
+                placeholder={t('bulk_tasks_placeholder')}
+                value={bulkTasksText}
+                onChange={(e) => setBulkTasksText(e.target.value)}
+              />
+            </Form.Group>
+            <Button
+              iconName={ICONS.PLUS}
+              onClick={addBulkTasks}
+              text={t('button_save_multiple_tasks')}
+              disabled={bulkTasksText.trim().length === 0}
+            />
+          </div>
+        }
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+          <span style={{ fontWeight: 600 }}>{`${selectedIds.size}/${tasks.length} ${t('tasks')}`}</span>
+          <Button
+            onClick={toggleAll}
+            disabled={tasks.length === 0}
+            color={COLORS.BUTTON_GRAY}
+            iconName={allSelected ? ICONS.MINUS : ICONS.CHECK_SQUARE}
+            text={allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
+          />
+          <Button
+            onClick={handleDeleteSelected}
+            disabled={!canDeleteSelected}
+            color={COLORS.DELETEBUTTON}
+            iconName={ICONS.DELETE}
+            text={`${t('toolbar_delete_selected')} (${selectedIds.size})`}
+          />
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <span style={{ fontWeight: 600 }}>{t('toolbar_move_to_another_list')}</span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+            <select
+              value={destListId}
+              onChange={(e) => setDestListId(e.target.value)}
+              style={{ minWidth: 260 }}
+            >
+              <option value="">{t('toolbar_select_destination_list')}</option>
+              {destinationOptions.map((tl) => (
+                <option key={tl.id} value={tl.id}>
+                  {`${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} — ${tl.title || tl.id}`}
+                </option>
+              ))}
+            </select>
+            <Button
+              onClick={handleMove}
+              disabled={!canMove}
+              color={COLORS.BUTTON_GRAY}
+              text={loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected_to_another_list')} (${selectedIds.size})`}
+            />
+          </div>
+        </div>
+      </div>
+    </details>
+  );
 
   return loading ? (
     <h3>{tCommon("loading")}</h3>
@@ -357,21 +500,22 @@ export default function TaskListDetails() {
         </ButtonGroup>
       </Row>
 
-      <AccordionElement array={getAccordionData()} title={taskList.title}
-        iconName={ICONS.LIST_ALT} />
-
       <Row>
         <Col>
-          {t('description') + ': '}{taskList.description}
+          <PageTitle title={taskList.title} iconName={ICONS.LIST_ALT} />
+          <p className="detailspage-summary">{`${t('description')}: ${taskList?.description || '-'}`}</p>
+          <div className="detailspage-meta-row">
+            <span className="detailspage-meta-history-icon">
+              <Icon name={ICONS.HISTORY} color="#8f9bb3" fontSize="0.95rem" />
+            </span>
+            <><span className="detailspage-meta-label">{t('created')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(taskList?.created, i18n.language)}</span></>
+            <><span className="detailspage-meta-label">{t('modified')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(taskList?.modified, i18n.language)}</span></>
+            <><span className="detailspage-meta-label">{t('created_by')}:</span> <span className="detailspage-meta-value">{taskList?.createdBy || '-'}</span></>
+          </div>
         </Col>
       </Row>
 
-      {
-        showChangeListType &&
-        <ChangeType taskList={taskList}
-          onSave={updateTaskList}
-          onClose={() => toggleShowChangeListType()} />
-      }
+      <hr />
 
       <Modal show={showEditTaskList} onHide={toggleShowTaskList}>
         <Modal.Header closeButton>
@@ -384,10 +528,23 @@ export default function TaskListDetails() {
         </Modal.Body>
       </Modal>
 
+      <Modal show={showAddTask} onHide={toggleAddTask}>
+        <Modal.Header closeButton>
+          <Modal.Title>{t('modal_header_add_task')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddTask
+            onClose={toggleAddTask}
+            taskListID={params.id} onSave={updateTask}
+            autoFocusText={true}
+          />
+        </Modal.Body>
+      </Modal>
+
       <Tabs defaultActiveKey="home"
         id="taskListDetails-Tab"
         className="mb-3">
-        <Tab eventKey="home" title={t('tabheader_tasks')}>
+        <Tab eventKey="home" title={<><Icon name={ICONS.LIST_ALT} />{t('tabheader_tasks')}</>}>
 
           {
             originalTasks != null && originalTasks.length > 0 ? (
@@ -407,64 +564,16 @@ export default function TaskListDetails() {
             ) : (<></>)
           }
 
-          <CenterWrapper>
-            <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')}
-              iconName={ICONS.COPY} />
-            &nbsp;
+          <div style={{ marginBottom: 10 }}>
             <Button
               iconName={ICONS.PLUS}
               color={showAddTask ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
               text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
-              onClick={toggleAddTask} />
-          </CenterWrapper>
-
-          <Modal show={showAddTask} onHide={toggleAddTask}>
-            <Modal.Header closeButton>
-              <Modal.Title>{t('modal_header_add_task')}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <AddTask
-                onClose={toggleAddTask}
-                taskListID={params.id} onSave={updateTask}
-                autoFocusText={true}
-              />
-            </Modal.Body>
-          </Modal>
-
-          {/* Työkalupalkki */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr auto auto auto",
-              gap: 8,
-              alignItems: "center",
-              marginBottom: 12,
-            }}
-          >
-            <button onClick={toggleAll} disabled={tasks.length === 0}>
-              {allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
-            </button>
-            <button onClick={clearSelection} disabled={selectedIds.size === 0}>
-              {t('toolbar_clear_selection')}
-            </button>
-
-            <select
-              value={destListId}
-              onChange={(e) => setDestListId(e.target.value)}
-              style={{ minWidth: 220 }}
-            >
-              <option value="">{t('toolbar_select_destination_list')}</option>
-              {destinationOptions.map((tl) => (
-                <option key={tl.id} value={tl.id}>
-                  {`${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} — ${tl.title || tl.id}`}
-                </option>
-              ))}
-            </select>
-
-            <button onClick={handleMove} disabled={!canMove}>
-              {loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected')} (${selectedIds.size})`}
-            </button>
+              onClick={toggleAddTask}
+            />
           </div>
+
+          {toolsMenu}
 
           {tasks != null && tasks.length > 0 ? (
             <>
@@ -486,28 +595,11 @@ export default function TaskListDetails() {
             </>
           )}
         </Tab>
-        <Tab eventKey="links" title={t('tabheader_links')}>
+        <Tab eventKey="links" title={<><Icon name={ICONS.EXTERNAL_LINK_ALT} />{t('tabheader_links')}</>}>
           <LinkComponent objID={params.id} url={DB.TASKLIST_LINKS} onSaveLink={addLinkToTaskList} />
         </Tab>
-        <Tab eventKey="comments" title={t('tabheader_comments')}>
+        <Tab eventKey="comments" title={<><Icon name={ICONS.COMMENTS} />{t('tabheader_comments')}</>}>
           <CommentComponent objID={params.id} url={DB.TASKLIST_COMMENTS} onSave={addCommentToTaskList} />
-        </Tab>
-        <Tab eventKey="actions" title={t('tabheader_actions')}>
-          <div style={{ marginBottom: '10px' }}>
-            <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={ICONS.COPY} /> &nbsp;
-            <Button onClick={() => {
-              if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
-                markAllTasksDone(params.id)
-              }
-            }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} /> &nbsp;
-            <Button onClick={() => {
-              if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
-                markAllTasksUndone(params.id)
-              }
-            }} text={t('mark_all_tasks_undone')} iconName={ICONS.HOURGLASS_1} /> &nbsp;
-            <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
-              iconName={ICONS.EDIT} />
-          </div>
         </Tab>
       </Tabs>
 

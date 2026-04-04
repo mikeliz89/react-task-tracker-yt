@@ -1,9 +1,11 @@
 {
   "coming_soon": "Coming soon...",
   "about": {
+    "title": "Version History",
     "about_version": "Version",
     "about_author": "Author",
-    "version_upgraded": "Version upgraded last"
+    "version_upgraded": "Released",
+    "description": "Description"
   },
   "auth": {
     "already_have_an_account": "Already have an account?",
@@ -103,6 +105,7 @@
     "fuel_price": "Gas price €/L",
     "fuel_price_simple": "Gas price",
     "fuel_price_chart": "Fuel price chart",
+    "fuel_price_chart_unit": "EUR / Liter",
     "fuelings": "Fuelings",
     "fueler_name": "Fueler",
     "last_modified": "Last modified",
@@ -688,6 +691,7 @@
     "show_only_not_ready": "Only non ready",
     "ready_filter_all": "All",
     "ready_filter_ready": "Ready",
+    "search_tools": "Search tools",
     "ready_filter_not_ready": "Not ready",
     "sorting": "Sort By",
     "star_rating": "Rating",
@@ -707,7 +711,8 @@
   "theme": {
     "title": "Theme",
     "dark": "dark",
-    "light": "light"
+    "light": "light",
+    "colorful": "colorful"
   },
   "uploadimages": {
     "add_image": "Add image",

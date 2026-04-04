@@ -1,9 +1,11 @@
 {
     "coming_soon": "Tulossa pian...",
     "about": {
+        "title": "Versiotiedot",
         "about_version": "Versio",
         "about_author": "Tekijä",
-        "version_upgraded": "Versiota nostettu viimeksi"
+        "version_upgraded": "Julkaistu",
+        "description": "Kuvaus"
     },
     "auth": {
         "already_have_an_account": "Oletko jo rekisteröitynyt?",
@@ -104,6 +106,7 @@
         "fuel_price": "Bensan hinta EUR/L",
         "fuel_price_simple": "Bensan hinta",
         "fuel_price_chart": "Bensan hinnan kehitys",
+        "fuel_price_chart_unit": "EUR / Litra",
         "fuelings": "Tankkaukset",
         "fueler_name": "Tankkaaja",
         "last_modified": "Muokattu viimeksi",
@@ -688,6 +691,7 @@
         "show_only_not_ready": "Vain ei-valmiit",
         "ready_filter_all": "Kaikki",
         "ready_filter_ready": "Valmiit",
+        "search_tools": "Hakutoiminnot",
         "ready_filter_not_ready": "Keskeneräiset",
         "sorting": "Järjestä",
         "star_rating": "Arvio",
@@ -703,7 +707,8 @@
     "theme": {
         "title": "Teema",
         "dark": "tumma",
-        "light": "vaalea"
+        "light": "vaalea",
+        "colorful": "värikäs"
     },
     "uploadimages": {
         "add_image": "Lisää kuva",

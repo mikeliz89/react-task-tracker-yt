@@ -255,7 +255,7 @@ export default function Dashboard() {
                             </Row>
                         </section>
                         <section>
-                            <h3>Kaikki kategoriat</h3>
+                            <h3>{t('title_all_categories')}</h3>
                             <Row>
                                 {renderButtons(allCategoryItems)}
                             </Row>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Buttons/Button';
 import { ICONS, TRANSLATION } from '../../utils/Constants';
-import RightWrapper from '../Site/RightWrapper';
 
 export default function ScrollToTop() {
 
@@ -32,12 +31,21 @@ export default function ScrollToTop() {
 
     useEffect(() => {
         window.addEventListener("scroll", toggleVisibility);
+        return () => window.removeEventListener("scroll", toggleVisibility);
     }, []);
 
+    if (!isVisible) {
+        return null;
+    }
+
     return (
-        <RightWrapper>
-            {isVisible &&
-                <Button onClick={scrollToTop} iconName={ICONS.ARROW_UP} text={t('go_to_top')} />}
-        </RightWrapper>
+        <div className='scroll-to-top-floating'>
+            <Button
+                onClick={scrollToTop}
+                iconName={ICONS.ARROW_UP}
+                text={t('go_to_top')}
+                className='btn scroll-to-top-button'
+            />
+        </div>
     );
 }
