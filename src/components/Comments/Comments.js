@@ -55,7 +55,7 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
     return loading ? (
         <h3>{tCommon("loading")}</h3>
     ) : (
-        <div className="comments-content">
+        <div className="inner-content">
             <AddComment onSave={onSave} />
             {/* <pre>{JSON.stringify(comments)}</pre> */}
 

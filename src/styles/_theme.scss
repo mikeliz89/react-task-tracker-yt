@@ -61,7 +61,11 @@
     background: var(--light-chip-bg);
 }
 
-#light .comment-item,
+#light .comment-item {
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid var(--light-border-soft);
+}
+
 #colorful .comment-item {
     background: var(--light-comment-bg);
     border: 1px solid var(--light-border-soft);

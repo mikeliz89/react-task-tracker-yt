@@ -71,7 +71,7 @@ export default function Links({ url, objID, onCounterChange, onSaveLink }) {
     return loading ? (
         <h3>{tCommon("loading")}</h3>
     ) : (
-        <div className="content-card">
+        <div className="inner-content">
             <AddLink onSaveLink={onSaveLink} />
             {/* <pre>{JSON.stringify(links)}</pre> */}
             {
