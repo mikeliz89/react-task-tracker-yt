@@ -10,6 +10,7 @@ export const COLORS = {
     STEELBLUE: 'steelblue',
     WHITE: 'white',
     BUTTON_GRAY: '#545454',
+    BUTTON_BLUE: 'linear-gradient(160deg, rgba(69, 124, 214, 0.98), rgba(48, 98, 187, 0.98))',
     BLACK: 'black',
 }
 

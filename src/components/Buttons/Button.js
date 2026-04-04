@@ -13,7 +13,10 @@ export default function Button({ disabled, color, text, onClick, className,
             type={type}
             onClick={onClick}
             //jos class saveBtn niin ei styleä
-            style={className.includes('saveBtn') || disableStyle ? {} : { backgroundColor: color, color: textcolor }}
+            style={className.includes('saveBtn') || disableStyle ? {} : {
+                backgroundColor: color,
+                color: textcolor
+            }}
             className={className}>
             <Icon name={iconName} color={iconColor} />
             <Icon name={secondIconName} color={iconColor} />
