@@ -1,8 +1,8 @@
-import { useState } from "react";
 import Comments from "./Comments";
+import { useState } from "react";
 import PageTitle from '../Site/PageTitle';
 import { useTranslation } from "react-i18next";
-import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
+import { TRANSLATION, COLORS, ICONS } from '../../utils/Constants';
 
 export default function CommentComponent({ objID, url, onSave }) {
 
@@ -15,8 +15,12 @@ export default function CommentComponent({ objID, url, onSave }) {
     return (
         <div className="content-panel">
             <div className="content-panel-header">
-                <PageTitle title={counter > 0 ? `${t('header')} (${counter})` : t('header')}
-                    iconName={ICONS.COMMENTS} iconColor={COLORS.GRAY} isSubTitle={true} />
+                <PageTitle
+                    iconName={ICONS.COMMENTS}
+                    iconColor={COLORS.GRAY}
+                    title={counter > 0 ? `${t('header')} (${counter})` : t('header')}
+                    isSubTitle={true}
+                />
             </div>
             <Comments objID={objID} url={url} onCounterChange={setCounter} onSave={onSave} />
         </div>

@@ -67,7 +67,7 @@ export default function Task({
                                     </span>
                             }
 
-                            {task.reminder && <span className="taskDoneBadge">{t('task_done_badge')}</span>}
+                            {task.reminder && <span className="taskDoneBadge">{t('ready')}</span>}
                         </div>
 
                         {/* Oikean reunan napit (ei arkistossa) */}
