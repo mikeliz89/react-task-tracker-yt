@@ -11,7 +11,7 @@ export default function Language() {
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LANGUAGE });
 
-    const currentLanguageCode = cookies.get('i18next') || Languages.FI;
+    const currentLanguageCode = ((cookies.get('i18next') || Languages.FI).split('-')[0] || Languages.FI).toLowerCase();
 
     const languages = [
         {
@@ -24,31 +24,45 @@ export default function Language() {
             name: 'English',
             country_code: 'gb'
         }
-    ]
+    ];
+
+    const selectedLanguage =
+        languages.find(({ code }) => code === currentLanguageCode) || languages[0];
 
     return (
         <>
             <DropdownButton
                 as={ButtonGroup}
                 id="dropdown-basic-languageBtn"
-                title={t('language')}
+                title={(
+                    <>
+                        <span
+                            className={`flag-icon flag-icon-${selectedLanguage.country_code}`}
+                            style={{ marginRight: '6px' }}
+                        />
+                        {t('language')}
+                    </>
+                )}
                 variant={VARIANTS.SUCCESS}>
                 {languages.map(({ code, name, country_code }) => (
-                    <Dropdown.Item key={country_code}>
-                        <button
-                            className="btn"
-                            type="button"
-                            id="languageDropDownBtn"
-                            onClick={() => i18n.changeLanguage(code)}
-                            disabled={code === currentLanguageCode}
-                        >
-                            <span
-                                className={`flag-icon flag-icon-${country_code}`}
-                                style={{ opacity: code === currentLanguageCode, marginRight: '5px' }}
-                            >
-                            </span>
-                            {name}
-                        </button>
+                    <Dropdown.Item
+                        as="button"
+                        type="button"
+                        key={code}
+                        id="languageDropDownBtn"
+                        active={code === currentLanguageCode}
+                        className={`language-dropdown-item ${code === currentLanguageCode ? 'language-dropdown-item--active' : ''}`}
+                        onClick={() => {
+                            if (code !== currentLanguageCode) {
+                                i18n.changeLanguage(code);
+                            }
+                        }}
+                    >
+                        <span
+                            className={`flag-icon flag-icon-${country_code}`}
+                            style={{ opacity: code === currentLanguageCode ? 1 : 0.65, marginRight: '6px' }}
+                        />
+                        {name}
                     </Dropdown.Item>
                 ))}
             </DropdownButton>

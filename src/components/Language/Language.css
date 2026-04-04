@@ -1,0 +1,20 @@
+.language-dropdown-item {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	border-left: 3px solid transparent;
+}
+
+.dropdown-item.language-dropdown-item:hover,
+.dropdown-item.language-dropdown-item:focus {
+	color: #1f2d22;
+}
+
+.dropdown-item.language-dropdown-item--active,
+.dropdown-item.language-dropdown-item--active:focus,
+.dropdown-item.language-dropdown-item--active:hover {
+	background-color: #eaf7ef;
+	border-left-color: #198754;
+	font-weight: 600;
+	color: #1f2d22;
+}
