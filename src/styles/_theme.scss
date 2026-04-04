@@ -162,8 +162,20 @@
 
 #dark .form-control,
 #dark select {
-    background-color: rgb(117, 117, 117);
-    color: var(--color-white);
+    background: #1f2a40;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: rgba(240, 246, 255, 0.95);
+    box-shadow: none;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+#dark .form-control:focus,
+#dark select:focus {
+    background: #22304a;
+    border-color: rgba(96, 153, 255, 0.75);
+    box-shadow: 0 0 0 0.2rem rgba(76, 140, 255, 0.22);
+    color: rgba(248, 251, 255, 0.98);
 }
 
 #dark ::placeholder {
@@ -309,6 +321,16 @@
 #dark .table td {
     background-color: #333333;
     color: var(--color-white);
+}
+
+#dark footer a {
+    color: rgba(199, 207, 222, 0.65);
+    text-decoration: none;
+}
+
+#dark footer a:hover,
+#dark footer a:focus {
+    color: rgba(222, 231, 248, 0.85);
 }
 
 /* Theme end */

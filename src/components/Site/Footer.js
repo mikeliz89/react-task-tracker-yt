@@ -8,9 +8,8 @@ export default function Footer() {
 
     return (
         <footer>
-            <p>{t('copyright')} &copy; 2025</p>
             <NavButton to={NAVIGATION.ABOUT} className=''>
-                {t('about')}
+                {t('copyright')} &copy; 2025
             </NavButton>
         </footer>
     )
