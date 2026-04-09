@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { TRANSLATION, ICONS, COLORS, NAVIGATION } from '../../utils/Constants';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
 import CheckButton from '../Buttons/CheckButton';
-import NavButton from '../Buttons/NavButton';
 import ListRow from '../Site/ListRow';
 
 import AddDrinkingProduct from './AddDrinkingProduct';
@@ -32,16 +31,14 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
         onEdit(editedDrinkingProduct);
     }
 
+    const drinkingProductTitle = `${drinkingProduct.name}${drinkingProduct.abv > 0 ? ` (${drinkingProduct.abv}%)` : ''}`;
+
     return (
         <ListRow
-            headerLeft={
-                <span>
-                    <NavButton to={`${NAVIGATION.DRINKINGPRODUCT}/${drinkingProduct.id}`} className=""
-                        icon={ICONS.COCKTAIL} iconColor={COLORS.GRAY}>
-                        {drinkingProduct.name + (drinkingProduct.abv > 0 ? ' (' + drinkingProduct.abv + '%)' : '')}
-                    </NavButton>
-                </span>
-            }
+            headerTitle={drinkingProductTitle}
+            headerTitleTo={`${NAVIGATION.DRINKINGPRODUCT}/${drinkingProduct.id}`}
+            headerTitleIcon={ICONS.COCKTAIL}
+            headerTitleIconColor={COLORS.GRAY}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}

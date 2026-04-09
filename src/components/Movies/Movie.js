@@ -12,7 +12,6 @@ import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getMovieFormatNameByID } from '../../utils/ListUtils';
 import CheckButton from '../Buttons/CheckButton';
-import NavButton from '../Buttons/NavButton';
 import ListRow from '../Site/ListRow';
 
 import AddMovie from './AddMovie';
@@ -39,15 +38,12 @@ export default function Movie({ movie, onDelete, onEdit }) {
         onEdit(movie);
     }
 
+    const movieTitle = `${movie.name} ${movie.publishYear > 0 ? `(${movie.publishYear})` : ''}`.trim();
+
     return (
         <ListRow
-            headerLeft={
-                <span>
-                    <NavButton to={`${NAVIGATION.MOVIE}/${movie.id}`} className="">
-                        {movie.name} {movie.publishYear > 0 ? '(' + movie.publishYear + ')' : ''}
-                    </NavButton>
-                </span>
-            }
+            headerTitle={movieTitle}
+            headerTitleTo={`${NAVIGATION.MOVIE}/${movie.id}`}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}

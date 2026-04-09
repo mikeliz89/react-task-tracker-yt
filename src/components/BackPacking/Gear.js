@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { TRANSLATION, NAVIGATION, VARIANTS, COLORS } from "../../utils/Constants";
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
-import NavButton from '../Buttons/NavButton';
 import { useAlert } from '../Hooks/useAlert';
 import ListRow from '../Site/ListRow';
 
@@ -23,14 +22,10 @@ const {
 
     return (
         <ListRow
-            headerLeft={
-                <span>
-                    <NavButton to={`${NAVIGATION.GEAR}/${gear.id}`} className=""
-                        icon={getIconNameByCategory(gear.category)} iconColor={COLORS.LIGHT_GRAY}>
-                        {gear.name}
-                    </NavButton>
-                </span>
-            }
+            headerTitle={gear.name}
+            headerTitleTo={`${NAVIGATION.GEAR}/${gear.id}`}
+            headerTitleIcon={getIconNameByCategory(gear.category)}
+            headerTitleIconColor={COLORS.LIGHT_GRAY}
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={gear.id}

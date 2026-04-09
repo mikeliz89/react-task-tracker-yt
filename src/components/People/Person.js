@@ -7,7 +7,6 @@ import { updateToFirebaseById } from '../../datatier/datatier';
 import { Languages } from '../../Languages';
 import { TRANSLATION, NAVIGATION, DB } from "../../utils/Constants";
 import { getCurrentDateAsJson, getJsonAsDateString } from '../../utils/DateTimeUtils';
-import NavButton from '../Buttons/NavButton';
 import { useAlert } from '../Hooks/useAlert';
 import ListRow from '../Site/ListRow';
 
@@ -36,13 +35,8 @@ export default function Person({ person, onDelete }) {
 
     return (
         <ListRow
-            headerLeft={
-                <span>
-                    <NavButton to={`${NAVIGATION.PERSON}/${person.id}`} className="">
-                        {person.name}
-                    </NavButton>
-                </span>
-            }
+            headerTitle={person.name}
+            headerTitleTo={`${NAVIGATION.PERSON}/${person.id}`}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}

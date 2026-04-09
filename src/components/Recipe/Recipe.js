@@ -13,7 +13,6 @@ import { db } from '../../firebase-config';
 import { COLORS, DB, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
-import NavButton from '../Buttons/NavButton';
 import AddDrink from '../Drinks/AddDrink';
 import { useAlert } from '../Hooks/useAlert';
 import ListRow from '../Site/ListRow';
@@ -125,14 +124,10 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
     return (
         <ListRow
             className={recipe.isCore === true ? 'coreRecipe' : ''}
-            headerLeft={
-                <span>
-                    <NavButton to={`${getViewDetailsUrl(recipeType)}/${recipe.id}`} className=""
-                        icon={getIconName(recipeType, recipe.category)} iconColor={COLORS.LIGHT_GRAY}>
-                        {recipe.title}
-                    </NavButton>
-                </span>
-            }
+            headerTitle={recipe.title}
+            headerTitleTo={`${getViewDetailsUrl(recipeType)}/${recipe.id}`}
+            headerTitleIcon={getIconName(recipeType, recipe.category)}
+            headerTitleIconColor={COLORS.LIGHT_GRAY}
             actionsExtra={
                 <OverlayTrigger
                     placement="right"

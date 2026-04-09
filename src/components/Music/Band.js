@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import NavButton from '../Buttons/NavButton';
 import ListRow from '../Site/ListRow';
 
 import AddBand from './AddBand';
@@ -27,15 +26,12 @@ const [editable, setEditable] = useState(false);
         setEditable(false);
     }
 
+    const bandTitle = `${band.name} ${band.formingYear > 0 ? `(${band.formingYear})` : ''}`.trim();
+
     return (
         <ListRow
-            headerLeft={
-                <span>
-                    <NavButton to={`${NAVIGATION.MUSIC_BAND}/${band.id}`} className="">
-                        {band.name} {band.formingYear > 0 ? '(' + band.formingYear + ')' : ''}
-                    </NavButton>
-                </span>
-            }
+            headerTitle={bandTitle}
+            headerTitleTo={`${NAVIGATION.MUSIC_BAND}/${band.id}`}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}

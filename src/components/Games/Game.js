@@ -7,7 +7,6 @@ import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getGameConsoleNameByID } from '../../utils/ListUtils';
 import CheckButton from '../Buttons/CheckButton';
-import NavButton from '../Buttons/NavButton';
 import ListRow from '../Site/ListRow';
 
 import AddGame from './AddGame';
@@ -36,15 +35,12 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
         onEdit(game);
     }
 
+    const gameTitle = `${game.name} ${game.publishYear > 0 ? `(${game.publishYear})` : ''}`.trim();
+
     return (
         <ListRow
-            headerLeft={
-                <span>
-                    <NavButton to={`${detailsNavigation}/${game.id}`} className="">
-                        {game.name} {game.publishYear > 0 ? '(' + game.publishYear + ')' : ''}
-                    </NavButton>
-                </span>
-            }
+            headerTitle={gameTitle}
+            headerTitleTo={`${detailsNavigation}/${game.id}`}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}

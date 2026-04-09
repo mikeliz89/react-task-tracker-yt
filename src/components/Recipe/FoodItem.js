@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { COLORS, ICONS, NAVIGATION, TRANSLATION } from '../../utils/Constants';
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
 import CheckButton from '../Buttons/CheckButton';
-import NavButton from '../Buttons/NavButton';
 import ListRow from '../Site/ListRow';
 
 import AddFoodItem from './AddFoodItem';
@@ -37,16 +36,10 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
 
     return (
         <ListRow
-            headerLeft={
-                <span>
-                    <NavButton to={NAVIGATION.MANAGE_FOODITEMS} className=""
-                        icon={ICONS.CARROT}
-                        iconColor={COLORS.GRAY}
-                    >
-                        {foodItem.name}
-                    </NavButton>
-                </span>
-            }
+            headerTitle={foodItem.name}
+            headerTitleTo={NAVIGATION.MANAGE_FOODITEMS}
+            headerTitleIcon={ICONS.CARROT}
+            headerTitleIconColor={COLORS.GRAY}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}

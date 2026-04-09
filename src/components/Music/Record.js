@@ -9,7 +9,6 @@ import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getMusicFormatNameByID } from '../../utils/ListUtils';
 import CheckButton from '../Buttons/CheckButton';
-import NavButton from '../Buttons/NavButton';
 import ListRow from '../Site/ListRow';
 
 import AddRecord from './AddRecord';
@@ -36,15 +35,12 @@ export default function Record({ record, onDelete, onEdit }) {
         onEdit(record);
     }
 
+    const recordTitle = `${record.band} ${record.band !== '' ? '-' : ''} ${record.name} ${record.publishYear > 0 ? `(${record.publishYear})` : ''}`.trim();
+
     return (
         <ListRow
-            headerLeft={
-                <span>
-                    <NavButton to={`${NAVIGATION.MUSIC_RECORD}/${record.id}`} className="">
-                        {record.band} {record.band !== '' ? '-' : ''} {record.name} {record.publishYear > 0 ? '(' + record.publishYear + ')' : ''}
-                    </NavButton>
-                </span>
-            }
+            headerTitle={recordTitle}
+            headerTitleTo={`${NAVIGATION.MUSIC_RECORD}/${record.id}`}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}

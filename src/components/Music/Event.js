@@ -1,8 +1,3 @@
-
-
-
-//states
-
 import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -10,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import NavButton from '../Buttons/NavButton';
 import ListRow from '../Site/ListRow';
 
 import AddEvent from './AddEvent';
@@ -19,7 +13,7 @@ export default function Event({ event, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
-const [editable, setEditable] = useState(false);
+    const [editable, setEditable] = useState(false);
 
     const updateEvent = (updateEventID, object) => {
         object["modified"] = getCurrentDateAsJson();
@@ -27,15 +21,12 @@ const [editable, setEditable] = useState(false);
         setEditable(false);
     }
 
+    const eventTitle = `${event.name} ${event.eventYear > 0 ? `(${event.eventYear})` : ''}`.trim();
+
     return (
         <ListRow
-            headerLeft={
-                <span>
-                    <NavButton to={`${NAVIGATION.MUSIC_EVENT}/${event.id}`} className="">
-                        {event.name} {event.eventYear > 0 ? '(' + event.eventYear + ')' : ''}
-                    </NavButton>
-                </span>
-            }
+            headerTitle={eventTitle}
+            headerTitleTo={`${NAVIGATION.MUSIC_EVENT}/${event.id}`}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}

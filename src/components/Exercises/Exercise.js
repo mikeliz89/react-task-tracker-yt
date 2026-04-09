@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 
 import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
-import NavButton from '../Buttons/NavButton';
 import ListRow from '../Site/ListRow';
 
 import { getIconNameByCategory } from './Categories';
@@ -11,23 +10,13 @@ export default function Exercise({ exercise, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
+    const exerciseTitle = `${exercise.date} ${exercise.time}`;
 
     return (
         <ListRow
-            headerLeft={
-                <span>
-                    <NavButton
-                        to={`${NAVIGATION.EXERCISE}/${exercise.id}`}
-                        className=""
-                        icon={getIconNameByCategory(exercise.category)}
-                    >
-                        {exercise.date + ' ' + exercise.time
-                            // TODO: Korjaa formaatit kieleistyksien mukaan
-                            //  getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)
-                        }
-                    </NavButton>
-                </span>
-            }
+            headerTitle={exerciseTitle}
+            headerTitleTo={`${NAVIGATION.EXERCISE}/${exercise.id}`}
+            headerTitleIcon={getIconNameByCategory(exercise.category)}
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={exercise.id}

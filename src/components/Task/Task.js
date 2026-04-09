@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import { DB, TRANSLATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import NavButton from '../Buttons/NavButton';
 import { useToggle } from '../Hooks/useToggle';
 import ListRow from '../Site/ListRow';
 
@@ -56,33 +55,21 @@ const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASK
             onDelete={onDelete}
             deleteId={taskListID}
             deleteSubId={task.id}
-            headerLeft={!editable ? (
-                <>
-                    {/* Valintaruutu vasemmalle (ei arkistossa) */}
-                    {!archived && (
-                        <Form.Check
-                            id={`select-task-${task.id}`}
-                            className="mb-0 taskRowCheckbox"
-                            type="checkbox"
-                            checked={!!isSelected}
-                            onChange={handleCheckboxChange}
-                            onClick={(e) => e.stopPropagation()}
-                        />
-                    )}
-
-                    {/* Otsikko / Linkki */}
-                    { /* TODO: Rakenna view details arkiston taskin katselulle? */
-                        archived ? <span className="taskRowTitle">{task.text}</span> : !editable &&
-                            <span className="taskRowTitle">
-                                <NavButton to={`/task/${task.id}/${taskListID}`} className="taskRowLink">
-                                    {task.text}
-                                </NavButton>
-                            </span>
-                    }
-
-                    {task.reminder && <span className="taskDoneBadge">{t('ready')}</span>}
-                </>
+            headerPrefix={!editable && !archived ? (
+                <Form.Check
+                    id={`select-task-${task.id}`}
+                    className="mb-0 taskRowCheckbox"
+                    type="checkbox"
+                    checked={!!isSelected}
+                    onChange={handleCheckboxChange}
+                    onClick={(e) => e.stopPropagation()}
+                />
             ) : null}
+            headerTitle={!editable ? task.text : null}
+            headerTitleTo={!editable && !archived ? `/task/${task.id}/${taskListID}` : null}
+            headerTitleWrapperClassName={!editable ? 'taskRowTitle' : ''}
+            headerTitleClassName={!editable && !archived ? 'taskRowLink' : ''}
+            headerSuffix={!editable && task.reminder ? <span className="taskDoneBadge">{t('ready')}</span> : null}
         >
             {
                 !editable &&
