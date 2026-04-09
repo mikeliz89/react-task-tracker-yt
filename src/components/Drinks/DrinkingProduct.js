@@ -58,16 +58,14 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
                     onAddDrinkingProduct={editDrinkingProduct}
                     drinkingProductID={drinkingProduct.id} />
             }
-            <p>
-                <CheckButton
-                    checked={drinkingProduct.haveAtHome}
-                    checkedText={t('drinkingproduct_have_at_home')}
-                    uncheckedText={t('drinkingproduct_not_have_at_home')}
-                    onCheck={markHaveAtHome}
-                    onUncheck={markNotHaveAtHome}
-                    style={{ margin: '5px' }}
-                />
-            </p>
+            <CheckButton
+                checked={drinkingProduct.haveAtHome}
+                checkedText={t('drinkingproduct_have_at_home')}
+                uncheckedText={t('drinkingproduct_not_have_at_home')}
+                onCheck={markHaveAtHome}
+                onUncheck={markNotHaveAtHome}
+                style={{ margin: '5px' }}
+            />
         </ListRow>
     )
 }

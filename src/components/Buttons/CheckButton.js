@@ -28,18 +28,20 @@ export default function CheckButton({
     };
 
     return (
-        <span
-            onClick={handleClick}
-            className={className || (isChecked ? checkedClassName : uncheckedClassName)}
-            style={style}
-        >
-            {isChecked ? checkedText : uncheckedText}&nbsp;
-            <Icon
-                name={iconName}
-                color={iconColor}
-                style={{ cursor: 'pointer', fontSize: '1.2em', ...iconStyle }}
-            />
-        </span>
+        <p>
+            <span
+                onClick={handleClick}
+                className={className || (isChecked ? checkedClassName : uncheckedClassName)}
+                style={style}
+            >
+                {isChecked ? checkedText : uncheckedText}&nbsp;
+                <Icon
+                    name={iconName}
+                    color={iconColor}
+                    style={{ cursor: 'pointer', fontSize: '1.2em', ...iconStyle }}
+                />
+            </span>
+        </p>
     );
 }
 

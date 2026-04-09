@@ -57,16 +57,14 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
                     onAddFoodItem={editFoodItem}
                     foodItemID={foodItem.id} />
             }
-            <p>
-                <CheckButton
-                    checked={foodItem.haveAtHome}
-                    checkedText={t('fooditem_have_at_home')}
-                    uncheckedText={t('fooditem_not_have_at_home')}
-                    onCheck={markHaveAtHome}
-                    onUncheck={markNotHaveAtHome}
-                    style={{ margin: '5px' }}
-                />
-            </p>
+            <CheckButton
+                checked={foodItem.haveAtHome}
+                checkedText={t('fooditem_have_at_home')}
+                uncheckedText={t('fooditem_not_have_at_home')}
+                onCheck={markHaveAtHome}
+                onUncheck={markNotHaveAtHome}
+                style={{ margin: '5px' }}
+            />
         </ListRow>
     )
 }

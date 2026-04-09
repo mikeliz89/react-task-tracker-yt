@@ -78,7 +78,6 @@ export default function Movie({ movie, onDelete, onEdit }) {
                     showLabels={false} />
             }
 
-            <p>
                 <CheckButton
                     checked={movie.haveAtHome}
                     checkedText={t('have')}
@@ -87,7 +86,6 @@ export default function Movie({ movie, onDelete, onEdit }) {
                     onUncheck={markNotHaveAtHome}
                     style={{ margin: '5px' }}
                 />
-            </p>
         </ListRow>
     )
 }

@@ -81,7 +81,6 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
                     showLabels={false} />
             }
 
-            <p>
                 <CheckButton
                     checked={game.haveAtHome}
                     checkedText={t('have')}
@@ -90,7 +89,6 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
                     onUncheck={markNotHaveAtHome}
                     style={{ margin: '5px' }}
                 />
-            </p>
         </ListRow>
     )
 }

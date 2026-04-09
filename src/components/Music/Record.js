@@ -71,16 +71,14 @@ export default function Record({ record, onDelete, onEdit }) {
                     showLabels={false} />
             }
 
-            <p>
-                <CheckButton
-                    checked={record.haveAtHome}
-                    checkedText={t('have')}
-                    uncheckedText={t('have_not')}
-                    onCheck={markHaveAtHome}
-                    onUncheck={markNotHaveAtHome}
-                    style={{ margin: '5px' }}
-                />
-            </p>
+            <CheckButton
+                checked={record.haveAtHome}
+                checkedText={t('have')}
+                uncheckedText={t('have_not')}
+                onCheck={markHaveAtHome}
+                onUncheck={markNotHaveAtHome}
+                style={{ margin: '5px' }}
+            />
         </ListRow>
     )
 }
