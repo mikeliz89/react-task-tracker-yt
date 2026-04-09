@@ -14,7 +14,6 @@ import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import { useToggle } from '../Hooks/useToggle';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
-import Counter from '../Site/Counter';
 import ManagePage from '../Site/ManagePage';
 
 import AddDrinkingProduct from './AddDrinkingProduct';
@@ -117,12 +116,13 @@ const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.D
             hasItems={drinkingProducts != null && drinkingProducts.length > 0}
             emptyText={t('no_drinkingproducts_to_show')}
         >
-            <>
-                <Counter list={drinkingProducts} originalList={originalDrinkingProducts} counter={counter} />
-                <DrinkingProducts drinkingProducts={drinkingProducts}
-                    onDelete={deleteDrinkingProduct}
-                    onEdit={editDrinkingProduct} />
-            </>
+            <DrinkingProducts
+                drinkingProducts={drinkingProducts}
+                originalList={originalDrinkingProducts}
+                counter={counter}
+                onDelete={deleteDrinkingProduct}
+                onEdit={editDrinkingProduct}
+            />
         </ManagePage>
     )
 }

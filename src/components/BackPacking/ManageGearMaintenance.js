@@ -1,10 +1,4 @@
 
-
-
-//toggle
-
-
-import { Row, ButtonGroup } from "react-bootstrap";
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '../../contexts/AuthContext';
@@ -12,14 +6,9 @@ import { pushToFirebase } from "../../datatier/datatier";
 import { removeFromFirebaseById } from "../../datatier/datatier";
 import { TRANSLATION, DB, ICONS, COLORS } from "../../utils/Constants";
 import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
-import Button from '../Buttons/Button';
-import GoBackButton from '../Buttons/GoBackButton';
 import useFetch from '../Hooks/useFetch';
 import { useToggle } from "../Hooks/useToggle";
-import CenterWrapper from '../Site/CenterWrapper';
-import Counter from "../Site/Counter";
-import PageContentWrapper from "../Site/PageContentWrapper";
-import PageTitle from '../Site/PageTitle';
+import ManagePage from "../Site/ManagePage";
 
 import AddGearMaintenanceInstruction from "./AddGearMaintenanceInstruction";
 import GearMaintenanceInstructions from "./GearMaintenanceInstructions";
@@ -30,7 +19,8 @@ export default function ManageGearMaintenance() {
     const { data: gearMaintenanceInstructions,
         originalData: originalGearMaintenanceInstructions,
         counter, loading } = useFetch(DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS);
-const { status: showAddGearMaintenance, toggleStatus: toggleAddGearMaintenance } = useToggle();
+        
+    const { status: showAddGearMaintenance, toggleStatus: toggleAddGearMaintenance } = useToggle();
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
@@ -52,50 +42,38 @@ const { status: showAddGearMaintenance, toggleStatus: toggleAddGearMaintenance }
         removeFromFirebaseById(DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS, id);
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-
-            <PageTitle title={t('button_manage_gear_maintenance')} />
-
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                    <Button
-                        iconName={ICONS.PLUS}
-                        color={showAddGearMaintenance ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-                        text={t('button_add_maintenance_instructions')} className='btn btn-primary'
-                        onClick={toggleAddGearMaintenance} />
-                </ButtonGroup>
-            </Row>
-
-            {
-                showAddGearMaintenance &&
-                <AddGearMaintenanceInstruction
-                    onSave={addGearMaintenanceInstruction}
-                    onClose={toggleAddGearMaintenance}
-                />
+    return (
+        <ManagePage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            title={t('button_manage_gear_maintenance')}
+            centerActions={
+                showAddGearMaintenance ? (
+                    <AddGearMaintenanceInstruction
+                        onSave={addGearMaintenanceInstruction}
+                        onClose={toggleAddGearMaintenance}
+                    />
+                ) : null
             }
-
-            {
-                gearMaintenanceInstructions != null && gearMaintenanceInstructions.length > 0 ? (
-                    <>
-                        <Counter list={gearMaintenanceInstructions} originalList={originalGearMaintenanceInstructions} counter={counter} />
-
-                        <GearMaintenanceInstructions gearMaintenanceInstructions={gearMaintenanceInstructions}
-                            onDelete={deleteInstruction} />
-                    </>
-                ) : (
-                    <>
-                        <CenterWrapper>
-                            {t('no_gear_maintenance_instructions_to_show')}
-                        </CenterWrapper>
-                    </>
-                )
-            }
-
-        </PageContentWrapper>
+            addButton={{
+                show: showAddGearMaintenance,
+                iconName: ICONS.PLUS,
+                openColor: COLORS.ADDBUTTON_OPEN,
+                closedColor: COLORS.ADDBUTTON_CLOSED,
+                openText: tCommon('buttons.button_close'),
+                closedText: t('button_add_maintenance_instructions'),
+                onToggle: toggleAddGearMaintenance,
+            }}
+            hasItems={gearMaintenanceInstructions != null && gearMaintenanceInstructions.length > 0}
+            emptyText={t('no_gear_maintenance_instructions_to_show')}
+        >
+            <GearMaintenanceInstructions
+                gearMaintenanceInstructions={gearMaintenanceInstructions}
+                originalList={originalGearMaintenanceInstructions}
+                counter={counter}
+                onDelete={deleteInstruction}
+            />
+        </ManagePage>
     )
 }
 

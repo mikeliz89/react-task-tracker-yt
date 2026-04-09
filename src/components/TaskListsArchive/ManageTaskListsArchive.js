@@ -5,6 +5,7 @@ import TaskLists from '../../components/TaskList/TaskLists';
 import { removeFromFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import useFetch from '../Hooks/useFetch';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 import ManagePage from '../Site/ManagePage';
 
 export default function ManageTaskListsArchive() {
@@ -17,7 +18,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
   const location = useLocation();
 
   //fetch data
-  const { data: taskLists,
+  const { data: taskLists, setData: setTaskLists,
     originalData: originalTaskLists, counter, loading } =
     useFetch(DB.TASKLIST_ARCHIVE, location.state.listType);
 
@@ -33,6 +34,18 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
       loading={loading}
       loadingText={tCommon("loading")}
       title={t('manage_tasklists_archive_title')}
+      searchSortFilter={{
+        onSet: setTaskLists,
+        originalList: originalTaskLists,
+        //search
+        showSearchByText: true,
+        showSearchByDescription: true,
+        //sort
+        showSortByTitle: true,
+        showSortByCreatedDate: true,
+        //filter
+        filterMode: FilterMode.Title,
+      }}
       hasItems={taskLists != null && taskLists.length > 0}
       emptyText={t('no_task_lists_to_show')}
     >

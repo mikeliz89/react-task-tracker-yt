@@ -8,7 +8,6 @@ import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import { useToggle } from '../Hooks/useToggle';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
-import Counter from '../Site/Counter';
 import ManagePage from '../Site/ManagePage';
 
 import AddMovement from './AddMovement';
@@ -104,11 +103,12 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
             hasItems={movements != null && movements.length > 0}
             emptyText={t('no_movements_to_show')}
         >
-            <>
-                <Counter list={movements} originalList={originalMovements} counter={counter} />
-                <Movements movements={movements}
-                    onDelete={deleteMovement} />
-            </>
+            <Movements
+                movements={movements}
+                originalList={originalMovements}
+                counter={counter}
+                onDelete={deleteMovement}
+            />
         </ManagePage>
     )
 }

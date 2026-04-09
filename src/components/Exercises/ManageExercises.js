@@ -5,7 +5,6 @@ import { removeFromFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import NavButton from '../Buttons/NavButton';
 import useFetch from '../Hooks/useFetch';
-import Counter from '../Site/Counter';
 import ManagePage from '../Site/ManagePage';
 
 import Exercises from './Exercises';
@@ -59,11 +58,12 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
       hasItems={exercises != null && exercises.length > 0}
       emptyText={t('no_exercises_to_show')}
     >
-      <>
-        <Counter list={exercises} originalList={originalExercises} counter={counter} />
-        <Exercises exercises={exercises}
-          onDelete={deleteExercise} />
-      </>
+      <Exercises
+        exercises={exercises}
+        originalList={originalExercises}
+        counter={counter}
+        onDelete={deleteExercise}
+      />
     </ManagePage>
   )
 }
