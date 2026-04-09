@@ -4,8 +4,9 @@ import { useParams } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import { Languages } from '../../Languages';
 import { TRANSLATION, DB } from '../../utils/Constants';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import { getCurrentDateAsJson, getJsonAsDateString, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
@@ -81,7 +82,7 @@ export default function PersonDetails() {
             preSummaryContent={
                 <div className="detailspage-field">
                     <span className="detailspage-meta-label">{t('birthday')}:</span>{' '}
-                    <span className="detailspage-meta-value">{person?.birthday || '-'}</span>
+                    <span className="detailspage-meta-value">{person?.birthday ? getJsonAsDateString(person.birthday, Languages.FI) : '-'}</span>
                 </div>
             }
             summary={`${t('description')}: ${person?.description || '-'}`}

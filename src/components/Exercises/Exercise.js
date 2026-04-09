@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
+import { TRANSLATION, NAVIGATION, COLORS } from '../../utils/Constants';
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
 import ListRow from '../Site/ListRow';
 
@@ -17,6 +17,7 @@ export default function Exercise({ exercise, onDelete }) {
             headerTitle={exerciseTitle}
             headerTitleTo={`${NAVIGATION.EXERCISE}/${exercise.id}`}
             headerTitleIcon={getIconNameByCategory(exercise.category)}
+            headerTitleIconColor={COLORS.GRAY}
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={exercise.id}
