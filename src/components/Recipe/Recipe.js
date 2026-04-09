@@ -2,7 +2,6 @@ import { ref, child, onValue } from 'firebase/database';
 import i18n from "i18next";
 import PropTypes from 'prop-types';
 import { useState } from 'react'
-import StarRating from '../StarRating/StarRating';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -14,13 +13,10 @@ import { db } from '../../firebase-config';
 import { COLORS, DB, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
-import Alert from '../Alert';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
 import NavButton from '../Buttons/NavButton';
 import AddDrink from '../Drinks/AddDrink';
 import { useAlert } from '../Hooks/useAlert';
-import RightWrapper from '../Site/RightWrapper';
+import ListRow from '../Site/ListRow';
 
 import AddRecipe from './AddRecipe';
 import { getCategoryContent, getIncredientsUrl, getIconName, getViewDetailsUrl, getUrl } from './Categories';
@@ -38,12 +34,11 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
 
     //alert
     const {
-        message, setMessage,
-        showMessage, setShowMessage,
-        error, setError,
-        showError, setShowError,
+        message,
+        showMessage,
+        error,
+        showError,
         clearMessages,
-        showSuccess,
         showFailure
     } = useAlert();
 
@@ -128,45 +123,43 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
     }
 
     return (
-        <div className={recipe.isCore === true ? `listContainer coreRecipe` : 'listContainer'}>
-            <h5>
+        <ListRow
+            className={recipe.isCore === true ? 'coreRecipe' : ''}
+            headerLeft={
                 <span>
                     <NavButton to={`${getViewDetailsUrl(recipeType)}/${recipe.id}`} className=""
                         icon={getIconName(recipeType, recipe.category)} iconColor={COLORS.LIGHT_GRAY}>
                         {recipe.title}
                     </NavButton>
                 </span>
-
-                <RightWrapper>
-                    <OverlayTrigger
-                        placement="right"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={renderTooltip}
-                    >
-                        <span>
-
-                            <FaShoppingCart style={{ cursor: 'pointer', marginRight: '5px', fontSize: '1.2em', color: COLORS.LIGHT_GRAY }}
-                                onClick={() => { if (window.confirm(t('create_shoppinglist_confirm_message'))) { makeShoppingList() } }} />
-                        </span>
-                    </OverlayTrigger>
-                    <EditButton
-                        editable={editable}
-                        setEditable={setEditable}
-                    />
-                    <DeleteButton
-                        onDelete={onDelete}
-                        id={recipe.id}
-                    />
-                </RightWrapper>
-            </h5>
-
-            <Alert
-                message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                onClose={clearMessages}
-            />
+            }
+            actionsExtra={
+                <OverlayTrigger
+                    placement="right"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltip}
+                >
+                    <span>
+                        <FaShoppingCart style={{ cursor: 'pointer', marginRight: '5px', fontSize: '1.2em', color: COLORS.LIGHT_GRAY }}
+                            onClick={() => { if (window.confirm(t('create_shoppinglist_confirm_message'))) { makeShoppingList() } }} />
+                    </span>
+                </OverlayTrigger>
+            }
+            showEditButton={true}
+            editable={editable}
+            setEditable={setEditable}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={recipe.id}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages,
+            }}
+            starCount={recipe.stars}
+        >
             {recipe.category > 0 ? !editable && (
                 <p> {getCategory(recipe.category)}</p>
             ) : ('')}
@@ -176,7 +169,6 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
             {!editable &&
                 <p>{recipe.incredients}</p>
             }
-            <StarRating starCount={recipe.stars} />
             {
                 editable && ((
                     recipeType === RecipeTypes.Food && (
@@ -194,7 +186,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                     ))
                 )
             }
-        </div>
+        </ListRow>
     )
 }
 
@@ -209,5 +201,6 @@ Recipe.propTypes = {
     recipeType: PropTypes.any,
     recipe: PropTypes.object
 }
+
 
 

@@ -1,23 +1,15 @@
-
-
-
 //alert
-
 import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import { updateToFirebaseById } from '../../datatier/datatier';
 import { Languages } from '../../Languages';
 import { TRANSLATION, NAVIGATION, DB } from "../../utils/Constants";
 import { getCurrentDateAsJson, getJsonAsDateString } from '../../utils/DateTimeUtils';
-import Alert from '../Alert';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
+import NavButton from '../Buttons/NavButton';
 import { useAlert } from '../Hooks/useAlert';
-import RightWrapper from '../Site/RightWrapper';
-
+import ListRow from '../Site/ListRow';
 
 import AddPerson from './AddPerson';
 
@@ -25,11 +17,11 @@ export default function Person({ person, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.PEOPLE });
-const {
-        message, setMessage,
-        showMessage, setShowMessage,
-        error, setError,
-        showError, setShowError,
+    const {
+        message,
+        showMessage,
+        error,
+        showError,
         clearMessages
     } = useAlert();
 
@@ -43,40 +35,34 @@ const {
     }
 
     return (
-        <div className='listContainer'>
-
-            <Alert
-                message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                onClose={clearMessages}
-            />
-
-            <h5>
+        <ListRow
+            headerLeft={
                 <span>
-                    {person.name}
+                    <NavButton to={`${NAVIGATION.PERSON}/${person.id}`} className="">
+                        {person.name}
+                    </NavButton>
                 </span>
-                <RightWrapper>
-                    <EditButton
-                        editable={editable}
-                        setEditable={setEditable}
-                    />
-                    <DeleteButton
-                        onDelete={onDelete}
-                        id={person.id}
-                    />
-                </RightWrapper>
-            </h5>
+            }
+            showEditButton={true}
+            editable={editable}
+            setEditable={setEditable}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={person.id}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages,
+            }}
+        >
 
             {
                 !editable && (
                     <>
                         <p>{t('birthday') + ": "}{getJsonAsDateString(person.birthday, Languages.FI)}</p>
                         <p>{person.description}</p>
-                        <p>
-                            <Link className='btn btn-primary' to={`${NAVIGATION.PERSON}/${person.id}`}>{t('view_details')}</Link>
-                        </p>
                     </>
                 )
             }
@@ -90,8 +76,9 @@ const {
                     />
                 )
             }
-        </div>
+        </ListRow>
     )
 }
+
 
 

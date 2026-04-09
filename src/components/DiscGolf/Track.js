@@ -1,26 +1,34 @@
+import { useState } from 'react';
+
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
+import CheckButton from '../Buttons/CheckButton';
+import NavButton from '../Buttons/NavButton';
+import ListRow from '../Site/ListRow';
 
 export default function Track({ track }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DISC_GOLF });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
-return (
-        <>
-            <div className='listContainer'>
-                <h5>
+    //local selection
+    const [checked, setChecked] = useState(false);
+
+    return (
+        <ListRow
+            headerLeft={
+                <NavButton to={`${NAVIGATION.DISC_GOLF_TRACK}/${track.id}`} className="">
                     {track.trackName}
-                </h5>
-                <h6>{t('track_city')}: {track.trackCity}</h6>
-                <p>{track.description}</p>
-
-                <Link className='btn btn-primary' to={`${NAVIGATION.DISC_GOLF_TRACK}/${track.id}`}>{t('view_details')}</Link>
-            </div>
-        </>
+                </NavButton>
+            }
+        >
+            <h6>{t('track_city')}: {track.trackCity}</h6>
+            <p>{track.description}</p>
+        </ListRow>
     )
 }
+
 
 

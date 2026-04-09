@@ -11,11 +11,9 @@ import { useTranslation } from 'react-i18next';
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import { DB, TRANSLATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
 import NavButton from '../Buttons/NavButton';
 import { useToggle } from '../Hooks/useToggle';
-import RightWrapper from '../Site/RightWrapper';
+import ListRow from '../Site/ListRow';
 
 import AddTask from './AddTask';
 
@@ -44,57 +42,51 @@ const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASK
     };
 
     return (
-        <div
+        <ListRow
             onDoubleClick={() => archived ? null : onToggle(taskListID, task.id)}
-            className={`listContainer taskRowContainer ${archived ? '' : 'clickable'} ${task.reminder ? 'reminder taskDone' : ''}`}>
+            className={`taskRowContainer ${archived ? '' : 'clickable'} ${task.reminder ? 'reminder taskDone' : ''}`}
+            headerClassName={!editable ? 'taskRowTop' : ''}
+            headerLeftClassName={!editable ? 'taskRowLeft' : ''}
+            actionsClassName={!editable ? 'taskRowActions' : ''}
+            stopRightClickPropagation={!editable}
+            showEditButton={!editable && !archived}
+            editable={editable}
+            setEditable={setEditable}
+            showDeleteButton={!editable && !archived}
+            onDelete={onDelete}
+            deleteId={taskListID}
+            deleteSubId={task.id}
+            headerLeft={!editable ? (
+                <>
+                    {/* Valintaruutu vasemmalle (ei arkistossa) */}
+                    {!archived && (
+                        <Form.Check
+                            id={`select-task-${task.id}`}
+                            className="mb-0 taskRowCheckbox"
+                            type="checkbox"
+                            checked={!!isSelected}
+                            onChange={handleCheckboxChange}
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    )}
+
+                    {/* Otsikko / Linkki */}
+                    { /* TODO: Rakenna view details arkiston taskin katselulle? */
+                        archived ? <span className="taskRowTitle">{task.text}</span> : !editable &&
+                            <span className="taskRowTitle">
+                                <NavButton to={`/task/${task.id}/${taskListID}`} className="taskRowLink">
+                                    {task.text}
+                                </NavButton>
+                            </span>
+                    }
+
+                    {task.reminder && <span className="taskDoneBadge">{t('ready')}</span>}
+                </>
+            ) : null}
+        >
             {
                 !editable &&
                 <>
-                    <div className="taskRowTop">
-                        <div className="taskRowLeft">
-                            {/* Valintaruutu vasemmalle (ei arkistossa) */}
-                            {!archived && (
-                                <Form.Check
-                                    id={`select-task-${task.id}`}
-                                    className="mb-0 taskRowCheckbox"
-                                    type="checkbox"
-                                    checked={!!isSelected}
-                                    onChange={handleCheckboxChange}
-                                    onClick={(e) => e.stopPropagation()}
-                                />
-                            )}
-
-                            {/* Otsikko / Linkki */}
-                            { /* TODO: Rakenna view details arkiston taskin katselulle? */
-                                archived ? <span className="taskRowTitle">{task.text}</span> : !editable &&
-                                    <span className="taskRowTitle">
-                                        <NavButton to={`/task/${task.id}/${taskListID}`} className="taskRowLink">
-                                            {task.text}
-                                        </NavButton>
-                                    </span>
-                            }
-
-                            {task.reminder && <span className="taskDoneBadge">{t('ready')}</span>}
-                        </div>
-
-                        {/* Oikean reunan napit (ei arkistossa) */}
-                        {archived ? null :
-                            <div className="taskRowActions" onClick={(e) => e.stopPropagation()}>
-                                <RightWrapper>
-                                    <EditButton
-                                        editable={editable}
-                                        setEditable={setEditable}
-                                    />
-                                    <DeleteButton
-                                        onDelete={onDelete}
-                                        id={taskListID}
-                                        subId={task.id}
-                                    />
-                                </RightWrapper>
-                            </div>
-                        }
-                    </div>
-
                     {!!task.day && <p className="taskRowDay">{task.day}</p>}
                 </>
             }
@@ -107,7 +99,7 @@ const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASK
                     showLabels={false} />
             }
 
-        </div>
+        </ListRow>
     )
 }
 

@@ -1,11 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
-import DeleteButton from '../Buttons/DeleteButton';
-import Icon from '../Icon';
-import StarRating from '../StarRating/StarRating';
+import NavButton from '../Buttons/NavButton';
+import ListRow from '../Site/ListRow';
 
 import { getIconNameByCategory } from './Categories';
 
@@ -15,20 +13,26 @@ export default function Exercise({ exercise, onDelete }) {
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
 
     return (
-        <div className='listContainer'>
-            <h5>
+        <ListRow
+            headerLeft={
                 <span>
-                    <Icon name={getIconNameByCategory(exercise.category)} />
-                    {exercise.date + ' ' + exercise.time
-                        // TODO: Korjaa formaatit kieleistyksien mukaan
-                        //  getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)
-                    }
+                    <NavButton
+                        to={`${NAVIGATION.EXERCISE}/${exercise.id}`}
+                        className=""
+                        icon={getIconNameByCategory(exercise.category)}
+                    >
+                        {exercise.date + ' ' + exercise.time
+                            // TODO: Korjaa formaatit kieleistyksien mukaan
+                            //  getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)
+                        }
+                    </NavButton>
                 </span>
-                <DeleteButton
-                    onDelete={onDelete}
-                    id={exercise.id}
-                />
-            </h5>
+            }
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={exercise.id}
+            starCount={exercise.stars}
+        >
             <p>
                 {exercise.category > 0 ?
                     (<span> {
@@ -39,11 +43,10 @@ export default function Exercise({ exercise, onDelete }) {
                 {exercise.description}
             </p>
             <p>
-                <Link className='btn btn-primary' to={`${NAVIGATION.EXERCISE}/${exercise.id}`}>{t('view_details')}</Link>
             </p>
-            <StarRating starCount={exercise.stars} />
-        </div>
+        </ListRow>
     )
 }
+
 
 

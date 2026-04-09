@@ -38,6 +38,7 @@
     "created": "Created",
     "created_by": "Created By",
     "created_date": "Creation Date",
+    "description": "Description",
     "gear_category": "Gear category",
     "gear_category_clothing": "Clothing",
     "gear_category_cooking": "Cooking",
@@ -60,7 +61,6 @@
     "my_gear_title": "My gear",
     "no_gear_to_show": "No gear to show",
     "please_add_gear": "Please give gear a name",
-    "view_details": "View Details",
     "failed_to_save_gear": "Failed to save gear",
     "modal_header_add_gear": "Add Gear",
     "no_gear_maintenance_instructions_to_show": "No gear maintenance instructions to show",
@@ -157,8 +157,7 @@
     "tracks": "Tracks",
     "track_city": "City",
     "track_description": "Description",
-    "track_name": "Track name",
-    "view_details": "View details"
+    "track_name": "Track name"
   },
   "drinks": {
     "button_add_drinks": "Add Drink",
@@ -235,7 +234,6 @@
     "show_only_not_done": "Not done only",
     "sorting": "Sort by",
     "tabheader_actions": "Actions",
-    "view_details": "View Details",
     "workphases_header": "Work Phases",
     "add_incredient_formtitle": "Add Ingredient",
     "add_workphase_formtitle": "Add Work Phase",
@@ -334,7 +332,6 @@
     "title_running": "Running",
     "title_walking": "Walking",
     "title_skiing": "Skiing",
-    "view_details": "View Details",
     "view_movement_details": "View movement details",
     "category_biking": "Biking",
     "category_biking_inside": "Exercise biking",
@@ -395,7 +392,6 @@
     "no_board_games_to_show": "No Board Games",
     "publish_year": "Publish Year",
     "save_success": "Saving game was succesfull",
-    "view_details": "View Details",
     "yes": "Yes",
     "no": "No"
   },
@@ -439,7 +435,6 @@
     "publish_year": "Publish year",
     "save_exception": "Saving failed",
     "save_success": "Save was succesfull",
-    "view_details": "View Details",
     "modal_header_add_movie": "Add Movie"
   },
   "music": {
@@ -487,7 +482,6 @@
     "save_exception": "Saving failed",
     "seen_live": "Seen live",
     "sort_by_name": "Sort by name",
-    "view_details": "View Details",
     "failed_to_save_music": "Failed to save music record",
     "failed_to_save_music_event": "Failed to save music event",
     "modal_header_edit_band": "Edit Band",
@@ -539,7 +533,6 @@
     "please_add_name": "Please give person a name",
     "save_success": "Saving person was successful",
     "title": "People",
-    "view_details": "See details",
     "modal_header_edit_person": "Edit Person"
   },
   "recipe": {
@@ -642,7 +635,6 @@
     "show_only_not_have_seen_live": "Not seen live",
     "sorting": "Sort by",
     "tabheader_actions": "Actions",
-    "view_details": "View Details",
     "workphase_estimated_length": "Estimated length in minutes",
     "workphase_name": "Work Phase",
     "workphases_header": "Work Phases",

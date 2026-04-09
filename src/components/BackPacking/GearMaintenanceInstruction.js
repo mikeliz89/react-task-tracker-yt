@@ -3,11 +3,8 @@ import { useState } from 'react';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import { DB, VARIANTS } from "../../utils/Constants";
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import Alert from '../Alert';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
 import { useAlert } from '../Hooks/useAlert';
-import RightWrapper from '../Site/RightWrapper';
+import ListRow from '../Site/ListRow';
 
 import AddGearMaintenanceInstruction from './AddGearMaintenanceInstruction';
 
@@ -18,10 +15,10 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
 
     //alert
     const {
-        message, setMessage,
-        showMessage, setShowMessage,
-        error, setError,
-        showError, setShowError,
+        message,
+        showMessage,
+        error,
+        showError,
         clearMessages
     } = useAlert();
 
@@ -32,31 +29,24 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
     }
 
     return (
-        <div className='listContainer'>
+        <ListRow
+            headerLeft={<span>{instruction.name}</span>}
+            showEditButton={true}
+            editable={editable}
+            setEditable={setEditable}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={instruction.id}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                variant: VARIANTS.SUCCESS,
+                onClose: clearMessages,
+            }}
+        >
 
-            <Alert message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={clearMessages}
-            />
-
-            <h5>
-                <span>
-                    {instruction.name}
-                </span>
-                <RightWrapper>
-                    <EditButton
-                        editable={editable}
-                        setEditable={setEditable}
-                    />
-                    <DeleteButton
-                        onDelete={onDelete}
-                        id={instruction.id}
-                    />
-                </RightWrapper>
-            </h5>
             <pre>
                 {instruction.text}
             </pre>
@@ -67,8 +57,9 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
                     onClose={() => setEditable(false)}
                     onSave={updateInstruction} />
             }
-        </div>
+        </ListRow>
     )
 }
+
 
 

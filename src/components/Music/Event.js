@@ -6,15 +6,12 @@
 import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
-import RightWrapper from '../Site/RightWrapper';
-import StarRating from '../StarRating/StarRating';
+import NavButton from '../Buttons/NavButton';
+import ListRow from '../Site/ListRow';
 
 import AddEvent from './AddEvent';
 
@@ -31,33 +28,27 @@ const [editable, setEditable] = useState(false);
     }
 
     return (
-        <div className='listContainer'>
-            <h5>
+        <ListRow
+            headerLeft={
                 <span>
-                    {event.name} {event.eventYear > 0 ? '(' + event.eventYear + ')' : ''}
+                    <NavButton to={`${NAVIGATION.MUSIC_EVENT}/${event.id}`} className="">
+                        {event.name} {event.eventYear > 0 ? '(' + event.eventYear + ')' : ''}
+                    </NavButton>
                 </span>
-                <RightWrapper>
-                    <EditButton
-                        editable={editable}
-                        setEditable={setEditable}
-                    />
-                    <DeleteButton
-                        onDelete={onDelete}
-                        id={event.id}
-                    />
-                </RightWrapper>
-            </h5>
+            }
+            showEditButton={true}
+            editable={editable}
+            setEditable={setEditable}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={event.id}
+            starCount={event.stars}
+        >
             {!editable &&
                 <p>
                     {event.description}
                 </p>
             }
-            {!editable &&
-                <p>
-                    <Link className='btn btn-primary' to={`${NAVIGATION.MUSIC_EVENT}/${event.id}`}>{t('view_details')}</Link>
-                </p>
-            }
-            <StarRating starCount={event.stars} />
 
             {
                 editable && <AddEvent
@@ -66,8 +57,9 @@ const [editable, setEditable] = useState(false);
                     onSave={updateEvent}
                     showLabels={false} />
             }
-        </div>
+        </ListRow>
     )
 }
+
 
 

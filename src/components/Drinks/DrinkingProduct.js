@@ -1,15 +1,11 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaCheckSquare } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 
 import { TRANSLATION, ICONS, COLORS, NAVIGATION } from '../../utils/Constants';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
-import Icon from '../Icon';
-import RightWrapper from '../Site/RightWrapper';
-import StarRating from '../StarRating/StarRating';
+import CheckButton from '../Buttons/CheckButton';
+import NavButton from '../Buttons/NavButton';
+import ListRow from '../Site/ListRow';
 
 import AddDrinkingProduct from './AddDrinkingProduct';
 
@@ -37,23 +33,23 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
     }
 
     return (
-        <div className='listContainer'>
-            <h5>
+        <ListRow
+            headerLeft={
                 <span>
-                    <Icon name={ICONS.COCKTAIL} color={COLORS.GRAY} />
-                    {drinkingProduct.name + (drinkingProduct.abv > 0 ? ' (' + drinkingProduct.abv + '%)' : '')}
+                    <NavButton to={`${NAVIGATION.DRINKINGPRODUCT}/${drinkingProduct.id}`} className=""
+                        icon={ICONS.COCKTAIL} iconColor={COLORS.GRAY}>
+                        {drinkingProduct.name + (drinkingProduct.abv > 0 ? ' (' + drinkingProduct.abv + '%)' : '')}
+                    </NavButton>
                 </span>
-                <RightWrapper>
-                    <EditButton
-                        editable={editable}
-                        setEditable={setEditable}
-                    />
-                    <DeleteButton
-                        onDelete={onDelete}
-                        id={drinkingProduct.id}
-                    />
-                </RightWrapper>
-            </h5>
+            }
+            showEditButton={true}
+            editable={editable}
+            setEditable={setEditable}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={drinkingProduct.id}
+            starCount={drinkingProduct.stars}
+        >
             <p>{t('drinkingproduct_manufacturer')}: {drinkingProduct.manufacturer}</p>
             <p>{t('drinkingproduct_description')}: {drinkingProduct.description}</p>
             <p>{t('drinkingproduct_category')}: {
@@ -66,29 +62,18 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
                     drinkingProductID={drinkingProduct.id} />
             }
             <p>
-                <Link className='btn btn-primary' to={`${NAVIGATION.DRINKINGPRODUCT}/${drinkingProduct.id}`}>{t('view_details')}</Link>
-                {
-                    drinkingProduct.haveAtHome &&
-                    <span
-                        onClick={() => { markNotHaveAtHome() }}
-                        className='btn btn-success' style={{ margin: '5px' }}>
-                        {t('drinkingproduct_have_at_home')}&nbsp;
-                        <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
-                    </span>
-                }
-                {
-                    !drinkingProduct.haveAtHome &&
-                    <span
-                        onClick={() => { markHaveAtHome() }}
-                        className='btn btn-danger' style={{ margin: '5px' }}>
-                        {t('drinkingproduct_not_have_at_home')}&nbsp;
-                        <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
-                    </span>
-                }
+                <CheckButton
+                    checked={drinkingProduct.haveAtHome}
+                    checkedText={t('drinkingproduct_have_at_home')}
+                    uncheckedText={t('drinkingproduct_not_have_at_home')}
+                    onCheck={markHaveAtHome}
+                    onUncheck={markNotHaveAtHome}
+                    style={{ margin: '5px' }}
+                />
             </p>
-            <StarRating starCount={drinkingProduct.stars} />
-        </div>
+        </ListRow>
     )
 }
+
 
 

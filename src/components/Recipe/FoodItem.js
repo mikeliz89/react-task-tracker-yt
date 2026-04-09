@@ -5,13 +5,12 @@
 import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { FaCheckSquare } from 'react-icons/fa';
 
-import { TRANSLATION } from '../../utils/Constants';
+import { COLORS, ICONS, NAVIGATION, TRANSLATION } from '../../utils/Constants';
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
-import RightWrapper from '../Site/RightWrapper';
+import CheckButton from '../Buttons/CheckButton';
+import NavButton from '../Buttons/NavButton';
+import ListRow from '../Site/ListRow';
 
 import AddFoodItem from './AddFoodItem';
 
@@ -19,7 +18,7 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
 
     //states
     const [editable, setEditable] = useState(false);
-const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
 
     const markHaveAtHome = () => {
         foodItem["haveAtHome"] = true;
@@ -37,23 +36,24 @@ const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.R
     }
 
     return (
-
-        <div className='listContainer'>
-            <h5>
+        <ListRow
+            headerLeft={
                 <span>
-                    {foodItem.name}
+                    <NavButton to={NAVIGATION.MANAGE_FOODITEMS} className=""
+                        icon={ICONS.CARROT}
+                        iconColor={COLORS.GRAY}
+                    >
+                        {foodItem.name}
+                    </NavButton>
                 </span>
-                <RightWrapper>
-                    <EditButton
-                        editable={editable}
-                        setEditable={setEditable}
-                    />
-                    <DeleteButton
-                        onDelete={onDelete}
-                        id={foodItem.id}
-                    />
-                </RightWrapper>
-            </h5>
+            }
+            showEditButton={true}
+            editable={editable}
+            setEditable={setEditable}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={foodItem.id}
+        >
             <p>{t('fooditem_calories')}: {foodItem.calories}</p>
             <p>{t('fooditem_category')}: {
                 t('fooditem_category_' + getFoodItemCategoryNameByID(foodItem.category))
@@ -65,28 +65,18 @@ const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.R
                     foodItemID={foodItem.id} />
             }
             <p>
-                {
-                    foodItem.haveAtHome &&
-                    <span
-                        onClick={() => { markNotHaveAtHome() }}
-                        className='btn btn-success' style={{ margin: '5px' }}>
-                        {t('fooditem_have_at_home')}&nbsp;
-                        <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
-                    </span>
-                }
-                {
-                    !foodItem.haveAtHome &&
-                    <span
-                        onClick={() => { markHaveAtHome() }}
-                        className='btn btn-danger' style={{ margin: '5px' }}>
-                        {t('fooditem_not_have_at_home')}&nbsp;
-                        <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
-                    </span>
-                }
-                {/* <Link className='btn btn-primary' to={`/recipe/${recipe.id}`}>{t('view_details')}</Link> */}
+                <CheckButton
+                    checked={foodItem.haveAtHome}
+                    checkedText={t('fooditem_have_at_home')}
+                    uncheckedText={t('fooditem_not_have_at_home')}
+                    onCheck={markHaveAtHome}
+                    onUncheck={markNotHaveAtHome}
+                    style={{ margin: '5px' }}
+                />
             </p>
-        </div>
+        </ListRow>
     )
 }
+
 
 

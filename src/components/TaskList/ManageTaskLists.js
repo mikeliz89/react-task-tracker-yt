@@ -1,6 +1,5 @@
 import i18n from "i18next";
 import PropTypes from 'prop-types';
-import { Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
