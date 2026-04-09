@@ -1,5 +1,6 @@
-import FoodItem from './FoodItem';
 import Counter from '../Site/Counter';
+
+import FoodItem from './FoodItem';
 
 export default function FoodItems({ foodItems, onDelete, onEdit, originalList, counter }) {
 
@@ -22,3 +23,5 @@ export default function FoodItems({ foodItems, onDelete, onEdit, originalList, c
         </>
     )
 }
+
+

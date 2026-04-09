@@ -1,5 +1,6 @@
-import Event from './Event';
 import Counter from '../Site/Counter';
+
+import Event from './Event';
 
 export default function Events({ events, onDelete, onEdit, originalList, counter }) {
 
@@ -19,3 +20,5 @@ export default function Events({ events, onDelete, onEdit, originalList, counter
     </div>
   )
 }
+
+

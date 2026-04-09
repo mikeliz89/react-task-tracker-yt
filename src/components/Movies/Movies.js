@@ -1,5 +1,6 @@
-import Movie from './Movie';
 import Counter from '../Site/Counter';
+
+import Movie from './Movie';
 
 export default function Movies({ movies, onDelete, onEdit, originalList, counter }) {
 
@@ -19,3 +20,6 @@ export default function Movies({ movies, onDelete, onEdit, originalList, counter
     </div>
   )
 }
+
+
+

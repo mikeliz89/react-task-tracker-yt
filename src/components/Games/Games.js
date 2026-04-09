@@ -1,5 +1,6 @@
-import Game from './Game';
 import Counter from '../Site/Counter';
+
+import Game from './Game';
 
 export default function Games({ games, onDelete, onEdit, dbUrl, detailsNavigation, showConsole, originalList, counter }) {
 
@@ -22,3 +23,5 @@ export default function Games({ games, onDelete, onEdit, dbUrl, detailsNavigatio
     </div>
   )
 }
+
+

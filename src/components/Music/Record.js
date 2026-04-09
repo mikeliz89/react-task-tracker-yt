@@ -1,24 +1,30 @@
+
+
+
+//states
+
+import { useState } from 'react';
+
 import { useTranslation } from 'react-i18next';
 import { FaCheckSquare } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import StarRating from '../StarRating/StarRating';
-import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
-import { getMusicFormatNameByID } from '../../utils/ListUtils';
-import RightWrapper from '../Site/RightWrapper';
-import { useState } from 'react';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+
 import { updateToFirebaseById } from '../../datatier/datatier';
-import AddRecord from './AddRecord';
+import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getMusicFormatNameByID } from '../../utils/ListUtils';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
+import RightWrapper from '../Site/RightWrapper';
+import StarRating from '../StarRating/StarRating';
+
+import AddRecord from './AddRecord';
 
 export default function Record({ record, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
-
-    //states
-    const [editable, setEditable] = useState(false);
+const [editable, setEditable] = useState(false);
 
     const updateRecord = (updateRecordID, object) => {
         object["modified"] = getCurrentDateAsJson();
@@ -104,3 +110,5 @@ export default function Record({ record, onDelete, onEdit }) {
         </div>
     )
 }
+
+

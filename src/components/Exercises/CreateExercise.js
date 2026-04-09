@@ -1,24 +1,26 @@
+import { useState, useEffect } from 'react';
 import { Form, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebase } from '../../datatier/datatier';
+import { TRANSLATION, DB, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import Alert from '../Alert';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
-import { useAuth } from '../../contexts/AuthContext';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, NAVIGATION, VARIANTS } from '../../utils/Constants';
-import { Categories, ExerciseCategories } from './Categories';
-import PageTitle from '../Site/PageTitle';
-import Alert from '../Alert';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import { pushToFirebase } from '../../datatier/datatier';
 import { useAlert } from '../Hooks/useAlert';
+import PageContentWrapper from '../Site/PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
+
+import { Categories, ExerciseCategories } from './Categories';
 
 export default function CreateExercise() {
 
     //states
     const [category, setCategory] = useState();
-    const [categories, setCategories] = useState(ExerciseCategories);
+const [categories, setCategories] = useState(ExerciseCategories);
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState(new Date());
 
@@ -43,24 +45,19 @@ export default function CreateExercise() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        sortCategoriesByName();
-        setDefaultCategory();
-    }, [ready])
-
-    const setDefaultCategory = () => {
-        //set default category to gym
-        let obj = categories.find(x => x.id === Categories.Gym);
-        setCategory(obj.id);
-    }
-
-    const sortCategoriesByName = () => {
-        const sortedCategories = [...categories].sort((a, b) => {
+        const sortedCategories = [...ExerciseCategories].sort((a, b) => {
             const aName = t(`category_${a.name}`);
             const bName = t(`category_${b.name}`);
             return aName > bName ? 1 : -1;
         });
         setCategories(sortedCategories);
-    }
+
+        //set default category to gym
+        const defaultCategory = sortedCategories.find(x => x.id === Categories.Gym);
+        if (defaultCategory) {
+            setCategory(defaultCategory.id);
+        }
+    }, [ready, t])
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -125,3 +122,6 @@ export default function CreateExercise() {
         </PageContentWrapper>
     )
 }
+
+
+

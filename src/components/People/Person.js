@@ -1,24 +1,31 @@
-import { useTranslation } from 'react-i18next';
+
+
+
+//alert
+
 import { useState } from 'react';
+
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { TRANSLATION, NAVIGATION, DB } from "../../utils/Constants";
-import { Languages } from '../../Languages';
-import { getCurrentDateAsJson, getJsonAsDateString } from '../../utils/DateTimeUtils';
+
 import { updateToFirebaseById } from '../../datatier/datatier';
+import { Languages } from '../../Languages';
+import { TRANSLATION, NAVIGATION, DB } from "../../utils/Constants";
+import { getCurrentDateAsJson, getJsonAsDateString } from '../../utils/DateTimeUtils';
 import Alert from '../Alert';
-import AddPerson from './AddPerson';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import { useAlert } from '../Hooks/useAlert';
 import RightWrapper from '../Site/RightWrapper';
 
+
+import AddPerson from './AddPerson';
+
 export default function Person({ person, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.PEOPLE });
-
-    //alert
-    const {
+const {
         message, setMessage,
         showMessage, setShowMessage,
         error, setError,
@@ -86,3 +93,5 @@ export default function Person({ person, onDelete }) {
         </div>
     )
 }
+
+

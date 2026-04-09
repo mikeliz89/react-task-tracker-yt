@@ -1,5 +1,6 @@
-import Band from './Band';
 import Counter from '../Site/Counter';
+
+import Band from './Band';
 
 export default function Bands({ bands, onDelete, onEdit, originalList, counter }) {
 
@@ -19,3 +20,5 @@ export default function Bands({ bands, onDelete, onEdit, originalList, counter }
     </div>
   )
 }
+
+

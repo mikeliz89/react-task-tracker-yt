@@ -1,16 +1,21 @@
-import Links from './Links';
+
+
+//states
+
 import { useState } from 'react';
-import PageTitle from '../Site/PageTitle';
 import { useTranslation } from 'react-i18next';
+
+
 import { TRANSLATION, COLORS, ICONS } from '../../utils/Constants';
+import PageTitle from '../Site/PageTitle';
+
+import Links from './Links';
 
 export default function LinkComponent({ objID, url, onSaveLink }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LINKS });
-
-    //states
-    const [counter, setCounter] = useState(0);
+const [counter, setCounter] = useState(0);
 
     return (
         <div className="content-panel">
@@ -26,3 +31,6 @@ export default function LinkComponent({ objID, url, onSaveLink }) {
         </div>
     )
 }
+
+
+

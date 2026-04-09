@@ -1,18 +1,20 @@
-import NavButton from '../Buttons/NavButton';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import Exercises from './Exercises';
-import ManagePage from '../Site/ManagePage';
-import Counter from '../Site/Counter';
-import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
+
 import { removeFromFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
+import NavButton from '../Buttons/NavButton';
 import useFetch from '../Hooks/useFetch';
+import Counter from '../Site/Counter';
+import ManagePage from '../Site/ManagePage';
+
+import Exercises from './Exercises';
 
 export default function ManageExercises() {
 
   //translation
   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
-  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   //fetch data
   const { data: exercises, setData: setExercises,
@@ -65,3 +67,5 @@ export default function ManageExercises() {
     </ManagePage>
   )
 }
+
+

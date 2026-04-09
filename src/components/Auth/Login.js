@@ -1,21 +1,25 @@
+
+
+//states
+
+
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../../contexts/AuthContext';
-import Button from '../Buttons/Button';
-import Alert from '../Alert';
-import PageTitle from '../Site/PageTitle';
-import CenterWrapper from '../Site/CenterWrapper';
 import { TRANSLATION, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import Alert from '../Alert';
+import Button from '../Buttons/Button';
 import { useAlert } from '../Hooks/useAlert';
+import CenterWrapper from '../Site/CenterWrapper';
+import PageTitle from '../Site/PageTitle';
 
 export default function Login() {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.AUTH });
-
-    //states
-    const [loading, setLoading] = useState(false);
+const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -86,3 +90,6 @@ export default function Login() {
         </div>
     )
 }
+
+
+

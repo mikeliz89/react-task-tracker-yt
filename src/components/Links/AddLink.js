@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Col, Form, Row } from 'react-bootstrap';
-import Button from '../Buttons/Button';
+import { useTranslation } from 'react-i18next';
+
 import { TRANSLATION, ICONS } from '../../utils/Constants';
+import Button from '../Buttons/Button';
 
 export default function AddLink({
     onSaveLink,
@@ -15,7 +16,8 @@ export default function AddLink({
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LINKS });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [url, setUrl] = useState(initialUrl || '');
@@ -121,3 +123,5 @@ AddLink.defaultProps = {
     onClose: () => { },
     showToggleButton: true
 }
+
+

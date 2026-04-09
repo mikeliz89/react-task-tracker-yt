@@ -1,17 +1,18 @@
+import { onValue, ref } from "firebase/database";
+import i18n from "i18next";
+import { useState, useEffect } from "react";
 import { Form, ButtonGroup, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
-import Button from '../Buttons/Button';
+
 import { useAuth } from '../../contexts/AuthContext';
-import { onValue, ref } from "firebase/database";
-import { db } from "../../firebase-config";
-import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateTimeUtils";
-import { TRANSLATION, DB, ICONS, VARIANTS } from '../../utils/Constants';
-import i18n from "i18next";
-import PageTitle from '../Site/PageTitle';
-import Alert from "../Alert";
 import { pushToFirebase, updateToFirebaseById } from "../../datatier/datatier";
+import { db } from "../../firebase-config";
+import { TRANSLATION, DB, ICONS, VARIANTS } from '../../utils/Constants';
+import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateTimeUtils";
+import Alert from "../Alert";
+import Button from '../Buttons/Button';
 import { useAlert } from "../Hooks/useAlert";
+import PageTitle from '../Site/PageTitle';
 
 export default function AddInfo() {
 
@@ -176,3 +177,6 @@ export default function AddInfo() {
         </div>
     )
 }
+
+
+

@@ -1,23 +1,27 @@
-import { useTranslation } from 'react-i18next';
+
+
+//alert
+
 import { useState } from 'react';
-import { getGearCategoryNameByID } from '../../utils/ListUtils';
+
+import { useTranslation } from 'react-i18next';
+
 import { TRANSLATION, NAVIGATION, VARIANTS, COLORS } from "../../utils/Constants";
+import { getGearCategoryNameByID } from '../../utils/ListUtils';
+import Alert from '../Alert';
 import DeleteButton from '../Buttons/DeleteButton';
 import NavButton from '../Buttons/NavButton';
-import Alert from '../Alert';
-import { getIconNameByCategory } from './Categories';
-import StarRating from '../StarRating/StarRating';
-import RightWrapper from '../Site/RightWrapper';
 import { useAlert } from '../Hooks/useAlert';
+import RightWrapper from '../Site/RightWrapper';
+import StarRating from '../StarRating/StarRating';
 
+import { getIconNameByCategory } from './Categories';
 
 export default function Gear({ gear, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-
-    //alert
-    const {
+const {
         message, setMessage,
         showMessage, setShowMessage,
         error, setError,
@@ -62,3 +66,5 @@ export default function Gear({ gear, onDelete }) {
         </div >
     )
 }
+
+

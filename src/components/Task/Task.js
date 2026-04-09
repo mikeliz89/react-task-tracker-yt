@@ -1,14 +1,23 @@
-import { DB, TRANSLATION } from '../../utils/Constants';
-import RightWrapper from '../Site/RightWrapper';
-import AddTask from './AddTask';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+
+
+
+//translation
+
+import { Form } from 'react-bootstrap';
+
+import { useTranslation } from 'react-i18next';
+
+
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import { useToggle } from '../Hooks/useToggle';
+import { DB, TRANSLATION } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import NavButton from '../Buttons/NavButton';
-import { Form } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { useToggle } from '../Hooks/useToggle';
+import RightWrapper from '../Site/RightWrapper';
+
+import AddTask from './AddTask';
 
 export default function Task({
     taskListID,
@@ -21,9 +30,7 @@ export default function Task({
 
     //toggle
     const { status: editable, toggleStatus: toggleSetEditable, setStatus: setEditable } = useToggle();
-
-    //translation
-    const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
+const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
 
     const updateTask = (updateTaskListID, object) => {
         object["modified"] = getCurrentDateAsJson();
@@ -103,3 +110,5 @@ export default function Task({
         </div>
     )
 }
+
+

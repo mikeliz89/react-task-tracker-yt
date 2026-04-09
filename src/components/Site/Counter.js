@@ -1,5 +1,6 @@
-import CenterWrapper from "./CenterWrapper";
 import PropTypes from 'prop-types';
+
+import CenterWrapper from "./CenterWrapper";
 
 export default function Counter({ counter, list, originalList, text }) {
 
@@ -36,3 +37,5 @@ Counter.propTypes = {
     //numbers
     counter: PropTypes.number
 }
+
+

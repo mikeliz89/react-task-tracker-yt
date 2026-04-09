@@ -1,22 +1,24 @@
 import { useTranslation } from 'react-i18next';
-import Movements from './Movements';
-import ManagePage from '../Site/ManagePage';
-import Counter from '../Site/Counter';
-import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
-import { removeFromFirebaseById, pushToFirebase } from '../../datatier/datatier';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import AddMovement from './AddMovement';
+
 import { useAuth } from '../../contexts/AuthContext';
+import { removeFromFirebaseById, pushToFirebase } from '../../datatier/datatier';
+import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
 import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import Counter from '../Site/Counter';
+import ManagePage from '../Site/ManagePage';
+
+import AddMovement from './AddMovement';
+import Movements from './Movements';
 
 export default function ManageMovements() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: movements, setData: setMovements,
@@ -110,3 +112,5 @@ export default function ManageMovements() {
         </ManagePage>
     )
 }
+
+

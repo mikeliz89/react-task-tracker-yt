@@ -1,15 +1,16 @@
+import { ref, child, onValue } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Button from '../Buttons/Button';
-import { db } from '../../firebase-config';
-import { ref, child, onValue } from 'firebase/database';
+import { useParams } from 'react-router-dom';
+
 import { useAuth } from '../../contexts/AuthContext';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS } from '../../utils/Constants';
-import PageTitle from '../Site/PageTitle';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
+import { db } from '../../firebase-config';
+import { TRANSLATION, DB, ICONS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import Button from '../Buttons/Button';
+import PageTitle from '../Site/PageTitle';
 
 export default function AddPartsAerobics() {
 
@@ -30,15 +31,8 @@ export default function AddPartsAerobics() {
 
   //load data
   useEffect(() => {
-    const getExercisePart = async () => {
-      await fetchExercisePartFromFirebase();
-    }
-    getExercisePart();
-  }, [])
-
-  const fetchExercisePartFromFirebase = async () => {
     const dbref = child(ref(db, DB.EXERCISE_PARTS), params.id);
-    onValue(dbref, (snapshot) => {
+    const unsubscribe = onValue(dbref, (snapshot) => {
       const val = snapshot.val();
       const fromDB = [];
       if (val === null) {
@@ -53,8 +47,12 @@ export default function AddPartsAerobics() {
         setTime(fromDB[0]["time"]);
       }
       setLoading(false);
-    })
-  }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [params.id]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -100,3 +98,6 @@ export default function AddPartsAerobics() {
     )
   )
 }
+
+
+

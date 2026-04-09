@@ -6,15 +6,14 @@ import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-
 import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
+import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
-import { useToggle } from '../Hooks/useToggle';
-import { useAlert } from '../Hooks/useAlert';
 
 import AddPerson from './AddPerson';
 
@@ -117,3 +116,5 @@ export default function PersonDetails() {
         />
     )
 }
+
+

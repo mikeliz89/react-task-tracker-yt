@@ -1,24 +1,30 @@
+
+
+
+//states
+
+import { useState } from 'react';
+
 import { useTranslation } from 'react-i18next';
 import { FaCheckSquare } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import StarRating from '../StarRating/StarRating';
-import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
-import { getMovieFormatNameByID } from '../../utils/ListUtils';
-import RightWrapper from '../Site/RightWrapper';
-import { useState } from 'react';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+
 import { updateToFirebaseById } from '../../datatier/datatier';
-import AddMovie from './AddMovie';
+import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getMovieFormatNameByID } from '../../utils/ListUtils';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
+import RightWrapper from '../Site/RightWrapper';
+import StarRating from '../StarRating/StarRating';
+
+import AddMovie from './AddMovie';
 
 export default function Movie({ movie, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MOVIES });
-
-    //states
-    const [editable, setEditable] = useState(false);
+const [editable, setEditable] = useState(false);
 
     const updateMovie = (updateMovieID, object) => {
         object["modified"] = getCurrentDateAsJson();
@@ -109,3 +115,5 @@ export default function Movie({ movie, onDelete, onEdit }) {
         </div>
     )
 }
+
+

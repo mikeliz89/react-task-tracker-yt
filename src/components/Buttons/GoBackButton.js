@@ -1,7 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import Button from './Button';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+
 import { TRANSLATION, ICONS } from '../../utils/Constants';
+
+import Button from './Button';
 
 export default function GoBackButton() {
 
@@ -18,3 +20,5 @@ export default function GoBackButton() {
       }} title={tCommon('buttons.go_back_button_alt')} />
   )
 }
+
+

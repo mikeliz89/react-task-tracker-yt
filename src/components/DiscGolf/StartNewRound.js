@@ -1,26 +1,30 @@
+
+
+//fetch tracks
+
+
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Form, Col } from 'react-bootstrap';
-import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import GoBackButton from '../Buttons/GoBackButton';
-import useFetch from '../Hooks/useFetch';
 import { useRef } from 'react';
-import Button from '../Buttons/Button';
-import FoundItems from '../Selectors/FoundItems';
-import { useAuth } from '../../contexts/AuthContext';
+import { Row, ButtonGroup, Form, Col } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+
+import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebase, pushToFirebaseChild } from '../../datatier/datatier';
+import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import Button from '../Buttons/Button';
+import GoBackButton from '../Buttons/GoBackButton';
 import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import FoundItems from '../Selectors/FoundItems';
+import PageContentWrapper from '../Site/PageContentWrapper';
 
 export default function StartNewRound() {
 
    //translation
    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DISC_GOLF });
-
-   //fetch tracks
-   const { originalData: originalTracks } = useFetch(DB.DISC_GOLF_TRACKS);
+const { originalData: originalTracks } = useFetch(DB.DISC_GOLF_TRACKS);
 
    //fetch people for players
    const { originalData: originalPeople } = useFetch(DB.PEOPLE);
@@ -58,30 +62,32 @@ export default function StartNewRound() {
    //listen for track selection
    useEffect(() => {
 
+      const tracks = Object.values(originalTracks || {});
       if (linkedTrackName === "") {
-         setFoundTracks(Object.values(originalTracks));
+         setFoundTracks(tracks);
       } else {
          var filtered =
-            Object.values(originalTracks).filter(
+            tracks.filter(
                e => e.trackName != null && e.trackName.toLowerCase().includes(linkedTrackName.toLowerCase())
             );
          setFoundTracks(filtered);
       }
-   }, [linkedTrackName]);
+   }, [linkedTrackName, originalTracks]);
 
    //listen for player selections
    useEffect(() => {
 
+      const people = Object.values(originalPeople || {});
       if (linkedPlayerName === "") {
-         setFoundPlayers(Object.values(originalPeople));
+         setFoundPlayers(people);
       } else {
          var filtered =
-            Object.values(originalPeople).filter(
+            people.filter(
                e => e.name != null && e.name.toLowerCase().includes(linkedPlayerName.toLowerCase())
             );
          setFoundPlayers(filtered);
       }
-   }, [linkedPlayerName]);
+   }, [linkedPlayerName, originalPeople]);
 
    async function onSubmit(e) {
       e.preventDefault();
@@ -213,3 +219,6 @@ export default function StartNewRound() {
       </PageContentWrapper >
    )
 }
+
+
+

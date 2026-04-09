@@ -1,13 +1,14 @@
-import { getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import i18n from "i18next";
+
+import { ICONS } from '../../utils/Constants';
+import { getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import DeleteButton from '../Buttons/DeleteButton';
 import Icon from '../Icon';
-import { ICONS } from '../../utils/Constants';
 
 const getCommentAuthorLabel = (author) => {
     if (!author) {
         return 'Unknown';
-    }
+}
 
     const emailName = author.includes('@') ? author.split('@')[0] : author;
 
@@ -50,3 +51,6 @@ export default function CommentsInner({ comments, onDelete }) {
         </div>
     )
 }
+
+
+

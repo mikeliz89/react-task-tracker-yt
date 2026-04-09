@@ -1,9 +1,11 @@
+/** Get current date as Json datetime */
+
 import { Languages } from "../Languages";
 
-/** Get current date as Json datetime */
 export function getCurrentDateAsJson() {
     let newDate = new Date();
-    return newDate.toJSON();
+
+return newDate.toJSON();
 }
 
 /** Get current date */
@@ -138,3 +140,5 @@ function isEmptyOrUndefined(json) {
     }
     return false;
 }
+
+

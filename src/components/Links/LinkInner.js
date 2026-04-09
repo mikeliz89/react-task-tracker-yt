@@ -1,15 +1,16 @@
 import { useState } from "react";
-import AddLink from "./AddLink";
-import RightWrapper from "../Site/RightWrapper";
+
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
+import RightWrapper from "../Site/RightWrapper";
+
+import AddLink from "./AddLink";
 
 export default function LinkInner({ link, objID, linkUrl, onEdit, onDelete }) {
 
     //states
     const [editable, setEditable] = useState(false);
-
-    const editLink = (link) => {
+const editLink = (link) => {
         onEdit(link);
         setEditable(false);
     }
@@ -51,3 +52,5 @@ export default function LinkInner({ link, objID, linkUrl, onEdit, onDelete }) {
         </>
     )
 }
+
+

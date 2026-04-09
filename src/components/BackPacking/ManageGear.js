@@ -1,22 +1,24 @@
 import { useTranslation } from 'react-i18next';
-import AddGear from './AddGear';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from "../../utils/Constants";
+
 import { useAuth } from '../../contexts/AuthContext';
-import Gears from './Gears';
+import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from "../../utils/Constants";
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import ManagePage from '../Site/ManagePage';
-import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
-import { useAlert } from '../Hooks/useAlert';
+
+import AddGear from './AddGear';
+import Gears from './Gears';
 
 export default function ManageGear() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: gear, setData: setGear,
@@ -109,3 +111,6 @@ export default function ManageGear() {
         </ManagePage>
     )
 }
+
+
+

@@ -1,7 +1,9 @@
-import Recipe from './Recipe';
 import PropTypes from 'prop-types';
+
 import { RecipeTypes } from '../../utils/Enums';
 import Counter from '../Site/Counter';
+
+import Recipe from './Recipe';
 
 export default function Recipes({ recipeType, translation, translationKeyPrefix, recipes, onDelete, originalList, counter }) {
 
@@ -39,3 +41,5 @@ Recipes.propTypes = {
   originalList: PropTypes.array,
   counter: PropTypes.number
 }
+
+

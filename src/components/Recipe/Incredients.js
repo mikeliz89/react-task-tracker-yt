@@ -1,13 +1,13 @@
-import { useTranslation } from 'react-i18next';
-import Incredient from './Incredient';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+
+import Incredient from './Incredient';
 
 export default function Incredients({ dbUrl, translation, translationKeyPrefix, incredients, recipeID, onDelete }) {
 
   //translation
   const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
-
-  return (
+return (
     <>
       <h5>{t('incredients_header')}</h5>
 
@@ -38,3 +38,5 @@ Incredients.propTypes = {
   recipeID: PropTypes.string,
   onDelete: PropTypes.func
 }
+
+

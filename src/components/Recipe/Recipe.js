@@ -1,27 +1,29 @@
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { ref, child, onValue } from 'firebase/database';
+import i18n from "i18next";
+import PropTypes from 'prop-types';
 import { useState } from 'react'
 import StarRating from '../StarRating/StarRating';
-import { db } from '../../firebase-config';
-import { ref, child, onValue } from 'firebase/database';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { COLORS, DB, NAVIGATION } from '../../utils/Constants';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { FaShoppingCart } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../../contexts/AuthContext';
-import i18n from "i18next";
-import { getCategoryContent, getIncredientsUrl, getIconName, getViewDetailsUrl, getUrl } from './Categories';
-import Alert from '../Alert';
-import PropTypes from 'prop-types';
-import { ListTypes, RecipeTypes } from '../../utils/Enums';
 import { pushToFirebase, pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import RightWrapper from '../Site/RightWrapper';
-import AddRecipe from './AddRecipe';
-import AddDrink from '../Drinks/AddDrink';
+import { db } from '../../firebase-config';
+import { COLORS, DB, NAVIGATION } from '../../utils/Constants';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import { ListTypes, RecipeTypes } from '../../utils/Enums';
+import Alert from '../Alert';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import NavButton from '../Buttons/NavButton';
+import AddDrink from '../Drinks/AddDrink';
 import { useAlert } from '../Hooks/useAlert';
+import RightWrapper from '../Site/RightWrapper';
+
+import AddRecipe from './AddRecipe';
+import { getCategoryContent, getIncredientsUrl, getIconName, getViewDetailsUrl, getUrl } from './Categories';
 
 export default function Recipe({ recipeType, translation, translationKeyPrefix, recipe, onDelete }) {
 
@@ -207,3 +209,5 @@ Recipe.propTypes = {
     recipeType: PropTypes.any,
     recipe: PropTypes.object
 }
+
+

@@ -1,15 +1,18 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import { FoodItemCategories } from './Categories';
+import { useTranslation } from 'react-i18next';
+
 import { TRANSLATION, DB } from '../../utils/Constants';
+import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
+
+
+import { FoodItemCategories } from './Categories';
 
 export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
 
-    const { t, ready } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     const defaultFoodItem = {
         name: '',
@@ -45,7 +48,7 @@ export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
             const bName = t(`fooditem_category_${b.name}`);
             return aName.localeCompare(bName);
         });
-    }, [ready, t]);
+    }, [t]);
 
     const handleChange = (key, value) => {
         setFoodItem(prev => ({ ...prev, [key]: value }));
@@ -145,3 +148,6 @@ export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
         </Form>
     );
 }
+
+
+

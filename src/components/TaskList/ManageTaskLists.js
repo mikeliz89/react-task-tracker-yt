@@ -1,21 +1,22 @@
-import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
-import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+
 import AddTaskList from '../../components/TaskList/AddTaskList';
 import TaskLists from '../../components/TaskList/TaskLists';
-import Button from '../Buttons/Button';
-import { getPageTitleContent } from '../../utils/ListUtils';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { COLORS, TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
-import { ListTypes } from '../../utils/Enums';
-import PropTypes from 'prop-types';
-import ManagePage from '../Site/ManagePage';
 import { pushToFirebase, removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
+import { COLORS, TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import { ListTypes } from '../../utils/Enums';
+import { getPageTitleContent } from '../../utils/ListUtils';
+import Button from '../Buttons/Button';
 import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import ManagePage from '../Site/ManagePage';
 
 export default function ManageTaskLists({ listType = ListTypes.None }) {
 
@@ -200,3 +201,5 @@ ManageTaskLists.defaultProps = {
 ManageTaskLists.propTypes = {
   listType: PropTypes.any
 }
+
+

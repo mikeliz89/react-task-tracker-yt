@@ -1,13 +1,15 @@
-import Button from "../Buttons/Button";
-import { ICONS } from "../../utils/Constants";
 import PropTypes from 'prop-types';
+
+import { ICONS } from "../../utils/Constants";
+
+import Button from "../Buttons/Button";
 
 export default function FoundItems({ itemsToFind, nameField, onSelection, linkedName }) {
 
   const showName = (item) => {
     //TODO: lisää alaviiva nameen siihen kohtaan missä hakuehto toteutui
     return item[nameField];
-  }
+}
 
   const setSelected = (item) => {
     const obj = { name: item[nameField], id: item.id };
@@ -40,3 +42,6 @@ FoundItems.propTypes = {
   onSelection: PropTypes.func,
   linkedName: PropTypes.string
 }
+
+
+

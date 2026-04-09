@@ -1,19 +1,19 @@
+import i18n from "i18next";
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import i18n from "i18next";
 import { useParams } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { TRANSLATION, DB } from '../../utils/Constants';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import CommentComponent from '../Comments/CommentComponent';
 import useFetch from '../Hooks/useFetch';
+import LinkComponent from '../Links/LinkComponent';
+import DetailsPage from '../Site/DetailsPage';
+import PageTitle from '../Site/PageTitle';
 
 import AddTask from './AddTask';
-import CommentComponent from '../Comments/CommentComponent';
-import DetailsPage from '../Site/DetailsPage';
-import LinkComponent from '../Links/LinkComponent';
-import PageTitle from '../Site/PageTitle';
 
 export default function TaskDetails() {
 
@@ -86,3 +86,5 @@ export default function TaskDetails() {
     />
   );
 }
+
+

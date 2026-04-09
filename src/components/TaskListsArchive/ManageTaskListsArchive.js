@@ -1,16 +1,18 @@
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+
 import TaskLists from '../../components/TaskList/TaskLists';
-import ManagePage from '../Site/ManagePage';
-import { TRANSLATION, DB } from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB } from '../../utils/Constants';
 import useFetch from '../Hooks/useFetch';
+import ManagePage from '../Site/ManagePage';
 
 export default function ManageTaskListsArchive() {
 
   //translation
   const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
-  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   const location = useLocation();
 
@@ -46,3 +48,5 @@ export default function ManageTaskListsArchive() {
     </ManagePage>
   )
 }
+
+

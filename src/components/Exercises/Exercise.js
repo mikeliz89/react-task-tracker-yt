@@ -1,11 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import StarRating from '../StarRating/StarRating';
-import { getIconNameByCategory } from './Categories';
-import Icon from '../Icon';
-import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
+
 import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
+import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
 import DeleteButton from '../Buttons/DeleteButton';
+import Icon from '../Icon';
+import StarRating from '../StarRating/StarRating';
+
+import { getIconNameByCategory } from './Categories';
 
 export default function Exercise({ exercise, onDelete }) {
 
@@ -43,3 +45,5 @@ export default function Exercise({ exercise, onDelete }) {
         </div>
     )
 }
+
+

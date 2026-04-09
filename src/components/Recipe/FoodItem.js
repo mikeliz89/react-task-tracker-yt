@@ -1,20 +1,25 @@
-import { FaCheckSquare } from 'react-icons/fa';
+
+
+//translation
+
 import { useState } from 'react';
+
 import { useTranslation } from 'react-i18next';
-import AddFoodItem from './AddFoodItem';
-import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
+import { FaCheckSquare } from 'react-icons/fa';
+
 import { TRANSLATION } from '../../utils/Constants';
-import RightWrapper from '../Site/RightWrapper';
+import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
+import RightWrapper from '../Site/RightWrapper';
+
+import AddFoodItem from './AddFoodItem';
 
 export default function FoodItem({ foodItem, onDelete, onEdit }) {
 
     //states
     const [editable, setEditable] = useState(false);
-
-    //translation
-    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
+const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
 
     const markHaveAtHome = () => {
         foodItem["haveAtHome"] = true;
@@ -83,3 +88,5 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
         </div>
     )
 }
+
+

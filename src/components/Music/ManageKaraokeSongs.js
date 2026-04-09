@@ -1,21 +1,27 @@
-import { useTranslation } from 'react-i18next';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import Counter from '../Site/Counter';
-import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import { useAuth } from '../../contexts/AuthContext';
-import { SortMode } from '../SearchSortFilter/SortModes';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
-import NavButton from '../Buttons/NavButton';
-import { useAlert } from '../Hooks/useAlert';
-import AddKaraokeSong from './AddKaraokeSong';
-import ManagePage from '../Site/ManagePage';
+
+
 
 // TODO: Luo KaraokeSongs-komponentti, joka näyttää yksittäiset kappaleet
 // import KaraokeSongs from './KaraokeSongs';
 // TODO: Luo AddKaraokeSong-komponentti lisäystä varten
+
+
+import { useTranslation } from 'react-i18next';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import NavButton from '../Buttons/NavButton';
+import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { SortMode } from '../SearchSortFilter/SortModes';
+import Counter from '../Site/Counter';
+import ManagePage from '../Site/ManagePage';
+
+import AddKaraokeSong from './AddKaraokeSong';
 
 export default function ManageKaraokeSongs() {
     // translation
@@ -128,3 +134,5 @@ export default function ManageKaraokeSongs() {
         </ManagePage>
     )
 }
+
+

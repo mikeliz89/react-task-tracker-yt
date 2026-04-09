@@ -7,11 +7,10 @@ import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datati
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
-
 import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
-import useFetch from '../Hooks/useFetch';
 import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
 import { useToggle } from '../Hooks/useToggle';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
@@ -142,3 +141,6 @@ export default function DrinkingProductDetails() {
         />
     )
 }
+
+
+

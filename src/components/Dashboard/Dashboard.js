@@ -1,17 +1,19 @@
-import BigButton from '../Buttons/BigButton';
-import Icon from '../Icon';
-import { useTranslation } from 'react-i18next';
-import { Row, Tabs, Form } from 'react-bootstrap';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import { TRANSLATION, ICONS, COLORS, NAVIGATION, SESSIONSTORAGE } from '../../utils/Constants';
-import DashboardItem from './DashboardItem';
 import { Tab } from 'bootstrap';
 import { useState, useEffect } from 'react';
+import { Row, Tabs, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
+import { TRANSLATION, ICONS, COLORS, NAVIGATION, SESSIONSTORAGE } from '../../utils/Constants';
+import BigButton from '../Buttons/BigButton';
+import Icon from '../Icon';
+import PageContentWrapper from '../Site/PageContentWrapper';
+
+import DashboardItem from './DashboardItem';
 
 export default function Dashboard() {
 
     const [fromPage, setFromPage] = useState('');
-    const [loading, setLoading] = useState(true);
+const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
 
     //translation
@@ -295,3 +297,5 @@ export default function Dashboard() {
         </PageContentWrapper>
     );
 }
+
+

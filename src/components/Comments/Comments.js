@@ -1,18 +1,20 @@
-import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
-import { db } from '../../firebase-config';
 import { ref, onValue, child } from 'firebase/database';
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import { db } from '../../firebase-config';
+import { TRANSLATION, ICONS } from '../../utils/Constants';
+import Icon from '../Icon';
+
 import AddComment from './AddComment';
 import CommentsInner from './CommentsInner';
-import Icon from '../Icon';
-import { TRANSLATION, ICONS } from '../../utils/Constants';
-import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function Comments({ url, objID, onCounterChange, onSave }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.COMMENTS });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [loading, setLoading] = useState(true);
@@ -20,19 +22,13 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
 
     //load data
     useEffect(() => {
-        const getComments = async () => {
-            await fetchCommentsFromFireBase();
-        }
-        if (url !== "") {
-            getComments();
-        } else {
+        if (url === "") {
             setLoading(false);
+            return;
         }
-    }, []);
 
-    const fetchCommentsFromFireBase = async () => {
-        const dbref = await child(ref(db, url), objID);
-        onValue(dbref, (snapshot) => {
+        const dbref = child(ref(db, url), objID);
+        const unsubscribe = onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
             let commentCounterTemp = 0;
@@ -45,8 +41,12 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
             setComments(fromDB);
             onCounterChange(commentCounterTemp);
             setLoading(false);
-        })
-    }
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, [url, objID, onCounterChange]);
 
     const deleteComment = (commentID) => {
         removeFromFirebaseByIdAndSubId(url, objID, commentID);
@@ -72,3 +72,5 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
         </div>
     )
 }
+
+

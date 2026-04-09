@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Form } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import { DrinkCategories } from './Categories';
-import { TRANSLATION, DB } from '../../utils/Constants';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
+import { Row, ButtonGroup, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
+import { TRANSLATION, DB } from '../../utils/Constants';
+import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
+
+import { DrinkCategories } from './Categories';
 
 export default function AddDrink({ drinkID, onSave, onClose, showLabels, autoFocusTitle }) {
 
@@ -43,17 +45,13 @@ export default function AddDrink({ drinkID, onSave, onClose, showLabels, autoFoc
    }, [drinkData]);
 
    useEffect(() => {
-      sortCategoriesByName();
-   }, []);
-
-   const sortCategoriesByName = () => {
-      const sortedCategories = [...categories].sort((a, b) => {
+      const sortedCategories = [...DrinkCategories].sort((a, b) => {
          const aName = t(`category_${a.name}`);
          const bName = t(`category_${b.name}`);
          return aName > bName ? 1 : -1;
       });
       setCategories(sortedCategories);
-   }
+   }, [t]);
 
    const onSubmit = (e) => {
       e.preventDefault();
@@ -150,3 +148,5 @@ AddDrink.propTypes = {
    showLabels: PropTypes.bool,
    autoFocusTitle: PropTypes.bool
 }
+
+

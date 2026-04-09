@@ -1,6 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
-import i18n from 'i18next';
+
+
+
+//params
+
+
 import { child, get, off, onValue, push, ref, update } from 'firebase/database';
+import i18n from 'i18next';
+import { useEffect, useMemo, useState } from 'react';
 import { ButtonGroup, Col, Form, Modal, Row, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -18,23 +24,23 @@ import { db } from '../../firebase-config';
 import { COLORS, DB, ICONS, TRANSLATION } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getManagePageByListType, getPageTitleContent } from '../../utils/ListUtils';
-
 import Button from '../Buttons/Button';
+import GoBackButton from '../Buttons/GoBackButton';
 import CommentComponent from '../Comments/CommentComponent';
-import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import Icon from '../Icon';
 import LinkComponent from '../Links/LinkComponent';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
+import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import CenterWrapper from '../Site/CenterWrapper';
 import Counter from '../Site/Counter';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
-import Icon from '../Icon';
 import AddTask from '../Task/AddTask';
 import Tasks from '../Task/Tasks';
 import AddTaskList from '../TaskList/AddTaskList';
-import GoBackButton from '../Buttons/GoBackButton';
+
 import ChangeType from './ChangeType';
 
 export default function TaskListDetails() {
@@ -42,8 +48,7 @@ export default function TaskListDetails() {
   //navigate
   const navigate = useNavigate();
 
-  //params
-  const params = useParams();
+const params = useParams();
   const sourceListId = params.id;
 
   //translation
@@ -608,3 +613,6 @@ export default function TaskListDetails() {
     </PageContentWrapper>
   )
 }
+
+
+

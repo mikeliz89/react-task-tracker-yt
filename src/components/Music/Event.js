@@ -1,22 +1,28 @@
+
+
+
+//states
+
+import { useState } from 'react';
+
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import StarRating from '../StarRating/StarRating';
-import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
-import RightWrapper from '../Site/RightWrapper';
-import { useState } from 'react';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+
 import { updateToFirebaseById } from '../../datatier/datatier';
-import AddEvent from './AddEvent';
+import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
+import RightWrapper from '../Site/RightWrapper';
+import StarRating from '../StarRating/StarRating';
+
+import AddEvent from './AddEvent';
 
 export default function Event({ event, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
-
-    //states
-    const [editable, setEditable] = useState(false);
+const [editable, setEditable] = useState(false);
 
     const updateEvent = (updateEventID, object) => {
         object["modified"] = getCurrentDateAsJson();
@@ -63,3 +69,5 @@ export default function Event({ event, onDelete, onEdit }) {
         </div>
     )
 }
+
+

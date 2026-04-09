@@ -1,12 +1,14 @@
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
+
+import { COLORS, ICONS, VARIANTS } from '../../utils/Constants';
 import Alert from '../Alert';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+
 import CenterWrapper from './CenterWrapper';
 import PageContentWrapper from './PageContentWrapper';
 import PageTitle from './PageTitle';
-import { COLORS, ICONS, VARIANTS } from '../../utils/Constants';
 
 export default function ManagePage({
     loading,
@@ -30,8 +32,7 @@ export default function ManagePage({
         originalList: originalSearchSortFilterList,
         ...searchSortFilterOptions
     } = searchSortFilter ?? {};
-
-    const showSearchSortFilter =
+const showSearchSortFilter =
         originalSearchSortFilterList != null &&
         originalSearchSortFilterList.length > 0;
 
@@ -117,3 +118,6 @@ export default function ManagePage({
         </PageContentWrapper>
     );
 }
+
+
+

@@ -1,13 +1,15 @@
-import { useTranslation } from 'react-i18next';
-import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import { ButtonGroup, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
+import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import GoBackButton from '../Buttons/GoBackButton';
+import NavButton from '../Buttons/NavButton';
+import useFetch from '../Hooks/useFetch';
+import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
-import useFetch from '../Hooks/useFetch';
+
 import Rounds from './Rounds';
-import CenterWrapper from '../Site/CenterWrapper';
-import NavButton from '../Buttons/NavButton';
 
 export default function ManageDiscGolf() {
 
@@ -62,3 +64,6 @@ export default function ManageDiscGolf() {
       </PageContentWrapper>
    )
 }
+
+
+

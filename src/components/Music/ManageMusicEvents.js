@@ -1,17 +1,19 @@
 import { useTranslation } from 'react-i18next';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import Events from './Events';
-import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import AddEvent from './AddEvent';
-import { useAuth } from '../../contexts/AuthContext';
-import { SortMode } from '../SearchSortFilter/SortModes';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
 import NavButton from '../Buttons/NavButton';
 import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { SortMode } from '../SearchSortFilter/SortModes';
 import ManagePage from '../Site/ManagePage';
+
+import AddEvent from './AddEvent';
+import Events from './Events';
 
 export default function ManageMusicEvents() {
 
@@ -129,3 +131,6 @@ export default function ManageMusicEvents() {
         </ManagePage>
     )
 }
+
+
+

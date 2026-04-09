@@ -1,13 +1,15 @@
 import { useState } from 'react';
+
+import { updateToFirebaseById } from '../../datatier/datatier';
 import { DB, VARIANTS } from "../../utils/Constants";
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import Alert from '../Alert';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
-import Alert from '../Alert';
-import RightWrapper from '../Site/RightWrapper';
-import AddGearMaintenanceInstruction from './AddGearMaintenanceInstruction';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { updateToFirebaseById } from '../../datatier/datatier';
 import { useAlert } from '../Hooks/useAlert';
+import RightWrapper from '../Site/RightWrapper';
+
+import AddGearMaintenanceInstruction from './AddGearMaintenanceInstruction';
 
 export default function GearMaintenanceInstruction({ instruction, onDelete }) {
 
@@ -68,3 +70,5 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
         </div>
     )
 }
+
+

@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
 import i18n from 'i18next';
+import { useState, useEffect, useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -8,13 +8,12 @@ import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-
 import Alert from '../Alert';
 import Button from '../Buttons/Button';
 import CommentComponent from '../Comments/CommentComponent';
+import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import useFetchChildren from '../Hooks/useFetchChildren';
-import { useAlert } from '../Hooks/useAlert';
 import { useToggle } from '../Hooks/useToggle';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
@@ -29,7 +28,8 @@ export default function EventDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //alert
     const {
@@ -63,16 +63,17 @@ export default function EventDetails() {
     const inputRef = useRef();
 
     useEffect(() => {
+        const bands = Object.values(originalBands || {});
         if (linkedBandName === "") {
-            setFoundBands(Object.values(originalBands));
+            setFoundBands(bands);
         } else {
             var filtered =
-                Object.values(originalBands).filter(
+                bands.filter(
                     e => e.name != null && e.name.toLowerCase().includes(linkedBandName.toLowerCase())
                 );
             setFoundBands(filtered);
         }
-    }, [linkedBandName]);
+    }, [linkedBandName, originalBands]);
 
     const updateEvent = async (updateEventID, event) => {
         try {
@@ -201,3 +202,6 @@ export default function EventDetails() {
         />
     )
 }
+
+
+

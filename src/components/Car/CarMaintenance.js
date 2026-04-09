@@ -1,22 +1,28 @@
+
+
+//states
+
+
+import i18n from "i18next";
 import { Row, Col } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import i18n from "i18next";
-import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+
+import { updateToFirebaseById } from "../../datatier/datatier";
 import { TRANSLATION, DB } from '../../utils/Constants';
+import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
-import AddMaintenance from "./AddMaintenance";
-import { updateToFirebaseById } from "../../datatier/datatier";
-import RightWrapper from "../Site/RightWrapper";
 import { useToggle } from '../Hooks/useToggle';
+import RightWrapper from "../Site/RightWrapper";
+
+import AddMaintenance from "./AddMaintenance";
 
 export default function CarMaintenance({ carMaintenance, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
 
-    //states
-    const { status: editable, toggleStatus: toggleEditable, setFalse } = useToggle();
+const { status: editable, toggleStatus: toggleEditable, setFalse } = useToggle();
 
     const updateMaintenance = (maintenance) => {
         maintenance["modified"] = getCurrentDateAsJson();
@@ -59,3 +65,5 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
         </>
     )
 }
+
+

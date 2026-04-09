@@ -1,13 +1,15 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Icon from '../Icon';
+
+import { updateToFirebaseById } from '../../datatier/datatier';
+import { DB, ICONS, COLORS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
-import { DB, ICONS, COLORS } from '../../utils/Constants';
+import Icon from '../Icon';
 import RightWrapper from '../Site/RightWrapper';
-import { useState } from 'react';
+
 import AddTaskList from './AddTaskList';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { updateToFirebaseById } from '../../datatier/datatier';
 
 export default function TaskList({ taskList, archived, onDelete }) {
 
@@ -56,4 +58,7 @@ export default function TaskList({ taskList, archived, onDelete }) {
         </div>
     )
 }
+
+
+
 

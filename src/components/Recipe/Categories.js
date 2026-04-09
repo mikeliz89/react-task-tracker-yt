@@ -1,8 +1,9 @@
+/** Categories */
+
+import { DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { RecipeTypes } from '../../utils/Enums';
 import { getRecipeCategoryNameByID, getDrinkCategoryNameByID } from '../../utils/ListUtils';
-import { DB, ICONS, NAVIGATION } from '../../utils/Constants';
 
-/** Categories */
 export const Categories = {
     /** -Ei mikään- */
     None: 0,
@@ -197,7 +198,7 @@ export function getIconNameByCategory(category) {
     switch (Number(category)) {
         case Categories.Burger:
             return ICONS.HAMBURGER;
-        case Categories.Pizza:
+case Categories.Pizza:
             return ICONS.PIZZA;
         case Categories.Fish:
             return ICONS.FISH;
@@ -262,3 +263,5 @@ export const getUrl = (recipeType) => {
         default: return '';
     }
 }
+
+

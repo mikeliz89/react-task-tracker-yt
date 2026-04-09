@@ -1,15 +1,17 @@
-import { FaCheckSquare } from 'react-icons/fa';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FaCheckSquare } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import AddDrinkingProduct from './AddDrinkingProduct';
-import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
+
 import { TRANSLATION, ICONS, COLORS, NAVIGATION } from '../../utils/Constants';
+import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
+import DeleteButton from '../Buttons/DeleteButton';
+import EditButton from '../Buttons/EditButton';
 import Icon from '../Icon';
 import RightWrapper from '../Site/RightWrapper';
 import StarRating from '../StarRating/StarRating';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
+
+import AddDrinkingProduct from './AddDrinkingProduct';
 
 export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
 
@@ -88,3 +90,5 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
         </div>
     )
 }
+
+

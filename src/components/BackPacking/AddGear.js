@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import { GearCategories } from './Categories';
+import { useTranslation } from 'react-i18next';
+
 import { TRANSLATION, DB } from "../../utils/Constants";
+import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
+
+
+import { GearCategories } from './Categories';
 
 export default function AddGear({ gearID, onSave, onClose }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [category, setCategory] = useState('');
@@ -37,15 +40,12 @@ export default function AddGear({ gearID, onSave, onClose }) {
     }, [gearData]);
 
     useEffect(() => {
-        const sortCategoriesByName = () => {
-            const sortedCategories = [...categories].sort((a, b) => {
-                const aName = t(`gear_category_${a.name}`);
-                const bName = t(`gear_category_${b.name}`);
-                return aName > bName ? 1 : -1;
-            });
-            setCategories(sortedCategories);
-        }
-        sortCategoriesByName();
+        const sortedCategories = [...GearCategories].sort((a, b) => {
+            const aName = t(`gear_category_${a.name}`);
+            const bName = t(`gear_category_${b.name}`);
+            return aName > bName ? 1 : -1;
+        });
+        setCategories(sortedCategories);
     }, [t]);
 
     const onSubmit = (e) => {
@@ -120,3 +120,5 @@ export default function AddGear({ gearID, onSave, onClose }) {
         </>
     )
 }
+
+

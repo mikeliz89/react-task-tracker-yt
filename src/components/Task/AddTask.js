@@ -1,16 +1,17 @@
-import { useState, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Form, Row, ButtonGroup } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import { DB, TRANSLATION } from '../../utils/Constants';
-import useFetchByIdAndSubId from '../Hooks/useFetchByIdAndSubId';
 import PropTypes from 'prop-types';
+import { useState, useEffect, useRef } from 'react';
+import { Form, Row, ButtonGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
+import { DB, TRANSLATION } from '../../utils/Constants';
+import Button from '../Buttons/Button';
+import useFetchByIdAndSubId from '../Hooks/useFetchByIdAndSubId';
 
 export default function AddTask({ taskID, taskListID, onSave, onClose, showLabels, autoFocusText }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [text, setText] = useState('');
@@ -119,3 +120,5 @@ AddTask.propTypes = {
     showLabels: PropTypes.bool,
     autoFocusText: PropTypes.bool
 }
+
+

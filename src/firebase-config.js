@@ -1,15 +1,20 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-import { getDatabase } from 'firebase/database';
-import { getAuth, updateProfile } from 'firebase/auth';
-import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
-//import { getAnalytics } from "firebase/analytics";
+
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+//import { getAnalytics } from "firebase/analytics";
+
+
+import { initializeApp } from 'firebase/app';
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
+import { getAuth, updateProfile } from 'firebase/auth';
+import { getDatabase } from 'firebase/database';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -56,3 +61,5 @@ export async function uploadProfilePic(file, currentUser, setLoading) {
 }
 
 //const analytics = getAnalytics(app);
+
+

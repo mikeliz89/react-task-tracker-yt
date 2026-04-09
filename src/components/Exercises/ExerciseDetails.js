@@ -1,5 +1,5 @@
-import { useState } from "react";
 import i18n from "i18next";
+import { useState } from "react";
 import { Table } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -9,11 +9,10 @@ import { pushToFirebaseChild, updateToFirebaseById } from "../../datatier/datati
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
-
 import Alert from "../Alert";
 import CommentComponent from "../Comments/CommentComponent";
-import useFetch from '../Hooks/useFetch';
 import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
 import ImageComponent from "../ImageUpload/ImageComponent";
 import LinkComponent from "../Links/LinkComponent";
 import DetailsPage from '../Site/DetailsPage';
@@ -160,3 +159,6 @@ function showAddMoving(exercise) {
         Number(exercise.category) === Categories.Walking ||
         Number(exercise.category) === Categories.Skiing;
 }
+
+
+

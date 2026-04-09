@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import GymPart from './GymPart';
-import { TRANSLATION, DB } from '../../utils/Constants';
+
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import { TRANSLATION, DB } from '../../utils/Constants';
+
+import GymPart from './GymPart';
 
 export default function GymParts({ exerciseID, parts }) {
 
@@ -23,3 +25,5 @@ export default function GymParts({ exerciseID, parts }) {
         </>
     )
 }
+
+

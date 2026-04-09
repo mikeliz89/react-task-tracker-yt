@@ -1,6 +1,8 @@
-import Icon from '../Icon';
-import { BUTTON_CLASSNAMES, ICONS, COLORS } from '../../utils/Constants';
 import PropTypes from 'prop-types';
+
+import { BUTTON_CLASSNAMES, ICONS, COLORS } from '../../utils/Constants';
+
+import Icon from '../Icon';
 
 export default function EditButton({
     editable,
@@ -14,7 +16,7 @@ export default function EditButton({
 }) {
     const handleClick = () => {
         setEditable && setEditable(!editable);
-    };
+};
 
     return (
         <Icon
@@ -36,3 +38,5 @@ EditButton.propTypes = {
     style: PropTypes.object,
     fontSize: PropTypes.string,
 };
+
+

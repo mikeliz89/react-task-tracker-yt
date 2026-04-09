@@ -1,34 +1,33 @@
-import { useState } from 'react';
+import { ref, child, onValue } from 'firebase/database';
 import i18n from "i18next";
+import { useState } from 'react';
 import { ButtonGroup, Form, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ref, child, onValue } from 'firebase/database';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { db } from '../../firebase-config';
 import { pushToFirebase, pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseById, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
     from '../../datatier/datatier';
+import { db } from '../../firebase-config';
 import { COLORS, NAVIGATION, DB, TRANSLATION, ICONS } from '../../utils/Constants';
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
 import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
-
 import Alert from '../Alert';
 import Button from '../Buttons/Button';
 import CommentComponent from '../Comments/CommentComponent';
+import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import useFetchChildren from '../Hooks/useFetchChildren';
-import { useAlert } from '../Hooks/useAlert';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
-import DetailsPage from '../Site/DetailsPage';
 import CenterWrapper from '../Site/CenterWrapper';
+import DetailsPage from '../Site/DetailsPage';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddIncredient from './AddIncredient';
-import AddWorkPhase from './AddWorkPhase';
 import AddRecipe from './AddRecipe';
+import AddWorkPhase from './AddWorkPhase';
 import { getIncredientsUrl } from './Categories';
 import Incredients from './Incredients';
 import RecipeHistories from './RecipeHistories';
@@ -440,3 +439,6 @@ export default function RecipeDetails() {
         />
     )
 }
+
+
+

@@ -117,3 +117,6 @@ StarRating.defaultProps = {
 StarRating.propTypes = {
     starCount: PropTypes.number
 }
+
+
+

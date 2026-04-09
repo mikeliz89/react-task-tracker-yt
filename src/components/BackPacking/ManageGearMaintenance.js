@@ -1,20 +1,28 @@
+
+
+
+//toggle
+
+
 import { Row, ButtonGroup } from "react-bootstrap";
 import { useTranslation } from 'react-i18next';
-import Button from '../Buttons/Button';
-import GoBackButton from '../Buttons/GoBackButton';
-import PageContentWrapper from "../Site/PageContentWrapper";
-import PageTitle from '../Site/PageTitle';
-import AddGearMaintenanceInstruction from "./AddGearMaintenanceInstruction";
-import { TRANSLATION, DB, ICONS, COLORS } from "../../utils/Constants";
-import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
+
 import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebase } from "../../datatier/datatier";
-import GearMaintenanceInstructions from "./GearMaintenanceInstructions";
 import { removeFromFirebaseById } from "../../datatier/datatier";
-import Counter from "../Site/Counter";
-import CenterWrapper from '../Site/CenterWrapper';
-import { useToggle } from "../Hooks/useToggle";
+import { TRANSLATION, DB, ICONS, COLORS } from "../../utils/Constants";
+import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
+import Button from '../Buttons/Button';
+import GoBackButton from '../Buttons/GoBackButton';
 import useFetch from '../Hooks/useFetch';
+import { useToggle } from "../Hooks/useToggle";
+import CenterWrapper from '../Site/CenterWrapper';
+import Counter from "../Site/Counter";
+import PageContentWrapper from "../Site/PageContentWrapper";
+import PageTitle from '../Site/PageTitle';
+
+import AddGearMaintenanceInstruction from "./AddGearMaintenanceInstruction";
+import GearMaintenanceInstructions from "./GearMaintenanceInstructions";
 
 export default function ManageGearMaintenance() {
 
@@ -22,9 +30,7 @@ export default function ManageGearMaintenance() {
     const { data: gearMaintenanceInstructions,
         originalData: originalGearMaintenanceInstructions,
         counter, loading } = useFetch(DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS);
-
-    //toggle
-    const { status: showAddGearMaintenance, toggleStatus: toggleAddGearMaintenance } = useToggle();
+const { status: showAddGearMaintenance, toggleStatus: toggleAddGearMaintenance } = useToggle();
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
@@ -92,3 +98,5 @@ export default function ManageGearMaintenance() {
         </PageContentWrapper>
     )
 }
+
+

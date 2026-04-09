@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import i18n from 'i18next';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
@@ -7,9 +7,9 @@ import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-
 import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
+import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
@@ -18,7 +18,6 @@ import PageTitle from '../Site/PageTitle';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddBand from './AddBand';
-import { useAlert } from '../Hooks/useAlert';
 
 export default function BandDetails() {
 
@@ -110,3 +109,5 @@ export default function BandDetails() {
         />
     )
 }
+
+

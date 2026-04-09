@@ -1,17 +1,19 @@
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaCheckSquare } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import StarRating from '../StarRating/StarRating';
-import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
-import { getGameConsoleNameByID } from '../../utils/ListUtils';
-import RightWrapper from '../Site/RightWrapper';
-import { useState } from 'react';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+
 import { updateToFirebaseById } from '../../datatier/datatier';
-import AddGame from './AddGame';
+import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getGameConsoleNameByID } from '../../utils/ListUtils';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
-import PropTypes from 'prop-types';
+import RightWrapper from '../Site/RightWrapper';
+import StarRating from '../StarRating/StarRating';
+
+import AddGame from './AddGame';
 
 export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation, showConsole }) {
 
@@ -127,3 +129,5 @@ Game.propTypes = {
     detailsNavigation: PropTypes.string,
     showConsole: PropTypes.bool
 }
+
+

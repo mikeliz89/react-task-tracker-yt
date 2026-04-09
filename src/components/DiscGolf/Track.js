@@ -1,13 +1,14 @@
 import { useTranslation } from "react-i18next";
-import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
 import { Link } from "react-router-dom";
+
+import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
 
 export default function Track({ track }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DISC_GOLF });
 
-    return (
+return (
         <>
             <div className='listContainer'>
                 <h5>
@@ -21,3 +22,5 @@ export default function Track({ track }) {
         </>
     )
 }
+
+

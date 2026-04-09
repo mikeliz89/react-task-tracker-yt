@@ -1,5 +1,6 @@
-import Record from './Record';
 import Counter from '../Site/Counter';
+
+import Record from './Record';
 
 export default function Records({ records, onDelete, onEdit, originalList, counter }) {
 
@@ -19,3 +20,5 @@ export default function Records({ records, onDelete, onEdit, originalList, count
     </div>
   )
 }
+
+

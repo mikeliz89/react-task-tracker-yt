@@ -1,15 +1,15 @@
-import { TRANSLATION } from "../../utils/Constants";
-import { useTranslation } from 'react-i18next';
-import { Row, Col, Table } from "react-bootstrap";
-import DeleteButton from '../Buttons/DeleteButton';
 import { useState, useEffect } from "react";
+import { Row, Col, Table } from "react-bootstrap";
+import { useTranslation } from 'react-i18next';
+
+import { TRANSLATION } from "../../utils/Constants";
+import DeleteButton from '../Buttons/DeleteButton';
 
 export default function EventBands({ bands, onDelete }) {
 
   //translation
   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
-
-  const [sortedBands, setSortedBands] = useState([]);
+const [sortedBands, setSortedBands] = useState([]);
 
   useEffect(() => {
     setSortedBands(bands || []);
@@ -58,3 +58,5 @@ export default function EventBands({ bands, onDelete }) {
     </>
   )
 }
+
+

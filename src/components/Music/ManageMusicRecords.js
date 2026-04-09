@@ -1,17 +1,19 @@
 import { useTranslation } from 'react-i18next';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import Records from './Records';
-import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import AddRecord from './AddRecord';
-import { useAuth } from '../../contexts/AuthContext';
-import { SortMode } from '../SearchSortFilter/SortModes';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
 import NavButton from '../Buttons/NavButton';
 import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { SortMode } from '../SearchSortFilter/SortModes';
 import ManagePage from '../Site/ManagePage';
+
+import AddRecord from './AddRecord';
+import Records from './Records';
 
 export default function ManageMusicRecords() {
 
@@ -131,3 +133,6 @@ export default function ManageMusicRecords() {
         </ManagePage>
     )
 }
+
+
+

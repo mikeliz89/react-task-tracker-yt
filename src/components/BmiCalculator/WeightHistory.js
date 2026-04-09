@@ -1,22 +1,24 @@
-import { useTranslation } from 'react-i18next';
-import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, LIST_TYPES } from '../../utils/Constants';
 import i18n from 'i18next';
+import { useTranslation } from 'react-i18next';
+
 import { useAuth } from '../../contexts/AuthContext';
-import WeightChart from './WeightChart';
-import ManagePage from '../Site/ManagePage';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
-import useFetch from '../Hooks/useFetch';
+import { TRANSLATION, DB, ICONS, COLORS, LIST_TYPES } from '../../utils/Constants';
+import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import DeleteButton from '../Buttons/DeleteButton';
-import Counter from '../Site/Counter';
+import useFetch from '../Hooks/useFetch';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from "../SearchSortFilter/SortModes";
+import Counter from '../Site/Counter';
+import ManagePage from '../Site/ManagePage';
+
+import WeightChart from './WeightChart';
 
 export default function WeightHistory() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BMICALCULATOR });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //auth
     const { currentUser } = useAuth();
@@ -83,3 +85,5 @@ export default function WeightHistory() {
         </ManagePage>
     )
 }
+
+

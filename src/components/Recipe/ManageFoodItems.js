@@ -1,15 +1,17 @@
 import { useTranslation } from 'react-i18next';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, COLORS, DB, ICONS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import ManagePage from '../Site/ManagePage';
+
 import AddFoodItem from './AddFoodItem';
 import FoodItems from './FoodItems';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, COLORS, DB, ICONS } from '../../utils/Constants';
-import { useAuth } from '../../contexts/AuthContext';
-import ManagePage from '../Site/ManagePage';
-import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
-import { useAlert } from '../Hooks/useAlert';
 
 export default function ManageFoodItems() {
 
@@ -115,3 +117,5 @@ export default function ManageFoodItems() {
         </ManagePage>
     )
 }
+
+

@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import AddGarnish from './AddGarnish';
-import { DB } from '../../utils/Constants';
+
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import RightWrapper from '../Site/RightWrapper';
+import { DB } from '../../utils/Constants';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
+import RightWrapper from '../Site/RightWrapper';
+
+import AddGarnish from './AddGarnish';
 
 export default function Garnish({ garnish, drinkID, onDelete }) {
 
@@ -50,3 +52,6 @@ export default function Garnish({ garnish, drinkID, onDelete }) {
         </div>
     )
 }
+
+
+

@@ -1,5 +1,6 @@
-import Person from './Person';
 import Counter from '../Site/Counter';
+
+import Person from './Person';
 
 export default function PeopleList({ people, onDelete, originalList, counter }) {
 
@@ -16,3 +17,5 @@ export default function PeopleList({ people, onDelete, originalList, counter }) 
         </div>
     )
 }
+
+

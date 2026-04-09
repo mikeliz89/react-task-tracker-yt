@@ -1,5 +1,6 @@
-import Gear from './Gear';
 import Counter from '../Site/Counter';
+
+import Gear from './Gear';
 
 export default function Gears({ gears, onDelete, originalList, counter }) {
 
@@ -16,3 +17,5 @@ export default function Gears({ gears, onDelete, originalList, counter }) {
         </div>
     )
 }
+
+

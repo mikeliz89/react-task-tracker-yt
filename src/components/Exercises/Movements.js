@@ -10,3 +10,4 @@ export default function Movements({ movements, onDelete }) {
         </div>
     )
 }
+

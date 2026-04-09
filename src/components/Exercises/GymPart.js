@@ -1,11 +1,13 @@
-import { Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
-import AddPartsGymForm from './AddPartsGymForm';
-import { DB } from '../../utils/Constants';
+import { Row, Col } from 'react-bootstrap';
+
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import RightWrapper from '../Site/RightWrapper';
+import { DB } from '../../utils/Constants';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
+import RightWrapper from '../Site/RightWrapper';
+
+import AddPartsGymForm from './AddPartsGymForm';
 
 export default function GymPart({ exerciseID, gymPart, onDelete }) {
 
@@ -55,3 +57,5 @@ export default function GymPart({ exerciseID, gymPart, onDelete }) {
         </div>
     )
 }
+
+

@@ -1,23 +1,30 @@
-import RecipeHistory from "./RecipeHistory";
-import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
+
+
+
+//states
+
 import PropTypes from 'prop-types';
+
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+
 import { removeFromFirebaseByIdAndSubId } from "../../datatier/datatier";
-import PageTitle from '../Site/PageTitle';
 import { ICONS, COLORS } from '../../utils/Constants';
+import PageTitle from '../Site/PageTitle';
+
+
+import RecipeHistory from "./RecipeHistory";
 
 export default function RecipeHistories({ dbUrl, translation, translationKeyPrefix, recipeHistories, recipeID }) {
 
     //translation
     const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
-
-    //states
-    const [counter, setCounter] = useState(0);
+const [counter, setCounter] = useState(0);
 
     //load data
     useEffect(() => {
         setCounter(recipeHistories.length);
-    }, []);
+    }, [recipeHistories]);
 
     const deleteRecipeHistory = (recipeHistoryID) => {
         removeFromFirebaseByIdAndSubId(dbUrl, recipeID, recipeHistoryID);
@@ -52,3 +59,5 @@ RecipeHistories.propTypes = {
     recipeID: PropTypes.string,
     recipeHistories: PropTypes.array
 }
+
+

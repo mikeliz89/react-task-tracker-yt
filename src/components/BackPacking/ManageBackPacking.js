@@ -1,17 +1,17 @@
-import { useTranslation } from 'react-i18next';
-import GoBackButton from '../Buttons/GoBackButton';
-import PageTitle from '../Site/PageTitle';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import { TRANSLATION, ICONS, NAVIGATION } from '../../utils/Constants';
 import { ButtonGroup, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
+import { TRANSLATION, ICONS, NAVIGATION } from '../../utils/Constants';
+import GoBackButton from '../Buttons/GoBackButton';
 import NavButton from '../Buttons/NavButton';
+import PageContentWrapper from '../Site/PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
 
 export default function ManageBackPacking() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-
-    return (
+return (
         <PageContentWrapper>
 
             <PageTitle title={t('manage_backpacking_title')} iconName={ICONS.CAMPGROUND} />
@@ -35,3 +35,6 @@ export default function ManageBackPacking() {
         </PageContentWrapper>
     )
 }
+
+
+

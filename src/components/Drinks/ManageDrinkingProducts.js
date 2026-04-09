@@ -1,24 +1,30 @@
+
+
+
+//translation
+
+
 import { useTranslation } from 'react-i18next';
-import AddDrinkingProduct from './AddDrinkingProduct';
-import DrinkingProducts from './DrinkingProducts';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
+
 import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 import Counter from '../Site/Counter';
 import ManagePage from '../Site/ManagePage';
-import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
-import { useAlert } from '../Hooks/useAlert';
+
+import AddDrinkingProduct from './AddDrinkingProduct';
+import DrinkingProducts from './DrinkingProducts';
 
 export default function ManageDrinkingProducts() {
 
     //user
     const { currentUser } = useAuth();
-
-    //translation
-    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
+const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
@@ -120,3 +126,5 @@ export default function ManageDrinkingProducts() {
         </ManagePage>
     )
 }
+
+

@@ -1,12 +1,13 @@
-import { Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 import styles from './dashboard.module.css';
 
 export default function DashboardItem(props) {
 
     const { link, children } = props;
 
-    return (
+return (
         <Col className={styles.BigBtnCol} md={3} sm={6} xs={6}>
             <Link to={link}>
                 {children}
@@ -14,3 +15,5 @@ export default function DashboardItem(props) {
         </Col>
     )
 }
+
+

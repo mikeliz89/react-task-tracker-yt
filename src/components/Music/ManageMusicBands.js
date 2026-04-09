@@ -1,17 +1,19 @@
 import { useTranslation } from 'react-i18next';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import Bands from './Bands';
-import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import AddBand from './AddBand';
-import { useAuth } from '../../contexts/AuthContext';
-import { SortMode } from '../SearchSortFilter/SortModes';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
 import NavButton from '../Buttons/NavButton';
 import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { SortMode } from '../SearchSortFilter/SortModes';
 import ManagePage from '../Site/ManagePage';
+
+import AddBand from './AddBand';
+import Bands from './Bands';
 
 export default function ManageMusicBands() {
 
@@ -130,3 +132,6 @@ export default function ManageMusicBands() {
         </ManagePage>
     )
 }
+
+
+

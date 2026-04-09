@@ -1,22 +1,24 @@
 import { useTranslation } from 'react-i18next';
-import AddPerson from './AddPerson';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from "../../utils/Constants";
+
 import { useAuth } from '../../contexts/AuthContext';
-import PeopleList from './PeopleList';
+import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from "../../utils/Constants";
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import ManagePage from '../Site/ManagePage';
-import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
-import { useAlert } from '../Hooks/useAlert';
+
+import AddPerson from './AddPerson';
+import PeopleList from './PeopleList';
 
 export default function ManagePeople() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.PEOPLE });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: people, setData: setPeople,
@@ -110,3 +112,6 @@ export default function ManagePeople() {
         </ManagePage>
     )
 }
+
+
+

@@ -1,5 +1,6 @@
-import { db } from '../firebase-config';
 import { update, ref, push, child, remove, get } from 'firebase/database';
+
+import { db } from '../firebase-config';
 
 export const removeFromFirebaseById = async (path, id) => {
     const dbref = ref(db, `${path}/${id}`);
@@ -86,3 +87,6 @@ export const getFromFirebaseByIdAndSubId = async (path, mainID, subID) => {
         });
     });
 }
+
+
+
