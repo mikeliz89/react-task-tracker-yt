@@ -1,13 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
-import { ButtonGroup, Row } from 'react-bootstrap';
 import Tracks from './Tracks';
 import useFetch from '../Hooks/useFetch';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import PageTitle from '../Site/PageTitle';
-import GoBackButton from '../Buttons/GoBackButton';
-import CenterWrapper from '../Site/CenterWrapper';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
+import ManagePage from '../Site/ManagePage';
 import NavButton from '../Buttons/NavButton';
 
 export default function TracksList() {
@@ -23,48 +18,29 @@ export default function TracksList() {
 
    }
 
-   return loading ? (
-      <h3>{tCommon("loading")}</h3>
-   ) : (
-      <PageContentWrapper>
-
-         <PageTitle title={t('tracks')} />
-
-         <Row>
-            <ButtonGroup>
-               <GoBackButton />
+   return (
+      <ManagePage
+         loading={loading}
+         loadingText={tCommon("loading")}
+         title={t('tracks')}
+         topActions={(
+            <>
                <NavButton to={NAVIGATION.DISC_GOLF_CREATE_TRACK}>
                   {t('add_new_track')}
                </NavButton>
-            </ButtonGroup>
-         </Row>
-
-
-         {
-            originalTracks != null && originalTracks.length > 0 ? (
-               <SearchSortFilter
-                  originalList={originalTracks} onSet={setTracks}
-                  showSortByCreatedDate={true}
-               />
-            ) : (<></>)
-         }
-
-         {
-            tracks != null && tracks.length > 0 ? (
-               <>
-                  {
-                     <Tracks tracks={tracks} onDelete={() => deleteTrack()} />
-                  }
-               </>
-            ) : (
-               <>
-                  <CenterWrapper>
-                     {t('no_tracks_to_show')}
-                  </CenterWrapper>
-               </>
-            )
-         }
-
-      </PageContentWrapper>
+            </>
+         )}
+         searchSortFilter={{
+            originalList: originalTracks,
+            onSet: setTracks,
+            showSortByCreatedDate: true,
+         }}
+         hasItems={tracks != null && tracks.length > 0}
+         emptyText={t('no_tracks_to_show')}
+      >
+         <>
+            <Tracks tracks={tracks} onDelete={() => deleteTrack()} />
+         </>
+      </ManagePage>
    )
 }

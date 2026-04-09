@@ -1,21 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
-import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Recipes from '../Recipe/Recipes';
 import AddDrink from './AddDrink';
-import GoBackButton from '../Buttons/GoBackButton';
-import Button from '../Buttons/Button';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
-import PageTitle from '../Site/PageTitle';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import Alert from '../Alert';
 import { RecipeTypes } from '../../utils/Enums';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import Counter from '../Site/Counter';
-import CenterWrapper from '../Site/CenterWrapper';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
@@ -23,6 +13,7 @@ import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
 import NavButton from '../Buttons/NavButton';
 import { useAlert } from '../Hooks/useAlert';
+import ManagePage from '../Site/ManagePage';
 
 export default function ManageDrinks() {
 
@@ -75,16 +66,14 @@ export default function ManageDrinks() {
         removeFromFirebaseById(DB.DRINKS, id);
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-
-            <PageTitle title={t('manage_drinks_title')} iconName={ICONS.COCKTAIL} />
-
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
+    return (
+        <ManagePage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            title={t('manage_drinks_title')}
+            iconName={ICONS.COCKTAIL}
+            topActions={(
+                <>
                     <NavButton to={NAVIGATION.MANAGE_DRINKINPRODUCTS}
                         icon={ICONS.WINE}
                     >
@@ -94,77 +83,61 @@ export default function ManageDrinks() {
                         icon={ICONS.LIST_ALT} >
                         {t('button_drinklists')}
                     </NavButton>
-                </ButtonGroup>
-            </Row>
-
-            <Alert message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showAddDrink} onHide={toggleAddDrink}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_add_drink')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddDrink onSave={addDrink} onClose={toggleAddDrink} autoFocusTitle={true} />
-                </Modal.Body>
-            </Modal>
-
-            {
-                originalDrinks != null && originalDrinks.length > 0 ? (
-
-                    <SearchSortFilter
-                        onSet={setDrinks}
-                        originalList={originalDrinks}
-                        //search
-                        showSearchByText={true}
-                        showSearchByDescription={true}
-                        showSearchByIncredients={true}
-                        //sort
-                        defaultSort={SortMode.Title_ASC}
-                        showSortByTitle={true}
-                        showSortByCreatedDate={true}
-                        showSortByStarRating={true}
-                        //filter
-                        showFilterCore={true}
-                        filterMode={FilterMode.Title}
-                        showFilterHaveRated={true}
-                    />
-
-                ) : (<></>)
-            }
-
-            <CenterWrapper>
-                <Button
-                    iconName={ICONS.PLUS}
-                    color={showAddDrink ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-                    text={showAddDrink ? tCommon('buttons.button_close') : t('button_add_drinks')}
-                    onClick={toggleAddDrink} />
-            </CenterWrapper>
-
-            {
-                drinks != null && drinks.length > 0 ? (
-                    <>
-                        <Counter list={drinks} originalList={originalDrinks} counter={counter} />
-                        <Recipes
-                            translation={TRANSLATION.TRANSLATION}
-                            translationKeyPrefix={TRANSLATION.DRINKS}
-                            recipes={drinks}
-                            recipeType={RecipeTypes.Drink}
-                            onDelete={deleteDrink} />
-                    </>
-                ) : (
-                    <>
-                        <CenterWrapper>
-                            {t('no_drinks_to_show')}
-                        </CenterWrapper>
-                    </>
-                )
-            }
-        </PageContentWrapper>
+                </>
+            )}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                variant: VARIANTS.SUCCESS,
+                onClose: clearMessages,
+            }}
+            modal={{
+                show: showAddDrink,
+                onHide: toggleAddDrink,
+                title: t('modal_header_add_drink'),
+                body: <AddDrink onSave={addDrink} onClose={toggleAddDrink} autoFocusTitle={true} />,
+            }}
+            searchSortFilter={{
+                onSet: setDrinks,
+                originalList: originalDrinks,
+                //search
+                showSearchByText: true,
+                showSearchByDescription: true,
+                showSearchByIncredients: true,
+                //sort
+                defaultSort: SortMode.Title_ASC,
+                showSortByTitle: true,
+                showSortByCreatedDate: true,
+                showSortByStarRating: true,
+                //filter
+                showFilterCore: true,
+                filterMode: FilterMode.Title,
+                showFilterHaveRated: true,
+            }}
+            addButton={{
+                show: showAddDrink,
+                iconName: ICONS.PLUS,
+                openColor: COLORS.ADDBUTTON_OPEN,
+                closedColor: COLORS.ADDBUTTON_CLOSED,
+                openText: tCommon('buttons.button_close'),
+                closedText: t('button_add_drinks'),
+                onToggle: toggleAddDrink,
+            }}
+            hasItems={drinks != null && drinks.length > 0}
+            emptyText={t('no_drinks_to_show')}
+        >
+            <>
+                <Recipes
+                    translation={TRANSLATION.TRANSLATION}
+                    translationKeyPrefix={TRANSLATION.DRINKS}
+                    recipes={drinks}
+                    recipeType={RecipeTypes.Drink}
+                    originalList={originalDrinks}
+                    counter={counter}
+                    onDelete={deleteDrink} />
+            </>
+        </ManagePage>
     )
 }

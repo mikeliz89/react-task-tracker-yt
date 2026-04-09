@@ -1,18 +1,11 @@
-import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import GoBackButton from '../Buttons/GoBackButton';
-import Button from '../Buttons/Button';
 import AddDrinkingProduct from './AddDrinkingProduct';
 import DrinkingProducts from './DrinkingProducts';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import PageTitle from '../Site/PageTitle';
-import Alert from '../Alert';
-import PageContentWrapper from '../Site/PageContentWrapper';
 import Counter from '../Site/Counter';
-import CenterWrapper from '../Site/CenterWrapper';
+import ManagePage from '../Site/ManagePage';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { useToggle } from '../Hooks/useToggle';
@@ -67,83 +60,63 @@ export default function ManageDrinkingProducts() {
         updateToFirebaseById(DB.DRINKINGPRODUCTS, id, drinkingProduct);
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-
-            <PageTitle title={t('manage_drinkingproducts_title')} iconName={ICONS.WINE} />
-
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                </ButtonGroup>
-            </Row>
-
-            <Alert
-                message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showAddDrinkingProduct} onHide={toggleAddDrinkingProduct}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_add_drinking_product')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+    return (
+        <ManagePage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            title={t('manage_drinkingproducts_title')}
+            iconName={ICONS.WINE}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages,
+            }}
+            modal={{
+                show: showAddDrinkingProduct,
+                onHide: toggleAddDrinkingProduct,
+                title: t('modal_header_add_drinking_product'),
+                body: (
                     <AddDrinkingProduct
                         onClose={toggleAddDrinkingProduct}
                         onAddDrinkingProduct={addDrinkingProduct}
                     />
-                </Modal.Body>
-            </Modal>
-
-            {
-                originalDrinkingProducts != null && originalDrinkingProducts.length > 0 ? (
-                    <SearchSortFilter
-                        onSet={setDrinkingProducts}
-                        originalList={originalDrinkingProducts}
-                        //search
-                        showSearchByDescription={true}
-                        //sort
-                        showSortByCreatedDate={true}
-                        showSortByName={true}
-                        showSortByStarRating={true}
-                        //filter
-                        filterMode={FilterMode.Name}
-                        showFilterHaveAtHome={true}
-                        showFilterHaveRated={true}
-                    />
-                ) : (<></>)
-            }
-
-            <CenterWrapper>
-                <Button
-                    iconName={ICONS.PLUS}
-                    secondIconName={ICONS.WINE}
-                    color={showAddDrinkingProduct ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-                    text={showAddDrinkingProduct ? tCommon('buttons.button_close') : t('button_add_drinkingproduct')}
-                    onClick={toggleAddDrinkingProduct} />
-            </CenterWrapper>
-
-            {
-                drinkingProducts != null && drinkingProducts.length > 0 ? (
-                    <>
-                        <Counter list={drinkingProducts} originalList={originalDrinkingProducts} counter={counter} />
-                        <DrinkingProducts drinkingProducts={drinkingProducts}
-                            onDelete={deleteDrinkingProduct}
-                            onEdit={editDrinkingProduct} />
-                    </>
-                ) : (
-                    <>
-                        <CenterWrapper>
-                            {t('no_drinkingproducts_to_show')}
-                        </CenterWrapper>
-                    </>
-                )
-            }
-        </PageContentWrapper>
+                ),
+            }}
+            searchSortFilter={{
+                onSet: setDrinkingProducts,
+                originalList: originalDrinkingProducts,
+                //search
+                showSearchByDescription: true,
+                //sort
+                showSortByCreatedDate: true,
+                showSortByName: true,
+                showSortByStarRating: true,
+                //filter
+                filterMode: FilterMode.Name,
+                showFilterHaveAtHome: true,
+                showFilterHaveRated: true,
+            }}
+            addButton={{
+                show: showAddDrinkingProduct,
+                iconName: ICONS.PLUS,
+                secondIconName: ICONS.WINE,
+                openColor: COLORS.ADDBUTTON_OPEN,
+                closedColor: COLORS.ADDBUTTON_CLOSED,
+                openText: tCommon('buttons.button_close'),
+                closedText: t('button_add_drinkingproduct'),
+                onToggle: toggleAddDrinkingProduct,
+            }}
+            hasItems={drinkingProducts != null && drinkingProducts.length > 0}
+            emptyText={t('no_drinkingproducts_to_show')}
+        >
+            <>
+                <Counter list={drinkingProducts} originalList={originalDrinkingProducts} counter={counter} />
+                <DrinkingProducts drinkingProducts={drinkingProducts}
+                    onDelete={deleteDrinkingProduct}
+                    onEdit={editDrinkingProduct} />
+            </>
+        </ManagePage>
     )
 }

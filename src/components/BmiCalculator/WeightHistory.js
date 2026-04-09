@@ -1,19 +1,16 @@
-import GoBackButton from '../Buttons/GoBackButton';
 import { useTranslation } from 'react-i18next';
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { TRANSLATION, DB, ICONS, COLORS, LIST_TYPES } from '../../utils/Constants';
 import i18n from 'i18next';
 import { useAuth } from '../../contexts/AuthContext';
 import WeightChart from './WeightChart';
-import PageTitle from '../Site/PageTitle';
-import PageContentWrapper from '../Site/PageContentWrapper';
+import ManagePage from '../Site/ManagePage';
 import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
 import useFetch from '../Hooks/useFetch';
 import DeleteButton from '../Buttons/DeleteButton';
 import Counter from '../Site/Counter';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { SortMode } from "../SearchSortFilter/SortModes";
-import { ButtonGroup, Row } from 'react-bootstrap';
 
 export default function WeightHistory() {
 
@@ -33,58 +30,56 @@ export default function WeightHistory() {
         removeFromFirebaseByIdAndSubId(DB.WEIGHT_HISTORY, currentUser.uid, id);
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-            <PageTitle title={t('weighthistory')} iconName={ICONS.WEIGHT} iconColor={COLORS.GRAY} />
-
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                </ButtonGroup>
-            </Row>
-
-            <p></p>
-
-
-            {/* Kaavio */}
-            <WeightChart data={historyRows} chartData={originalHistoryRows} />
-
-
-            {/* Historiarivit */}
-            <hr />
-            <Counter counter={counter} text={tCommon('amount')} list={historyRows} originalList={originalHistoryRows} />
+    return (
+        <ManagePage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            title={t('weighthistory')}
+            iconName={ICONS.WEIGHT}
+            iconColor={COLORS.GRAY}
+            hasItems={true}
+            emptyText={''}
+        >
             <>
-                {
-                    originalHistoryRows != null && originalHistoryRows.length > 0 ? (
-                        <SearchSortFilter
-                            onSet={setHistoryRows}
-                            //search
-                            originalList={originalHistoryRows}
-                            //sort
-                            defaultSort={SortMode.Created_ASC}
-                            showSortByCreatedDate={true}
-                        />
-                    ) : (<></>)
+                <p></p>
+
+                {/* Kaavio */}
+                <WeightChart data={historyRows} chartData={originalHistoryRows} />
+
+                {/* Historiarivit */}
+                <hr />
+                <Counter counter={counter} text={tCommon('amount')} list={historyRows} originalList={originalHistoryRows} />
+                <>
+                    {
+                        originalHistoryRows != null && originalHistoryRows.length > 0 ? (
+                            <SearchSortFilter
+                                onSet={setHistoryRows}
+                                //search
+                                originalList={originalHistoryRows}
+                                //sort
+                                defaultSort={SortMode.Created_ASC}
+                                showSortByCreatedDate={true}
+                            />
+                        ) : (<></>)
+                    }
+                </>
+
+                <h3>{t('history_rows')}</h3>
+                {/* { <pre>{JSON.stringify(historyRows)}</pre> }  */}
+                {historyRows != null && historyRows.length > 0 ? historyRows.map((row, index) =>
+                    <div key={row.id}>
+                        <p>
+                            {getJsonAsDateTimeString(row.currentDateTime, i18n.language)}<br /> - {row.weight} kg, BMI: {row.bmi}
+
+                            <DeleteButton
+                                onDelete={deleteHistoryRow}
+                                id={row.id}
+                            />
+                        </p>
+                    </div>
+                ) : '-'
                 }
             </>
-
-            <h3>{t('history_rows')}</h3>
-            {/* { <pre>{JSON.stringify(historyRows)}</pre> }  */}
-            {historyRows != null && historyRows.length > 0 ? historyRows.map((row, index) =>
-                <div key={row.id}>
-                    <p>
-                        {getJsonAsDateTimeString(row.currentDateTime, i18n.language)}<br /> - {row.weight} kg, BMI: {row.bmi}
-
-                        <DeleteButton
-                            onDelete={deleteHistoryRow}
-                            id={row.id}
-                        />
-                    </p>
-                </div>
-            ) : '-'
-            }
-        </PageContentWrapper>
+        </ManagePage>
     )
 }

@@ -13,11 +13,13 @@ export default function ManagePage({
     loadingText,
     title,
     iconName,
+    iconColor,
     topActions,
     showGoBackButton = true,
     alert,
     modal,
     searchSortFilter,
+    centerActions,
     addButton,
     hasItems,
     emptyText,
@@ -39,7 +41,7 @@ export default function ManagePage({
 
     return (
         <PageContentWrapper>
-            <PageTitle title={title} iconName={iconName} />
+            <PageTitle title={title} iconName={iconName} iconColor={iconColor} />
 
             <Row>
                 <ButtonGroup>
@@ -85,14 +87,20 @@ export default function ManagePage({
             }
 
             {
-                addButton ? (
+                centerActions || addButton ? (
                     <CenterWrapper>
-                        <Button
-                            iconName={addButton.iconName ?? ICONS.PLUS}
-                            color={addButton.show ? (addButton.openColor ?? COLORS.ADDBUTTON_OPEN) : (addButton.closedColor ?? COLORS.ADDBUTTON_CLOSED)}
-                            text={addButton.show ? addButton.openText : addButton.closedText}
-                            onClick={addButton.onToggle}
-                        />
+                        {centerActions}
+                        {
+                            addButton ? (
+                                <Button
+                                    iconName={addButton.iconName ?? ICONS.PLUS}
+                                    secondIconName={addButton.secondIconName}
+                                    color={addButton.show ? (addButton.openColor ?? COLORS.ADDBUTTON_OPEN) : (addButton.closedColor ?? COLORS.ADDBUTTON_CLOSED)}
+                                    text={addButton.show ? addButton.openText : addButton.closedText}
+                                    onClick={addButton.onToggle}
+                                />
+                            ) : (<></>)
+                        }
                     </CenterWrapper>
                 ) : (<></>)
             }

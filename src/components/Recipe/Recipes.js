@@ -1,11 +1,17 @@
 import Recipe from './Recipe';
 import PropTypes from 'prop-types';
 import { RecipeTypes } from '../../utils/Enums';
+import Counter from '../Site/Counter';
 
-export default function Recipes({ recipeType, translation, translationKeyPrefix, recipes, onDelete }) {
+export default function Recipes({ recipeType, translation, translationKeyPrefix, recipes, onDelete, originalList, counter }) {
 
   return (
     <div>
+      {
+        originalList != null && counter != null ? (
+          <Counter list={recipes} originalList={originalList} counter={counter} />
+        ) : (<></>)
+      }
       {recipes.map((recipe) => (
         <Recipe
           recipeType={recipeType}
@@ -29,5 +35,7 @@ Recipes.propTypes = {
   translationKeyPrefix: PropTypes.string,
   recipeType: PropTypes.any,
   recipes: PropTypes.array,
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
+  originalList: PropTypes.array,
+  counter: PropTypes.number
 }

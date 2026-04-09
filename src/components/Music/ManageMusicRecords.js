@@ -1,17 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import GoBackButton from '../Buttons/GoBackButton';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import PageTitle from '../Site/PageTitle';
 import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import CenterWrapper from '../Site/CenterWrapper';
 import Records from './Records';
-import { useState } from 'react';
-import Counter from '../Site/Counter';
-import Alert from '../Alert';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import AddRecord from './AddRecord';
 import { useAuth } from '../../contexts/AuthContext';
@@ -21,6 +11,7 @@ import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
 import NavButton from '../Buttons/NavButton';
 import { useAlert } from '../Hooks/useAlert';
+import ManagePage from '../Site/ManagePage';
 
 export default function ManageMusicRecords() {
 
@@ -71,84 +62,72 @@ export default function ManageMusicRecords() {
         updateToFirebaseById(DB.MUSIC_RECORDS, id, record);
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-
-            <PageTitle title={t('music_records_title')} iconName={ICONS.MUSIC} />
-
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
+    return (
+        <ManagePage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            title={t('music_records_title')}
+            iconName={ICONS.MUSIC}
+            topActions={(
+                <>
                     <NavButton to={NAVIGATION.MANAGE_MUSICLISTS}
                         icon={ICONS.LIST_ALT} >
                         {t('button_music_lists')}
                     </NavButton>
-                </ButtonGroup>
-            </Row>
-
-            <Alert message={message}
-                showMessage={showMessage}
-                error={error} showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showAddRecord} onHide={toggleAddRecord}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_add_record')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddRecord onSave={addRecord} onClose={toggleAddRecord} />
-                </Modal.Body>
-            </Modal>
-
-            {
-                originalRecords != null && originalRecords.length > 0 ? (
-                    <SearchSortFilter
-                        onSet={setRecords}
-                        originalList={originalRecords}
-                        //search
-                        showSearchByText={true}
-                        showSearchByDescription={true}
-                        //sort
-                        defaultSort={SortMode.Name_ASC}
-                        showSortByName={true}
-                        showSortByStarRating={true}
-                        showSortByCreatedDate={true}
-                        showSortByPublishYear={true}
-                        //filter
-                        filterMode={FilterMode.NameOrBand}
-                        showFilterHaveAtHome={true}
-                        showFilterHaveRated={true}
-                    />
-                ) : (<></>)
-            }
-
-            <CenterWrapper>
-                <Button
-                    iconName={ICONS.PLUS}
-                    color={showAddRecord ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-                    text={showAddRecord ? tCommon('buttons.button_close') : t('button_add_music')}
-                    onClick={toggleAddRecord} />
-            </CenterWrapper>
-
-            {
-                records != null && records.length > 0 ? (
-                    <>
-                        <Counter list={records} originalList={originalRecords} counter={counter} />
-                        <Records records={records} onDelete={deleteRecord} onEdit={editRecord} />
-                    </>
-                ) : (
-                    <>
-                        <CenterWrapper>
-                            {t('no_records_to_show')}
-                        </CenterWrapper>
-                    </>
-                )
-            }
-
-        </PageContentWrapper>
+                </>
+            )}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                variant: VARIANTS.SUCCESS,
+                onClose: clearMessages,
+            }}
+            modal={{
+                show: showAddRecord,
+                onHide: toggleAddRecord,
+                title: t('modal_header_add_record'),
+                body: <AddRecord onSave={addRecord} onClose={toggleAddRecord} />,
+            }}
+            searchSortFilter={{
+                onSet: setRecords,
+                originalList: originalRecords,
+                //search
+                showSearchByText: true,
+                showSearchByDescription: true,
+                //sort
+                defaultSort: SortMode.Name_ASC,
+                showSortByName: true,
+                showSortByStarRating: true,
+                showSortByCreatedDate: true,
+                showSortByPublishYear: true,
+                //filter
+                filterMode: FilterMode.NameOrBand,
+                showFilterHaveAtHome: true,
+                showFilterHaveRated: true,
+            }}
+            addButton={{
+                show: showAddRecord,
+                iconName: ICONS.PLUS,
+                openColor: COLORS.ADDBUTTON_OPEN,
+                closedColor: COLORS.ADDBUTTON_CLOSED,
+                openText: tCommon('buttons.button_close'),
+                closedText: t('button_add_music'),
+                onToggle: toggleAddRecord,
+            }}
+            hasItems={records != null && records.length > 0}
+            emptyText={t('no_records_to_show')}
+        >
+            <>
+                <Records
+                    records={records}
+                    onDelete={deleteRecord}
+                    onEdit={editRecord}
+                    originalList={originalRecords}
+                    counter={counter}
+                />
+            </>
+        </ManagePage>
     )
 }

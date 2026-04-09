@@ -1,16 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import GoBackButton from '../Buttons/GoBackButton';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import PageTitle from '../Site/PageTitle';
 import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import CenterWrapper from '../Site/CenterWrapper';
 import Events from './Events';
-import Counter from '../Site/Counter';
-import Alert from '../Alert';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
 import AddEvent from './AddEvent';
 import { useAuth } from '../../contexts/AuthContext';
@@ -20,6 +11,7 @@ import { useToggle } from '../Hooks/useToggle';
 import useFetch from '../Hooks/useFetch';
 import NavButton from '../Buttons/NavButton';
 import { useAlert } from '../Hooks/useAlert';
+import ManagePage from '../Site/ManagePage';
 
 export default function ManageMusicEvents() {
 
@@ -70,84 +62,70 @@ export default function ManageMusicEvents() {
         updateToFirebaseById(DB.MUSIC_EVENTS, id, event);
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-
-            <PageTitle title={t('music_events_title')} iconName={ICONS.MUSIC} />
-
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
+    return (
+        <ManagePage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            title={t('music_events_title')}
+            iconName={ICONS.MUSIC}
+            topActions={(
+                <>
                     <NavButton to={NAVIGATION.MANAGE_MUSICLISTS}
                         icon={ICONS.LIST_ALT}>
                         {t('button_music_lists')}
                     </NavButton>
-                </ButtonGroup>
-            </Row>
-
-            <Alert
-                message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showAddEvent} onHide={toggleAddEvent}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_add_event')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddEvent onSave={addEvent} onClose={toggleAddEvent} />
-                </Modal.Body>
-            </Modal>
-
-            {
-                originalEvents != null && originalEvents.length > 0 ? (
-                    <SearchSortFilter
-                        onSet={setEvents}
-                        originalList={originalEvents}
-                        //search
-                        showSearchByText={true}
-                        showSearchByDescription={true}
-                        //sort
-                        defaultSort={SortMode.Name_ASC}
-                        showSortByName={true}
-                        showSortByStarRating={true}
-                        showSortByCreatedDate={true}
-                        //filter
-                        filterMode={FilterMode.Name}
-                        showFilterHaveRated={true}
-                    />
-                ) : (<></>)
-            }
-
-            <CenterWrapper>
-                <Button
-                    iconName={ICONS.PLUS}
-                    color={showAddEvent ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-                    text={showAddEvent ? tCommon('buttons.button_close') : t('button_add_music_event')}
-                    onClick={toggleAddEvent} />
-            </CenterWrapper>
-
-            {
-                events != null && events.length > 0 ? (
-                    <>
-                        <Counter list={events} originalList={originalEvents} counter={counter} />
-                        <Events events={events} onDelete={deleteEvent} onEdit={editEvent} />
-                    </>
-                ) : (
-                    <>
-                        <CenterWrapper>
-                            {t('no_events_to_show')}
-                        </CenterWrapper>
-                    </>
-                )
-            }
-
-        </PageContentWrapper >
+                </>
+            )}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                variant: VARIANTS.SUCCESS,
+                onClose: clearMessages,
+            }}
+            modal={{
+                show: showAddEvent,
+                onHide: toggleAddEvent,
+                title: t('modal_header_add_event'),
+                body: <AddEvent onSave={addEvent} onClose={toggleAddEvent} />,
+            }}
+            searchSortFilter={{
+                onSet: setEvents,
+                originalList: originalEvents,
+                //search
+                showSearchByText: true,
+                showSearchByDescription: true,
+                //sort
+                defaultSort: SortMode.Name_ASC,
+                showSortByName: true,
+                showSortByStarRating: true,
+                showSortByCreatedDate: true,
+                //filter
+                filterMode: FilterMode.Name,
+                showFilterHaveRated: true,
+            }}
+            addButton={{
+                show: showAddEvent,
+                iconName: ICONS.PLUS,
+                openColor: COLORS.ADDBUTTON_OPEN,
+                closedColor: COLORS.ADDBUTTON_CLOSED,
+                openText: tCommon('buttons.button_close'),
+                closedText: t('button_add_music_event'),
+                onToggle: toggleAddEvent,
+            }}
+            hasItems={events != null && events.length > 0}
+            emptyText={t('no_events_to_show')}
+        >
+            <>
+                <Events
+                    events={events}
+                    onDelete={deleteEvent}
+                    onEdit={editEvent}
+                    originalList={originalEvents}
+                    counter={counter}
+                />
+            </>
+        </ManagePage>
     )
 }

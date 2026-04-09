@@ -1,13 +1,8 @@
-import GoBackButton from '../Buttons/GoBackButton';
 import NavButton from '../Buttons/NavButton';
 import { useTranslation } from 'react-i18next';
-import { ButtonGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Exercises from './Exercises';
-import PageTitle from '../Site/PageTitle';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import CenterWrapper from '../Site/CenterWrapper';
-import PageContentWrapper from '../Site/PageContentWrapper';
+import ManagePage from '../Site/ManagePage';
 import Counter from '../Site/Counter';
 import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { removeFromFirebaseById } from '../../datatier/datatier';
@@ -27,16 +22,14 @@ export default function ManageExercises() {
     removeFromFirebaseById(DB.EXERCISES, id);
   }
 
-  return loading ? (
-    <h3>{tCommon("loading")}</h3>
-  ) : (
-    <PageContentWrapper>
-
-      <PageTitle title={t('manage_exercises_title')} iconName={ICONS.RUNNING} />
-
-      <Row>
-        <ButtonGroup>
-          <GoBackButton />
+  return (
+    <ManagePage
+      loading={loading}
+      loadingText={tCommon("loading")}
+      title={t('manage_exercises_title')}
+      iconName={ICONS.RUNNING}
+      topActions={(
+        <>
           <NavButton to={NAVIGATION.MANAGE_MOVEMENTS}>
             {t('manage_movements_button')}
           </NavButton>
@@ -45,44 +38,30 @@ export default function ManageExercises() {
           >
             {tCommon('buttons.button_lists')}
           </NavButton>
-        </ButtonGroup>
-      </Row>
-
-      {
-        originalExercises != null && originalExercises.length > 0 ? (
-          <SearchSortFilter
-            onSet={setExercises}
-            originalList={originalExercises}
-            //search
-            showSearchByText={false}
-            //sort
-            showSortByStarRating={true}
-            showSortByCreatedDate={true}
-            //filter
-            showFilterHaveRated={true}
-          />
-        ) : (<></>)
-      }
-
-      <CenterWrapper>
+        </>
+      )}
+      searchSortFilter={{
+        onSet: setExercises,
+        originalList: originalExercises,
+        //search
+        showSearchByText: false,
+        //sort
+        showSortByStarRating: true,
+        showSortByCreatedDate: true,
+        //filter
+        showFilterHaveRated: true,
+      }}
+      centerActions={
         <Link className="btn btn-primary" to={NAVIGATION.CREATE_EXERCISE}>{t('create_exercise')}</Link>
-      </CenterWrapper>
-
-      {
-        exercises != null && exercises.length > 0 ? (
-          <>
-            <Counter list={exercises} originalList={originalExercises} counter={counter} />
-            <Exercises exercises={exercises}
-              onDelete={deleteExercise} />
-          </>
-        ) : (
-          <>
-            <CenterWrapper>
-              {t('no_exercises_to_show')}
-            </CenterWrapper>
-          </>
-        )
       }
-    </PageContentWrapper>
+      hasItems={exercises != null && exercises.length > 0}
+      emptyText={t('no_exercises_to_show')}
+    >
+      <>
+        <Counter list={exercises} originalList={originalExercises} counter={counter} />
+        <Exercises exercises={exercises}
+          onDelete={deleteExercise} />
+      </>
+    </ManagePage>
   )
 }
