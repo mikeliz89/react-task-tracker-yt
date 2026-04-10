@@ -1,5 +1,5 @@
-import { ThemeProvider } from './contexts/ThemeContext';
 import App from './App';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 function AppContainer() {
 
@@ -11,3 +11,5 @@ function AppContainer() {
 }
 
 export default AppContainer
+
+

@@ -1,29 +1,23 @@
-import { ButtonGroup, Modal, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import GoBackButton from '../Buttons/GoBackButton';
-import PageTitle from '../Site/PageTitle';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import Movements from './Movements';
-import CenterWrapper from '../Site/CenterWrapper';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import Counter from '../Site/Counter';
-import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
-import { removeFromFirebaseById, pushToFirebase } from '../../datatier/datatier';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import Button from '../Buttons/Button';
-import AddMovement from './AddMovement';
+
 import { useAuth } from '../../contexts/AuthContext';
+import { removeFromFirebaseById, pushToFirebase } from '../../datatier/datatier';
+import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
 import { useAlert } from '../Hooks/useAlert';
-import Alert from '../Alert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import ManagePage from '../Site/ManagePage';
+
+import AddMovement from './AddMovement';
+import Movements from './Movements';
 
 export default function ManageMovements() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: movements, setData: setMovements,
@@ -65,77 +59,58 @@ export default function ManageMovements() {
         }
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-
-            <PageTitle title={t('manage_movements_title')} />
-
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                </ButtonGroup>
-            </Row>
-
-            <Alert message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={clearMessages}
+    return (
+        <ManagePage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            title={t('manage_movements_title')}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                variant: VARIANTS.SUCCESS,
+                onClose: clearMessages,
+            }}
+            searchSortFilter={{
+                onSet: setMovements,
+                originalList: originalMovements,
+                //search
+                showSearchByText: true,
+                //sort
+                showSortByCreatedDate: true,
+                showSortByStarRating: true,
+                showSortByName: true,
+                //filter
+                filterMode: FilterMode.Name,
+                showFilterHaveRated: true,
+            }}
+            addButton={{
+                show: showAddMovement,
+                iconName: ICONS.PLUS,
+                openColor: COLORS.ADDBUTTON_OPEN,
+                closedColor: COLORS.ADDBUTTON_CLOSED,
+                openText: tCommon('buttons.button_close'),
+                closedText: tCommon('buttons.button_save'),
+                onToggle: toggleAddMovement,
+            }}
+            modal={{
+                show: showAddMovement,
+                onHide: toggleAddMovement,
+                title: t('modal_header_add_movement'),
+                body: <AddMovement onSave={addMovement} onClose={toggleAddMovement} />,
+            }}
+            hasItems={movements != null && movements.length > 0}
+            emptyText={t('no_movements_to_show')}
+        >
+            <Movements
+                movements={movements}
+                originalList={originalMovements}
+                counter={counter}
+                onDelete={deleteMovement}
             />
-
-            {
-                originalMovements != null && originalMovements.length > 0 ? (
-                    <SearchSortFilter
-                        onSet={setMovements}
-                        originalList={originalMovements}
-                        //search
-                        showSearchByText={true}
-                        //sort
-                        showSortByCreatedDate={true}
-                        showSortByStarRating={true}
-                        showSortByName={true}
-                        //filter
-                        filterMode={FilterMode.Name}
-                        showFilterHaveRated={true}
-                    />
-                ) : (<></>)
-            }
-
-            <CenterWrapper>
-                <Button
-                    iconName={ICONS.PLUS}
-                    color={showAddMovement ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-                    text={showAddMovement ? tCommon('buttons.button_close') : tCommon('buttons.button_save')}
-                    onClick={toggleAddMovement} />
-            </CenterWrapper>
-
-            <Modal show={showAddMovement} onHide={toggleAddMovement}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_add_movement')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddMovement onSave={addMovement} onClose={toggleAddMovement} />
-                </Modal.Body>
-            </Modal>
-
-            {
-                movements != null && movements.length > 0 ? (
-                    <>
-                        <Counter list={movements} originalList={originalMovements} counter={counter} />
-                        <Movements movements={movements}
-                            onDelete={deleteMovement} />
-                    </>
-                ) : (
-                    <>
-                        <CenterWrapper>
-                            {t('no_movements_to_show')}
-                        </CenterWrapper>
-                    </>
-                )
-            }
-        </PageContentWrapper>
+        </ManagePage>
     )
 }
+
+

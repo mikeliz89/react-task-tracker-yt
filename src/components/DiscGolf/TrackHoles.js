@@ -1,4 +1,5 @@
 import { Row, Col, Table } from 'react-bootstrap';
+
 import TrackHole from './TrackHole';
 
 export default function TrackHoles({ holes, increasePar, decreasePar, deleteHole }) {
@@ -28,3 +29,5 @@ export default function TrackHoles({ holes, increasePar, decreasePar, deleteHole
         </>
     )
 }
+
+

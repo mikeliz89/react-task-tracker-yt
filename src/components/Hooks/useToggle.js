@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 export const useToggle = (defaultval = false) => {
     const [status, setStatus] = useState(defaultval);
@@ -14,3 +14,5 @@ export const useToggle = (defaultval = false) => {
 useToggle.propTypes = {
     defaultval: PropTypes.bool
 };
+
+

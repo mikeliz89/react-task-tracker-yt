@@ -1,10 +1,14 @@
+//import RightWrapper from '../Site/RightWrapper';
+
+import { ref, onValue } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { ref, onValue } from 'firebase/database';
+
 import { useAuth } from '../../contexts/AuthContext';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import { db, uploadProfilePic } from '../../firebase-config';
+import { ICONS } from '../../utils/Constants';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import Alert from '../Alert';
@@ -17,9 +21,7 @@ import Modal from '../ImageUpload/Modal';
 import Language from '../Language/Language';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
-//import RightWrapper from '../Site/RightWrapper';
 import ThemeToggler from '../Site/ThemeToggler';
-import { ICONS } from '../../utils/Constants';
 
 export default function ManageMyProfile() {
 
@@ -55,32 +57,29 @@ export default function ManageMyProfile() {
 
     //load data
     useEffect(() => {
-        let isMounted = true;
-        const getProfile = async () => {
-            if (isMounted) {
-                await fetchProfileFromFirebase();
-            }
+        if (!currentUser?.uid) {
+            return;
         }
-        getProfile()
-        return () => { isMounted = false };
-    }, []);
+
+        const dbref = ref(db, `${DB.PROFILES}/${currentUser.uid}`);
+        const unsubscribe = onValue(dbref, (snapshot) => {
+            const data = snapshot.val();
+            if (data != null) {
+                setName(data["name"]);
+                setHeight(data["height"]);
+            }
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, [currentUser?.uid]);
 
     useEffect(() => {
         if (currentUser && currentUser.photoURL) {
             setPhotoUrl(currentUser.photoURL);
         }
     }, [currentUser]);
-
-    const fetchProfileFromFirebase = async () => {
-        const dbref = ref(db, `${DB.PROFILES}/${currentUser.uid}`);
-        onValue(dbref, (snapshot) => {
-            const data = snapshot.val();
-            if (data != null) {
-                setName(data["name"]);
-                setHeight(data["height"]);
-            }
-        })
-    }
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -279,3 +278,6 @@ export default function ManageMyProfile() {
         </PageContentWrapper>
     )
 }
+
+
+

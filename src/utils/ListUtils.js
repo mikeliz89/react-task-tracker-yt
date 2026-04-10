@@ -1,12 +1,13 @@
-import { ExerciseCategories, MovementCategories } from "../components/Exercises/Categories";
-import { RecipeCategories, FoodItemCategories } from "../components/Recipe/Categories";
+import { GearCategories } from "../components/BackPacking/Categories";
 import { DrinkCategories } from "../components/Drinks/Categories";
 import { DrinkingProductCategories } from "../components/Drinks/Categories";
-import { GearCategories } from "../components/BackPacking/Categories";
-import { ListTypes } from '../utils/Enums';
+import { ExerciseCategories, MovementCategories } from "../components/Exercises/Categories";
 import { GameConsoles } from "../components/Games/Categories";
 import { MovieFormats } from "../components/Movies/Categories";
 import { MusicFormats } from "../components/Music/Categories";
+import { RecipeCategories, FoodItemCategories } from "../components/Recipe/Categories";
+import { ListTypes } from '../utils/Enums';
+
 import { NAVIGATION } from './Constants';
 
 export function getGearCategoryNameByID(id) {
@@ -122,3 +123,5 @@ export function getManagePageByListType(taskList) {
             return NAVIGATION.MANAGE_TASKLISTS;
     }
 }
+
+

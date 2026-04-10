@@ -1,15 +1,19 @@
+
+
+//translation
+
+
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Icon from '../Icon';
-import { COLORS, THEMES } from '../../utils/Constants';
+
 import { useTheme } from '../../contexts/ThemeContext';
+import { COLORS, THEMES } from '../../utils/Constants';
+import Icon from '../Icon';
 
 export default function BigButton({ color, textcolor, text, onClick,
     imageName, comingsoon, iconName, iconColor }) {
     const { theme } = useTheme();
-
-    //translation
-    const { t } = useTranslation();
+const { t } = useTranslation();
 
     //images
     const background = `/images/${imageName}`;
@@ -69,3 +73,5 @@ BigButton.propTypes = {
     comingsoon: PropTypes.bool,
     onClick: PropTypes.func
 }
+
+

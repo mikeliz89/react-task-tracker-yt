@@ -1,13 +1,14 @@
-import Button from "../Buttons/Button";
-import { TRANSLATION, ICONS } from '../../utils/Constants';
 import { useTranslation } from 'react-i18next';
+
+import { TRANSLATION, ICONS } from '../../utils/Constants';
+
+import Button from "../Buttons/Button";
 
 export default function SortByButton({ sortBy, sortModeASC, sortModeDESC, title, onSortBy }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.SEARCHSORTFILTER });
-
-    return (
+return (
         <>
             <Button
                 iconName={sortBy === sortModeDESC ? ICONS.ARROW_DOWN : sortBy === sortModeASC ? ICONS.ARROW_UP : ''}
@@ -18,3 +19,5 @@ export default function SortByButton({ sortBy, sortModeASC, sortModeDESC, title,
         </>
     )
 }
+
+

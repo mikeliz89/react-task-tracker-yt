@@ -1,23 +1,24 @@
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup } from 'react-bootstrap';
-import { db } from '../../firebase-config';
 import { ref, onValue, child } from 'firebase/database';
-import Tasks from '../../components/Task/Tasks';
-import GoBackButton from '../Buttons/GoBackButton';
-import Button from '../Buttons/Button';
 import i18n from "i18next";
-import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { ICONS, TRANSLATION, DB, COLORS } from '../../utils/Constants';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import CenterWrapper from '../Site/CenterWrapper';
-import Counter from '../Site/Counter';
+import { useState, useEffect } from 'react';
+import { Row, ButtonGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
+import Tasks from '../../components/Task/Tasks';
 import { getFromFirebaseById, pushToFirebase, updateToFirebase, updateToFirebaseById } from '../../datatier/datatier';
+import { db } from '../../firebase-config';
+import { ICONS, TRANSLATION, DB, COLORS } from '../../utils/Constants';
+import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getPageTitleContent, getManagePageByListType } from '../../utils/ListUtils';
 import AccordionElement from '../AccordionElement';
+import Button from '../Buttons/Button';
+import GoBackButton from '../Buttons/GoBackButton';
 import useFetch from '../Hooks/useFetch';
+import CenterWrapper from '../Site/CenterWrapper';
+import Counter from '../Site/Counter';
+import PageContentWrapper from '../Site/PageContentWrapper';
 
 export default function ArchivedTaskListDetails() {
 
@@ -43,43 +44,31 @@ export default function ArchivedTaskListDetails() {
 
   //load data
   useEffect(() => {
-    let cancel = false;
-
-    //Tasks
-    const getTasks = async () => {
-      if (cancel) {
-        return;
-      }
-      await fetchTasksFromFirebase();
-    }
-    getTasks();
-
-    return () => {
-      cancel = true;
-    }
-  }, [])
-
-
-  const fetchTasksFromFirebase = async () => {
-    const dbref = await child(ref(db, DB.TASKLIST_ARCHIVE_TASKS), params.id);
-    onValue(dbref, (snapshot) => {
+    const dbref = child(ref(db, DB.TASKLIST_ARCHIVE_TASKS), params.id);
+    const unsubscribe = onValue(dbref, (snapshot) => {
       const snap = snapshot.val();
       const fromDB = [];
       let taskCounterTemp = 0;
       let taskReadyCounterTemp = 0;
-      for (let id in snap) {
-        taskCounterTemp++;
-        if (snap[id]["reminder"] === true) {
-          taskReadyCounterTemp++;
+      if (snap != null) {
+        for (let id in snap) {
+          taskCounterTemp++;
+          if (snap[id]["reminder"] === true) {
+            taskReadyCounterTemp++;
+          }
+          fromDB.push({ id, ...snap[id] });
         }
-        fromDB.push({ id, ...snap[id] });
       }
       setTasks(fromDB);
       setOriginalTasks(fromDB);
       setTaskCounter(taskCounterTemp);
       setTaskReadyCounter(taskReadyCounterTemp);
-    })
-  }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [params.id])
 
   const returnFromArchive = async () => {
     //1. add this tasklist-archive to taskLists
@@ -157,3 +146,6 @@ export default function ArchivedTaskListDetails() {
     </PageContentWrapper>
   )
 }
+
+
+

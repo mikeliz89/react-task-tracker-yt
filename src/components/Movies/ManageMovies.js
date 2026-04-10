@@ -1,25 +1,19 @@
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import GoBackButton from '../Buttons/GoBackButton';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import PageTitle from '../Site/PageTitle';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import CenterWrapper from '../Site/CenterWrapper';
-import Movies from './Movies';
-import Counter from '../Site/Counter';
-import Alert from '../Alert';
-import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import AddMovie from './AddMovie';
+
 import { useAuth } from '../../contexts/AuthContext';
-import { SortMode } from '../SearchSortFilter/SortModes';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import NavButton from '../Buttons/NavButton';
 import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { SortMode } from '../SearchSortFilter/SortModes';
+import ManagePage from '../Site/ManagePage';
+
+import AddMovie from './AddMovie';
+import Movies from './Movies';
 
 export default function ManageMovies() {
 
@@ -70,85 +64,76 @@ export default function ManageMovies() {
         updateToFirebaseById(DB.MOVIES, id, movie);
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-
-            <PageTitle title={t('movies_title')} iconName={ICONS.MOVIE} />
-
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
+    return (
+        <ManagePage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            title={t('movies_title')}
+            iconName={ICONS.MOVIE}
+            topActions={(
+                <>
                     <NavButton to={NAVIGATION.MANAGE_MOVIELISTS}
                         icon={ICONS.LIST_ALT}>
                         {t('button_movie_lists')}
                     </NavButton>
-                </ButtonGroup>
-            </Row>
-
-            <Alert message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showAddMovie} onHide={toggleAddMovie}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_add_movie')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddMovie onSave={addMovie} onClose={toggleAddMovie} />
-                </Modal.Body>
-            </Modal>
-
-            {
-                originalMovies != null && originalMovies.length > 0 ? (
-                    <SearchSortFilter
-                        onSet={setMovies}
-                        originalList={originalMovies}
-                        //search
-                        showSearchByText={true}
-                        showSearchByFinnishName={true}
-                        showSearchByDescription={true}
-                        //sort
-                        defaultSort={SortMode.Name_ASC}
-                        showSortByName={true}
-                        showSortByStarRating={true}
-                        showSortByCreatedDate={true}
-                        showSortByPublishYear={true}
-                        //filter
-                        filterMode={FilterMode.Name}
-                        showFilterHaveAtHome={true}
-                        showFilterHaveRated={true}
-                    />
-                ) : (<></>)
-            }
-
-            <CenterWrapper>
-                <Button
-                    iconName={ICONS.PLUS}
-                    color={showAddMovie ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-                    text={showAddMovie ? tCommon('buttons.button_close') : t('button_add_movie')}
-                    onClick={toggleAddMovie} />
-            </CenterWrapper>
-
-            {
-                movies != null && movies.length > 0 ? (
-                    <>
-                        <Counter list={movies} originalList={originalMovies} counter={counter} />
-                        <Movies movies={movies} onDelete={deleteMovie} onEdit={editMovie} />
-                    </>
-                ) : (
-                    <>
-                        <CenterWrapper>
-                            {t('no_movies_to_show')}
-                        </CenterWrapper>
-                    </>
-                )
-            }
-        </PageContentWrapper>
+                </>
+            )}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                variant: VARIANTS.SUCCESS,
+                onClose: clearMessages,
+            }}
+            modal={{
+                show: showAddMovie,
+                onHide: toggleAddMovie,
+                title: t('modal_header_add_movie'),
+                body: <AddMovie onSave={addMovie} onClose={toggleAddMovie} />,
+            }}
+            searchSortFilter={{
+                onSet: setMovies,
+                originalList: originalMovies,
+                //search
+                showSearchByText: true,
+                showSearchByFinnishName: true,
+                showSearchByDescription: true,
+                //sort
+                defaultSort: SortMode.Name_ASC,
+                showSortByName: true,
+                showSortByStarRating: true,
+                showSortByCreatedDate: true,
+                showSortByPublishYear: true,
+                //filter
+                filterMode: FilterMode.Name,
+                showFilterHaveAtHome: true,
+                showFilterHaveRated: true,
+            }}
+            addButton={{
+                show: showAddMovie,
+                iconName: ICONS.PLUS,
+                openColor: COLORS.ADDBUTTON_OPEN,
+                closedColor: COLORS.ADDBUTTON_CLOSED,
+                openText: tCommon('buttons.button_close'),
+                closedText: t('button_add_movie'),
+                onToggle: toggleAddMovie,
+            }}
+            hasItems={movies != null && movies.length > 0}
+            emptyText={t('no_movies_to_show')}
+        >
+            <>
+                <Movies
+                    movies={movies}
+                    onDelete={deleteMovie}
+                    onEdit={editMovie}
+                    originalList={originalMovies}
+                    counter={counter}
+                />
+            </>
+        </ManagePage>
     )
 }
+
+
+

@@ -1,19 +1,20 @@
+import { ref, onValue } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import { Form, Table, ButtonGroup, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../firebase-config';
-import { ref, onValue } from 'firebase/database';
-import GoBackButton from '../Buttons/GoBackButton';
-import Button from '../Buttons/Button';
+
 import { useAuth } from '../../contexts/AuthContext';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
-import PageTitle from '../Site/PageTitle';
-import Alert from '../Alert';
-import PageContentWrapper from '../Site/PageContentWrapper';
 import { pushToFirebaseById } from '../../datatier/datatier';
+import { db } from '../../firebase-config';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import Alert from '../Alert';
+import Button from '../Buttons/Button';
+import GoBackButton from '../Buttons/GoBackButton';
 import { useAlert } from '../Hooks/useAlert';
+import PageContentWrapper from '../Site/PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
 
 export default function BmiCalculator() {
 
@@ -44,25 +45,22 @@ export default function BmiCalculator() {
 
     //load data
     useEffect(() => {
-        let isMounted = true;
-        const getProfile = async () => {
-            if (isMounted) {
-                await fetchProfileFromFirebase();
-            }
+        if (!currentUser?.uid) {
+            return;
         }
-        getProfile();
-        return () => { isMounted = false };
-    }, [])
 
-    const fetchProfileFromFirebase = async () => {
         const dbref = ref(db, `${DB.PROFILES}/${currentUser.uid}`);
-        onValue(dbref, (snapshot) => {
+        const unsubscribe = onValue(dbref, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
                 setHeight(data["height"]);
             }
-        })
-    }
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, [currentUser?.uid]);
 
     async function onSubmit(e) {
         e.preventDefault();
@@ -180,3 +178,6 @@ export default function BmiCalculator() {
         </PageContentWrapper>
     )
 }
+
+
+

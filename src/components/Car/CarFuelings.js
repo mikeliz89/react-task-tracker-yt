@@ -1,8 +1,17 @@
 
+
+// const mockData = () => {
+    //     let data = [{ created: "2022-09-19T17:25:19.586Z", fuelPricePerLiter: "2.10" }]
+    //     return data;
+    // }
+
+
 import { useTranslation } from "react-i18next";
-import PageTitle from '../Site/PageTitle';
-import CarFueling from "./CarFueling";
+
 import { TRANSLATION, ICONS } from '../../utils/Constants';
+import PageTitle from '../Site/PageTitle';
+
+import CarFueling from "./CarFueling";
 import GasPriceChart from './GasPriceChart';
 
 export default function CarFuelings({ carFuelings, chartFuelings, onDelete }) {
@@ -10,12 +19,7 @@ export default function CarFuelings({ carFuelings, chartFuelings, onDelete }) {
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
 
-    // const mockData = () => {
-    //     let data = [{ created: "2022-09-19T17:25:19.586Z", fuelPricePerLiter: "2.10" }]
-    //     return data;
-    // }
-
-    const getFuelingsPriceSum = (carFuelings) => {
+const getFuelingsPriceSum = (carFuelings) => {
         let sum = 0;
         carFuelings.forEach(fueling => {
             if (fueling.price > 0) {
@@ -41,3 +45,5 @@ export default function CarFuelings({ carFuelings, chartFuelings, onDelete }) {
         </>
     )
 }
+
+

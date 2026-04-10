@@ -1,11 +1,13 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import AddIncredient from './AddIncredient';
-import PropTypes from 'prop-types';
+
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import RightWrapper from '../Site/RightWrapper';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
+import RightWrapper from '../Site/RightWrapper';
+
+import AddIncredient from './AddIncredient';
 
 export default function Incredient({ dbUrl, translation, translationKeyPrefix, incredient, recipeID, onDelete }) {
 
@@ -67,3 +69,5 @@ Incredient.propTypes = {
     recipeID: PropTypes.string,
     onDelete: PropTypes.func
 }
+
+

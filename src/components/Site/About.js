@@ -1,33 +1,33 @@
-import GoBackButton from '../Buttons/GoBackButton';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import PageTitle from '../Site/PageTitle';
-import PageContentWrapper from '../Site/PageContentWrapper';
+
 import { TRANSLATION } from '../../utils/Constants';
+import GoBackButton from '../Buttons/GoBackButton';
+import PageContentWrapper from '../Site/PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
+
+const versionInfoList = [
+    {
+        version: '2.2.2',
+        upgradedDate: '4.4.2026',
+        author: 'Miika Kontio',
+        description: 'About-sivun versiohistoria muutettu datalistaksi, visuaalinen erottelu parannettu ja listaus lajiteltu uusimmasta vanhimpaan.'
+    },
+    {
+        version: '2.2.1',
+        upgradedDate: '6.10.2025',
+        author: 'Miika Kontio',
+        description: 'DetailsPage-uudistus, mobiilityylien tiivistys ja useita i18n-parannuksia.'
+    },
+    {
+        version: '2.2.0',
+        upgradedDate: '22.9.2025',
+        author: 'Miika Kontio',
+        description: 'BoardGame-laajennus, listatyyppien erottelu ja dashboard-integraatio.'
+    }
+];
 
 export default function About() {
-
-    //later this list can come from database instead of local constants
-    const versionInfoList = [
-        {
-            version: '2.2.2',
-            upgradedDate: '4.4.2026',
-            author: 'Miika Kontio',
-            description: 'About-sivun versiohistoria muutettu datalistaksi, visuaalinen erottelu parannettu ja listaus lajiteltu uusimmasta vanhimpaan.'
-        },
-        {
-            version: '2.2.1',
-            upgradedDate: '6.10.2025',
-            author: 'Miika Kontio',
-            description: 'DetailsPage-uudistus, mobiilityylien tiivistys ja useita i18n-parannuksia.'
-        },
-        {
-            version: '2.2.0',
-            upgradedDate: '22.9.2025',
-            author: 'Miika Kontio',
-            description: 'BoardGame-laajennus, listatyyppien erottelu ja dashboard-integraatio.'
-        }
-    ];
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.ABOUT });
@@ -39,7 +39,7 @@ export default function About() {
         };
 
         return [...versionInfoList].sort((a, b) => parseDate(b.upgradedDate) - parseDate(a.upgradedDate));
-    }, [versionInfoList]);
+    }, []);
 
     return (
         <PageContentWrapper>
@@ -59,3 +59,6 @@ export default function About() {
         </PageContentWrapper>
     )
 }
+
+
+

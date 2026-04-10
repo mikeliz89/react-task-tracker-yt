@@ -1,17 +1,15 @@
-import { useTranslation } from 'react-i18next';
-import { FaCheckSquare } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import StarRating from '../StarRating/StarRating';
-import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
-import { getGameConsoleNameByID } from '../../utils/ListUtils';
-import RightWrapper from '../Site/RightWrapper';
-import { useState } from 'react';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { updateToFirebaseById } from '../../datatier/datatier';
-import AddGame from './AddGame';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getGameConsoleNameByID } from '../../utils/ListUtils';
+import CheckButton from '../Buttons/CheckButton';
+import ListRow from '../Site/ListRow';
+
+import AddGame from './AddGame';
 
 export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation, showConsole }) {
 
@@ -37,23 +35,20 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
         onEdit(game);
     }
 
+    const gameTitle = `${game.name} ${game.publishYear > 0 ? `(${game.publishYear})` : ''}`.trim();
+
     return (
-        <div className='listContainer'>
-            <h5>
-                <span>
-                    {game.name} {game.publishYear > 0 ? '(' + game.publishYear + ')' : ''}
-                </span>
-                <RightWrapper>
-                    <EditButton
-                        editable={editable}
-                        setEditable={setEditable}
-                    />
-                    <DeleteButton
-                        onDelete={onDelete}
-                        id={game.id}
-                    />
-                </RightWrapper>
-            </h5>
+        <ListRow
+            headerTitle={gameTitle}
+            headerTitleTo={`${detailsNavigation}/${game.id}`}
+            showEditButton={true}
+            editable={editable}
+            setEditable={setEditable}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={game.id}
+            starCount={game.stars}
+        >
             {!editable &&
                 <p>
                     {game.format > 0 ?
@@ -75,12 +70,6 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
                         }</span>) : ('')}
                 </p>
             }
-            {!editable &&
-                <p>
-                    <Link className='btn btn-primary' to={`${detailsNavigation}/${game.id}`}>{t('view_details')}</Link>
-                </p>
-            }
-            <StarRating starCount={game.stars} />
 
             {
                 editable && <AddGame
@@ -92,27 +81,15 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
                     showLabels={false} />
             }
 
-            <p>
-                {
-                    game.haveAtHome &&
-                    <span
-                        onClick={() => { markNotHaveAtHome() }}
-                        className='btn btn-success' style={{ margin: '5px' }}>
-                        {t('have')}&nbsp;
-                        <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
-                    </span>
-                }
-                {
-                    !game.haveAtHome &&
-                    <span
-                        onClick={() => { markHaveAtHome() }}
-                        className='btn btn-danger' style={{ margin: '5px' }}>
-                        {t('have_not')}&nbsp;
-                        <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
-                    </span>
-                }
-            </p>
-        </div>
+                <CheckButton
+                    checked={game.haveAtHome}
+                    checkedText={t('have')}
+                    uncheckedText={t('have_not')}
+                    onCheck={markHaveAtHome}
+                    onUncheck={markNotHaveAtHome}
+                    style={{ margin: '5px' }}
+                />
+        </ListRow>
     )
 }
 
@@ -127,3 +104,6 @@ Game.propTypes = {
     detailsNavigation: PropTypes.string,
     showConsole: PropTypes.bool
 }
+
+
+

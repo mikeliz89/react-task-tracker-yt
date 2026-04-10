@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
-import Button from '../Buttons/Button';
+
 import { ICONS, TRANSLATION } from '../../utils/Constants';
 import { formatDate, sortChartDataByDate } from '../../utils/DateTimeUtils';
+import Button from '../Buttons/Button';
 
 export default function WeightChart({ data, chartData }) {
 
@@ -61,3 +62,6 @@ export default function WeightChart({ data, chartData }) {
         </div>
     )
 }
+
+
+

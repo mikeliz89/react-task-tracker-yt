@@ -1,28 +1,27 @@
-import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import GoBackButton from '../Buttons/GoBackButton';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import PageTitle from '../Site/PageTitle';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import CenterWrapper from '../Site/CenterWrapper';
-import Counter from '../Site/Counter';
-import Alert from '../Alert';
-import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import { useAuth } from '../../contexts/AuthContext';
-import { SortMode } from '../SearchSortFilter/SortModes';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
-import NavButton from '../Buttons/NavButton';
-import { useAlert } from '../Hooks/useAlert';
-import AddKaraokeSong from './AddKaraokeSong';
+
+
 
 // TODO: Luo KaraokeSongs-komponentti, joka näyttää yksittäiset kappaleet
 // import KaraokeSongs from './KaraokeSongs';
 // TODO: Luo AddKaraokeSong-komponentti lisäystä varten
+
+
+import { useTranslation } from 'react-i18next';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import NavButton from '../Buttons/NavButton';
+import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { SortMode } from '../SearchSortFilter/SortModes';
+import Counter from '../Site/Counter';
+import ManagePage from '../Site/ManagePage';
+
+import AddKaraokeSong from './AddKaraokeSong';
 
 export default function ManageKaraokeSongs() {
     // translation
@@ -72,78 +71,68 @@ export default function ManageKaraokeSongs() {
         updateToFirebaseById(DB.MUSIC_KARAOKE_SONGS, id, song);
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-            <PageTitle title={t('karaoke_songs_title')} />
-
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
+    return (
+        <ManagePage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            title={t('karaoke_songs_title')}
+            topActions={(
+                <>
                     <NavButton to={NAVIGATION.MANAGE_MUSICLISTS}
                         icon={ICONS.LIST_ALT}>
                         {t('button_music_lists')}
                     </NavButton>
-                </ButtonGroup>
-            </Row>
-
-            <Alert
-                message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showAddSong} onHide={toggleAddSong}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_add_karaoke_song')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddKaraokeSong onSave={addSong} onClose={toggleAddSong} />
-                    {/* Lisää AddKaraokeSong-komponentti kun olet luonut sen */}
-                </Modal.Body>
-            </Modal>
-
-            {
-                originalSongs != null && originalSongs.length > 0 ? (
-                    <SearchSortFilter
-                        onSet={setSongs}
-                        originalList={originalSongs}
-                        showSearchByText={false}
-                        showSearchByDescription={false}
-                        defaultSort={SortMode.Name_ASC}
-                        showSortByName={false}
-                        showSortByStarRating={false}
-                        showSortByCreatedDate={false}
-                        filterMode={FilterMode.Name}
-                    />
-                ) : (<></>)
-            }
-
-            <CenterWrapper>
-                <Button
-                    iconName={ICONS.PLUS}
-                    color={showAddSong ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-                    text={showAddSong ? tCommon('buttons.button_close') : t('button_add_karaoke_song')}
-                    onClick={toggleAddSong} />
-            </CenterWrapper>
-
-            {
-                songs != null && songs.length > 0 ? (
+                </>
+            )}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                variant: VARIANTS.SUCCESS,
+                onClose: clearMessages,
+            }}
+            modal={{
+                show: showAddSong,
+                onHide: toggleAddSong,
+                title: t('modal_header_add_karaoke_song'),
+                body: (
                     <>
-                        <Counter list={songs} originalList={originalSongs} counter={counter} />
-                        {/* <KaraokeSongs songs={songs} onDelete={deleteSong} onEdit={editSong} /> */}
-                        {/* Lisää KaraokeSongs-komponentti kun olet luonut sen */}
+                        <AddKaraokeSong onSave={addSong} onClose={toggleAddSong} />
+                        {/* Lisää AddKaraokeSong-komponentti kun olet luonut sen */}
                     </>
-                ) : (
-                    <CenterWrapper>
-                        {t('no_karaoke_songs_to_show')}
-                    </CenterWrapper>
-                )
-            }
-        </PageContentWrapper>
+                ),
+            }}
+            searchSortFilter={{
+                onSet: setSongs,
+                originalList: originalSongs,
+                showSearchByText: false,
+                showSearchByDescription: false,
+                defaultSort: SortMode.Name_ASC,
+                showSortByName: false,
+                showSortByStarRating: false,
+                showSortByCreatedDate: false,
+                filterMode: FilterMode.Name,
+            }}
+            addButton={{
+                show: showAddSong,
+                iconName: ICONS.PLUS,
+                openColor: COLORS.ADDBUTTON_OPEN,
+                closedColor: COLORS.ADDBUTTON_CLOSED,
+                openText: tCommon('buttons.button_close'),
+                closedText: t('button_add_karaoke_song'),
+                onToggle: toggleAddSong,
+            }}
+            hasItems={songs != null && songs.length > 0}
+            emptyText={t('no_karaoke_songs_to_show')}
+        >
+            <>
+                <Counter list={songs} originalList={originalSongs} counter={counter} />
+                {/* <KaraokeSongs songs={songs} onDelete={deleteSong} onEdit={editSong} /> */}
+                {/* Lisää KaraokeSongs-komponentti kun olet luonut sen */}
+            </>
+        </ManagePage>
     )
 }
+
+

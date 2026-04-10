@@ -1,64 +1,53 @@
-import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
-import { getGearCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, NAVIGATION, VARIANTS, COLORS } from "../../utils/Constants";
-import DeleteButton from '../Buttons/DeleteButton';
-import NavButton from '../Buttons/NavButton';
-import Alert from '../Alert';
-import { getIconNameByCategory } from './Categories';
-import StarRating from '../StarRating/StarRating';
-import RightWrapper from '../Site/RightWrapper';
-import { useAlert } from '../Hooks/useAlert';
 
+import { useTranslation } from 'react-i18next';
+
+import { TRANSLATION, NAVIGATION, VARIANTS, COLORS } from "../../utils/Constants";
+import { getGearCategoryNameByID } from '../../utils/ListUtils';
+import { useAlert } from '../Hooks/useAlert';
+import ListRow from '../Site/ListRow';
+
+import { getIconNameByCategory } from './Categories';
 
 export default function Gear({ gear, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-
-    //alert
-    const {
-        message, setMessage,
-        showMessage, setShowMessage,
-        error, setError,
-        showError, setShowError,
+const {
+        message,
+        showMessage,
+        error,
+        showError,
         clearMessages
     } = useAlert();
 
     return (
-        <div className='listContainer'>
-
-            <Alert
-                message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={clearMessages}
-            />
-
-            <h5>
-                <span>
-                    <NavButton to={`${NAVIGATION.GEAR}/${gear.id}`} className=""
-                        icon={getIconNameByCategory(gear.category)} iconColor={COLORS.LIGHT_GRAY}>
-                        {gear.name}
-                    </NavButton>
-                </span>
-                <RightWrapper>
-                    <DeleteButton
-                        onDelete={onDelete}
-                        id={gear.id}
-                    />
-                </RightWrapper>
-            </h5>
+        <ListRow
+            headerTitle={gear.name}
+            headerTitleTo={`${NAVIGATION.GEAR}/${gear.id}`}
+            headerTitleIcon={getIconNameByCategory(gear.category)}
+            headerTitleIconColor={COLORS.LIGHT_GRAY}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={gear.id}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                variant: VARIANTS.SUCCESS,
+                onClose: clearMessages,
+            }}
+            starCount={gear.stars}
+        >
             {
                 gear.category !== "" ? (
                     <p> {'#' + t('gear_category_' + getGearCategoryNameByID(gear.category))}</p>
                 ) : ('')
             }
             <p>{t('gear_weight')}: {gear.weightInGrams} g</p>
-
-            <StarRating starCount={gear.stars} />
-        </div >
+        </ListRow>
     )
 }
+
+
+

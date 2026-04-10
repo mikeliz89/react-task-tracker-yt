@@ -1,4 +1,5 @@
 import i18n from "i18next";
+
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import DeleteButton from '../Buttons/DeleteButton';
 
@@ -9,7 +10,8 @@ export default function RecipeHistory({ translation, translationKeyPrefix, recip
             <p>
                 {getJsonAsDateTimeString(recipeHistory.currentDateTime, i18n.language)}
                 &nbsp;
-                <DeleteButton
+
+<DeleteButton
                     onDelete={onDelete}
                     id={recipeHistory.id}
                 />
@@ -17,3 +19,5 @@ export default function RecipeHistory({ translation, translationKeyPrefix, recip
         </div>
     )
 }
+
+

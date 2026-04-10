@@ -1,16 +1,19 @@
-import { Row, Col, Form, ButtonGroup } from 'react-bootstrap';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import Button from '../Buttons/Button';
-import StarRating from './StarRating';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { Row, Col, Form, ButtonGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
 import { TRANSLATION, ICONS } from '../../utils/Constants';
+import Button from '../Buttons/Button';
+
+
+import StarRating from './StarRating';
 
 export default function SetStarRating({ starCount, onSaveStars, onShow }) {
 
     //states
     const [showStarRating, setShowStarRating] = useState(false);
-    const [stars, setStars] = useState(starCount);
+const [stars, setStars] = useState(starCount);
     const [loading, setLoading] = useState(false);
 
     //translation
@@ -80,3 +83,6 @@ SetStarRating.defaultProps = {
 SetStarRating.propTypes = {
     starCount: PropTypes.number
 }
+
+
+

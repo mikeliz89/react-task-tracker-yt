@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form, Col } from 'react-bootstrap';
-import Button from '../Buttons/Button';
+import { useTranslation } from 'react-i18next';
+
 import { TRANSLATION, DB } from "../../utils/Constants";
+import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
 
 export default function AddPerson({ personID, onSave, onClose }) {
@@ -98,3 +99,5 @@ export default function AddPerson({ personID, onSave, onClose }) {
         </>
     )
 }
+
+

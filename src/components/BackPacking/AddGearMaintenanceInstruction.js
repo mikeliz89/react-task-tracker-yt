@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import { TRANSLATION, DB } from "../../utils/Constants";
-import useFetchById from '../Hooks/useFetchById';
+import { useTranslation } from 'react-i18next';
 
+import { TRANSLATION, DB } from "../../utils/Constants";
+import Button from '../Buttons/Button';
+import useFetchById from '../Hooks/useFetchById';
 
 export default function AddGearMaintenanceInstruction({ gearMaintenanceInstructionID, onSave, onClose }) {
 
@@ -76,3 +76,5 @@ export default function AddGearMaintenanceInstruction({ gearMaintenanceInstructi
         </>
     )
 }
+
+

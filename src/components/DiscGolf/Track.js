@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
+
 import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
-import { Link } from "react-router-dom";
+import ListRow from '../Site/ListRow';
 
 export default function Track({ track }) {
 
@@ -8,16 +9,15 @@ export default function Track({ track }) {
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DISC_GOLF });
 
     return (
-        <>
-            <div className='listContainer'>
-                <h5>
-                    {track.trackName}
-                </h5>
-                <h6>{t('track_city')}: {track.trackCity}</h6>
-                <p>{track.description}</p>
-
-                <Link className='btn btn-primary' to={`${NAVIGATION.DISC_GOLF_TRACK}/${track.id}`}>{t('view_details')}</Link>
-            </div>
-        </>
+        <ListRow
+            headerTitle={track.trackName}
+            headerTitleTo={`${NAVIGATION.DISC_GOLF_TRACK}/${track.id}`}
+        >
+            <h6>{t('track_city')}: {track.trackCity}</h6>
+            <p>{track.description}</p>
+        </ListRow>
     )
 }
+
+
+

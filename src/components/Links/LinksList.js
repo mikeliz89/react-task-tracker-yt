@@ -1,19 +1,21 @@
-import GoBackButton from '../Buttons/GoBackButton';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import { pushToFirebase } from '../../datatier/datatier';
-import { TRANSLATION, DB, ICONS } from '../../utils/Constants';
-import LinkComponent from './LinkComponent';
-import PageTitle from '../Site/PageTitle';
-import { useTranslation } from 'react-i18next';
 import { ButtonGroup, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
+import { pushToFirebase } from '../../datatier/datatier';
+
+import { TRANSLATION, DB, ICONS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import GoBackButton from '../Buttons/GoBackButton';
+import PageContentWrapper from '../Site/PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
+
+import LinkComponent from './LinkComponent';
 
 export default function LinksList() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LINKS });
-
-    const addLink = (link) => {
+const addLink = (link) => {
         link["created"] = getCurrentDateAsJson();
         pushToFirebase(DB.LINKS, link);
     }
@@ -32,3 +34,6 @@ export default function LinksList() {
         </PageContentWrapper>
     )
 }
+
+
+

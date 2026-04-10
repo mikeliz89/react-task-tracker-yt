@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '../Buttons/Button';
+
 import { ICONS, TRANSLATION } from '../../utils/Constants';
+import Button from '../Buttons/Button';
 
 export default function ScrollToTop() {
 
@@ -49,3 +50,5 @@ export default function ScrollToTop() {
         </div>
     );
 }
+
+

@@ -1,11 +1,13 @@
-import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
-import { db } from '../../firebase-config';
 import { ref, onValue, child } from 'firebase/database';
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { removeFromFirebaseById, removeFromFirebaseByIdAndSubId, updateToFirebaseById, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
+import { db } from '../../firebase-config';
+import { TRANSLATION } from '../../utils/Constants';
+
 import AddLink from './AddLink';
 import LinksInner from './LinksInner';
-import { TRANSLATION } from '../../utils/Constants';
-import { removeFromFirebaseById, removeFromFirebaseByIdAndSubId, updateToFirebaseById, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 
 export default function Links({ url, objID, onCounterChange, onSaveLink }) {
 
@@ -19,26 +21,13 @@ export default function Links({ url, objID, onCounterChange, onSaveLink }) {
 
     //load data
     useEffect(() => {
-        const getLinks = async () => {
-            await fetchLink(objID);
+        if (url === "") {
+            setLoading(false);
+            return;
         }
-        if (url !== "") {
-            getLinks();
-        }
-    }, []);
 
-    const fetchLink = async (myObjID) => {
-        let dbref;
-        if (myObjID) {
-            dbref = child(ref(db, url), myObjID);
-        } else {
-            dbref = ref(db, url);
-        }
-        fetchFromFirebase(dbref);
-    }
-
-    const fetchFromFirebase = (dbref) => {
-        onValue(dbref, (snapshot) => {
+        const dbref = objID ? child(ref(db, url), objID) : ref(db, url);
+        const unsubscribe = onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
             let counterTemp = 0;
@@ -49,8 +38,12 @@ export default function Links({ url, objID, onCounterChange, onSaveLink }) {
             setLinks(fromDB);
             onCounterChange(counterTemp);
             setLoading(false);
-        })
-    }
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, [url, objID, onCounterChange]);
 
     const deleteLink = (linkID) => {
         if (objID != null) {
@@ -82,3 +75,5 @@ export default function Links({ url, objID, onCounterChange, onSaveLink }) {
         </div>
     )
 }
+
+

@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import { DrinkingProductCategories } from './Categories';
+import { useTranslation } from 'react-i18next';
+
 import { TRANSLATION, DB } from '../../utils/Constants';
+import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
+
+
+import { DrinkingProductCategories } from './Categories';
 
 export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingProduct, onClose }) {
 
    //translation
    const { t, ready } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
-   const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
    //states
    const [category, setCategory] = useState('');
@@ -43,17 +46,13 @@ export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingPro
    }, [drinkingProductData]);
 
    useEffect(() => {
-      sortCategoriesByName();
-   }, [ready]);
-
-   const sortCategoriesByName = () => {
-      const sortedCategories = [...categories].sort((a, b) => {
+      const sortedCategories = [...DrinkingProductCategories].sort((a, b) => {
          const aName = t(`drinkingproduct_category_${a.name}`);
          const bName = t(`drinkingproduct_category_${b.name}`);
          return aName > bName ? 1 : -1;
       });
       setCategories(sortedCategories);
-   }
+   }, [ready, t]);
 
    const onSubmit = (e) => {
       e.preventDefault()
@@ -158,3 +157,5 @@ export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingPro
       </>
    )
 }
+
+

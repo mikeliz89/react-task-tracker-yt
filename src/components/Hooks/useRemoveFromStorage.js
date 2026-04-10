@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { storage } from "../../firebase-config";
 import { ref, deleteObject } from 'firebase/storage';
+import { useState, useEffect } from "react";
+
 import { removeFromFirebaseByIdAndSubId } from "../../datatier/datatier";
+import { storage } from "../../firebase-config";
 
 const useRemoveFromStorage = (imagesUrl, mainID, subID, fileName) => {
 
@@ -32,3 +33,5 @@ const useRemoveFromStorage = (imagesUrl, mainID, subID, fileName) => {
 }
 
 export default useRemoveFromStorage;
+
+

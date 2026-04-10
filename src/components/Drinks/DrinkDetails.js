@@ -1,43 +1,41 @@
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { ref, child, onValue } from 'firebase/database';
 import i18n from "i18next";
+import { useState } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { getIncredientsUrl } from '../Recipe/Categories';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebase, pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
     from '../../datatier/datatier';
+import { db } from '../../firebase-config';
 import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
 import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
-
 import Alert from '../Alert';
 import Button from '../Buttons/Button';
 import CommentComponent from '../Comments/CommentComponent';
+import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import useFetchChildren from '../Hooks/useFetchChildren';
-import { useAlert } from '../Hooks/useAlert';
 import { useToggle } from '../Hooks/useToggle';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
-import DetailsPage from '../Site/DetailsPage';
+import AddIncredient from '../Recipe/AddIncredient';
+import AddWorkPhase from '../Recipe/AddWorkPhase';
+import { getIncredientsUrl } from '../Recipe/Categories';
+import Incredients from '../Recipe/Incredients';
+import RecipeHistories from '../Recipe/RecipeHistories';
+import WorkPhases from '../Recipe/WorkPhases';
 import CenterWrapper from '../Site/CenterWrapper';
+import DetailsPage from '../Site/DetailsPage';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddDrink from './AddDrink';
 import AddGarnish from './AddGarnish';
-import AddWorkPhase from '../Recipe/AddWorkPhase';
 import Garnishes from './Garnishes';
-import AddIncredient from '../Recipe/AddIncredient';
-import WorkPhases from '../Recipe/WorkPhases';
-import Incredients from '../Recipe/Incredients';
-import RecipeHistories from '../Recipe/RecipeHistories';
-
-import { db } from '../../firebase-config';
-import { ref, child, onValue } from 'firebase/database';
 
 export default function DrinkDetails() {
 
@@ -415,3 +413,6 @@ export default function DrinkDetails() {
         />
     )
 }
+
+
+

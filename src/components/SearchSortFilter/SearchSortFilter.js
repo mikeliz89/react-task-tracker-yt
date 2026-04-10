@@ -1,15 +1,17 @@
-import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useState, useEffect, useCallback } from 'react';
 import { Col, Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { SortMode } from './SortModes';
-import { FilterMode } from './FilterModes';
-import PropTypes from 'prop-types';
+
 import { TRANSLATION } from '../../utils/Constants';
-import SortByButton from './SortByButton';
-import SearchTextInput from './SearchTextInput';
+import { useToggle } from '../Hooks/useToggle';
+
 import FilterCheckBox from './FilterCheckBox';
 import FilterDropDown from './FilterDropDown';
-import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from './FilterModes';
+import SearchTextInput from './SearchTextInput';
+import SortByButton from './SortByButton';
+import { SortMode } from './SortModes';
 
 const ReadyFilterMode = {
     All: 'all',
@@ -33,6 +35,56 @@ const SeenLiveFilterMode = {
     All: 'all',
     Seen: 'seen',
     NotSeen: 'not_seen'
+}
+
+const filterCheckText = (newList, key, comparableString) => {
+    const needle = String(comparableString).toLowerCase();
+    return newList.filter(x =>
+        x[key] != null && String(x[key]).toLowerCase().includes(needle)
+    );
+};
+
+const filterCheckAnyText = (newList, keys, comparableString) => {
+    const needle = String(comparableString).toLowerCase();
+    return newList.filter(x =>
+        keys.some(key => x[key] != null && String(x[key]).toLowerCase().includes(needle))
+    );
+};
+
+const filterCheckTrue = (newList, key) => {
+    return newList.filter(x => x[key] === true);
+}
+
+const filterCheckFalse = (newList, key) => {
+    return newList.filter(x => x[key] === false || !x[key]);
+}
+
+const filterCheckIntMoreThanZero = (newList, key) => {
+    return newList.filter(x => x[key] !== undefined && x[key] > 0);
+}
+
+const filterCheckIntZero = (newList, key) => {
+    return newList.filter(x => x[key] === undefined || x[key] === 0);
+}
+
+const sortByText = (newList, key) => {
+    return [...newList].sort((a, b) => {
+        return a[key].toLowerCase() > b[key].toLowerCase() ? 1 : -1
+    });
+}
+
+const sortByDate = (newList, key) => {
+    return [...newList].sort(
+        (a, b) => new Date(a[key]).setHours(0, 0, 0, 0) - new Date(b[key]).setHours(0, 0, 0, 0)
+    );
+}
+
+const sortByInt = (newList, key) => {
+    return [...newList].sort((a, b) => {
+        let aCount = a[key] === undefined ? 0 : a[key];
+        let bCount = b[key] === undefined ? 0 : b[key];
+        return aCount - bCount;
+    });
 }
 
 export default function SearchSortFilter({ onSet,
@@ -84,52 +136,7 @@ export default function SearchSortFilter({ onSet,
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.SEARCHSORTFILTER });
 
-    // Aja filtteröinti + sorttaus aina kun originalList vaihtuu
-    useEffect(() => {
-        filterAndSort();
-    }, [originalList]);
-
-    useEffect(() => {
-        setSortBy(defaultSort);
-    }, [defaultSort]);
-
-    useEffect(() => {
-        filterAndSort();
-    }, [sortBy,
-        searchString, searchStringFinnishName, searchStringDescription,
-        searchStringIncredients, searchStringDay,
-        seenLiveFilterMode,
-        homeFilterMode,
-        ratedFilterMode,
-        showOnlyCore,
-        readyFilterMode]
-    );
-
-    useEffect(() => {
-        setShowAll(showAllToggle);
-    }, [showAllToggle]);
-
-    const filterAndSort = () => {
-        if (!Array.isArray(originalList) || originalList.length === 0) return;
-
-        let newList = originalList;
-        newList = searching(newList);
-        newList = filtering(newList);
-        newList = sorting(newList);
-        onSet(newList);
-    }
-
-    function isEmpty(obj) {
-        for (const prop in obj) {
-            if (Object.hasOwn(obj, prop)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    const searching = (newList) => {
+    const searching = useCallback((newList) => {
         if (searchString !== "") {
             switch (filterMode) {
                 case FilterMode.Name:
@@ -161,43 +168,16 @@ export default function SearchSortFilter({ onSet,
             newList = filterCheckText(newList, "day", searchStringDay);
         }
         return newList;
-    }
+    }, [
+        searchString,
+        filterMode,
+        searchStringFinnishName,
+        searchStringIncredients,
+        searchStringDescription,
+        searchStringDay
+    ]);
 
-    const filterCheckText = (newList, key, comparableString) => {
-        const needle = String(comparableString).toLowerCase();
-        return newList.filter(x =>
-            x[key] != null && String(x[key]).toLowerCase().includes(needle)
-        );
-    };
-
-    const filterCheckAnyText = (newList, keys, comparableString) => {
-        const needle = String(comparableString).toLowerCase();
-        return newList.filter(x =>
-            keys.some(key => x[key] != null && String(x[key]).toLowerCase().includes(needle))
-        );
-    };
-
-    const filterCheckTrue = (newList, key) => {
-        newList = newList.filter(x => x[key] === true);
-        return newList;
-    }
-
-    const filterCheckFalse = (newList, key) => {
-        newList = newList.filter(x => x[key] === false || !x[key]);
-        return newList;
-    }
-
-    const filterCheckIntMoreThanZero = (newList, key) => {
-        newList = newList.filter(x => x[key] !== undefined && x[key] > 0);
-        return newList;
-    }
-
-    const filterCheckIntZero = (newList, key) => {
-        newList = newList.filter(x => x[key] === undefined || x[key] === 0);
-        return newList;
-    }
-
-    const filtering = (newList) => {
+    const filtering = useCallback((newList) => {
 
         //have at home status
         if (homeFilterMode === HomeFilterMode.Have) {
@@ -233,32 +213,9 @@ export default function SearchSortFilter({ onSet,
         }
 
         return newList;
-    }
+    }, [homeFilterMode, seenLiveFilterMode, ratedFilterMode, showOnlyCore, readyFilterMode]);
 
-    const sortByText = (newList, key) => {
-        newList = [...newList].sort((a, b) => {
-            return a[key].toLowerCase() > b[key].toLowerCase() ? 1 : -1
-        });
-        return newList;
-    }
-
-    const sortByDate = (newList, key) => {
-        newList = [...newList].sort(
-            (a, b) => new Date(a[key]).setHours(0, 0, 0, 0) - new Date(b[key]).setHours(0, 0, 0, 0)
-        );
-        return newList;
-    }
-
-    const sortByInt = (newList, key) => {
-        newList = [...newList].sort((a, b) => {
-            let aCount = a[key] === undefined ? 0 : a[key];
-            let bCount = b[key] === undefined ? 0 : b[key];
-            return aCount - bCount;
-        });
-        return newList;
-    }
-
-    const sorting = (newList) => {
+    const sorting = useCallback((newList) => {
 
         switch (sortBy) {
             case SortMode.Name_ASC:
@@ -314,7 +271,29 @@ export default function SearchSortFilter({ onSet,
                 break;
         }
         return newList;
-    }
+    }, [sortBy]);
+
+    const filterAndSort = useCallback(() => {
+        if (!Array.isArray(originalList) || originalList.length === 0) return;
+
+        let newList = originalList;
+        newList = searching(newList);
+        newList = filtering(newList);
+        newList = sorting(newList);
+        onSet(newList);
+    }, [originalList, onSet, searching, filtering, sorting]);
+
+    useEffect(() => {
+        setSortBy(defaultSort);
+    }, [defaultSort]);
+
+    useEffect(() => {
+        filterAndSort();
+    }, [filterAndSort]);
+
+    useEffect(() => {
+        setShowAll(showAllToggle);
+    }, [showAllToggle]);
 
     return (
         <>
@@ -562,3 +541,5 @@ SearchSortFilter.propTypes = {
     //other
     onSet: PropTypes.func
 }
+
+

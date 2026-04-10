@@ -38,6 +38,7 @@
         "created": "Luotu",
         "created_by": "Luoja",
         "created_date": "Luontipvm",
+        "description": "Kuvaus",
         "failed_to_save_gear": "Varusteen tallennus epäonnistui",
         "gear_category": "Varustekategoria",
         "gear_category_clothing": "Vaate",
@@ -65,8 +66,7 @@
         "please_add_gear": "Ole hyvä ja anna varusteelle nimi",
         "please_add_gear_maintenance_instruction_name": "Ole hyvä ja anna huolto-ohjeelle nimi",
         "save_exception": "Tallennus epäonnistui",
-        "save_success": "Tallennus onnistui",
-        "view_details": "Katso lisätiedot"
+        "save_success": "Tallennus onnistui"
     },
     "bmicalculator": {
         "bmi_1": "Sairaalloinen alipaino",
@@ -157,8 +157,7 @@
         "tracks": "Radat",
         "track_city": "Kaupunki",
         "track_description": "Radan kuvaus",
-        "track_name": "Radan nimi",
-        "view_details": "Radan tietoihin"
+        "track_name": "Radan nimi"
     },
     "drinks": {
         "add_incredient_formtitle": "Ainesosan lisäys",
@@ -260,7 +259,6 @@
         "sorting": "Järjestä",
         "sum_in_minutes": "Yhteensä (minuutteja)",
         "tabheader_actions": "Toiminnot",
-        "view_details": "Katso lisätiedot",
         "workphase_estimated_length": "Arvioitu kesto minuutteina",
         "workphases_header": "Työvaiheet",
         "workphase_name": "Työvaihe"
@@ -342,7 +340,6 @@
         "title_running": "Juoksuharjoitus",
         "title_walking": "Kävely",
         "title_skiing": "Hiihto",
-        "view_details": "Katso harjoitusta",
         "view_movement_details": "Katso liikettä"
     },
     "footer": {
@@ -392,7 +389,6 @@
         "no_board_games_to_show": "Ei lautapelejä",
         "publish_year": "Julkaisuvuosi",
         "save_success": "Pelin tallennus onnistui",
-        "view_details": "Katso lisätiedot",
         "yes": "Kyllä",
         "no": "Ei"
     },
@@ -436,8 +432,7 @@
         "please_add_name": "Ole hyvä ja anna leffalle nimi",
         "publish_year": "Julkaisuvuosi",
         "save_exception": "Tallennus epäonnistui",
-        "save_success": "Tallennus onnistui",
-        "view_details": "Katso lisätiedot"
+        "save_success": "Tallennus onnistui"
     },
     "music": {
         "action": "Toiminto",
@@ -495,8 +490,7 @@
         "save_success": "Tallennus onnistui",
         "save_exception": "Tallennus epäonnistui",
         "seen_live": "Nähty livenä",
-        "sort_by_name": "Lajittele nimen mukaan",
-        "view_details": "Katso lisätiedot"
+        "sort_by_name": "Lajittele nimen mukaan"
     },
 
     "myprofile": {
@@ -537,8 +531,7 @@
         "no_people_to_show": "Ei ihmisiä",
         "please_add_name": "Ole hyvä ja anna nimi",
         "save_success": "Henkilön tallennus onnistui",
-        "title": "Ihmiset",
-        "view_details": "Katso henkilön tiedot"
+        "title": "Ihmiset"
     },
     "recipe": {
         "add_description": "Lisää kuvaus",
@@ -651,7 +644,6 @@
         "sum_in_minutes": "Yhteensä (minuutteja)",
         "tabheader_actions": "Toiminnot",
         "tasks_ready_counter": "Tehtäviä valmiina",
-        "view_details": "Katso lisätiedot",
         "workphase_estimated_length": "Arvioitu kesto minuutteina",
         "workphase_name": "Työvaihe",
         "workphases_header": "Työvaiheet",

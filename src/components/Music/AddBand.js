@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Form } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import { TRANSLATION, DB } from "../../utils/Constants";
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
+import { Row, ButtonGroup, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
+import { TRANSLATION, DB } from "../../utils/Constants";
+import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
 
 export default function AddBand({ bandID, onSave, onClose, showLabels }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [created, setCreated] = useState('');
@@ -126,3 +128,6 @@ AddBand.defaultProps = {
 AddBand.propTypes = {
     showLabels: PropTypes.bool
 }
+
+
+

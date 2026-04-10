@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+
 import { TRANSLATION, ICONS } from '../../utils/Constants';
+import PageTitle from '../Site/PageTitle';
+
 import AddImage from './AddImage';
+
 import ImageGrid from './ImageGrid';
 import Modal from './Modal';
-import PageTitle from '../Site/PageTitle';
 
 export default function ImageComponent({ objID, url }) {
 
   const [selectedImage, setSelectedImage] = useState(null);
-  const [counter, setCounter] = useState(0);
+const [counter, setCounter] = useState(0);
 
   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.UPLOAD_IMAGES });
 
@@ -26,3 +29,6 @@ export default function ImageComponent({ objID, url }) {
     </>
   )
 }
+
+
+

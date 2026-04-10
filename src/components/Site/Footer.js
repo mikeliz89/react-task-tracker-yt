@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+
 import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
 import NavButton from '../Buttons/NavButton';
 
@@ -14,3 +15,4 @@ export default function Footer() {
         </footer>
     )
 }
+

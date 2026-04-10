@@ -1,5 +1,6 @@
-import { useTranslation } from 'react-i18next';
 import { Col, Row, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
 import { TRANSLATION } from '../../utils/Constants';
 
 export default function SearchTextInput({ setSearchString, placeholderText }) {
@@ -7,7 +8,7 @@ export default function SearchTextInput({ setSearchString, placeholderText }) {
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.SEARCHSORTFILTER });
 
-    return (
+return (
         <Form.Group as={Row}>
             <Form.Label column xs={3} sm={2}>{t(placeholderText)}</Form.Label>
             <Col xs={9} sm={10}>
@@ -23,3 +24,5 @@ export default function SearchTextInput({ setSearchString, placeholderText }) {
         </Form.Group>
     )
 }
+
+

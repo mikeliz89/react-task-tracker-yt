@@ -1,16 +1,19 @@
+import { useState, useEffect } from 'react';
 import { Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
-import Button from '../Buttons/Button';
+
 import { TRANSLATION, DB } from '../../utils/Constants';
-import { MovementCategories } from './Categories';
+import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
+
+import { MovementCategories } from './Categories';
 
 export default function AddMovement({ movementID, onClose, onSave }) {
 
     //states
     const [category, setCategory] = useState();
-    const [categories, setCategories] = useState(MovementCategories);
+
+const [categories, setCategories] = useState(MovementCategories);
     const [name, setName] = useState('');
     const [created, setCreated] = useState('');
     const [createdBy, setCreatedBy] = useState('');
@@ -37,17 +40,13 @@ export default function AddMovement({ movementID, onClose, onSave }) {
     }, [movementData]);
 
     useEffect(() => {
-        sortCategoriesByName();
-    }, [ready]);
-
-    const sortCategoriesByName = () => {
-        const sortedCategories = [...categories].sort((a, b) => {
+        const sortedCategories = [...MovementCategories].sort((a, b) => {
             const aName = t(`movementcategory_${a.name}`);
             const bName = t(`movementcategory_${b.name}`);
             return aName > bName ? 1 : -1;
         });
         setCategories(sortedCategories);
-    }
+    }, [ready, t]);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -103,3 +102,5 @@ export default function AddMovement({ movementID, onClose, onSave }) {
         </>
     )
 }
+
+

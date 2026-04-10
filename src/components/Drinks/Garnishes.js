@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import Garnish from './Garnish';
 import Icon from '../Icon';
+
+import Garnish from './Garnish';
+
 import { TRANSLATION, ICONS } from '../../utils/Constants'
 
 export default function Garnishes({ garnishes, drinkID, onDelete }) {
@@ -8,7 +10,7 @@ export default function Garnishes({ garnishes, drinkID, onDelete }) {
   //translation
   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
 
-  return (
+return (
     <>
       <h5>
         <Icon name={ICONS.LEMON} />
@@ -27,3 +29,6 @@ export default function Garnishes({ garnishes, drinkID, onDelete }) {
     </>
   )
 }
+
+
+

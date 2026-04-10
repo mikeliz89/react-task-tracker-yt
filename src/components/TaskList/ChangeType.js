@@ -1,9 +1,10 @@
-import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { Row, Form, ButtonGroup } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import { ListTypesArray } from '../../utils/Enums';
+import { useTranslation } from 'react-i18next';
+
 import { TRANSLATION } from '../../utils/Constants';
+import { ListTypesArray } from '../../utils/Enums';
+import Button from '../Buttons/Button';
 
 export default function ChangeType({ taskList, onSave, onClose }) {
 
@@ -17,17 +18,13 @@ export default function ChangeType({ taskList, onSave, onClose }) {
 
     //load data
     useEffect(() => {
-        sortCategoriesByName();
-    }, []);
-
-    const sortCategoriesByName = () => {
-        const sortedCategories = [...categories].sort((a, b) => {
+        const sortedCategories = [...ListTypesArray].sort((a, b) => {
             const aName = t(`category_${a.name}`);
             const bName = t(`category_${b.name}`);
             return aName > bName ? 1 : -1;
         });
         setCategories(sortedCategories);
-    }
+    }, [t]);
 
     useEffect(() => {
         if (taskList != null) {
@@ -67,3 +64,5 @@ export default function ChangeType({ taskList, onSave, onClose }) {
         </Form>
     )
 }
+
+

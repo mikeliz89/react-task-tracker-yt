@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Form } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import { TRANSLATION, DB } from "../../utils/Constants";
-import useFetchById from '../Hooks/useFetchById';
-import { MovieFormats } from './Categories';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
+import { Row, ButtonGroup, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
+import { TRANSLATION, DB } from "../../utils/Constants";
+import Button from '../Buttons/Button';
+import useFetchById from '../Hooks/useFetchById';
+
+import { MovieFormats } from './Categories';
 
 export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
 
@@ -42,17 +44,13 @@ export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
     }, [movieData]);
 
     useEffect(() => {
-        sortFormatsByName();
-    }, []);
-
-    const sortFormatsByName = () => {
-        const sorted = [...formats].sort((a, b) => {
+        const sorted = [...MovieFormats].sort((a, b) => {
             const aName = t(`movie_format_${a.name}`);
             const bName = t(`movie_format_${b.name}`);
             return aName > bName ? 1 : -1;
         });
         setFormats(sorted);
-    }
+    }, [t]);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -153,3 +151,5 @@ AddMovie.defaultProps = {
 AddMovie.propTypes = {
     showLabels: PropTypes.bool
 }
+
+

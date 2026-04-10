@@ -1,25 +1,19 @@
 import { useTranslation } from 'react-i18next';
-import GoBackButton from '../Buttons/GoBackButton';
-import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import PageTitle from '../Site/PageTitle';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
-import AddGame from './AddGame';
+
 import { useAuth } from '../../contexts/AuthContext';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import CenterWrapper from '../Site/CenterWrapper';
-import Games from './Games';
 import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import Button from '../Buttons/Button';
-import Alert from '../Alert';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import { SortMode } from '../SearchSortFilter/SortModes';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import Counter from '../Site/Counter';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import NavButton from '../Buttons/NavButton';
 import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { SortMode } from '../SearchSortFilter/SortModes';
+import ManagePage from '../Site/ManagePage';
+
+import AddGame from './AddGame';
+import Games from './Games';
 
 export default function ManageGames() {
 
@@ -71,84 +65,75 @@ export default function ManageGames() {
         updateToFirebaseById(DB.GAMES, id, game);
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-
-            <PageTitle title={t('games_title')} iconName={ICONS.GAMEPAD} />
-
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
+    return (
+        <ManagePage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            title={t('games_title')}
+            iconName={ICONS.GAMEPAD}
+            topActions={(
+                <>
                     <NavButton to={NAVIGATION.MANAGE_GAMELISTS}
                         icon={ICONS.LIST_ALT}>
                         {t('button_game_lists')}
                     </NavButton>
-                </ButtonGroup>
-            </Row>
-
-            <Alert message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showAddGame} onHide={toggleAddGame}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_add_game')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddGame onSave={addGame} onClose={toggleAddGame} />
-                </Modal.Body>
-            </Modal>
-
-            {
-                originalGames != null && originalGames.length > 0 ? (
-                    <SearchSortFilter
-                        onSet={setGames}
-                        originalList={originalGames}
-                        //search
-                        showSearchByText={true}
-                        showSearchByDescription={true}
-                        //sort
-                        defaultSort={SortMode.Name_ASC}
-                        showSortByName={true}
-                        showSortByStarRating={true}
-                        showSortByCreatedDate={true}
-                        showSortByPublishYear={true}
-                        //filter
-                        filterMode={FilterMode.Name}
-                        showFilterHaveAtHome={true}
-                        showFilterHaveRated={true}
-                    />
-                ) : (<></>)
-            }
-
-            <CenterWrapper>
-                <Button
-                    iconName={ICONS.PLUS}
-                    color={showAddGame ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-                    text={showAddGame ? tCommon('buttons.button_close') : t('button_add_game')}
-                    onClick={toggleAddGame} />
-            </CenterWrapper>
-
-            {
-                games != null && games.length > 0 ? (
-                    <>
-                        <Counter list={games} originalList={originalGames} counter={counter} />
-                        <Games games={games} onDelete={deleteGame} onEdit={editGame} />
-                    </>
-                ) : (
-                    <>
-                        <CenterWrapper>
-                            {t('no_games_to_show')}
-                        </CenterWrapper>
-                    </>
-                )
-            }
-        </PageContentWrapper>
+                </>
+            )}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                variant: VARIANTS.SUCCESS,
+                onClose: clearMessages,
+            }}
+            modal={{
+                show: showAddGame,
+                onHide: toggleAddGame,
+                title: t('modal_header_add_game'),
+                body: <AddGame onSave={addGame} onClose={toggleAddGame} />,
+            }}
+            searchSortFilter={{
+                onSet: setGames,
+                originalList: originalGames,
+                //search
+                showSearchByText: true,
+                showSearchByDescription: true,
+                //sort
+                defaultSort: SortMode.Name_ASC,
+                showSortByName: true,
+                showSortByStarRating: true,
+                showSortByCreatedDate: true,
+                showSortByPublishYear: true,
+                //filter
+                filterMode: FilterMode.Name,
+                showFilterHaveAtHome: true,
+                showFilterHaveRated: true,
+            }}
+            addButton={{
+                show: showAddGame,
+                iconName: ICONS.PLUS,
+                openColor: COLORS.ADDBUTTON_OPEN,
+                closedColor: COLORS.ADDBUTTON_CLOSED,
+                openText: tCommon('buttons.button_close'),
+                closedText: t('button_add_game'),
+                onToggle: toggleAddGame,
+            }}
+            hasItems={games != null && games.length > 0}
+            emptyText={t('no_games_to_show')}
+        >
+            <>
+                <Games
+                    games={games}
+                    onDelete={deleteGame}
+                    onEdit={editGame}
+                    originalList={originalGames}
+                    counter={counter}
+                />
+            </>
+        </ManagePage>
     )
 }
+
+
+

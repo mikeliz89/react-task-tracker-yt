@@ -1,21 +1,25 @@
+
+
+//states
+
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+
 import { useAuth } from '../../contexts/AuthContext';
-import Button from '../Buttons/Button';
-import Alert from '../Alert';
-import PageTitle from '../Site/PageTitle';
-import CenterWrapper from '../Site/CenterWrapper';
 import { TRANSLATION, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import Alert from '../Alert';
+import Button from '../Buttons/Button';
 import { useAlert } from '../Hooks/useAlert';
+import CenterWrapper from '../Site/CenterWrapper';
+import PageTitle from '../Site/PageTitle';
 
 export default function ForgotPassword() {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.AUTH });
-
-    //states
-    const [email, setEmail] = useState('');
+const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
     const { resetPassword } = useAuth();
 
@@ -75,3 +79,6 @@ export default function ForgotPassword() {
         </div>
     )
 }
+
+
+

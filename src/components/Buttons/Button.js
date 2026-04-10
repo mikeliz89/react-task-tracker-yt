@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import Icon from '../Icon';
+
 import { COLORS } from '../../utils/Constants';
+import Icon from '../Icon';
 
 export default function Button({ disabled, color, text, onClick, className,
     secondIconName, type, iconName, iconColor, disableStyle,
@@ -57,3 +58,4 @@ Button.propTypes = {
     disableStyle: PropTypes.bool,
     onClick: PropTypes.func
 }
+

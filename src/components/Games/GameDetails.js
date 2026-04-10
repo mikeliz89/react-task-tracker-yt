@@ -1,5 +1,10 @@
-import { useState } from 'react';
+
+
+//translation
+
 import i18n from 'i18next';
+
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
@@ -8,9 +13,9 @@ import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datati
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGameConsoleNameByID } from '../../utils/ListUtils';
-
 import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
+import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
@@ -19,15 +24,12 @@ import PageTitle from '../Site/PageTitle';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddGame from './AddGame';
-import { useAlert } from '../Hooks/useAlert';
 
 export default function GameDetails() {
 
     //params
     const params = useParams();
-
-    //translation
-    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
+const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
 
     //fetch data
     const { data: game, loading } = useFetch(DB.GAMES, "", params.id);
@@ -122,3 +124,5 @@ export default function GameDetails() {
         />
     )
 }
+
+

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import Icon from '../Icon';
 
 export default function FormTitle({ iconName, title }) {
@@ -25,3 +26,5 @@ FormTitle.propTypes = {
     //icons
     iconName: PropTypes.string
 }
+
+

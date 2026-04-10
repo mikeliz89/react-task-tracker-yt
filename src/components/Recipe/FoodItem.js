@@ -1,19 +1,22 @@
-import { FaCheckSquare } from 'react-icons/fa';
+
+
+//translation
+
 import { useState } from 'react';
+
 import { useTranslation } from 'react-i18next';
-import AddFoodItem from './AddFoodItem';
+
+import { COLORS, ICONS, NAVIGATION, TRANSLATION } from '../../utils/Constants';
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION } from '../../utils/Constants';
-import RightWrapper from '../Site/RightWrapper';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
+import CheckButton from '../Buttons/CheckButton';
+import ListRow from '../Site/ListRow';
+
+import AddFoodItem from './AddFoodItem';
 
 export default function FoodItem({ foodItem, onDelete, onEdit }) {
 
     //states
     const [editable, setEditable] = useState(false);
-
-    //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
 
     const markHaveAtHome = () => {
@@ -32,23 +35,18 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
     }
 
     return (
-
-        <div className='listContainer'>
-            <h5>
-                <span>
-                    {foodItem.name}
-                </span>
-                <RightWrapper>
-                    <EditButton
-                        editable={editable}
-                        setEditable={setEditable}
-                    />
-                    <DeleteButton
-                        onDelete={onDelete}
-                        id={foodItem.id}
-                    />
-                </RightWrapper>
-            </h5>
+        <ListRow
+            headerTitle={foodItem.name}
+            headerTitleTo={NAVIGATION.MANAGE_FOODITEMS}
+            headerTitleIcon={ICONS.CARROT}
+            headerTitleIconColor={COLORS.GRAY}
+            showEditButton={true}
+            editable={editable}
+            setEditable={setEditable}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={foodItem.id}
+        >
             <p>{t('fooditem_calories')}: {foodItem.calories}</p>
             <p>{t('fooditem_category')}: {
                 t('fooditem_category_' + getFoodItemCategoryNameByID(foodItem.category))
@@ -59,27 +57,17 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
                     onAddFoodItem={editFoodItem}
                     foodItemID={foodItem.id} />
             }
-            <p>
-                {
-                    foodItem.haveAtHome &&
-                    <span
-                        onClick={() => { markNotHaveAtHome() }}
-                        className='btn btn-success' style={{ margin: '5px' }}>
-                        {t('fooditem_have_at_home')}&nbsp;
-                        <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
-                    </span>
-                }
-                {
-                    !foodItem.haveAtHome &&
-                    <span
-                        onClick={() => { markHaveAtHome() }}
-                        className='btn btn-danger' style={{ margin: '5px' }}>
-                        {t('fooditem_not_have_at_home')}&nbsp;
-                        <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
-                    </span>
-                }
-                {/* <Link className='btn btn-primary' to={`/recipe/${recipe.id}`}>{t('view_details')}</Link> */}
-            </p>
-        </div>
+            <CheckButton
+                checked={foodItem.haveAtHome}
+                checkedText={t('fooditem_have_at_home')}
+                uncheckedText={t('fooditem_not_have_at_home')}
+                onCheck={markHaveAtHome}
+                onUncheck={markNotHaveAtHome}
+                style={{ margin: '5px' }}
+            />
+        </ListRow>
     )
 }
+
+
+

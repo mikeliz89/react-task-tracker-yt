@@ -1,11 +1,13 @@
-import GoBackButton from '../Buttons/GoBackButton';
-import Button from '../Buttons/Button';
-import Icon from '../Icon';
-import PageTitle from './PageTitle';
-import PageContentWrapper from './PageContentWrapper';
 import { Row, Col, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+
 import { ICONS, COLORS, TRANSLATION } from '../../utils/Constants';
+import Button from '../Buttons/Button';
+import GoBackButton from '../Buttons/GoBackButton';
+import Icon from '../Icon';
+
+import PageContentWrapper from './PageContentWrapper';
+import PageTitle from './PageTitle';
 
 export default function DetailsPage({
     loading,
@@ -146,3 +148,5 @@ export default function DetailsPage({
         </PageContentWrapper>
     );
 }
+
+

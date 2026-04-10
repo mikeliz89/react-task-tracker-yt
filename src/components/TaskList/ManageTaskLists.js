@@ -1,26 +1,21 @@
-import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Row, ButtonGroup, Modal } from 'react-bootstrap';
+
 import AddTaskList from '../../components/TaskList/AddTaskList';
 import TaskLists from '../../components/TaskList/TaskLists';
-import GoBackButton from '../Buttons/GoBackButton';
-import Button from '../Buttons/Button';
-import { getPageTitleContent } from '../../utils/ListUtils';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { COLORS, TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { useAuth } from '../../contexts/AuthContext';
-import PageTitle from '../Site/PageTitle';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import { ListTypes } from '../../utils/Enums';
-import PropTypes from 'prop-types';
-import CenterWrapper from '../Site/CenterWrapper';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import Counter from '../Site/Counter';
 import { pushToFirebase, removeFromFirebaseById, removeFromFirebaseChild } from '../../datatier/datatier';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
+import { COLORS, TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
+import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
+import { ListTypes } from '../../utils/Enums';
+import { getPageTitleContent } from '../../utils/ListUtils';
+import Button from '../Buttons/Button';
 import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import ManagePage from '../Site/ManagePage';
 
 export default function ManageTaskLists({ listType = ListTypes.None }) {
 
@@ -127,81 +122,73 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
     return t(contentKey);
   }
 
-  return loading ? (
-    <h3>{tCommon("loading")}</h3>
-  ) : (
-    <PageContentWrapper>
-
-      <PageTitle title={getPageTitle(listType)} iconName={ICONS.LIST_ALT} />
-
-      <Row>
-        <ButtonGroup>
-          <GoBackButton />
+  return (
+    <ManagePage
+      loading={loading}
+      loadingText={tCommon("loading")}
+      title={getPageTitle(listType)}
+      iconName={ICONS.LIST_ALT}
+      topActions={(
+        <>
           <Button text={t('button_goto_tasklist_archive')}
             color={COLORS.BUTTON_GRAY}
             onClick={() => gotoTaskListArchive()}
           />
-        </ButtonGroup>
-      </Row>
-
-      {
-        originalTaskLists != null && originalTaskLists.length > 0 ? (
-          <SearchSortFilter
-            onSet={setTaskLists}
-            originalList={originalTaskLists}
-            //search
-            showSearchByText={true}
-            showSearchByDescription={true}
-            //sort
-            showSortByTitle={true}
-            showSortByCreatedDate={true}
-            //filter
-            filterMode={FilterMode.Title}
-          />
-        ) : (<></>)
+        </>
+      )}
+      searchSortFilter={{
+        onSet: setTaskLists,
+        originalList: originalTaskLists,
+        //search
+        showSearchByText: true,
+        showSearchByDescription: true,
+        //sort
+        showSortByTitle: true,
+        showSortByCreatedDate: true,
+        //filter
+        filterMode: FilterMode.Title,
+      }}
+      centerActions={
+        <>
+          <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')}
+            iconName={ICONS.COPY} />
+          &nbsp;
+        </>
       }
-
-      <CenterWrapper>
-        <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')}
-          iconName={ICONS.COPY} />
-        &nbsp;
-        <Button
-          iconName={ICONS.PLUS}
-          color={showAddTaskList ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-          text={showAddTaskList ? tCommon('buttons.button_close') : t('button_add_list')}
-          onClick={toggleAddTaskList} />
-      </CenterWrapper>
-
-      <Modal show={showAddTaskList} onHide={toggleAddTaskList}>
-        <Modal.Header closeButton>
-          <Modal.Title>{t('modal_header_add_list')}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+      addButton={{
+        show: showAddTaskList,
+        iconName: ICONS.PLUS,
+        openColor: COLORS.ADDBUTTON_OPEN,
+        closedColor: COLORS.ADDBUTTON_CLOSED,
+        openText: tCommon('buttons.button_close'),
+        closedText: t('button_add_list'),
+        onToggle: toggleAddTaskList,
+      }}
+      modal={{
+        show: showAddTaskList,
+        onHide: toggleAddTaskList,
+        title: t('modal_header_add_list'),
+        body: (
           <AddTaskList
             onClose={toggleAddTaskList}
             onSave={addTaskList} showLabels={true}
             autoFocusTitle={true}
             defaultTitle={getDefaultTitle(listType)} />
-        </Modal.Body>
-      </Modal>
-
-      {taskLists != null && taskLists.length > 0 ? (
-        <>
-          <Counter list={taskLists} originalList={originalTaskLists} counter={counter} text={getCounterText(listType)} />
-          <TaskLists
-            taskLists={taskLists}
-            onDelete={deleteTaskList}
-          />
-        </>
-      ) : (
-        <>
-          <CenterWrapper>
-            {t('no_task_lists_to_show')}
-          </CenterWrapper>
-        </>
-      )
-      }
-    </PageContentWrapper>
+        ),
+      }}
+      hasItems={taskLists != null && taskLists.length > 0}
+      emptyText={t('no_task_lists_to_show')}
+    >
+      <>
+        <TaskLists
+          taskLists={taskLists}
+          originalList={originalTaskLists}
+          counter={counter}
+          counterText={getCounterText(listType)}
+          onDelete={deleteTaskList}
+        />
+      </>
+    </ManagePage>
   )
 }
 
@@ -213,3 +200,5 @@ ManageTaskLists.defaultProps = {
 ManageTaskLists.propTypes = {
   listType: PropTypes.any
 }
+
+

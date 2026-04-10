@@ -1,9 +1,12 @@
+import Counter from '../Site/Counter';
+
 import DrinkingProduct from './DrinkingProduct';
 
-export default function DrinkingProducts({ drinkingProducts, onDelete, onEdit }) {
+export default function DrinkingProducts({ drinkingProducts, originalList, counter, onDelete, onEdit }) {
 
     return (
         <>
+            <Counter list={drinkingProducts} originalList={originalList} counter={counter} />
             {drinkingProducts
                 ? drinkingProducts.map((product, index) =>
                     <DrinkingProduct
@@ -16,3 +19,4 @@ export default function DrinkingProducts({ drinkingProducts, onDelete, onEdit })
         </>
     )
 }
+

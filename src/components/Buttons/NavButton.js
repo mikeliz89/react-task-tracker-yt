@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
-import Icon from '../Icon';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import { COLORS } from '../../utils/Constants';
+import Icon from '../Icon';
 
 export default function NavButton({ to, icon, iconColor = COLORS.WHITE, color = COLORS.BLACK, children, className = 'btn btn-primary', ...props }) {
   return (
@@ -19,3 +20,5 @@ NavButton.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
 };
+
+

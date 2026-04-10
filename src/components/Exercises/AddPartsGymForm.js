@@ -1,8 +1,9 @@
-import Button from '../Buttons/Button';
-import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from "react";
 import { Form, Row, Col, ButtonGroup } from "react-bootstrap";
+import { useTranslation } from 'react-i18next';
+
 import { TRANSLATION, DB } from '../../utils/Constants';
+import Button from '../Buttons/Button';
 import useFetchByIdAndSubId from '../Hooks/useFetchByIdAndSubId';
 
 export default function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose }) {
@@ -99,3 +100,5 @@ export default function AddPartsGymForm({ exerciseID, gymPartID, onSave, onClose
         </Form>
     )
 }
+
+

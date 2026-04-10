@@ -1,5 +1,6 @@
-import StarRatings from "./StarRatings";
 import PageContentWrapper from "../Site/PageContentWrapper";
+
+import StarRatings from "./StarRatings";
 
 export default function Demo() {
   return (
@@ -8,3 +9,5 @@ export default function Demo() {
     </PageContentWrapper>
   )
 }
+
+

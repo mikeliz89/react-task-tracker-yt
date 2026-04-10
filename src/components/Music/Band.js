@@ -1,22 +1,24 @@
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import StarRating from '../StarRating/StarRating';
-import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
-import RightWrapper from '../Site/RightWrapper';
+
+
+
+//states
+
 import { useState } from 'react';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+
+import { useTranslation } from 'react-i18next';
+
 import { updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import ListRow from '../Site/ListRow';
+
 import AddBand from './AddBand';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
 
 export default function Band({ band, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
-
-    //states
-    const [editable, setEditable] = useState(false);
+const [editable, setEditable] = useState(false);
 
     const updateBand = (updateBandID, object) => {
         object["modified"] = getCurrentDateAsJson();
@@ -24,34 +26,25 @@ export default function Band({ band, onDelete, onEdit }) {
         setEditable(false);
     }
 
+    const bandTitle = `${band.name} ${band.formingYear > 0 ? `(${band.formingYear})` : ''}`.trim();
+
     return (
-        <div className='listContainer'>
-            <h5>
-                <span>
-                    {band.name} {band.formingYear > 0 ? '(' + band.formingYear + ')' : ''}
-                </span>
-                <RightWrapper>
-                    <EditButton
-                        editable={editable}
-                        setEditable={setEditable}
-                    />
-                    <DeleteButton
-                        onDelete={onDelete}
-                        id={band.id}
-                    />
-                </RightWrapper>
-            </h5>
+        <ListRow
+            headerTitle={bandTitle}
+            headerTitleTo={`${NAVIGATION.MUSIC_BAND}/${band.id}`}
+            showEditButton={true}
+            editable={editable}
+            setEditable={setEditable}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={band.id}
+            starCount={band.stars}
+        >
             {!editable &&
                 <p>
                     {band.description}
                 </p>
             }
-            {!editable &&
-                <p>
-                    <Link className='btn btn-primary' to={`${NAVIGATION.MUSIC_BAND}/${band.id}`}>{t('view_details')}</Link>
-                </p>
-            }
-            <StarRating starCount={band.stars} />
 
             {
                 editable && <AddBand
@@ -60,6 +53,9 @@ export default function Band({ band, onDelete, onEdit }) {
                     onSave={updateBand}
                     showLabels={false} />
             }
-        </div>
+        </ListRow>
     )
 }
+
+
+

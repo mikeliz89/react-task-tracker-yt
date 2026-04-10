@@ -1,7 +1,8 @@
-import Icon from '../Icon';
-import { BUTTON_CLASSNAMES, COLORS, ICONS, TRANSLATION } from '../../utils/Constants';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+
+import { BUTTON_CLASSNAMES, COLORS, ICONS, TRANSLATION } from '../../utils/Constants';
+import Icon from '../Icon';
 
 export default function DeleteButton({
     confirmMessage,
@@ -57,3 +58,6 @@ DeleteButton.propTypes = {
     fontSize: PropTypes.string,
     skipConfirm: PropTypes.bool,
 };
+
+
+

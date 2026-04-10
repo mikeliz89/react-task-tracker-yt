@@ -1,8 +1,14 @@
+import Counter from '../Site/Counter';
 import TaskList from '../TaskList/TaskList';
 
-export default function TaskLists({ taskLists, archived, onDelete }) {
+export default function TaskLists({ taskLists, archived, onDelete, originalList, counter, counterText }) {
   return (
     <>
+      {
+        originalList != null && counter != null ? (
+          <Counter list={taskLists} originalList={originalList} counter={counter} text={counterText} />
+        ) : (<></>)
+      }
       {taskLists
         ? taskLists.map((taskList, index) =>
           <TaskList
@@ -14,3 +20,6 @@ export default function TaskLists({ taskLists, archived, onDelete }) {
     </>
   )
 }
+
+
+

@@ -1,25 +1,19 @@
 import { useTranslation } from 'react-i18next';
-import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-import Button from '../Buttons/Button';
-import GoBackButton from '../Buttons/GoBackButton';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import PageTitle from '../Site/PageTitle';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import CenterWrapper from '../Site/CenterWrapper';
-import Bands from './Bands';
-import Counter from '../Site/Counter';
-import Alert from '../Alert';
-import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import AddBand from './AddBand';
+
 import { useAuth } from '../../contexts/AuthContext';
-import { SortMode } from '../SearchSortFilter/SortModes';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import NavButton from '../Buttons/NavButton';
 import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import { SortMode } from '../SearchSortFilter/SortModes';
+import ManagePage from '../Site/ManagePage';
+
+import AddBand from './AddBand';
+import Bands from './Bands';
 
 export default function ManageMusicBands() {
 
@@ -70,84 +64,74 @@ export default function ManageMusicBands() {
         updateToFirebaseById(DB.MUSIC_BANDS, id, band);
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-
-            <PageTitle title={t('music_bands_title')} iconName={ICONS.MUSIC} />
-
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
+    return (
+        <ManagePage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            title={t('music_bands_title')}
+            iconName={ICONS.MUSIC}
+            topActions={(
+                <>
                     <NavButton to={NAVIGATION.MANAGE_MUSICLISTS}
                         icon={ICONS.LIST_ALT}>
                         {t('button_music_lists')}
                     </NavButton>
-                </ButtonGroup>
-            </Row>
-
-            <Alert message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                variant={VARIANTS.SUCCESS}
-                onClose={clearMessages}
-            />
-
-            <Modal show={showAddBand} onHide={toggleAddBand}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_add_band')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddBand onSave={addBand} onClose={toggleAddBand} />
-                </Modal.Body>
-            </Modal>
-
-            {
-                originalBands != null && originalBands.length > 0 ? (
-                    <SearchSortFilter
-                        onSet={setBands}
-                        originalList={originalBands}
-                        //search
-                        showSearchByText={true}
-                        showSearchByDescription={true}
-                        //sort
-                        defaultSort={SortMode.Name_ASC}
-                        showSortByName={true}
-                        showSortByStarRating={true}
-                        showSortByCreatedDate={true}
-                        //filter
-                        filterMode={FilterMode.Name}
-                        showFilterSeenLive={true}
-                        showFilterHaveRated={true}
-                    />
-                ) : (<></>)
-            }
-
-            <CenterWrapper>
-                <Button
-                    iconName={ICONS.PLUS}
-                    color={showAddBand ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-                    text={showAddBand ? tCommon('buttons.button_close') : t('button_add_music_band')}
-                    onClick={toggleAddBand} />
-            </CenterWrapper>
-
-            {
-                bands != null && bands.length > 0 ? (
-                    <>
-                        <Counter list={bands} originalList={originalBands} counter={counter} />
-                        <Bands bands={bands} onDelete={deleteBand} onEdit={editBand} />
-                    </>
-                ) : (
-                    <>
-                        <CenterWrapper>
-                            {t('no_bands_to_show')}
-                        </CenterWrapper>
-                    </>
-                )
-            }
-
-        </PageContentWrapper>
+                </>
+            )}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                variant: VARIANTS.SUCCESS,
+                onClose: clearMessages,
+            }}
+            modal={{
+                show: showAddBand,
+                onHide: toggleAddBand,
+                title: t('modal_header_add_band'),
+                body: <AddBand onSave={addBand} onClose={toggleAddBand} />,
+            }}
+            searchSortFilter={{
+                onSet: setBands,
+                originalList: originalBands,
+                //search
+                showSearchByText: true,
+                showSearchByDescription: true,
+                //sort
+                defaultSort: SortMode.Name_ASC,
+                showSortByName: true,
+                showSortByStarRating: true,
+                showSortByCreatedDate: true,
+                //filter
+                filterMode: FilterMode.Name,
+                showFilterSeenLive: true,
+                showFilterHaveRated: true,
+            }}
+            addButton={{
+                show: showAddBand,
+                iconName: ICONS.PLUS,
+                openColor: COLORS.ADDBUTTON_OPEN,
+                closedColor: COLORS.ADDBUTTON_CLOSED,
+                openText: tCommon('buttons.button_close'),
+                closedText: t('button_add_music_band'),
+                onToggle: toggleAddBand,
+            }}
+            hasItems={bands != null && bands.length > 0}
+            emptyText={t('no_bands_to_show')}
+        >
+            <>
+                <Bands
+                    bands={bands}
+                    onDelete={deleteBand}
+                    onEdit={editBand}
+                    originalList={originalBands}
+                    counter={counter}
+                />
+            </>
+        </ManagePage>
     )
 }
+
+
+

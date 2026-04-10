@@ -1,20 +1,25 @@
+
+
+//user
+
+
 import PropTypes from 'prop-types';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { NAVIGATION, ICONS } from '../../utils/Constants';
-import RightWrapper from './RightWrapper';
-import Button from '../Buttons/Button';
-import LeftWrapper from './LeftWrapper';
 import { Col, Row } from 'react-bootstrap';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { NAVIGATION, ICONS } from '../../utils/Constants';
+import Button from '../Buttons/Button';
+
+import LeftWrapper from './LeftWrapper';
 import Logo from './Logo';
+import RightWrapper from './RightWrapper';
 
 export default function Header() {
 
     //navigation
     const navigate = useNavigate();
-
-    //user
-    const { currentUser } = useAuth();
+const { currentUser } = useAuth();
 
     //location
     const location = useLocation();
@@ -59,3 +64,6 @@ Header.defaultProps = {
 Header.propTypes = {
     title: PropTypes.string.isRequired
 }
+
+
+

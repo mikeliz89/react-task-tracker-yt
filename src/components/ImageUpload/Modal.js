@@ -6,7 +6,8 @@ export default function Modal({ selectedImage, setSelectedImage }) {
         /* when clicking image itself, do not close modal */
         if (e.target.classList.contains('backdrop')) {
             setSelectedImage(null);
-        }
+
+}
     }
     return (
         <div className='backdrop' onClick={handleClick}>
@@ -14,3 +15,5 @@ export default function Modal({ selectedImage, setSelectedImage }) {
         </div>
     )
 }
+
+

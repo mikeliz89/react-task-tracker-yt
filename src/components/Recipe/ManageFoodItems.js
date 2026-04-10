@@ -1,23 +1,17 @@
-import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import GoBackButton from '../Buttons/GoBackButton';
-import Button from '../Buttons/Button';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, COLORS, DB, ICONS } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { useAlert } from '../Hooks/useAlert';
+import useFetch from '../Hooks/useFetch';
+import { useToggle } from '../Hooks/useToggle';
+import { FilterMode } from '../SearchSortFilter/FilterModes';
+import ManagePage from '../Site/ManagePage';
+
 import AddFoodItem from './AddFoodItem';
 import FoodItems from './FoodItems';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, COLORS, DB, ICONS } from '../../utils/Constants';
-import { useAuth } from '../../contexts/AuthContext';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
-import PageTitle from '../Site/PageTitle';
-import Alert from '../Alert';
-import PageContentWrapper from '../Site/PageContentWrapper';
-import Counter from '../Site/Counter';
-import CenterWrapper from '../Site/CenterWrapper';
-import { pushToFirebase, removeFromFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
-import { FilterMode } from '../SearchSortFilter/FilterModes';
-import { useToggle } from '../Hooks/useToggle';
-import useFetch from '../Hooks/useFetch';
-import { useAlert } from '../Hooks/useAlert';
 
 export default function ManageFoodItems() {
 
@@ -67,77 +61,61 @@ export default function ManageFoodItems() {
         updateToFirebaseById(DB.FOODITEMS, id, foodItem);
     }
 
-    return loading ? (
-        <h3>{tCommon("loading")}</h3>
-    ) : (
-        <PageContentWrapper>
-
-            <PageTitle title={t('manage_fooditems_title')} iconName={ICONS.CARROT} />
-
-            <Row>
-                <ButtonGroup>
-                    <GoBackButton />
-                </ButtonGroup>
-            </Row>
-
-            <Alert
-                message={message}
-                showMessage={showMessage}
-                error={error}
-                showError={showError}
-                onClose={clearMessages}
-            />
-            <Modal show={showAddFoodItem} onHide={toggleAddFoodItem}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_add_food_item')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+    return (
+        <ManagePage
+            loading={loading}
+            loadingText={tCommon("loading")}
+            title={t('manage_fooditems_title')}
+            iconName={ICONS.CARROT}
+            alert={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages,
+            }}
+            modal={{
+                show: showAddFoodItem,
+                onHide: toggleAddFoodItem,
+                title: t('modal_header_add_food_item'),
+                body: (
                     <AddFoodItem onClose={toggleAddFoodItem}
                         onAddFoodItem={addFoodItem} />
-                </Modal.Body>
-            </Modal>
-
-            {
-                originalFoodItems != null && originalFoodItems.length > 0 ? (
-                    <SearchSortFilter
-                        onSet={setFoodItems}
-                        originalList={originalFoodItems}
-                        //search
-                        showSearchByText={true}
-                        //sort
-                        showSortByName={true}
-                        showSortByCreatedDate={true}
-                        //filter
-                        filterMode={FilterMode.Name}
-                        showFilterHaveAtHome={true}
-                    />
-                ) : (<></>)
-            }
-
-            <CenterWrapper>
-                <Button
-                    iconName={ICONS.PLUS}
-                    color={showAddFoodItem ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-                    text={showAddFoodItem ? tCommon('buttons.button_close') : t('button_add_fooditem')}
-                    onClick={toggleAddFoodItem} />
-            </CenterWrapper>
-
-            {
-                foodItems != null && foodItems.length > 0 ? (
-                    <>
-                        <Counter list={foodItems} originalList={originalFoodItems} counter={counter} />
-                        <FoodItems foodItems={foodItems}
-                            onDelete={deleteFoodItem}
-                            onEdit={editFoodItem} />
-                    </>
-                ) : (
-                    <>
-                        <CenterWrapper>
-                            {t('no_fooditems_to_show')}
-                        </CenterWrapper>
-                    </>
-                )
-            }
-        </PageContentWrapper>
+                ),
+            }}
+            searchSortFilter={{
+                onSet: setFoodItems,
+                originalList: originalFoodItems,
+                //search
+                showSearchByText: true,
+                //sort
+                showSortByName: true,
+                showSortByCreatedDate: true,
+                //filter
+                filterMode: FilterMode.Name,
+                showFilterHaveAtHome: true,
+            }}
+            addButton={{
+                show: showAddFoodItem,
+                iconName: ICONS.PLUS,
+                openColor: COLORS.ADDBUTTON_OPEN,
+                closedColor: COLORS.ADDBUTTON_CLOSED,
+                openText: tCommon('buttons.button_close'),
+                closedText: t('button_add_fooditem'),
+                onToggle: toggleAddFoodItem,
+            }}
+            hasItems={foodItems != null && foodItems.length > 0}
+            emptyText={t('no_fooditems_to_show')}
+        >
+            <>
+                <FoodItems foodItems={foodItems}
+                    originalList={originalFoodItems}
+                    counter={counter}
+                    onDelete={deleteFoodItem}
+                    onEdit={editFoodItem} />
+            </>
+        </ManagePage>
     )
 }
+
+

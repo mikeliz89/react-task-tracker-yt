@@ -1,12 +1,14 @@
 import { useTranslation } from 'react-i18next';
-import Button from '../Buttons/Button';
+
 import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
+import Button from '../Buttons/Button';
 
 export default function TrackHole({ hole, decreasePar, increasePar, deleteHole }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DISC_GOLF });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+
+const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     return (
         <>
@@ -44,3 +46,5 @@ export default function TrackHole({ hole, decreasePar, increasePar, deleteHole }
         </>
     )
 }
+
+

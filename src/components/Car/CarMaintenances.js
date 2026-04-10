@@ -1,8 +1,9 @@
-
 import { useTranslation } from "react-i18next";
-import PageTitle from '../Site/PageTitle';
-import CarMaintenance from "./CarMaintenance";
+
 import { TRANSLATION, ICONS } from '../../utils/Constants';
+import PageTitle from '../Site/PageTitle';
+
+import CarMaintenance from "./CarMaintenance";
 
 export default function CarMaintenances({ carMaintenances, onDelete }) {
 
@@ -34,3 +35,5 @@ export default function CarMaintenances({ carMaintenances, onDelete }) {
         </>
     )
 }
+
+

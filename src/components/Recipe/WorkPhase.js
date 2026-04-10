@@ -1,20 +1,25 @@
-import { useTranslation } from 'react-i18next';
+
+
+//states
+
+
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import AddWorkPhase from './AddWorkPhase';
-import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import RightWrapper from '../Site/RightWrapper';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
+import RightWrapper from '../Site/RightWrapper';
+
+import AddWorkPhase from './AddWorkPhase';
 
 export default function WorkPhase({ dbUrl, translation, translationKeyPrefix, workPhase, recipeID, onDelete }) {
 
     //translation
     const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
-
-    //states
-    const [editable, setEditable] = useState(false);
+const [editable, setEditable] = useState(false);
 
     const updateWorkPhase = (recipeID, newWorkPhase) => {
         updateToFirebaseByIdAndSubId(dbUrl, recipeID, workPhase.id, newWorkPhase);
@@ -72,3 +77,5 @@ WorkPhase.propTypes = {
     recipeID: PropTypes.string,
     onDelete: PropTypes.func
 }
+
+

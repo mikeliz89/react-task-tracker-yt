@@ -1,32 +1,28 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import StarRating from '../StarRating/StarRating';
-import { getIconNameByCategory } from './Categories';
-import Icon from '../Icon';
+
+import { TRANSLATION, NAVIGATION, COLORS } from '../../utils/Constants';
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
-import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
-import DeleteButton from '../Buttons/DeleteButton';
+import ListRow from '../Site/ListRow';
+
+import { getIconNameByCategory } from './Categories';
 
 export default function Exercise({ exercise, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
+    const exerciseTitle = `${exercise.date} ${exercise.time}`;
 
     return (
-        <div className='listContainer'>
-            <h5>
-                <span>
-                    <Icon name={getIconNameByCategory(exercise.category)} />
-                    {exercise.date + ' ' + exercise.time
-                        // TODO: Korjaa formaatit kieleistyksien mukaan
-                        //  getDateAndTimeAsDateTimeString(exercise.date, exercise.time, i18n.language)
-                    }
-                </span>
-                <DeleteButton
-                    onDelete={onDelete}
-                    id={exercise.id}
-                />
-            </h5>
+        <ListRow
+            headerTitle={exerciseTitle}
+            headerTitleTo={`${NAVIGATION.EXERCISE}/${exercise.id}`}
+            headerTitleIcon={getIconNameByCategory(exercise.category)}
+            headerTitleIconColor={COLORS.GRAY}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={exercise.id}
+            starCount={exercise.stars}
+        >
             <p>
                 {exercise.category > 0 ?
                     (<span> {
@@ -37,9 +33,10 @@ export default function Exercise({ exercise, onDelete }) {
                 {exercise.description}
             </p>
             <p>
-                <Link className='btn btn-primary' to={`${NAVIGATION.EXERCISE}/${exercise.id}`}>{t('view_details')}</Link>
             </p>
-            <StarRating starCount={exercise.stars} />
-        </div>
+        </ListRow>
     )
 }
+
+
+

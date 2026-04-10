@@ -1,16 +1,21 @@
-import Comments from "./Comments";
+
+
+//states
+
 import { useState } from "react";
-import PageTitle from '../Site/PageTitle';
 import { useTranslation } from "react-i18next";
+
+
 import { TRANSLATION, COLORS, ICONS } from '../../utils/Constants';
+import PageTitle from '../Site/PageTitle';
+
+import Comments from "./Comments";
 
 export default function CommentComponent({ objID, url, onSave }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.COMMENTS });
-
-    //states
-    const [counter, setCounter] = useState(0);
+const [counter, setCounter] = useState(0);
 
     return (
         <div className="content-panel">
@@ -26,3 +31,6 @@ export default function CommentComponent({ objID, url, onSave }) {
         </div>
     )
 }
+
+
+

@@ -1,7 +1,9 @@
-import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { COLORS } from '../utils/Constants';
 //https://fontawesome.com/v5/docs/web/use-with/react
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
+
+import { COLORS } from '../utils/Constants';
 
 export default function Icon({ name, color, className, onClick, fontSize, cursor, style }) {
     return (
@@ -31,3 +33,4 @@ Icon.propTypes = {
     fontSize: PropTypes.string,
     style: PropTypes.object
 }
+

@@ -1,9 +1,15 @@
-import { useNavigate } from 'react-router-dom';
+
+
+//navigate
+
 import { useTranslation } from 'react-i18next';
+
+import { useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../../contexts/AuthContext';
-import Button from '../Buttons/Button';
-import Alert from '../Alert';
 import { TRANSLATION, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import Alert from '../Alert';
+import Button from '../Buttons/Button';
 import { useAlert } from '../Hooks/useAlert';
 
 export default function Logout() {
@@ -11,8 +17,7 @@ export default function Logout() {
     //auth
     const { logout } = useAuth();
 
-    //navigate
-    const navigate = useNavigate();
+const navigate = useNavigate();
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.AUTH });
@@ -59,3 +64,6 @@ export default function Logout() {
         </>
     )
 }
+
+
+

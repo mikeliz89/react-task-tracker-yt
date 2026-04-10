@@ -1,10 +1,11 @@
-import { Col, Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import { Col, Row, Form, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import Button from '../Buttons/Button';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import { TRANSLATION, DB } from '../../utils/Constants';
+
 import { updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import Button from '../Buttons/Button';
 
 export default function EditExercise({ exerciseID, exercise, onClose }) {
 
@@ -13,7 +14,7 @@ export default function EditExercise({ exerciseID, exercise, onClose }) {
   const [endDate, setEndDate] = useState(''); //todo: laita oletuksena nykypvm
   const [time, setTime] = useState(''); //todo: laita oletuksena nykyinen kellonaika
   const [endTime, setEndTime] = useState('');
-  const [created, setCreated] = useState('');
+const [created, setCreated] = useState('');
   const [createdBy, setCreatedBy] = useState('');
   const [category, setCategory] = useState('');
   const [setError] = useState('');
@@ -35,7 +36,7 @@ export default function EditExercise({ exerciseID, exercise, onClose }) {
       setStars(exercise.stars);
       setTime(exercise.time);
     }
-  }, []);
+  }, [exercise]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -90,3 +91,5 @@ export default function EditExercise({ exerciseID, exercise, onClose }) {
     </Form>
   )
 }
+
+

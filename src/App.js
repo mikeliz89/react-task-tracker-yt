@@ -1,122 +1,43 @@
 //App
-import './App.css';
-//react
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-//Site
-import Header from './components/Site/Header';
-import Footer from './components/Site/Footer';
-//About
-import About from './components/Site/About';
+
+
+
 //Dashboard
-import Dashboard from './components/Dashboard/Dashboard';
-//Auth
-import Signup from './components/Auth/Signup';
-import Login from './components/Auth/Login';
-import ForgotPassword from './components/Auth/ForgotPassword';
 //TaskListArchive
-import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive';
-import ArchivedTaskListDetails from './components/TaskListsArchive/ArchivedTaskListDetails';
 //TaskList
-import ManageTaskLists from './components/TaskList/ManageTaskLists';
-import TaskListDetails from './components/TaskList/TaskListDetails';
 //Task
-import TaskDetails from './components/Task/TaskDetails';
-//Exercises
-import ManageExercises from './components/Exercises/ManageExercises';
-import CreateExercise from './components/Exercises/CreateExercise';
-import AddMovement from './components/Exercises/AddMovement';
-import ExerciseDetails from './components/Exercises/ExerciseDetails';
-import ManageMovements from './components/Exercises/ManageMovements';
-import MovementDetails from './components/Exercises/MovementDetails';
-import ManageExerciseLists from './components/Exercises/ManageExerciseLists';
 //Recipe
-import ManageFoodItems from './components/Recipe/ManageFoodItems';
-import ManageRecipes from './components/Recipe/ManageRecipes';
-import RecipeDetails from './components/Recipe/RecipeDetails';
-import ManageRecipeLists from './components/Recipe/ManageRecipeLists';
 //BMICalculator
-import BmiCalculator from './components/BmiCalculator/BmiCalculator';
-import WeightHistory from './components/BmiCalculator/WeightHistory';
 //MyProfile
-import ManageMyProfile from './components/MyProfile/ManageMyProfile';
-//Drinks
-import ManageDrinks from './components/Drinks/ManageDrinks';
-import DrinkDetails from './components/Drinks/DrinkDetails';
-import DrinkingProductDetails from './components/Drinks/DrinkingProductDetails';
-import ManageDrinkingProducts from './components/Drinks/ManageDrinkingProducts';
-import ManageDrinkLists from './components/Drinks/ManageDrinkLists';
 //Backpacking
-import ManageBackPacking from './components/BackPacking/ManageBackPacking';
-import ManageGear from './components/BackPacking/ManageGear';
-import ManageBackPackingLists from './components/BackPacking/ManageBackPackingLists';
-import GearDetails from './components/BackPacking/GearDetails';
-import ManageGearMaintenance from './components/BackPacking/ManageGearMaintenance';
-//other components
-import PrivateRoute from './components/PrivateRoute';
-import Demo from './components/Demo/Demo';
-//Contexts
-import { AuthProvider } from './contexts/AuthContext';
 //Language
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import HttpApi from 'i18next-http-backend';
-import { Languages } from './Languages';
-import 'flag-icon-css/css/flag-icons.min.css';
 //Bootstrap
-import { Container } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 //Car
-import ManageCarLists from './components/Car/ManageCarLists';
-import Car from './components/Car/Car';
 //Music
-import RecordDetails from './components/Music/RecordDetails';
-import BandDetails from './components/Music/BandDetails';
-import EventDetails from './components/Music/EventDetails';
-import ManageMusicBands from './components/Music/ManageMusicBands';
-import ManageMusicKaraokeSongs from './components/Music/ManageKaraokeSongs';
-import ManageMusicEvents from './components/Music/ManageMusicEvents';
-import ManageMusicLists from './components/Music/ManageMusicLists';
-import ManageMusicRecords from './components/Music/ManageMusicRecords';
 //Games
-import Games from './components/Games/Games';
-import ManageGames from './components/Games/ManageGames';
-import ManageBoardGames from './components/Games/ManageBoardGames';
-import ManageGameLists from './components/Games/ManageGameLists';
-import ManageBoardGameLists from './components/Games/ManageBoardGameLists';
-import GameDetails from './components/Games/GameDetails';
-import BoardGameDetails from './components/Games/BoardGameDetails';
-//Disc Golf
-import ManageDiscGolf from './components/DiscGolf/ManageDiscGolf';
-import ManageDiscGolfTracks from './components/DiscGolf/ManageDiscGolfTracks';
-import CreateTrack from './components/DiscGolf/CreateTrack';
-import StartNewRound from './components/DiscGolf/StartNewRound';
-import PlayRound from './components/DiscGolf/PlayRound';
-import TrackDetails from './components/DiscGolf/TrackDetails';
-//Movies
-import ManageMovies from './components/Movies/ManageMovies';
-import ManageMovieLists from './components/Movies/ManageMovieLists';
-import MovieDetails from './components/Movies/MovieDetails';
 //LinksList
-import LinksList from './components/Links/LinksList';
-//Programming
-import ManageProgramming from './components/Programming/ManageProgramming';
 //ShoppingLists
-import ManageShoppingLists from './components/ShoppingList/ManageShoppingLists';
-import { useTheme } from './contexts/ThemeContext';
 //Other lists
-import ManageLists from './components/Lists/ManageLists';
-//People / person
-import ManagePeople from './components/People/ManagePeople';
-import PersonDetails from './components/People/PersonDetails';
-//Constants
-import { COLORS, NAVIGATION, THEMES } from './utils/Constants';
 
 //ICONIT
 //React icons: https://react-icons.github.io/react-icons/icons?name=fa (old link)
 //Icons here: https://fontawesome.com/search?q=food&f=classic&s=solid&ic=free&o=r
 //Icon usage instructions: https://fontawesome.com/v5/docs/web/use-with/react
+//react
+//Site
+//other components
+//Auth
+//Contexts
+//Movies
+//Disc Golf
+//Programming
+//People / person
+//Drinks
+//Constants
+//About
+//Exercises
+
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
@@ -125,6 +46,91 @@ import {
   faFish, faUserAlt, faHistory, faPlus, faMinus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
   faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm, faWrench, faUserNinja, faBlender, faBreadSlice, faSun, faBell, faEnvelope, faGlobe
 } from '@fortawesome/free-solid-svg-icons';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'flag-icon-css/css/flag-icons.min.css';
+import i18n from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import HttpApi from 'i18next-http-backend';
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import { initReactI18next } from 'react-i18next';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import './App.css';
+import ForgotPassword from './components/Auth/ForgotPassword';
+import Login from './components/Auth/Login';
+import Signup from './components/Auth/Signup';
+import GearDetails from './components/BackPacking/GearDetails';
+import ManageBackPacking from './components/BackPacking/ManageBackPacking';
+import ManageBackPackingLists from './components/BackPacking/ManageBackPackingLists';
+import ManageGear from './components/BackPacking/ManageGear';
+import ManageGearMaintenance from './components/BackPacking/ManageGearMaintenance';
+import BmiCalculator from './components/BmiCalculator/BmiCalculator';
+import WeightHistory from './components/BmiCalculator/WeightHistory';
+import Car from './components/Car/Car';
+import ManageCarLists from './components/Car/ManageCarLists';
+import Dashboard from './components/Dashboard/Dashboard';
+import Demo from './components/Demo/Demo';
+import CreateTrack from './components/DiscGolf/CreateTrack';
+import ManageDiscGolf from './components/DiscGolf/ManageDiscGolf';
+import ManageDiscGolfTracks from './components/DiscGolf/ManageDiscGolfTracks';
+import PlayRound from './components/DiscGolf/PlayRound';
+import StartNewRound from './components/DiscGolf/StartNewRound';
+import TrackDetails from './components/DiscGolf/TrackDetails';
+import DrinkDetails from './components/Drinks/DrinkDetails';
+import DrinkingProductDetails from './components/Drinks/DrinkingProductDetails';
+import ManageDrinkingProducts from './components/Drinks/ManageDrinkingProducts';
+import ManageDrinkLists from './components/Drinks/ManageDrinkLists';
+import ManageDrinks from './components/Drinks/ManageDrinks';
+import AddMovement from './components/Exercises/AddMovement';
+import CreateExercise from './components/Exercises/CreateExercise';
+import ExerciseDetails from './components/Exercises/ExerciseDetails';
+import ManageExerciseLists from './components/Exercises/ManageExerciseLists';
+import ManageExercises from './components/Exercises/ManageExercises';
+import ManageMovements from './components/Exercises/ManageMovements';
+import MovementDetails from './components/Exercises/MovementDetails';
+import BoardGameDetails from './components/Games/BoardGameDetails';
+import GameDetails from './components/Games/GameDetails';
+import Games from './components/Games/Games';
+import ManageBoardGameLists from './components/Games/ManageBoardGameLists';
+import ManageBoardGames from './components/Games/ManageBoardGames';
+import ManageGameLists from './components/Games/ManageGameLists';
+import ManageGames from './components/Games/ManageGames';
+import LinksList from './components/Links/LinksList';
+import ManageLists from './components/Lists/ManageLists';
+import ManageMovieLists from './components/Movies/ManageMovieLists';
+import ManageMovies from './components/Movies/ManageMovies';
+import MovieDetails from './components/Movies/MovieDetails';
+import BandDetails from './components/Music/BandDetails';
+import EventDetails from './components/Music/EventDetails';
+import ManageMusicKaraokeSongs from './components/Music/ManageKaraokeSongs';
+import ManageMusicBands from './components/Music/ManageMusicBands';
+import ManageMusicEvents from './components/Music/ManageMusicEvents';
+import ManageMusicLists from './components/Music/ManageMusicLists';
+import ManageMusicRecords from './components/Music/ManageMusicRecords';
+import RecordDetails from './components/Music/RecordDetails';
+import ManageMyProfile from './components/MyProfile/ManageMyProfile';
+import ManagePeople from './components/People/ManagePeople';
+import PersonDetails from './components/People/PersonDetails';
+import PrivateRoute from './components/PrivateRoute';
+import ManageProgramming from './components/Programming/ManageProgramming';
+import ManageFoodItems from './components/Recipe/ManageFoodItems';
+import ManageRecipeLists from './components/Recipe/ManageRecipeLists';
+import ManageRecipes from './components/Recipe/ManageRecipes';
+import RecipeDetails from './components/Recipe/RecipeDetails';
+import ManageShoppingLists from './components/ShoppingList/ManageShoppingLists';
+import About from './components/Site/About';
+import Footer from './components/Site/Footer';
+import Header from './components/Site/Header';
+import TaskDetails from './components/Task/TaskDetails';
+import ManageTaskLists from './components/TaskList/ManageTaskLists';
+import TaskListDetails from './components/TaskList/TaskListDetails';
+import ArchivedTaskListDetails from './components/TaskListsArchive/ArchivedTaskListDetails';
+import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive';
+import { AuthProvider } from './contexts/AuthContext';
+import { useTheme } from './contexts/ThemeContext';
+import { Languages } from './Languages';
+import { COLORS, NAVIGATION, THEMES } from './utils/Constants';
 
 library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt, faSearch,
@@ -297,3 +303,6 @@ function App() {
 }
 
 export default App;
+
+
+

@@ -1,25 +1,27 @@
-import useFirestore from '../Hooks/useFirestore';
-import styles from './imagegrid.module.css';
-import { useTranslation } from "react-i18next";
-import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
-import { Card } from 'react-bootstrap';
-import RightWrapper from '../Site/RightWrapper';
-import Button from '../Buttons/Button';
 import { useState, useEffect } from 'react';
+import { Card } from 'react-bootstrap';
+import { useTranslation } from "react-i18next";
+
+import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
+import Button from '../Buttons/Button';
+import useFirestore from '../Hooks/useFirestore';
+import RightWrapper from '../Site/RightWrapper';
+
+import styles from './imagegrid.module.css';
 import ImageGridDeletion from './ImageGridDeletion';
 
 export default function ImageGrid({ objectID, url, setSelectedImage, onCounterChange }) {
 
     const { docs } = useFirestore([], url, objectID);
 
-    const [deleted, setDeleted] = useState(null);
+const [deleted, setDeleted] = useState(null);
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.UPLOAD_IMAGES });
 
     useEffect(() => {
         onCounterChange(docs.length);
-    }, [docs]);
+    }, [docs, onCounterChange]);
 
     return (
         <>
@@ -56,3 +58,5 @@ export default function ImageGrid({ objectID, url, setSelectedImage, onCounterCh
         </>
     )
 }
+
+

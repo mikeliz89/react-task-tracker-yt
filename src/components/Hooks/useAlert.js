@@ -1,9 +1,12 @@
 // useAlert.js
+
+
 import { useState } from 'react';
 
 export function useAlert() {
     const [message, setMessage] = useState('');
-    const [showMessage, setShowMessage] = useState(false);
+
+const [showMessage, setShowMessage] = useState(false);
     const [error, setError] = useState('');
     const [showError, setShowError] = useState(false);
 
@@ -34,3 +37,5 @@ export function useAlert() {
         showFailure
     };
 }
+
+

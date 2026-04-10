@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import StarRating from '../StarRating/StarRating';
-import { getMovementCategoryNameByID } from '../../utils/ListUtils';
+
 import { TRANSLATION } from '../../utils/Constants';
+import { getMovementCategoryNameByID } from '../../utils/ListUtils';
 import DeleteButton from '../Buttons/DeleteButton';
+import StarRating from '../StarRating/StarRating';
 
 export default function Movement({ movement, onDelete }) {
 
@@ -37,3 +38,5 @@ export default function Movement({ movement, onDelete }) {
         </div>
     )
 }
+
+

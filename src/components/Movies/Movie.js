@@ -1,23 +1,25 @@
-import { useTranslation } from 'react-i18next';
-import { FaCheckSquare } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import StarRating from '../StarRating/StarRating';
-import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
-import { getMovieFormatNameByID } from '../../utils/ListUtils';
-import RightWrapper from '../Site/RightWrapper';
+
+
+
+//states
+
 import { useState } from 'react';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+
+import { useTranslation } from 'react-i18next';
+
 import { updateToFirebaseById } from '../../datatier/datatier';
+import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getMovieFormatNameByID } from '../../utils/ListUtils';
+import CheckButton from '../Buttons/CheckButton';
+import ListRow from '../Site/ListRow';
+
 import AddMovie from './AddMovie';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
 
 export default function Movie({ movie, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MOVIES });
-
-    //states
     const [editable, setEditable] = useState(false);
 
     const updateMovie = (updateMovieID, object) => {
@@ -36,23 +38,20 @@ export default function Movie({ movie, onDelete, onEdit }) {
         onEdit(movie);
     }
 
+    const movieTitle = `${movie.name} ${movie.publishYear > 0 ? `(${movie.publishYear})` : ''}`.trim();
+
     return (
-        <div className='listContainer'>
-            <h5>
-                <span>
-                    {movie.name} {movie.publishYear > 0 ? '(' + movie.publishYear + ')' : ''}
-                </span>
-                <RightWrapper>
-                    <EditButton
-                        editable={editable}
-                        setEditable={setEditable}
-                    />
-                    <DeleteButton
-                        onDelete={onDelete}
-                        id={movie.id}
-                    />
-                </RightWrapper>
-            </h5>
+        <ListRow
+            headerTitle={movieTitle}
+            headerTitleTo={`${NAVIGATION.MOVIE}/${movie.id}`}
+            showEditButton={true}
+            editable={editable}
+            setEditable={setEditable}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={movie.id}
+            starCount={movie.stars}
+        >
             {!editable &&
                 <p>
                     {movie.nameFi !== "" ? movie.nameFi : ''}
@@ -71,13 +70,6 @@ export default function Movie({ movie, onDelete, onEdit }) {
                     {movie.description}
                 </p>
             }
-            {!editable &&
-                <p>
-                    <Link className='btn btn-primary' to={`${NAVIGATION.MOVIE}/${movie.id}`}>{t('view_details')}</Link>
-                </p>
-            }
-            <StarRating starCount={movie.stars} />
-
             {
                 editable && <AddMovie
                     movieID={movie.id}
@@ -86,26 +78,17 @@ export default function Movie({ movie, onDelete, onEdit }) {
                     showLabels={false} />
             }
 
-            <p>
-                {
-                    movie.haveAtHome &&
-                    <span
-                        onClick={() => { markNotHaveAtHome() }}
-                        className='btn btn-success' style={{ margin: '5px' }}>
-                        {t('have')}&nbsp;
-                        <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
-                    </span>
-                }
-                {
-                    !movie.haveAtHome &&
-                    <span
-                        onClick={() => { markHaveAtHome() }}
-                        className='btn btn-danger' style={{ margin: '5px' }}>
-                        {t('have_not')}&nbsp;
-                        <FaCheckSquare style={{ cursor: 'pointer', fontSize: '1.2em' }} />
-                    </span>
-                }
-            </p>
-        </div>
+                <CheckButton
+                    checked={movie.haveAtHome}
+                    checkedText={t('have')}
+                    uncheckedText={t('have_not')}
+                    onCheck={markHaveAtHome}
+                    onUncheck={markNotHaveAtHome}
+                    style={{ margin: '5px' }}
+                />
+        </ListRow>
     )
 }
+
+
+

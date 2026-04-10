@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
 import { Alert as BootstrapAlert } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import Button from './Buttons/Button';
+
 import { TRANSLATION, VARIANTS } from '../utils/Constants';
+
+import Button from './Buttons/Button';
 
 export default function Alert({ message, showMessage, showError, error, onClose, variant }) {
 
     //translation
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
-    return (
+return (
         <>
             {error && <BootstrapAlert show={showError} variant={VARIANTS.DANGER}>
                 {error}
@@ -59,3 +61,5 @@ Alert.propTypes = {
     showError: PropTypes.bool,
     onClose: PropTypes.func
 }
+
+

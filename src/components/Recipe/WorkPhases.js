@@ -1,13 +1,13 @@
-import { useTranslation } from 'react-i18next';
-import WorkPhase from './WorkPhase';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+
+import WorkPhase from './WorkPhase';
 
 export default function WorkPhases({ dbUrl, translation, translationKeyPrefix, workPhases, recipeID, onDelete }) {
 
   //translation
   const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
-
-  const calculateEstimatedLengthsSum = (workPhases) => {
+const calculateEstimatedLengthsSum = (workPhases) => {
     let sum = 0;
     workPhases.forEach(phase => {
       sum += parseInt(phase.estimatedLength);
@@ -49,3 +49,5 @@ WorkPhases.propTypes = {
   recipeID: PropTypes.string,
   onDelete: PropTypes.func
 }
+
+
