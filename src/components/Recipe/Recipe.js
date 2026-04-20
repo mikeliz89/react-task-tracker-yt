@@ -2,7 +2,7 @@ import { ref, child, onValue } from 'firebase/database';
 import i18n from "i18next";
 import PropTypes from 'prop-types';
 import { useState } from 'react'
-import { Tooltip, OverlayTrigger, Modal } from 'react-bootstrap';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -160,43 +160,35 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                 onClose: clearMessages,
             }}
             starCount={recipe.stars}
-        >
-            {recipe.category > 0 ? !editable && (
-                <p> {getCategory(recipe.category)}</p>
-            ) : ('')}
-            {!editable &&
-                <p>{recipe.description}</p>
+            section={
+                <>
+                    {recipe.category > 0 && (
+                        <p> {getCategory(recipe.category)}</p>
+                    )}
+                    <p>{recipe.description}</p>
+                    <p>{recipe.incredients}</p>
+                </>
             }
-            {!editable &&
-                <p>{recipe.incredients}</p>
+            modalTitle={recipeType === RecipeTypes.Food ?
+                t('modal_header_edit_recipe') : t('modal_header_edit_drink')}
+            modalBody={
+                recipeType === RecipeTypes.Food ? (
+                    <AddRecipe
+                        showLabels={true}
+                        recipeID={recipe.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateRecipe}
+                    />
+                ) : (
+                    <AddDrink
+                        showLabels={true}
+                        drinkID={recipe.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateRecipe}
+                    />
+                )
             }
-            {editable && (
-                <Modal show={editable} onHide={() => setEditable(false)}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>{recipeType === RecipeTypes.Food ?
-                            t('modal_header_edit_recipe') : t('modal_header_edit_drink')}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {recipeType === RecipeTypes.Food && (
-                            <AddRecipe
-                                showLabels={true}
-                                recipeID={recipe.id}
-                                onClose={() => setEditable(false)}
-                                onSave={updateRecipe}
-                            />
-                        )}
-                        {recipeType === RecipeTypes.Drink && (
-                            <AddDrink
-                                showLabels={true}
-                                drinkID={recipe.id}
-                                onClose={() => setEditable(false)}
-                                onSave={updateRecipe}
-                            />
-                        )}
-                    </Modal.Body>
-                </Modal>
-            )}
-        </ListRow>
+        />
     )
 }
 
