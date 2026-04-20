@@ -42,6 +42,7 @@ import Tasks from '../Task/Tasks';
 import AddTaskList from '../TaskList/AddTaskList';
 
 import ChangeType from './ChangeType';
+import { SortMode } from '../SearchSortFilter/SortModes';
 
 export default function TaskListDetails() {
 
@@ -565,6 +566,7 @@ const params = useParams();
                 //filter
                 filterMode={FilterMode.Text}
                 showFilterReady={true}
+                defaultSort={SortMode.Text_ASC}
               />
             ) : (<></>)
           }
