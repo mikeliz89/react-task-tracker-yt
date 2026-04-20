@@ -45,6 +45,7 @@
         "created_by": "Luonut",
         "description": "Kuvaus",
         "edit_description": "Muokkaa kuvausta",
+        "edit_task": "Muokkaa tehtävää",
         "edit_task_list": "Muokkaa listan nimeä",
         "manage_backpacking_title": "Retkeilylistat",
         "manage_car_title": "Autolistat",

@@ -59,28 +59,22 @@ export default function Task({
                     onClick={(e) => e.stopPropagation()}
                 />
             ) : null}
-            headerTitle={!editable ? task.text : null}
+            headerTitle={task.text}
             headerTitleTo={!editable && !archived ? `/task/${task.id}/${taskListID}` : null}
             headerTitleWrapperClassName={!editable ? 'taskRowTitle' : ''}
             headerTitleClassName={!editable && !archived ? 'taskRowLink' : ''}
             headerSuffix={!editable && task.reminder ? <span className="taskDoneBadge">{t('ready')}</span> : null}
-        >
-            {
-                !editable &&
-                <>
-                    {!!task.day && <p className="taskRowDay">{task.day}</p>}
-                </>
-            }
-            {
-                editable && <AddTask
+            section={!!task.day && <p className="taskRowDay">{task.day}</p>}
+            modalTitle={t('edit_task')}
+            modalBody={
+                <AddTask
                     taskID={task.id}
                     taskListID={taskListID}
                     onClose={() => toggleSetEditable()}
                     onSave={updateTask}
                     showLabels={true} />
             }
-
-        </ListRow>
+        />
     )
 }
 
