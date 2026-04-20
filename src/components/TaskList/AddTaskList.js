@@ -11,7 +11,7 @@ export default function AddTaskList({ taskListID, onSave, onClose, showLabels, d
 
     //translation
     const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
-const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [title, setTitle] = useState('');
