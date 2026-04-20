@@ -1,9 +1,4 @@
-
-
-
 //params
-
-
 import { child, get, off, onValue, push, ref, update } from 'firebase/database';
 import i18n from 'i18next';
 import { useEffect, useMemo, useState } from 'react';
@@ -164,8 +159,8 @@ const params = useParams();
     const titleA = (a.title ?? "").toString();
     const titleB = (b.title ?? "").toString();
 
-    // aakkosjärjestys suomeksi, kirjainkoko neutraali
-    return titleA.localeCompare(titleB, "fi", { sensitivity: "base" });
+    // aakkosjärjestys nykyisen i18n-kielen mukaan, kirjainkoko neutraali
+    return titleA.localeCompare(titleB, i18n.language || 'fi', { sensitivity: "base" });
   };
 
   // ...

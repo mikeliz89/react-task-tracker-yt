@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { updateToFirebaseById } from '../../datatier/datatier';
 import { Languages } from '../../Languages';
+import i18n from 'i18next';
 import { TRANSLATION, NAVIGATION, DB } from "../../utils/Constants";
 import { getCurrentDateAsJson, getJsonAsDateString } from '../../utils/DateTimeUtils';
 import { useAlert } from '../Hooks/useAlert';
@@ -47,7 +48,7 @@ export default function Person({ person, onDelete }) {
             }}
             section={
                 <>
-                    <p>{t('birthday') + ": "}{getJsonAsDateString(person.birthday, Languages.FI)}</p>
+                    <p>{t('birthday') + ": "}{getJsonAsDateString(person.birthday, i18n.language)}</p>
                     <p>{person.description}</p>
                 </>
             }
