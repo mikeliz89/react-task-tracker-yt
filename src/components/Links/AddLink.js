@@ -5,19 +5,21 @@ import { useTranslation } from 'react-i18next';
 import { TRANSLATION, ICONS } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 
+
 export default function AddLink({
     onSaveLink,
     linkID,
     initialUrl,
     initialUrlText,
     onClose,
-    showToggleButton
+    showToggleButton,
+    showLabels = true
 }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LINKS });
 
-const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [url, setUrl] = useState(initialUrl || '');
@@ -79,7 +81,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
                             <Col>
                                 <Form onSubmit={onSubmit}>
                                     <Form.Group className="mb-3" controlId="addLinkForm-UrlText">
-                                        <Form.Label>{t('urlText')}</Form.Label>
+                                        {showLabels && <Form.Label>{t('urlText')}</Form.Label>}
                                         <Form.Control type='text'
                                             autoComplete="off"
                                             placeholder={t('urlText')}
@@ -87,7 +89,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
                                             onChange={(e) => setUrlText(e.target.value)} />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="addLinkForm-Url">
-                                        <Form.Label>{t('url')}</Form.Label>
+                                        {showLabels && <Form.Label>{t('url')}</Form.Label>}
                                         <Form.Control type='text'
                                             autoComplete="off"
                                             placeholder={t('url')}
@@ -121,7 +123,8 @@ AddLink.defaultProps = {
     initialUrl: '',
     initialUrlText: '',
     onClose: () => { },
-    showToggleButton: true
+    showToggleButton: true,
+    showLabels: true
 }
 
 

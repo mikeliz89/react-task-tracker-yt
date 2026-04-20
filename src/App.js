@@ -115,6 +115,7 @@ import PersonDetails from './components/People/PersonDetails';
 import PrivateRoute from './components/PrivateRoute';
 import ManageProgramming from './components/Programming/ManageProgramming';
 import ManageFoodItems from './components/Recipe/ManageFoodItems';
+import FoodItemDetails from './components/Recipe/FoodItemDetails';
 import ManageRecipeLists from './components/Recipe/ManageRecipeLists';
 import ManageRecipes from './components/Recipe/ManageRecipes';
 import RecipeDetails from './components/Recipe/RecipeDetails';
@@ -197,6 +198,7 @@ function App() {
             <Route path={NAVIGATION.FORGOT_PASSWORD} element={<ForgotPassword />} />
             {/* Login */}
             {/* Recipe */}
+            <Route path={NAVIGATION.FOODITEM_DETAILS + '/:id'} element={<PrivateRoute><FoodItemDetails /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_RECIPES} element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_FOODITEMS} element={<PrivateRoute><ManageFoodItems /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_RECIPELISTS} element={<PrivateRoute><ManageRecipeLists /></PrivateRoute>} />

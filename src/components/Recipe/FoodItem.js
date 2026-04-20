@@ -10,6 +10,7 @@ import { COLORS, ICONS, NAVIGATION, TRANSLATION } from '../../utils/Constants';
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
 import CheckButton from '../Buttons/CheckButton';
 import ListRow from '../Site/ListRow';
+import { Modal } from 'react-bootstrap';
 
 import AddFoodItem from './AddFoodItem';
 
@@ -35,37 +36,45 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
     }
 
     return (
-        <ListRow
-            headerTitle={foodItem.name}
-            headerTitleTo={NAVIGATION.MANAGE_FOODITEMS}
-            headerTitleIcon={ICONS.CARROT}
-            headerTitleIconColor={COLORS.GRAY}
-            showEditButton={true}
-            editable={editable}
-            setEditable={setEditable}
-            showDeleteButton={true}
-            onDelete={onDelete}
-            deleteId={foodItem.id}
-        >
-            <p>{t('fooditem_calories')}: {foodItem.calories}</p>
-            <p>{t('fooditem_category')}: {
-                t('fooditem_category_' + getFoodItemCategoryNameByID(foodItem.category))
-            }</p>
-            {editable &&
-                <AddFoodItem
-                    onClose={() => setEditable(!editable)}
-                    onAddFoodItem={editFoodItem}
-                    foodItemID={foodItem.id} />
-            }
-            <CheckButton
-                checked={foodItem.haveAtHome}
-                checkedText={t('fooditem_have_at_home')}
-                uncheckedText={t('fooditem_not_have_at_home')}
-                onCheck={markHaveAtHome}
-                onUncheck={markNotHaveAtHome}
-                style={{ margin: '5px' }}
-            />
-        </ListRow>
+        <>
+            <ListRow
+                headerTitle={foodItem.name}
+                headerTitleTo={`${NAVIGATION.FOODITEM_DETAILS}/${foodItem.id}`}
+                headerTitleIcon={ICONS.CARROT}
+                headerTitleIconColor={COLORS.GRAY}
+                showEditButton={true}
+                editable={editable}
+                setEditable={setEditable}
+                showDeleteButton={true}
+                onDelete={onDelete}
+                deleteId={foodItem.id}
+            >
+                <p>{t('fooditem_calories')}: {foodItem.calories}</p>
+                <p>{t('fooditem_category')}: {
+                    t('fooditem_category_' + getFoodItemCategoryNameByID(foodItem.category))
+                }</p>
+                <CheckButton
+                    checked={foodItem.haveAtHome}
+                    checkedText={t('fooditem_have_at_home')}
+                    uncheckedText={t('fooditem_not_have_at_home')}
+                    onCheck={markHaveAtHome}
+                    onUncheck={markNotHaveAtHome}
+                    style={{ margin: '5px' }}
+                />
+            </ListRow>
+            <Modal show={editable} onHide={() => setEditable(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_edit_fooditem')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddFoodItem
+                        onClose={() => setEditable(false)}
+                        onAddFoodItem={editFoodItem}
+                        foodItemID={foodItem.id}
+                    />
+                </Modal.Body>
+            </Modal>
+        </>
     )
 }
 

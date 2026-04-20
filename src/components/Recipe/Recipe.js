@@ -2,7 +2,7 @@ import { ref, child, onValue } from 'firebase/database';
 import i18n from "i18next";
 import PropTypes from 'prop-types';
 import { useState } from 'react'
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Tooltip, OverlayTrigger, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -127,7 +127,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
             headerTitle={recipe.title}
             headerTitleTo={`${getViewDetailsUrl(recipeType)}/${recipe.id}`}
             headerTitleIcon={getIconName(recipeType, recipe.category)}
-            headerTitleIconColor={COLORS.LIGHT_GRAY}
+            headerTitleIconColor={COLORS.GRAY}
             actionsExtra={
                 <OverlayTrigger
                     placement="right"
@@ -135,8 +135,14 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                     overlay={renderTooltip}
                 >
                     <span>
-                        <FaShoppingCart style={{ cursor: 'pointer', marginRight: '5px', fontSize: '1.2em', color: COLORS.LIGHT_GRAY }}
-                            onClick={() => { if (window.confirm(t('create_shoppinglist_confirm_message'))) { makeShoppingList() } }} />
+                        <FaShoppingCart
+                            style={{ color: COLORS.GRAY, cursor: 'pointer', marginRight: '5px', fontSize: '1.2em' }}
+                            onClick={() => {
+                                if (window.confirm(t('create_shoppinglist_confirm_message'))) {
+                                    makeShoppingList()
+                                }
+                            }}
+                        />
                     </span>
                 </OverlayTrigger>
             }
@@ -164,23 +170,32 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
             {!editable &&
                 <p>{recipe.incredients}</p>
             }
-            {
-                editable && ((
-                    recipeType === RecipeTypes.Food && (
-                        <AddRecipe
-                            showLabels={false}
-                            recipeID={recipe.id}
-                            onClose={() => setEditable(false)}
-                            onSave={updateRecipe} />)) ||
-                    (recipeType === RecipeTypes.Drink && (
-                        <AddDrink
-                            showLabels={false}
-                            drinkID={recipe.id}
-                            onClose={() => setEditable(false)}
-                            onSave={updateRecipe} />
-                    ))
-                )
-            }
+            {editable && (
+                <Modal show={editable} onHide={() => setEditable(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{recipeType === RecipeTypes.Food ?
+                            t('modal_header_edit_recipe') : t('modal_header_edit_drink')}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {recipeType === RecipeTypes.Food && (
+                            <AddRecipe
+                                showLabels={true}
+                                recipeID={recipe.id}
+                                onClose={() => setEditable(false)}
+                                onSave={updateRecipe}
+                            />
+                        )}
+                        {recipeType === RecipeTypes.Drink && (
+                            <AddDrink
+                                showLabels={true}
+                                drinkID={recipe.id}
+                                onClose={() => setEditable(false)}
+                                onSave={updateRecipe}
+                            />
+                        )}
+                    </Modal.Body>
+                </Modal>
+            )}
         </ListRow>
     )
 }
@@ -196,6 +211,3 @@ Recipe.propTypes = {
     recipeType: PropTypes.any,
     recipe: PropTypes.object
 }
-
-
-

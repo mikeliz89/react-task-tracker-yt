@@ -13,7 +13,7 @@ export default function AddMovement({ movementID, onClose, onSave }) {
     //states
     const [category, setCategory] = useState();
 
-const [categories, setCategories] = useState(MovementCategories);
+    const [categories, setCategories] = useState(MovementCategories);
     const [name, setName] = useState('');
     const [created, setCreated] = useState('');
     const [createdBy, setCreatedBy] = useState('');
