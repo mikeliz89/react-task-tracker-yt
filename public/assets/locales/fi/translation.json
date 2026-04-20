@@ -339,8 +339,7 @@
         "title_missing": "[Otsikko puuttuu!]",
         "title_running": "Juoksuharjoitus",
         "title_walking": "Kävely",
-        "title_skiing": "Hiihto",
-        "view_movement_details": "Katso liikettä"
+        "title_skiing": "Hiihto"
     },
     "footer": {
         "about": "Tietoja",
