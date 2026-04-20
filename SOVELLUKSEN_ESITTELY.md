@@ -74,3 +74,9 @@ Sovellus on monipuolinen henkilökohtainen hallintasovellus, joka kattaa tehtäv
   - Ilmoitukset lähestyvistä syntymäpäivistä
   - Mahdollisuus määrittää muistutuksen ajankohta (esim. 7 päivää ennen)
   - Syntymäpäivien lista ja historiatieto
+
+- **Ruoka-aineiden valinta ja kalorilaskenta resepteihin:**
+  - Reseptin luonnissa voi valita valmiista ruoka-aineista, joihin on tallennettu kalorit ja muut ravintoarvot
+  - Reseptin kokonaiskalorit lasketaan automaattisesti valittujen ainesten ja määrien perusteella
+  - Käyttäjä voi valita syödyn annoskoon, jolloin sovellus laskee automaattisesti annoksen kalorit
+  - Ravintoarvot (esim. proteiinit, hiilihydraatit, rasvat) näkyvät sekä ruoka-aineen että reseptin yhteydessä
