@@ -45,19 +45,19 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
                 variant: VARIANTS.SUCCESS,
                 onClose: clearMessages,
             }}
-        >
-
-            <pre>
-                {instruction.text}
-            </pre>
-
-            {
-                editable && <AddGearMaintenanceInstruction
+            section={
+                <pre>
+                    {instruction.text}
+                </pre>
+            }
+            modalTitle={"Muokkaa ohjetta"}
+            modalBody={
+                <AddGearMaintenanceInstruction
                     gearMaintenanceInstructionID={instruction.id}
                     onClose={() => setEditable(false)}
                     onSave={updateInstruction} />
             }
-        </ListRow>
+        />
     )
 }
 

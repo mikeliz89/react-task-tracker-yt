@@ -4,6 +4,7 @@ import NavButton from '../Buttons/NavButton';
 import Alert from '../Alert';
 import StarRating from '../StarRating/StarRating';
 import { COLORS } from '../../utils/Constants';
+import { Modal } from 'react-bootstrap';
 
 import RightWrapper from './RightWrapper';
 
@@ -35,6 +36,10 @@ export default function ListRow({
     alert,
     starCount,
     children,
+    modal,
+    modalTitle,
+    modalBody,
+    section,
 }) {
     const HeaderTag = headerAs;
     const hasActions = actionsExtra != null || showEditButton || showDeleteButton;
@@ -107,7 +112,18 @@ export default function ListRow({
                     )}
                 </HeaderTag>
             )}
+            {section}
             {children}
+            {editable && (
+                <Modal show={editable} onHide={() => setEditable(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{modalTitle}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {modalBody}
+                    </Modal.Body>
+                </Modal>
+            )}
             {starCount != null ? <StarRating starCount={starCount} /> : null}
         </div>
     );

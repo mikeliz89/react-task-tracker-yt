@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
+import { updateToFirebaseById, pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, ICONS, COLORS, VARIANTS } from "../../utils/Constants";
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAlert } from '../Hooks/useAlert';
@@ -18,7 +18,7 @@ export default function ManageGear() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: gear, setData: setGear,
@@ -55,6 +55,11 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
 
     const deleteGear = (id) => {
         removeFromFirebaseById(DB.BACKPACKING_GEAR, id);
+    }
+
+    const editGear = (gear) => {
+        const id = gear.id;
+        updateToFirebaseById(DB.BACKPACKING_GEAR, id, gear);
     }
 
     return (
@@ -106,7 +111,8 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
                 <Gears gears={gear}
                     originalList={originalGear}
                     counter={counter}
-                    onDelete={deleteGear} />
+                    onDelete={deleteGear}
+                    onEdit={editGear} />
             </>
         </ManagePage>
     )

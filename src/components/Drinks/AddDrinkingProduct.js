@@ -9,7 +9,7 @@ import useFetchById from '../Hooks/useFetchById';
 
 import { DrinkingProductCategories } from './Categories';
 
-export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingProduct, onClose }) {
+export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingProduct, onClose, showLabels = true }) {
 
    //translation
    const { t, ready } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
@@ -89,7 +89,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
       <>
          <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Name">
-               <Form.Label>{t('drinkingproduct_name')}</Form.Label>
+               {showLabels && <Form.Label>{t('drinkingproduct_name')}</Form.Label>}
                <Form.Control type='text'
                   autoComplete="off"
                   placeholder={t('drinkingproduct_name')}
@@ -97,7 +97,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
                   onChange={(e) => setName(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Description">
-               <Form.Label>{t('drinkingproduct_description')}</Form.Label>
+               {showLabels && <Form.Label>{t('drinkingproduct_description')}</Form.Label>}
                <Form.Control type='text'
                   autoComplete="off"
                   placeholder={t('drinkingproduct_description')}
@@ -105,7 +105,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
                   onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Manufacturer">
-               <Form.Label>{t('drinkingproduct_manufacturer')}</Form.Label>
+               {showLabels && <Form.Label>{t('drinkingproduct_manufacturer')}</Form.Label>}
                <Form.Control type='text'
                   autoComplete="off"
                   placeholder={t('drinkingproduct_manufacturer')}
@@ -113,7 +113,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
                   onChange={(e) => setManufacturer(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Category">
-               <Form.Label>{t('drinkingproduct_category')}</Form.Label>
+               {showLabels && <Form.Label>{t('drinkingproduct_category')}</Form.Label>}
                <Form.Select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}>
@@ -124,7 +124,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
                </Form.Select>
             </Form.Group>
             <Form.Group>
-               <Form.Label>{t('drinkingproduct_abv')}</Form.Label>
+               {showLabels && <Form.Label>{t('drinkingproduct_abv')}</Form.Label>}
                <Form.Control type='text'
                   autoComplete="off"
                   value={abv}
@@ -132,7 +132,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
                />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addDrinkingProductForm-Amount">
-               <Form.Label>{t('drinkingproduct_amount')}</Form.Label>
+               {showLabels && <Form.Label>{t('drinkingproduct_amount')}</Form.Label>}
                <Form.Control type='text'
                   autoComplete="off"
                   placeholder={t('drinkingproduct_amount')}

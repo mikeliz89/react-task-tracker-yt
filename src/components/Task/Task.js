@@ -1,12 +1,6 @@
-
-
-
-//translation
-
 import { Form } from 'react-bootstrap';
 
 import { useTranslation } from 'react-i18next';
-
 
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import { DB, TRANSLATION } from '../../utils/Constants';
@@ -27,7 +21,7 @@ export default function Task({
 
     //toggle
     const { status: editable, toggleStatus: toggleSetEditable, setStatus: setEditable } = useToggle();
-const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
+    const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
 
     const updateTask = (updateTaskListID, object) => {
         object["modified"] = getCurrentDateAsJson();

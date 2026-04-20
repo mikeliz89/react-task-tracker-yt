@@ -14,7 +14,7 @@ export default function AddGear({ gearID, onSave, onClose, showLabels }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [category, setCategory] = useState('');
@@ -58,7 +58,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
             return;
         }
 
-        onSave({ created, createdBy, description, name, category, weightInGrams, stars });
+        onSave({ id: gearID, created, createdBy, description, name, category, weightInGrams, stars });
 
         if (gearID == null) {
             clearForm();
@@ -129,5 +129,3 @@ AddGear.defaultProps = {
 AddGear.propTypes = {
     showLabels: PropTypes.bool
 }
-
-
