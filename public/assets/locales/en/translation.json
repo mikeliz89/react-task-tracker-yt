@@ -117,6 +117,7 @@
     "meter_kilometers": "Travel meter kilometers",
     "modal_header_add_maintenance": "Add maintenance",
     "modal_header_add_fueling": "Add fueling",
+    "modal_header_edit_maintenance": "Edit maintenance",
     "model_year": "Model year",
     "no_car_fuelings": "No fuelings",
     "price": "Price",

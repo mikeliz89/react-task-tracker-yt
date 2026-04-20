@@ -118,6 +118,7 @@
         "meter_kilometers": "Matkamittarin km lukema",
         "modal_header_add_maintenance": "Lisää huolto",
         "modal_header_add_fueling": "Lisää tankkaus",
+        "modal_header_edit_maintenance": "Muokkaa huoltoa",
         "modal_header_edit_fueling": "Muokkaa tankkausta",
         "model_year": "Vuosimalli",
         "no_car_fuelings": "Ei tankkauksia",
@@ -491,7 +492,6 @@
         "seen_live": "Nähty livenä",
         "sort_by_name": "Lajittele nimen mukaan"
     },
-
     "myprofile": {
         "account_settings_title": "Tiliasetukset",
         "display_name": "Näyttönimi",
