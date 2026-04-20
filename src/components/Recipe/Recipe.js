@@ -127,7 +127,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
             headerTitle={recipe.title}
             headerTitleTo={`${getViewDetailsUrl(recipeType)}/${recipe.id}`}
             headerTitleIcon={getIconName(recipeType, recipe.category)}
-            headerTitleIconColor={COLORS.LIGHT_GRAY}
+            headerTitleIconColor={COLORS.GRAY}
             actionsExtra={
                 <OverlayTrigger
                     placement="right"
@@ -135,8 +135,14 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                     overlay={renderTooltip}
                 >
                     <span>
-                        <FaShoppingCart style={{ cursor: 'pointer', marginRight: '5px', fontSize: '1.2em', color: COLORS.LIGHT_GRAY }}
-                            onClick={() => { if (window.confirm(t('create_shoppinglist_confirm_message'))) { makeShoppingList() } }} />
+                        <FaShoppingCart
+                            style={{ color: COLORS.GRAY, cursor: 'pointer', marginRight: '5px', fontSize: '1.2em' }}
+                            onClick={() => {
+                                if (window.confirm(t('create_shoppinglist_confirm_message'))) {
+                                    makeShoppingList()
+                                }
+                            }}
+                        />
                     </span>
                 </OverlayTrigger>
             }
@@ -154,34 +160,35 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                 onClose: clearMessages,
             }}
             starCount={recipe.stars}
-        >
-            {recipe.category > 0 ? !editable && (
-                <p> {getCategory(recipe.category)}</p>
-            ) : ('')}
-            {!editable &&
-                <p>{recipe.description}</p>
+            section={
+                <>
+                    {recipe.category > 0 && (
+                        <p> {getCategory(recipe.category)}</p>
+                    )}
+                    <p>{recipe.description}</p>
+                    <p>{recipe.incredients}</p>
+                </>
             }
-            {!editable &&
-                <p>{recipe.incredients}</p>
-            }
-            {
-                editable && ((
-                    recipeType === RecipeTypes.Food && (
-                        <AddRecipe
-                            showLabels={false}
-                            recipeID={recipe.id}
-                            onClose={() => setEditable(false)}
-                            onSave={updateRecipe} />)) ||
-                    (recipeType === RecipeTypes.Drink && (
-                        <AddDrink
-                            showLabels={false}
-                            drinkID={recipe.id}
-                            onClose={() => setEditable(false)}
-                            onSave={updateRecipe} />
-                    ))
+            modalTitle={recipeType === RecipeTypes.Food ?
+                t('modal_header_edit_recipe') : t('modal_header_edit_drink')}
+            modalBody={
+                recipeType === RecipeTypes.Food ? (
+                    <AddRecipe
+                        showLabels={true}
+                        recipeID={recipe.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateRecipe}
+                    />
+                ) : (
+                    <AddDrink
+                        showLabels={true}
+                        drinkID={recipe.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateRecipe}
+                    />
                 )
             }
-        </ListRow>
+        />
     )
 }
 
@@ -196,6 +203,3 @@ Recipe.propTypes = {
     recipeType: PropTypes.any,
     recipe: PropTypes.object
 }
-
-
-

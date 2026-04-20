@@ -1,7 +1,3 @@
-
-
-//translation
-
 import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -37,7 +33,7 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
     return (
         <ListRow
             headerTitle={foodItem.name}
-            headerTitleTo={NAVIGATION.MANAGE_FOODITEMS}
+            headerTitleTo={`${NAVIGATION.FOODITEM_DETAILS}/${foodItem.id}`}
             headerTitleIcon={ICONS.CARROT}
             headerTitleIconColor={COLORS.GRAY}
             showEditButton={true}
@@ -46,17 +42,23 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={foodItem.id}
-        >
-            <p>{t('fooditem_calories')}: {foodItem.calories}</p>
-            <p>{t('fooditem_category')}: {
-                t('fooditem_category_' + getFoodItemCategoryNameByID(foodItem.category))
-            }</p>
-            {editable &&
-                <AddFoodItem
-                    onClose={() => setEditable(!editable)}
-                    onAddFoodItem={editFoodItem}
-                    foodItemID={foodItem.id} />
+            section={
+                <>
+                    <p>{t('fooditem_calories')}: {foodItem.calories}</p>
+                    <p>{t('fooditem_category')}: {
+                        t('fooditem_category_' + getFoodItemCategoryNameByID(foodItem.category))
+                    }</p>
+                </>
             }
+            modalTitle={t('modal_header_edit_fooditem')}
+            modalBody={
+                <AddFoodItem
+                    onClose={() => setEditable(false)}
+                    onAddFoodItem={editFoodItem}
+                    foodItemID={foodItem.id}
+                />
+            }
+        >
             <CheckButton
                 checked={foodItem.haveAtHome}
                 checkedText={t('fooditem_have_at_home')}

@@ -6,7 +6,7 @@ import { TRANSLATION, DB } from "../../utils/Constants";
 import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
 
-export default function AddPerson({ personID, onSave, onClose }) {
+export default function AddPerson({ personID, onSave, onClose, showLabels = true }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.PEOPLE });
@@ -60,7 +60,7 @@ export default function AddPerson({ personID, onSave, onClose }) {
         <>
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addPersonForm-Name">
-                    <Form.Label>{t('name')}</Form.Label>
+                    {showLabels && <Form.Label>{t('name')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
                         placeholder={t('name')}
@@ -68,7 +68,7 @@ export default function AddPerson({ personID, onSave, onClose }) {
                         onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addPersonForm-Description">
-                    <Form.Label>{t('description')}</Form.Label>
+                    {showLabels && <Form.Label>{t('description')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
                         placeholder={t('description')}
@@ -76,7 +76,7 @@ export default function AddPerson({ personID, onSave, onClose }) {
                         onChange={(e) => setDescription(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addPersonForm-Address">
-                    <Form.Label>{t('address')}</Form.Label>
+                    {showLabels && <Form.Label>{t('address')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
                         placeholder={t('address')}
@@ -84,7 +84,7 @@ export default function AddPerson({ personID, onSave, onClose }) {
                         onChange={(e) => setAddress(e.target.value)} />
                 </Form.Group>
                 <Form.Group as={Col} className="mb-3" controlId="addPersonForm-BirthDay">
-                    <Form.Label>{t('birthday')}</Form.Label>
+                    {showLabels && <Form.Label>{t('birthday')}</Form.Label>}
                     <Form.Control type="date" name='date' onChange={(e) => setBirthday(e.target.value)} value={birthday} />
                 </Form.Group>
                 <Row>

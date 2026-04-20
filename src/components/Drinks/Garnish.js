@@ -6,52 +6,39 @@ import { DB } from '../../utils/Constants';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import RightWrapper from '../Site/RightWrapper';
-
+import ListRow from '../Site/ListRow';
 import AddGarnish from './AddGarnish';
 
 export default function Garnish({ garnish, drinkID, onDelete }) {
 
-    //states
     const [editable, setEditable] = useState(false);
 
     const updateGarnish = (drinkID, newGarnish) => {
         updateToFirebaseByIdAndSubId(DB.DRINK_GARNISHES, drinkID, garnish.id, newGarnish);
         setEditable(false);
-    }
+    };
 
     return (
-        <div className='listContainer'>
-            <Row>
-                <Col xs={9}>
-                    <span style={{ fontWeight: 'bold' }}>{garnish.name}</span>
-                </Col>
-                <Col xs={3}>
-                    {
-                        <RightWrapper>
-                            <EditButton
-                                editable={editable}
-                                setEditable={setEditable}
-                            />
-                            <DeleteButton
-                                onDelete={onDelete}
-                                id={drinkID}
-                                subId={garnish.id}
-                            />
-                        </RightWrapper>
-                    }
-                </Col>
-            </Row>
-            {editable &&
+        <>
+            <ListRow
+                headerTitle={garnish.name}
+                showEditButton={true}
+                editable={editable}
+                setEditable={setEditable}
+                showDeleteButton={true}
+                onDelete={onDelete}
+                deleteId={drinkID}
+                deleteSubId={garnish.id}
+            />
+            {editable && (
                 <AddGarnish
                     garnishID={garnish.id}
                     drinkID={drinkID}
                     onSave={updateGarnish}
                     onDelete={onDelete}
-                    onClose={() => setEditable(false)} />
-            }
-        </div>
-    )
+                    onClose={() => setEditable(false)}
+                />
+            )}
+        </>
+    );
 }
-
-
-

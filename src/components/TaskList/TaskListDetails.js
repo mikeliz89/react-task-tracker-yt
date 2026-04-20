@@ -1,9 +1,4 @@
-
-
-
 //params
-
-
 import { child, get, off, onValue, push, ref, update } from 'firebase/database';
 import i18n from 'i18next';
 import { useEffect, useMemo, useState } from 'react';
@@ -42,6 +37,7 @@ import Tasks from '../Task/Tasks';
 import AddTaskList from '../TaskList/AddTaskList';
 
 import ChangeType from './ChangeType';
+import { SortMode } from '../SearchSortFilter/SortModes';
 
 export default function TaskListDetails() {
 
@@ -163,8 +159,8 @@ const params = useParams();
     const titleA = (a.title ?? "").toString();
     const titleB = (b.title ?? "").toString();
 
-    // aakkosjärjestys suomeksi, kirjainkoko neutraali
-    return titleA.localeCompare(titleB, "fi", { sensitivity: "base" });
+    // aakkosjärjestys nykyisen i18n-kielen mukaan, kirjainkoko neutraali
+    return titleA.localeCompare(titleB, i18n.language || 'fi', { sensitivity: "base" });
   };
 
   // ...
@@ -565,6 +561,7 @@ const params = useParams();
                 //filter
                 filterMode={FilterMode.Text}
                 showFilterReady={true}
+                defaultSort={SortMode.Text_ASC}
               />
             ) : (<></>)
           }

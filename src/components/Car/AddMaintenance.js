@@ -8,7 +8,7 @@ import { TRANSLATION, DB } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 import FormTitle from '../Site/FormTitle';
 
-export default function AddMaintenance({ ID, onClose, onSave }) {
+export default function AddMaintenance({ ID, onClose, onSave, showLabels = true }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
@@ -75,21 +75,21 @@ export default function AddMaintenance({ ID, onClose, onSave }) {
 
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addMaintenanceForm-MaintenanceName">
-                    <Form.Label>{t('maintenance_name')}</Form.Label>
+                    {showLabels && <Form.Label>{t('maintenance_name')}</Form.Label>}
                     <Form.Control
                         autoComplete="off"
                         type='text' placeholder={t('maintenance_name')}
                         value={name} onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addMaintenanceForm-MaintenanceDescription">
-                    <Form.Label>{t('maintenance_description')}</Form.Label>
+                    {showLabels && <Form.Label>{t('maintenance_description')}</Form.Label>}
                     <Form.Control
                         autoComplete="off"
                         type='text' placeholder={t('maintenance_description')}
                         value={description} onChange={(e) => setDescription(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addMaintenanceForm-MaintenancePrice">
-                    <Form.Label>{t('maintenance_price')}</Form.Label>
+                    {showLabels && <Form.Label>{t('maintenance_price')}</Form.Label>}
                     <Form.Control type='number' placeholder={t('maintenance_price')}
                         value={price} onChange={(e) => setPrice(e.target.value)} />
                 </Form.Group>

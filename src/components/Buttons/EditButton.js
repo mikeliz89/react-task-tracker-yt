@@ -9,7 +9,7 @@ export default function EditButton({
     setEditable,
     className = BUTTON_CLASSNAMES.EDITBTN,
     icon = ICONS.EDIT,
-    color = COLORS.LIGHT_GRAY,
+    color = COLORS.GRAY,
     style = {},
     fontSize = '1.2em',
     ...props

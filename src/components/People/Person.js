@@ -5,16 +5,16 @@ import { useTranslation } from 'react-i18next';
 
 import { updateToFirebaseById } from '../../datatier/datatier';
 import { Languages } from '../../Languages';
+import i18n from 'i18next';
 import { TRANSLATION, NAVIGATION, DB } from "../../utils/Constants";
 import { getCurrentDateAsJson, getJsonAsDateString } from '../../utils/DateTimeUtils';
+import dayjs from 'dayjs';
 import { useAlert } from '../Hooks/useAlert';
 import ListRow from '../Site/ListRow';
 
 import AddPerson from './AddPerson';
 
 export default function Person({ person, onDelete }) {
-
-    //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.PEOPLE });
     const {
         message,
@@ -23,16 +23,19 @@ export default function Person({ person, onDelete }) {
         showError,
         clearMessages
     } = useAlert();
-
-    //states
     const [editable, setEditable] = useState(false);
-
     const updatePerson = (object) => {
         object["modified"] = getCurrentDateAsJson();
         updateToFirebaseById(DB.PEOPLE, person.id, object);
         setEditable(false);
+    };
+    // Laske ikä jos syntymäpäivä on olemassa
+    let age = null;
+    if (person.birthday) {
+        const birth = dayjs(person.birthday);
+        const now = dayjs();
+        age = now.diff(birth, 'year');
     }
-
     return (
         <ListRow
             headerTitle={person.name}
@@ -50,28 +53,22 @@ export default function Person({ person, onDelete }) {
                 showError,
                 onClose: clearMessages,
             }}
-        >
-
-            {
-                !editable && (
-                    <>
-                        <p>{t('birthday') + ": "}{getJsonAsDateString(person.birthday, Languages.FI)}</p>
-                        <p>{person.description}</p>
-                    </>
-                )
+            section={
+                <>
+                    <p>{t('birthday') + ": "}{getJsonAsDateString(person.birthday, i18n.language)}{age !== null ? ` (${age} ${t('years')})` : ''}</p>
+                    <p>{person.description}</p>
+                </>
             }
-
-            {
-                editable && (
-                    <AddPerson
-                        personID={person.id}
-                        onSave={updatePerson}
-                        onClose={() => setEditable(false)}
-                    />
-                )
+            modalTitle={t('modal_header_edit_person')}
+            modalBody={
+                <AddPerson
+                    personID={person.id}
+                    onSave={updatePerson}
+                    onClose={() => setEditable(false)}
+                />
             }
-        </ListRow>
-    )
+        />
+    );
 }
 
 

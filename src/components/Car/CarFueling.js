@@ -1,8 +1,4 @@
-
-
 //modal
-
-
 import i18n from "i18next";
 import { Row, Col, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
@@ -13,8 +9,9 @@ import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateT
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import { useToggle } from '../Hooks/useToggle';
-import RightWrapper from "../Site/RightWrapper";
 
+import RightWrapper from "../Site/RightWrapper";
+import ListRow from '../Site/ListRow';
 import AddFueling from "./AddFueling";
 
 export default function CarFueling({ fuelingRow, onDelete }) {
@@ -22,39 +19,39 @@ export default function CarFueling({ fuelingRow, onDelete }) {
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
 
-const { status: showEditFueling, toggleStatus: toggleShowEditFueling } = useToggle();
+    const { status: showEditFueling, toggleStatus: toggleShowEditFueling } = useToggle();
 
     const updateFueling = (fueling) => {
         fueling["modified"] = getCurrentDateAsJson();
         updateToFirebaseById(DB.CAR_FUELING, fuelingRow.id, fueling);
         toggleShowEditFueling();
-    }
+    };
 
     return (
         <>
-            <Row style={{ marginBottom: '5px', borderTop: '1px solid black' }}>
-                <Col>
-                    <b>{getJsonAsDateTimeString(fuelingRow.created, i18n.language)}</b>&nbsp;
-                    {fuelingRow.createdBy}
-                    <br />
+            <ListRow
+                headerTitle={
+                    <>
+                        <b>{getJsonAsDateTimeString(fuelingRow.created, i18n.language)}</b>&nbsp;
+                        {fuelingRow.createdBy}
+                    </>
+                }
+                showEditButton={true}
+                editable={showEditFueling}
+                setEditable={toggleShowEditFueling}
+                showDeleteButton={true}
+                onDelete={onDelete}
+                deleteId={fuelingRow.id}
+            >
+                <div>
                     {t('liter_amount')}: {fuelingRow.fuelLiterAmount} L<br />
                     {t('price')}: {fuelingRow.price} € <br />
                     {t('meter_kilometers')}: {fuelingRow.meterKilometers > 0 ? fuelingRow.meterKilometers + ' km' : ''}<br />
                     {t('fuel_price_simple')}: {fuelingRow.fuelPricePerLiter} €/L<br />
                     {t('purchase_location')}: {fuelingRow.purchaseLocation}<br />
                     {t('fueler_name')}: {fuelingRow.fuelerName}
-                    <RightWrapper>
-                        <EditButton
-                            editable={showEditFueling}
-                            setEditable={toggleShowEditFueling}
-                        />
-                        <DeleteButton
-                            onDelete={onDelete}
-                            id={fuelingRow.id}
-                        />
-                    </RightWrapper>
-                </Col>
-            </Row>
+                </div>
+            </ListRow>
 
             <Modal show={showEditFueling} onHide={toggleShowEditFueling}>
                 <Modal.Header closeButton>
@@ -64,12 +61,12 @@ const { status: showEditFueling, toggleStatus: toggleShowEditFueling } = useTogg
                     <AddFueling
                         ID={fuelingRow.id}
                         onClose={() => toggleShowEditFueling()}
-                        onSave={updateFueling} />
+                        onSave={updateFueling}
+                    />
                 </Modal.Body>
             </Modal>
-
         </>
-    )
+    );
 }
 
 

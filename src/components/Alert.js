@@ -11,7 +11,7 @@ export default function Alert({ message, showMessage, showError, error, onClose,
     //translation
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
-return (
+    return (
         <>
             {error && <BootstrapAlert show={showError} variant={VARIANTS.DANGER}>
                 {error}

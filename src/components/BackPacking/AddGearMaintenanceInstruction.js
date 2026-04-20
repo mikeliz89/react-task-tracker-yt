@@ -6,7 +6,7 @@ import { TRANSLATION, DB } from "../../utils/Constants";
 import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
 
-export default function AddGearMaintenanceInstruction({ gearMaintenanceInstructionID, onSave, onClose }) {
+export default function AddGearMaintenanceInstruction({ gearMaintenanceInstructionID, onSave, onClose, showLabels = true }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
@@ -54,7 +54,7 @@ export default function AddGearMaintenanceInstruction({ gearMaintenanceInstructi
         <>
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addGearMaintenanceInstructionForm-Name">
-                    <Form.Label>{t('gear_name')}</Form.Label>
+                    {showLabels && <Form.Label>{t('gear_name')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
                         placeholder={gearMaintenanceInstructionID == null ? t('gear_name') : t('gear_name')}
@@ -62,7 +62,7 @@ export default function AddGearMaintenanceInstruction({ gearMaintenanceInstructi
                         onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addGearMaintenanceInstructionForm-textArea">
-                    <Form.Label>{t('gear_maintenance_instruction_text')}</Form.Label>
+                    {showLabels && <Form.Label>{t('gear_maintenance_instruction_text')}</Form.Label>}
                     <Form.Control as="textarea" rows={3} value={text} onChange={(e) => setText(e.target.value)} />
                 </Form.Group>
                 <Row>

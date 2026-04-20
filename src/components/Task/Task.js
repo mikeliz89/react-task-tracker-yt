@@ -1,12 +1,6 @@
-
-
-
-//translation
-
 import { Form } from 'react-bootstrap';
 
 import { useTranslation } from 'react-i18next';
-
 
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import { DB, TRANSLATION } from '../../utils/Constants';
@@ -27,7 +21,7 @@ export default function Task({
 
     //toggle
     const { status: editable, toggleStatus: toggleSetEditable, setStatus: setEditable } = useToggle();
-const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
+    const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
 
     const updateTask = (updateTaskListID, object) => {
         object["modified"] = getCurrentDateAsJson();
@@ -65,28 +59,22 @@ const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASK
                     onClick={(e) => e.stopPropagation()}
                 />
             ) : null}
-            headerTitle={!editable ? task.text : null}
+            headerTitle={task.text}
             headerTitleTo={!editable && !archived ? `/task/${task.id}/${taskListID}` : null}
             headerTitleWrapperClassName={!editable ? 'taskRowTitle' : ''}
             headerTitleClassName={!editable && !archived ? 'taskRowLink' : ''}
             headerSuffix={!editable && task.reminder ? <span className="taskDoneBadge">{t('ready')}</span> : null}
-        >
-            {
-                !editable &&
-                <>
-                    {!!task.day && <p className="taskRowDay">{task.day}</p>}
-                </>
-            }
-            {
-                editable && <AddTask
+            section={!!task.day && <p className="taskRowDay">{task.day}</p>}
+            modalTitle={t('edit_task')}
+            modalBody={
+                <AddTask
                     taskID={task.id}
                     taskListID={taskListID}
                     onClose={() => toggleSetEditable()}
                     onSave={updateTask}
-                    showLabels={false} />
+                    showLabels={true} />
             }
-
-        </ListRow>
+        />
     )
 }
 

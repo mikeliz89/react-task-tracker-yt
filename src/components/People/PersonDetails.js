@@ -82,7 +82,7 @@ export default function PersonDetails() {
             preSummaryContent={
                 <div className="detailspage-field">
                     <span className="detailspage-meta-label">{t('birthday')}:</span>{' '}
-                    <span className="detailspage-meta-value">{person?.birthday ? getJsonAsDateString(person.birthday, Languages.FI) : '-'}</span>
+                    <span className="detailspage-meta-value">{person?.birthday ? getJsonAsDateString(person.birthday, i18n.language) : '-'}</span>
                 </div>
             }
             summary={`${t('description')}: ${person?.description || '-'}`}

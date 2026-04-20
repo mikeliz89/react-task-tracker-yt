@@ -59,6 +59,7 @@
         "gear_weight_in_grams": "Paino (grammoja)",
         "manage_backpacking_title": "Retkeily",
         "modal_header_add_gear": "Lisää varuste",
+        "modal_header_edit_gear": "Muokkaa varustetta",
         "modified": "Muokattu",
         "my_gear_title": "Varusteeni",
         "no_gear_to_show": "Ei lisättyjä varusteita",
@@ -118,6 +119,7 @@
         "meter_kilometers": "Matkamittarin km lukema",
         "modal_header_add_maintenance": "Lisää huolto",
         "modal_header_add_fueling": "Lisää tankkaus",
+        "modal_header_edit_maintenance": "Muokkaa huoltoa",
         "modal_header_edit_fueling": "Muokkaa tankkausta",
         "model_year": "Vuosimalli",
         "no_car_fuelings": "Ei tankkauksia",
@@ -308,6 +310,7 @@
         "manage_movements_button": "Liikkeet",
         "manage_movements_title": "Liikkeet",
         "modal_header_add_movement": "Lisää liike",
+        "modal_header_edit_movement": "Muokkaa liikettä",
         "modified": "Muokattu",
         "movementcategory": "Liikekategoria",
         "movementcategory_none": "-Ei mikään-",
@@ -339,8 +342,7 @@
         "title_missing": "[Otsikko puuttuu!]",
         "title_running": "Juoksuharjoitus",
         "title_walking": "Kävely",
-        "title_skiing": "Hiihto",
-        "view_movement_details": "Katso liikettä"
+        "title_skiing": "Hiihto"
     },
     "footer": {
         "about": "Tietoja",
@@ -492,7 +494,6 @@
         "seen_live": "Nähty livenä",
         "sort_by_name": "Lajittele nimen mukaan"
     },
-
     "myprofile": {
         "account_settings_title": "Tiliasetukset",
         "display_name": "Näyttönimi",
@@ -531,7 +532,8 @@
         "no_people_to_show": "Ei ihmisiä",
         "please_add_name": "Ole hyvä ja anna nimi",
         "save_success": "Henkilön tallennus onnistui",
-        "title": "Ihmiset"
+        "title": "Ihmiset",
+        "years": "vuotta"
     },
     "recipe": {
         "add_description": "Lisää kuvaus",
@@ -618,7 +620,9 @@
         "manage_fooditems_title": "Ruoka-ainekset",
         "manage_recipes_title": "Reseptit",
         "modal_header_add_recipe": "Lisää resepti",
+        "modal_header_edit_recipe": "Muokkaa reseptiä",
         "modal_header_add_food_item": "Lisää ruoka-aines",
+        "modal_header_edit_fooditem": "Muokkaa ruoka-ainesta",
         "modified": "Muokattu",
         "name": "Nimi",
         "no": "Ei",

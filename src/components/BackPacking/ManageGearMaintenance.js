@@ -19,7 +19,7 @@ export default function ManageGearMaintenance() {
     const { data: gearMaintenanceInstructions,
         originalData: originalGearMaintenanceInstructions,
         counter, loading } = useFetch(DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS);
-        
+
     const { status: showAddGearMaintenance, toggleStatus: toggleAddGearMaintenance } = useToggle();
 
     //translation

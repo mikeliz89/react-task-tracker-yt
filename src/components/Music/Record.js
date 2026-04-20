@@ -48,29 +48,29 @@ export default function Record({ record, onDelete, onEdit }) {
             onDelete={onDelete}
             deleteId={record.id}
             starCount={record.stars}
-        >
-            {!editable &&
-                <p>
-                    {record.format > 0 ?
-                        (<span> {
-                            t('music_format_' + getMusicFormatNameByID(record.format))
-                        }</span>) : ('')}
-                </p>
+            section={
+                <>
+                    <p>
+                        {record.format > 0 ?
+                            (<span> {
+                                t('music_format_' + getMusicFormatNameByID(record.format))
+                            }</span>) : ('')}
+                    </p>
+                    <p>
+                        {record.description}
+                    </p>
+                </>
             }
-            {!editable &&
-                <p>
-                    {record.description}
-                </p>
-            }
-
-            {
-                editable && <AddRecord
+            modalTitle={t('modal_header_edit_record') || 'Edit Record'}
+            modalBody={
+                <AddRecord
                     recordID={record.id}
                     onClose={() => setEditable(false)}
                     onSave={updateRecord}
-                    showLabels={false} />
+                    showLabels={true}
+                />
             }
-
+        >
             <CheckButton
                 checked={record.haveAtHome}
                 checkedText={t('have')}

@@ -75,7 +75,7 @@ export default function Movie({ movie, onDelete, onEdit }) {
                     movieID={movie.id}
                     onClose={() => setEditable(false)}
                     onSave={updateMovie}
-                    showLabels={false} />
+                    showLabels={true} />
             }
 
                 <CheckButton

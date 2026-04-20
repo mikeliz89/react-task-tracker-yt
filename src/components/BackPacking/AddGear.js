@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Row, ButtonGroup, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 
 import { TRANSLATION, DB } from "../../utils/Constants";
 import Button from '../Buttons/Button';
@@ -9,11 +10,11 @@ import useFetchById from '../Hooks/useFetchById';
 
 import { GearCategories } from './Categories';
 
-export default function AddGear({ gearID, onSave, onClose }) {
+export default function AddGear({ gearID, onSave, onClose, showLabels }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [category, setCategory] = useState('');
@@ -57,7 +58,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
             return;
         }
 
-        onSave({ created, createdBy, description, name, category, weightInGrams, stars });
+        onSave({ id: gearID, created, createdBy, description, name, category, weightInGrams, stars });
 
         if (gearID == null) {
             clearForm();
@@ -75,7 +76,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
         <>
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addGearForm-Name">
-                    <Form.Label>{t('gear_name')}</Form.Label>
+                    {showLabels && <Form.Label>{t('gear_name')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
                         placeholder={t('gear_name')}
@@ -83,7 +84,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
                         onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addGearForm-Description">
-                    <Form.Label>{t('gear_description')}</Form.Label>
+                    {showLabels && <Form.Label>{t('gear_description')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
                         placeholder={t('gear_description')}
@@ -91,7 +92,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
                         onChange={(e) => setDescription(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addGearForm-WeightInGrams">
-                    <Form.Label>{t('gear_weight_in_grams')}</Form.Label>
+                    {showLabels && <Form.Label>{t('gear_weight_in_grams')}</Form.Label>}
                     <Form.Control type='number'
                         autoComplete="off"
                         placeholder={t('gear_weight_in_grams')}
@@ -99,7 +100,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
                         onChange={(e) => setWeightInGrams(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addGearForm-Category">
-                    <Form.Label>{t('gear_category')}</Form.Label>
+                    {showLabels && <Form.Label>{t('gear_category')}</Form.Label>}
                     <Form.Select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}>
@@ -121,4 +122,10 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
     )
 }
 
+AddGear.defaultProps = {
+    showLabels: true
+}
 
+AddGear.propTypes = {
+    showLabels: PropTypes.bool
+}

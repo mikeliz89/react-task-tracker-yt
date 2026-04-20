@@ -8,12 +8,12 @@ import useFetchById from '../Hooks/useFetchById';
 
 import { MovementCategories } from './Categories';
 
-export default function AddMovement({ movementID, onClose, onSave }) {
+export default function AddMovement({ movementID, onClose, onSave, showLabels = true }) {
 
     //states
     const [category, setCategory] = useState();
 
-const [categories, setCategories] = useState(MovementCategories);
+    const [categories, setCategories] = useState(MovementCategories);
     const [name, setName] = useState('');
     const [created, setCreated] = useState('');
     const [createdBy, setCreatedBy] = useState('');
@@ -66,7 +66,7 @@ const [categories, setCategories] = useState(MovementCategories);
         <>
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addMovementForm-Category">
-                    <Form.Label>{t('movementcategory')}</Form.Label>
+                    {showLabels && <Form.Label>{t('movementcategory')}</Form.Label>}
                     <Form.Select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}>
@@ -76,7 +76,7 @@ const [categories, setCategories] = useState(MovementCategories);
                     </Form.Select>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addMovementForm-Name">
-                    <Form.Label>{t('name')}</Form.Label>
+                    {showLabels && <Form.Label>{t('name')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
                         placeholder={t('name')}
@@ -84,7 +84,7 @@ const [categories, setCategories] = useState(MovementCategories);
                         onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addMovementForm-Description">
-                    <Form.Label>{t('description')}</Form.Label>
+                    {showLabels && <Form.Label>{t('description')}</Form.Label>}
                     <Form.Control type='text'
                         autoComplete="off"
                         placeholder={t('description')}

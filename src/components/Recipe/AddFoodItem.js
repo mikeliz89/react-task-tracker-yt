@@ -12,7 +12,7 @@ import { FoodItemCategories } from './Categories';
 export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
-const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     const defaultFoodItem = {
         name: '',

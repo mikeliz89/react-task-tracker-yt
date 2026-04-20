@@ -48,47 +48,46 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
             onDelete={onDelete}
             deleteId={game.id}
             starCount={game.stars}
-        >
-            {!editable &&
-                <p>
-                    {game.format > 0 ?
-                        (<span> {
-                            t('game_format_' + getGameConsoleNameByID(game.format))
-                        }</span>) : ('')}
-                </p>
+            section={
+                <>
+                    <p>
+                        {game.format > 0 ?
+                            (<span> {
+                                t('game_format_' + getGameConsoleNameByID(game.format))
+                            }</span>) : ('')}
+                    </p>
+                    <p>
+                        {game.description}
+                    </p>
+                    {showConsole &&
+                        <p>
+                            {game.console > 0 ?
+                                (<span> {
+                                    t('game_console_' + getGameConsoleNameByID(game.console))
+                                }</span>) : ('')}
+                        </p>
+                    }
+                </>
             }
-            {!editable &&
-                <p>
-                    {game.description}
-                </p>
-            }
-            {!editable && showConsole &&
-                <p>
-                    {game.console > 0 ?
-                        (<span> {
-                            t('game_console_' + getGameConsoleNameByID(game.console))
-                        }</span>) : ('')}
-                </p>
-            }
-
-            {
-                editable && <AddGame
+            modalTitle={t('modal_header_edit_game')}
+            modalBody={
+                <AddGame
                     gameID={game.id}
                     onClose={() => setEditable(false)}
                     onSave={updateGame}
                     dbUrl={dbUrl}
                     showConsoleField={showConsole}
-                    showLabels={false} />
+                    showLabels={true} />
             }
-
-                <CheckButton
-                    checked={game.haveAtHome}
-                    checkedText={t('have')}
-                    uncheckedText={t('have_not')}
-                    onCheck={markHaveAtHome}
-                    onUncheck={markNotHaveAtHome}
-                    style={{ margin: '5px' }}
-                />
+        >
+            <CheckButton
+                checked={game.haveAtHome}
+                checkedText={t('have')}
+                uncheckedText={t('have_not')}
+                onCheck={markHaveAtHome}
+                onUncheck={markNotHaveAtHome}
+                style={{ margin: '5px' }}
+            />
         </ListRow>
     )
 }
@@ -104,6 +103,3 @@ Game.propTypes = {
     detailsNavigation: PropTypes.string,
     showConsole: PropTypes.bool
 }
-
-
-

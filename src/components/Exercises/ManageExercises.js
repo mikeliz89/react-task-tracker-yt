@@ -13,7 +13,7 @@ export default function ManageExercises() {
 
   //translation
   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
-const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   //fetch data
   const { data: exercises, setData: setExercises,
@@ -53,7 +53,8 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
         showFilterHaveRated: true,
       }}
       centerActions={
-        <Link className="btn btn-primary" to={NAVIGATION.CREATE_EXERCISE}>{t('create_exercise')}</Link>
+        <Link className="btn btn-primary"
+          to={NAVIGATION.CREATE_EXERCISE}>{t('create_exercise')}</Link>
       }
       hasItems={exercises != null && exercises.length > 0}
       emptyText={t('no_exercises_to_show')}

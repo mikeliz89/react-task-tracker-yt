@@ -8,7 +8,7 @@ import { TRANSLATION, DB } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 import FormTitle from '../Site/FormTitle';
 
-export default function AddFueling({ ID, onClose, onSave }) {
+export default function AddFueling({ ID, onClose, onSave, showLabels = true }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
@@ -85,38 +85,38 @@ export default function AddFueling({ ID, onClose, onSave }) {
 
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="addFuelingForm-LiterAmount">
-                    <Form.Label>{t('liter_amount')}</Form.Label>
+                    {showLabels && <Form.Label>{t('liter_amount')}</Form.Label>}
                     <Form.Control type='number' placeholder={t('liter_amount')}
                         value={fuelLiterAmount} onChange={(e) => setFuelLiterAmount(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addFuelingForm-Price">
-                    <Form.Label>{t('price')}</Form.Label>
+                    {showLabels && <Form.Label>{t('price')}</Form.Label>}
                     <Form.Control type='number' placeholder={t('price')}
                         value={price} onChange={(e) => setPrice(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addFuelingForm-MeterKilometers">
-                    <Form.Label>{t('meter_kilometers')}</Form.Label>
+                    {showLabels && <Form.Label>{t('meter_kilometers')}</Form.Label>}
                     <Form.Control
                         autoComplete="off"
                         type='number' placeholder={t('meter_kilometers')}
                         value={meterKilometers} onChange={(e) => setMeterKilometers(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addFuelingForm-FuelPrice">
-                    <Form.Label>{t('fuel_price')}</Form.Label>
+                    {showLabels && <Form.Label>{t('fuel_price')}</Form.Label>}
                     <Form.Control
                         autoComplete="off"
                         type='number' placeholder={t('fuel_price')}
                         value={fuelPricePerLiter} onChange={(e) => setFuelPricePerLiter(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addFuelingForm-PurchaseLocation">
-                    <Form.Label>{t('purchase_location')}</Form.Label>
+                    {showLabels && <Form.Label>{t('purchase_location')}</Form.Label>}
                     <Form.Control
                         autoComplete="off"
                         type='text' placeholder={t('purchase_location')}
                         value={purchaseLocation} onChange={(e) => setPurchaseLocation(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addFuelingForm-FuelerName">
-                    <Form.Label>{t('fueler_name')}</Form.Label>
+                    {showLabels && <Form.Label>{t('fueler_name')}</Form.Label>}
                     <Form.Control
                         autoComplete="off"
                         type='text' placeholder={t('fueler_name')}

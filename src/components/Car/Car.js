@@ -24,6 +24,7 @@ import AddInfo from './AddInfo';
 import AddMaintenance from './AddMaintenance';
 import CarFuelings from './CarFuelings';
 import CarMaintenances from './CarMaintenances';
+import Icon from '../Icon';
 
 export default function Car() {
 
@@ -120,10 +121,10 @@ export default function Car() {
                 className="mb-3"
                 style={{ marginTop: '10px' }}>
 
-                <Tab eventKey="carInfo" title={t('add_info_title')}>
+                <Tab eventKey="carInfo" title={<><Icon name={ICONS.INFO} style={{marginRight: 6}} />{t('add_info_title')}</>}>
                     <AddInfo />
                 </Tab>
-                <Tab eventKey="fuelings" title={t('fuelings')}>
+                <Tab eventKey="fuelings" title={<><Icon name={ICONS.GAS_PUMP} style={{marginRight: 6}} />{t('fuelings')}</>}>
 
                     <Button
                         color={showAddFueling ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
@@ -177,7 +178,7 @@ export default function Car() {
                     </>
                     {/* Fuelings End */}
                 </Tab>
-                <Tab eventKey="carMaintenances" title={t('car_maintenances')}>
+                <Tab eventKey="carMaintenances" title={<><Icon name={ICONS.WRENCH} style={{marginRight: 6}} />{t('car_maintenances')}</>}>
                     <Button
                         color={showAddMaintenance ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                         onClick={() => setShowAddMaintenance(!showAddMaintenance)}

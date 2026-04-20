@@ -198,7 +198,7 @@ export function getIconNameByCategory(category) {
     switch (Number(category)) {
         case Categories.Burger:
             return ICONS.HAMBURGER;
-case Categories.Pizza:
+        case Categories.Pizza:
             return ICONS.PIZZA;
         case Categories.Fish:
             return ICONS.FISH;

@@ -46,18 +46,24 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
             onDelete={onDelete}
             deleteId={drinkingProduct.id}
             starCount={drinkingProduct.stars}
-        >
-            <p>{t('drinkingproduct_manufacturer')}: {drinkingProduct.manufacturer}</p>
-            <p>{t('drinkingproduct_description')}: {drinkingProduct.description}</p>
-            <p>{t('drinkingproduct_category')}: {
-                t('drinkingproduct_category_' + getDrinkingProductCategoryNameByID(drinkingProduct.category))
-            }</p>
-            {editable &&
-                <AddDrinkingProduct
-                    onClose={() => setEditable(!editable)}
-                    onAddDrinkingProduct={editDrinkingProduct}
-                    drinkingProductID={drinkingProduct.id} />
+            section={
+                <>
+                    <p>{t('drinkingproduct_manufacturer')}: {drinkingProduct.manufacturer}</p>
+                    <p>{t('drinkingproduct_description')}: {drinkingProduct.description}</p>
+                    <p>{t('drinkingproduct_category')}: {
+                        t('drinkingproduct_category_' + getDrinkingProductCategoryNameByID(drinkingProduct.category))
+                    }</p>
+                </>
             }
+            modalTitle={t('modal_header_edit_drinking_product')}
+            modalBody={
+                <AddDrinkingProduct
+                    onClose={() => setEditable(false)}
+                    onAddDrinkingProduct={editDrinkingProduct}
+                    drinkingProductID={drinkingProduct.id}
+                />
+            }
+        >
             <CheckButton
                 checked={drinkingProduct.haveAtHome}
                 checkedText={t('drinkingproduct_have_at_home')}

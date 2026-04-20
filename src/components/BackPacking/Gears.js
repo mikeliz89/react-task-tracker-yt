@@ -2,7 +2,7 @@ import Counter from '../Site/Counter';
 
 import Gear from './Gear';
 
-export default function Gears({ gears, onDelete, originalList, counter }) {
+export default function Gears({ gears, onDelete, onEdit, originalList, counter }) {
 
     return (
         <div>
@@ -12,7 +12,7 @@ export default function Gears({ gears, onDelete, originalList, counter }) {
                 ) : (<></>)
             }
             {gears.map((gear) => (
-                <Gear key={gear.id} gear={gear} onDelete={onDelete} />
+                <Gear key={gear.id} gear={gear} onDelete={onDelete} onEdit={onEdit} />
             ))}
         </div>
     )

@@ -34,21 +34,17 @@ export default function Event({ event, onDelete, onEdit }) {
             onDelete={onDelete}
             deleteId={event.id}
             starCount={event.stars}
-        >
-            {!editable &&
-                <p>
-                    {event.description}
-                </p>
-            }
-
-            {
-                editable && <AddEvent
+            section={<p>{event.description}</p>}
+            modalTitle={t('modal_header_edit_event') || 'Edit Event'}
+            modalBody={
+                <AddEvent
                     eventID={event.id}
                     onClose={() => setEditable(false)}
                     onSave={updateEvent}
-                    showLabels={false} />
+                    showLabels={true}
+                />
             }
-        </ListRow>
+        />
     )
 }
 
