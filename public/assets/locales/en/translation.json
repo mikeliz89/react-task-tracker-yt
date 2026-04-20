@@ -535,7 +535,8 @@
     "please_add_name": "Please give person a name",
     "save_success": "Saving person was successful",
     "title": "People",
-    "modal_header_edit_person": "Edit Person"
+    "modal_header_edit_person": "Edit Person",
+    "years": "years"
   },
   "recipe": {
     "add_description": "Add Description",

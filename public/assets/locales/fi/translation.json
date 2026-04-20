@@ -532,7 +532,8 @@
         "no_people_to_show": "Ei ihmisiä",
         "please_add_name": "Ole hyvä ja anna nimi",
         "save_success": "Henkilön tallennus onnistui",
-        "title": "Ihmiset"
+        "title": "Ihmiset",
+        "years": "vuotta"
     },
     "recipe": {
         "add_description": "Lisää kuvaus",
