@@ -78,7 +78,7 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
                     onSave={updateGame}
                     dbUrl={dbUrl}
                     showConsoleField={showConsole}
-                    showLabels={false} />
+                    showLabels={true} />
             }
 
                 <CheckButton

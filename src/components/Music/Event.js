@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Modal } from 'react-bootstrap';
 
 import { useTranslation } from 'react-i18next';
 
@@ -24,31 +25,36 @@ export default function Event({ event, onDelete, onEdit }) {
     const eventTitle = `${event.name} ${event.eventYear > 0 ? `(${event.eventYear})` : ''}`.trim();
 
     return (
-        <ListRow
-            headerTitle={eventTitle}
-            headerTitleTo={`${NAVIGATION.MUSIC_EVENT}/${event.id}`}
-            showEditButton={true}
-            editable={editable}
-            setEditable={setEditable}
-            showDeleteButton={true}
-            onDelete={onDelete}
-            deleteId={event.id}
-            starCount={event.stars}
-        >
-            {!editable &&
+        <>
+            <ListRow
+                headerTitle={eventTitle}
+                headerTitleTo={`${NAVIGATION.MUSIC_EVENT}/${event.id}`}
+                showEditButton={true}
+                editable={editable}
+                setEditable={setEditable}
+                showDeleteButton={true}
+                onDelete={onDelete}
+                deleteId={event.id}
+                starCount={event.stars}
+            >
                 <p>
                     {event.description}
                 </p>
-            }
-
-            {
-                editable && <AddEvent
-                    eventID={event.id}
-                    onClose={() => setEditable(false)}
-                    onSave={updateEvent}
-                    showLabels={false} />
-            }
-        </ListRow>
+            </ListRow>
+            <Modal show={editable} onHide={() => setEditable(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_edit_event') || 'Edit Event'}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddEvent
+                        eventID={event.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateEvent}
+                        showLabels={true}
+                    />
+                </Modal.Body>
+            </Modal>
+        </>
     )
 }
 

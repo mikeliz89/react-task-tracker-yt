@@ -11,7 +11,7 @@ export default function AddTask({ taskID, taskListID, onSave, onClose, showLabel
 
     //translation
     const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
-const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [text, setText] = useState('');
@@ -71,7 +71,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
     return (
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="addTaskFormTaskName">
-                <Form.Label>{getTaskName()}</Form.Label>
+                {showLabels && <Form.Label>{getTaskName()}</Form.Label>}
                 <Form.Control
                     ref={firstFieldRef}
                     autoComplete="off"
@@ -82,7 +82,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
                     onChange={(e) => setText(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addTaskFormDayAndTime">
-                <Form.Label>{getTaskText()}</Form.Label>
+                {showLabels && <Form.Label>{getTaskText()}</Form.Label>}
                 <Form.Control
                     autoComplete="off"
                     type='text'

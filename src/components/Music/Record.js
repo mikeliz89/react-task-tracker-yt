@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { Modal } from 'react-bootstrap';
 
 import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
@@ -38,48 +39,50 @@ export default function Record({ record, onDelete, onEdit }) {
     const recordTitle = `${record.band} ${record.band !== '' ? '-' : ''} ${record.name} ${record.publishYear > 0 ? `(${record.publishYear})` : ''}`.trim();
 
     return (
-        <ListRow
-            headerTitle={recordTitle}
-            headerTitleTo={`${NAVIGATION.MUSIC_RECORD}/${record.id}`}
-            showEditButton={true}
-            editable={editable}
-            setEditable={setEditable}
-            showDeleteButton={true}
-            onDelete={onDelete}
-            deleteId={record.id}
-            starCount={record.stars}
-        >
-            {!editable &&
+        <>
+            <ListRow
+                headerTitle={recordTitle}
+                headerTitleTo={`${NAVIGATION.MUSIC_RECORD}/${record.id}`}
+                showEditButton={true}
+                editable={editable}
+                setEditable={setEditable}
+                showDeleteButton={true}
+                onDelete={onDelete}
+                deleteId={record.id}
+                starCount={record.stars}
+            >
                 <p>
                     {record.format > 0 ?
                         (<span> {
                             t('music_format_' + getMusicFormatNameByID(record.format))
                         }</span>) : ('')}
                 </p>
-            }
-            {!editable &&
                 <p>
                     {record.description}
                 </p>
-            }
-
-            {
-                editable && <AddRecord
-                    recordID={record.id}
-                    onClose={() => setEditable(false)}
-                    onSave={updateRecord}
-                    showLabels={false} />
-            }
-
-            <CheckButton
-                checked={record.haveAtHome}
-                checkedText={t('have')}
-                uncheckedText={t('have_not')}
-                onCheck={markHaveAtHome}
-                onUncheck={markNotHaveAtHome}
-                style={{ margin: '5px' }}
-            />
-        </ListRow>
+                <CheckButton
+                    checked={record.haveAtHome}
+                    checkedText={t('have')}
+                    uncheckedText={t('have_not')}
+                    onCheck={markHaveAtHome}
+                    onUncheck={markNotHaveAtHome}
+                    style={{ margin: '5px' }}
+                />
+            </ListRow>
+            <Modal show={editable} onHide={() => setEditable(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('modal_header_edit_record') || 'Edit Record'}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddRecord
+                        recordID={record.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateRecord}
+                        showLabels={true}
+                    />
+                </Modal.Body>
+            </Modal>
+        </>
     )
 }
 

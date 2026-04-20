@@ -83,7 +83,7 @@ const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASK
                     taskListID={taskListID}
                     onClose={() => toggleSetEditable()}
                     onSave={updateTask}
-                    showLabels={false} />
+                    showLabels={true} />
             }
 
         </ListRow>

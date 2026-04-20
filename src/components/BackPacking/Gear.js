@@ -66,6 +66,7 @@ export default function Gear({ gear, onDelete }) {
                         gearID={gear.id}
                         onSave={updateGear}
                         onClose={() => setEditable(false)}
+                        showLabels={true}
                     />
                 </Modal.Body>
             </Modal>

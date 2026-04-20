@@ -48,7 +48,7 @@ export default function TaskList({ taskList, archived, onDelete }) {
                     taskListID={taskList.id}
                     onClose={() => setEditable(false)}
                     onSave={updateTaskList}
-                    showLabels={false}
+                    showLabels={true}
                 />
             )}
         </>
