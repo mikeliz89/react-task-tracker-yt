@@ -38,3 +38,39 @@ Sovellus hyödyntää Reactia, React Routeria, Bootstrapia, FontAwesome-ikoneita
 
 **Yhteenveto:**
 Sovellus on monipuolinen henkilökohtainen hallintasovellus, joka kattaa tehtävät, ruoka- ja juomalistat, liikunnan, retkeilyn, autoilun, musiikin, pelit, elokuvat, ohjelmoinnin, linkit, henkilötiedot ja paljon muuta – kaikki käyttäjän omassa hallinnassa, kirjautumisen ja käyttäjäprofiilin kautta.
+
+---
+
+## Mahdollisia tulevia ominaisuuksia
+
+- **Asunto-osio:**
+  - Asunnon perustiedot (osoite, koko, vuokra, omistaja, vakuutukset, huoltoyhteystiedot)
+  - Kodinkoneiden ja laitteiden tiedot sekä huoltohistoria
+  - Remonttien ja muutostöiden seuranta
+  - Asunnon asiakirjat (vuokrasopimus, pohjapiirros, käyttöohjeet)
+
+- **Siivous-osio:**
+  - Siivousvuorojen hallinta (esim. viikkosiivous, kimppakämpän vuorot)
+  - Siivouskalenteri ja muistutukset
+  - Ostettavien siivoustarvikkeiden lista
+  - Siivousohjeet ja vinkit
+  - Siivoushistorian seuranta
+
+- **Budjetointi ja talous-osio:**
+  - Tulojen ja menojen kirjaaminen
+  - Budjetin asettaminen eri kategorioille (esim. ruoka, asuminen, vapaa-aika)
+  - Kuukausi- ja vuosiraportit
+  - Visuaaliset kaaviot ja tilastot
+  - Säästötavoitteiden seuranta
+  - Laskujen ja maksujen muistutukset
+
+- **Lahjaideat henkilöille:**
+  - Jokaiselle henkilölle oma lahjaideat-lista
+  - Lahjaidean kuvaus, hinta-arvio, linkki ja muistiinpanot
+  - Mahdollisuus merkitä toteutetut lahjat
+  - Lahjahistorian tallennus (mitä on annettu aiemmin)
+
+- **Syntymäpäivämuistutukset henkilöille:**
+  - Ilmoitukset lähestyvistä syntymäpäivistä
+  - Mahdollisuus määrittää muistutuksen ajankohta (esim. 7 päivää ennen)
+  - Syntymäpäivien lista ja historiatieto
