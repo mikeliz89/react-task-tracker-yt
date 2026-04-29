@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { Accordion, Table, Row, Col } from 'react-bootstrap';
 
-import { COLORS } from '../utils/Constants';
+import { COLORS } from '../../utils/Constants';
 
-import PageTitle from './Site/PageTitle';
+import PageTitle from '../Site/PageTitle';
 
 export default function AccordionElement({ title, array, iconName, forceOpen }) {
     return (

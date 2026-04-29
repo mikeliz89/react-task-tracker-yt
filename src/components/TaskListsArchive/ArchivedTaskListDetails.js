@@ -12,7 +12,7 @@ import { db } from '../../firebase-config';
 import { ICONS, TRANSLATION, DB, COLORS } from '../../utils/Constants';
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getPageTitleContent, getManagePageByListType } from '../../utils/ListUtils';
-import AccordionElement from '../AccordionElement';
+import AccordionElement from '../Site/AccordionElement';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import useFetch from '../Hooks/useFetch';
