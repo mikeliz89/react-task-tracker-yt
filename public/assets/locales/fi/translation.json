@@ -349,14 +349,14 @@
         "copyright": "Tekijänoikeus"
     },
     "games": {
-        "button_add_game": "Lisää peli",
+        "add": "Lisää peli",
         "button_add_board_game": "Lisää lautapeli",
         "button_game_lists": "Listat",
         "console": "Konsoli",
         "created": "Luotu",
         "created_by": "Luoja",
         "description": "Kuvaus",
-        "games_title": "Pelit",
+        "manage_title": "Pelit",
         "game_console_none": "-Ei mikään-",
         "game_console_ps1": "Playstation",
         "game_console_ps2": "Playstation 2",
@@ -410,7 +410,7 @@
         "urlText": "linkin teksti"
     },
     "movies": {
-        "button_add_movie": "Lisää leffa",
+        "add": "Lisää leffa",
         "button_movie_lists": "Leffalistat",
         "created": "Luotu",
         "created_by": "Luoja",
@@ -427,7 +427,7 @@
         "movie_format_google": "Google",
         "movie_format_none": "-Ei mikään-",
         "movie_format_vhs": "VHS",
-        "movies_title": "Leffat",
+        "manage_title": "Leffat",
         "movies": "Leffat",
         "name": "Nimi",
         "name_fi": "Suomenkielinen nimi",

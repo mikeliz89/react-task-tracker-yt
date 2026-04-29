@@ -32,7 +32,7 @@ export default function ManagePage({
         originalList: originalSearchSortFilterList,
         ...searchSortFilterOptions
     } = searchSortFilter ?? {};
-const showSearchSortFilter =
+    const showSearchSortFilter =
         originalSearchSortFilterList != null &&
         originalSearchSortFilterList.length > 0;
 

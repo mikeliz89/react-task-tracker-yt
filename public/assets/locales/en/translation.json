@@ -352,7 +352,7 @@
     "copyright": "Copyright"
   },
   "games": {
-    "button_add_game": "Add Game",
+    "add": "Add Game",
     "button_add_board_game": "Add Board Game",
     "button_game_lists": "Lists",
     "console": "Console",
@@ -413,7 +413,7 @@
     "urlText": "link text"
   },
   "movies": {
-    "button_add_movie": "Add Movie",
+    "add": "Add Movie",
     "button_movie_lists": "Movie Lists",
     "created": "Created",
     "created_by": "Created By",

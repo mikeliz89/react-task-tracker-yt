@@ -2,9 +2,13 @@
     "common": {
         "amount": "Amount",
         "loading": "Loading...",
+        "nothing_to_show": "Nothing to show",
+        "save_success": "Saved successfully",
+        "save_exception": "An error occurred while saving",
         "buttons": {
             "go_back_button_alt": "Go back",
             "button_close": "Close",
+            "button_open": "Add",
             "button_delete": "Delete",
             "button_delete_all": "Delete All",
             "button_edit": "Edit",
