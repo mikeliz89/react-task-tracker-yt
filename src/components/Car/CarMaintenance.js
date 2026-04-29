@@ -1,6 +1,6 @@
 //states
 import i18n from "i18next";
-import { Row, Col, Modal } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 import { updateToFirebaseById } from "../../datatier/datatier";
