@@ -26,7 +26,7 @@ export default function UploadForm({ objectID, imagesUrl }) {
         clearMessages,
         showSuccess,
         showFailure
-    } = useAlert(); 
+    } = useAlert();
 
     const types = ['image/png', 'image/jpeg'];
 

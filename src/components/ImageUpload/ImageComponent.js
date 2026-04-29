@@ -12,7 +12,7 @@ import Modal from './Modal';
 export default function ImageComponent({ objID, url }) {
 
   const [selectedImage, setSelectedImage] = useState(null);
-const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(0);
 
   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.UPLOAD_IMAGES });
 

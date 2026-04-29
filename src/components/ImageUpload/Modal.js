@@ -7,7 +7,7 @@ export default function Modal({ selectedImage, setSelectedImage }) {
         if (e.target.classList.contains('backdrop')) {
             setSelectedImage(null);
 
-}
+        }
     }
     return (
         <div className='backdrop' onClick={handleClick}>

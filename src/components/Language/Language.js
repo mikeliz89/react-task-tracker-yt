@@ -13,7 +13,7 @@ export default function Language() {
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LANGUAGE });
 
-const currentLanguageCode = ((cookies.get('i18next') || Languages.FI).split('-')[0] || Languages.FI).toLowerCase();
+    const currentLanguageCode = ((cookies.get('i18next') || Languages.FI).split('-')[0] || Languages.FI).toLowerCase();
 
     const languages = [
         {

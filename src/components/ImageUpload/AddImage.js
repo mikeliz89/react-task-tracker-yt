@@ -1,7 +1,4 @@
-
-
 //translation
-
 
 import { useState } from "react"
 import UploadForm from "./UploadForm";
@@ -15,7 +12,7 @@ export default function AddImage({ objectID, imagesUrl }) {
     //states
     const [showAddImage, setShowAddImage] = useState(false);
 
-const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.UPLOAD_IMAGES });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.UPLOAD_IMAGES });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     return (

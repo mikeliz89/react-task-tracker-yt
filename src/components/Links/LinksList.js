@@ -15,7 +15,7 @@ export default function LinksList() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LINKS });
-const addLink = (link) => {
+    const addLink = (link) => {
         link["created"] = getCurrentDateAsJson();
         pushToFirebase(DB.LINKS, link);
     }
