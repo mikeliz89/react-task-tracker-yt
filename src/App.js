@@ -45,12 +45,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'flag-icon-css/css/flag-icons.min.css';
-import i18n from 'i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import HttpApi from 'i18next-http-backend';
+import './i18n';
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import { initReactI18next } from 'react-i18next';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import './App.css';
@@ -116,7 +113,6 @@ import ArchivedTaskListDetails from './components/TaskListsArchive/ArchivedTaskL
 import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive';
 import { AuthProvider } from './contexts/AuthContext';
 import { useTheme } from './contexts/ThemeContext';
-import { Languages } from './Languages';
 import { COLORS, NAVIGATION, THEMES } from './utils/Constants';
 
 library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
@@ -126,25 +122,6 @@ library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, fa
   faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm, faWrench, faUserNinja, faBlender, faBreadSlice, faSun, faBell, faEnvelope, faGlobe
 );
 
-//languagization
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .use(LanguageDetector)
-  .use(HttpApi)
-  .init({
-    supportedLngs: [Languages.EN, Languages.FI],
-    fallbackLng: Languages.FI,
-    detection: {
-      order: ['cookie', 'htmlTag', 'localStorage', 'subdomain'],
-      caches: ['cookie'],
-    },
-    backend: {
-      loadPath: '/assets/locales/{{lng}}/{{ns}}.json',
-    },
-    ns: ["common", "dashboard", "tasklist", "translation"],
-    defaultNS: "translation",
-    react: { useSuspense: false },
-  });
 
 //app
 function App() {
