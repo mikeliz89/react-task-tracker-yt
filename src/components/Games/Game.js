@@ -76,7 +76,7 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
                     onClose={() => setEditable(false)}
                     onSave={updateGame}
                     dbUrl={dbUrl}
-                    showConsoleField={showConsole}
+                    showConsole={showConsole}
                     showLabels={true} />
             }
         >

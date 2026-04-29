@@ -19,8 +19,12 @@ export default function ManageBoardGames() {
             ListComponent={Games}
             iconName={ICONS.GAMEPAD}
             listNav={{ to: NAVIGATION.MANAGE_BOARD_GAMELISTS }}
+            AddComponentProps={{
+                showConsole: false
+            }}
             ListComponentProps={{
-                detailsNavigation: NAVIGATION.BOARD_GAME
+                detailsNavigation: NAVIGATION.BOARD_GAME,
+                showConsole: false
             }}
             searchSortFilterOptions={{
                 showSearchByText: true,

@@ -98,7 +98,7 @@ export default function BoardGameDetails() {
                 { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(boardGame?.modified, i18n.language)}</> }
             ]}
             editModalTitle={t('modal_header_edit_board_game')}
-            editSection={<AddGame onSave={updateBoardGame} gameID={params.id} onClose={() => setShowEdit(false)} dbUrl={DB.BOARD_GAMES} showConsoleField={false} />}
+            editSection={<AddGame onSave={updateBoardGame} gameID={params.id} onClose={() => setShowEdit(false)} dbUrl={DB.BOARD_GAMES} showConsole={false} />}
             alertSection={
                 <Alert
                     message={message}
