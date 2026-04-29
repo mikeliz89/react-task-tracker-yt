@@ -96,20 +96,16 @@ import EventDetails from './components/Music/EventDetails';
 import ManageMusicKaraokeSongs from './components/Music/ManageKaraokeSongs';
 import ManageMusicBands from './components/Music/ManageMusicBands';
 import ManageMusicEvents from './components/Music/ManageMusicEvents';
-import ManageMusicLists from './components/Music/ManageMusicLists';
 import ManageMusicRecords from './components/Music/ManageMusicRecords';
 import RecordDetails from './components/Music/RecordDetails';
 import ManageMyProfile from './components/MyProfile/ManageMyProfile';
 import ManagePeople from './components/People/ManagePeople';
 import PersonDetails from './components/People/PersonDetails';
 import PrivateRoute from './components/PrivateRoute';
-import ManageProgramming from './components/Programming/ManageProgramming';
 import ManageFoodItems from './components/Recipe/ManageFoodItems';
 import FoodItemDetails from './components/Recipe/FoodItemDetails';
-import ManageRecipeLists from './components/Recipe/ManageRecipeLists';
 import ManageRecipes from './components/Recipe/ManageRecipes';
 import RecipeDetails from './components/Recipe/RecipeDetails';
-import ManageShoppingLists from './components/ShoppingList/ManageShoppingLists';
 import About from './components/Site/About';
 import Footer from './components/Site/Footer';
 import Header from './components/Site/Header';
@@ -191,7 +187,7 @@ function App() {
             <Route path={NAVIGATION.FOODITEM_DETAILS + '/:id'} element={<PrivateRoute><FoodItemDetails /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_RECIPES} element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_FOODITEMS} element={<PrivateRoute><ManageFoodItems /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_RECIPELISTS} element={<PrivateRoute><ManageRecipeLists /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_RECIPELISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Food} /></PrivateRoute>} />
             <Route path={NAVIGATION.RECIPE + '/:id'} element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
             {/* Recipe */}
             {/* Drinks */}
@@ -232,14 +228,14 @@ function App() {
             <Route path={NAVIGATION.GEAR + '/:id'} element={<PrivateRoute><GearDetails /></PrivateRoute>} />
             {/* Backpacking */}
             {/* Car */}
-              <Route path={NAVIGATION.MANAGE_CARLISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Car} /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_CARLISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Car} /></PrivateRoute>} />
             <Route path={NAVIGATION.CAR} element={<PrivateRoute><Car /></PrivateRoute>} />
             {/* Car */}
             {/* Music */}
             <Route path={NAVIGATION.MANAGE_MUSIC_RECORDS} element={<PrivateRoute><ManageMusicRecords /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_MUSIC_BANDS} element={<PrivateRoute><ManageMusicBands /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_MUSIC_EVENTS} element={<PrivateRoute><ManageMusicEvents /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_MUSICLISTS} element={<PrivateRoute><ManageMusicLists /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_MUSICLISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Music} /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_MUSIC_KARAOKE_SONGS} element={<PrivateRoute><ManageMusicKaraokeSongs /></PrivateRoute>} />
             <Route path={NAVIGATION.MUSIC_RECORD + '/:id'} element={<PrivateRoute><RecordDetails /></PrivateRoute>} />
             <Route path={NAVIGATION.MUSIC_EVENT + '/:id'} element={<PrivateRoute><EventDetails /></PrivateRoute>} />
@@ -271,7 +267,7 @@ function App() {
             <Route path={NAVIGATION.DEMO} element={<PrivateRoute><Demo /></PrivateRoute>} />
             {/* Demo */}
             {/* Programming */}
-            <Route path={NAVIGATION.MANAGE_PROGRAMMING} element={<PrivateRoute><ManageProgramming /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_PROGRAMMING} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Programming} /></PrivateRoute>} />
             {/* Programming */}
             {/* Other lists */}
             <Route path={NAVIGATION.MANAGE_LISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Other} /></PrivateRoute>} />
@@ -283,9 +279,9 @@ function App() {
             <Route path={NAVIGATION.MANAGE_PEOPLE} element={<PrivateRoute><ManagePeople /></PrivateRoute>} />
             <Route path={NAVIGATION.PERSON + '/:id'} element={<PrivateRoute><PersonDetails /></PrivateRoute>} />
             {/* People  / person */}
-            {
-              <Route path={NAVIGATION.MANAGE_SHOPPINGLISTS} element={<PrivateRoute><ManageShoppingLists /></PrivateRoute>} />
-            }
+            {/* Shopping lists */}
+            <Route path={NAVIGATION.MANAGE_SHOPPINGLISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Shopping} /></PrivateRoute>} />
+            {/* Shopping lists */}
           </Routes>
           <Footer />
         </AuthProvider>
