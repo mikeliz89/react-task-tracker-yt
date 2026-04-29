@@ -1,12 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Row, Col } from 'react-bootstrap';
 
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
-import RightWrapper from '../Site/RightWrapper';
-
 
 import AddIncredient from './AddIncredient';
 import ListRow from '../Site/ListRow';

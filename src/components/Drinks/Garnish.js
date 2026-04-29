@@ -1,11 +1,7 @@
 import { useState } from 'react';
-import { Row, Col } from 'react-bootstrap';
 
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import { DB } from '../../utils/Constants';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
-import RightWrapper from '../Site/RightWrapper';
 import ListRow from '../Site/ListRow';
 import AddGarnish from './AddGarnish';
 

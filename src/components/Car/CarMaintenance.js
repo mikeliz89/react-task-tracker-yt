@@ -1,16 +1,12 @@
 //states
 import i18n from "i18next";
-import { Row, Col } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 import { updateToFirebaseById } from "../../datatier/datatier";
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
 import { useToggle } from '../Hooks/useToggle';
 
-import RightWrapper from "../Site/RightWrapper";
 import ListRow from '../Site/ListRow';
 
 import AddMaintenance from "./AddMaintenance";

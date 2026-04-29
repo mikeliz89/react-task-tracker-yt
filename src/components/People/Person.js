@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { updateToFirebaseById } from '../../datatier/datatier';
-import { Languages } from '../../Languages';
 import i18n from 'i18next';
 import { TRANSLATION, NAVIGATION, DB } from "../../utils/Constants";
 import { getCurrentDateAsJson, getJsonAsDateString } from '../../utils/DateTimeUtils';

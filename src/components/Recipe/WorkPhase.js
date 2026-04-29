@@ -1,13 +1,9 @@
 //states
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Row, Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
-import RightWrapper from '../Site/RightWrapper';
 import ListRow from '../Site/ListRow';
 import AddWorkPhase from './AddWorkPhase';
 

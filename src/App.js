@@ -1,7 +1,4 @@
 //App
-
-
-
 //Dashboard
 //TaskListArchive
 //TaskList
@@ -62,13 +59,12 @@ import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import GearDetails from './components/BackPacking/GearDetails';
 import ManageBackPacking from './components/BackPacking/ManageBackPacking';
-import ManageBackPackingLists from './components/BackPacking/ManageBackPackingLists';
 import ManageGear from './components/BackPacking/ManageGear';
 import ManageGearMaintenance from './components/BackPacking/ManageGearMaintenance';
 import BmiCalculator from './components/BmiCalculator/BmiCalculator';
 import WeightHistory from './components/BmiCalculator/WeightHistory';
 import Car from './components/Car/Car';
-import ManageCarLists from './components/Car/ManageCarLists';
+import { ListTypes } from './utils/Enums';
 import Dashboard from './components/Dashboard/Dashboard';
 import Demo from './components/Demo/Demo';
 import CreateTrack from './components/DiscGolf/CreateTrack';
@@ -80,21 +76,17 @@ import TrackDetails from './components/DiscGolf/TrackDetails';
 import DrinkDetails from './components/Drinks/DrinkDetails';
 import DrinkingProductDetails from './components/Drinks/DrinkingProductDetails';
 import ManageDrinkingProducts from './components/Drinks/ManageDrinkingProducts';
-import ManageDrinkLists from './components/Drinks/ManageDrinkLists';
 import ManageDrinks from './components/Drinks/ManageDrinks';
 import AddMovement from './components/Exercises/AddMovement';
 import CreateExercise from './components/Exercises/CreateExercise';
 import ExerciseDetails from './components/Exercises/ExerciseDetails';
-import ManageExerciseLists from './components/Exercises/ManageExerciseLists';
 import ManageExercises from './components/Exercises/ManageExercises';
 import ManageMovements from './components/Exercises/ManageMovements';
 import MovementDetails from './components/Exercises/MovementDetails';
 import BoardGameDetails from './components/Games/BoardGameDetails';
 import GameDetails from './components/Games/GameDetails';
 import Games from './components/Games/Games';
-import ManageBoardGameLists from './components/Games/ManageBoardGameLists';
 import ManageBoardGames from './components/Games/ManageBoardGames';
-import ManageGameLists from './components/Games/ManageGameLists';
 import ManageGames from './components/Games/ManageGames';
 import LinksList from './components/Links/LinksList';
 import ManageLists from './components/Lists/ManageLists';
@@ -207,7 +199,7 @@ function App() {
             {/* Drinks */}
             <Route path={NAVIGATION.MANAGE_DRINKS} element={<PrivateRoute><ManageDrinks /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_DRINKINPRODUCTS} element={<PrivateRoute><ManageDrinkingProducts /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_DRINKLISTS} element={<PrivateRoute><ManageDrinkLists /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_DRINKLISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Drinks} /></PrivateRoute>} />
             <Route path={NAVIGATION.DRINK + '/:id'} element={<PrivateRoute><DrinkDetails /></PrivateRoute>} />
             <Route path={NAVIGATION.DRINKINGPRODUCT + '/:id'} element={<PrivateRoute><DrinkingProductDetails /></PrivateRoute>} />
             {/*Drinks */}
@@ -218,7 +210,7 @@ function App() {
             <Route path={NAVIGATION.ADD_MOVEMENT} element={<PrivateRoute><AddMovement /></PrivateRoute>} />
             <Route path={NAVIGATION.EXERCISE + '/:id'} element={<PrivateRoute><ExerciseDetails /></PrivateRoute>} />
             <Route path={NAVIGATION.MOVEMENT + '/:id'} element={<PrivateRoute><MovementDetails /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_EXERCISE_LISTS} element={<PrivateRoute><ManageExerciseLists /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_EXERCISE_LISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Exercises} /></PrivateRoute>} />
             {/* Exercises */}
             {/* BMI */}
             <Route path={NAVIGATION.BMICALCULATOR} element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
@@ -236,13 +228,13 @@ function App() {
             {/* MyProfile */}
             {/* Backpacking */}
             <Route path={NAVIGATION.MANAGE_BACKPACKING} element={<PrivateRoute><ManageBackPacking /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_BACKPACKINGLISTS} element={<PrivateRoute><ManageBackPackingLists /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_BACKPACKINGLISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.BackPacking} /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_GEAR} element={<PrivateRoute><ManageGear /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_GEAR_MAINTENANCE} element={<PrivateRoute><ManageGearMaintenance /></PrivateRoute>} />
             <Route path={NAVIGATION.GEAR + '/:id'} element={<PrivateRoute><GearDetails /></PrivateRoute>} />
             {/* Backpacking */}
             {/* Car */}
-            <Route path={NAVIGATION.MANAGE_CARLISTS} element={<PrivateRoute><ManageCarLists /></PrivateRoute>} />
+              <Route path={NAVIGATION.MANAGE_CARLISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Car} /></PrivateRoute>} />
             <Route path={NAVIGATION.CAR} element={<PrivateRoute><Car /></PrivateRoute>} />
             {/* Car */}
             {/* Music */}
@@ -259,8 +251,8 @@ function App() {
             <Route path={NAVIGATION.GAMES} element={<PrivateRoute><Games /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_GAMES} element={<PrivateRoute><ManageGames /></PrivateRoute>} />
             <Route path={NAVIGATION.MANAGE_BOARD_GAMES} element={<PrivateRoute><ManageBoardGames /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_GAMELISTS} element={<PrivateRoute><ManageGameLists /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_BOARD_GAMELISTS} element={<PrivateRoute><ManageBoardGameLists /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_GAMELISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Games} /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_BOARD_GAMELISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.BoardGames} /></PrivateRoute>} />
             <Route path={NAVIGATION.GAME + '/:id'} element={<PrivateRoute><GameDetails /></PrivateRoute>} />
             <Route path={NAVIGATION.BOARD_GAME + '/:id'} element={<PrivateRoute><BoardGameDetails /></PrivateRoute>} />
             {/* Games */}

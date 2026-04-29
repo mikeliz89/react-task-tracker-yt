@@ -2,9 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
-import DeleteButton from '../Buttons/DeleteButton';
 
-import StarRating from '../StarRating/StarRating';
 import ListRow from '../Site/ListRow';
 import { useState } from 'react';
 import AddMovement from './AddMovement';
