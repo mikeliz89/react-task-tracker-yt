@@ -89,8 +89,6 @@ import Games from './components/Games/Games';
 import ManageBoardGames from './components/Games/ManageBoardGames';
 import ManageGames from './components/Games/ManageGames';
 import LinksList from './components/Links/LinksList';
-import ManageLists from './components/Lists/ManageLists';
-import ManageMovieLists from './components/Movies/ManageMovieLists';
 import ManageMovies from './components/Movies/ManageMovies';
 import MovieDetails from './components/Movies/MovieDetails';
 import BandDetails from './components/Music/BandDetails';
@@ -266,7 +264,7 @@ function App() {
             {/* Disc Golf */}
             {/* Movies */}
             <Route path={NAVIGATION.MANAGE_MOVIES} element={<PrivateRoute><ManageMovies /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_MOVIELISTS} element={<PrivateRoute><ManageMovieLists /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_MOVIELISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Movies} /></PrivateRoute>} />
             <Route path={NAVIGATION.MOVIE + '/:id'} element={<PrivateRoute><MovieDetails /></PrivateRoute>} />
             {/* Movies */}
             {/* Demo */}
@@ -276,7 +274,7 @@ function App() {
             <Route path={NAVIGATION.MANAGE_PROGRAMMING} element={<PrivateRoute><ManageProgramming /></PrivateRoute>} />
             {/* Programming */}
             {/* Other lists */}
-            <Route path={NAVIGATION.MANAGE_LISTS} element={<PrivateRoute><ManageLists /></PrivateRoute>} />
+            <Route path={NAVIGATION.MANAGE_LISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Other} /></PrivateRoute>} />
             {/* Other lists */}
             {/* Links */}
             <Route path={NAVIGATION.LINKSLIST} element={<PrivateRoute><LinksList /></PrivateRoute>} />
