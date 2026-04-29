@@ -1,6 +1,5 @@
-//modal
 import i18n from "i18next";
-import { Row, Col, Modal } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 import { updateToFirebaseById } from "../../datatier/datatier";
@@ -28,21 +27,20 @@ export default function CarFueling({ fuelingRow, onDelete }) {
     };
 
     return (
-        <>
-            <ListRow
-                headerTitle={
-                    <>
-                        <b>{getJsonAsDateTimeString(fuelingRow.created, i18n.language)}</b>&nbsp;
-                        {fuelingRow.createdBy}
-                    </>
-                }
-                showEditButton={true}
-                editable={showEditFueling}
-                setEditable={toggleShowEditFueling}
-                showDeleteButton={true}
-                onDelete={onDelete}
-                deleteId={fuelingRow.id}
-            >
+        <ListRow
+            headerTitle={
+                <>
+                    <b>{getJsonAsDateTimeString(fuelingRow.created, i18n.language)}</b>&nbsp;
+                    {fuelingRow.createdBy}
+                </>
+            }
+            showEditButton={true}
+            editable={showEditFueling}
+            setEditable={toggleShowEditFueling}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={fuelingRow.id}
+            section={
                 <div>
                     {t('liter_amount')}: {fuelingRow.fuelLiterAmount} L<br />
                     {t('price')}: {fuelingRow.price} € <br />
@@ -51,21 +49,16 @@ export default function CarFueling({ fuelingRow, onDelete }) {
                     {t('purchase_location')}: {fuelingRow.purchaseLocation}<br />
                     {t('fueler_name')}: {fuelingRow.fuelerName}
                 </div>
-            </ListRow>
-
-            <Modal show={showEditFueling} onHide={toggleShowEditFueling}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_edit_fueling')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddFueling
-                        ID={fuelingRow.id}
-                        onClose={() => toggleShowEditFueling()}
-                        onSave={updateFueling}
-                    />
-                </Modal.Body>
-            </Modal>
-        </>
+            }
+            modalTitle={t('modal_header_edit_fueling')}
+            modalBody={
+                <AddFueling
+                    ID={fuelingRow.id}
+                    onClose={() => toggleShowEditFueling()}
+                    onSave={updateFueling}
+                />
+            }
+        />
     );
 }
 

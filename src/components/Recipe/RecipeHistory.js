@@ -11,7 +11,7 @@ export default function RecipeHistory({ translation, translationKeyPrefix, recip
                 {getJsonAsDateTimeString(recipeHistory.currentDateTime, i18n.language)}
                 &nbsp;
 
-<DeleteButton
+                <DeleteButton
                     onDelete={onDelete}
                     id={recipeHistory.id}
                 />

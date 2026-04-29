@@ -415,6 +415,7 @@
         "created": "Luotu",
         "created_by": "Luoja",
         "description": "Kuvaus",
+        "edit_movie": "Muokkaa leffaa",
         "failed_to_save_movie": "Tallennus epäonnistui",
         "format": "Tallennusmuoto",
         "have": "Minulla on tämä",
