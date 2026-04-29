@@ -3,7 +3,7 @@ import cookies from 'js-cookie';
 import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { Languages } from '../../Languages';
+import { Languages } from '../../utils/Languages';
 import { TRANSLATION, VARIANTS } from '../../utils/Constants';
 
 import './Language.css';

@@ -49,7 +49,7 @@ import MovementDetails from '../components/Exercises/MovementDetails';
 import MovieDetails from '../components/Movies/MovieDetails';
 import PersonDetails from '../components/People/PersonDetails';
 import PlayRound from '../components/DiscGolf/PlayRound';
-import PrivateRoute from '../components/PrivateRoute';
+import PrivateRoute from './PrivateRoute';
 import React from 'react';
 import RecipeDetails from '../components/Recipe/RecipeDetails';
 import RecordDetails from '../components/Music/RecordDetails';

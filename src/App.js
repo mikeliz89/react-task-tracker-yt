@@ -18,7 +18,6 @@ import Footer from './components/Site/Footer';
 import Header from './components/Site/Header';
 import { AuthProvider } from './contexts/AuthContext';
 import { useTheme } from './contexts/ThemeContext';
-import { THEMES } from './utils/Constants';
 import { colorRootElement } from './utils/colorRootElement';
 
 //app
