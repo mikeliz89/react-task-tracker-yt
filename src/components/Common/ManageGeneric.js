@@ -19,7 +19,7 @@ import { TRANSLATION, ICONS, NAVIGATION, COLORS } from '../../utils/Constants';
  * @param {React.Component} props.AddComponent - Add item modal component
  * @param {React.Component} props.ListComponent - List component
  */
-export default function ManageGeneric({ dbKey, translationKey, AddComponent, ListComponent, searchSortFilterOptions, iconName, topActions, listNav }) {
+export default function ManageGeneric({ dbKey, translationKey, AddComponent, ListComponent, searchSortFilterOptions, iconName, topActions, listNav, ListComponentProps = {}, title }) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: translationKey });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
@@ -76,7 +76,7 @@ export default function ManageGeneric({ dbKey, translationKey, AddComponent, Lis
 
     return (
         <ManagePage
-            title={t('manage_title')}
+            title={title ?? t('manage_title')}
             iconName={iconName}
             topActions={resolvedTopActions}
             alert={{
@@ -116,6 +116,7 @@ export default function ManageGeneric({ dbKey, translationKey, AddComponent, Lis
                 counter={counter}
                 onDelete={deleteItem}
                 onEdit={editItem}
+                {...ListComponentProps}
             />
         </ManagePage>
     );
