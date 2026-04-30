@@ -39,6 +39,8 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
 
     return (
         <ListRow
+            item={game}
+            dbKey={DB.GAMES}
             headerTitle={gameTitle}
             headerTitleTo={`${detailsNavigation}/${game.id}`}
             showEditButton={true}
@@ -47,7 +49,6 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={game.id}
-            starCount={game.stars}
             section={
                 <>
                     <p>

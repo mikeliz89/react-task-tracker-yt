@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { COLORS, ICONS, NAVIGATION, TRANSLATION } from '../../utils/Constants';
+import { COLORS, ICONS, NAVIGATION, TRANSLATION, DB } from '../../utils/Constants';
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
 import CheckButton from '../Buttons/CheckButton';
 import ListRow from '../Site/ListRow';
@@ -32,6 +32,8 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
 
     return (
         <ListRow
+            item={foodItem}
+            dbKey={DB.FOODITEMS}
             headerTitle={foodItem.name}
             headerTitleTo={`${NAVIGATION.FOODITEM_DETAILS}/${foodItem.id}`}
             headerTitleIcon={ICONS.CARROT}
@@ -54,7 +56,7 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
             modalBody={
                 <AddFoodItem
                     onClose={() => setEditable(false)}
-                    onAddFoodItem={editFoodItem}
+                    onSave={editFoodItem}
                     foodItemID={foodItem.id}
                 />
             }

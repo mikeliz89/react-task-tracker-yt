@@ -15,7 +15,6 @@ import useFetch from '../Hooks/useFetch';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddMovement from './AddMovement';
 
@@ -46,13 +45,6 @@ export default function MovementDetails() {
     //fetch data
     const { data: movement, loading } = useFetch(DB.EXERCISE_MOVEMENTS, "", params.id);
 
-    const saveStars = async (stars) => {
-        const movementID = params.id;
-        movement["modified"] = getCurrentDateAsJson();
-        movement["stars"] = Number(stars);
-        updateToFirebaseById(DB.EXERCISE_MOVEMENTS, movementID, movement);
-    }
-
     const addCommentToMovement = (comment) => {
         const movementID = params.id;
         comment["created"] = getCurrentDateAsJson();
@@ -80,6 +72,9 @@ export default function MovementDetails() {
 
     return (
         <DetailsPage
+            item={movement}
+            id={params.id}
+            dbKey={DB.EXERCISE_MOVEMENTS}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEditMovement}
@@ -92,7 +87,6 @@ export default function MovementDetails() {
                 </div>
             }
             summary={`${t('description')}: ${movement?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={movement?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 {
                     id: 1,

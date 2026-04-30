@@ -39,6 +39,8 @@ export default function Record({ record, onDelete, onEdit }) {
 
     return (
         <ListRow
+            item={record}
+            dbKey={DB.MUSIC_RECORDS}
             headerTitle={recordTitle}
             headerTitleTo={`${NAVIGATION.MUSIC_RECORD}/${record.id}`}
             showEditButton={true}
@@ -47,7 +49,6 @@ export default function Record({ record, onDelete, onEdit }) {
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={record.id}
-            starCount={record.stars}
             section={
                 <>
                     <p>

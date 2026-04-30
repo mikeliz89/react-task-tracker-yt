@@ -54,6 +54,9 @@ export default function TaskDetails() {
 
   return (
     <DetailsPage
+      item={task}
+      id={params.id}
+      dbKey={DB.TASKS}
       loading={loading}
       showEditButton={true}
       isEditOpen={showEditTask}

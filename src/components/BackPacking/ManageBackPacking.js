@@ -11,7 +11,7 @@ export default function ManageBackPacking() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-return (
+    return (
         <PageContentWrapper>
 
             <PageTitle title={t('manage_backpacking_title')} iconName={ICONS.CAMPGROUND} />

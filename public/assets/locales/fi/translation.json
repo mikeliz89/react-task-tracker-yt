@@ -163,6 +163,7 @@
         "track_name": "Radan nimi"
     },
     "drinks": {
+        "add": "Lisää drinkki",
         "add_incredient_formtitle": "Ainesosan lisäys",
         "add_workphase_formtitle": "Työvaiheen lisäys",
         "button_add_drinks": "Lisää drinkki",
@@ -221,6 +222,9 @@
         "drinkingproduct_name": "Tuotteen nimi",
         "drinkingproduct_not_have_at_home": "Minulla ei ole tätä",
         "drinkingproduct_save_successful": "Tuotteen tallennus onnistui",
+        "edit_workphase":"Muokkaa työvaihetta",
+        "edit_incredient":"Muokkaa ainesosaa",
+        "edit_garnish":"Muokkaa koristetta",
         "failed_to_save_drink": "Drinkin tallennus epäonnistui",
         "garnish_name": "Koriste",
         "garnishes_header": "Koristeet",
@@ -539,6 +543,7 @@
         "years": "vuotta"
     },
     "recipe": {
+        "add": "Lisää resepti",
         "add_description": "Lisää kuvaus",
         "add_workphase_formtitle": "Työvaiheen lisäys",
         "add_incredient_formtitle": "Ainesosan lisäys",
@@ -586,6 +591,8 @@
         "do_recipe_confirm": "Oletko varma?",
         "edit_description": "Muokkaa kuvausta",
         "edit_recipe_name": "Muokkaa reseptin nimeä",
+        "edit_workphase": "Muokkaa työvaihetta",
+        "edit_incredient":"Muokkaa ainesosaa",
         "failed_to_save_recipe": "Reseptin tallennus epäonnistui",
         "fooditem_name": "Nimi",
         "fooditem_calories": "Kalorit",

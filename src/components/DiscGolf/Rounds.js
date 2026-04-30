@@ -1,11 +1,11 @@
 import Round from "./Round";
 
-export default function Rounds({ rounds, onDelete }) {
+export default function Rounds({ items, onDelete }) {
 
    return (
       <>
          {
-            rounds.map((round) => (
+            items.map((round) => (
                <Round key={round.id} round={round} onDelete={onDelete} />
             ))
          }

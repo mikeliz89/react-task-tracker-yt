@@ -7,9 +7,8 @@ import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import { useToggle } from '../Hooks/useToggle';
 import ManagePage from '../Site/ManagePage';
-import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import NavButton from '../Buttons/NavButton';
-import { TRANSLATION, ICONS, NAVIGATION, COLORS } from '../../utils/Constants';
+import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
 
 /**
  * Generic management page for Firebase collections.
@@ -19,7 +18,17 @@ import { TRANSLATION, ICONS, NAVIGATION, COLORS } from '../../utils/Constants';
  * @param {React.Component} props.AddComponent - Add item modal component
  * @param {React.Component} props.ListComponent - List component
  */
-export default function ManageGeneric({ dbKey, translationKey, AddComponent, ListComponent, searchSortFilterOptions, iconName, topActions, listNav, ListComponentProps = {}, AddComponentProps = {}, title }) {
+export default function ManageGeneric({ dbKey,
+    translationKey,
+    AddComponent,
+    ListComponent,
+    searchSortFilterOptions,
+    iconName,
+    topActions,
+    listNav,
+    ListComponentProps = {},
+    AddComponentProps = {},
+    title }) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: translationKey });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
@@ -112,7 +121,7 @@ export default function ManageGeneric({ dbKey, translationKey, AddComponent, Lis
         >
             <ListComponent
                 items={listToShow}
-                originalList={originalData}
+                originalList={Array.isArray(originalData) ? originalData : (originalData ? [originalData] : [])}
                 counter={counter}
                 onDelete={deleteItem}
                 onEdit={editItem}

@@ -25,6 +25,8 @@ export default function Event({ event, onDelete, onEdit }) {
 
     return (
         <ListRow
+            item={event}
+            dbKey={DB.MUSIC_EVENTS}
             headerTitle={eventTitle}
             headerTitleTo={`${NAVIGATION.MUSIC_EVENT}/${event.id}`}
             showEditButton={true}
@@ -33,7 +35,6 @@ export default function Event({ event, onDelete, onEdit }) {
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={event.id}
-            starCount={event.stars}
             section={<p>{event.description}</p>}
             modalTitle={t('modal_header_edit_event') || 'Edit Event'}
             modalBody={

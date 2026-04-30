@@ -14,7 +14,7 @@ export default function ImageGrid({ objectID, url, setSelectedImage, onCounterCh
 
     const { docs } = useFirestore([], url, objectID);
 
-const [deleted, setDeleted] = useState(null);
+    const [deleted, setDeleted] = useState(null);
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.UPLOAD_IMAGES });

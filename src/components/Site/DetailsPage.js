@@ -1,46 +1,70 @@
 import { Row, Col, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-
-import { ICONS, COLORS, TRANSLATION } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION } from '../../utils/Constants';
+import PageContentWrapper from './PageContentWrapper';
+import PageTitle from './PageTitle';
+import StarRatingWrapper from '../StarRating/StarRatingWrapper';
+import { updateToFirebaseById } from '../../datatier/datatier';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import Icon from '../Icon';
 
-import PageContentWrapper from './PageContentWrapper';
-import PageTitle from './PageTitle';
-
 export default function DetailsPage({
+    //loading
     loading,
     loadingText,
-    showEditButton = false,
-    isEditOpen = false,
-    onToggleEdit,
+    //title
     title,
     titleSuffix,
     topContent,
+    //summary
     preSummaryContent,
     summary,
-    ratingSection,
-    metaItems,
+    //edit
     editSection,
     editModalTitle,
+    showEditButton = false,
+    isEditOpen = false,
+    onToggleEdit,
+    //alert
     alertSection,
     alertColLg = 12,
+    //image
     preImageSection,
     preImageColLg = 12,
     imageSection,
     imageColLg = 12,
+    //comment
     commentSection,
     commentColLg = 12,
+    //link
     linkSection,
     linkColLg = 12,
-    children
+    //other
+    children,
+    metaItems,
+    showStarRating = true,
+    //item, id, dbkey
+    id,
+    item,
+    dbKey,
 }) {
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     if (loading) {
         return <h3>{loadingText || tCommon('loading')}</h3>;
     }
+
+    // Tallennetaan tähdet Firebaseen käyttäen item.id:tä ja item-oliota
+    const saveStars = async (stars) => {
+        console.log('Saving stars:', stars);
+        if (!item || !id) {
+            return;
+        }
+        const updated = { ...item, modified: getCurrentDateAsJson(), stars: Number(stars) };
+        await updateToFirebaseById(dbKey || '', id, updated);
+    };
 
     return (
         <PageContentWrapper>
@@ -64,7 +88,15 @@ export default function DetailsPage({
                                 {typeof title === 'string' ? <PageTitle title={title} /> : title}
                                 {titleSuffix && <div className="detailspage-title-suffix">{titleSuffix}</div>}
                             </div>
-                            {ratingSection && <div className="detailspage-rating-row">{ratingSection}</div>}
+                            {showStarRating && (
+                                <div className="detailspage-rating-row">
+                                    {/* {typeof item?.stars === 'number' && !isNaN(item.stars) ? item.stars : 0} */}
+                                    <StarRatingWrapper
+                                        stars={item?.stars != null && !isNaN(Number(item.stars)) ? Number(item.stars) : 0}
+                                        onSaveStars={saveStars}
+                                    />
+                                </div>
+                            )}
                             {topContent}
                         </div>
                     </div>

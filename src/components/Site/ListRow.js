@@ -2,15 +2,20 @@ import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import NavButton from '../Buttons/NavButton';
 import Alert from '../Alert';
-import StarRating from '../StarRating/StarRating';
+import StarRatingWrapper from '../StarRating/StarRatingWrapper';
+import { updateToFirebaseById } from '../../datatier/datatier';
+import { DB } from '../../utils/Constants';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { COLORS } from '../../utils/Constants';
 import { Modal } from 'react-bootstrap';
 
 import RightWrapper from './RightWrapper';
 
 export default function ListRow({
-    className = '',
-    onDoubleClick,
+    //item
+    item,
+    dbKey,
+    //header
     headerPrefix,
     headerLeft,
     headerTitle,
@@ -23,24 +28,41 @@ export default function ListRow({
     headerAs = 'h5',
     headerClassName = '',
     headerLeftClassName = '',
-    actionsClassName = '',
-    stopRightClickPropagation = false,
+    //buttons
     showEditButton = false,
+    showDeleteButton = false,
     editable,
     setEditable,
-    showDeleteButton = false,
-    actionsExtra,
+    stopRightClickPropagation = false,
+    onDoubleClick,
+    //delete
     onDelete,
     deleteId,
     deleteSubId,
+    //alert
     alert,
-    starCount,
-    children,
+    //modal
     modal,
     modalTitle,
     modalBody,
+    //other
+    children,
     section,
+    actionsClassName = '',
+    actionsExtra,
+    className = '',
+    showStarRating = true,
 }) {
+
+    // Tallennetaan tähdet Firebaseen käyttäen nykyistä item-oliota ja uutta stars-arvoa
+    const saveStars = async (stars) => {
+        if (!item || !item.id) {
+            return;
+        }
+        const updated = { ...item, modified: getCurrentDateAsJson(), stars: Number(stars) };
+        await updateToFirebaseById(dbKey, item.id, updated);
+    };
+
     const HeaderTag = headerAs;
     const hasActions = actionsExtra != null || showEditButton || showDeleteButton;
     const hasLeftContent = headerPrefix != null
@@ -124,7 +146,12 @@ export default function ListRow({
                     </Modal.Body>
                 </Modal>
             )}
-            {starCount != null ? <StarRating starCount={starCount} /> : null}
+            {showStarRating && (
+                <StarRatingWrapper
+                    stars={Number(item?.stars) || 0}
+                    onSaveStars={saveStars}
+                />
+            )}
         </div>
     );
 }

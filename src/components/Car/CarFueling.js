@@ -24,6 +24,8 @@ export default function CarFueling({ fuelingRow, onDelete }) {
 
     return (
         <ListRow
+            item={fuelingRow}
+            dbKey={DB.CAR_FUELING}
             headerTitle={
                 <>
                     <b>{getJsonAsDateTimeString(fuelingRow.created, i18n.language)}</b>&nbsp;

@@ -15,7 +15,6 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 import PageTitle from '../Site/PageTitle';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddGame from './AddGame';
 
@@ -68,18 +67,14 @@ export default function BoardGameDetails() {
         pushToFirebaseChild(DB.BOARD_GAME_LINKS, id, link);
     }
 
-    const saveStars = async (stars) => {
-        const boardGameID = params.id;
-        boardGame["modified"] = getCurrentDateAsJson()
-        boardGame["stars"] = Number(stars);
-        updateToFirebaseById(DB.BOARD_GAMES, boardGameID, boardGame);
-    }
-
     //states
     const [showEdit, setShowEdit] = useState(false);
 
     return (
         <DetailsPage
+            item={boardGame}
+            id={params.id}
+            dbKey={DB.BOARD_GAMES}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEdit}
@@ -91,7 +86,6 @@ export default function BoardGameDetails() {
                 </span>
             }
             summary={`${t('description')}: ${boardGame?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={boardGame?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(boardGame?.created, i18n.language)}</> },
                 { id: 2, content: <>{t('created_by')}: {boardGame?.createdBy}</> },

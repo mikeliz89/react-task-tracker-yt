@@ -9,7 +9,7 @@ import useFetchById from '../Hooks/useFetchById';
 
 import { DrinkingProductCategories } from './Categories';
 
-export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingProduct, onClose, showLabels = true }) {
+export default function AddDrinkingProduct({ drinkingProductID, onSave, onClose, showLabels = true }) {
 
    //translation
    const { t, ready } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
@@ -63,7 +63,7 @@ export default function AddDrinkingProduct({ drinkingProductID, onAddDrinkingPro
          return
       }
 
-      onAddDrinkingProduct({
+      onSave({
          abv, amount, category,
          created, createdBy, description,
          haveAtHome, manufacturer, name,

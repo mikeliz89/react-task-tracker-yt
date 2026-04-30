@@ -14,14 +14,14 @@ import PageTitle from '../Site/PageTitle';
 import CarFueling from "./CarFueling";
 import GasPriceChart from './GasPriceChart';
 
-export default function CarFuelings({ carFuelings, chartFuelings, onDelete }) {
+export default function CarFuelings({ items, chartFuelings, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
 
-const getFuelingsPriceSum = (carFuelings) => {
+const getFuelingsPriceSum = (items) => {
         let sum = 0;
-        carFuelings.forEach(fueling => {
+        items.forEach(fueling => {
             if (fueling.price > 0) {
                 sum += parseFloat(fueling.price);
             }
@@ -33,15 +33,15 @@ const getFuelingsPriceSum = (carFuelings) => {
         <>
             <PageTitle title={t('fuelings')} iconName={ICONS.GAS_PUMP} />
 
-            <p>{t('car_fuelings_price_sum')}: {getFuelingsPriceSum(carFuelings)}</p>
+            <p>{t('car_fuelings_price_sum')}: {getFuelingsPriceSum(items)}</p>
 
-            {carFuelings.map((fuelingRow) => (
+            {items.map((fuelingRow) => (
                 <CarFueling key={fuelingRow.id} fuelingRow={fuelingRow} onDelete={onDelete} />
             ))}
 
             <hr />
             <p>{t('fuel_price_chart')}</p>
-            <GasPriceChart data={chartFuelings ?? carFuelings} />
+            <GasPriceChart data={chartFuelings ?? items} />
         </>
     )
 }

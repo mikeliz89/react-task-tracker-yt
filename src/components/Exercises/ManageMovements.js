@@ -104,7 +104,7 @@ export default function ManageMovements() {
             emptyText={t('no_movements_to_show')}
         >
             <Movements
-                movements={movements}
+                items={movements}
                 originalList={originalMovements}
                 counter={counter}
                 onDelete={deleteMovement}

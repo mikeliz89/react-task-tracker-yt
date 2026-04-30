@@ -123,6 +123,8 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
 
     return (
         <ListRow
+            item={recipe}
+            dbKey={getUrl(recipeType)}
             className={recipe.isCore === true ? 'coreRecipe' : ''}
             headerTitle={recipe.title}
             headerTitleTo={`${getViewDetailsUrl(recipeType)}/${recipe.id}`}
@@ -159,7 +161,6 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                 showError,
                 onClose: clearMessages,
             }}
-            starCount={recipe.stars}
             section={
                 <>
                     {recipe.category > 0 && (

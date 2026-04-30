@@ -31,7 +31,6 @@ import RecipeHistories from '../Recipe/RecipeHistories';
 import WorkPhases from '../Recipe/WorkPhases';
 import CenterWrapper from '../Site/CenterWrapper';
 import DetailsPage from '../Site/DetailsPage';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddDrink from './AddDrink';
 import AddGarnish from './AddGarnish';
@@ -122,13 +121,6 @@ export default function DrinkDetails() {
 
     const deleteGarnish = async (drinkID, id) => {
         removeFromFirebaseByIdAndSubId(DB.DRINK_GARNISHES, drinkID, id);
-    }
-
-    const saveStars = async (stars) => {
-        const drinkID = params.id;
-        drink["modified"] = getCurrentDateAsJson()
-        drink["stars"] = Number(stars);
-        updateToFirebaseById(DB.DRINKS, drinkID, drink);
     }
 
     const addCommentToDrink = (comment) => {
@@ -222,6 +214,9 @@ export default function DrinkDetails() {
 
     return (
         <DetailsPage
+            item={drink}
+            id={params.id}
+            dbKey={DB.DRINKS}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEditDrink}
@@ -244,7 +239,6 @@ export default function DrinkDetails() {
                 </>
             }
             summary={`${t('description')}: ${drink?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={drink?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 {
                     id: 1,
@@ -299,7 +293,7 @@ export default function DrinkDetails() {
                                         translation={TRANSLATION.TRANSLATION}
                                         translationKeyPrefix={TRANSLATION.DRINKS}
                                         recipeID={params.id}
-                                        incredients={incredients}
+                                        items={incredients}
                                         onDelete={deleteIncredient}
                                     />
                                 </>
@@ -330,7 +324,7 @@ export default function DrinkDetails() {
                                     translation={TRANSLATION.TRANSLATION}
                                     translationKeyPrefix={TRANSLATION.DRINKS}
                                     recipeID={params.id}
-                                    workPhases={workPhases}
+                                    items={workPhases}
                                     onDelete={deleteWorkPhase}
                                 />
                             ) : (
@@ -355,7 +349,7 @@ export default function DrinkDetails() {
                             {garnishes != null && garnishes.length > 0 ? (
                                 <Garnishes
                                     drinkID={params.id}
-                                    garnishes={garnishes}
+                                    items={garnishes}
                                     onDelete={deleteGarnish}
                                 />
                             ) : (

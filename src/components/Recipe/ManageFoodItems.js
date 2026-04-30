@@ -80,7 +80,7 @@ export default function ManageFoodItems() {
                 title: t('modal_header_add_food_item'),
                 body: (
                     <AddFoodItem onClose={toggleAddFoodItem}
-                        onAddFoodItem={addFoodItem} />
+                        onSave={addFoodItem} />
                 ),
             }}
             searchSortFilter={{

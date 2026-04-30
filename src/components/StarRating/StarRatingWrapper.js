@@ -29,6 +29,3 @@ StarRating.propTypes = {
     starCount: PropTypes.number,
     onSaveStars: PropTypes.func
 }
-
-
-

@@ -6,14 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { TRANSLATION, ICONS } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 
-
 import StarRating from './StarRating';
 
 export default function SetStarRating({ starCount, onSaveStars, onShow }) {
 
     //states
     const [showStarRating, setShowStarRating] = useState(false);
-const [stars, setStars] = useState(starCount);
+    const [stars, setStars] = useState(starCount);
     const [loading, setLoading] = useState(false);
 
     //translation

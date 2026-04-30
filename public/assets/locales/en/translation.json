@@ -587,6 +587,7 @@
     "do_recipe_confirm": "Are you sure?",
     "edit_description": "Edit Description",
     "edit_recipe_name": "Edit Recipe Name",
+    "edit_workphase": "Edit workphase",
     "failed_to_save_recipe": "Failed to save recipe",
     "fooditem_name": "Name",
     "fooditem_calories": "Calories",

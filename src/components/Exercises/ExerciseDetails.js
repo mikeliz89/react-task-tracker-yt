@@ -17,7 +17,6 @@ import ImageComponent from "../ImageUpload/ImageComponent";
 import LinkComponent from "../Links/LinkComponent";
 import DetailsPage from '../Site/DetailsPage';
 import PageTitle from '../Site/PageTitle';
-import StarRatingWrapper from "../StarRating/StarRatingWrapper";
 
 import AddPartsAerobics from "./AddPartsAerobics";
 import AddPartsGym from "./AddPartsGym";
@@ -51,13 +50,6 @@ export default function ExerciseDetails() {
     //fetch data
     const { data: exercise, loading } = useFetch(DB.EXERCISES, "", params.id);
 
-    const saveStars = async (stars) => {
-        const exerciseID = params.id;
-        exercise["modified"] = getCurrentDateAsJson()
-        exercise["stars"] = Number(stars);
-        updateToFirebaseById(DB.EXERCISES, exerciseID, exercise);
-    }
-
     const addCommentToExercise = async (comment) => {
         let id = params.id;
         comment["created"] = getCurrentDateAsJson()
@@ -74,6 +66,9 @@ export default function ExerciseDetails() {
 
     return (
         <DetailsPage
+            item={exercise}
+            id={params.id}
+            dbKey={DB.EXERCISES}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEditExercise}
@@ -86,7 +81,6 @@ export default function ExerciseDetails() {
                 </div>
             }
             summary={`${t('description')}: ${exercise?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={exercise?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 {
                     id: 1,

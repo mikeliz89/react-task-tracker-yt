@@ -26,6 +26,8 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
 
     return (
         <ListRow
+            item={carMaintenance}
+            dbKey={DB.CAR_MAINTENANCE}
             headerTitle={
                 <>
                     <b>{getJsonAsDateTimeString(carMaintenance.created, i18n.language)}</b>&nbsp;

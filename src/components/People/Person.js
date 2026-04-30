@@ -37,6 +37,8 @@ export default function Person({ person, onDelete }) {
     }
     return (
         <ListRow
+            item={person}
+            dbKey={DB.PEOPLE}
             headerTitle={person.name}
             headerTitleTo={`${NAVIGATION.PERSON}/${person.id}`}
             showEditButton={true}

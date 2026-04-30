@@ -1,7 +1,3 @@
-
-
-//translation
-
 import i18n from 'i18next';
 
 import { useState } from 'react';
@@ -21,7 +17,6 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 import PageTitle from '../Site/PageTitle';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddGame from './AddGame';
 
@@ -29,7 +24,7 @@ export default function GameDetails() {
 
     //params
     const params = useParams();
-const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
 
     //fetch data
     const { data: game, loading } = useFetch(DB.GAMES, "", params.id);
@@ -72,18 +67,14 @@ const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.G
         pushToFirebaseChild(DB.GAME_LINKS, id, link);
     }
 
-    const saveStars = async (stars) => {
-        const gameID = params.id;
-        game["modified"] = getCurrentDateAsJson()
-        game["stars"] = Number(stars);
-        updateToFirebaseById(DB.GAMES, gameID, game);
-    }
-
     //states
     const [showEdit, setShowEdit] = useState(false);
 
     return (
         <DetailsPage
+            item={game}
+            id={params.id}
+            dbKey={DB.GAMES}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEdit}
@@ -101,7 +92,6 @@ const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.G
                 </div>
             }
             summary={`${t('description')}: ${game?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={game?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(game?.created, i18n.language)}</> },
                 { id: 2, content: <>{t('created_by')}: {game?.createdBy}</> },

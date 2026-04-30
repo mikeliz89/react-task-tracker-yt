@@ -60,7 +60,7 @@ export default function ManageExercises() {
       emptyText={t('no_exercises_to_show')}
     >
       <Exercises
-        exercises={exercises}
+        items={exercises}
         originalList={originalExercises}
         counter={counter}
         onDelete={deleteExercise}

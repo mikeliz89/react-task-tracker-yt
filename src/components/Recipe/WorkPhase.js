@@ -21,6 +21,9 @@ export default function WorkPhase({ dbUrl, translation, translationKeyPrefix, wo
     return (
         <>
             <ListRow
+                item={workPhase}
+                dbKey={dbUrl}
+                showStarRating={false}
                 headerTitle={workPhase.name}
                 showEditButton={true}
                 editable={editable}
@@ -29,22 +32,23 @@ export default function WorkPhase({ dbUrl, translation, translationKeyPrefix, wo
                 onDelete={onDelete}
                 deleteId={recipeID}
                 deleteSubId={workPhase.id}
+                modalTitle={t('edit_workphase')}
+                modalBody={
+                    <AddWorkPhase
+                        dbUrl={dbUrl}
+                        translation={translation}
+                        translationKeyPrefix={translationKeyPrefix}
+                        workPhaseID={workPhase.id}
+                        recipeID={recipeID}
+                        onSave={updateWorkPhase}
+                        onClose={() => setEditable(false)}
+                    />
+                }
             >
                 <div style={{ marginLeft: 16 }}>
                     {workPhase.estimatedLength ? workPhase.estimatedLength : 0} {t('in_minutes')}
                 </div>
             </ListRow>
-            {editable && (
-                <AddWorkPhase
-                    dbUrl={dbUrl}
-                    translation={translation}
-                    translationKeyPrefix={translationKeyPrefix}
-                    workPhaseID={workPhase.id}
-                    recipeID={recipeID}
-                    onSave={updateWorkPhase}
-                    onClose={() => setEditable(false)}
-                />
-            )}
         </>
     );
 }

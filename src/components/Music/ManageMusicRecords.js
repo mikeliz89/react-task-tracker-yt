@@ -123,7 +123,7 @@ export default function ManageMusicRecords() {
         >
             <>
                 <Records
-                    records={records}
+                    items={records}
                     onDelete={deleteRecord}
                     onEdit={editRecord}
                     originalList={originalRecords}

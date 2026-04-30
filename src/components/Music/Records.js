@@ -2,16 +2,16 @@ import Counter from '../Site/Counter';
 
 import Record from './Record';
 
-export default function Records({ records, onDelete, onEdit, originalList, counter }) {
+export default function Records({ items, onDelete, onEdit, originalList, counter }) {
 
   return (
     <div>
       {
         originalList != null && counter != null ? (
-          <Counter list={records} originalList={originalList} counter={counter} />
+          <Counter list={items} originalList={originalList} counter={counter} />
         ) : (<></>)
       }
-      {records.map((record) => (
+      {items.map((record) => (
         <Record key={record.id}
           record={record}
           onDelete={onDelete}

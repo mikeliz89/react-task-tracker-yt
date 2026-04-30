@@ -36,6 +36,8 @@ export default function Task({
 
     return (
         <ListRow
+            item={task}
+            dbKey={DB.TASKS}
             onDoubleClick={() => archived ? null : onToggle(taskListID, task.id)}
             className={`taskRowContainer ${archived ? '' : 'clickable'} ${task.reminder ? 'reminder taskDone' : ''}`}
             headerClassName={!editable ? 'taskRowTop' : ''}
@@ -46,6 +48,7 @@ export default function Task({
             editable={editable}
             setEditable={setEditable}
             showDeleteButton={!editable && !archived}
+            showStarRating={false}
             onDelete={onDelete}
             deleteId={taskListID}
             deleteSubId={task.id}

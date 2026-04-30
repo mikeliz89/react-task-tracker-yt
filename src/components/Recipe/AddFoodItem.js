@@ -6,10 +6,9 @@ import { TRANSLATION, DB } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
 
-
 import { FoodItemCategories } from './Categories';
 
-export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
+export default function AddFoodItem({ foodItemID, onSave, onClose }) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
@@ -72,7 +71,7 @@ export default function AddFoodItem({ foodItemID, onAddFoodItem, onClose }) {
             return;
         }
 
-        onAddFoodItem(foodItem);
+        onSave(foodItem);
 
         if (foodItemID === null) {
             setFoodItem(defaultFoodItem);

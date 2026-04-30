@@ -85,7 +85,7 @@ export default function ManageDrinkingProducts() {
                 body: (
                     <AddDrinkingProduct
                         onClose={toggleAddDrinkingProduct}
-                        onAddDrinkingProduct={addDrinkingProduct}
+                        onSave={addDrinkingProduct}
                     />
                 ),
             }}
@@ -117,7 +117,7 @@ export default function ManageDrinkingProducts() {
             emptyText={t('no_drinkingproducts_to_show')}
         >
             <DrinkingProducts
-                drinkingProducts={drinkingProducts}
+                items={drinkingProducts}
                 originalList={originalDrinkingProducts}
                 counter={counter}
                 onDelete={deleteDrinkingProduct}

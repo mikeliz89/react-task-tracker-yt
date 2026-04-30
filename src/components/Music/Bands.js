@@ -2,16 +2,16 @@ import Counter from '../Site/Counter';
 
 import Band from './Band';
 
-export default function Bands({ bands, onDelete, onEdit, originalList, counter }) {
+export default function Bands({ items, onDelete, onEdit, originalList, counter }) {
 
   return (
     <div>
       {
         originalList != null && counter != null ? (
-          <Counter list={bands} originalList={originalList} counter={counter} />
+          <Counter list={items} originalList={originalList} counter={counter} />
         ) : (<></>)
       }
-      {bands.map((band) => (
+      {items.map((band) => (
         <Band key={band.id}
           band={band}
           onDelete={onDelete}

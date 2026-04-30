@@ -5,7 +5,7 @@ import Garnish from './Garnish';
 
 import { TRANSLATION, ICONS } from '../../utils/Constants'
 
-export default function Garnishes({ garnishes, drinkID, onDelete }) {
+export default function Garnishes({ items, drinkID, onDelete }) {
 
   //translation
   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
@@ -17,8 +17,8 @@ return (
         {t('garnishes_header')}
       </h5>
 
-      {garnishes
-        ? garnishes.map((garnish, index) =>
+      {items
+        ? items.map((garnish, index) =>
           <Garnish
             key={garnish.id}
             garnish={garnish}

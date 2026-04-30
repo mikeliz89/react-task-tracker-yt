@@ -39,6 +39,8 @@ export default function Movie({ movie, onDelete, onEdit }) {
 
     return (
         <ListRow
+            item={movie}
+            dbKey={DB.MOVIES}
             headerTitle={movieTitle}
             headerTitleTo={`${NAVIGATION.MOVIE}/${movie.id}`}
             showEditButton={true}
@@ -47,7 +49,6 @@ export default function Movie({ movie, onDelete, onEdit }) {
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={movie.id}
-            starCount={movie.stars}
             section={
                 !editable ? (
                     <div>

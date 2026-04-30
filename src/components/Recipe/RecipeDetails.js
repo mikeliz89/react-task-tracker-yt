@@ -23,7 +23,6 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import CenterWrapper from '../Site/CenterWrapper';
 import DetailsPage from '../Site/DetailsPage';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddIncredient from './AddIncredient';
 import AddRecipe from './AddRecipe';
@@ -92,13 +91,6 @@ export default function RecipeDetails() {
             showFailure(t('failed_to_save_recipe'));
             console.warn(error);
         }
-    }
-
-    const saveStars = async (stars) => {
-        const recipeID = params.id;
-        recipe["modified"] = getCurrentDateAsJson()
-        recipe["stars"] = Number(stars);
-        updateToFirebaseById(DB.RECIPES, recipeID, recipe);
     }
 
     const addIncredient = async (recipeID, incredient) => {
@@ -236,6 +228,9 @@ export default function RecipeDetails() {
 
     return (
         <DetailsPage
+            dbKey={DB.RECIPES}
+            item={recipe}
+            id={params.id}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEditRecipe}
@@ -258,7 +253,6 @@ export default function RecipeDetails() {
                 </>
             }
             summary={`${t('description')}: ${recipe?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={recipe?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 {
                     id: 1,
@@ -351,7 +345,7 @@ export default function RecipeDetails() {
                                         translation={TRANSLATION.TRANSLATION}
                                         translationKeyPrefix={TRANSLATION.RECIPE}
                                         recipeID={params.id}
-                                        incredients={incredients}
+                                        items={incredients}
                                         onDelete={deleteIncredient}
                                     />
                                 </>
@@ -386,7 +380,7 @@ export default function RecipeDetails() {
                                     translation={TRANSLATION.TRANSLATION}
                                     translationKeyPrefix={TRANSLATION.RECIPE}
                                     recipeID={params.id}
-                                    workPhases={workPhases}
+                                    items={workPhases}
                                     onDelete={deleteWorkPhase}
                                 />
                             ) : (
