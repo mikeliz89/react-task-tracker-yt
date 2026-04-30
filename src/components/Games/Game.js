@@ -40,7 +40,7 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
     return (
         <ListRow
             item={game}
-            dbKey={DB.GAMES}
+            dbKey={dbUrl}
             headerTitle={gameTitle}
             headerTitleTo={`${detailsNavigation}/${game.id}`}
             showEditButton={true}

@@ -66,7 +66,7 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
             }
         >
             <CheckButton
-                checked={drinkingProduct.haveAtHome}
+                checked={!!drinkingProduct.haveAtHome}
                 checkedText={t('drinkingproduct_have_at_home')}
                 uncheckedText={t('drinkingproduct_not_have_at_home')}
                 onCheck={markHaveAtHome}

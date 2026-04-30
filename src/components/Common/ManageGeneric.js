@@ -116,7 +116,10 @@ export default function ManageGeneric({ dbKey,
                 show: showAdd,
                 onHide: toggleAdd,
                 title: t('add'),
-                body: <AddComponent show={showAdd} onClose={toggleAdd} onSave={addItem} {...AddComponentProps} />
+                body: <AddComponent show={showAdd}
+                    onClose={toggleAdd}
+                    onSave={addItem}
+                    {...AddComponentProps} />
             } : undefined}
         >
             <ListComponent

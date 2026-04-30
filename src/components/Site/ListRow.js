@@ -59,7 +59,8 @@ export default function ListRow({
         if (!item || !item.id) {
             return;
         }
-        const updated = { ...item, modified: getCurrentDateAsJson(), stars: Number(stars) };
+        // Varmistetaan, että stars-kenttä lisätään aina
+        const updated = { ...item, stars: Number(stars), modified: getCurrentDateAsJson() };
         await updateToFirebaseById(dbKey, item.id, updated);
     };
 

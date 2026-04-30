@@ -160,7 +160,10 @@
         "tracks": "Radat",
         "track_city": "Kaupunki",
         "track_description": "Radan kuvaus",
-        "track_name": "Radan nimi"
+        "track_name": "Radan nimi",
+        "add_at_least_one_hole": "Lisää vähintään yksi väylä",
+        "track_name_required": "Ole hyvä ja anna radalle nimi",
+        "max_holes_reached": "Rataan ei voi lisätä enempää väyliä kuin "
     },
     "drinks": {
         "add": "Lisää drinkki",
@@ -222,9 +225,9 @@
         "drinkingproduct_name": "Tuotteen nimi",
         "drinkingproduct_not_have_at_home": "Minulla ei ole tätä",
         "drinkingproduct_save_successful": "Tuotteen tallennus onnistui",
-        "edit_workphase":"Muokkaa työvaihetta",
-        "edit_incredient":"Muokkaa ainesosaa",
-        "edit_garnish":"Muokkaa koristetta",
+        "edit_workphase": "Muokkaa työvaihetta",
+        "edit_incredient": "Muokkaa ainesosaa",
+        "edit_garnish": "Muokkaa koristetta",
         "failed_to_save_drink": "Drinkin tallennus epäonnistui",
         "garnish_name": "Koriste",
         "garnishes_header": "Koristeet",
@@ -592,7 +595,7 @@
         "edit_description": "Muokkaa kuvausta",
         "edit_recipe_name": "Muokkaa reseptin nimeä",
         "edit_workphase": "Muokkaa työvaihetta",
-        "edit_incredient":"Muokkaa ainesosaa",
+        "edit_incredient": "Muokkaa ainesosaa",
         "failed_to_save_recipe": "Reseptin tallennus epäonnistui",
         "fooditem_name": "Nimi",
         "fooditem_calories": "Kalorit",
@@ -708,7 +711,8 @@
     "starrating": {
         "rate": "Arvioi",
         "save_rating": "Tallenna arvio",
-        "stars": "Tähdet"
+        "stars": "Tähdet",
+        "rating": "Arvio"
     },
     "theme": {
         "title": "Teema",

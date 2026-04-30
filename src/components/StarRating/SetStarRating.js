@@ -53,9 +53,19 @@ export default function SetStarRating({ starCount, onSaveStars, onShow }) {
                                 <StarRating starCount={Number(stars)} />
                                 <Form onSubmit={onSubmit}>
                                     <Form.Group className="mb-3" controlId="setStarRatingForm-Rating">
-                                        <Form.Range min="0" max="5" step="0.1" type='number'
-                                            value={stars}
-                                            onChange={(e) => setStars(e.target.value)} />
+                                        <Form.Label>{t('rating')}</Form.Label>
+                                        <Form.Range min="0" max="5" step="0.1"
+                                            value={Number(stars)}
+                                            onChange={(e) => setStars(Number(e.target.value))} />
+                                        <Form.Control
+                                            type="number"
+                                            min="0"
+                                            max="5"
+                                            step="0.1"
+                                            value={Number(stars)}
+                                            onChange={(e) => setStars(Number(e.target.value))}
+                                            style={{ width: 80, display: 'inline-block', marginLeft: 12 }}
+                                        />
                                     </Form.Group>
                                     <Row>
                                         <ButtonGroup>

@@ -45,6 +45,7 @@ export default function CreateTrack() {
    const [trackCity, setTrackCity] = useState('');
    const [description, setDescription] = useState('');
    const [holes, setHoles] = useState(myArray);
+   const [stars, setStars] = useState(0);
 
    //navigation
    const navigate = useNavigate();
@@ -73,8 +74,7 @@ export default function CreateTrack() {
       let newID = counter;
 
       if (counter === maxHoleCount) {
-         //TODO: kieleistys
-         showFailure("Rataan ei voi lisätä enempää väyliä kuin " + maxHoleCount);
+         showFailure(t('max_holes_reached', { maxHoleCount }));
          return;
       }
 
@@ -91,20 +91,18 @@ export default function CreateTrack() {
       e.preventDefault();
 
       if (holes.length < 1) {
-         //TODO: kieleistys
-         showFailure("Lisää vähintään yksi väylä");
+         showFailure(t('add_at_least_one_hole'));
          return;
       }
 
       if (trackName === "") {
-         //TODO: kieleistys
-         showFailure("Ole hyvä ja anna radalle nimi");
+         showFailure(t('track_name_required'));
          return;
       }
 
       try {
          console.log("Saving track");
-         saveTrack({ trackName, trackCity, description });
+         saveTrack({ trackName, trackCity, description, stars });
 
       } catch (error) {
          console.warn(error);
