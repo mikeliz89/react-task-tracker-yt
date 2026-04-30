@@ -28,10 +28,11 @@
         "sign_up": "Rekisteröidy"
     },
     "backpacking": {
+        "add": "Lisää varuste",
         "button_add_maintenance_instructions": "Lisää huolto-ohje",
         "button_add_gear": "Lisää varuste",
         "button_manage_backpacking_lists": "Listat",
-        "button_manage_gear": "Varusteeni",
+        "manage_title": "Varusteeni",
         "button_manage_gear_maintenance": "Huolto-ohjeet",
         "button_save_gear": "Tallenna varuste",
         "category": "Kategoria",
