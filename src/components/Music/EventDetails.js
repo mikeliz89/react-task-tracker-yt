@@ -19,7 +19,6 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import FoundItems from '../Selectors/FoundItems';
 import DetailsPage from '../Site/DetailsPage';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddEvent from './AddEvent';
 import EventBands from './EventBands';
@@ -100,13 +99,6 @@ export default function EventDetails() {
         pushToFirebaseChild(DB.MUSIC_EVENT_LINKS, id, link);
     }
 
-    const saveStars = async (stars) => {
-        const eventID = params.id;
-        event["modified"] = getCurrentDateAsJson()
-        event["stars"] = Number(stars);
-        updateToFirebaseById(DB.MUSIC_EVENTS, eventID, event);
-    }
-
     const selectedBandChanged = (band) => {
 
         var currentEventBands = eventBands;
@@ -131,13 +123,15 @@ export default function EventDetails() {
 
     return (
         <DetailsPage
+            item={event}
+            id={params.id}
+            dbKey={DB.MUSIC_EVENTS}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEdit}
             onToggleEdit={toggleShowEdit}
             title={event?.name}
             summary={`${t('description')}: ${event?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={event?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 { id: 1, content: <><span className="detailspage-meta-label">{t('created')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(event?.created, i18n.language)}</span></> },
                 { id: 2, content: <><span className="detailspage-meta-label">{t('created_by')}:</span> <span className="detailspage-meta-value">{event?.createdBy || '-'}</span></> },

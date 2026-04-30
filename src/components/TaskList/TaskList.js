@@ -13,7 +13,7 @@ export default function TaskList({ taskList, archived, onDelete }) {
 
     const [editable, setEditable] = useState(false);
 
-     const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
+    const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
 
     const updateTaskList = (object) => {
         object["modified"] = getCurrentDateAsJson();
@@ -23,6 +23,8 @@ export default function TaskList({ taskList, archived, onDelete }) {
 
     return (
         <ListRow
+            item={taskList}
+            dbKey={DB.TASKLISTS}
             headerPrefix={<Icon name={ICONS.LIST_ALT} color={COLORS.GRAY} />}
             headerTitle={
                 <Link
@@ -34,6 +36,7 @@ export default function TaskList({ taskList, archived, onDelete }) {
                     {taskList.title}
                 </Link>
             }
+            showStarRating={false}
             showEditButton={!archived}
             editable={editable}
             setEditable={setEditable}

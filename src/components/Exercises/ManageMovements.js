@@ -17,7 +17,7 @@ export default function ManageMovements() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
-const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
     const { data: movements, setData: setMovements,
@@ -104,7 +104,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
             emptyText={t('no_movements_to_show')}
         >
             <Movements
-                movements={movements}
+                items={movements}
                 originalList={originalMovements}
                 counter={counter}
                 onDelete={deleteMovement}

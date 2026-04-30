@@ -25,6 +25,8 @@ export default function Band({ band, onDelete, onEdit }) {
 
     return (
         <ListRow
+            item={band}
+            dbKey={DB.MUSIC_BANDS}
             headerTitle={bandTitle}
             headerTitleTo={`${NAVIGATION.MUSIC_BAND}/${band.id}`}
             showEditButton={true}
@@ -33,7 +35,6 @@ export default function Band({ band, onDelete, onEdit }) {
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={band.id}
-            starCount={band.stars}
             section={<p>{band.description}</p>}
             modalTitle={t('modal_header_edit_band') || 'Edit Band'}
             modalBody={

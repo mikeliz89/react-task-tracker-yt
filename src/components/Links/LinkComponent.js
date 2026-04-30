@@ -15,7 +15,7 @@ export default function LinkComponent({ objID, url, onSaveLink }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LINKS });
-const [counter, setCounter] = useState(0);
+    const [counter, setCounter] = useState(0);
 
     return (
         <div className="content-panel">

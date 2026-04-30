@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { updateToFirebaseById } from '../../datatier/datatier';
-import { Languages } from '../../Languages';
 import i18n from 'i18next';
 import { TRANSLATION, NAVIGATION, DB } from "../../utils/Constants";
 import { getCurrentDateAsJson, getJsonAsDateString } from '../../utils/DateTimeUtils';
@@ -38,6 +37,8 @@ export default function Person({ person, onDelete }) {
     }
     return (
         <ListRow
+            item={person}
+            dbKey={DB.PEOPLE}
             headerTitle={person.name}
             headerTitleTo={`${NAVIGATION.PERSON}/${person.id}`}
             showEditButton={true}

@@ -30,6 +30,8 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
 
     return (
         <ListRow
+            item={instruction}
+            dbKey={DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS}
             headerLeft={<span>{instruction.name}</span>}
             showEditButton={true}
             editable={editable}

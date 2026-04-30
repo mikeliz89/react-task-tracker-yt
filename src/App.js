@@ -1,302 +1,37 @@
-//App
-
-
-
-//Dashboard
-//TaskListArchive
-//TaskList
-//Task
-//Recipe
-//BMICalculator
-//MyProfile
-//Backpacking
-//Language
-//Bootstrap
-//Car
-//Music
-//Games
-//LinksList
-//ShoppingLists
-//Other lists
-
 //ICONIT
 //React icons: https://react-icons.github.io/react-icons/icons?name=fa (old link)
 //Icons here: https://fontawesome.com/search?q=food&f=classic&s=solid&ic=free&o=r
 //Icon usage instructions: https://fontawesome.com/v5/docs/web/use-with/react
-//react
-//Site
-//other components
-//Auth
-//Contexts
-//Movies
-//Disc Golf
-//Programming
-//People / person
-//Drinks
-//Constants
-//About
-//Exercises
 
-
-import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-  faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
-  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt, faSearch,
-  faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
-  faFish, faUserAlt, faHistory, faPlus, faMinus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
-  faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm, faWrench, faUserNinja, faBlender, faBreadSlice, faSun, faBell, faEnvelope, faGlobe
-} from '@fortawesome/free-solid-svg-icons';
+import './icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'flag-icon-css/css/flag-icons.min.css';
-import i18n from 'i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import HttpApi from 'i18next-http-backend';
+import './i18n';
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import { initReactI18next } from 'react-i18next';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './routes/AppRoutes';
 
 import './App.css';
-import ForgotPassword from './components/Auth/ForgotPassword';
-import Login from './components/Auth/Login';
-import Signup from './components/Auth/Signup';
-import GearDetails from './components/BackPacking/GearDetails';
-import ManageBackPacking from './components/BackPacking/ManageBackPacking';
-import ManageBackPackingLists from './components/BackPacking/ManageBackPackingLists';
-import ManageGear from './components/BackPacking/ManageGear';
-import ManageGearMaintenance from './components/BackPacking/ManageGearMaintenance';
-import BmiCalculator from './components/BmiCalculator/BmiCalculator';
-import WeightHistory from './components/BmiCalculator/WeightHistory';
-import Car from './components/Car/Car';
-import ManageCarLists from './components/Car/ManageCarLists';
-import Dashboard from './components/Dashboard/Dashboard';
-import Demo from './components/Demo/Demo';
-import CreateTrack from './components/DiscGolf/CreateTrack';
-import ManageDiscGolf from './components/DiscGolf/ManageDiscGolf';
-import ManageDiscGolfTracks from './components/DiscGolf/ManageDiscGolfTracks';
-import PlayRound from './components/DiscGolf/PlayRound';
-import StartNewRound from './components/DiscGolf/StartNewRound';
-import TrackDetails from './components/DiscGolf/TrackDetails';
-import DrinkDetails from './components/Drinks/DrinkDetails';
-import DrinkingProductDetails from './components/Drinks/DrinkingProductDetails';
-import ManageDrinkingProducts from './components/Drinks/ManageDrinkingProducts';
-import ManageDrinkLists from './components/Drinks/ManageDrinkLists';
-import ManageDrinks from './components/Drinks/ManageDrinks';
-import AddMovement from './components/Exercises/AddMovement';
-import CreateExercise from './components/Exercises/CreateExercise';
-import ExerciseDetails from './components/Exercises/ExerciseDetails';
-import ManageExerciseLists from './components/Exercises/ManageExerciseLists';
-import ManageExercises from './components/Exercises/ManageExercises';
-import ManageMovements from './components/Exercises/ManageMovements';
-import MovementDetails from './components/Exercises/MovementDetails';
-import BoardGameDetails from './components/Games/BoardGameDetails';
-import GameDetails from './components/Games/GameDetails';
-import Games from './components/Games/Games';
-import ManageBoardGameLists from './components/Games/ManageBoardGameLists';
-import ManageBoardGames from './components/Games/ManageBoardGames';
-import ManageGameLists from './components/Games/ManageGameLists';
-import ManageGames from './components/Games/ManageGames';
-import LinksList from './components/Links/LinksList';
-import ManageLists from './components/Lists/ManageLists';
-import ManageMovieLists from './components/Movies/ManageMovieLists';
-import ManageMovies from './components/Movies/ManageMovies';
-import MovieDetails from './components/Movies/MovieDetails';
-import BandDetails from './components/Music/BandDetails';
-import EventDetails from './components/Music/EventDetails';
-import ManageMusicKaraokeSongs from './components/Music/ManageKaraokeSongs';
-import ManageMusicBands from './components/Music/ManageMusicBands';
-import ManageMusicEvents from './components/Music/ManageMusicEvents';
-import ManageMusicLists from './components/Music/ManageMusicLists';
-import ManageMusicRecords from './components/Music/ManageMusicRecords';
-import RecordDetails from './components/Music/RecordDetails';
-import ManageMyProfile from './components/MyProfile/ManageMyProfile';
-import ManagePeople from './components/People/ManagePeople';
-import PersonDetails from './components/People/PersonDetails';
-import PrivateRoute from './components/PrivateRoute';
-import ManageProgramming from './components/Programming/ManageProgramming';
-import ManageFoodItems from './components/Recipe/ManageFoodItems';
-import FoodItemDetails from './components/Recipe/FoodItemDetails';
-import ManageRecipeLists from './components/Recipe/ManageRecipeLists';
-import ManageRecipes from './components/Recipe/ManageRecipes';
-import RecipeDetails from './components/Recipe/RecipeDetails';
-import ManageShoppingLists from './components/ShoppingList/ManageShoppingLists';
-import About from './components/Site/About';
+
 import Footer from './components/Site/Footer';
 import Header from './components/Site/Header';
-import TaskDetails from './components/Task/TaskDetails';
-import ManageTaskLists from './components/TaskList/ManageTaskLists';
-import TaskListDetails from './components/TaskList/TaskListDetails';
-import ArchivedTaskListDetails from './components/TaskListsArchive/ArchivedTaskListDetails';
-import ManageTaskListsArchive from './components/TaskListsArchive/ManageTaskListsArchive';
 import { AuthProvider } from './contexts/AuthContext';
 import { useTheme } from './contexts/ThemeContext';
-import { Languages } from './Languages';
-import { COLORS, NAVIGATION, THEMES } from './utils/Constants';
-
-library.add(faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
-  faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt, faSearch,
-  faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
-  faFish, faUserAlt, faHistory, faPlus, faMinus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
-  faCopy, faShoePrints, faWater, faImages, faSync, faGear, faMusic, faLaptopCode, faGamepad, faFilm, faWrench, faUserNinja, faBlender, faBreadSlice, faSun, faBell, faEnvelope, faGlobe
-);
-
-//languagization
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .use(LanguageDetector)
-  .use(HttpApi)
-  .init({
-    supportedLngs: [Languages.EN, Languages.FI],
-    fallbackLng: Languages.FI,
-    detection: {
-      order: ['cookie', 'htmlTag', 'localStorage', 'subdomain'],
-      caches: ['cookie'],
-    },
-    backend: {
-      loadPath: '/assets/locales/{{lng}}/{{ns}}.json',
-    },
-    ns: ["common", "dashboard", "tasklist", "translation"],
-    defaultNS: "translation",
-    react: { useSuspense: false },
-  });
+import { colorRootElement } from './utils/colorRootElement';
 
 //app
 function App() {
 
   const { theme } = useTheme();
-
-  const colorRootElement = () => {
-
-    const rootElement = document.getElementById("root");
-    const htmlElement = document.documentElement;
-
-    if (theme === THEMES.DARK) {
-      rootElement.style.backgroundColor = COLORS.BLACK;
-      htmlElement.style.backgroundColor = COLORS.BLACK;
-    } else if (theme === THEMES.LIGHT) {
-      rootElement.style.backgroundColor = COLORS.WHITE;
-      htmlElement.style.backgroundColor = COLORS.WHITE;
-    } else if (theme === THEMES.COLORFUL) {
-      rootElement.style.backgroundColor = '#dcff7a';
-      htmlElement.style.backgroundColor = '#d6ff65';
-    }
-  }
-
-  colorRootElement();
+  colorRootElement(theme);
 
   return (
     <Container id={theme}>
       <Router>
         <AuthProvider>
           <Header />
-          <Routes>
-            <Route exact path='/' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-            <Route path={NAVIGATION.ABOUT} element={<About />} />
-            {/* Login */}
-            <Route path={NAVIGATION.SIGNUP} element={<Signup />} />
-            <Route path={NAVIGATION.LOGIN} element={<Login />} />
-            <Route path={NAVIGATION.FORGOT_PASSWORD} element={<ForgotPassword />} />
-            {/* Login */}
-            {/* Recipe */}
-            <Route path={NAVIGATION.FOODITEM_DETAILS + '/:id'} element={<PrivateRoute><FoodItemDetails /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_RECIPES} element={<PrivateRoute><ManageRecipes /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_FOODITEMS} element={<PrivateRoute><ManageFoodItems /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_RECIPELISTS} element={<PrivateRoute><ManageRecipeLists /></PrivateRoute>} />
-            <Route path={NAVIGATION.RECIPE + '/:id'} element={<PrivateRoute><RecipeDetails /></PrivateRoute>} />
-            {/* Recipe */}
-            {/* Drinks */}
-            <Route path={NAVIGATION.MANAGE_DRINKS} element={<PrivateRoute><ManageDrinks /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_DRINKINPRODUCTS} element={<PrivateRoute><ManageDrinkingProducts /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_DRINKLISTS} element={<PrivateRoute><ManageDrinkLists /></PrivateRoute>} />
-            <Route path={NAVIGATION.DRINK + '/:id'} element={<PrivateRoute><DrinkDetails /></PrivateRoute>} />
-            <Route path={NAVIGATION.DRINKINGPRODUCT + '/:id'} element={<PrivateRoute><DrinkingProductDetails /></PrivateRoute>} />
-            {/*Drinks */}
-            {/* Exercises */}
-            <Route path={NAVIGATION.MANAGE_EXERCISES} element={<PrivateRoute><ManageExercises /></PrivateRoute>} />
-            <Route path={NAVIGATION.CREATE_EXERCISE} element={<PrivateRoute><CreateExercise /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_MOVEMENTS} element={<PrivateRoute><ManageMovements /></PrivateRoute>} />
-            <Route path={NAVIGATION.ADD_MOVEMENT} element={<PrivateRoute><AddMovement /></PrivateRoute>} />
-            <Route path={NAVIGATION.EXERCISE + '/:id'} element={<PrivateRoute><ExerciseDetails /></PrivateRoute>} />
-            <Route path={NAVIGATION.MOVEMENT + '/:id'} element={<PrivateRoute><MovementDetails /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_EXERCISE_LISTS} element={<PrivateRoute><ManageExerciseLists /></PrivateRoute>} />
-            {/* Exercises */}
-            {/* BMI */}
-            <Route path={NAVIGATION.BMICALCULATOR} element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
-            <Route path={NAVIGATION.WEIGHTHISTORY} element={<PrivateRoute><WeightHistory /></PrivateRoute>} />
-            {/* BMI */}
-            {/* TaskLists */}
-            <Route path={NAVIGATION.MANAGE_TASKLISTS} element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
-            <Route path={NAVIGATION.TASKLIST_ARCHIVE} element={<PrivateRoute><ManageTaskListsArchive /></PrivateRoute>} />
-            <Route path='/task/:id/:tasklistid' element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
-            <Route path={NAVIGATION.TASKLIST + '/:id'} element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
-            <Route path={NAVIGATION.TASKLIST_ARCHIVE + '/:id'} element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
-            {/* TaskLists */}
-            {/* MyProfile */}
-            <Route path={NAVIGATION.MANAGE_MY_PROFILE} element={<PrivateRoute><ManageMyProfile /></PrivateRoute>} />
-            {/* MyProfile */}
-            {/* Backpacking */}
-            <Route path={NAVIGATION.MANAGE_BACKPACKING} element={<PrivateRoute><ManageBackPacking /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_BACKPACKINGLISTS} element={<PrivateRoute><ManageBackPackingLists /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_GEAR} element={<PrivateRoute><ManageGear /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_GEAR_MAINTENANCE} element={<PrivateRoute><ManageGearMaintenance /></PrivateRoute>} />
-            <Route path={NAVIGATION.GEAR + '/:id'} element={<PrivateRoute><GearDetails /></PrivateRoute>} />
-            {/* Backpacking */}
-            {/* Car */}
-            <Route path={NAVIGATION.MANAGE_CARLISTS} element={<PrivateRoute><ManageCarLists /></PrivateRoute>} />
-            <Route path={NAVIGATION.CAR} element={<PrivateRoute><Car /></PrivateRoute>} />
-            {/* Car */}
-            {/* Music */}
-            <Route path={NAVIGATION.MANAGE_MUSIC_RECORDS} element={<PrivateRoute><ManageMusicRecords /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_MUSIC_BANDS} element={<PrivateRoute><ManageMusicBands /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_MUSIC_EVENTS} element={<PrivateRoute><ManageMusicEvents /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_MUSICLISTS} element={<PrivateRoute><ManageMusicLists /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_MUSIC_KARAOKE_SONGS} element={<PrivateRoute><ManageMusicKaraokeSongs /></PrivateRoute>} />
-            <Route path={NAVIGATION.MUSIC_RECORD + '/:id'} element={<PrivateRoute><RecordDetails /></PrivateRoute>} />
-            <Route path={NAVIGATION.MUSIC_EVENT + '/:id'} element={<PrivateRoute><EventDetails /></PrivateRoute>} />
-            <Route path={NAVIGATION.MUSIC_BAND + '/:id'} element={<PrivateRoute><BandDetails /></PrivateRoute>} />
-            {/* Music */}
-            {/* Games */}
-            <Route path={NAVIGATION.GAMES} element={<PrivateRoute><Games /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_GAMES} element={<PrivateRoute><ManageGames /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_BOARD_GAMES} element={<PrivateRoute><ManageBoardGames /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_GAMELISTS} element={<PrivateRoute><ManageGameLists /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_BOARD_GAMELISTS} element={<PrivateRoute><ManageBoardGameLists /></PrivateRoute>} />
-            <Route path={NAVIGATION.GAME + '/:id'} element={<PrivateRoute><GameDetails /></PrivateRoute>} />
-            <Route path={NAVIGATION.BOARD_GAME + '/:id'} element={<PrivateRoute><BoardGameDetails /></PrivateRoute>} />
-            {/* Games */}
-            {/* Disc Golf */}
-            <Route path={NAVIGATION.MANAGE_DISC_GOLF} element={<PrivateRoute><ManageDiscGolf /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_DISC_GOLF_TRACKS} element={<PrivateRoute><ManageDiscGolfTracks /></PrivateRoute>} />
-            <Route path={NAVIGATION.DISC_GOLF_CREATE_TRACK} element={<PrivateRoute><CreateTrack /></PrivateRoute>} />
-            <Route path={NAVIGATION.DISC_GOLF_START_NEW_ROUND} element={<PrivateRoute><StartNewRound /></PrivateRoute>} />
-            <Route path={NAVIGATION.DISC_GOLF_PLAY_ROUND} element={<PrivateRoute><PlayRound /></PrivateRoute>} />
-            <Route path={NAVIGATION.DISC_GOLF_TRACK + '/:id'} element={<PrivateRoute><TrackDetails /></PrivateRoute>} />
-            {/* Disc Golf */}
-            {/* Movies */}
-            <Route path={NAVIGATION.MANAGE_MOVIES} element={<PrivateRoute><ManageMovies /></PrivateRoute>} />
-            <Route path={NAVIGATION.MANAGE_MOVIELISTS} element={<PrivateRoute><ManageMovieLists /></PrivateRoute>} />
-            <Route path={NAVIGATION.MOVIE + '/:id'} element={<PrivateRoute><MovieDetails /></PrivateRoute>} />
-            {/* Movies */}
-            {/* Demo */}
-            <Route path={NAVIGATION.DEMO} element={<PrivateRoute><Demo /></PrivateRoute>} />
-            {/* Demo */}
-            {/* Programming */}
-            <Route path={NAVIGATION.MANAGE_PROGRAMMING} element={<PrivateRoute><ManageProgramming /></PrivateRoute>} />
-            {/* Programming */}
-            {/* Other lists */}
-            <Route path={NAVIGATION.MANAGE_LISTS} element={<PrivateRoute><ManageLists /></PrivateRoute>} />
-            {/* Other lists */}
-            {/* Links */}
-            <Route path={NAVIGATION.LINKSLIST} element={<PrivateRoute><LinksList /></PrivateRoute>} />
-            {/* Links */}
-            {/* People / person */}
-            <Route path={NAVIGATION.MANAGE_PEOPLE} element={<PrivateRoute><ManagePeople /></PrivateRoute>} />
-            <Route path={NAVIGATION.PERSON + '/:id'} element={<PrivateRoute><PersonDetails /></PrivateRoute>} />
-            {/* People  / person */}
-            {
-              <Route path={NAVIGATION.MANAGE_SHOPPINGLISTS} element={<PrivateRoute><ManageShoppingLists /></PrivateRoute>} />
-            }
-          </Routes>
+          <AppRoutes />
           <Footer />
         </AuthProvider>
       </Router>

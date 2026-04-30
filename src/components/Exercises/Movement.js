@@ -1,10 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
+import { TRANSLATION, NAVIGATION, DB } from '../../utils/Constants';
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
-import DeleteButton from '../Buttons/DeleteButton';
 
-import StarRating from '../StarRating/StarRating';
 import ListRow from '../Site/ListRow';
 import { useState } from 'react';
 import AddMovement from './AddMovement';
@@ -22,6 +20,8 @@ export default function Movement({ movement, onDelete }) {
 
     return (
         <ListRow
+            item={movement}
+            dbKey={DB.MOVEMENT}
             headerTitle={
                 <Link
                     style={{ textDecoration: 'none' }}
@@ -33,7 +33,6 @@ export default function Movement({ movement, onDelete }) {
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={movement.id}
-            starCount={movement.stars}
             section={
                 <>
                     <p>

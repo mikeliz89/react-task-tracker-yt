@@ -15,7 +15,6 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 import PageTitle from '../Site/PageTitle';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddBand from './AddBand';
 
@@ -71,22 +70,17 @@ export default function BandDetails() {
         pushToFirebaseChild(DB.MUSIC_BAND_LINKS, id, link);
     }
 
-    const saveStars = async (stars) => {
-        const bandID = params.id;
-        band["modified"] = getCurrentDateAsJson()
-        band["stars"] = Number(stars);
-        updateToFirebaseById(DB.MUSIC_BANDS, bandID, band);
-    }
-
     return (
         <DetailsPage
+            item={band}
+            id={params.id}
+            dbKey={DB.MUSIC_BANDS}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEdit}
             onToggleEdit={() => setShowEdit(!showEdit)}
             title={<PageTitle title={band?.name} />}
             summary={`${t('description')}: ${band?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={band?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(band?.created, i18n.language)}</> },
                 { id: 2, content: <>{t('created_by')}: {band?.createdBy}</> },

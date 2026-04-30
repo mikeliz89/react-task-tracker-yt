@@ -24,7 +24,7 @@ export const Categories = {
     Water: 10
 }
 
-// TODO: Tällä hetkellä vain kovakoodatut drinkki-kategoriat
+// TODO: Tällä hetkellä vain kovakoodatut varuste-kategoriat
 export const GearCategories = [
     {
         //-ei mikään-

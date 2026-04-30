@@ -23,7 +23,7 @@ export default function ManageDrinkingProducts() {
 
     //user
     const { currentUser } = useAuth();
-const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //fetch data
@@ -85,7 +85,7 @@ const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.D
                 body: (
                     <AddDrinkingProduct
                         onClose={toggleAddDrinkingProduct}
-                        onAddDrinkingProduct={addDrinkingProduct}
+                        onSave={addDrinkingProduct}
                     />
                 ),
             }}
@@ -117,7 +117,7 @@ const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.D
             emptyText={t('no_drinkingproducts_to_show')}
         >
             <DrinkingProducts
-                drinkingProducts={drinkingProducts}
+                items={drinkingProducts}
                 originalList={originalDrinkingProducts}
                 counter={counter}
                 onDelete={deleteDrinkingProduct}

@@ -3,7 +3,7 @@ import cookies from 'js-cookie';
 import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { Languages } from '../../Languages';
+import { Languages } from '../../utils/Languages';
 import { TRANSLATION, VARIANTS } from '../../utils/Constants';
 
 import './Language.css';
@@ -13,7 +13,7 @@ export default function Language() {
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.LANGUAGE });
 
-const currentLanguageCode = ((cookies.get('i18next') || Languages.FI).split('-')[0] || Languages.FI).toLowerCase();
+    const currentLanguageCode = ((cookies.get('i18next') || Languages.FI).split('-')[0] || Languages.FI).toLowerCase();
 
     const languages = [
         {

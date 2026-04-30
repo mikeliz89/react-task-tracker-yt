@@ -122,7 +122,7 @@ export default function ManageMusicBands() {
         >
             <>
                 <Bands
-                    bands={bands}
+                    items={bands}
                     onDelete={deleteBand}
                     onEdit={editBand}
                     originalList={originalBands}

@@ -9,7 +9,7 @@ import useFetchById from '../Hooks/useFetchById';
 
 import { GameConsoles } from './Categories';
 
-export default function AddGame({ gameID, onSave, onClose, showLabels, dbUrl, showConsoleField }) {
+export default function AddGame({ gameID, onSave, onClose, showLabels, dbUrl, showConsole }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
@@ -47,10 +47,10 @@ export default function AddGame({ gameID, onSave, onClose, showLabels, dbUrl, sh
     }, [gameData]);
 
     useEffect(() => {
-        if (!showConsoleField) {
+        if (!showConsole) {
             setConsole('');
         }
-    }, [showConsoleField]);
+    }, [showConsole]);
 
     useEffect(() => {
         const sorted = [...GameConsoles].sort((a, b) => {
@@ -76,7 +76,7 @@ export default function AddGame({ gameID, onSave, onClose, showLabels, dbUrl, sh
             stars
         };
 
-        if (!showConsoleField) {
+        if (!showConsole) {
             delete payload.console;
         }
 
@@ -112,7 +112,7 @@ export default function AddGame({ gameID, onSave, onClose, showLabels, dbUrl, sh
                         value={publishYear}
                         onChange={(e) => setPublishYear(e.target.value)} />
                 </Form.Group>
-                {showConsoleField && (
+                {showConsole && (
                     <Form.Group className="mb-3" controlId="addGameForm-Console">
                         {showLabels && <Form.Label>{t('console')}</Form.Label>}
                         <Form.Select
@@ -172,13 +172,13 @@ export default function AddGame({ gameID, onSave, onClose, showLabels, dbUrl, sh
 AddGame.defaultProps = {
     showLabels: true,
     dbUrl: DB.GAMES,
-    showConsoleField: true
+    showConsole: true
 }
 
 AddGame.propTypes = {
     showLabels: PropTypes.bool,
     dbUrl: PropTypes.string,
-    showConsoleField: PropTypes.bool
+    showConsole: PropTypes.bool
 }
 
 

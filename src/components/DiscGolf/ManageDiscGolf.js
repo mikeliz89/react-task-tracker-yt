@@ -49,7 +49,7 @@ export default function ManageDiscGolf() {
             rounds != null && rounds.length > 0 ? (
                <>
                   {
-                     <Rounds rounds={rounds} onDelete={() => deleteRound()} />
+                     <Rounds items={rounds} onDelete={() => deleteRound()} />
                   }
                </>
             ) : (

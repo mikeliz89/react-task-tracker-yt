@@ -15,7 +15,6 @@ import { useToggle } from '../Hooks/useToggle';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddDrinkingProduct from './AddDrinkingProduct';
 
@@ -71,15 +70,11 @@ export default function DrinkingProductDetails() {
         }
     }
 
-    const saveStars = async (stars) => {
-        const drinkingProductID = params.id;
-        drinkingProduct["modified"] = getCurrentDateAsJson();
-        drinkingProduct["stars"] = Number(stars);
-        updateToFirebaseById(DB.DRINKINGPRODUCTS, drinkingProductID, drinkingProduct);
-    }
-
     return (
         <DetailsPage
+            item={drinkingProduct}
+            id={params.id}
+            dbKey={DB.DRINKINGPRODUCTS}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEditDrinkingProduct}
@@ -103,7 +98,6 @@ export default function DrinkingProductDetails() {
                 </>
             }
             summary={`${t('description')}: ${drinkingProduct?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={drinkingProduct?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 {
                     id: 1,
@@ -121,7 +115,7 @@ export default function DrinkingProductDetails() {
             editModalTitle={t('modal_header_edit_drinking_product')}
             editSection={
                 <AddDrinkingProduct
-                    onAddDrinkingProduct={addDrinkingProduct}
+                    onSave={addDrinkingProduct}
                     drinkingProductID={params.id}
                     onClose={toggleSetShowEdit}
                 />

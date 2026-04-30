@@ -11,18 +11,25 @@ import PageContentWrapper from './PageContentWrapper';
 import PageTitle from './PageTitle';
 
 export default function ManagePage({
+    //loading
     loading,
     loadingText,
     title,
+    //icon
     iconName,
     iconColor,
+    //buttons and actions
+    addButton,
     topActions,
     showGoBackButton = true,
-    alert,
-    modal,
-    searchSortFilter,
     centerActions,
-    addButton,
+    //alert
+    alert,
+    //modal
+    modal,
+    //filtering, sorting, searching
+    searchSortFilter,
+    //other
     hasItems,
     emptyText,
     children,
@@ -32,7 +39,7 @@ export default function ManagePage({
         originalList: originalSearchSortFilterList,
         ...searchSortFilterOptions
     } = searchSortFilter ?? {};
-const showSearchSortFilter =
+    const showSearchSortFilter =
         originalSearchSortFilterList != null &&
         originalSearchSortFilterList.length > 0;
 

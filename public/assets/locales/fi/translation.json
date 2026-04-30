@@ -28,10 +28,11 @@
         "sign_up": "Rekisteröidy"
     },
     "backpacking": {
+        "add": "Lisää varuste",
         "button_add_maintenance_instructions": "Lisää huolto-ohje",
         "button_add_gear": "Lisää varuste",
         "button_manage_backpacking_lists": "Listat",
-        "button_manage_gear": "Varusteeni",
+        "manage_title": "Varusteeni",
         "button_manage_gear_maintenance": "Huolto-ohjeet",
         "button_save_gear": "Tallenna varuste",
         "category": "Kategoria",
@@ -159,9 +160,13 @@
         "tracks": "Radat",
         "track_city": "Kaupunki",
         "track_description": "Radan kuvaus",
-        "track_name": "Radan nimi"
+        "track_name": "Radan nimi",
+        "add_at_least_one_hole": "Lisää vähintään yksi väylä",
+        "track_name_required": "Ole hyvä ja anna radalle nimi",
+        "max_holes_reached": "Rataan ei voi lisätä enempää väyliä kuin "
     },
     "drinks": {
+        "add": "Lisää drinkki",
         "add_incredient_formtitle": "Ainesosan lisäys",
         "add_workphase_formtitle": "Työvaiheen lisäys",
         "button_add_drinks": "Lisää drinkki",
@@ -220,6 +225,9 @@
         "drinkingproduct_name": "Tuotteen nimi",
         "drinkingproduct_not_have_at_home": "Minulla ei ole tätä",
         "drinkingproduct_save_successful": "Tuotteen tallennus onnistui",
+        "edit_workphase": "Muokkaa työvaihetta",
+        "edit_incredient": "Muokkaa ainesosaa",
+        "edit_garnish": "Muokkaa koristetta",
         "failed_to_save_drink": "Drinkin tallennus epäonnistui",
         "garnish_name": "Koriste",
         "garnishes_header": "Koristeet",
@@ -349,14 +357,14 @@
         "copyright": "Tekijänoikeus"
     },
     "games": {
-        "button_add_game": "Lisää peli",
+        "add": "Lisää peli",
         "button_add_board_game": "Lisää lautapeli",
         "button_game_lists": "Listat",
         "console": "Konsoli",
         "created": "Luotu",
         "created_by": "Luoja",
         "description": "Kuvaus",
-        "games_title": "Pelit",
+        "manage_title": "Pelit",
         "game_console_none": "-Ei mikään-",
         "game_console_ps1": "Playstation",
         "game_console_ps2": "Playstation 2",
@@ -389,6 +397,7 @@
         "board_games_title": "Lautapelit",
         "no_games_to_show": "Ei pelejä",
         "no_board_games_to_show": "Ei lautapelejä",
+        "please_add_name": "Ole hyvä ja anna nimi",
         "publish_year": "Julkaisuvuosi",
         "save_success": "Pelin tallennus onnistui",
         "yes": "Kyllä",
@@ -410,11 +419,12 @@
         "urlText": "linkin teksti"
     },
     "movies": {
-        "button_add_movie": "Lisää leffa",
+        "add": "Lisää leffa",
         "button_movie_lists": "Leffalistat",
         "created": "Luotu",
         "created_by": "Luoja",
         "description": "Kuvaus",
+        "edit_movie": "Muokkaa leffaa",
         "failed_to_save_movie": "Tallennus epäonnistui",
         "format": "Tallennusmuoto",
         "have": "Minulla on tämä",
@@ -426,7 +436,7 @@
         "movie_format_google": "Google",
         "movie_format_none": "-Ei mikään-",
         "movie_format_vhs": "VHS",
-        "movies_title": "Leffat",
+        "manage_title": "Leffat",
         "movies": "Leffat",
         "name": "Nimi",
         "name_fi": "Suomenkielinen nimi",
@@ -536,6 +546,7 @@
         "years": "vuotta"
     },
     "recipe": {
+        "add": "Lisää resepti",
         "add_description": "Lisää kuvaus",
         "add_workphase_formtitle": "Työvaiheen lisäys",
         "add_incredient_formtitle": "Ainesosan lisäys",
@@ -583,6 +594,8 @@
         "do_recipe_confirm": "Oletko varma?",
         "edit_description": "Muokkaa kuvausta",
         "edit_recipe_name": "Muokkaa reseptin nimeä",
+        "edit_workphase": "Muokkaa työvaihetta",
+        "edit_incredient": "Muokkaa ainesosaa",
         "failed_to_save_recipe": "Reseptin tallennus epäonnistui",
         "fooditem_name": "Nimi",
         "fooditem_calories": "Kalorit",
@@ -698,7 +711,8 @@
     "starrating": {
         "rate": "Arvioi",
         "save_rating": "Tallenna arvio",
-        "stars": "Tähdet"
+        "stars": "Tähdet",
+        "rating": "Arvio"
     },
     "theme": {
         "title": "Teema",

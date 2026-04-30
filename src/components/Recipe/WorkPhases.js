@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next';
 
 import WorkPhase from './WorkPhase';
 
-export default function WorkPhases({ dbUrl, translation, translationKeyPrefix, workPhases, recipeID, onDelete }) {
+export default function WorkPhases({ dbUrl, translation, translationKeyPrefix, items, recipeID, onDelete }) {
 
   //translation
   const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
-const calculateEstimatedLengthsSum = (workPhases) => {
+  const calculateEstimatedLengthsSum = (items) => {
     let sum = 0;
-    workPhases.forEach(phase => {
+    items.forEach(phase => {
       sum += parseInt(phase.estimatedLength);
     });
     return sum;
@@ -19,10 +19,10 @@ const calculateEstimatedLengthsSum = (workPhases) => {
     <>
       <h5>{t('workphases_header')}</h5>
 
-      <p>{t('sum_in_minutes')}: {calculateEstimatedLengthsSum(workPhases)}</p>
+      <p>{t('sum_in_minutes')}: {calculateEstimatedLengthsSum(items)}</p>
 
-      {workPhases
-        ? workPhases.map((workPhase, index) =>
+      {items
+        ? items.map((workPhase, index) =>
           <WorkPhase
             dbUrl={dbUrl}
             translation={translation}

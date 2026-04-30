@@ -8,7 +8,7 @@ export default function PrivateRoute({ children }) {
     //user
     const { currentUser } = useAuth();
 
-return currentUser ? children : <Navigate to={NAVIGATION.LOGIN} />;
+    return currentUser ? children : <Navigate to={NAVIGATION.LOGIN} />;
 }
 
 

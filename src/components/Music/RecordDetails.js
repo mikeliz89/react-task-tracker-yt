@@ -15,7 +15,6 @@ import { useToggle } from '../Hooks/useToggle';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddRecord from './AddRecord';
 
@@ -71,15 +70,11 @@ export default function RecordDetails() {
         pushToFirebaseChild(DB.MUSIC_LINKS, id, link);
     }
 
-    const saveStars = async (stars) => {
-        const recordID = params.id;
-        record["modified"] = getCurrentDateAsJson()
-        record["stars"] = Number(stars);
-        updateToFirebaseById(DB.MUSIC_RECORDS, recordID, record);
-    }
-
     return (
         <DetailsPage
+            item={record}
+            id={params.id}
+            dbKey={DB.MUSIC_RECORDS}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEdit}
@@ -92,7 +87,6 @@ export default function RecordDetails() {
                 </div>
             }
             summary={`${t('description')}: ${record?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={record?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 {
                     id: 1,

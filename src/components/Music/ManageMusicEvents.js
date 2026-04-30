@@ -121,7 +121,7 @@ export default function ManageMusicEvents() {
         >
             <>
                 <Events
-                    events={events}
+                    items={events}
                     onDelete={deleteEvent}
                     onEdit={editEvent}
                     originalList={originalEvents}

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import Incredient from './Incredient';
 
-export default function Incredients({ dbUrl, translation, translationKeyPrefix, incredients, recipeID, onDelete }) {
+export default function Incredients({ dbUrl, translation, translationKeyPrefix, items, recipeID, onDelete }) {
 
   //translation
   const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
@@ -11,8 +11,8 @@ return (
     <>
       <h5>{t('incredients_header')}</h5>
 
-      {incredients
-        ? incredients.map((incredient, index) =>
+      {items
+        ? items.map((incredient, index) =>
           <Incredient
             dbUrl={dbUrl}
             translation={translation}

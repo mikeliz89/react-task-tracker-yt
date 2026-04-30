@@ -2,16 +2,16 @@ import Counter from '../Site/Counter';
 
 import Game from './Game';
 
-export default function Games({ games, onDelete, onEdit, dbUrl, detailsNavigation, showConsole, originalList, counter }) {
+export default function Games({ items, onDelete, onEdit, dbUrl, detailsNavigation, showConsole, originalList, counter }) {
 
   return (
     <div>
       {
         originalList != null && counter != null ? (
-          <Counter list={games} originalList={originalList} counter={counter} />
+          <Counter list={items} originalList={originalList} counter={counter} />
         ) : (<></>)
       }
-      {games.map((game) => (
+      {items.map((game) => (
         <Game key={game.id}
           game={game}
           onDelete={onDelete}

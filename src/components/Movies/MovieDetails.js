@@ -15,7 +15,6 @@ import useFetch from '../Hooks/useFetch';
 import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddMovie from './AddMovie';
 
@@ -72,15 +71,11 @@ export default function MovieDetails() {
         pushToFirebaseChild(DB.MOVIE_LINKS, id, link);
     }
 
-    const saveStars = async (stars) => {
-        const movieID = params.id;
-        movie["modified"] = getCurrentDateAsJson()
-        movie["stars"] = Number(stars);
-        updateToFirebaseById(DB.MOVIES, movieID, movie);
-    }
-
     return (
         <DetailsPage
+            item={movie}
+            id={params.id}
+            dbKey={DB.MOVIES}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEdit}
@@ -88,7 +83,6 @@ export default function MovieDetails() {
             title={movie?.name}
             preSummaryContent={<span className="detailspage-field">{t('format')}: {t('movie_format_' + getMovieFormatNameByID(movie?.format))}</span>}
             summary={`${t('description')}: ${movie?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={movie?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(movie?.created, i18n.language)}</> },
                 { id: 2, content: <>{t('created_by')}: {movie?.createdBy}</> },

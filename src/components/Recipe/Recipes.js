@@ -5,16 +5,16 @@ import Counter from '../Site/Counter';
 
 import Recipe from './Recipe';
 
-export default function Recipes({ recipeType, translation, translationKeyPrefix, recipes, onDelete, originalList, counter }) {
+export default function Recipes({ recipeType, translation, translationKeyPrefix, items, onDelete, originalList, counter }) {
 
   return (
     <div>
       {
         originalList != null && counter != null ? (
-          <Counter list={recipes} originalList={originalList} counter={counter} />
+          <Counter list={items} originalList={originalList} counter={counter} />
         ) : (<></>)
       }
-      {recipes.map((recipe) => (
+      {items.map((recipe) => (
         <Recipe
           recipeType={recipeType}
           translation={translation}

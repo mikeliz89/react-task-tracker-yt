@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
-import { Languages } from '../../Languages';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateString, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import Alert from '../Alert';

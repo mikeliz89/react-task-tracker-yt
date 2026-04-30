@@ -2,9 +2,13 @@
     "common": {
         "amount": "Määrä",
         "loading": "Lataa...",
+        "nothing_to_show": "Ei näytettävää",
+        "save_success": "Tallennettu onnistuneesti",
+        "save_exception": "Tapahtui virhe tallennettaessa",
         "buttons": {
             "go_back_button_alt": "Takaisin",
             "button_close": "Sulje",
+            "button_open": "Lisää",
             "button_delete": "Poista",
             "button_delete_all": "Poista kaikki",
             "button_edit": "Muokkaa",

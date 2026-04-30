@@ -1,6 +1,3 @@
-
-
-
 //states
 
 import { useState } from 'react';
@@ -42,6 +39,8 @@ export default function Movie({ movie, onDelete, onEdit }) {
 
     return (
         <ListRow
+            item={movie}
+            dbKey={DB.MOVIES}
             headerTitle={movieTitle}
             headerTitleTo={`${NAVIGATION.MOVIE}/${movie.id}`}
             showEditButton={true}
@@ -50,42 +49,34 @@ export default function Movie({ movie, onDelete, onEdit }) {
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={movie.id}
-            starCount={movie.stars}
-        >
-            {!editable &&
-                <p>
-                    {movie.nameFi !== "" ? movie.nameFi : ''}
-                </p>
+            section={
+                !editable ? (
+                    <div>
+                        {movie.nameFi !== "" && <p>{movie.nameFi}</p>}
+                        {movie.format > 0 && (
+                            <p><span>{t('movie_format_' + getMovieFormatNameByID(movie.format))}</span></p>
+                        )}
+                        <p>{movie.description}</p>
+                    </div>
+                ) : null
             }
-            {!editable &&
-                <p>
-                    {movie.format > 0 ?
-                        (<span> {
-                            t('movie_format_' + getMovieFormatNameByID(movie.format))
-                        }</span>) : ('')}
-                </p>
-            }
-            {!editable &&
-                <p>
-                    {movie.description}
-                </p>
-            }
-            {
+            modalTitle={t('edit_movie')}
+            modalBody={
                 editable && <AddMovie
                     movieID={movie.id}
                     onClose={() => setEditable(false)}
                     onSave={updateMovie}
                     showLabels={true} />
             }
-
-                <CheckButton
-                    checked={movie.haveAtHome}
-                    checkedText={t('have')}
-                    uncheckedText={t('have_not')}
-                    onCheck={markHaveAtHome}
-                    onUncheck={markNotHaveAtHome}
-                    style={{ margin: '5px' }}
-                />
+        >
+            <CheckButton
+                checked={movie.haveAtHome}
+                checkedText={t('have')}
+                uncheckedText={t('have_not')}
+                onCheck={markHaveAtHome}
+                onUncheck={markNotHaveAtHome}
+                style={{ margin: '5px' }}
+            />
         </ListRow>
     )
 }

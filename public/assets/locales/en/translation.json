@@ -352,7 +352,7 @@
     "copyright": "Copyright"
   },
   "games": {
-    "button_add_game": "Add Game",
+    "add": "Add Game",
     "button_add_board_game": "Add Board Game",
     "button_game_lists": "Lists",
     "console": "Console",
@@ -413,11 +413,12 @@
     "urlText": "link text"
   },
   "movies": {
-    "button_add_movie": "Add Movie",
+    "add": "Add Movie",
     "button_movie_lists": "Movie Lists",
     "created": "Created",
     "created_by": "Created By",
     "description": "Description",
+    "edit_movie": "Edit Movie",
     "failed_to_save_movie": "Saving failed",
     "format": "Format",
     "have": "I have this",
@@ -586,6 +587,7 @@
     "do_recipe_confirm": "Are you sure?",
     "edit_description": "Edit Description",
     "edit_recipe_name": "Edit Recipe Name",
+    "edit_workphase": "Edit workphase",
     "failed_to_save_recipe": "Failed to save recipe",
     "fooditem_name": "Name",
     "fooditem_calories": "Calories",

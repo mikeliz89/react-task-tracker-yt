@@ -1,6 +1,6 @@
 /** Get current date as Json datetime */
 
-import { Languages } from "../Languages";
+import { Languages } from "./Languages";
 
 export function getCurrentDateAsJson() {
     let newDate = new Date();

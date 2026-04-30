@@ -1,20 +1,12 @@
-
-
 //states
-
-
 import i18n from "i18next";
-import { Row, Col, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 import { updateToFirebaseById } from "../../datatier/datatier";
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
-import DeleteButton from '../Buttons/DeleteButton';
-import EditButton from '../Buttons/EditButton';
 import { useToggle } from '../Hooks/useToggle';
 
-import RightWrapper from "../Site/RightWrapper";
 import ListRow from '../Site/ListRow';
 
 import AddMaintenance from "./AddMaintenance";
@@ -33,40 +25,37 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
     };
 
     return (
-        <>
-            <ListRow
-                headerTitle={
-                    <>
-                        <b>{getJsonAsDateTimeString(carMaintenance.created, i18n.language)}</b>&nbsp;
-                        {carMaintenance.createdBy}
-                    </>
-                }
-                showEditButton={true}
-                editable={editable}
-                setEditable={toggleEditable}
-                showDeleteButton={true}
-                onDelete={onDelete}
-                deleteId={carMaintenance.id}
-            >
+        <ListRow
+            item={carMaintenance}
+            dbKey={DB.CAR_MAINTENANCE}
+            headerTitle={
+                <>
+                    <b>{getJsonAsDateTimeString(carMaintenance.created, i18n.language)}</b>&nbsp;
+                    {carMaintenance.createdBy}
+                </>
+            }
+            showEditButton={true}
+            editable={editable}
+            setEditable={toggleEditable}
+            showDeleteButton={true}
+            onDelete={onDelete}
+            deleteId={carMaintenance.id}
+            section={
                 <div>
                     {t('maintenance_name')}: {carMaintenance.name} <br />
                     {t('maintenance_description')}: {carMaintenance.description} <br />
                     {t('maintenance_price')}: {carMaintenance.price} <br />
                 </div>
-            </ListRow>
-            <Modal show={editable} onHide={toggleEditable}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('modal_header_edit_maintenance')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddMaintenance
-                        ID={carMaintenance.id}
-                        onClose={() => toggleEditable()}
-                        onSave={updateMaintenance}
-                    />
-                </Modal.Body>
-            </Modal>
-        </>
+            }
+            modalTitle={t('modal_header_edit_maintenance')}
+            modalBody={
+                <AddMaintenance
+                    ID={carMaintenance.id}
+                    onClose={() => toggleEditable()}
+                    onSave={updateMaintenance}
+                />
+            }
+        />
     );
 }
 

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { TRANSLATION, NAVIGATION, COLORS } from '../../utils/Constants';
+import { TRANSLATION, NAVIGATION, COLORS, DB } from '../../utils/Constants';
 import { getExerciseCategoryNameByID } from '../../utils/ListUtils';
 import ListRow from '../Site/ListRow';
 
@@ -14,6 +14,8 @@ export default function Exercise({ exercise, onDelete }) {
 
     return (
         <ListRow
+            item={exercise}
+            dbKey={DB.EXERCISES}
             headerTitle={exerciseTitle}
             headerTitleTo={`${NAVIGATION.EXERCISE}/${exercise.id}`}
             headerTitleIcon={getIconNameByCategory(exercise.category)}
@@ -21,7 +23,6 @@ export default function Exercise({ exercise, onDelete }) {
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={exercise.id}
-            starCount={exercise.stars}
         >
             <p>
                 {exercise.category > 0 ?

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import { TRANSLATION, NAVIGATION } from '../../utils/Constants';
+import { TRANSLATION, NAVIGATION, DB } from '../../utils/Constants';
 import ListRow from '../Site/ListRow';
 
 export default function Track({ track }) {
@@ -10,6 +10,8 @@ export default function Track({ track }) {
 
     return (
         <ListRow
+            item={track}
+            dbKey={DB.DISC_GOLF_TRACK}
             headerTitle={track.trackName}
             headerTitleTo={`${NAVIGATION.DISC_GOLF_TRACK}/${track.id}`}
         >

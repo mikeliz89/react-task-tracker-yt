@@ -10,7 +10,7 @@ export default function LinkInner({ link, objID, linkUrl, onEdit, onDelete }) {
 
     //states
     const [editable, setEditable] = useState(false);
-const editLink = (link) => {
+    const editLink = (link) => {
         onEdit(link);
         setEditable(false);
     }

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { TRANSLATION, NAVIGATION, VARIANTS, COLORS } from "../../utils/Constants";
+import { TRANSLATION, NAVIGATION, VARIANTS, COLORS, DB } from "../../utils/Constants";
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
 import { useAlert } from '../Hooks/useAlert';
 import ListRow from '../Site/ListRow';
@@ -32,6 +32,8 @@ export default function Gear({ gear, onDelete, onEdit }) {
     return (
         <>
             <ListRow
+                item={gear}
+                dbKey={DB.BACKPACKING_GEAR}
                 headerTitle={gear.name}
                 headerTitleTo={`${NAVIGATION.GEAR}/${gear.id}`}
                 headerTitleIcon={getIconNameByCategory(gear.category)}
@@ -50,7 +52,6 @@ export default function Gear({ gear, onDelete, onEdit }) {
                     variant: VARIANTS.SUCCESS,
                     onClose: clearMessages,
                 }}
-                starCount={gear.stars}
                 modalTitle={t('modal_header_edit_gear')}
                 modalBody={
                     <AddGear

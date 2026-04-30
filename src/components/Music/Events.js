@@ -2,16 +2,16 @@ import Counter from '../Site/Counter';
 
 import Event from './Event';
 
-export default function Events({ events, onDelete, onEdit, originalList, counter }) {
+export default function Events({ items, onDelete, onEdit, originalList, counter }) {
 
   return (
     <div>
       {
         originalList != null && counter != null ? (
-          <Counter list={events} originalList={originalList} counter={counter} />
+          <Counter list={items} originalList={originalList} counter={counter} />
         ) : (<></>)
       }
-      {events.map((event) => (
+      {items.map((event) => (
         <Event key={event.id}
           event={event}
           onDelete={onDelete}

@@ -15,7 +15,6 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 import PageTitle from '../Site/PageTitle';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddGame from './AddGame';
 
@@ -68,18 +67,14 @@ export default function BoardGameDetails() {
         pushToFirebaseChild(DB.BOARD_GAME_LINKS, id, link);
     }
 
-    const saveStars = async (stars) => {
-        const boardGameID = params.id;
-        boardGame["modified"] = getCurrentDateAsJson()
-        boardGame["stars"] = Number(stars);
-        updateToFirebaseById(DB.BOARD_GAMES, boardGameID, boardGame);
-    }
-
     //states
     const [showEdit, setShowEdit] = useState(false);
 
     return (
         <DetailsPage
+            item={boardGame}
+            id={params.id}
+            dbKey={DB.BOARD_GAMES}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEdit}
@@ -91,14 +86,13 @@ export default function BoardGameDetails() {
                 </span>
             }
             summary={`${t('description')}: ${boardGame?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={boardGame?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(boardGame?.created, i18n.language)}</> },
                 { id: 2, content: <>{t('created_by')}: {boardGame?.createdBy}</> },
                 { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(boardGame?.modified, i18n.language)}</> }
             ]}
             editModalTitle={t('modal_header_edit_board_game')}
-            editSection={<AddGame onSave={updateBoardGame} gameID={params.id} onClose={() => setShowEdit(false)} dbUrl={DB.BOARD_GAMES} showConsoleField={false} />}
+            editSection={<AddGame onSave={updateBoardGame} gameID={params.id} onClose={() => setShowEdit(false)} dbUrl={DB.BOARD_GAMES} showConsole={false} />}
             alertSection={
                 <Alert
                     message={message}

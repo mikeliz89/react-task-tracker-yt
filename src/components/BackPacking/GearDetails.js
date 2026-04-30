@@ -1,6 +1,3 @@
-
-
-
 //alert
 
 import i18n from 'i18next';
@@ -22,7 +19,6 @@ import ImageComponent from '../ImageUpload/ImageComponent';
 import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 import PageTitle from '../Site/PageTitle';
-import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 
 import AddGear from './AddGear';
 
@@ -30,7 +26,7 @@ export default function GearDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
-const {
+    const {
         message,
         showMessage,
         error,
@@ -50,13 +46,6 @@ const {
 
     //fetch data
     const { data: gear, loading } = useFetch(DB.BACKPACKING_GEAR, "", params.id);
-
-    const saveStars = async (stars) => {
-        const id = params.id;
-        gear["modified"] = getCurrentDateAsJson()
-        gear["stars"] = Number(stars);
-        updateToFirebaseById(DB.BACKPACKING_GEAR, id, gear);
-    }
 
     const updateGear = async (gear) => {
         try {
@@ -85,6 +74,9 @@ const {
 
     return (
         <DetailsPage
+            item={gear}
+            id={params.id}
+            dbKey={DB.BACKPACKING_GEAR}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEdit}
@@ -103,7 +95,6 @@ const {
                 </>
             }
             summary={`${t('description')}: ${gear?.description || '-'}`}
-            ratingSection={<StarRatingWrapper stars={gear?.stars} onSaveStars={saveStars} />}
             metaItems={[
                 {
                     id: 1,
