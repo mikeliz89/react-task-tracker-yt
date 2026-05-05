@@ -81,6 +81,13 @@ export default function MovieDetails() {
             isEditOpen={showEdit}
             onToggleEdit={() => setShowEdit(!showEdit)}
             title={movie?.name}
+            titleSuffix={
+                <span className={`details-pill ${movie?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
+                    {movie?.haveAtHome === true
+                        ? t('have')
+                        : t('have_not')}
+                </span>
+            }
             preSummaryContent={<span className="detailspage-field">{t('format')}: {t('movie_format_' + getMovieFormatNameByID(movie?.format))}</span>}
             summary={`${t('description')}: ${movie?.description || '-'}`}
             metaItems={[
