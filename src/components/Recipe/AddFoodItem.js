@@ -94,7 +94,7 @@ export default function AddFoodItem({ foodItemID, onSave, onClose }) {
             delete payload.category;
         }
 
-        console.log(foodItemID, payload);
+        //console.log(foodItemID, payload);
 
         onSave(foodItemID, payload);
 

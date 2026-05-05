@@ -15,13 +15,10 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
 import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
 import Button from '../Buttons/Button';
-import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import useFetchChildren from '../Hooks/useFetchChildren';
 import { useToggle } from '../Hooks/useToggle';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import LinkComponent from '../Links/LinkComponent';
 import AddIncredient from '../Recipe/AddIncredient';
 import AddWorkPhase from '../Recipe/AddWorkPhase';
 import { getIncredientsUrl } from '../Recipe/Categories';
@@ -120,20 +117,6 @@ export default function DrinkDetails() {
 
     const deleteGarnish = async (drinkID, id) => {
         removeFromFirebaseByIdAndSubId(DB.DRINK_GARNISHES, drinkID, id);
-    }
-
-    const addCommentToDrink = (comment) => {
-        const drinkID = params.id;
-        comment["created"] = getCurrentDateAsJson();
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.DRINK_COMMENTS, drinkID, comment);
-    }
-
-    const addLinkToDrink = (link) => {
-        const drinkID = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.DRINK_LINKS, drinkID, link);
     }
 
     const addIncredient = async (drinkID, incredient) => {
@@ -359,30 +342,32 @@ export default function DrinkDetails() {
                             )}
                         </Tab>
                         <Tab eventKey="recipeView" title={t('tabheader_recipe_view')}>
-                            <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
-                                <div style={{ flex: 1, minWidth: 250 }}>
-                                    <h5>{t('incredients_header')}</h5>
-                                    {incredients && incredients.length > 0 ? (
-                                        <ul style={{ paddingLeft: 20 }}>
-                                            {incredients.map((item, idx) => (
-                                                <li key={item.id || idx}>{item.name}{item.amount ? ` (${item.amount}${item.unit ? ' ' + item.unit : ''})` : ''}</li>
-                                            ))}
-                                        </ul>
-                                    ) : (
-                                        <CenterWrapper>{t('no_incredients_to_show')}</CenterWrapper>
-                                    )}
-                                </div>
-                                <div style={{ flex: 1, minWidth: 250 }}>
-                                    <h5>{t('workphases_header')}</h5>
-                                    {workPhases && workPhases.length > 0 ? (
-                                        <ol style={{ paddingLeft: 20 }}>
-                                            {workPhases.map((item, idx) => (
-                                                <li key={item.id || idx}>{item.name || item.text || item.description}</li>
-                                            ))}
-                                        </ol>
-                                    ) : (
-                                        <CenterWrapper>{t('no_workphases_to_show')}</CenterWrapper>
-                                    )}
+                            <div className="container-fluid px-0">
+                                <div className="row g-4">
+                                    <div className="col-12 col-md-6">
+                                        <h5>{t('incredients_header')}</h5>
+                                        {incredients && incredients.length > 0 ? (
+                                            <ul className="ps-3">
+                                                {incredients.map((item, idx) => (
+                                                    <li key={item.id || idx}>{item.name}{item.amount ? ` (${item.amount}${item.unit ? ' ' + item.unit : ''})` : ''}</li>
+                                                ))}
+                                            </ul>
+                                        ) : (
+                                            <CenterWrapper>{t('no_incredients_to_show')}</CenterWrapper>
+                                        )}
+                                    </div>
+                                    <div className="col-12 col-md-6">
+                                        <h5>{t('workphases_header')}</h5>
+                                        {workPhases && workPhases.length > 0 ? (
+                                            <ol className="ps-3">
+                                                {workPhases.map((item, idx) => (
+                                                    <li key={item.id || idx}>{item.name || item.text || item.description}</li>
+                                                ))}
+                                            </ol>
+                                        ) : (
+                                            <CenterWrapper>{t('no_workphases_to_show')}</CenterWrapper>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </Tab>
@@ -427,9 +412,18 @@ export default function DrinkDetails() {
                     </Tabs>
                 </>
             }
-            imageSection={<ImageComponent objID={params.id} url={DB.DRINK_IMAGES} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.DRINK_COMMENTS} onSave={addCommentToDrink} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.DRINK_LINKS} onSaveLink={addLinkToDrink} />}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.DRINK_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.DRINK_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.DRINK_LINKS
+            }}
         />
     )
 }

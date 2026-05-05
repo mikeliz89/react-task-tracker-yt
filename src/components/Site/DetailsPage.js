@@ -169,7 +169,8 @@ export default function DetailsPage({
 
                 {(alertProps.message || alertProps.error || alertProps.showMessage || alertProps.showError) && (
                     <div className="detailspage-alert-section">
-                        <Row className="detailspage-grid">
+                        {/* <Row className="detailspage-grid"> */}
+                        <Row>
                             <Col lg={alertProps.alertColLg ?? 12}>
                                 <Alert {...alertProps} />
                             </Col>
@@ -179,7 +180,8 @@ export default function DetailsPage({
 
                 {preImageSection && (
                     <div className="detailspage-pre-image-section">
-                        <Row className="detailspage-grid">
+                        {/* <Row className="detailspage-grid"> */}
+                        <Row>
                             <Col lg={preImageColLg}>
                                 {preImageSection}
                             </Col>

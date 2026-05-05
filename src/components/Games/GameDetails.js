@@ -4,16 +4,12 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGameConsoleNameByID } from '../../utils/ListUtils';
-import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 import PageTitle from '../Site/PageTitle';
 
@@ -38,9 +34,6 @@ export default function GameDetails() {
         showFailure
     } = useAlert();
 
-    //auth
-    const { currentUser } = useAuth();
-
     const updateGame = async (updateGameID, game) => {
         try {
             const gameID = params.id;
@@ -50,20 +43,6 @@ export default function GameDetails() {
             showFailure(t('failed_to_save_game'));
             console.warn(error);
         }
-    }
-
-    const addCommentToGame = (comment) => {
-        const id = params.id;
-        comment["created"] = getCurrentDateAsJson();
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.GAME_COMMENTS, id, comment);
-    }
-
-    const addLinkToGame = (link) => {
-        const id = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.GAME_LINKS, id, link);
     }
 
     //states
@@ -105,9 +84,18 @@ export default function GameDetails() {
                 showError,
                 onClose: clearMessages
             }}
-            imageSection={<ImageComponent url={DB.GAME_IMAGES} objID={params.id} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.GAME_COMMENTS} onSave={addCommentToGame} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.GAME_LINKS} onSaveLink={addLinkToGame} />}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.GAME_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.GAME_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.GAME_LINKS
+            }}
         />
     )
 }

@@ -4,18 +4,14 @@ import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import Button from '../Buttons/Button';
-import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import useFetchChildren from '../Hooks/useFetchChildren';
 import { useToggle } from '../Hooks/useToggle';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import LinkComponent from '../Links/LinkComponent';
 import FoundItems from '../Selectors/FoundItems';
 import DetailsPage from '../Site/DetailsPage';
 
@@ -26,7 +22,6 @@ export default function EventDetails() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
-
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //alert
@@ -46,9 +41,6 @@ export default function EventDetails() {
 
     //params
     const params = useParams();
-
-    //auth
-    const { currentUser } = useAuth();
 
     //fetch data
     const { originalData: originalBands } = useFetch(DB.MUSIC_BANDS);
@@ -82,20 +74,6 @@ export default function EventDetails() {
             showFailure(t('failed_to_save_music_event'));
             console.warn(error);
         }
-    }
-
-    const addCommentToEvent = (comment) => {
-        const id = params.id;
-        comment["created"] = getCurrentDateAsJson();
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.MUSIC_EVENT_COMMENTS, id, comment);
-    }
-
-    const addLinkToEvent = (link) => {
-        const id = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.MUSIC_EVENT_LINKS, id, link);
     }
 
     const selectedBandChanged = (band) => {
@@ -187,9 +165,18 @@ export default function EventDetails() {
                     }
                 </>
             }
-            imageSection={<ImageComponent url={DB.MUSIC_EVENT_IMAGES} objID={params.id} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.MUSIC_EVENT_COMMENTS} onSave={addCommentToEvent} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.MUSIC_EVENT_LINKS} onSaveLink={addLinkToEvent} />}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.MUSIC_EVENT_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.MUSIC_EVENT_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.MUSIC_EVENT_LINKS
+            }}
         />
     )
 }

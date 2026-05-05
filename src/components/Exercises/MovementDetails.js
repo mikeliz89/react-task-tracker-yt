@@ -3,16 +3,12 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
-import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 
 import AddMovement from './AddMovement';
@@ -38,25 +34,8 @@ export default function MovementDetails() {
     //params
     const params = useParams();
 
-    //auth
-    const { currentUser } = useAuth();
-
     //fetch data
     const { data: movement, loading } = useFetch(DB.EXERCISE_MOVEMENTS, "", params.id);
-
-    const addCommentToMovement = (comment) => {
-        const movementID = params.id;
-        comment["created"] = getCurrentDateAsJson();
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.EXERCISE_MOVEMENT_COMMENTS, movementID, comment);
-    }
-
-    const addLinkToMovement = (link) => {
-        const movementID = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.EXERCISE_MOVEMENT_LINKS, movementID, link);
-    }
 
     const updateMovement = async (updateMovementID, movement) => {
         try {
@@ -108,9 +87,18 @@ export default function MovementDetails() {
                 showError,
                 onClose: clearMessages
             }}
-            imageSection={<ImageComponent url={DB.EXERCISE_MOVEMENT_IMAGES} objID={params.id} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.EXERCISE_MOVEMENT_COMMENTS} onSave={addCommentToMovement} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.EXERCISE_MOVEMENT_LINKS} onSaveLink={addLinkToMovement} />}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.EXERCISE_MOVEMENT_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.EXERCISE_MOVEMENT_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.EXERCISE_MOVEMENT_LINKS
+            }}
         />
     )
 }
