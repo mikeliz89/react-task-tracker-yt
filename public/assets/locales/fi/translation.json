@@ -529,6 +529,7 @@
         "upload": "Lähetä"
     },
     "people": {
+        "add": "Lisää ihminen",
         "address": "Kotiosoite",
         "birthday": "Syntymäpäivä",
         "button_add_person": "Lisää ihminen",

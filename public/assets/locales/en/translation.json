@@ -523,6 +523,7 @@
     "username": "Username"
   },
   "people": {
+    "add":"Add Person",
     "address": "Home address",
     "birthday": "Birthday",
     "button_add_person": "Add person",
