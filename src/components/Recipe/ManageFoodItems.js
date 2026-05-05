@@ -108,7 +108,8 @@ export default function ManageFoodItems() {
             emptyText={t('no_fooditems_to_show')}
         >
             <>
-                <FoodItems items={foodItems}
+                <FoodItems
+                    items={foodItems}
                     originalList={originalFoodItems}
                     counter={counter}
                     onDelete={deleteFoodItem}

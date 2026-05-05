@@ -24,12 +24,12 @@ export default function AddFoodItem({ foodItemID, onSave, onClose }) {
         protein: 0,
         salt: 0,
         sugars: 0,
+        stars: 0,
         created: '',
         createdBy: ''
     };
 
     const [foodItem, setFoodItem] = useState(defaultFoodItem);
-
     const foodItemData = useFetchById(DB.FOODITEMS, foodItemID);
 
     useEffect(() => {
@@ -71,7 +71,32 @@ export default function AddFoodItem({ foodItemID, onSave, onClose }) {
             return;
         }
 
-        onSave(foodItem);
+        // Rakennetaan payload eksplisiittisesti
+        const payload = {
+            name: foodItem.name,
+            category: foodItem.category,
+            haveAtHome: foodItem.haveAtHome,
+            calories: foodItem.calories,
+            carbs: foodItem.carbs,
+            fat: foodItem.fat,
+            fiber: foodItem.fiber,
+            protein: foodItem.protein,
+            salt: foodItem.salt,
+            sugars: foodItem.sugars,
+            created: foodItem.created,
+            createdBy: foodItem.createdBy,
+            modified: foodItem.modified,
+            stars: foodItem.stars
+        };
+
+        // Poistetaan mahdolliset tyhjät stringit kategorioista
+        if (payload.category === '') {
+            delete payload.category;
+        }
+
+        console.log(foodItemID, payload);
+
+        onSave(foodItemID, payload);
 
         if (foodItemID === null) {
             setFoodItem(defaultFoodItem);

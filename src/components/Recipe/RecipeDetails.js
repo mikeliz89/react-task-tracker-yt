@@ -14,12 +14,9 @@ import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateT
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
 import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
 import Button from '../Buttons/Button';
-import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import useFetchChildren from '../Hooks/useFetchChildren';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import LinkComponent from '../Links/LinkComponent';
 import CenterWrapper from '../Site/CenterWrapper';
 import DetailsPage from '../Site/DetailsPage';
 
@@ -113,20 +110,6 @@ export default function RecipeDetails() {
 
     const addWorkPhase = async (recipeID, workPhase) => {
         pushToFirebaseChild(DB.RECIPE_WORKPHASES, recipeID, workPhase);
-    }
-
-    const addCommentToRecipe = (comment) => {
-        const recipeID = params.id;
-        comment["created"] = getCurrentDateAsJson();
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.RECIPE_COMMENTS, recipeID, comment);
-    }
-
-    const addLinkToRecipe = (link) => {
-        const recipeID = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.RECIPE_LINKS, recipeID, link);
     }
 
     const saveRecipeHistory = async (recipeID) => {
@@ -392,14 +375,6 @@ export default function RecipeDetails() {
                             <>
                                 <Button
                                     iconName={ICONS.PLUS_SQUARE}
-                                    text={t('do_recipe')}
-                                    onClick={() => {
-                                        if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); }
-                                    }}
-                                />
-                                &nbsp;
-                                <Button
-                                    iconName={ICONS.PLUS_SQUARE}
                                     text={t('shopcart_tooltip')}
                                     onClick={() => {
                                         if (window.confirm(t('shopcart_tooltip_confirm'))) {
@@ -409,24 +384,69 @@ export default function RecipeDetails() {
                                 />
                             </>
                         </Tab>
+                        <Tab eventKey="recipeView" title={t('tabheader_recipe_view')}>
+                            <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+                                <div style={{ flex: 1, minWidth: 250 }}>
+                                    <h5>{t('incredients_header')}</h5>
+                                    {incredients && incredients.length > 0 ? (
+                                        <ul style={{ paddingLeft: 20 }}>
+                                            {incredients.map((item, idx) => (
+                                                <li key={item.id || idx}>{item.name}{item.amount ? ` (${item.amount}${item.unit ? ' ' + item.unit : ''})` : ''}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <CenterWrapper>{t('no_incredients_to_show')}</CenterWrapper>
+                                    )}
+                                </div>
+                                <div style={{ flex: 1, minWidth: 250 }}>
+                                    <h5>{t('workphases_header')}</h5>
+                                    {workPhases && workPhases.length > 0 ? (
+                                        <ol style={{ paddingLeft: 20 }}>
+                                            {workPhases.map((item, idx) => (
+                                                <li key={item.id || idx}>{item.name || item.text || item.description}</li>
+                                            ))}
+                                        </ol>
+                                    ) : (
+                                        <CenterWrapper>{t('no_workphases_to_show')}</CenterWrapper>
+                                    )}
+                                </div>
+                            </div>
+                        </Tab>
+                        <Tab eventKey="recipeHistory" title={t('recipe_history_header') || 'Reseptihistoria'}>
+                            <Button
+                                iconName={ICONS.PLUS_SQUARE}
+                                text={t('do_recipe')}
+                                onClick={() => {
+                                    if (window.confirm(t('do_recipe_confirm'))) { saveRecipeHistory(params.id); }
+                                }}
+                            />
+                            {recipeHistory != null && recipeHistory.length > 0 ? (
+                                <RecipeHistories
+                                    dbUrl={DB.RECIPE_HISTORY}
+                                    translation={TRANSLATION.TRANSLATION}
+                                    translationKeyPrefix={TRANSLATION.RECIPE}
+                                    recipeHistories={recipeHistory}
+                                    recipeID={params.id}
+                                />
+                            ) : (
+                                <CenterWrapper>{t('no_recipe_history')}</CenterWrapper>
+                            )}
+                        </Tab>
                     </Tabs>
-
-                    {
-                        recipeHistory != null && recipeHistory.length > 0 ? (
-                            <RecipeHistories
-                                dbUrl={DB.RECIPE_HISTORY}
-                                translation={TRANSLATION.TRANSLATION}
-                                translationKeyPrefix={TRANSLATION.RECIPE}
-                                recipeHistories={recipeHistory} recipeID={params.id} />
-                        ) : (
-                            t('no_recipe_history')
-                        )
-                    }
                 </>
             }
-            imageSection={<ImageComponent objID={params.id} url={DB.RECIPE_IMAGES} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.RECIPE_COMMENTS} onSave={addCommentToRecipe} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.RECIPE_LINKS} onSaveLink={addLinkToRecipe} />}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.RECIPE_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.RECIPE_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.RECIPE_LINKS
+            }}
         />
     )
 }
