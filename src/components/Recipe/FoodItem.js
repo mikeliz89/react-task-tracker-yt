@@ -58,8 +58,7 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
                 checkedText: t('fooditem_have_at_home'),
                 uncheckedText: t('fooditem_not_have_at_home'),
                 onCheck: () => { foodItem["haveAtHome"] = true; onEdit(foodItem); },
-                onUncheck: () => { foodItem["haveAtHome"] = false; onEdit(foodItem); },
-                style: { margin: '5px' }
+                onUncheck: () => { foodItem["haveAtHome"] = false; onEdit(foodItem); }
             }}
         />
     )

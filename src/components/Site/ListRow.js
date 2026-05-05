@@ -70,7 +70,9 @@ export default function ListRow({
             return;
         }
         item["haveAtHome"] = true;
-        if (typeof onEdit === 'function') onEdit(item);
+        if (typeof onEdit === 'function') {
+            onEdit(item);
+        }
     };
 
     const markNotHaveAtHome = () => {
@@ -78,7 +80,9 @@ export default function ListRow({
             return;
         }
         item["haveAtHome"] = false;
-        if (typeof onEdit === 'function') onEdit(item);
+        if (typeof onEdit === 'function') {
+            onEdit(item);
+        }
     };
 
     // Tallennetaan tähdet Firebaseen käyttäen nykyistä item-oliota ja uutta stars-arvoa

@@ -8,7 +8,6 @@ import ListRow from '../Site/ListRow';
 import { getIconNameByCategory } from './Categories';
 import { useState } from 'react';
 import AddGear from './AddGear';
-import CheckButton from '../Buttons/CheckButton';
 
 export default function Gear({ gear, onDelete, onEdit }) {
 
@@ -28,17 +27,6 @@ export default function Gear({ gear, onDelete, onEdit }) {
             onEdit(object);
         }
         setEditable(false);
-    }
-
-    const markHaveAtHome = () => {
-        gear["haveAtHome"] = true;
-        onEdit(gear);
-    }
-
-
-    const markNotHaveAtHome = () => {
-        gear["haveAtHome"] = false;
-        onEdit(gear);
     }
 
     return (
@@ -85,16 +73,15 @@ export default function Gear({ gear, onDelete, onEdit }) {
                         <p>{t('gear_weight')}: {gear.weightInGrams} g</p>
                     </>
                 }
-            >
-                <CheckButton
-                    checked={!!gear.haveAtHome}
-                    checkedText={t('gear_have_at_home')}
-                    uncheckedText={t('gear_not_have_at_home')}
-                    onCheck={markHaveAtHome}
-                    onUncheck={markNotHaveAtHome}
-                    style={{ margin: '5px' }}
-                />
-            </ListRow>
+                showCheckButton={true}
+                checkButtonProps={{
+                    checked: !!gear.haveAtHome,
+                    checkedText: t('gear_have_at_home'),
+                    uncheckedText: t('gear_not_have_at_home'),
+                    onCheck: () => { gear["haveAtHome"] = true; onEdit(gear); },
+                    onUncheck: () => { gear["haveAtHome"] = false; onEdit(gear); },
+                }}
+            />
         </>
     );
 }

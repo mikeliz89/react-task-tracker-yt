@@ -16,15 +16,6 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
 
-    const markHaveAtHome = () => {
-        drinkingProduct["haveAtHome"] = true;
-        onEdit(drinkingProduct);
-    }
-
-    const markNotHaveAtHome = () => {
-        drinkingProduct["haveAtHome"] = false;
-        onEdit(drinkingProduct);
-    }
 
     const editDrinkingProduct = (editedDrinkingProduct) => {
         editedDrinkingProduct["id"] = drinkingProduct.id;
@@ -73,9 +64,8 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
                 checked: !!drinkingProduct.haveAtHome,
                 checkedText: t('drinkingproduct_have_at_home'),
                 uncheckedText: t('drinkingproduct_not_have_at_home'),
-                onCheck: markHaveAtHome,
-                onUncheck: markNotHaveAtHome,
-                style: { margin: '5px' },
+                onCheck: () => { drinkingProduct["haveAtHome"] = true; onEdit(drinkingProduct); },
+                onUncheck: () => { drinkingProduct["haveAtHome"] = false; onEdit(drinkingProduct); },
             }}
         />
     )

@@ -6,7 +6,6 @@ import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getGameConsoleNameByID } from '../../utils/ListUtils';
-import CheckButton from '../Buttons/CheckButton';
 import ListRow from '../Site/ListRow';
 
 import AddGame from './AddGame';
@@ -25,15 +24,7 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
         setEditable(false);
     }
 
-    const markHaveAtHome = () => {
-        game["haveAtHome"] = true;
-        onEdit(game);
-    }
 
-    const markNotHaveAtHome = () => {
-        game["haveAtHome"] = false;
-        onEdit(game);
-    }
 
     const gameTitle = `${game.name} ${game.publishYear > 0 ? `(${game.publishYear})` : ''}`.trim();
 
@@ -85,16 +76,15 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
                     />
                 )
             }}
-        >
-            <CheckButton
-                checked={game.haveAtHome}
-                checkedText={t('have')}
-                uncheckedText={t('have_not')}
-                onCheck={markHaveAtHome}
-                onUncheck={markNotHaveAtHome}
-                style={{ margin: '5px' }}
-            />
-        </ListRow>
+            showCheckButton={true}
+            checkButtonProps={{
+                checked: !!game.haveAtHome,
+                checkedText: t('have'),
+                uncheckedText: t('have_not'),
+                onCheck: () => { game["haveAtHome"] = true; onEdit(game); },
+                onUncheck: () => { game["haveAtHome"] = false; onEdit(game); },
+            }}
+        />
     )
 }
 
