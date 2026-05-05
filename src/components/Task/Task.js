@@ -40,8 +40,6 @@ export default function Task({
             dbKey={DB.TASKS}
             onDoubleClick={() => archived ? null : onToggle(taskListID, task.id)}
             className={`taskRowContainer ${archived ? '' : 'clickable'} ${task.reminder ? 'reminder taskDone' : ''}`}
-            headerClassName={!editable ? 'taskRowTop' : ''}
-            headerLeftClassName={!editable ? 'taskRowLeft' : ''}
             actionsClassName={!editable ? 'taskRowActions' : ''}
             stopRightClickPropagation={!editable}
             showEditButton={!editable && !archived}
@@ -52,31 +50,38 @@ export default function Task({
             onDelete={onDelete}
             deleteId={taskListID}
             deleteSubId={task.id}
-            headerPrefix={!editable && !archived ? (
-                <Form.Check
-                    id={`select-task-${task.id}`}
-                    className="mb-0 taskRowCheckbox"
-                    type="checkbox"
-                    checked={!!isSelected}
-                    onChange={handleCheckboxChange}
-                    onClick={(e) => e.stopPropagation()}
-                />
-            ) : null}
-            headerTitle={task.text}
-            headerTitleTo={!editable && !archived ? `/task/${task.id}/${taskListID}` : null}
-            headerTitleWrapperClassName={!editable ? 'taskRowTitle' : ''}
-            headerTitleClassName={!editable && !archived ? 'taskRowLink' : ''}
-            headerSuffix={!editable && task.reminder ? <span className="taskDoneBadge">{t('ready')}</span> : null}
+            headerProps={{
+                prefix: !editable && !archived ? (
+                    <Form.Check
+                        id={`select-task-${task.id}`}
+                        className="mb-0 taskRowCheckbox"
+                        type="checkbox"
+                        checked={!!isSelected}
+                        onChange={handleCheckboxChange}
+                        onClick={(e) => e.stopPropagation()}
+                    />
+                ) : null,
+                title: task.text,
+                titleTo: !editable && !archived ? `/task/${task.id}/${taskListID}` : null,
+                titleWrapperClassName: !editable ? 'taskRowTitle' : '',
+                titleClassName: !editable && !archived ? 'taskRowLink' : '',
+                suffix: !editable && task.reminder ? <span className="taskDoneBadge">{t('ready')}</span> : null,
+                className: !editable ? 'taskRowTop' : '',
+                leftClassName: !editable ? 'taskRowLeft' : '',
+            }}
             section={!!task.day && <p className="taskRowDay">{task.day}</p>}
-            modalTitle={t('edit_task')}
-            modalBody={
-                <AddTask
-                    taskID={task.id}
-                    taskListID={taskListID}
-                    onClose={() => toggleSetEditable()}
-                    onSave={updateTask}
-                    showLabels={true} />
-            }
+            modalProps={{
+                modalTitle: t('edit_task'),
+                modalBody: (
+                    <AddTask
+                        taskID={task.id}
+                        taskListID={taskListID}
+                        onClose={() => toggleSetEditable()}
+                        onSave={updateTask}
+                        showLabels={true}
+                    />
+                )
+            }}
         />
     )
 }

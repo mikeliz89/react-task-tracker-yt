@@ -22,11 +22,11 @@ export default function Movement({ movement, onDelete }) {
         <ListRow
             item={movement}
             dbKey={DB.MOVEMENT}
-            headerTitle={
-                <Link
+            headerProps={{
+                title: <Link
                     style={{ textDecoration: 'none' }}
                     to={`${NAVIGATION.MOVEMENT}/${movement.id}`}>{movement.name}</Link>
-            }
+            }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
@@ -42,14 +42,16 @@ export default function Movement({ movement, onDelete }) {
                     <p>{movement.description}</p>
                 </>
             }
-            modalTitle={t('modal_header_edit_movement')}
-            modalBody={
-                <AddMovement
-                    movementID={movement.id}
-                    onSave={updateMovement}
-                    onClose={() => setEditable(false)}
-                />
-            }
+            modalProps={{
+                modalTitle: t('modal_header_edit_movement'),
+                modalBody: (
+                    <AddMovement
+                        movementID={movement.id}
+                        onSave={updateMovement}
+                        onClose={() => setEditable(false)}
+                    />
+                )
+            }}
         />
     );
 }

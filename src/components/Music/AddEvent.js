@@ -19,6 +19,7 @@ export default function AddEvent({ eventID, onSave, onClose, showLabels }) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [eventYear, setEventYear] = useState(0);
+    const [stars, setStars] = useState(0);
 
     //load data
     const eventData = useFetchById(DB.MUSIC_EVENTS, eventID);
@@ -30,6 +31,7 @@ export default function AddEvent({ eventID, onSave, onClose, showLabels }) {
             setDescription(eventData.description || '');
             setName(eventData.name || '');
             setEventYear(eventData.eventYear || 0);
+            setStars(eventData.stars || 0);
         }
     }, [eventData]);
 
@@ -43,7 +45,7 @@ export default function AddEvent({ eventID, onSave, onClose, showLabels }) {
         }
 
         onSave(eventID, {
-            created, createdBy, description, name, eventYear
+            created, createdBy, description, name, eventYear, stars
         });
 
         if (eventID == null) {

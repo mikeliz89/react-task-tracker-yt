@@ -41,8 +41,10 @@ export default function Movie({ movie, onDelete, onEdit }) {
         <ListRow
             item={movie}
             dbKey={DB.MOVIES}
-            headerTitle={movieTitle}
-            headerTitleTo={`${NAVIGATION.MOVIE}/${movie.id}`}
+            headerProps={{
+                title: movieTitle,
+                titleTo: `${NAVIGATION.MOVIE}/${movie.id}`
+            }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
@@ -60,14 +62,17 @@ export default function Movie({ movie, onDelete, onEdit }) {
                     </div>
                 ) : null
             }
-            modalTitle={t('edit_movie')}
-            modalBody={
-                editable && <AddMovie
-                    movieID={movie.id}
-                    onClose={() => setEditable(false)}
-                    onSave={updateMovie}
-                    showLabels={true} />
-            }
+            modalProps={{
+                modalTitle: t('edit_movie'),
+                modalBody: (
+                    editable && <AddMovie
+                        movieID={movie.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateMovie}
+                        showLabels={true}
+                    />
+                )
+            }}
         >
             <CheckButton
                 checked={movie.haveAtHome}

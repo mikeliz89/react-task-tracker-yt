@@ -23,7 +23,7 @@ export default function AddRecord({ recordID, onSave, onClose, showLabels }) {
     const [description, setDescription] = useState('');
     const [publishYear, setPublishYear] = useState(0);
     const [haveAtHome, setHaveAtHome] = useState(false);
-
+    const [stars, setStars] = useState(0);
     const [format, setFormat] = useState();
     const [formats, setFormats] = useState(MusicFormats);
 
@@ -40,6 +40,7 @@ export default function AddRecord({ recordID, onSave, onClose, showLabels }) {
             setHaveAtHome(recordData.haveAtHome || false);
             setName(recordData.name || '');
             setPublishYear(recordData.publishYear || 0);
+            setStars(recordData.stars || 0);
         }
     }, [recordData]);
 
@@ -63,7 +64,7 @@ export default function AddRecord({ recordID, onSave, onClose, showLabels }) {
 
         onSave(recordID, {
             created, createdBy, band, description, format,
-            haveAtHome, name, publishYear
+            haveAtHome, name, publishYear, stars
         });
 
         if (recordID == null) {

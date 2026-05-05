@@ -27,8 +27,10 @@ export default function Band({ band, onDelete, onEdit }) {
         <ListRow
             item={band}
             dbKey={DB.MUSIC_BANDS}
-            headerTitle={bandTitle}
-            headerTitleTo={`${NAVIGATION.MUSIC_BAND}/${band.id}`}
+            headerProps={{
+                title: bandTitle,
+                titleTo: `${NAVIGATION.MUSIC_BAND}/${band.id}`
+            }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
@@ -36,15 +38,17 @@ export default function Band({ band, onDelete, onEdit }) {
             onDelete={onDelete}
             deleteId={band.id}
             section={<p>{band.description}</p>}
-            modalTitle={t('modal_header_edit_band') || 'Edit Band'}
-            modalBody={
-                <AddBand
-                    bandID={band.id}
-                    onClose={() => setEditable(false)}
-                    onSave={updateBand}
-                    showLabels={true}
-                />
-            }
+            modalProps={{
+                modalTitle: t('modal_header_edit_band') || 'Edit Band',
+                modalBody: (
+                    <AddBand
+                        bandID={band.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateBand}
+                        showLabels={true}
+                    />
+                )
+            }}
         />
     )
 }

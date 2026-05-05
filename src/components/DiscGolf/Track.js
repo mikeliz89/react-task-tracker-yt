@@ -12,12 +12,17 @@ export default function Track({ track }) {
         <ListRow
             item={track}
             dbKey={DB.DISC_GOLF_TRACK}
-            headerTitle={track.trackName}
-            headerTitleTo={`${NAVIGATION.DISC_GOLF_TRACK}/${track.id}`}
-        >
-            <h6>{t('track_city')}: {track.trackCity}</h6>
-            <p>{track.description}</p>
-        </ListRow>
+            headerProps={{
+                title: track.trackName,
+                titleTo: `${NAVIGATION.DISC_GOLF_TRACK}/${track.id}`
+            }}
+            section={
+                <>
+                    <h6>{t('track_city')}: {track.trackCity}</h6>
+                    <p>{track.description}</p>
+                </>
+            }
+        />
     )
 }
 

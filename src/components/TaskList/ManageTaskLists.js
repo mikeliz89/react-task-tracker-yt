@@ -183,7 +183,7 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
     >
       <>
         <TaskLists
-          taskLists={taskLists}
+          items={taskLists}
           originalList={originalTaskLists}
           counter={counter}
           counterText={getCounterText(listType)}

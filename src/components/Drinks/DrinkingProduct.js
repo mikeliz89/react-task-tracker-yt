@@ -37,10 +37,12 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
         <ListRow
             item={drinkingProduct}
             dbKey={DB.DRINKING_PRODUCTS}
-            headerTitle={drinkingProductTitle}
-            headerTitleTo={`${NAVIGATION.DRINKINGPRODUCT}/${drinkingProduct.id}`}
-            headerTitleIcon={ICONS.COCKTAIL}
-            headerTitleIconColor={COLORS.GRAY}
+            headerProps={{
+                title: drinkingProductTitle,
+                titleTo: `${NAVIGATION.DRINKINGPRODUCT}/${drinkingProduct.id}`,
+                titleIcon: ICONS.COCKTAIL,
+                titleIconColor: COLORS.GRAY,
+            }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
@@ -56,24 +58,26 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
                     }</p>
                 </>
             }
-            modalTitle={t('modal_header_edit_drinking_product')}
-            modalBody={
-                <AddDrinkingProduct
-                    onClose={() => setEditable(false)}
-                    onSave={editDrinkingProduct}
-                    drinkingProductID={drinkingProduct.id}
-                />
-            }
-        >
-            <CheckButton
-                checked={!!drinkingProduct.haveAtHome}
-                checkedText={t('drinkingproduct_have_at_home')}
-                uncheckedText={t('drinkingproduct_not_have_at_home')}
-                onCheck={markHaveAtHome}
-                onUncheck={markNotHaveAtHome}
-                style={{ margin: '5px' }}
-            />
-        </ListRow>
+            modalProps={{
+                modalTitle: t('modal_header_edit_drinking_product'),
+                modalBody: (
+                    <AddDrinkingProduct
+                        onClose={() => setEditable(false)}
+                        onSave={editDrinkingProduct}
+                        drinkingProductID={drinkingProduct.id}
+                    />
+                )
+            }}
+            showCheckButton={true}
+            checkButtonProps={{
+                checked: !!drinkingProduct.haveAtHome,
+                checkedText: t('drinkingproduct_have_at_home'),
+                uncheckedText: t('drinkingproduct_not_have_at_home'),
+                onCheck: markHaveAtHome,
+                onUncheck: markNotHaveAtHome,
+                style: { margin: '5px' },
+            }}
+        />
     )
 }
 

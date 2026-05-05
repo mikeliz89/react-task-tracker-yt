@@ -41,8 +41,10 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
         <ListRow
             item={game}
             dbKey={dbUrl}
-            headerTitle={gameTitle}
-            headerTitleTo={`${detailsNavigation}/${game.id}`}
+            headerProps={{
+                title: gameTitle,
+                titleTo: `${detailsNavigation}/${game.id}`
+            }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
@@ -70,16 +72,19 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
                     }
                 </>
             }
-            modalTitle={t('modal_header_edit_game')}
-            modalBody={
-                <AddGame
-                    gameID={game.id}
-                    onClose={() => setEditable(false)}
-                    onSave={updateGame}
-                    dbUrl={dbUrl}
-                    showConsole={showConsole}
-                    showLabels={true} />
-            }
+            modalProps={{
+                modalTitle: t('modal_header_edit_game'),
+                modalBody: (
+                    <AddGame
+                        gameID={game.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateGame}
+                        dbUrl={dbUrl}
+                        showConsole={showConsole}
+                        showLabels={true}
+                    />
+                )
+            }}
         >
             <CheckButton
                 checked={game.haveAtHome}
@@ -102,5 +107,7 @@ Game.defaultProps = {
 Game.propTypes = {
     dbUrl: PropTypes.string,
     detailsNavigation: PropTypes.string,
-    showConsole: PropTypes.bool
+    showConsole: PropTypes.bool,
+    onEdit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
 }

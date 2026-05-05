@@ -39,8 +39,10 @@ export default function Person({ person, onDelete }) {
         <ListRow
             item={person}
             dbKey={DB.PEOPLE}
-            headerTitle={person.name}
-            headerTitleTo={`${NAVIGATION.PERSON}/${person.id}`}
+            headerProps={{
+                title: person.name,
+                titleTo: `${NAVIGATION.PERSON}/${person.id}`,
+            }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
@@ -60,14 +62,16 @@ export default function Person({ person, onDelete }) {
                     <p>{person.description}</p>
                 </>
             }
-            modalTitle={t('modal_header_edit_person')}
-            modalBody={
-                <AddPerson
-                    personID={person.id}
-                    onSave={updatePerson}
-                    onClose={() => setEditable(false)}
-                />
-            }
+            modalProps={{
+                modalTitle: t('modal_header_edit_person'),
+                modalBody: (
+                    <AddPerson
+                        personID={person.id}
+                        onSave={updatePerson}
+                        onClose={() => setEditable(false)}
+                    />
+                )
+            }}
         />
     );
 }

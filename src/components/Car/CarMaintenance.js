@@ -28,12 +28,14 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
         <ListRow
             item={carMaintenance}
             dbKey={DB.CAR_MAINTENANCE}
-            headerTitle={
-                <>
-                    <b>{getJsonAsDateTimeString(carMaintenance.created, i18n.language)}</b>&nbsp;
-                    {carMaintenance.createdBy}
-                </>
-            }
+            headerProps={{
+                title: (
+                    <>
+                        <b>{getJsonAsDateTimeString(carMaintenance.created, i18n.language)}</b> & nbsp;
+                        {carMaintenance.createdBy}
+                    </>
+                )
+            }}
             showEditButton={true}
             editable={editable}
             setEditable={toggleEditable}
@@ -47,14 +49,16 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
                     {t('maintenance_price')}: {carMaintenance.price} <br />
                 </div>
             }
-            modalTitle={t('modal_header_edit_maintenance')}
-            modalBody={
-                <AddMaintenance
-                    ID={carMaintenance.id}
-                    onClose={() => toggleEditable()}
-                    onSave={updateMaintenance}
-                />
-            }
+            modalProps={{
+                modalTitle: t('modal_header_edit_maintenance'),
+                modalBody: (
+                    <AddMaintenance
+                        ID={carMaintenance.id}
+                        onClose={() => toggleEditable()}
+                        onSave={updateMaintenance}
+                    />
+                )
+            }}
         />
     );
 }

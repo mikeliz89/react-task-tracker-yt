@@ -1,6 +1,6 @@
 import { Row, Col, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION } from '../../utils/Constants';
+import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
 import PageContentWrapper from './PageContentWrapper';
 import PageTitle from './PageTitle';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';

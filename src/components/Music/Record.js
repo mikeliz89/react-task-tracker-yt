@@ -41,8 +41,10 @@ export default function Record({ record, onDelete, onEdit }) {
         <ListRow
             item={record}
             dbKey={DB.MUSIC_RECORDS}
-            headerTitle={recordTitle}
-            headerTitleTo={`${NAVIGATION.MUSIC_RECORD}/${record.id}`}
+            headerProps={{
+                title: recordTitle,
+                titleTo: `${NAVIGATION.MUSIC_RECORD}/${record.id}`
+            }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
@@ -62,15 +64,17 @@ export default function Record({ record, onDelete, onEdit }) {
                     </p>
                 </>
             }
-            modalTitle={t('modal_header_edit_record') || 'Edit Record'}
-            modalBody={
-                <AddRecord
-                    recordID={record.id}
-                    onClose={() => setEditable(false)}
-                    onSave={updateRecord}
-                    showLabels={true}
-                />
-            }
+            modalProps={{
+                modalTitle: t('modal_header_edit_record') || 'Edit Record',
+                modalBody: (
+                    <AddRecord
+                        recordID={record.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateRecord}
+                        showLabels={true}
+                    />
+                )
+            }}
         >
             <CheckButton
                 checked={record.haveAtHome}
@@ -78,7 +82,6 @@ export default function Record({ record, onDelete, onEdit }) {
                 uncheckedText={t('have_not')}
                 onCheck={markHaveAtHome}
                 onUncheck={markNotHaveAtHome}
-                style={{ margin: '5px' }}
             />
         </ListRow>
     )

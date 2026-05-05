@@ -12,7 +12,7 @@ export default function AddBand({ bandID, onSave, onClose, showLabels }) {
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
 
-const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //states
     const [created, setCreated] = useState('');
@@ -50,7 +50,8 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
         }
 
         onSave(bandID, {
-            created, createdBy, description, name, formingYear, seenLive, country, stars
+            created, createdBy, description, name,
+            formingYear, seenLive, country, stars
         });
 
         if (bandID == null) {

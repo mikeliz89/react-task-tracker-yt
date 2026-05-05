@@ -2,17 +2,17 @@ import Counter from '../Site/Counter';
 
 import FoodItem from './FoodItem';
 
-export default function FoodItems({ foodItems, onDelete, onEdit, originalList, counter }) {
+export default function FoodItems({ items, onDelete, onEdit, originalList, counter }) {
 
     return (
         <>
             {
                 originalList != null && counter != null ? (
-                    <Counter list={foodItems} originalList={originalList} counter={counter} />
+                    <Counter list={items} originalList={originalList} counter={counter} />
                 ) : (<></>)
             }
-            {foodItems
-                ? foodItems.map((foodItem, index) =>
+            {items
+                ? items.map((foodItem, index) =>
                     <FoodItem
                         key={foodItem.id}
                         foodItem={foodItem}

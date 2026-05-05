@@ -22,7 +22,9 @@ export default function Incredient({ dbUrl, translation, translationKeyPrefix, i
             <ListRow
                 item={incredient}
                 dbKey={DB.RECIPE_INCREDIENTS}
-                headerTitle={incredient.name}
+                headerProps={{
+                    title: incredient.name
+                }}
                 showEditButton={true}
                 editable={editable}
                 setEditable={setEditable}
@@ -31,23 +33,26 @@ export default function Incredient({ dbUrl, translation, translationKeyPrefix, i
                 onDelete={onDelete}
                 deleteId={recipeID}
                 deleteSubId={incredient.id}
-                modalTitle={t('edit_incredient')}
-                modalBody={
-                    <AddIncredient
-                        translation={translation}
-                        translationKeyPrefix={translationKeyPrefix}
-                        dbUrl={dbUrl}
-                        incredientID={incredient.id}
-                        recipeID={recipeID}
-                        onSave={updateIncredient}
-                        onClose={() => setEditable(false)}
-                    />
+                modalProps={{
+                    modalTitle: t('edit_incredient'),
+                    modalBody: (
+                        <AddIncredient
+                            translation={translation}
+                            translationKeyPrefix={translationKeyPrefix}
+                            dbUrl={dbUrl}
+                            incredientID={incredient.id}
+                            recipeID={recipeID}
+                            onSave={updateIncredient}
+                            onClose={() => setEditable(false)}
+                        />
+                    )
+                }}
+                section={
+                    <div style={{ marginLeft: 16 }}>
+                        {incredient.amount} {incredient.unit}
+                    </div>
                 }
-            >
-                <div style={{ marginLeft: 16 }}>
-                    {incredient.amount} {incredient.unit}
-                </div>
-            </ListRow>
+            />
         </>
     );
 }

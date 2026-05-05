@@ -1,10 +1,10 @@
+import CheckButton from '../Buttons/CheckButton';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
 import NavButton from '../Buttons/NavButton';
 import Alert from '../Alert';
 import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import { updateToFirebaseById } from '../../datatier/datatier';
-import { DB } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { COLORS } from '../../utils/Constants';
 import { Modal } from 'react-bootstrap';
@@ -16,18 +16,7 @@ export default function ListRow({
     item,
     dbKey,
     //header
-    headerPrefix,
-    headerLeft,
-    headerTitle,
-    headerTitleTo,
-    headerTitleIcon,
-    headerTitleIconColor = COLORS.WHITE,
-    headerTitleWrapperClassName = '',
-    headerTitleClassName = '',
-    headerSuffix,
-    headerAs = 'h5',
-    headerClassName = '',
-    headerLeftClassName = '',
+    headerProps = {},
     //buttons
     showEditButton = false,
     showDeleteButton = false,
@@ -42,9 +31,7 @@ export default function ListRow({
     //alert
     alert,
     //modal
-    modal,
-    modalTitle,
-    modalBody,
+    modalProps = {},
     //other
     children,
     section,
@@ -52,7 +39,47 @@ export default function ListRow({
     actionsExtra,
     className = '',
     showStarRating = true,
+    showCheckButton = false,
+    checkButtonProps = {},
+    onEdit,
 }) {
+    // Purkaa headerProps
+    const {
+        prefix,
+        left,
+        title,
+        titleTo,
+        titleIcon,
+        titleIconColor = COLORS.WHITE,
+        titleWrapperClassName = '',
+        titleClassName = '',
+        suffix,
+        as = 'h5',
+        className: headerClassName = '',
+        leftClassName = '',
+    } = headerProps;
+
+    const {
+        modalTitle,
+        modalBody
+    } = modalProps;
+
+    // Mark haveAtHome helpers for CheckButton
+    const markHaveAtHome = () => {
+        if (!item) {
+            return;
+        }
+        item["haveAtHome"] = true;
+        if (typeof onEdit === 'function') onEdit(item);
+    };
+
+    const markNotHaveAtHome = () => {
+        if (!item) {
+            return;
+        }
+        item["haveAtHome"] = false;
+        if (typeof onEdit === 'function') onEdit(item);
+    };
 
     // Tallennetaan tähdet Firebaseen käyttäen nykyistä item-oliota ja uutta stars-arvoa
     const saveStars = async (stars) => {
@@ -64,27 +91,27 @@ export default function ListRow({
         await updateToFirebaseById(dbKey, item.id, updated);
     };
 
-    const HeaderTag = headerAs;
+    const HeaderTag = as;
     const hasActions = actionsExtra != null || showEditButton || showDeleteButton;
-    const hasLeftContent = headerPrefix != null
-        || headerLeft != null
-        || headerTitle != null
-        || headerSuffix != null;
+    const hasLeftContent = prefix != null
+        || left != null
+        || title != null
+        || suffix != null;
     const hasHeader = hasLeftContent || hasActions;
 
-    const titleNode = headerTitle != null
-        ? (headerTitleTo
+    const titleNode = title != null
+        ? (titleTo
             ? (
                 <NavButton
-                    to={headerTitleTo}
-                    className={headerTitleClassName}
-                    icon={headerTitleIcon}
-                    iconColor={headerTitleIconColor}
+                    to={titleTo}
+                    className={titleClassName}
+                    icon={titleIcon}
+                    iconColor={titleIconColor}
                 >
-                    {headerTitle}
+                    {title}
                 </NavButton>
             )
-            : <span className={headerTitleClassName}>{headerTitle}</span>)
+            : <span className={titleClassName}>{title}</span>)
         : null;
 
     return (
@@ -102,13 +129,13 @@ export default function ListRow({
 
             {hasHeader && (
                 <HeaderTag className={headerClassName}>
-                    <div className={headerLeftClassName}>
-                        {headerPrefix}
-                        {headerLeft}
+                    <div className={leftClassName}>
+                        {prefix}
+                        {left}
                         {titleNode != null
-                            ? <span className={headerTitleWrapperClassName}>{titleNode}</span>
+                            ? <span className={titleWrapperClassName}>{titleNode}</span>
                             : null}
-                        {headerSuffix}
+                        {suffix}
                     </div>
                     {hasActions && (
                         <div
@@ -136,6 +163,13 @@ export default function ListRow({
                 </HeaderTag>
             )}
             {section}
+            {showCheckButton && (
+                <CheckButton
+                    {...checkButtonProps}
+                    onCheck={checkButtonProps.onCheck || markHaveAtHome}
+                    onUncheck={checkButtonProps.onUncheck || markNotHaveAtHome}
+                />
+            )}
             {children}
             {editable && (
                 <Modal show={editable} onHide={() => setEditable(false)}>

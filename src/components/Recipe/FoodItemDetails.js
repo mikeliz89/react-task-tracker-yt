@@ -43,7 +43,9 @@ export default function FoodItemDetails(id) {
         }
     };
 
-    if (!foodItem) return null;
+    if (!foodItem) {
+        return null;
+    }
 
     return (
         <DetailsPage
