@@ -18,17 +18,17 @@ import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
  * @param {React.Component} props.AddComponent - Add item modal component
  * @param {React.Component} props.ListComponent - List component
  */
-export default function ManageGeneric({ AddComponent,
-    AddComponentProps = {},
-    iconName,
-    ListComponent,
-    ListComponentProps = {},
-    listNav,
-    searchSortFilterOptions,
-    title,
-    topActions,
+export default function ManageGeneric({ dbKey,
     translationKey,
-    dbKey}) {
+    AddComponent,
+    ListComponent,
+    searchSortFilterOptions,
+    iconName,
+    topActions,
+    listNav,
+    ListComponentProps = {},
+    AddComponentProps = {},
+    title }) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: translationKey });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
