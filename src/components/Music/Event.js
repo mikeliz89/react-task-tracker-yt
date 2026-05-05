@@ -27,8 +27,10 @@ export default function Event({ event, onDelete, onEdit }) {
         <ListRow
             item={event}
             dbKey={DB.MUSIC_EVENTS}
-            headerTitle={eventTitle}
-            headerTitleTo={`${NAVIGATION.MUSIC_EVENT}/${event.id}`}
+            headerProps={{
+                title: eventTitle,
+                titleTo: `${NAVIGATION.MUSIC_EVENT}/${event.id}`
+            }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
@@ -36,15 +38,17 @@ export default function Event({ event, onDelete, onEdit }) {
             onDelete={onDelete}
             deleteId={event.id}
             section={<p>{event.description}</p>}
-            modalTitle={t('modal_header_edit_event') || 'Edit Event'}
-            modalBody={
-                <AddEvent
-                    eventID={event.id}
-                    onClose={() => setEditable(false)}
-                    onSave={updateEvent}
-                    showLabels={true}
-                />
-            }
+            modalProps={{
+                modalTitle: t('modal_header_edit_event') || 'Edit Event',
+                modalBody: (
+                    <AddEvent
+                        eventID={event.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateEvent}
+                        showLabels={true}
+                    />
+                )
+            }}
         />
     )
 }

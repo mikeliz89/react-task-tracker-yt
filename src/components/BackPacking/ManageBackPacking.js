@@ -15,9 +15,7 @@ export default function ManageBackPacking() {
         <PageContentWrapper>
 
             <PageTitle title={t('manage_backpacking_title')} iconName={ICONS.CAMPGROUND} />
-
             <Row>
-
                 <ButtonGroup>
                     <GoBackButton />
                     <NavButton to={NAVIGATION.MANAGE_GEAR}>
@@ -32,6 +30,10 @@ export default function ManageBackPacking() {
                     </NavButton >
                 </ButtonGroup>
             </Row>
+
+            <p style={{ maxWidth: 600, margin: '16px auto', color: '#555', fontSize: '1.1em' }}>
+                {t('manage_backpacking_description', 'Tällä sivulla voit hallita retkeilyvarusteita, huoltoja ja varustelistoja. Käytä yllä olevia painikkeita siirtyäksesi eri hallintasivuille.')}
+            </p>
         </PageContentWrapper>
     )
 }

@@ -24,7 +24,9 @@ export default function WorkPhase({ dbUrl, translation, translationKeyPrefix, wo
                 item={workPhase}
                 dbKey={dbUrl}
                 showStarRating={false}
-                headerTitle={workPhase.name}
+                headerProps={{
+                    title: workPhase.name
+                }}
                 showEditButton={true}
                 editable={editable}
                 setEditable={setEditable}
@@ -32,23 +34,26 @@ export default function WorkPhase({ dbUrl, translation, translationKeyPrefix, wo
                 onDelete={onDelete}
                 deleteId={recipeID}
                 deleteSubId={workPhase.id}
-                modalTitle={t('edit_workphase')}
-                modalBody={
-                    <AddWorkPhase
-                        dbUrl={dbUrl}
-                        translation={translation}
-                        translationKeyPrefix={translationKeyPrefix}
-                        workPhaseID={workPhase.id}
-                        recipeID={recipeID}
-                        onSave={updateWorkPhase}
-                        onClose={() => setEditable(false)}
-                    />
+                modalProps={{
+                    modalTitle: t('edit_workphase'),
+                    modalBody: (
+                        <AddWorkPhase
+                            dbUrl={dbUrl}
+                            translation={translation}
+                            translationKeyPrefix={translationKeyPrefix}
+                            workPhaseID={workPhase.id}
+                            recipeID={recipeID}
+                            onSave={updateWorkPhase}
+                            onClose={() => setEditable(false)}
+                        />
+                    )
+                }}
+                section={
+                    <div style={{ marginLeft: 16 }}>
+                        {workPhase.estimatedLength ? workPhase.estimatedLength : 0} {t('in_minutes')}
+                    </div>
                 }
-            >
-                <div style={{ marginLeft: 16 }}>
-                    {workPhase.estimatedLength ? workPhase.estimatedLength : 0} {t('in_minutes')}
-                </div>
-            </ListRow>
+            />
         </>
     );
 }

@@ -16,26 +16,28 @@ export default function Exercise({ exercise, onDelete }) {
         <ListRow
             item={exercise}
             dbKey={DB.EXERCISES}
-            headerTitle={exerciseTitle}
-            headerTitleTo={`${NAVIGATION.EXERCISE}/${exercise.id}`}
-            headerTitleIcon={getIconNameByCategory(exercise.category)}
-            headerTitleIconColor={COLORS.GRAY}
+            headerProps={{
+                title: exerciseTitle,
+                titleTo: `${NAVIGATION.EXERCISE}/${exercise.id}`,
+                titleIcon: getIconNameByCategory(exercise.category),
+                titleIconColor: COLORS.GRAY,
+            }}
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={exercise.id}
-        >
-            <p>
-                {exercise.category > 0 ?
-                    (<span> {
-                        '#' + t('category_' + getExerciseCategoryNameByID(exercise.category))
-                    }</span>) : ('')}
-            </p>
-            <p>
-                {exercise.description}
-            </p>
-            <p>
-            </p>
-        </ListRow>
+            section={
+                <>
+                    <p>
+                        {exercise.category > 0 ?
+                            (<span> {'#' + t('category_' + getExerciseCategoryNameByID(exercise.category))}
+                            </span>) : ('')}
+                    </p>
+                    <p>
+                        {exercise.description}
+                    </p>
+                </>
+            }
+        />
     )
 }
 

@@ -23,7 +23,7 @@ export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
     const [description, setDescription] = useState('');
     const [publishYear, setPublishYear] = useState(0);
     const [haveAtHome, setHaveAtHome] = useState(false);
-
+    const [stars, setStars] = useState(0);
     const [format, setFormat] = useState();
     const [formats, setFormats] = useState(MovieFormats);
 
@@ -40,6 +40,7 @@ export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
             setName(movieData.name || '');
             setNameFi(movieData.nameFi || '');
             setPublishYear(movieData.publishYear || 0);
+            setStars(movieData.stars || 0);
         }
     }, [movieData]);
 
@@ -63,7 +64,7 @@ export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
 
         onSave(movieID, {
             created, createdBy, description, format,
-            haveAtHome, name, nameFi, publishYear
+            haveAtHome, name, nameFi, publishYear, stars
         });
 
         if (movieID == null) {
@@ -139,7 +140,6 @@ export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
                     </ButtonGroup>
                 </Row>
             </Form>
-            {/* TODO rakenna linkin lisäys jo personin lisäykseen <AddLink onSaveLink={saveLink} /> */}
         </>
     )
 }

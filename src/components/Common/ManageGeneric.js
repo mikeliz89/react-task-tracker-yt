@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -133,3 +134,21 @@ export default function ManageGeneric({ dbKey,
         </ManagePage>
     );
 }
+
+ManageGeneric.propTypes = {
+    dbKey: PropTypes.string.isRequired,
+    translationKey: PropTypes.string.isRequired,
+    AddComponent: PropTypes.elementType.isRequired,
+    ListComponent: PropTypes.elementType.isRequired,
+    searchSortFilterOptions: PropTypes.object,
+    iconName: PropTypes.string,
+    topActions: PropTypes.node,
+    listNav: PropTypes.shape({
+        to: PropTypes.string,
+        icon: PropTypes.string,
+        text: PropTypes.string,
+    }),
+    ListComponentProps: PropTypes.object,
+    AddComponentProps: PropTypes.object,
+    title: PropTypes.node,
+};

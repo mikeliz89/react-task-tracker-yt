@@ -6,7 +6,6 @@ import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getGameConsoleNameByID } from '../../utils/ListUtils';
-import CheckButton from '../Buttons/CheckButton';
 import ListRow from '../Site/ListRow';
 
 import AddGame from './AddGame';
@@ -25,15 +24,7 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
         setEditable(false);
     }
 
-    const markHaveAtHome = () => {
-        game["haveAtHome"] = true;
-        onEdit(game);
-    }
 
-    const markNotHaveAtHome = () => {
-        game["haveAtHome"] = false;
-        onEdit(game);
-    }
 
     const gameTitle = `${game.name} ${game.publishYear > 0 ? `(${game.publishYear})` : ''}`.trim();
 
@@ -41,8 +32,10 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
         <ListRow
             item={game}
             dbKey={dbUrl}
-            headerTitle={gameTitle}
-            headerTitleTo={`${detailsNavigation}/${game.id}`}
+            headerProps={{
+                title: gameTitle,
+                titleTo: `${detailsNavigation}/${game.id}`
+            }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
@@ -70,26 +63,28 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
                     }
                 </>
             }
-            modalTitle={t('modal_header_edit_game')}
-            modalBody={
-                <AddGame
-                    gameID={game.id}
-                    onClose={() => setEditable(false)}
-                    onSave={updateGame}
-                    dbUrl={dbUrl}
-                    showConsole={showConsole}
-                    showLabels={true} />
-            }
-        >
-            <CheckButton
-                checked={game.haveAtHome}
-                checkedText={t('have')}
-                uncheckedText={t('have_not')}
-                onCheck={markHaveAtHome}
-                onUncheck={markNotHaveAtHome}
-                style={{ margin: '5px' }}
-            />
-        </ListRow>
+            modalProps={{
+                modalTitle: t('modal_header_edit_game'),
+                modalBody: (
+                    <AddGame
+                        gameID={game.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateGame}
+                        dbUrl={dbUrl}
+                        showConsole={showConsole}
+                        showLabels={true}
+                    />
+                )
+            }}
+            showCheckButton={true}
+            checkButtonProps={{
+                checked: !!game.haveAtHome,
+                checkedText: t('have'),
+                uncheckedText: t('have_not'),
+                onCheck: () => { game["haveAtHome"] = true; onEdit(game); },
+                onUncheck: () => { game["haveAtHome"] = false; onEdit(game); },
+            }}
+        />
     )
 }
 
@@ -102,5 +97,7 @@ Game.defaultProps = {
 Game.propTypes = {
     dbUrl: PropTypes.string,
     detailsNavigation: PropTypes.string,
-    showConsole: PropTypes.bool
+    showConsole: PropTypes.bool,
+    onEdit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
 }

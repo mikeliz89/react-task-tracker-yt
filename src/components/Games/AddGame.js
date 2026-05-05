@@ -164,7 +164,6 @@ export default function AddGame({ gameID, onSave, onClose, showLabels, dbUrl, sh
                     </ButtonGroup>
                 </Row>
             </Form>
-            {/* TODO rakenna linkin lisäys jo personin lisäykseen <AddLink onSaveLink={saveLink} /> */}
         </>
     )
 }

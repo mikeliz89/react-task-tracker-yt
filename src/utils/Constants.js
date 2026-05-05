@@ -66,6 +66,9 @@ export const DB = {
     EXERCISE_PARTS: '/exercise-parts',
     // fooditems
     FOODITEMS: '/fooditems',
+    FOODITEM_COMMENTS: '/fooditem-comments',
+    FOODITEM_IMAGES: '/fooditem-images',
+    FOODITEM_LINKS: '/fooditem-links',
     // games
     GAMES: '/games',
     GAME_COMMENTS: '/game-comments',

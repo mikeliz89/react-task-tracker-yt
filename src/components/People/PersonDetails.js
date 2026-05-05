@@ -2,17 +2,12 @@ import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateString, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import Alert from '../Alert';
-import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import { useToggle } from '../Hooks/useToggle';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 
 import AddPerson from './AddPerson';
@@ -38,9 +33,6 @@ export default function PersonDetails() {
     //fetch data
     const { data: person, loading } = useFetch(DB.PEOPLE, "", params.id);
 
-    //auth
-    const { currentUser } = useAuth();
-
     //modal
     const { status: showEdit, toggleStatus: toggleShowEdit } = useToggle();
 
@@ -55,20 +47,6 @@ export default function PersonDetails() {
         }
 
         toggleShowEdit();
-    }
-
-    const addCommentToPerson = (comment) => {
-        const id = params.id;
-        comment["created"] = getCurrentDateAsJson();
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.PEOPLE, id, comment);
-    }
-
-    const addLinkToPerson = (link) => {
-        const id = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.PEOPLE, id, link);
     }
 
     return (
@@ -101,18 +79,25 @@ export default function PersonDetails() {
             ]}
             editModalTitle={t('modal_header_edit_person')}
             editSection={<AddPerson onSave={updatePerson} personID={params.id} onClose={toggleShowEdit} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
-            imageSection={<ImageComponent url={DB.PERSON_IMAGES} objID={params.id} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.PERSON_COMMENTS} onSave={addCommentToPerson} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.PERSON_LINKS} onSaveLink={addLinkToPerson} />}
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.PERSON_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.PERSON_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.PERSON_LINKS
+            }}
         />
     )
 }

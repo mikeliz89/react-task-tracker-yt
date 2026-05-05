@@ -26,18 +26,21 @@ export default function CarFueling({ fuelingRow, onDelete }) {
         <ListRow
             item={fuelingRow}
             dbKey={DB.CAR_FUELING}
-            headerTitle={
-                <>
-                    <b>{getJsonAsDateTimeString(fuelingRow.created, i18n.language)}</b>&nbsp;
-                    {fuelingRow.createdBy}
-                </>
-            }
+            headerProps={{
+                title: (
+                    <>
+                        <b>{getJsonAsDateTimeString(fuelingRow.created, i18n.language)}</b>&nbsp;
+                        {fuelingRow.createdBy}
+                    </>
+                )
+            }}
             showEditButton={true}
             editable={showEditFueling}
             setEditable={toggleShowEditFueling}
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={fuelingRow.id}
+            showStarRating={false}
             section={
                 <div>
                     {t('liter_amount')}: {fuelingRow.fuelLiterAmount} L<br />
@@ -48,14 +51,18 @@ export default function CarFueling({ fuelingRow, onDelete }) {
                     {t('fueler_name')}: {fuelingRow.fuelerName}
                 </div>
             }
-            modalTitle={t('modal_header_edit_fueling')}
-            modalBody={
-                <AddFueling
-                    ID={fuelingRow.id}
-                    onClose={() => toggleShowEditFueling()}
-                    onSave={updateFueling}
-                />
-            }
+            modalProps={{
+                modalTitle: t('modal_header_edit_fueling'),
+                modalBody: (
+                    < AddFueling
+                        ID={fuelingRow.id}
+                        onClose={() => toggleShowEditFueling()
+                        }
+                        onSave={updateFueling}
+                    />
+                )
+            }}
+
         />
     );
 }

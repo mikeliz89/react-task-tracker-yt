@@ -14,15 +14,11 @@ import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION } from '../../utils/Constant
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
 import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
-import Alert from '../Alert';
 import Button from '../Buttons/Button';
-import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import useFetchChildren from '../Hooks/useFetchChildren';
 import { useToggle } from '../Hooks/useToggle';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import LinkComponent from '../Links/LinkComponent';
 import AddIncredient from '../Recipe/AddIncredient';
 import AddWorkPhase from '../Recipe/AddWorkPhase';
 import { getIncredientsUrl } from '../Recipe/Categories';
@@ -121,20 +117,6 @@ export default function DrinkDetails() {
 
     const deleteGarnish = async (drinkID, id) => {
         removeFromFirebaseByIdAndSubId(DB.DRINK_GARNISHES, drinkID, id);
-    }
-
-    const addCommentToDrink = (comment) => {
-        const drinkID = params.id;
-        comment["created"] = getCurrentDateAsJson();
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.DRINK_COMMENTS, drinkID, comment);
-    }
-
-    const addLinkToDrink = (link) => {
-        const drinkID = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.DRINK_LINKS, drinkID, link);
     }
 
     const addIncredient = async (drinkID, incredient) => {
@@ -255,15 +237,14 @@ export default function DrinkDetails() {
             ]}
             editModalTitle={t('modal_header_edit_drink')}
             editSection={<AddDrink onSave={updateDrink} drinkID={params.id} onClose={toggleSetShowEditDrink} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages,
+                alertColLg: 12,
+            }}
             preImageSection={
                 <>
                     <Tabs defaultActiveKey="incredients"
@@ -360,18 +341,63 @@ export default function DrinkDetails() {
                                 </>
                             )}
                         </Tab>
+                        <Tab eventKey="recipeView" title={t('tabheader_recipe_view')}>
+                            <div className="container-fluid px-0">
+                                <div className="row g-4">
+                                    <div className="col-12 col-md-6">
+                                        <h5>{t('incredients_header')}</h5>
+                                        {incredients && incredients.length > 0 ? (
+                                            <ul className="ps-3">
+                                                {incredients.map((item, idx) => (
+                                                    <li key={item.id || idx}>{item.name}{item.amount ? ` (${item.amount}${item.unit ? ' ' + item.unit : ''})` : ''}</li>
+                                                ))}
+                                            </ul>
+                                        ) : (
+                                            <CenterWrapper>{t('no_incredients_to_show')}</CenterWrapper>
+                                        )}
+                                    </div>
+                                    <div className="col-12 col-md-6">
+                                        <h5>{t('workphases_header')}</h5>
+                                        {workPhases && workPhases.length > 0 ? (
+                                            <ol className="ps-3">
+                                                {workPhases.map((item, idx) => (
+                                                    <li key={item.id || idx}>{item.name || item.text || item.description}</li>
+                                                ))}
+                                            </ol>
+                                        ) : (
+                                            <CenterWrapper>{t('no_workphases_to_show')}</CenterWrapper>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </Tab>
+                        <Tab eventKey="drinkHistory" title={t('drink_history_header')}>
+                            <Button
+                                iconName={ICONS.PLUS_SQUARE}
+                                text={t('do_drink')}
+                                onClick={() => {
+                                    if (window.confirm(t('do_drink_confirm'))) {
+                                        saveDrinkHistory(params.id);
+                                    }
+                                }}
+                            />
+                            {drinkHistory != null && drinkHistory.length > 0 ? (
+                                <RecipeHistories
+                                    dbUrl={DB.DRINK_HISTORY}
+                                    translation={TRANSLATION.TRANSLATION}
+                                    translationKeyPrefix={TRANSLATION.DRINKS}
+                                    recipeHistories={drinkHistory}
+                                    recipeID={params.id} />
+                            ) : (
+                                <>
+                                    <CenterWrapper>
+                                        {t('no_drink_history')}
+                                    </CenterWrapper>
+                                </>
+                            )}
+                        </Tab>
                         <Tab eventKey="actions" title={t('tabheader_actions')}>
                             <>
-                                <Button
-                                    iconName={ICONS.PLUS_SQUARE}
-                                    text={t('do_drink')}
-                                    onClick={() => {
-                                        if (window.confirm(t('do_drink_confirm'))) {
-                                            saveDrinkHistory(params.id);
-                                        }
-                                    }}
-                                />
-                                &nbsp;
                                 <Button
                                     iconName={ICONS.PLUS_SQUARE}
                                     text={t('shopcart_tooltip')}
@@ -384,26 +410,20 @@ export default function DrinkDetails() {
                             </>
                         </Tab>
                     </Tabs>
-
-                    {
-                        drinkHistory != null && drinkHistory.length > 0 ? (
-                            <RecipeHistories
-                                dbUrl={DB.DRINK_HISTORY}
-                                translation={TRANSLATION.TRANSLATION}
-                                translationKeyPrefix={TRANSLATION.DRINKS}
-                                recipeHistories={drinkHistory}
-                                recipeID={params.id} />
-                        ) : (
-                            <CenterWrapper>
-                                {t('no_drink_history')}
-                            </CenterWrapper>
-                        )
-                    }
                 </>
             }
-            imageSection={<ImageComponent objID={params.id} url={DB.DRINK_IMAGES} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.DRINK_COMMENTS} onSave={addCommentToDrink} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.DRINK_LINKS} onSaveLink={addLinkToDrink} />}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.DRINK_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.DRINK_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.DRINK_LINKS
+            }}
         />
     )
 }

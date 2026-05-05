@@ -44,7 +44,7 @@ export default function TaskListDetails() {
   //navigate
   const navigate = useNavigate();
 
-const params = useParams();
+  const params = useParams();
   const sourceListId = params.id;
 
   //translation

@@ -2,18 +2,13 @@ import i18n from "i18next";
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
-import Alert from '../Alert';
-import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import { useToggle } from '../Hooks/useToggle';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 
 import AddDrinkingProduct from './AddDrinkingProduct';
@@ -41,23 +36,6 @@ export default function DrinkingProductDetails() {
 
     //fetch data
     const { data: drinkingProduct, loading } = useFetch(DB.DRINKINGPRODUCTS, "", params.id);
-
-    //auth
-    const { currentUser } = useAuth();
-
-    const addCommentToDrinkingProduct = (comment) => {
-        const drinkID = params.id;
-        comment["created"] = getCurrentDateAsJson();
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.DRINKINGPRODUCT_COMMENTS, drinkID, comment);
-    }
-
-    const addLinkToDrinkingProduct = (link) => {
-        const drinkID = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.DRINKINGPRODUCT_LINKS, drinkID, link);
-    }
 
     const addDrinkingProduct = async (drinkingProduct) => {
         try {
@@ -120,18 +98,26 @@ export default function DrinkingProductDetails() {
                     onClose={toggleSetShowEdit}
                 />
             }
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
-            imageSection={<ImageComponent url={DB.DRINKINGPRODUCT_IMAGES} objID={params.id} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.DRINKINGPRODUCT_COMMENTS} onSave={addCommentToDrinkingProduct} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.DRINKINGPRODUCT_LINKS} onSaveLink={addLinkToDrinkingProduct} />}
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages,
+                alertColLg: 12,
+            }}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.DRINKINGPRODUCT_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.DRINKINGPRODUCT_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.DRINKINGPRODUCT_LINKS
+            }}
         />
     )
 }

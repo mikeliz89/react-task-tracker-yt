@@ -27,17 +27,19 @@ export default function Gear({ gear, onDelete, onEdit }) {
             onEdit(object);
         }
         setEditable(false);
-    };
+    }
 
     return (
         <>
             <ListRow
                 item={gear}
                 dbKey={DB.BACKPACKING_GEAR}
-                headerTitle={gear.name}
-                headerTitleTo={`${NAVIGATION.GEAR}/${gear.id}`}
-                headerTitleIcon={getIconNameByCategory(gear.category)}
-                headerTitleIconColor={COLORS.GRAY}
+                headerProps={{
+                    title: gear.name,
+                    titleTo: `${NAVIGATION.GEAR}/${gear.id}`,
+                    titleIcon: getIconNameByCategory(gear.category),
+                    titleIconColor: COLORS.GRAY
+                }}
                 showEditButton={true}
                 editable={editable}
                 setEditable={setEditable}
@@ -52,15 +54,17 @@ export default function Gear({ gear, onDelete, onEdit }) {
                     variant: VARIANTS.SUCCESS,
                     onClose: clearMessages,
                 }}
-                modalTitle={t('modal_header_edit_gear')}
-                modalBody={
-                    <AddGear
-                        gearID={gear.id}
-                        onSave={updateGear}
-                        onClose={() => setEditable(false)}
-                        showLabels={true}
-                    />
-                }
+                modalProps={{
+                    modalTitle: t('modal_header_edit_gear'),
+                    modalBody: (
+                        <AddGear
+                            gearID={gear.id}
+                            onSave={updateGear}
+                            onClose={() => setEditable(false)}
+                            showLabels={true}
+                        />
+                    )
+                }}
                 section={
                     <>
                         {gear.category !== "" ? (
@@ -69,8 +73,15 @@ export default function Gear({ gear, onDelete, onEdit }) {
                         <p>{t('gear_weight')}: {gear.weightInGrams} g</p>
                     </>
                 }
-            >
-            </ListRow>
+                showCheckButton={true}
+                checkButtonProps={{
+                    checked: !!gear.haveAtHome,
+                    checkedText: t('gear_have_at_home'),
+                    uncheckedText: t('gear_not_have_at_home'),
+                    onCheck: () => { gear["haveAtHome"] = true; onEdit(gear); },
+                    onUncheck: () => { gear["haveAtHome"] = false; onEdit(gear); },
+                }}
+            />
         </>
     );
 }

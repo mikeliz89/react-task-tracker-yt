@@ -1,24 +1,16 @@
-//alert
-
 import i18n from 'i18next';
 
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGearCategoryNameByID } from '../../utils/ListUtils';
-import Alert from '../Alert';
-import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
-import PageTitle from '../Site/PageTitle';
 
 import AddGear from './AddGear';
 
@@ -41,9 +33,6 @@ export default function GearDetails() {
     //params
     const params = useParams();
 
-    //auth
-    const { currentUser } = useAuth();
-
     //fetch data
     const { data: gear, loading } = useFetch(DB.BACKPACKING_GEAR, "", params.id);
 
@@ -58,20 +47,6 @@ export default function GearDetails() {
         }
     }
 
-    const addCommentToGear = (comment) => {
-        const id = params.id;
-        comment["created"] = getCurrentDateAsJson();
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.BACKPACKING_GEAR_COMMENTS, id, comment);
-    }
-
-    const addLinkToGear = (link) => {
-        const id = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.BACKPACKING_GEAR_LINKS, id, link);
-    }
-
     return (
         <DetailsPage
             item={gear}
@@ -81,7 +56,12 @@ export default function GearDetails() {
             showEditButton={true}
             isEditOpen={showEdit}
             onToggleEdit={() => setShowEdit(!showEdit)}
-            title={<PageTitle title={gear?.name} />}
+            title={gear?.name}
+            titleSuffix={
+                <span className={`details-pill ${gear?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
+                    {t('have')}: {gear?.haveAtHome === true ? t('yes') : t('no')}
+                </span>
+            }
             preSummaryContent={
                 <>
                     <div className="detailspage-field">
@@ -110,18 +90,26 @@ export default function GearDetails() {
                 }
             ]}
             editSection={<AddGear onSave={updateGear} gearID={params.id} onClose={() => setShowEdit(false)} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
-            imageSection={<ImageComponent url={DB.BACKPACKING_GEAR_IMAGES} objID={params.id} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.BACKPACKING_GEAR_COMMENTS} onSave={addCommentToGear} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.BACKPACKING_GEAR_LINKS} onSaveLink={addLinkToGear} />}
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages,
+                alertColLg: 12,
+            }}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.BACKPACKING_GEAR_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.BACKPACKING_GEAR_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.BACKPACKING_GEAR_LINKS
+            }}
         />
     )
 }

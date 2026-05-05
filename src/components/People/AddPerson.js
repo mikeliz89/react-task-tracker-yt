@@ -19,6 +19,7 @@ export default function AddPerson({ personID, onSave, onClose, showLabels = true
     const [description, setDescription] = useState('');
     const [birthday, setBirthday] = useState(new Date());
     const [address, setAddress] = useState('');
+    const [stars, setStars] = useState(0);
 
     //load data
     const personData = useFetchById(DB.PEOPLE, personID);
@@ -31,6 +32,7 @@ export default function AddPerson({ personID, onSave, onClose, showLabels = true
             setDescription(personData.description || '');
             setName(personData.name || '');
             setBirthday(personData.birthday || '');
+            setStars(personData.stars || 0);
         }
     }, [personData]);
 
@@ -43,7 +45,7 @@ export default function AddPerson({ personID, onSave, onClose, showLabels = true
             return;
         }
 
-        onSave({ address, created, createdBy, description, name, birthday });
+        onSave({ address, created, createdBy, description, name, birthday, stars });
 
         if (personID == null) {
             clearForm();
@@ -95,7 +97,6 @@ export default function AddPerson({ personID, onSave, onClose, showLabels = true
                     </ButtonGroup>
                 </Row>
             </Form>
-            {/* TODO rakenna linkin lisäys jo personin lisäykseen <AddLink onSaveLink={saveLink} /> */}
         </>
     )
 }

@@ -25,17 +25,19 @@ export default function TaskList({ taskList, archived, onDelete }) {
         <ListRow
             item={taskList}
             dbKey={DB.TASKLISTS}
-            headerPrefix={<Icon name={ICONS.LIST_ALT} color={COLORS.GRAY} />}
-            headerTitle={
-                <Link
-                    style={{ textDecoration: 'none' }}
-                    to={archived ?
-                        `${NAVIGATION.TASKLIST_ARCHIVE}/${taskList.id}`
-                        : `${NAVIGATION.TASKLIST}/${taskList.id}`}
-                >
-                    {taskList.title}
-                </Link>
-            }
+            headerProps={{
+                prefix: <Icon name={ICONS.LIST_ALT} color={COLORS.GRAY} />,
+                title: (
+                    <Link
+                        style={{ textDecoration: 'none' }}
+                        to={archived ?
+                            `${NAVIGATION.TASKLIST_ARCHIVE}/${taskList.id}`
+                            : `${NAVIGATION.TASKLIST}/${taskList.id}`}
+                    >
+                        {taskList.title}
+                    </Link>
+                )
+            }}
             showStarRating={false}
             showEditButton={!archived}
             editable={editable}
@@ -44,15 +46,18 @@ export default function TaskList({ taskList, archived, onDelete }) {
             onDelete={onDelete}
             deleteId={taskList.id}
             section={<p>{taskList.description}</p>}
-            modalTitle={t('modal_header_edit_task_list')}
-            modalBody={
-                <AddTaskList
-                    taskListID={taskList.id}
-                    onClose={() => setEditable(false)}
-                    onSave={updateTaskList}
-                    showLabels={true}
-                />
-            }
+            modalProps={{
+                modalTitle: t('modal_header_edit_task_list'),
+                modalBody: (
+                    <AddTaskList
+                        taskListID={taskList.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateTaskList}
+                        showLabels={true}
+                    />
+                )
+            }}
+
         />
     );
 }

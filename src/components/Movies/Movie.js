@@ -8,7 +8,6 @@ import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { getMovieFormatNameByID } from '../../utils/ListUtils';
-import CheckButton from '../Buttons/CheckButton';
 import ListRow from '../Site/ListRow';
 
 import AddMovie from './AddMovie';
@@ -25,15 +24,7 @@ export default function Movie({ movie, onDelete, onEdit }) {
         setEditable(false);
     }
 
-    const markHaveAtHome = () => {
-        movie["haveAtHome"] = true;
-        onEdit(movie);
-    }
 
-    const markNotHaveAtHome = () => {
-        movie["haveAtHome"] = false;
-        onEdit(movie);
-    }
 
     const movieTitle = `${movie.name} ${movie.publishYear > 0 ? `(${movie.publishYear})` : ''}`.trim();
 
@@ -41,8 +32,10 @@ export default function Movie({ movie, onDelete, onEdit }) {
         <ListRow
             item={movie}
             dbKey={DB.MOVIES}
-            headerTitle={movieTitle}
-            headerTitleTo={`${NAVIGATION.MOVIE}/${movie.id}`}
+            headerProps={{
+                title: movieTitle,
+                titleTo: `${NAVIGATION.MOVIE}/${movie.id}`
+            }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
@@ -60,24 +53,26 @@ export default function Movie({ movie, onDelete, onEdit }) {
                     </div>
                 ) : null
             }
-            modalTitle={t('edit_movie')}
-            modalBody={
-                editable && <AddMovie
-                    movieID={movie.id}
-                    onClose={() => setEditable(false)}
-                    onSave={updateMovie}
-                    showLabels={true} />
-            }
-        >
-            <CheckButton
-                checked={movie.haveAtHome}
-                checkedText={t('have')}
-                uncheckedText={t('have_not')}
-                onCheck={markHaveAtHome}
-                onUncheck={markNotHaveAtHome}
-                style={{ margin: '5px' }}
-            />
-        </ListRow>
+            modalProps={{
+                modalTitle: t('edit_movie'),
+                modalBody: (
+                    editable && <AddMovie
+                        movieID={movie.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateMovie}
+                        showLabels={true}
+                    />
+                )
+            }}
+            showCheckButton={true}
+            checkButtonProps={{
+                checked: !!movie.haveAtHome,
+                checkedText: t('have'),
+                uncheckedText: t('have_not'),
+                onCheck: () => { movie["haveAtHome"] = true; onEdit(movie); },
+                onUncheck: () => { movie["haveAtHome"] = false; onEdit(movie); },
+            }}
+        />
     )
 }
 

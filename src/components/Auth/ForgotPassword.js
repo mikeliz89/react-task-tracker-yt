@@ -19,7 +19,7 @@ import PageTitle from '../Site/PageTitle';
 export default function ForgotPassword() {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.AUTH });
-const [email, setEmail] = useState('');
+    const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
     const { resetPassword } = useAuth();
 
@@ -55,7 +55,8 @@ const [email, setEmail] = useState('');
 
             <PageTitle title={t('password_reset')} />
 
-            <Alert message={message}
+            <Alert
+                message={message}
                 showMessage={showMessage}
                 error={error}
                 showError={showError}

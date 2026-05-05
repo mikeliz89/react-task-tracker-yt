@@ -4,17 +4,12 @@ import { Table } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseChild, updateToFirebaseById } from "../../datatier/datatier";
+import { updateToFirebaseById } from "../../datatier/datatier";
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
-import Alert from "../Alert";
-import CommentComponent from "../Comments/CommentComponent";
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
-import ImageComponent from "../ImageUpload/ImageComponent";
-import LinkComponent from "../Links/LinkComponent";
 import DetailsPage from '../Site/DetailsPage';
 import PageTitle from '../Site/PageTitle';
 
@@ -44,24 +39,16 @@ export default function ExerciseDetails() {
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
 
-    //auth
-    const { currentUser } = useAuth();
-
     //fetch data
     const { data: exercise, loading } = useFetch(DB.EXERCISES, "", params.id);
 
-    const addCommentToExercise = async (comment) => {
-        let id = params.id;
-        comment["created"] = getCurrentDateAsJson()
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.EXERCISE_COMMENTS, id, comment);
-    }
-
-    const addLinkToExercise = (link) => {
-        const id = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.EXERCISE_LINKS, id, link);
+    function showAddMoving(exercise) {
+        return Number(exercise.category) === Categories.BikingInside ||
+            Number(exercise.category) === Categories.Biking ||
+            Number(exercise.category) === Categories.Kayaking ||
+            Number(exercise.category) === Categories.Running ||
+            Number(exercise.category) === Categories.Walking ||
+            Number(exercise.category) === Categories.Skiing;
     }
 
     return (
@@ -73,7 +60,7 @@ export default function ExerciseDetails() {
             showEditButton={true}
             isEditOpen={showEditExercise}
             onToggleEdit={() => setShowEditExercise(!showEditExercise)}
-            title={<PageTitle title={t('exercisedetails')} />}
+            title={t('exercisedetails')}
             preSummaryContent={
                 <div className="detailspage-field">
                     <span className="detailspage-meta-label">{t('category')}:</span>{' '}
@@ -96,15 +83,13 @@ export default function ExerciseDetails() {
                 }
             ]}
             editSection={<EditExercise exerciseID={params.id} exercise={exercise} onClose={() => setShowEditExercise(false)} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
             preImageSection={
                 <>
                     <Table>
@@ -138,21 +123,18 @@ export default function ExerciseDetails() {
                     }
                 </>
             }
-            imageSection={<ImageComponent objID={params.id} url={DB.EXERCISE_IMAGES} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.EXERCISE_COMMENTS} onSave={addCommentToExercise} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.EXERCISE_LINKS} onSaveLink={addLinkToExercise} />}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.EXERCISE_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.EXERCISE_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.EXERCISE_LINKS
+            }}
         />
     )
 }
-
-function showAddMoving(exercise) {
-    return Number(exercise.category) === Categories.BikingInside ||
-        Number(exercise.category) === Categories.Biking ||
-        Number(exercise.category) === Categories.Kayaking ||
-        Number(exercise.category) === Categories.Running ||
-        Number(exercise.category) === Categories.Walking ||
-        Number(exercise.category) === Categories.Skiing;
-}
-
-
-

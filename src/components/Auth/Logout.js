@@ -17,7 +17,7 @@ export default function Logout() {
     //auth
     const { logout } = useAuth();
 
-const navigate = useNavigate();
+    const navigate = useNavigate();
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.AUTH });
@@ -47,7 +47,8 @@ const navigate = useNavigate();
 
     return (
         <>
-            <Alert message={message}
+            <Alert
+                message={message}
                 showMessage={showMessage}
                 error={error}
                 showError={showError}

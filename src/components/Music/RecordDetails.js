@@ -2,18 +2,14 @@ import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getMusicFormatNameByID } from '../../utils/ListUtils';
 import Alert from '../Alert';
-import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import { useToggle } from '../Hooks/useToggle';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 
 import AddRecord from './AddRecord';
@@ -36,9 +32,6 @@ export default function RecordDetails() {
         showFailure
     } = useAlert();
 
-    //auth
-    const { currentUser } = useAuth();
-
     //modal
     const { status: showEdit, toggleStatus: toggleShowEdit } = useToggle();
 
@@ -56,20 +49,6 @@ export default function RecordDetails() {
         }
     }
 
-    const addCommentToRecord = (comment) => {
-        const id = params.id;
-        comment["created"] = getCurrentDateAsJson();
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.MUSIC_COMMENTS, id, comment);
-    }
-
-    const addLinkToRecord = (link) => {
-        const id = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.MUSIC_LINKS, id, link);
-    }
-
     return (
         <DetailsPage
             item={record}
@@ -80,6 +59,13 @@ export default function RecordDetails() {
             isEditOpen={showEdit}
             onToggleEdit={toggleShowEdit}
             title={`${record?.band || ''} ${record?.name || ''}`.trim()}
+            titleSuffix={
+                <span className={`details-pill ${record?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
+                    {record?.haveAtHome === true
+                        ? t('have')
+                        : t('have_not')}
+                </span>
+            }
             preSummaryContent={
                 <div className="detailspage-field">
                     <span className="detailspage-meta-label">{t('format')}:</span>{' '}
@@ -103,18 +89,26 @@ export default function RecordDetails() {
             ]}
             editModalTitle={t('modal_header_edit_record')}
             editSection={<AddRecord onSave={updateRecord} recordID={params.id} onClose={toggleShowEdit} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
-            imageSection={<ImageComponent url={DB.MUSIC_IMAGES} objID={params.id} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.MUSIC_COMMENTS} onSave={addCommentToRecord} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.MUSIC_LINKS} onSaveLink={addLinkToRecord} />}
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages,
+                alertColLg: 12,
+            }}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.MUSIC_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.MUSIC_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.MUSIC_LINKS
+            }}
         />
     )
 }

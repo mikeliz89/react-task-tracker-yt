@@ -3,16 +3,11 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
+import {updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import Alert from '../Alert';
-import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 import PageTitle from '../Site/PageTitle';
 
@@ -39,9 +34,6 @@ export default function BoardGameDetails() {
         showFailure
     } = useAlert();
 
-    //auth
-    const { currentUser } = useAuth();
-
     const updateBoardGame = async (updateBoardGameID, boardGame) => {
         try {
             const boardGameID = params.id;
@@ -51,20 +43,6 @@ export default function BoardGameDetails() {
             showFailure(t('failed_to_save_game'));
             console.warn(error);
         }
-    }
-
-    const addCommentToBoardGame = (comment) => {
-        const id = params.id;
-        comment["created"] = getCurrentDateAsJson();
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.BOARD_GAME_COMMENTS, id, comment);
-    }
-
-    const addLinkToBoardGame = (link) => {
-        const id = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.BOARD_GAME_LINKS, id, link);
     }
 
     //states
@@ -79,7 +57,7 @@ export default function BoardGameDetails() {
             showEditButton={true}
             isEditOpen={showEdit}
             onToggleEdit={() => setShowEdit(!showEdit)}
-            title={<PageTitle title={boardGame?.name} />}
+            title={boardGame?.name}
             titleSuffix={
                 <span className={`details-pill ${boardGame?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
                     {t('have')}: {boardGame?.haveAtHome === true ? t('yes') : t('no')}
@@ -93,18 +71,25 @@ export default function BoardGameDetails() {
             ]}
             editModalTitle={t('modal_header_edit_board_game')}
             editSection={<AddGame onSave={updateBoardGame} gameID={params.id} onClose={() => setShowEdit(false)} dbUrl={DB.BOARD_GAMES} showConsole={false} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
-            imageSection={<ImageComponent url={DB.BOARD_GAME_IMAGES} objID={params.id} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.BOARD_GAME_COMMENTS} onSave={addCommentToBoardGame} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.BOARD_GAME_LINKS} onSaveLink={addLinkToBoardGame} />}
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.BOARD_GAME_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.BOARD_GAME_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.BOARD_GAME_LINKS
+            }}
         />
     )
 }

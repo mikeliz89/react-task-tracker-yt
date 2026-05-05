@@ -1,3 +1,5 @@
+
+import PropTypes from 'prop-types';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 
 import { COLORS, ICONS, VARIANTS } from '../../utils/Constants';
@@ -126,5 +128,42 @@ export default function ManagePage({
     );
 }
 
-
-
+ManagePage.propTypes = {
+    loading: PropTypes.bool,
+    loadingText: PropTypes.string,
+    title: PropTypes.node,
+    iconName: PropTypes.string,
+    iconColor: PropTypes.string,
+    addButton: PropTypes.shape({
+        show: PropTypes.bool,
+        onToggle: PropTypes.func,
+        text: PropTypes.string,
+        openText: PropTypes.string,
+        closedText: PropTypes.string,
+        openColor: PropTypes.string,
+        closedColor: PropTypes.string,
+        iconName: PropTypes.string,
+        secondIconName: PropTypes.string,
+    }),
+    topActions: PropTypes.node,
+    showGoBackButton: PropTypes.bool,
+    centerActions: PropTypes.node,
+    alert: PropTypes.shape({
+        message: PropTypes.string,
+        showMessage: PropTypes.bool,
+        error: PropTypes.string,
+        showError: PropTypes.bool,
+        variant: PropTypes.string,
+        onClose: PropTypes.func,
+    }),
+    modal: PropTypes.shape({
+        show: PropTypes.bool,
+        onHide: PropTypes.func,
+        title: PropTypes.node,
+        body: PropTypes.node,
+    }),
+    searchSortFilter: PropTypes.object,
+    hasItems: PropTypes.bool,
+    emptyText: PropTypes.node,
+    children: PropTypes.node,
+};

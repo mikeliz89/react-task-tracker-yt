@@ -126,10 +126,12 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
             item={recipe}
             dbKey={getUrl(recipeType)}
             className={recipe.isCore === true ? 'coreRecipe' : ''}
-            headerTitle={recipe.title}
-            headerTitleTo={`${getViewDetailsUrl(recipeType)}/${recipe.id}`}
-            headerTitleIcon={getIconName(recipeType, recipe.category)}
-            headerTitleIconColor={COLORS.GRAY}
+            headerProps={{
+                title: recipe.title,
+                titleTo: `${getViewDetailsUrl(recipeType)}/${recipe.id}`,
+                icon: getIconName(recipeType, recipe.category),
+                iconColor: COLORS.GRAY
+            }}
             actionsExtra={
                 <OverlayTrigger
                     placement="right"
@@ -170,25 +172,27 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                     <p>{recipe.incredients}</p>
                 </>
             }
-            modalTitle={recipeType === RecipeTypes.Food ?
-                t('modal_header_edit_recipe') : t('modal_header_edit_drink')}
-            modalBody={
-                recipeType === RecipeTypes.Food ? (
-                    <AddRecipe
-                        showLabels={true}
-                        recipeID={recipe.id}
-                        onClose={() => setEditable(false)}
-                        onSave={updateRecipe}
-                    />
-                ) : (
-                    <AddDrink
-                        showLabels={true}
-                        drinkID={recipe.id}
-                        onClose={() => setEditable(false)}
-                        onSave={updateRecipe}
-                    />
+            modalProps={{
+                modalTitle: recipeType === RecipeTypes.Food ?
+                    t('modal_header_edit_recipe') : t('modal_header_edit_drink'),
+                modalBody: (
+                    recipeType === RecipeTypes.Food ? (
+                        <AddRecipe
+                            showLabels={true}
+                            recipeID={recipe.id}
+                            onClose={() => setEditable(false)}
+                            onSave={updateRecipe}
+                        />
+                    ) : (
+                        <AddDrink
+                            showLabels={true}
+                            drinkID={recipe.id}
+                            onClose={() => setEditable(false)}
+                            onSave={updateRecipe}
+                        />
+                    )
                 )
-            }
+            }}
         />
     )
 }

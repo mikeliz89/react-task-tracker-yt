@@ -32,7 +32,9 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
         <ListRow
             item={instruction}
             dbKey={DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS}
-            headerLeft={<span>{instruction.name}</span>}
+            headerProps={{
+                left: <span>{instruction.name}</span>
+            }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
@@ -52,13 +54,15 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
                     {instruction.text}
                 </pre>
             }
-            modalTitle={"Muokkaa ohjetta"}
-            modalBody={
-                <AddGearMaintenanceInstruction
-                    gearMaintenanceInstructionID={instruction.id}
-                    onClose={() => setEditable(false)}
-                    onSave={updateInstruction} />
-            }
+            modalProps={{
+                modalTitle: "Muokkaa ohjetta",
+                modalBody: (
+                    <AddGearMaintenanceInstruction
+                        gearMaintenanceInstructionID={instruction.id}
+                        onClose={() => setEditable(false)}
+                        onSave={updateInstruction} />
+                )
+            }}
         />
     )
 }

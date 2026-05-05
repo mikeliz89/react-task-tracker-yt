@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
 import { useTheme } from '../../contexts/ThemeContext';
-import { ICONS, COLORS, THEMES } from '../../utils/Constants';
-import Icon from '../Icon';
+import { /* ICONS, */ COLORS, THEMES } from '../../utils/Constants';
+//import Icon from '../Icon';
 
 export default function Logo() {
     const navigate = useNavigate();

@@ -1,23 +1,21 @@
+import i18n from "i18next";
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getFoodItemCategoryNameByID } from '../../utils/ListUtils';
-import useFetchById from '../Hooks/useFetchById';
+import useFetch from '../Hooks/useFetch';
 import DetailsPage from '../Site/DetailsPage';
 import AddFoodItem from './AddFoodItem';
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { useAlert } from '../Hooks/useAlert';
-import Alert from '../Alert';
 import { updateToFirebaseById } from '../../datatier/datatier';
 
-export default function FoodItemDetails(id) {
-
+export default function FoodItemDetails() {
     const params = useParams();
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
-    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
-    const foodItem = useFetchById(DB.FOODITEMS, id);
     const [showEdit, setShowEdit] = useState(false);
+    const { data: foodItem, loading } = useFetch(DB.FOODITEMS, "", params.id);
     const {
         message, showMessage,
         error, showError,
@@ -25,63 +23,66 @@ export default function FoodItemDetails(id) {
         showFailure
     } = useAlert();
 
-    // Päivitä foodItem (toteuta tallennuslogiikka tarvittaessa)
-
     const updateFoodItem = async (foodItemID, updatedFoodItem) => {
         try {
-            await updateToFirebaseById(DB.FOODITEMS, foodItemID, {
+            const id = typeof foodItemID === 'object' && foodItemID !== null ? foodItemID.id : foodItemID;
+            await updateToFirebaseById(DB.FOODITEMS, id, {
                 ...updatedFoodItem,
                 modified: new Date().toISOString(),
             });
             clearMessages();
-            // Voit näyttää onnistumisviestin, jos haluat:
-            // showSuccess(tCommon('save_success'));
             setShowEdit(false);
+            return true;
         } catch (error) {
-            showFailure(tCommon('save_exception'));
-            console.warn(error);
+            showFailure(t('save_exception', { ns: TRANSLATION.COMMON }));
+            console.warn('updateFoodItem error', error);
+            return false;
         }
     };
-
-    if (!foodItem) return null;
 
     return (
         <DetailsPage
             item={foodItem}
             id={params.id}
             dbKey={DB.FOODITEMS}
-            title={foodItem.name}
+            loading={loading}
             showEditButton={true}
             isEditOpen={showEdit}
             onToggleEdit={() => setShowEdit(!showEdit)}
-            preSummaryContent={<span>{t('fooditem_category')}: {t('fooditem_category_' + getFoodItemCategoryNameByID(foodItem.category))}</span>}
-            summary={foodItem.description ? `${t('description')}: ${foodItem.description}` : ''}
-            metaItems={[
-                { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(foodItem.created)}</> },
-                { id: 2, content: <>{t('created_by')}: {foodItem.createdBy}</> },
-                { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(foodItem.modified)}</> }
-            ]}
-            editSection={<AddFoodItem foodItemID={id} onSave={updateFoodItem} onClose={() => setShowEdit(false)} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
+            title={foodItem?.name}
+            titleSuffix={
+                <span className={`details-pill ${foodItem?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
+                    {t('have')}: {foodItem?.haveAtHome === true ? t('yes') : t('no')}
+                </span>
             }
-        >
-            <div style={{ marginTop: 16 }}>
-                <p>{t('fooditem_calories')}: {foodItem.calories}</p>
-                {foodItem.haveAtHome !== undefined && (
-                    <p>
-                        {foodItem.haveAtHome
-                            ? t('fooditem_have_at_home')
-                            : t('fooditem_not_have_at_home')}
-                    </p>
-                )}
-            </div>
-        </DetailsPage>
+            preSummaryContent={<span>{t('fooditem_category')}: {t('fooditem_category_' + getFoodItemCategoryNameByID(foodItem?.category))}</span>}
+            summary={foodItem?.description ? `${t('description')}: ${foodItem.description}` : ''}
+            metaItems={[
+                { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(foodItem?.created, i18n.language)}</> },
+                { id: 2, content: <>{t('created_by')}: {foodItem?.createdBy}</> },
+                { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(foodItem?.modified, i18n.language)}</> },
+                { id: 4, content: <>{t('fooditem_calories')}: {foodItem?.calories}</> }
+            ]}
+            editSection={<AddFoodItem foodItemID={params.id} onSave={updateFoodItem} onClose={() => setShowEdit(false)} />}
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.FOODITEM_IMAGES
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.FOODITEM_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.FOODITEM_LINKS
+            }}
+        />
     );
 }

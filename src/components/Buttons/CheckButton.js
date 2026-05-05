@@ -12,7 +12,6 @@ export default function CheckButton({
     checkedClassName = 'btn btn-success',
     uncheckedClassName = 'btn btn-danger',
     className,
-    style,
     iconName = ICONS.CHECK_SQUARE,
     iconColor = COLORS.WHITE,
     iconStyle,
@@ -32,7 +31,7 @@ export default function CheckButton({
             <span
                 onClick={handleClick}
                 className={className || (isChecked ? checkedClassName : uncheckedClassName)}
-                style={style}
+                style={{ margin: '5px' }}
             >
                 {isChecked ? checkedText : uncheckedText}&nbsp;
                 <Icon
@@ -54,7 +53,6 @@ CheckButton.propTypes = {
     checkedClassName: PropTypes.string,
     uncheckedClassName: PropTypes.string,
     className: PropTypes.string,
-    style: PropTypes.object,
     iconName: PropTypes.string,
     iconColor: PropTypes.string,
     iconStyle: PropTypes.object,

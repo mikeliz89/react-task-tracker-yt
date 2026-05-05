@@ -25,6 +25,7 @@ export default function AddGear({ gearID, onSave, onClose, showLabels }) {
     const [weightInGrams, setWeightInGrams] = useState(0);
     const [stars, setStars] = useState(0);
     const [description, setDescription] = useState('');
+    const [haveAtHome, setHaveAtHome] = useState('');
 
     //load data
     const gearData = useFetchById(DB.BACKPACKING_GEAR, gearID);
@@ -37,6 +38,7 @@ export default function AddGear({ gearID, onSave, onClose, showLabels }) {
             setName(gearData.name || '');
             setWeightInGrams(gearData.weightInGrams || 0);
             setStars(gearData.stars || 0);
+            setHaveAtHome(gearData.haveAtHome || '');
         }
     }, [gearData]);
 
@@ -58,7 +60,7 @@ export default function AddGear({ gearID, onSave, onClose, showLabels }) {
             return;
         }
 
-        onSave({ id: gearID, created, createdBy, description, name, category, weightInGrams, stars });
+        onSave({ id: gearID, created, createdBy, description, name, category, weightInGrams, stars, haveAtHome });
 
         if (gearID == null) {
             clearForm();
@@ -70,6 +72,7 @@ export default function AddGear({ gearID, onSave, onClose, showLabels }) {
         setDescription('');
         setName('');
         setWeightInGrams(0);
+        setHaveAtHome('');
     }
 
     return (
@@ -109,6 +112,14 @@ export default function AddGear({ gearID, onSave, onClose, showLabels }) {
                         ))}
                     </Form.Select>
                 </Form.Group>
+                <Form.Group className="mb-3" controlId="addGearForm-HaveAtHome">
+                    <Form.Check
+                        type='checkbox'
+                        checked={haveAtHome}
+                        label={t('gear_have_at_home')}
+                        value={haveAtHome}
+                        onChange={(e) => setHaveAtHome(e.currentTarget.checked)} />
+                </Form.Group>
                 <Row>
                     <ButtonGroup>
                         <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
@@ -117,7 +128,6 @@ export default function AddGear({ gearID, onSave, onClose, showLabels }) {
                     </ButtonGroup>
                 </Row>
             </Form>
-            {/* TODO rakenna linkin lisäys jo gearin lisäykseen <AddLink onSaveLink={saveLink} /> */}
         </>
     )
 }

@@ -46,6 +46,8 @@ export default function AddLink({
             ? { id: linkID, url, urlText }
             : { url, urlText };
 
+        //console.log("Payload for onSaveLink:", payload);
+
         onSaveLink(payload);
 
         if (linkID != null) {

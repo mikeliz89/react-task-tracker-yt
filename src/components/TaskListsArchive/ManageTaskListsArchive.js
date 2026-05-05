@@ -52,7 +52,7 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
       <>
         <TaskLists
           archived={true}
-          taskLists={taskLists}
+          items={taskLists}
           originalList={originalTaskLists}
           counter={counter}
           onDelete={deleteTaskList}

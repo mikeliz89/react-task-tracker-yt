@@ -134,7 +134,6 @@ export default function AddDrink({ drinkID, onSave, onClose, showLabels, autoFoc
                </ButtonGroup>
             </Row>
          </Form>
-         {/* TODO rakenna linkin lisäys jo drinkin lisäykseen <AddLink onSaveLink={saveLink} /> */}
       </>
    )
 }

@@ -22,7 +22,9 @@ export default function Garnish({ garnish, drinkID, onDelete }) {
             <ListRow
                 item={garnish}
                 dbKey={DB.DRINK_GARNISHES}
-                headerTitle={garnish.name}
+                headerProps={{
+                    title: garnish.name
+                }}
                 showEditButton={true}
                 editable={editable}
                 setEditable={setEditable}
@@ -30,17 +32,19 @@ export default function Garnish({ garnish, drinkID, onDelete }) {
                 onDelete={onDelete}
                 deleteId={drinkID}
                 deleteSubId={garnish.id}
-                modalTitle={t('edit_garnish')}
+                modalProps={{
+                    modalTitle: t('edit_garnish'),
+                    modalBody: (
+                        <AddGarnish
+                            garnishID={garnish.id}
+                            drinkID={drinkID}
+                            onSave={updateGarnish}
+                            onDelete={onDelete}
+                            onClose={() => setEditable(false)}
+                        />
+                    )
+                }}
                 showStarRating={false}
-                modalBody={
-                    <AddGarnish
-                        garnishID={garnish.id}
-                        drinkID={drinkID}
-                        onSave={updateGarnish}
-                        onDelete={onDelete}
-                        onClose={() => setEditable(false)}
-                    />
-                }
             />
         </>
     );
