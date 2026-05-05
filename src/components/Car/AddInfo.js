@@ -144,7 +144,8 @@ export default function AddInfo() {
             <PageTitle title={t('add_info_title')} iconName={ICONS.CAR} />
             {modified !== '' && <p style={{ marginBottom: '0' }}>{t('last_modified')}: {getJsonAsDateTimeString(modified, i18n.language)} &nbsp;</p>}
 
-            <Alert message={message}
+            <Alert 
+            message={message}
                 showMessage={showMessage}
                 error={error}
                 showError={showError}

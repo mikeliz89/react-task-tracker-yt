@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Row, Col, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
@@ -181,4 +182,36 @@ export default function DetailsPage({
     );
 }
 
-
+DetailsPage.propTypes = {
+    loading: PropTypes.bool,
+    loadingText: PropTypes.string,
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    titleSuffix: PropTypes.node,
+    topContent: PropTypes.node,
+    preSummaryContent: PropTypes.node,
+    summary: PropTypes.node,
+    editSection: PropTypes.node,
+    editModalTitle: PropTypes.node,
+    showEditButton: PropTypes.bool,
+    isEditOpen: PropTypes.bool,
+    onToggleEdit: PropTypes.func,
+    alertSection: PropTypes.node,
+    alertColLg: PropTypes.number,
+    preImageSection: PropTypes.node,
+    preImageColLg: PropTypes.number,
+    imageSection: PropTypes.node,
+    imageColLg: PropTypes.number,
+    commentSection: PropTypes.node,
+    commentColLg: PropTypes.number,
+    linkSection: PropTypes.node,
+    linkColLg: PropTypes.number,
+    children: PropTypes.node,
+    metaItems: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.any,
+        content: PropTypes.node
+    })),
+    showStarRating: PropTypes.bool,
+    id: PropTypes.any,
+    item: PropTypes.object,
+    dbKey: PropTypes.string,
+};

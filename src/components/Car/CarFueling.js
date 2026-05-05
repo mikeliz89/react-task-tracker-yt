@@ -40,6 +40,7 @@ export default function CarFueling({ fuelingRow, onDelete }) {
             showDeleteButton={true}
             onDelete={onDelete}
             deleteId={fuelingRow.id}
+            showStarRating={false}
             section={
                 <div>
                     {t('liter_amount')}: {fuelingRow.fuelLiterAmount} L<br />

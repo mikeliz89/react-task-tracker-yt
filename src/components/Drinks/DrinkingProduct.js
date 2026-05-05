@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { TRANSLATION, ICONS, COLORS, NAVIGATION, DB } from '../../utils/Constants';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
-import CheckButton from '../Buttons/CheckButton';
 import ListRow from '../Site/ListRow';
 
 import AddDrinkingProduct from './AddDrinkingProduct';

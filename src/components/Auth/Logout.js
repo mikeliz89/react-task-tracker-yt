@@ -47,7 +47,8 @@ const navigate = useNavigate();
 
     return (
         <>
-            <Alert message={message}
+            <Alert 
+            message={message}
                 showMessage={showMessage}
                 error={error}
                 showError={showError}

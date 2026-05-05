@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import CheckButton from '../Buttons/CheckButton';
 import DeleteButton from '../Buttons/DeleteButton';
 import EditButton from '../Buttons/EditButton';
@@ -195,3 +196,38 @@ export default function ListRow({
     );
 }
 
+ListRow.propTypes = {
+    item: PropTypes.object.isRequired,
+    dbKey: PropTypes.string,
+    headerProps: PropTypes.object,
+    showEditButton: PropTypes.bool,
+    showDeleteButton: PropTypes.bool,
+    editable: PropTypes.bool,
+    setEditable: PropTypes.func,
+    stopRightClickPropagation: PropTypes.bool,
+    onDoubleClick: PropTypes.func,
+    onDelete: PropTypes.func,
+    deleteId: PropTypes.any,
+    deleteSubId: PropTypes.any,
+    alert: PropTypes.shape({
+        message: PropTypes.string,
+        showMessage: PropTypes.bool,
+        error: PropTypes.string,
+        showError: PropTypes.bool,
+        variant: PropTypes.string,
+        onClose: PropTypes.func,
+    }),
+    modalProps: PropTypes.shape({
+        modalTitle: PropTypes.node,
+        modalBody: PropTypes.node,
+    }),
+    children: PropTypes.node,
+    section: PropTypes.node,
+    actionsClassName: PropTypes.string,
+    actionsExtra: PropTypes.node,
+    className: PropTypes.string,
+    showStarRating: PropTypes.bool,
+    showCheckButton: PropTypes.bool,
+    checkButtonProps: PropTypes.object,
+    onEdit: PropTypes.func,
+};

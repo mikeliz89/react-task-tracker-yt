@@ -55,7 +55,8 @@ const [email, setEmail] = useState('');
 
             <PageTitle title={t('password_reset')} />
 
-            <Alert message={message}
+            <Alert
+             message={message}
                 showMessage={showMessage}
                 error={error}
                 showError={showError}

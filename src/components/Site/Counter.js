@@ -4,7 +4,7 @@ import CenterWrapper from "./CenterWrapper";
 
 export default function Counter({ counter, list, originalList, text }) {
 
-console.log(list)
+    //console.log(list)
 
     const getText = () => {
         if (text === undefined || text === '') {

@@ -19,7 +19,7 @@ import PageTitle from '../Site/PageTitle';
 export default function Login() {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.AUTH });
-const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -62,7 +62,8 @@ const [loading, setLoading] = useState(false);
 
             <PageTitle title={t('log_in')} />
 
-            <Alert message={message}
+            <Alert
+                message={message}
                 showMessage={showMessage}
                 error={error}
                 showError={showError}

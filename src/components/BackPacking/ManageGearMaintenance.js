@@ -68,7 +68,7 @@ export default function ManageGearMaintenance() {
             emptyText={t('no_gear_maintenance_instructions_to_show')}
         >
             <GearMaintenanceInstructions
-                gearMaintenanceInstructions={gearMaintenanceInstructions}
+                items={gearMaintenanceInstructions}
                 originalList={originalGearMaintenanceInstructions}
                 counter={counter}
                 onDelete={deleteInstruction}

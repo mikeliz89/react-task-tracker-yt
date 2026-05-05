@@ -88,7 +88,8 @@ const [categories, setCategories] = useState(ExerciseCategories);
             </ButtonGroup>
             <PageTitle title={t('create_exercise')} />
 
-            <Alert message={message}
+            <Alert 
+            message={message}
                 showMessage={showMessage}
                 error={error}
                 showError={showError}
