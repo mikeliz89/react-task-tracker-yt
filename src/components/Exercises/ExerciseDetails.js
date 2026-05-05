@@ -9,7 +9,6 @@ import { pushToFirebaseChild, updateToFirebaseById } from "../../datatier/datati
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
-import Alert from "../Alert";
 import CommentComponent from "../Comments/CommentComponent";
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
@@ -73,7 +72,7 @@ export default function ExerciseDetails() {
             showEditButton={true}
             isEditOpen={showEditExercise}
             onToggleEdit={() => setShowEditExercise(!showEditExercise)}
-            title={<PageTitle title={t('exercisedetails')} />}
+            title={t('exercisedetails')}
             preSummaryContent={
                 <div className="detailspage-field">
                     <span className="detailspage-meta-label">{t('category')}:</span>{' '}
@@ -96,15 +95,13 @@ export default function ExerciseDetails() {
                 }
             ]}
             editSection={<EditExercise exerciseID={params.id} exercise={exercise} onClose={() => setShowEditExercise(false)} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
             preImageSection={
                 <>
                     <Table>

@@ -7,7 +7,6 @@ import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
@@ -79,7 +78,7 @@ export default function BoardGameDetails() {
             showEditButton={true}
             isEditOpen={showEdit}
             onToggleEdit={() => setShowEdit(!showEdit)}
-            title={<PageTitle title={boardGame?.name} />}
+            title={boardGame?.name}
             titleSuffix={
                 <span className={`details-pill ${boardGame?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
                     {t('have')}: {boardGame?.haveAtHome === true ? t('yes') : t('no')}
@@ -93,15 +92,13 @@ export default function BoardGameDetails() {
             ]}
             editModalTitle={t('modal_header_edit_board_game')}
             editSection={<AddGame onSave={updateBoardGame} gameID={params.id} onClose={() => setShowEdit(false)} dbUrl={DB.BOARD_GAMES} showConsole={false} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
             imageSection={<ImageComponent url={DB.BOARD_GAME_IMAGES} objID={params.id} />}
             commentSection={<CommentComponent objID={params.id} url={DB.BOARD_GAME_COMMENTS} onSave={addCommentToBoardGame} />}
             linkSection={<LinkComponent objID={params.id} url={DB.BOARD_GAME_LINKS} onSaveLink={addLinkToBoardGame} />}

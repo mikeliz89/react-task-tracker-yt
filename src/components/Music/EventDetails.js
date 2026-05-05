@@ -8,7 +8,6 @@ import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import Alert from '../Alert';
 import Button from '../Buttons/Button';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
@@ -139,15 +138,13 @@ export default function EventDetails() {
             ]}
             editModalTitle={t('modal_header_edit_event')}
             editSection={<AddEvent onSave={updateEvent} eventID={params.id} onClose={toggleShowEdit} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
             preImageSection={
                 <>
                     <Button

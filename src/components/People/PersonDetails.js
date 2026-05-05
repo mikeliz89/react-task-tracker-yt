@@ -6,7 +6,6 @@ import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateString, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
@@ -101,15 +100,13 @@ export default function PersonDetails() {
             ]}
             editModalTitle={t('modal_header_edit_person')}
             editSection={<AddPerson onSave={updatePerson} personID={params.id} onClose={toggleShowEdit} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
             imageSection={<ImageComponent url={DB.PERSON_IMAGES} objID={params.id} />}
             commentSection={<CommentComponent objID={params.id} url={DB.PERSON_COMMENTS} onSave={addCommentToPerson} />}
             linkSection={<LinkComponent objID={params.id} url={DB.PERSON_LINKS} onSaveLink={addLinkToPerson} />}

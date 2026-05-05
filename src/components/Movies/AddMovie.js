@@ -140,7 +140,6 @@ export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
                     </ButtonGroup>
                 </Row>
             </Form>
-            {/* TODO rakenna linkin lisäys jo personin lisäykseen <AddLink onSaveLink={saveLink} /> */}
         </>
     )
 }

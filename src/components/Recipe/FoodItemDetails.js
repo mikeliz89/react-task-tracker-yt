@@ -8,7 +8,6 @@ import DetailsPage from '../Site/DetailsPage';
 import AddFoodItem from './AddFoodItem';
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { useAlert } from '../Hooks/useAlert';
-import Alert from '../Alert';
 import { updateToFirebaseById } from '../../datatier/datatier';
 
 export default function FoodItemDetails(id) {
@@ -64,15 +63,13 @@ export default function FoodItemDetails(id) {
                 { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(foodItem.modified)}</> }
             ]}
             editSection={<AddFoodItem foodItemID={id} onSave={updateFoodItem} onClose={() => setShowEdit(false)} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
         >
             <div style={{ marginTop: 16 }}>
                 <p>{t('fooditem_calories')}: {foodItem.calories}</p>

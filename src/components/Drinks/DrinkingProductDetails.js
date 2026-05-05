@@ -7,7 +7,6 @@ import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datati
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
-import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
@@ -120,15 +119,14 @@ export default function DrinkingProductDetails() {
                     onClose={toggleSetShowEdit}
                 />
             }
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages,
+                alertColLg: 12,
+            }}
             imageSection={<ImageComponent url={DB.DRINKINGPRODUCT_IMAGES} objID={params.id} />}
             commentSection={<CommentComponent objID={params.id} url={DB.DRINKINGPRODUCT_COMMENTS} onSave={addCommentToDrinkingProduct} />}
             linkSection={<LinkComponent objID={params.id} url={DB.DRINKINGPRODUCT_LINKS} onSaveLink={addLinkToDrinkingProduct} />}

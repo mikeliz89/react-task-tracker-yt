@@ -9,7 +9,6 @@ import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datati
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getGameConsoleNameByID } from '../../utils/ListUtils';
-import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
@@ -79,7 +78,7 @@ export default function GameDetails() {
             showEditButton={true}
             isEditOpen={showEdit}
             onToggleEdit={() => setShowEdit(!showEdit)}
-            title={<PageTitle title={game?.name} />}
+            title={game?.name}
             titleSuffix={
                 <span className={`details-pill ${game?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
                     {t('have')}: {game?.haveAtHome === true ? t('yes') : t('no')}
@@ -99,15 +98,13 @@ export default function GameDetails() {
             ]}
             editModalTitle={t('modal_header_edit_game')}
             editSection={<AddGame onSave={updateGame} gameID={params.id} onClose={() => setShowEdit(false)} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
             imageSection={<ImageComponent url={DB.GAME_IMAGES} objID={params.id} />}
             commentSection={<CommentComponent objID={params.id} url={DB.GAME_COMMENTS} onSave={addCommentToGame} />}
             linkSection={<LinkComponent objID={params.id} url={DB.GAME_LINKS} onSaveLink={addLinkToGame} />}

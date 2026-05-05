@@ -20,7 +20,7 @@ export default function CreateExercise() {
 
     //states
     const [category, setCategory] = useState();
-const [categories, setCategories] = useState(ExerciseCategories);
+    const [categories, setCategories] = useState(ExerciseCategories);
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState(new Date());
 
@@ -88,8 +88,8 @@ const [categories, setCategories] = useState(ExerciseCategories);
             </ButtonGroup>
             <PageTitle title={t('create_exercise')} />
 
-            <Alert 
-            message={message}
+            <Alert
+                message={message}
                 showMessage={showMessage}
                 error={error}
                 showError={showError}

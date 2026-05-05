@@ -3,17 +3,12 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getMovieFormatNameByID } from '../../utils/ListUtils';
-import Alert from '../Alert';
-import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
-import ImageComponent from '../ImageUpload/ImageComponent';
-import LinkComponent from '../Links/LinkComponent';
 import DetailsPage from '../Site/DetailsPage';
 
 import AddMovie from './AddMovie';
@@ -43,9 +38,6 @@ export default function MovieDetails() {
     //fetch data
     const { data: movie, loading } = useFetch(DB.MOVIES, "", params.id);
 
-    //auth
-    const { currentUser } = useAuth();
-
     const updateMovie = async (updateMovieID, movie) => {
         try {
             const movieID = params.id;
@@ -56,20 +48,7 @@ export default function MovieDetails() {
             console.warn(error);
         }
     }
-
-    const addCommentToMovie = (comment) => {
-        const id = params.id;
-        comment["created"] = getCurrentDateAsJson();
-        comment["createdBy"] = currentUser.email;
-        comment["creatorUserID"] = currentUser.uid;
-        pushToFirebaseChild(DB.MOVIE_COMMENTS, id, comment);
-    }
-
-    const addLinkToMovie = (link) => {
-        const id = params.id;
-        link["created"] = getCurrentDateAsJson();
-        pushToFirebaseChild(DB.MOVIE_LINKS, id, link);
-    }
+    // ...existing code...
 
     return (
         <DetailsPage
@@ -96,18 +75,25 @@ export default function MovieDetails() {
                 { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(movie?.modified, i18n.language)}</> }
             ]}
             editSection={<AddMovie onSave={updateMovie} movieID={params.id} onClose={() => setShowEdit(false)} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
-            imageSection={<ImageComponent url={DB.MOVIE_IMAGES} objID={params.id} />}
-            commentSection={<CommentComponent objID={params.id} url={DB.MOVIE_COMMENTS} onSave={addCommentToMovie} />}
-            linkSection={<LinkComponent objID={params.id} url={DB.MOVIE_LINKS} onSaveLink={addLinkToMovie} />}
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
+            commentProps={{
+                showComment: true,
+                commentUrl: DB.MOVIE_COMMENTS
+            }}
+            linkProps={{
+                showLink: true,
+                linkUrl: DB.MOVIE_LINKS
+            }}
+            imageProps={{
+                showImage: true,
+                imageUrl: DB.MOVIE_IMAGES,
+            }}
         />
     )
 }

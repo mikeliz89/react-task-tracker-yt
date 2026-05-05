@@ -128,7 +128,6 @@ export default function AddGear({ gearID, onSave, onClose, showLabels }) {
                     </ButtonGroup>
                 </Row>
             </Form>
-            {/* TODO rakenna linkin lisäys jo gearin lisäykseen <AddLink onSaveLink={saveLink} /> */}
         </>
     )
 }

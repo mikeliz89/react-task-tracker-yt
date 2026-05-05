@@ -20,7 +20,7 @@ export default function Signup() {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.AUTH });
-const [email, setEmail] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [loading, setLoading] = useState(false);
@@ -84,8 +84,8 @@ const [email, setEmail] = useState('');
 
             <PageTitle title={t('sign_up')} />
 
-            <Alert 
-            message={message}
+            <Alert
+                message={message}
                 showMessage={showMessage}
                 error={error}
                 showError={showError}

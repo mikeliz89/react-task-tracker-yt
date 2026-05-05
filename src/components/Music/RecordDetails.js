@@ -110,15 +110,14 @@ export default function RecordDetails() {
             ]}
             editModalTitle={t('modal_header_edit_record')}
             editSection={<AddRecord onSave={updateRecord} recordID={params.id} onClose={toggleShowEdit} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages,
+                alertColLg: 12,
+            }}
             imageSection={<ImageComponent url={DB.MUSIC_IMAGES} objID={params.id} />}
             commentSection={<CommentComponent objID={params.id} url={DB.MUSIC_COMMENTS} onSave={addCommentToRecord} />}
             linkSection={<LinkComponent objID={params.id} url={DB.MUSIC_LINKS} onSaveLink={addLinkToRecord} />}

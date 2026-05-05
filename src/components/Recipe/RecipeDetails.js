@@ -13,7 +13,6 @@ import { COLORS, NAVIGATION, DB, TRANSLATION, ICONS } from '../../utils/Constant
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
 import { getRecipeCategoryNameByID } from '../../utils/ListUtils';
-import Alert from '../Alert';
 import Button from '../Buttons/Button';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
@@ -268,15 +267,13 @@ export default function RecipeDetails() {
                 }
             ]}
             editSection={<AddRecipe onClose={() => setShowEditRecipe(false)} onSave={addRecipe} recipeID={params.id} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
             preImageSection={
                 <>
                     <Tabs defaultActiveKey="home"

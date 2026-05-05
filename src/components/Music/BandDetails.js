@@ -7,7 +7,6 @@ import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
@@ -79,7 +78,7 @@ export default function BandDetails() {
             showEditButton={true}
             isEditOpen={showEdit}
             onToggleEdit={() => setShowEdit(!showEdit)}
-            title={<PageTitle title={band?.name} />}
+            title={band?.name}
             summary={`${t('description')}: ${band?.description || '-'}`}
             metaItems={[
                 { id: 1, content: <>{t('created')}: {getJsonAsDateTimeString(band?.created, i18n.language)}</> },
@@ -88,15 +87,13 @@ export default function BandDetails() {
             ]}
             editModalTitle={t('modal_header_edit_band')}
             editSection={<AddBand onSave={updateBand} bandID={params.id} onClose={() => setShowEdit(false)} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
             imageSection={<ImageComponent url={DB.MUSIC_BAND_IMAGES} objID={params.id} />}
             commentSection={<CommentComponent objID={params.id} url={DB.MUSIC_BAND_COMMENTS} onSave={addCommentToBand} />}
             linkSection={<LinkComponent objID={params.id} url={DB.MUSIC_BAND_LINKS} onSaveLink={addLinkToBand} />}

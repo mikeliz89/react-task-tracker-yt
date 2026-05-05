@@ -97,7 +97,6 @@ export default function AddPerson({ personID, onSave, onClose, showLabels = true
                     </ButtonGroup>
                 </Row>
             </Form>
-            {/* TODO rakenna linkin lisäys jo personin lisäykseen <AddLink onSaveLink={saveLink} /> */}
         </>
     )
 }

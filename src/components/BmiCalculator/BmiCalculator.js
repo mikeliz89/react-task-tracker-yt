@@ -117,8 +117,8 @@ export default function BmiCalculator() {
                 </ButtonGroup>
             </Row>
 
-            <Alert 
-            message={message}
+            <Alert
+                message={message}
                 showMessage={showMessage}
                 error={error}
                 showError={showError}

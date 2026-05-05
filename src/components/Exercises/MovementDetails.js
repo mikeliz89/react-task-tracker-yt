@@ -8,7 +8,6 @@ import { pushToFirebaseChild, updateToFirebaseById } from '../../datatier/datati
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
-import Alert from '../Alert';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
@@ -102,15 +101,13 @@ export default function MovementDetails() {
                 }
             ]}
             editSection={<AddMovement movementID={params.id} onClose={() => setShowEditMovement(false)} onSave={updateMovement} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages
+            }}
             imageSection={<ImageComponent url={DB.EXERCISE_MOVEMENT_IMAGES} objID={params.id} />}
             commentSection={<CommentComponent objID={params.id} url={DB.EXERCISE_MOVEMENT_COMMENTS} onSave={addCommentToMovement} />}
             linkSection={<LinkComponent objID={params.id} url={DB.EXERCISE_MOVEMENT_LINKS} onSaveLink={addLinkToMovement} />}

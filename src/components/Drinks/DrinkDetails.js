@@ -14,7 +14,6 @@ import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION } from '../../utils/Constant
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
 import { getDrinkCategoryNameByID } from '../../utils/ListUtils';
-import Alert from '../Alert';
 import Button from '../Buttons/Button';
 import CommentComponent from '../Comments/CommentComponent';
 import { useAlert } from '../Hooks/useAlert';
@@ -255,15 +254,14 @@ export default function DrinkDetails() {
             ]}
             editModalTitle={t('modal_header_edit_drink')}
             editSection={<AddDrink onSave={updateDrink} drinkID={params.id} onClose={toggleSetShowEditDrink} />}
-            alertSection={
-                <Alert
-                    message={message}
-                    showMessage={showMessage}
-                    error={error}
-                    showError={showError}
-                    onClose={clearMessages}
-                />
-            }
+            alertProps={{
+                message,
+                showMessage,
+                error,
+                showError,
+                onClose: clearMessages,
+                alertColLg: 12,
+            }}
             preImageSection={
                 <>
                     <Tabs defaultActiveKey="incredients"
@@ -360,18 +358,61 @@ export default function DrinkDetails() {
                                 </>
                             )}
                         </Tab>
+                        <Tab eventKey="recipeView" title={t('tabheader_recipe_view')}>
+                            <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+                                <div style={{ flex: 1, minWidth: 250 }}>
+                                    <h5>{t('incredients_header')}</h5>
+                                    {incredients && incredients.length > 0 ? (
+                                        <ul style={{ paddingLeft: 20 }}>
+                                            {incredients.map((item, idx) => (
+                                                <li key={item.id || idx}>{item.name}{item.amount ? ` (${item.amount}${item.unit ? ' ' + item.unit : ''})` : ''}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <CenterWrapper>{t('no_incredients_to_show')}</CenterWrapper>
+                                    )}
+                                </div>
+                                <div style={{ flex: 1, minWidth: 250 }}>
+                                    <h5>{t('workphases_header')}</h5>
+                                    {workPhases && workPhases.length > 0 ? (
+                                        <ol style={{ paddingLeft: 20 }}>
+                                            {workPhases.map((item, idx) => (
+                                                <li key={item.id || idx}>{item.name || item.text || item.description}</li>
+                                            ))}
+                                        </ol>
+                                    ) : (
+                                        <CenterWrapper>{t('no_workphases_to_show')}</CenterWrapper>
+                                    )}
+                                </div>
+                            </div>
+                        </Tab>
+                        <Tab eventKey="drinkHistory" title={t('drink_history_header')}>
+                            <Button
+                                iconName={ICONS.PLUS_SQUARE}
+                                text={t('do_drink')}
+                                onClick={() => {
+                                    if (window.confirm(t('do_drink_confirm'))) {
+                                        saveDrinkHistory(params.id);
+                                    }
+                                }}
+                            />
+                            {drinkHistory != null && drinkHistory.length > 0 ? (
+                                <RecipeHistories
+                                    dbUrl={DB.DRINK_HISTORY}
+                                    translation={TRANSLATION.TRANSLATION}
+                                    translationKeyPrefix={TRANSLATION.DRINKS}
+                                    recipeHistories={drinkHistory}
+                                    recipeID={params.id} />
+                            ) : (
+                                <>
+                                    <CenterWrapper>
+                                        {t('no_drink_history')}
+                                    </CenterWrapper>
+                                </>
+                            )}
+                        </Tab>
                         <Tab eventKey="actions" title={t('tabheader_actions')}>
                             <>
-                                <Button
-                                    iconName={ICONS.PLUS_SQUARE}
-                                    text={t('do_drink')}
-                                    onClick={() => {
-                                        if (window.confirm(t('do_drink_confirm'))) {
-                                            saveDrinkHistory(params.id);
-                                        }
-                                    }}
-                                />
-                                &nbsp;
                                 <Button
                                     iconName={ICONS.PLUS_SQUARE}
                                     text={t('shopcart_tooltip')}
@@ -384,21 +425,6 @@ export default function DrinkDetails() {
                             </>
                         </Tab>
                     </Tabs>
-
-                    {
-                        drinkHistory != null && drinkHistory.length > 0 ? (
-                            <RecipeHistories
-                                dbUrl={DB.DRINK_HISTORY}
-                                translation={TRANSLATION.TRANSLATION}
-                                translationKeyPrefix={TRANSLATION.DRINKS}
-                                recipeHistories={drinkHistory}
-                                recipeID={params.id} />
-                        ) : (
-                            <CenterWrapper>
-                                {t('no_drink_history')}
-                            </CenterWrapper>
-                        )
-                    }
                 </>
             }
             imageSection={<ImageComponent objID={params.id} url={DB.DRINK_IMAGES} />}
