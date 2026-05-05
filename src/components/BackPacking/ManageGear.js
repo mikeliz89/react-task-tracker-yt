@@ -21,6 +21,7 @@ export default function ManageGear() {
                 defaultSort: SortMode.Name_ASC,
                 showSortByName: true,
                 showSortByStarRating: true,
+                showFilterHaveAtHome: true,
                 filterMode: FilterMode.Name,
                 showFilterHaveRated: true,
             }}

@@ -82,6 +82,11 @@ export default function GearDetails() {
             isEditOpen={showEdit}
             onToggleEdit={() => setShowEdit(!showEdit)}
             title={<PageTitle title={gear?.name} />}
+            titleSuffix={
+                <span className={`details-pill ${gear?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
+                    {t('have')}: {gear?.haveAtHome === true ? t('yes') : t('no')}
+                </span>
+            }
             preSummaryContent={
                 <>
                     <div className="detailspage-field">

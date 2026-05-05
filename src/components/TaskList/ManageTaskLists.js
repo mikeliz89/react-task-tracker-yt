@@ -36,6 +36,8 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
   //modal
   const { status: showAddTaskList, toggleStatus: toggleAddTaskList } = useToggle();
 
+  
+
   const addTaskList = async (taskList) => {
     taskList["created"] = getCurrentDateAsJson();
     taskList["createdBy"] = currentUser.email;
