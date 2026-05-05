@@ -80,6 +80,13 @@ export default function RecordDetails() {
             isEditOpen={showEdit}
             onToggleEdit={toggleShowEdit}
             title={`${record?.band || ''} ${record?.name || ''}`.trim()}
+            titleSuffix={
+                <span className={`details-pill ${record?.haveAtHome === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
+                    {record?.haveAtHome === true
+                        ? t('have')
+                        : t('have_not')}
+                </span>
+            }
             preSummaryContent={
                 <div className="detailspage-field">
                     <span className="detailspage-meta-label">{t('format')}:</span>{' '}
