@@ -30,7 +30,6 @@ import LinkComponent from '../Links/LinkComponent';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import SearchSortFilter from '../SearchSortFilter/SearchSortFilter';
 import CenterWrapper from '../Site/CenterWrapper';
-import Counter from '../Site/Counter';
 import PageContentWrapper from '../Site/PageContentWrapper';
 import PageTitle from '../Site/PageTitle';
 import AddTask from '../Task/AddTask';
@@ -586,17 +585,16 @@ export default function TaskListDetails() {
           {toolsMenu}
 
           {tasks != null && tasks.length > 0 ? (
-            <>
-              <Counter list={tasks} originalList={originalTasks} counter={taskCounter} text={t('tasks')} />
-              <Tasks
-                taskListID={params.id}
-                tasks={tasks}
-                onDelete={deleteTask}
-                onToggle={toggleReminder}
-                selectedIds={selectedIds}
-                onSelectToggle={toggleSelect}
-              />
-            </>
+            <Tasks
+              taskListID={params.id}
+              items={tasks}
+              onDelete={deleteTask}
+              onToggle={toggleReminder}
+              selectedIds={selectedIds}
+              onSelectToggle={toggleSelect}
+              counter={taskCounter}
+              originalList={originalTasks}
+            />
           ) : (
             <>
               <CenterWrapper>

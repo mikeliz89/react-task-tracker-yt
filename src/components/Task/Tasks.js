@@ -1,7 +1,12 @@
 import Task from './Task';
+import Counter from '../Site/Counter';
 
 export default function Tasks({
-  taskListID, tasks, archived,
+  taskListID,
+  items,
+  archived,
+  originalList,
+  counter,
   onDelete,
   onToggle,
   selectedIds,
@@ -9,7 +14,12 @@ export default function Tasks({
 
   return (
     <div className="tasksList">
-      {tasks.map((task) => (
+      {
+        originalList != null && counter != null ? (
+          <Counter list={items} originalList={originalList} counter={counter} />
+        ) : (<></>)
+      }
+      {items.map((task) => (
         <Task key={task.id}
           archived={archived}
           task={task}

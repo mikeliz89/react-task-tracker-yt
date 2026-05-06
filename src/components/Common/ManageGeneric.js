@@ -41,7 +41,9 @@ export default function ManageGeneric({
     //copy button
     showCopyButton = false,
     // modal title override
-    modalTitle
+    modalTitle,
+    // center actions
+    centerActions
 }) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: translationKey });
@@ -134,6 +136,7 @@ export default function ManageGeneric({
                     onSave={addItem}
                     {...AddComponentProps} />
             } : undefined}
+            centerActions={centerActions}
         >
             <ListComponent
                 items={listToShow}
@@ -164,4 +167,5 @@ ManageGeneric.propTypes = {
     AddComponentProps: PropTypes.object,
     title: PropTypes.node,
     modalTitle: PropTypes.string,
+    centerActions: PropTypes.node,
 };

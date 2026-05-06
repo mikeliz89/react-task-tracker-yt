@@ -6,7 +6,11 @@ export default function Movements({ items, originalList, counter, onDelete }) {
 
     return (
         <div>
-            <Counter list={items} originalList={originalList} counter={counter} />
+            {
+                originalList != null && counter != null ? (
+                    <Counter list={items} originalList={originalList} counter={counter} />
+                ) : (<></>)
+            }
             {items.map((movement) => (
                 <Movement key={movement.id} movement={movement} onDelete={onDelete} />
             ))}

@@ -2,7 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { TRANSLATION, NAVIGATION, DB } from '../../utils/Constants';
 import { getMovementCategoryNameByID } from '../../utils/ListUtils';
-
+import { updateToFirebaseById } from '../../datatier/datatier';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import ListRow from '../Site/ListRow';
 import { useState } from 'react';
 import AddMovement from './AddMovement';
@@ -14,7 +15,8 @@ export default function Movement({ movement, onDelete }) {
     const [editable, setEditable] = useState(false);
 
     const updateMovement = (object) => {
-        // TODO: implement update logic if needed
+        object["modified"] = getCurrentDateAsJson();
+        updateToFirebaseById(DB.EXERCISE_MOVEMENTS, movement.id, object);
         setEditable(false);
     };
 

@@ -5,7 +5,7 @@ import FoodItem from './FoodItem';
 export default function FoodItems({ items, onDelete, onEdit, originalList, counter }) {
 
     return (
-        <>
+        <div>
             {
                 originalList != null && counter != null ? (
                     <Counter list={items} originalList={originalList} counter={counter} />
@@ -20,7 +20,7 @@ export default function FoodItems({ items, onDelete, onEdit, originalList, count
                         onEdit={onEdit} />
                 ) : ''
             }
-        </>
+        </div>
     )
 }
 
