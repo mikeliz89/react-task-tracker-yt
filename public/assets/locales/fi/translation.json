@@ -714,7 +714,8 @@
         "star_rating": "Arvio",
         "text": "Nimi",
         "title": "Nimi",
-        "publishYear": "Julkaisuvuosi"
+        "publishYear": "Julkaisuvuosi",
+        "track_name": "Radan nimi"
     },
     "starrating": {
         "rate": "Arvioi",

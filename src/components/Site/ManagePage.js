@@ -98,7 +98,7 @@ export default function ManagePage({
             {centerActions || addButton ? (
                 <CenterWrapper>
                     {centerActions}
-                    {copyButton ? (
+                    {copyButton && copyButton.showCopyButton ? (
                         <CopyToClipboardButton
                             items={copyButton.items}
                             getText={copyButton.getItemText}

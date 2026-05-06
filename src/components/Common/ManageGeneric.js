@@ -24,7 +24,7 @@ export default function ManageGeneric({
     dbKey,
     translationKey,
     //Components
-    AddComponent,
+    AddComponent = null,
     AddComponentProps = {},
     ListComponent,
     ListComponentProps = {},
@@ -37,7 +37,10 @@ export default function ManageGeneric({
     //listNav is used to create a generic list navigation button if topActions is not provided
     listNav,
     //title
-    title }) {
+    title,
+    //copy button
+    showCopyButton = false
+}) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: translationKey });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
@@ -105,12 +108,13 @@ export default function ManageGeneric({
                 onClose: clearMessages,
             }}
             copyButton={{
-                items: listToShow
+                show: showCopyButton,
+                items: Array.isArray(listToShow) ? listToShow : (listToShow ? [listToShow] : [])
             }}
-            addButton={{
+            addButton={AddComponent ? {
                 show: showAdd,
                 onToggle: toggleAdd
-            }}
+            } : undefined}
             loading={loading}
             searchSortFilter={searchSortFilterOptions ? {
                 ...searchSortFilterOptions,
@@ -119,7 +123,7 @@ export default function ManageGeneric({
             } : undefined}
             hasItems={listToShow != null && listToShow.length > 0}
             emptyText={tCommon('nothing_to_show')}
-            modal={showAdd ? {
+            modal={AddComponent && showAdd ? {
                 show: showAdd,
                 onHide: toggleAdd,
                 title: t('add'),
@@ -144,7 +148,7 @@ export default function ManageGeneric({
 ManageGeneric.propTypes = {
     dbKey: PropTypes.string.isRequired,
     translationKey: PropTypes.string.isRequired,
-    AddComponent: PropTypes.elementType.isRequired,
+    AddComponent: PropTypes.elementType,
     ListComponent: PropTypes.elementType.isRequired,
     searchSortFilterOptions: PropTypes.object,
     iconName: PropTypes.string,

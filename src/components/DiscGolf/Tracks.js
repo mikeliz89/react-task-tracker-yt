@@ -1,14 +1,21 @@
 import Track from "./Track";
 
-export default function Tracks({ tracks, onDelete }) {
+import Counter from '../Site/Counter';
+
+export default function Tracks({ items, originalList, counter, onDelete }) {
+
+
+    // Counter-komponentti näkyviin kuten Games.js
+    // Huom: oletetaan että propsina tulee myös originalList ja counter
 
     return (
         <>
-            {
-                tracks.map((track) => (
-                    <Track key={track.id} track={track} onDelete={onDelete} />
-                ))
-            }
+            {originalList != null && counter != null ? (
+                <Counter list={items} originalList={originalList} counter={counter} />
+            ) : null}
+            {items.map((track) => (
+                <Track key={track.id} track={track} onDelete={onDelete} />
+            ))}
         </>
     )
 }

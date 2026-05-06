@@ -3,6 +3,8 @@ export const SortMode = {
     None: "None",
     Name_ASC: "Name_ASC",
     Name_DESC: "Name_DESC",
+    TrackName_ASC: "TrackName_ASC",
+    TrackName_DESC: "TrackName_DESC",
     Created_ASC: "Created_ASC",
     Created_DESC: "Created_DESC",
     Title_ASC: "Title_ASC",
