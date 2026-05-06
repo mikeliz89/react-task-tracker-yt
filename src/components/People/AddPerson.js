@@ -45,7 +45,18 @@ export default function AddPerson({ personID, onSave, onClose, showLabels = true
             return;
         }
 
-        onSave({ address, created, createdBy, description, name, birthday, stars });
+
+        const payload = {
+            address,
+            created,
+            createdBy,
+            description,
+            name,
+            birthday,
+            stars
+        };
+
+        onSave(personID, payload);
 
         if (personID == null) {
             clearForm();

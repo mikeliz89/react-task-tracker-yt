@@ -2,7 +2,7 @@ import Counter from '../Site/Counter';
 
 import Person from './Person';
 
-export default function PeopleList({ items, onDelete, originalList, counter }) {
+export default function PeopleList({ items, onDelete, onEdit, originalList, counter }) {
 
     return (
         <div>
@@ -12,7 +12,11 @@ export default function PeopleList({ items, onDelete, originalList, counter }) {
                 ) : (<></>)
             }
             {items.map((person) => (
-                <Person key={person.id} person={person} onDelete={onDelete} />
+                <Person key={person.id}
+                    person={person}
+                    onDelete={onDelete}
+                    onEdit={onEdit}
+                />
             ))}
         </div>
     )

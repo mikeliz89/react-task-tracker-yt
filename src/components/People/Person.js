@@ -14,7 +14,9 @@ import ListRow from '../Site/ListRow';
 import AddPerson from './AddPerson';
 
 export default function Person({ person, onDelete }) {
+
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.PEOPLE });
+
     const {
         message,
         showMessage,
@@ -22,12 +24,15 @@ export default function Person({ person, onDelete }) {
         showError,
         clearMessages
     } = useAlert();
+
     const [editable, setEditable] = useState(false);
-    const updatePerson = (object) => {
+
+    const updatePerson = (updatePersonID, object) => {
         object["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(DB.PEOPLE, person.id, object);
+        updateToFirebaseById(DB.PEOPLE, updatePersonID, object);
         setEditable(false);
     };
+
     // Laske ikä jos syntymäpäivä on olemassa
     let age = null;
     if (person.birthday) {
