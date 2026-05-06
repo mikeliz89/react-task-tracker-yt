@@ -14,8 +14,7 @@ export default function FoodItem({ foodItem, onDelete, onEdit }) {
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
 
     const editFoodItem = (editedFoodItem) => {
-        editedFoodItem["id"] = foodItem.id;
-        onEdit(editedFoodItem);
+        onEdit(editedFoodItem, foodItem.id);
     }
 
     return (
