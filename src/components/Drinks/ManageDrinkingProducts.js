@@ -24,6 +24,7 @@ export default function ManageDrinkingProducts() {
                 filterMode: FilterMode.Name,
                 showFilterHaveAtHome: true,
                 showFilterHaveRated: true,
+                showSearchByText: true,
             }}
         />
     );

@@ -24,8 +24,6 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
         setEditable(false);
     }
 
-
-
     const gameTitle = `${game.name} ${game.publishYear > 0 ? `(${game.publishYear})` : ''}`.trim();
 
     return (

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { updateToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, ICONS, COLORS, NAVIGATION, DB } from '../../utils/Constants';
 import { getDrinkingProductCategoryNameByID } from '../../utils/ListUtils';
 import ListRow from '../Site/ListRow';
-
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import AddDrinkingProduct from './AddDrinkingProduct';
 
 export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
@@ -15,10 +15,10 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
 
-
-    const editDrinkingProduct = (editedDrinkingProduct) => {
-        editedDrinkingProduct["id"] = drinkingProduct.id;
-        onEdit(editedDrinkingProduct);
+    const updateDrinkingProduct = (updateDrinkingProductID, object) => {
+        object["modified"] = getCurrentDateAsJson();
+        updateToFirebaseById(DB.DRINKINGPRODUCTS, updateDrinkingProductID, object);
+        setEditable(false);
     }
 
     const drinkingProductTitle = `${drinkingProduct.name}${drinkingProduct.abv > 0 ? ` (${drinkingProduct.abv}%)` : ''}`;
@@ -53,7 +53,7 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
                 modalBody: (
                     <AddDrinkingProduct
                         onClose={() => setEditable(false)}
-                        onSave={editDrinkingProduct}
+                        onSave={updateDrinkingProduct}
                         drinkingProductID={drinkingProduct.id}
                     />
                 )
