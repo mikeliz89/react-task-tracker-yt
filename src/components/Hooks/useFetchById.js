@@ -4,8 +4,8 @@ import { getFromFirebaseById } from '../../datatier/datatier';
 
 export default function useFetchById(dbName, id) {
 
-    console.log(dbName);
-    console.log(id);
+    //console.log(dbName);
+    //console.log(id);
     
     const [data, setData] = useState(null);
 

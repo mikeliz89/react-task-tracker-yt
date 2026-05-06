@@ -63,7 +63,7 @@ export default function AddDrinkingProduct({ drinkingProductID, onSave, onClose,
          return
       }
 
-      onSave({
+      onSave(drinkingProductID, {
          abv, amount, category,
          created, createdBy, description,
          haveAtHome, manufacturer, name,
