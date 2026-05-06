@@ -39,7 +39,9 @@ export default function ManageGeneric({
     //title
     title,
     //copy button
-    showCopyButton = false
+    showCopyButton = false,
+    // modal title override
+    modalTitle
 }) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: translationKey });
@@ -126,7 +128,7 @@ export default function ManageGeneric({
             modal={AddComponent && showAdd ? {
                 show: showAdd,
                 onHide: toggleAdd,
-                title: t('add'),
+                title: modalTitle ?? t('add'),
                 body: <AddComponent show={showAdd}
                     onClose={toggleAdd}
                     onSave={addItem}
@@ -161,4 +163,5 @@ ManageGeneric.propTypes = {
     ListComponentProps: PropTypes.object,
     AddComponentProps: PropTypes.object,
     title: PropTypes.node,
+    modalTitle: PropTypes.string,
 };

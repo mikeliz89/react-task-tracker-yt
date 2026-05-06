@@ -455,6 +455,7 @@
         "save_success": "Tallennus onnistui"
     },
     "music": {
+        "add": "Lisää tallenne",
         "action": "Toiminto",
         "add_bands_to_event": "Lisää bändejä tapahtumaan",
         "band": "Bändi",
