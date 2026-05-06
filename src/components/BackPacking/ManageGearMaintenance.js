@@ -57,11 +57,6 @@ export default function ManageGearMaintenance() {
             }
             addButton={{
                 show: showAddGearMaintenance,
-                iconName: ICONS.PLUS,
-                openColor: COLORS.ADDBUTTON_OPEN,
-                closedColor: COLORS.ADDBUTTON_CLOSED,
-                openText: tCommon('buttons.button_close'),
-                closedText: t('button_add_maintenance_instructions'),
                 onToggle: toggleAddGearMaintenance,
             }}
             hasItems={gearMaintenanceInstructions != null && gearMaintenanceInstructions.length > 0}

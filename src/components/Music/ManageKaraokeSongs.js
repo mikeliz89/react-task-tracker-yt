@@ -116,11 +116,6 @@ export default function ManageKaraokeSongs() {
             }}
             addButton={{
                 show: showAddSong,
-                iconName: ICONS.PLUS,
-                openColor: COLORS.ADDBUTTON_OPEN,
-                closedColor: COLORS.ADDBUTTON_CLOSED,
-                openText: tCommon('buttons.button_close'),
-                closedText: t('button_add_karaoke_song'),
                 onToggle: toggleAddSong,
             }}
             hasItems={songs != null && songs.length > 0}

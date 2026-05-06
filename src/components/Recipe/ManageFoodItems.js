@@ -97,11 +97,6 @@ export default function ManageFoodItems() {
             }}
             addButton={{
                 show: showAddFoodItem,
-                iconName: ICONS.PLUS,
-                openColor: COLORS.ADDBUTTON_OPEN,
-                closedColor: COLORS.ADDBUTTON_CLOSED,
-                openText: tCommon('buttons.button_close'),
-                closedText: t('button_add_fooditem'),
                 onToggle: toggleAddFoodItem,
             }}
             hasItems={foodItems != null && foodItems.length > 0}

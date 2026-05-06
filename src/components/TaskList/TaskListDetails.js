@@ -20,6 +20,7 @@ import { COLORS, DB, ICONS, TRANSLATION } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getManagePageByListType, getPageTitleContent } from '../../utils/ListUtils';
 import Button from '../Buttons/Button';
+import CopyToClipboardButton from '../Buttons/CopyToClipboardButton';
 import GoBackButton from '../Buttons/GoBackButton';
 import CommentComponent from '../Comments/CommentComponent';
 import useFetch from '../Hooks/useFetch';
@@ -358,22 +359,26 @@ export default function TaskListDetails() {
     pushToFirebaseChild(DB.TASKLIST_LINKS, taskListID, link);
   }
 
-  const copyToClipboard = () => {
-    let text = "";
-    tasks.forEach(function (arrayItem) {
-      text += "*" + arrayItem.text.trim() + "*";
-      if (arrayItem.day) {
-        text += ": " + arrayItem.day;
-      }
-      if (arrayItem.reminder) {
-        text += ` [x]`;
-      } else {
-        text += ` [ ]`;
-      }
-      text += "\n";
-    });
-    navigator.clipboard.writeText(text);
-  }
+
+  // Custom formatter for tasks to clipboard
+  const getTasksClipboardText = (items) => {
+    let text = '';
+    if (Array.isArray(items)) {
+      items.forEach(function (arrayItem) {
+        text += "*" + (arrayItem.text?.trim() || '') + "*";
+        if (arrayItem.day) {
+          text += ": " + arrayItem.day;
+        }
+        if (arrayItem.reminder) {
+          text += ` [x]`;
+        } else {
+          text += ` [ ]`;
+        }
+        text += "\n";
+      });
+    }
+    return text;
+  };
 
   const toolsMenu = (
     <details style={{ marginBottom: 12 }}>
@@ -383,7 +388,10 @@ export default function TaskListDetails() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 8 }}>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-          <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')} iconName={ICONS.COPY} />
+          <CopyToClipboardButton
+            items={tasks}
+            getText={getTasksClipboardText}
+          />
           <Button
             iconName={ICONS.PLUS}
             color={showBulkAddTasks ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}

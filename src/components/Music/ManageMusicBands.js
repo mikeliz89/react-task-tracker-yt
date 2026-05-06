@@ -110,11 +110,6 @@ export default function ManageMusicBands() {
             }}
             addButton={{
                 show: showAddBand,
-                iconName: ICONS.PLUS,
-                openColor: COLORS.ADDBUTTON_OPEN,
-                closedColor: COLORS.ADDBUTTON_CLOSED,
-                openText: tCommon('buttons.button_close'),
-                closedText: t('button_add_music_band'),
                 onToggle: toggleAddBand,
             }}
             hasItems={bands != null && bands.length > 0}

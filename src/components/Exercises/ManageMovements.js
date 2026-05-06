@@ -87,11 +87,6 @@ export default function ManageMovements() {
             }}
             addButton={{
                 show: showAddMovement,
-                iconName: ICONS.PLUS,
-                openColor: COLORS.ADDBUTTON_OPEN,
-                closedColor: COLORS.ADDBUTTON_CLOSED,
-                openText: tCommon('buttons.button_close'),
-                closedText: tCommon('buttons.button_save'),
                 onToggle: toggleAddMovement,
             }}
             modal={{

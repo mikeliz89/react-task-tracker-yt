@@ -103,14 +103,12 @@ export default function ManageDrinkingProducts() {
                 showFilterHaveAtHome: true,
                 showFilterHaveRated: true,
             }}
+            copyButton={{
+                items: Array.isArray(drinkingProducts) ? drinkingProducts : [],
+            }}
             addButton={{
                 show: showAddDrinkingProduct,
-                iconName: ICONS.PLUS,
                 secondIconName: ICONS.WINE,
-                openColor: COLORS.ADDBUTTON_OPEN,
-                closedColor: COLORS.ADDBUTTON_CLOSED,
-                openText: tCommon('buttons.button_close'),
-                closedText: t('button_add_drinkingproduct'),
                 onToggle: toggleAddDrinkingProduct,
             }}
             hasItems={drinkingProducts != null && drinkingProducts.length > 0}

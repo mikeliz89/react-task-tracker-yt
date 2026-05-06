@@ -19,16 +19,24 @@ import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
  * @param {React.Component} props.AddComponent - Add item modal component
  * @param {React.Component} props.ListComponent - List component
  */
-export default function ManageGeneric({ dbKey,
+export default function ManageGeneric({
+    //db and translation
+    dbKey,
     translationKey,
+    //Components
     AddComponent,
-    ListComponent,
-    searchSortFilterOptions,
-    iconName,
-    topActions,
-    listNav,
-    ListComponentProps = {},
     AddComponentProps = {},
+    ListComponent,
+    ListComponentProps = {},
+    //search sort filter
+    searchSortFilterOptions,
+    //icon
+    iconName,
+    //topActions
+    topActions,
+    //listNav is used to create a generic list navigation button if topActions is not provided
+    listNav,
+    //title
     title }) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: translationKey });
@@ -96,14 +104,12 @@ export default function ManageGeneric({ dbKey,
                 showError,
                 onClose: clearMessages,
             }}
+            copyButton={{
+                items: listToShow
+            }}
             addButton={{
                 show: showAdd,
-                onToggle: toggleAdd,
-                text: t('add'),
-                openText: tCommon('buttons.button_close'),
-                closedText: tCommon('buttons.button_open'),
-                openColor: COLORS.ADDBUTTON_OPEN,
-                closedColor: COLORS.ADDBUTTON_CLOSED,
+                onToggle: toggleAdd
             }}
             loading={loading}
             searchSortFilter={searchSortFilterOptions ? {

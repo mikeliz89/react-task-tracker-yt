@@ -28,7 +28,6 @@
     "sign_up": "Sign Up"
   },
   "backpacking": {
-    "button_add_maintenance_instructions": "Add gear maintenance instruction",
     "button_add_gear": "Add gear",
     "button_manage_backpacking_lists": "Lists",
     "button_manage_gear": "My gear",
@@ -447,9 +446,6 @@
     "band": "Band",
     "band_name": "Band name",
     "band_forming_year": "Forming Year",
-    "button_add_music": "Add Record",
-    "button_add_music_event": "Add Event",
-    "button_add_music_band": "Add Band",
     "button_music_lists": "Lists",
     "created": "Created",
     "created_by": "Created By",
@@ -493,7 +489,6 @@
     "modal_header_edit_record": "Edit Record",
     "no_bands_to_show": "No bands to show",
     "no_events_to_show": "No events to show",
-    "button_add_karaoke_song": "Lisää karaokekappale_en",
     "karaoke_song_name": "Karaokekappaleen nimi_en",
     "karaoke_songs_title": "Karaokelaulut_en",
     "modal_header_add_karaoke_song": "Lisää karaokekappale_en",

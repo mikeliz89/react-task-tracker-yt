@@ -109,11 +109,6 @@ export default function ManageMusicEvents() {
             }}
             addButton={{
                 show: showAddEvent,
-                iconName: ICONS.PLUS,
-                openColor: COLORS.ADDBUTTON_OPEN,
-                closedColor: COLORS.ADDBUTTON_CLOSED,
-                openText: tCommon('buttons.button_close'),
-                closedText: t('button_add_music_event'),
                 onToggle: toggleAddEvent,
             }}
             hasItems={events != null && events.length > 0}

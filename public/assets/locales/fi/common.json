@@ -7,6 +7,7 @@
         "save_exception": "Tapahtui virhe tallennettaessa",
         "buttons": {
             "go_back_button_alt": "Takaisin",
+            "button_copy_to_clipboard": "Kopioi",
             "button_close": "Sulje",
             "button_open": "Lisää",
             "button_delete": "Poista",

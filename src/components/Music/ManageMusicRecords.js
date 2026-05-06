@@ -111,11 +111,6 @@ export default function ManageMusicRecords() {
             }}
             addButton={{
                 show: showAddRecord,
-                iconName: ICONS.PLUS,
-                openColor: COLORS.ADDBUTTON_OPEN,
-                closedColor: COLORS.ADDBUTTON_CLOSED,
-                openText: tCommon('buttons.button_close'),
-                closedText: t('button_add_music'),
                 onToggle: toggleAddRecord,
             }}
             hasItems={records != null && records.length > 0}
