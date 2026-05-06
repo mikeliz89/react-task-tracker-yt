@@ -26,6 +26,7 @@ export default function ManagePage({
     addButton,
     topActions,
     showGoBackButton = true,
+    copyButton,
     centerActions,
     //alert
     alert,
@@ -36,7 +37,6 @@ export default function ManagePage({
     //other
     hasItems,
     emptyText,
-    copyButton,
     children,
 }) {
 
@@ -98,7 +98,7 @@ export default function ManagePage({
             {centerActions || addButton ? (
                 <CenterWrapper>
                     {centerActions}
-                    {copyButton && copyButton.showCopyButton ? (
+                    {copyButton && copyButton.show ? (
                         <CopyToClipboardButton
                             items={copyButton.items}
                             getText={copyButton.getItemText}

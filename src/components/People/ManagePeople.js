@@ -26,6 +26,7 @@ export default function ManagePeople() {
         showSortByBirthday: true,
         filterMode: FilterMode.Name,
       }}
+      copyButton={{ showCopyButton: true }}
     />
   );
 }

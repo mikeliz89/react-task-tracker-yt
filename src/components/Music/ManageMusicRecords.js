@@ -32,6 +32,7 @@ export default function ManageMusicRecords() {
                 showFilterHaveAtHome: true,
                 showFilterHaveRated: true,
             }}
+            copyButton={{ showCopyButton: true }}
         />
     );
 }

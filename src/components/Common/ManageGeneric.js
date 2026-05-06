@@ -39,7 +39,7 @@ export default function ManageGeneric({
     //title
     title,
     //copy button
-    showCopyButton = false,
+    copyButton,
     // modal title override
     modalTitle,
     // center actions
@@ -112,7 +112,7 @@ export default function ManageGeneric({
                 onClose: clearMessages,
             }}
             copyButton={{
-                show: showCopyButton,
+                show: copyButton && typeof copyButton.showCopyButton !== 'undefined' ? copyButton.showCopyButton : false,
                 items: Array.isArray(listToShow) ? listToShow : (listToShow ? [listToShow] : [])
             }}
             addButton={AddComponent ? {
@@ -168,4 +168,5 @@ ManageGeneric.propTypes = {
     title: PropTypes.node,
     modalTitle: PropTypes.string,
     centerActions: PropTypes.node,
+    copyButton: PropTypes.object,
 };

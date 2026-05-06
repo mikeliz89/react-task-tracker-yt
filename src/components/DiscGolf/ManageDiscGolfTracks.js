@@ -23,6 +23,7 @@ export default function TracksList() {
             showSortByCreatedDate: true,
             showSortByTrackName: true,
          }}
+         copyButton={{ showCopyButton: true }}
       />
    );
 }

@@ -32,6 +32,7 @@ export default function ManageMusicEvents() {
                 filterMode: 'Name',
                 showFilterHaveRated: true,
             }}
+            copyButton={{ showCopyButton: true }}
         />
     );
 }

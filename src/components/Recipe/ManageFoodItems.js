@@ -22,6 +22,7 @@ export default function ManageFoodItems() {
                 filterMode: FilterMode.Name,
                 showFilterHaveAtHome: true,
             }}
+            copyButton={{ showCopyButton: true }}
         />
     );
 }

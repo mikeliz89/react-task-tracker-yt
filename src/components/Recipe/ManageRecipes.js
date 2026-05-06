@@ -51,6 +51,7 @@ export default function ManageRecipes() {
           </NavButton>
         </>
       )}
+      copyButton={{ showCopyButton: true }}
     />
   );
 }

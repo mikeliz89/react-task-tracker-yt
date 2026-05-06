@@ -15,7 +15,7 @@ export default function ManageGearMaintenance() {
             ListComponent={GearMaintenanceInstructions}
             iconName={ICONS.WRENCH}
             title={t('button_manage_gear_maintenance')}
-            showCopyButton={true}
+            copyButton={{ showCopyButton: true }}
         />
     );
 }

@@ -25,6 +25,7 @@ export default function ManageGear() {
                 filterMode: FilterMode.Name,
                 showFilterHaveRated: true,
             }}
+            copyButton={{ showCopyButton: true }}
         />
     );
 

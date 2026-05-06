@@ -17,7 +17,6 @@ import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import useFetch from '../Hooks/useFetch';
 import CenterWrapper from '../Site/CenterWrapper';
-import Counter from '../Site/Counter';
 import PageContentWrapper from '../Site/PageContentWrapper';
 
 export default function ArchivedTaskListDetails() {

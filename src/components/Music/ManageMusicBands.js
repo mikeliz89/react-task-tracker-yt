@@ -33,6 +33,7 @@ export default function ManageMusicBands() {
                 showFilterSeenLive: true,
                 showFilterHaveRated: true,
             }}
+            copyButton={{ showCopyButton: true }}
         />
     );
 }

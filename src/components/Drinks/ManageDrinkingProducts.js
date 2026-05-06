@@ -26,6 +26,7 @@ export default function ManageDrinkingProducts() {
                 showFilterHaveRated: true,
                 showSearchByText: true,
             }}
+            copyButton={{ showCopyButton: true }}
         />
     );
 }
