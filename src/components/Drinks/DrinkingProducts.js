@@ -5,8 +5,12 @@ import DrinkingProduct from './DrinkingProduct';
 export default function DrinkingProducts({ items, originalList, counter, onDelete, onEdit }) {
 
     return (
-        <>
-            <Counter list={items} originalList={originalList} counter={counter} />
+        <div>
+            {
+                originalList != null && counter != null ? (
+                    <Counter list={items} originalList={originalList} counter={counter} />
+                ) : (<></>)
+            }
             {items
                 ? items.map((product, index) =>
                     <DrinkingProduct
@@ -16,7 +20,7 @@ export default function DrinkingProducts({ items, originalList, counter, onDelet
                         onEdit={onEdit} />
                 ) : ''
             }
-        </>
+        </div>
     )
 }
 

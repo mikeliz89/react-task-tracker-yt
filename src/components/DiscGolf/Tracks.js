@@ -1,15 +1,20 @@
 import Track from "./Track";
 
-export default function Tracks({ tracks, onDelete }) {
+import Counter from '../Site/Counter';
+
+export default function Tracks({ items, originalList, counter, onDelete }) {
 
     return (
-        <>
+        <div>
             {
-                tracks.map((track) => (
-                    <Track key={track.id} track={track} onDelete={onDelete} />
-                ))
+                originalList != null && counter != null ? (
+                    <Counter list={items} originalList={originalList} counter={counter} />
+                ) : (<></>)
             }
-        </>
+            {items.map((track) => (
+                <Track key={track.id} track={track} onDelete={onDelete} />
+            ))}
+        </div>
     )
 }
 

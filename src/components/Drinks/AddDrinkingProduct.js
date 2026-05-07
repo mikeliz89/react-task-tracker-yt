@@ -63,12 +63,14 @@ export default function AddDrinkingProduct({ drinkingProductID, onSave, onClose,
          return
       }
 
-      onSave({
+      const payload = {
          abv, amount, category,
          created, createdBy, description,
          haveAtHome, manufacturer, name,
          stars
-      });
+      };
+
+      onSave(drinkingProductID, payload);
 
       if (drinkingProductID == null) {
          clearForm();

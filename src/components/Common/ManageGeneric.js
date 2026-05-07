@@ -19,17 +19,32 @@ import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
  * @param {React.Component} props.AddComponent - Add item modal component
  * @param {React.Component} props.ListComponent - List component
  */
-export default function ManageGeneric({ dbKey,
+export default function ManageGeneric({
+    //db and translation
+    dbKey,
     translationKey,
-    AddComponent,
-    ListComponent,
-    searchSortFilterOptions,
-    iconName,
-    topActions,
-    listNav,
-    ListComponentProps = {},
+    //Components
+    AddComponent = null,
     AddComponentProps = {},
-    title }) {
+    ListComponent,
+    ListComponentProps = {},
+    //search sort filter
+    searchSortFilterOptions,
+    //icon
+    iconName,
+    //topActions
+    topActions,
+    //listNav is used to create a generic list navigation button if topActions is not provided
+    listNav,
+    //title
+    title,
+    //copy button
+    copyButton,
+    // modal title override
+    modalTitle,
+    // center actions
+    centerActions
+}) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: translationKey });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
@@ -96,15 +111,14 @@ export default function ManageGeneric({ dbKey,
                 showError,
                 onClose: clearMessages,
             }}
-            addButton={{
-                show: showAdd,
-                onToggle: toggleAdd,
-                text: t('add'),
-                openText: tCommon('buttons.button_close'),
-                closedText: tCommon('buttons.button_open'),
-                openColor: COLORS.ADDBUTTON_OPEN,
-                closedColor: COLORS.ADDBUTTON_CLOSED,
+            copyButton={{
+                show: copyButton && typeof copyButton.showCopyButton !== 'undefined' ? copyButton.showCopyButton : false,
+                items: Array.isArray(listToShow) ? listToShow : (listToShow ? [listToShow] : [])
             }}
+            addButton={AddComponent ? {
+                show: showAdd,
+                onToggle: toggleAdd
+            } : undefined}
             loading={loading}
             searchSortFilter={searchSortFilterOptions ? {
                 ...searchSortFilterOptions,
@@ -113,15 +127,16 @@ export default function ManageGeneric({ dbKey,
             } : undefined}
             hasItems={listToShow != null && listToShow.length > 0}
             emptyText={tCommon('nothing_to_show')}
-            modal={showAdd ? {
+            modal={AddComponent && showAdd ? {
                 show: showAdd,
                 onHide: toggleAdd,
-                title: t('add'),
+                title: modalTitle ?? t('add'),
                 body: <AddComponent show={showAdd}
                     onClose={toggleAdd}
                     onSave={addItem}
                     {...AddComponentProps} />
             } : undefined}
+            centerActions={centerActions}
         >
             <ListComponent
                 items={listToShow}
@@ -138,7 +153,7 @@ export default function ManageGeneric({ dbKey,
 ManageGeneric.propTypes = {
     dbKey: PropTypes.string.isRequired,
     translationKey: PropTypes.string.isRequired,
-    AddComponent: PropTypes.elementType.isRequired,
+    AddComponent: PropTypes.elementType,
     ListComponent: PropTypes.elementType.isRequired,
     searchSortFilterOptions: PropTypes.object,
     iconName: PropTypes.string,
@@ -151,4 +166,7 @@ ManageGeneric.propTypes = {
     ListComponentProps: PropTypes.object,
     AddComponentProps: PropTypes.object,
     title: PropTypes.node,
+    modalTitle: PropTypes.string,
+    centerActions: PropTypes.node,
+    copyButton: PropTypes.object,
 };

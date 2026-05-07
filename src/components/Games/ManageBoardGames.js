@@ -40,6 +40,7 @@ export default function ManageBoardGames() {
                 showFilterHaveAtHome: true,
                 showFilterHaveRated: true
             }}
+            copyButton={{ showCopyButton: true }}
         />
     )
 }

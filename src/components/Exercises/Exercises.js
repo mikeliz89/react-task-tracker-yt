@@ -6,7 +6,11 @@ export default function Exercises({ items, originalList, counter, onDelete }) {
 
   return (
     <div>
-      <Counter list={items} originalList={originalList} counter={counter} />
+      {
+        originalList != null && counter != null ? (
+          <Counter list={items} originalList={originalList} counter={counter} />
+        ) : (<></>)
+      }
       {items.map((exercise) => (
         <Exercise key={exercise.id} exercise={exercise} onDelete={onDelete} />
       ))}

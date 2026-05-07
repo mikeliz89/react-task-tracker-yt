@@ -26,15 +26,15 @@ export default function EditExercise({ exerciseID, exercise, onClose }) {
 
   useEffect(() => {
     if (exercise != null) {
-      setCategory(exercise.category);
-      setCreated(exercise.created);
-      setCreatedBy(exercise.createdBy);
-      setDate(exercise.date);
-      setDescription(exercise.description);
-      setEndDate(exercise.endDate);
-      setEndTime(exercise.endTime);
-      setStars(exercise.stars);
-      setTime(exercise.time);
+      setCategory(exercise.category ?? '');
+      setCreated(exercise.created ?? '');
+      setCreatedBy(exercise.createdBy ?? '');
+      setDate(exercise.date ?? '');
+      setDescription(exercise.description ?? '');
+      setEndDate(exercise.endDate ?? '');
+      setEndTime(exercise.endTime ?? '');
+      setStars(exercise.stars ?? 0);
+      setTime(exercise.time ?? '');
     }
   }, [exercise]);
 
@@ -57,21 +57,21 @@ export default function EditExercise({ exerciseID, exercise, onClose }) {
       <Row>
         <Form.Group as={Col} className="mb-3">
           <Form.Label>{t('startdate')}</Form.Label>
-          <Form.Control type="date" name='date' value={date} onChange={(e) => setDate(e.target.value)} />
+          <Form.Control type="date" name='date' value={date || ''} onChange={(e) => setDate(e.target.value)} />
         </Form.Group>
         <Form.Group as={Col} className="mb-3">
           <Form.Label>{t('starttime')}</Form.Label>
-          <Form.Control type="time" name='time' value={time} onChange={(e) => setTime(e.target.value)} />
+          <Form.Control type="time" name='time' value={time || ''} onChange={(e) => setTime(e.target.value)} />
         </Form.Group>
       </Row>
       <Row>
         <Form.Group as={Col} className="mb-3">
           <Form.Label>{t('enddate')}</Form.Label>
-          <Form.Control type="date" name='date' value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+          <Form.Control type="date" name='date' value={endDate || ''} onChange={(e) => setEndDate(e.target.value)} />
         </Form.Group>
         <Form.Group as={Col} className="mb-3">
           <Form.Label>{t('endtime')}</Form.Label>
-          <Form.Control type="time" name='time' value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+          <Form.Control type="time" name='time' value={endTime || ''} onChange={(e) => setEndTime(e.target.value)} />
         </Form.Group>
       </Row>
       <Form.Group className="mb-3" controlId="addDrinkForm-Description">
@@ -79,7 +79,7 @@ export default function EditExercise({ exerciseID, exercise, onClose }) {
         <Form.Control type='text'
           autoComplete="off"
           placeholder={t('description')}
-          value={description}
+          value={description || ''}
           onChange={(e) => setDescription(e.target.value)} />
       </Form.Group>
       <Row>

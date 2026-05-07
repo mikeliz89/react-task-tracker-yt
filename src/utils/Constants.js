@@ -266,6 +266,7 @@ export const NAVIGATION = {
     RECIPE: '/recipe',
     // tasklist
     TASKLIST: '/tasklist',
+    TASKLIST_TASK: '/task/:id/',
     TASKLIST_ARCHIVE: '/tasklistarchive',
     // signup
     SIGNUP: '/signup',

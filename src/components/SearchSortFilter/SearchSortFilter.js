@@ -98,6 +98,7 @@ export default function SearchSortFilter({ onSet,
     showSortByStarRating,
     showSortByBirthday,
     showSortByPublishYear,
+    showSortByTrackName,
     //searching
     showSearchByText,
     showSearchByFinnishName,
@@ -225,6 +226,13 @@ export default function SearchSortFilter({ onSet,
                     newList.reverse();
                 }
                 break;
+            case SortMode.TrackName_ASC:
+            case SortMode.TrackName_DESC:
+                newList = sortByText(newList, "trackName");
+                if (sortBy === SortMode.TrackName_DESC) {
+                    newList.reverse();
+                }
+                break;
             case SortMode.Title_ASC:
             case SortMode.Title_DESC:
                 newList = sortByText(newList, "title");
@@ -333,6 +341,15 @@ export default function SearchSortFilter({ onSet,
                                             sortModeDESC={SortMode.Name_DESC}
                                             onSortBy={setSortBy}
                                             title='name' />
+                                    }
+                                    {
+                                        showSortByTrackName &&
+                                        <SortByButton
+                                            sortBy={sortBy}
+                                            sortModeASC={SortMode.TrackName_ASC}
+                                            sortModeDESC={SortMode.TrackName_DESC}
+                                            onSortBy={setSortBy}
+                                            title='track_name' />
                                     }
                                     {
                                         showSortByTitle &&

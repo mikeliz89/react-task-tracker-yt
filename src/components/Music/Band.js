@@ -49,6 +49,14 @@ export default function Band({ band, onDelete, onEdit }) {
                     />
                 )
             }}
+            showCheckButton={true}
+            checkButtonProps={{
+                checked: !!band.haveSeenLive,
+                checkedText: t('show_only_seen_live'),
+                uncheckedText: t('show_only_not_seen_live'),
+                onCheck: () => { band["haveSeenLive"] = true; onEdit(band); },
+                onUncheck: () => { band["haveSeenLive"] = false; onEdit(band); },
+            }}
         />
     )
 }

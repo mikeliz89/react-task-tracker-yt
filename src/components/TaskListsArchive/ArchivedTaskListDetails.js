@@ -17,7 +17,6 @@ import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
 import useFetch from '../Hooks/useFetch';
 import CenterWrapper from '../Site/CenterWrapper';
-import Counter from '../Site/Counter';
 import PageContentWrapper from '../Site/PageContentWrapper';
 
 export default function ArchivedTaskListDetails() {
@@ -128,14 +127,13 @@ export default function ArchivedTaskListDetails() {
       <AccordionElement array={getAccordionData()} title={taskList.title} iconName={ICONS.LIST_ALT} forceOpen={true} />
 
       {tasks != null && tasks.length > 0 ? (
-        <>
-          <Counter list={tasks} originalList={originalTasks} counter={taskCounter} />
-          <Tasks
-            archived={true}
-            taskListID={params.id}
-            tasks={tasks}
-          />
-        </>
+        <Tasks
+          archived={true}
+          taskListID={params.id}
+          items={tasks}
+          originalList={originalTasks}
+          counter={taskCounter}
+        />
       ) : (
         <>
           <CenterWrapper>

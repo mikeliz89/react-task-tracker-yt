@@ -64,6 +64,11 @@ export default function BandDetails() {
                 { id: 2, content: <>{t('created_by')}: {band?.createdBy}</> },
                 { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(band?.modified, i18n.language)}</> }
             ]}
+            titleSuffix={
+                <span className={`details-pill ${band?.haveSeenLive === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
+                    {band?.haveSeenLive === true ? t('show_only_seen_live') : t('show_only_not_seen_live')}
+                </span>
+            }
             editModalTitle={t('modal_header_edit_band')}
             editSection={<AddBand onSave={updateBand} bandID={params.id} onClose={() => setShowEdit(false)} />}
             alertProps={{

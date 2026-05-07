@@ -12,6 +12,7 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import { ListTypes } from '../../utils/Enums';
 import { getPageTitleContent } from '../../utils/ListUtils';
 import Button from '../Buttons/Button';
+import CopyToClipboardButton from '../Buttons/CopyToClipboardButton';
 import useFetch from '../Hooks/useFetch';
 import { useToggle } from '../Hooks/useToggle';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
@@ -35,8 +36,6 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
 
   //modal
   const { status: showAddTaskList, toggleStatus: toggleAddTaskList } = useToggle();
-
-  
 
   const addTaskList = async (taskList) => {
     taskList["created"] = getCurrentDateAsJson();
@@ -70,14 +69,7 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
     return t(contentKey);
   }
 
-  const copyToClipboard = () => {
-    let text = "";
-    taskLists.forEach(function (arrayItem) {
-      text += "" + arrayItem.title;
-      text += "\n";
-    });
-    navigator.clipboard.writeText(text);
-  }
+
 
   const getDefaultTitle = (listType) => {
     if (listType === ListTypes.Shopping) {
@@ -152,18 +144,14 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
       }}
       centerActions={
         <>
-          <Button onClick={() => copyToClipboard()} text={t('copy_to_clipboard')}
-            iconName={ICONS.COPY} />
+          <CopyToClipboardButton
+            items={Array.isArray(taskLists) ? taskLists : []}
+          />
           &nbsp;
         </>
       }
       addButton={{
         show: showAddTaskList,
-        iconName: ICONS.PLUS,
-        openColor: COLORS.ADDBUTTON_OPEN,
-        closedColor: COLORS.ADDBUTTON_CLOSED,
-        openText: tCommon('buttons.button_close'),
-        closedText: t('button_add_list'),
         onToggle: toggleAddTaskList,
       }}
       modal={{

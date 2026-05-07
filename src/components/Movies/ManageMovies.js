@@ -27,6 +27,7 @@ export default function ManageMovies() {
                 showFilterHaveAtHome: true,
                 showFilterHaveRated: true
             }}
+            copyButton={{ showCopyButton: true }}
         />
     );
 }

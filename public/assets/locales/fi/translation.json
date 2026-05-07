@@ -29,7 +29,6 @@
     },
     "backpacking": {
         "add": "Lisää varuste",
-        "button_add_maintenance_instructions": "Lisää huolto-ohje",
         "button_add_gear": "Lisää varuste",
         "button_manage_backpacking_lists": "Listat",
         "manage_title": "Varusteeni",
@@ -456,16 +455,13 @@
         "save_success": "Tallennus onnistui"
     },
     "music": {
+        "add": "Lisää tallenne",
         "action": "Toiminto",
         "add_bands_to_event": "Lisää bändejä tapahtumaan",
         "band": "Bändi",
         "band_name": "Bändin nimi",
         "band_forming_year": "Perustamisvuosi",
-        "button_add_music": "Lisää tallenne",
-        "button_add_music_event": "Lisää tapahtuma",
-        "button_add_music_band": "Lisää bändi",
         "button_music_lists": "Listat",
-        "button_add_karaoke_song": "Lisää karaokekappale",
         "country": "Maa",
         "created": "Luotu",
         "created_by": "Luoja",
@@ -511,6 +507,8 @@
         "save_success": "Tallennus onnistui",
         "save_exception": "Tallennus epäonnistui",
         "seen_live": "Nähty livenä",
+        "show_only_not_seen_live": "Ei nähty livenä",
+        "show_only_seen_live": "Nähty livenä",
         "sort_by_name": "Lajittele nimen mukaan"
     },
     "myprofile": {
@@ -632,7 +630,7 @@
         "fooditem_please_add_name": "Ole hyvä ja anna nimi",
         "fooditem_save_successful": "Ruoka-aineksen tallennus onnistui",
         "fooditem_save_exception": "Ruoka-aineksen tallennuksessa virhe",
-        "have":"Omistan",
+        "have": "Omistan",
         "in_minutes": "minuuttia",
         "incredients": "Ainesosat",
         "incredient_amount": "Määrä",
@@ -698,7 +696,7 @@
         "search": "Hae",
         "show": "Näytä",
         "show_only_seen_live": "Nähty livenä",
-        "show_only_not_have_seen_live": "Ei nähty livenä",
+        "show_only_not_seen_live": "Ei nähty livenä",
         "seen_live_filter_all": "Kaikki",
         "seen_live_filter_seen": "Nähty",
         "seen_live_filter_not_seen": "Ei nähty",
@@ -719,7 +717,8 @@
         "star_rating": "Arvio",
         "text": "Nimi",
         "title": "Nimi",
-        "publishYear": "Julkaisuvuosi"
+        "publishYear": "Julkaisuvuosi",
+        "track_name": "Radan nimi"
     },
     "starrating": {
         "rate": "Arvioi",

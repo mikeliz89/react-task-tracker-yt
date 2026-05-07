@@ -37,16 +37,17 @@ export default function DrinkingProductDetails() {
     //fetch data
     const { data: drinkingProduct, loading } = useFetch(DB.DRINKINGPRODUCTS, "", params.id);
 
-    const addDrinkingProduct = async (drinkingProduct) => {
+    const updateDrinkingProduct = async (updateDrinkingProductID, drinkingProduct) => {
         try {
             const drinkingProductID = params.id;
             drinkingProduct["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.DRINKINGPRODUCTS, drinkingProductID, drinkingProduct);
         } catch (error) {
             showFailure(t('failed_to_save_drink'));
-            console.warn(error)
+            console.warn(error);
         }
     }
+
 
     return (
         <DetailsPage
@@ -93,7 +94,7 @@ export default function DrinkingProductDetails() {
             editModalTitle={t('modal_header_edit_drinking_product')}
             editSection={
                 <AddDrinkingProduct
-                    onSave={addDrinkingProduct}
+                    onSave={updateDrinkingProduct}
                     drinkingProductID={params.id}
                     onClose={toggleSetShowEdit}
                 />

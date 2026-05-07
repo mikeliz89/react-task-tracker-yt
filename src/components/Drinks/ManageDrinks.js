@@ -68,6 +68,7 @@ export default function ManageDrinks() {
                     </NavButton>
                 </>
             )}
+            copyButton={{ showCopyButton: true }}
         />
     );
 }

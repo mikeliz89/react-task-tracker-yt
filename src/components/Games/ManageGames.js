@@ -27,6 +27,7 @@ export default function ManageGames() {
                 showFilterHaveAtHome: true,
                 showFilterHaveRated: true
             }}
+            copyButton={{ showCopyButton: true }}
         />
     );
 }
