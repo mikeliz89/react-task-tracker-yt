@@ -7,6 +7,8 @@ import ListRow from '../Site/ListRow';
 
 import { getIconNameByCategory } from './Categories';
 import { useState } from 'react';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { updateToFirebaseById } from '../../datatier/datatier';
 import AddGear from './AddGear';
 
 export default function Gear({ gear, onDelete, onEdit }) {
@@ -21,11 +23,9 @@ export default function Gear({ gear, onDelete, onEdit }) {
         clearMessages
     } = useAlert();
     const [editable, setEditable] = useState(false);
-
-    const updateGear = (object) => {
-        if (typeof onEdit === 'function') {
-            onEdit(object);
-        }
+    const updateGear = (updateGearID, object) => {
+        object["modified"] = getCurrentDateAsJson();
+        updateToFirebaseById(DB.BACKPACKING_GEAR, updateGearID, object);
         setEditable(false);
     }
 

@@ -82,6 +82,8 @@ export default function ManageGeneric({
 
     const editItem = (item) => {
         const id = item.id;
+        //console.log("Editing item with id: " + id, item);
+        //console.log("Updating item in dbKey: " + dbKey);
         updateToFirebaseById(dbKey, id, item);
     }
 
