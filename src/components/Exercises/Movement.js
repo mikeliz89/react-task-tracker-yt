@@ -14,9 +14,9 @@ export default function Movement({ movement, onDelete }) {
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
     const [editable, setEditable] = useState(false);
 
-    const updateMovement = (object) => {
-        object["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(DB.EXERCISE_MOVEMENTS, movement.id, object);
+    const updateMovement = (id, payload) => {
+        payload["modified"] = getCurrentDateAsJson();
+        updateToFirebaseById(DB.EXERCISE_MOVEMENTS, id, payload);
         setEditable(false);
     };
 

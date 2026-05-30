@@ -7,7 +7,7 @@ export default function Incredients({ dbUrl, translation, translationKeyPrefix, 
 
   //translation
   const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
-return (
+  return (
     <>
       <h5>{t('incredients_header')}</h5>
 
