@@ -32,7 +32,7 @@ import ManageExercises from '../components/Exercises/ManageExercises';
 import ManageFoodItems from '../components/Recipe/ManageFoodItems';
 import ManageGames from '../components/Games/ManageGames';
 import ManageGear from '../components/BackPacking/ManageGear';
-import ManageGearMaintenance from '../components/BackPacking/ManageGearMaintenance';
+import ManageGearMaintenanceInstruction from '../components/BackPacking/ManageGearMaintenanceInstruction';
 import ManageMovements from '../components/Exercises/ManageMovements';
 import ManageMovies from '../components/Movies/ManageMovies';
 import ManageMusicBands from '../components/Music/ManageMusicBands';
@@ -109,7 +109,7 @@ const AppRoutes = () => (
     <Route path={NAVIGATION.MANAGE_BACKPACKING} element={<PrivateRoute><ManageBackPacking /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_BACKPACKINGLISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.BackPacking} /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_GEAR} element={<PrivateRoute><ManageGear /></PrivateRoute>} />
-    <Route path={NAVIGATION.MANAGE_GEAR_MAINTENANCE} element={<PrivateRoute><ManageGearMaintenance /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_GEAR_MAINTENANCE} element={<PrivateRoute><ManageGearMaintenanceInstruction /></PrivateRoute>} />
     <Route path={NAVIGATION.GEAR + '/:id'} element={<PrivateRoute><GearDetails /></PrivateRoute>} />
     {/* Backpacking */}
     {/* Car */}

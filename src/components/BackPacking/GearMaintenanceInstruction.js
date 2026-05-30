@@ -8,7 +8,7 @@ import ListRow from '../Site/ListRow';
 
 import AddGearMaintenanceInstruction from './AddGearMaintenanceInstruction';
 
-export default function GearMaintenanceInstruction({ instruction, onDelete }) {
+export default function GearMaintenanceInstruction({ gearmaintenanceinstruction, onDelete, onEdit  }) {
 
     //states
     const [editable, setEditable] = useState(false);
@@ -22,25 +22,25 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
         clearMessages
     } = useAlert();
 
-    const updateInstruction = (object) => {
-        object["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS, object.id, object);
+    const updateInstruction = (id, payload) => {
+        payload["modified"] = getCurrentDateAsJson();
+        updateToFirebaseById(DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS, id, payload);
         setEditable(false);
     }
 
     return (
         <ListRow
-            item={instruction}
+            item={gearmaintenanceinstruction}
             dbKey={DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS}
             headerProps={{
-                left: <span>{instruction.name}</span>
+                title: <span>{gearmaintenanceinstruction.name}</span>
             }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={instruction.id}
+            deleteId={gearmaintenanceinstruction.id}
             alert={{
                 message,
                 showMessage,
@@ -51,14 +51,14 @@ export default function GearMaintenanceInstruction({ instruction, onDelete }) {
             }}
             section={
                 <pre>
-                    {instruction.text}
+                    {gearmaintenanceinstruction.text}
                 </pre>
             }
             modalProps={{
                 modalTitle: "Muokkaa ohjetta",
                 modalBody: (
                     <AddGearMaintenanceInstruction
-                        gearMaintenanceInstructionID={instruction.id}
+                        gearMaintenanceInstructionID={gearmaintenanceinstruction.id}
                         onClose={() => setEditable(false)}
                         onSave={updateInstruction} />
                 )
