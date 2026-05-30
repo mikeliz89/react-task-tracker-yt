@@ -1,11 +1,7 @@
-
-
 // const mockData = () => {
-    //     let data = [{ created: "2022-09-19T17:25:19.586Z", fuelPricePerLiter: "2.10" }]
-    //     return data;
-    // }
-
-
+//     let data = [{ created: "2022-09-19T17:25:19.586Z", fuelPricePerLiter: "2.10" }]
+//     return data;
+// }
 import { useTranslation } from "react-i18next";
 
 import { TRANSLATION, ICONS } from '../../utils/Constants';
@@ -19,7 +15,7 @@ export default function CarFuelings({ items, chartFuelings, onDelete }) {
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
 
-const getFuelingsPriceSum = (items) => {
+    const getFuelingsPriceSum = (items) => {
         let sum = 0;
         items.forEach(fueling => {
             if (fueling.price > 0) {
