@@ -49,10 +49,18 @@ export default function AddBand({ bandID, onSave, onClose, showLabels }) {
             return;
         }
 
-        onSave(bandID, {
-            created, createdBy, description, name,
-            formingYear, seenLive, country, stars
-        });
+        const payload = {
+            created,
+            createdBy,
+            description,
+            name,
+            formingYear,
+            seenLive,
+            country,
+            stars
+        };
+
+        onSave(bandID, payload);
 
         if (bandID == null) {
             clearForm();
