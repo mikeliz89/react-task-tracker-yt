@@ -62,10 +62,19 @@ export default function AddMovie({ movieID, onSave, onClose, showLabels }) {
             return;
         }
 
-        onSave(movieID, {
-            created, createdBy, description, format,
-            haveAtHome, name, nameFi, publishYear, stars
-        });
+        const payload = {
+            created,
+            createdBy,
+            description,
+            format,
+            haveAtHome,
+            name,
+            nameFi,
+            publishYear,
+            stars
+        };
+
+        onSave(movieID, payload);
 
         if (movieID == null) {
             clearForm();

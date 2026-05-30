@@ -1,7 +1,5 @@
 //states
-
 import { useState } from 'react';
-
 import { useTranslation } from 'react-i18next';
 
 import { updateToFirebaseById } from '../../datatier/datatier';
@@ -23,8 +21,6 @@ export default function Movie({ movie, onDelete, onEdit }) {
         updateToFirebaseById(DB.MOVIES, updateMovieID, object);
         setEditable(false);
     }
-
-
 
     const movieTitle = `${movie.name} ${movie.publishYear > 0 ? `(${movie.publishYear})` : ''}`.trim();
 
@@ -75,6 +71,3 @@ export default function Movie({ movie, onDelete, onEdit }) {
         />
     )
 }
-
-
-
