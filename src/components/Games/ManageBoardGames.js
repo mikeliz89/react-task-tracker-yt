@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
-import Games from './Games';
 import AddGame from './AddGame';
+import Game from './Game';
+import ListMapper from '../Common/ListMapper';
 
 export default function ManageBoardGames() {
 
@@ -16,15 +17,16 @@ export default function ManageBoardGames() {
             dbKey={DB.BOARD_GAMES}
             translationKey={TRANSLATION.GAMES}
             AddComponent={AddGame}
-            ListComponent={Games}
+            ListComponent={ListMapper}
+            ListComponentProps={{
+                ItemComponent: Game,
+                dbUrl: DB.BOARD_GAMES,
+                detailsNavigation: NAVIGATION.BOARD_GAME,
+                showConsole: false
+            }}
             iconName={ICONS.GAMEPAD}
             listNav={{ to: NAVIGATION.MANAGE_BOARD_GAMELISTS }}
             AddComponentProps={{
-                showConsole: false,
-                dbUrl: DB.BOARD_GAMES
-            }}
-            ListComponentProps={{
-                detailsNavigation: NAVIGATION.BOARD_GAME,
                 showConsole: false,
                 dbUrl: DB.BOARD_GAMES
             }}

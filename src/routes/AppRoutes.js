@@ -19,7 +19,6 @@ import ExerciseDetails from '../components/Exercises/ExerciseDetails';
 import FoodItemDetails from '../components/Recipe/FoodItemDetails';
 import ForgotPassword from '../components/Auth/ForgotPassword';
 import GameDetails from '../components/Games/GameDetails';
-import Games from '../components/Games/Games';
 import GearDetails from '../components/BackPacking/GearDetails';
 import LinksList from '../components/Links/LinksList';
 import Login from '../components/Auth/Login';
@@ -128,7 +127,6 @@ const AppRoutes = () => (
     <Route path={NAVIGATION.MUSIC_BAND + '/:id'} element={<PrivateRoute><BandDetails /></PrivateRoute>} />
     {/* Music */}
     {/* Games */}
-    <Route path={NAVIGATION.GAMES} element={<PrivateRoute><Games /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_GAMES} element={<PrivateRoute><ManageGames /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_BOARD_GAMES} element={<PrivateRoute><ManageBoardGames /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_GAMELISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Games} /></PrivateRoute>} />
