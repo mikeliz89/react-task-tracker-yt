@@ -2,7 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import NavButton from '../Buttons/NavButton';
 import ManageGeneric from '../Common/ManageGeneric';
-import Exercises from './Exercises';
+import ListMapper from '../Common/ListMapper';
+import Exercise from './Exercise';
 
 export default function ManageExercises() {
   const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
@@ -11,7 +12,8 @@ export default function ManageExercises() {
     <ManageGeneric
       dbKey={DB.EXERCISES}
       translationKey={TRANSLATION.EXERCISES}
-      ListComponent={Exercises}
+      ListComponent={ListMapper}
+      ListComponentProps={{ ItemComponent: Exercise }}
       iconName={ICONS.RUNNING}
       title={t('manage_exercises_title')}
       topActions={

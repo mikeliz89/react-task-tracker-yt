@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 import { updateToFirebaseById } from "../../datatier/datatier";
 import { TRANSLATION, DB } from '../../utils/Constants';
-import { getCurrentDateAsJson, getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
+import { getCurrentDateAsJson, getJsonAsDateTimeString, getJsonAsDateString, getJsonAsTimeString } from "../../utils/DateTimeUtils";
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
@@ -95,10 +95,10 @@ export default function ExerciseDetails() {
                     <Table>
                         <tbody>
                             <tr>
-                                <td>{t('date_and_time')}: {exercise?.date} {exercise?.time}</td>
+                                <td>{t('date_and_time')}: {getJsonAsDateString(exercise?.date, i18n.language)}{exercise?.time ? ` ${exercise.time}` : ''}</td>
                             </tr>
                             <tr>
-                                <td>{t('end_date')}: {exercise?.endDate} {exercise?.endTime}</td>
+                                <td>{t('end_date')}: {getJsonAsDateString(exercise?.endDate, i18n.language)}{exercise?.endTime ? ` ${exercise.endTime}` : ''}</td>
                             </tr>
                             <tr>
                                 <td>{t('duration')} : {t('coming_soon')}</td>
