@@ -8,7 +8,7 @@ import ListRow from '../Site/ListRow';
 
 import AddGearMaintenanceInstruction from './AddGearMaintenanceInstruction';
 
-export default function GearMaintenanceInstruction({ gearmaintenanceinstruction, onDelete, onEdit  }) {
+export default function GearMaintenanceInstruction({ item, onDelete, onEdit  }) {
 
     //states
     const [editable, setEditable] = useState(false);
@@ -30,17 +30,17 @@ export default function GearMaintenanceInstruction({ gearmaintenanceinstruction,
 
     return (
         <ListRow
-            item={gearmaintenanceinstruction}
+            item={item}
             dbKey={DB.BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS}
             headerProps={{
-                title: <span>{gearmaintenanceinstruction.name}</span>
+                title: <span>{item.name}</span>
             }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={gearmaintenanceinstruction.id}
+            deleteId={item.id}
             alert={{
                 message,
                 showMessage,
@@ -51,14 +51,14 @@ export default function GearMaintenanceInstruction({ gearmaintenanceinstruction,
             }}
             section={
                 <pre>
-                    {gearmaintenanceinstruction.text}
+                    {item.text}
                 </pre>
             }
             modalProps={{
                 modalTitle: "Muokkaa ohjetta",
                 modalBody: (
                     <AddGearMaintenanceInstruction
-                        gearMaintenanceInstructionID={gearmaintenanceinstruction.id}
+                        gearMaintenanceInstructionID={item.id}
                         onClose={() => setEditable(false)}
                         onSave={updateInstruction} />
                 )
