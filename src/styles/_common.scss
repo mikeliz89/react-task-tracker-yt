@@ -1,3 +1,5 @@
+@use 'sass:meta';
+
 /** Common Start */
 
 * {
@@ -351,10 +353,10 @@ form {
 
 /* Custom End */
 
-@import './tasks';
-@import './detailspage';
-@import './dashboard';
-@import './myprofile';
+@include meta.load-css('./tasks');
+@include meta.load-css('./detailspage');
+@include meta.load-css('./dashboard');
+@include meta.load-css('./myprofile');
 
 /* React-Bootstrap changes Start */
 

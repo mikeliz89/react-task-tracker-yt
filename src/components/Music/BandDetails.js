@@ -9,7 +9,6 @@ import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateT
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import DetailsPage from '../Site/DetailsPage';
-import PageTitle from '../Site/PageTitle';
 
 import AddBand from './AddBand';
 

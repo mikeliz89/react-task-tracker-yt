@@ -11,7 +11,6 @@ import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import DetailsPage from '../Site/DetailsPage';
-import PageTitle from '../Site/PageTitle';
 
 import AddPartsAerobics from "./AddPartsAerobics";
 import AddPartsGym from "./AddPartsGym";

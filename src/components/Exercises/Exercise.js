@@ -6,42 +6,43 @@ import ListRow from '../Site/ListRow';
 import { getJsonAsDateString } from '../../utils/DateTimeUtils';
 import { getIconNameByCategory } from './Categories';
 
-export default function Exercise({ exercise, onDelete }) {
+export default function Exercise({ item, onDelete }) {
 
     //translation
     const { t, i18n } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
+
     let exerciseTitle = '';
-    const formattedDate = exercise.date ? getJsonAsDateString(exercise.date, i18n.language) : '';
-    if (formattedDate && exercise.time) {
-        exerciseTitle = `${formattedDate} ${exercise.time}`;
+    const formattedDate = item.date ? getJsonAsDateString(item.date, i18n.language) : '';
+    if (formattedDate && item.time) {
+        exerciseTitle = `${formattedDate} ${item.time}`;
     } else if (formattedDate) {
         exerciseTitle = formattedDate;
-    } else if (exercise.time) {
-        exerciseTitle = exercise.time;
+    } else if (item.time) {
+        exerciseTitle = item.time;
     }
 
     return (
         <ListRow
-            item={exercise}
+            item={item}
             dbKey={DB.EXERCISES}
             headerProps={{
                 title: exerciseTitle,
-                titleTo: `${NAVIGATION.EXERCISE}/${exercise.id}`,
-                titleIcon: getIconNameByCategory(exercise.category),
+                titleTo: `${NAVIGATION.EXERCISE}/${item.id}`,
+                titleIcon: getIconNameByCategory(item.category),
                 titleIconColor: COLORS.GRAY,
             }}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={exercise.id}
+            deleteId={item.id}
             section={
                 <>
                     <p>
-                        {exercise.category > 0 ?
-                            (<span> {'#' + t('category_' + getExerciseCategoryNameByID(exercise.category))}
+                        {item.category > 0 ?
+                            (<span> {'#' + t('category_' + getExerciseCategoryNameByID(item.category))}
                             </span>) : ('')}
                     </p>
                     <p>
-                        {exercise.description}
+                        {item.description}
                     </p>
                 </>
             }

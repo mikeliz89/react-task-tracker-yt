@@ -1,6 +1,6 @@
 import ManageGeneric from '../Common/ManageGeneric';
 import { useTranslation } from 'react-i18next';
-import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
+import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import AddGame from './AddGame';
