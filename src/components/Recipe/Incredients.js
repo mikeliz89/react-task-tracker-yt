@@ -12,13 +12,13 @@ export default function Incredients({ dbUrl, translation, translationKeyPrefix, 
       <h5>{t('incredients_header')}</h5>
 
       {items
-        ? items.map((incredient, index) =>
+        ? items.map((item, index) =>
           <Incredient
             dbUrl={dbUrl}
             translation={translation}
             translationKeyPrefix={translationKeyPrefix}
-            key={incredient.id}
-            incredient={incredient}
+            key={item.id}
+            item={item}
             recipeID={recipeID}
             onDelete={onDelete} />
         ) : ''

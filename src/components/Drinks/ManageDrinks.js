@@ -7,7 +7,8 @@ import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { RecipeTypes } from '../../utils/Enums';
 import NavButton from '../Buttons/NavButton';
-import Recipes from '../Recipe/Recipes';
+import ListMapper from '../Common/ListMapper';
+import Recipe from '../Recipe/Recipe';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import ManageGeneric from '../Common/ManageGeneric';
@@ -34,10 +35,11 @@ export default function ManageDrinks() {
             dbKey={DB.DRINKS}
             translationKey={TRANSLATION.DRINKS}
             AddComponent={AddDrink}
-            ListComponent={Recipes}
+            ListComponent={ListMapper}
             iconName={ICONS.COCKTAIL}
             title={t('manage_drinks_title')}
             ListComponentProps={{
+                ItemComponent: Recipe,
                 translation: TRANSLATION.TRANSLATION,
                 translationKeyPrefix: TRANSLATION.DRINKS,
                 recipeType: RecipeTypes.Drink
