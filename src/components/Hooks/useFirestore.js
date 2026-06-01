@@ -7,7 +7,7 @@ const useFireStore = (collection, url, objectID) => {
 
     const [docs, setDocs] = useState([]);
 
-const [counter, setCounter] = useState(0);
+    const [counter, setCounter] = useState(0);
 
     useEffect(() => {
         const dbref = ref(db, `${url}/${objectID}`);

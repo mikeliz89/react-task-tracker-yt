@@ -4,9 +4,8 @@ import { Table } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { updateToFirebaseById } from "../../datatier/datatier";
 import { TRANSLATION, DB } from '../../utils/Constants';
-import { getCurrentDateAsJson, getJsonAsDateTimeString, getJsonAsDateString, getJsonAsTimeString } from "../../utils/DateTimeUtils";
+import { getJsonAsDateTimeString, getJsonAsDateString } from "../../utils/DateTimeUtils";
 import { getExerciseCategoryNameByID } from "../../utils/ListUtils";
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
@@ -41,14 +40,23 @@ export default function ExerciseDetails() {
     //fetch data
     const { data: exercise, loading } = useFetch(DB.EXERCISES, "", params.id);
 
-    function showAddMoving(exercise) {
-        return Number(exercise.category) === Categories.BikingInside ||
-            Number(exercise.category) === Categories.Biking ||
-            Number(exercise.category) === Categories.Kayaking ||
-            Number(exercise.category) === Categories.Running ||
-            Number(exercise.category) === Categories.Walking ||
-            Number(exercise.category) === Categories.Skiing;
+    function showAddMoving(category) {
+        const movingCategories = [
+            Categories.BikingInside,
+            Categories.Biking,
+            Categories.Kayaking,
+            Categories.Running,
+            Categories.Walking,
+            Categories.Skiing,
+        ];
+
+        return movingCategories.includes(Number(category));
     }
+
+    const category = Number(exercise?.category);
+    const showGymParts = category === Categories.Gym;
+    const showAerobicsParts = category === Categories.Aerobics;
+    const showMovingParts = showAddMoving(category);
 
     return (
         <DetailsPage
@@ -105,21 +113,14 @@ export default function ExerciseDetails() {
                         </tbody>
                     </Table>
 
-                    {
-                        Number(exercise?.category) === Categories.Gym &&
-                        <AddPartsGym />
-                    }
-                    {
-                        Number(exercise?.category) === Categories.Aerobics &&
-                        <AddPartsAerobics />
-                    }
-                    {
-                        showAddMoving(exercise) &&
+                    {showGymParts && <AddPartsGym />}
+                    {showAerobicsParts && <AddPartsAerobics />}
+                    {showMovingParts && (
                         <AddPartsMoving
-                            title={getTitleByCategory(exercise?.category)}
-                            iconName={getIconNameByCategory(exercise?.category)}
+                            title={getTitleByCategory(category)}
+                            iconName={getIconNameByCategory(category)}
                         />
-                    }
+                    )}
                 </>
             }
             imageProps={{
