@@ -20,7 +20,7 @@ import ListRow from '../Site/ListRow';
 import AddRecipe from './AddRecipe';
 import { getCategoryContent, getIncredientsUrl, getIconName, getViewDetailsUrl, getUrl } from './Categories';
 
-export default function Recipe({ recipeType, translation, translationKeyPrefix, recipe, onDelete }) {
+export default function Recipe({ recipeType, translation, translationKeyPrefix, item, onDelete }) {
 
     //navigate
     const navigate = useNavigate();
@@ -52,7 +52,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
 
     const makeShoppingList = async () => {
 
-        const incredients = await fetchIncredientsFromFirebase(recipe.id);
+        const incredients = await fetchIncredientsFromFirebase(item.id);
 
         if (incredients && incredients.length > 0) {
             let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
@@ -109,7 +109,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
 
     const updateRecipe = async (recipeToUpdate) => {
         try {
-            const recipeID = recipe.id;
+            const recipeID = item.id;
             recipeToUpdate["modified"] = getCurrentDateAsJson();
             if (recipeToUpdate["isCore"] === undefined) {
                 recipeToUpdate["isCore"] = false;
@@ -123,13 +123,13 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
 
     return (
         <ListRow
-            item={recipe}
+            item={item}
             dbKey={getUrl(recipeType)}
-            className={recipe.isCore === true ? 'coreRecipe' : ''}
+            className={item.isCore === true ? 'coreRecipe' : ''}
             headerProps={{
-                title: recipe.title,
-                titleTo: `${getViewDetailsUrl(recipeType)}/${recipe.id}`,
-                icon: getIconName(recipeType, recipe.category),
+                title: item.title,
+                titleTo: `${getViewDetailsUrl(recipeType)}/${item.id}`,
+                icon: getIconName(recipeType, item.category),
                 iconColor: COLORS.GRAY
             }}
             actionsExtra={
@@ -155,7 +155,7 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
             setEditable={setEditable}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={recipe.id}
+            deleteId={item.id}
             alert={{
                 message,
                 showMessage,
@@ -165,11 +165,11 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
             }}
             section={
                 <>
-                    {recipe.category > 0 && (
-                        <p> {getCategory(recipe.category)}</p>
+                    {item.category > 0 && (
+                        <p> {getCategory(item.category)}</p>
                     )}
-                    <p>{recipe.description}</p>
-                    <p>{recipe.incredients}</p>
+                    <p>{item.description}</p>
+                    <p>{item.incredients}</p>
                 </>
             }
             modalProps={{
@@ -179,14 +179,14 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                     recipeType === RecipeTypes.Food ? (
                         <AddRecipe
                             showLabels={true}
-                            recipeID={recipe.id}
+                            recipeID={item.id}
                             onClose={() => setEditable(false)}
                             onSave={updateRecipe}
                         />
                     ) : (
                         <AddDrink
                             showLabels={true}
-                            drinkID={recipe.id}
+                            drinkID={item.id}
                             onClose={() => setEditable(false)}
                             onSave={updateRecipe}
                         />

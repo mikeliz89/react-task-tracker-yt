@@ -1,6 +1,6 @@
 npm install json-server (or globally npm install -g json-server)
 
-# React Task Tracker
+# React Life Saver App
 
 Tämä projekti pohjautuu YouTube-tutoriaaliin: https://www.youtube.com/watch?v=w7ejDZ8SWv8&t=1730
 
@@ -35,6 +35,10 @@ Tuotantorakennetta voi testata paikallisesti:
 
 ## Testit
 	npm test
+Esimerkki (aja testit kerran ilman watch-tilaa):
+	set CI=true && npm run test -- --watchAll=false
+Esimerkki (aja vain DateTimeUtils-testi):
+	set CI=true && npm run test -- --watchAll=false DateTimeUtils.test.js
 
 ## Eject (ei suositella)
 	npm run eject

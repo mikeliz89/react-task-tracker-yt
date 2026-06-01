@@ -1,11 +1,23 @@
 import { render, screen } from '@testing-library/react';
 
-import App from './App';
+import AppContainer from './AppContainer';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+jest.mock('./firebase-config', () => ({
+  db: {},
+  auth: {
+    onAuthStateChanged: (callback) => {
+      callback(null);
+      return () => {};
+    },
+  },
+  storage: {},
+  uploadProfilePic: jest.fn(),
+}));
+
+test('renders app shell', () => {
+  render(<AppContainer />);
+  const footerText = screen.getByText(/footer\.copyright/i);
+  expect(footerText).toBeInTheDocument();
 });
 
 
