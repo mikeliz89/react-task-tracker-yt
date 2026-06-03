@@ -18,11 +18,18 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
 
     //states
     const [loading, setLoading] = useState(true);
-    const [comments, setComments] = useState({});
+    const [comments, setComments] = useState([]);
 
     //load data
     useEffect(() => {
-        if (url === "") {
+        const hasValidUrl = typeof url === 'string' && url.trim() !== '';
+        const hasValidObjID = typeof objID === 'string' && objID.trim() !== '';
+
+        if (!hasValidUrl || !hasValidObjID) {
+            setComments([]);
+            if (typeof onCounterChange === 'function') {
+                onCounterChange(0);
+            }
             setLoading(false);
             return;
         }
@@ -39,7 +46,9 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
                 }
             }
             setComments(fromDB);
-            onCounterChange(commentCounterTemp);
+            if (typeof onCounterChange === 'function') {
+                onCounterChange(commentCounterTemp);
+            }
             setLoading(false);
         });
 
