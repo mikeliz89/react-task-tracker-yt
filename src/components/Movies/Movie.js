@@ -1,7 +1,5 @@
 //states
-
 import { useState } from 'react';
-
 import { useTranslation } from 'react-i18next';
 
 import { updateToFirebaseById } from '../../datatier/datatier';
@@ -12,7 +10,7 @@ import ListRow from '../Site/ListRow';
 
 import AddMovie from './AddMovie';
 
-export default function Movie({ movie, onDelete, onEdit }) {
+export default function Movie({ item, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MOVIES });
@@ -24,32 +22,30 @@ export default function Movie({ movie, onDelete, onEdit }) {
         setEditable(false);
     }
 
-
-
-    const movieTitle = `${movie.name} ${movie.publishYear > 0 ? `(${movie.publishYear})` : ''}`.trim();
+    const movieTitle = `${item.name} ${item.publishYear > 0 ? `(${item.publishYear})` : ''}`.trim();
 
     return (
         <ListRow
-            item={movie}
+            item={item}
             dbKey={DB.MOVIES}
             headerProps={{
                 title: movieTitle,
-                titleTo: `${NAVIGATION.MOVIE}/${movie.id}`
+                titleTo: `${NAVIGATION.MOVIE}/${item.id}`
             }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={movie.id}
+            deleteId={item.id}
             section={
                 !editable ? (
                     <div>
-                        {movie.nameFi !== "" && <p>{movie.nameFi}</p>}
-                        {movie.format > 0 && (
-                            <p><span>{t('movie_format_' + getMovieFormatNameByID(movie.format))}</span></p>
+                        {item.nameFi !== "" && <p>{item.nameFi}</p>}
+                        {item.format > 0 && (
+                            <p><span>{t('movie_format_' + getMovieFormatNameByID(item.format))}</span></p>
                         )}
-                        <p>{movie.description}</p>
+                        <p>{item.description}</p>
                     </div>
                 ) : null
             }
@@ -57,7 +53,7 @@ export default function Movie({ movie, onDelete, onEdit }) {
                 modalTitle: t('edit_movie'),
                 modalBody: (
                     editable && <AddMovie
-                        movieID={movie.id}
+                        movieID={item.id}
                         onClose={() => setEditable(false)}
                         onSave={updateMovie}
                         showLabels={true}
@@ -66,15 +62,12 @@ export default function Movie({ movie, onDelete, onEdit }) {
             }}
             showCheckButton={true}
             checkButtonProps={{
-                checked: !!movie.haveAtHome,
+                checked: !!item.haveAtHome,
                 checkedText: t('have'),
                 uncheckedText: t('have_not'),
-                onCheck: () => { movie["haveAtHome"] = true; onEdit(movie); },
-                onUncheck: () => { movie["haveAtHome"] = false; onEdit(movie); },
+                onCheck: () => { item["haveAtHome"] = true; onEdit(item); },
+                onUncheck: () => { item["haveAtHome"] = false; onEdit(item); },
             }}
         />
     )
 }
-
-
-

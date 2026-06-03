@@ -9,7 +9,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import ListRow from '../Site/ListRow';
 import AddBand from './AddBand';
 
-export default function Band({ band, onDelete, onEdit }) {
+export default function Band({ item, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
@@ -21,28 +21,28 @@ export default function Band({ band, onDelete, onEdit }) {
         setEditable(false);
     }
 
-    const bandTitle = `${band.name} ${band.formingYear > 0 ? `(${band.formingYear})` : ''}`.trim();
+    const bandTitle = `${item.name} ${item.formingYear > 0 ? `(${item.formingYear})` : ''}`.trim();
 
     return (
         <ListRow
-            item={band}
+            item={item}
             dbKey={DB.MUSIC_BANDS}
             headerProps={{
                 title: bandTitle,
-                titleTo: `${NAVIGATION.MUSIC_BAND}/${band.id}`
+                titleTo: `${NAVIGATION.MUSIC_BAND}/${item.id}`
             }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={band.id}
-            section={<p>{band.description}</p>}
+            deleteId={item.id}
+            section={<p>{item.description}</p>}
             modalProps={{
                 modalTitle: t('modal_header_edit_band') || 'Edit Band',
                 modalBody: (
                     <AddBand
-                        bandID={band.id}
+                        bandID={item.id}
                         onClose={() => setEditable(false)}
                         onSave={updateBand}
                         showLabels={true}
@@ -51,11 +51,11 @@ export default function Band({ band, onDelete, onEdit }) {
             }}
             showCheckButton={true}
             checkButtonProps={{
-                checked: !!band.haveSeenLive,
+                checked: !!item.haveSeenLive,
                 checkedText: t('show_only_seen_live'),
                 uncheckedText: t('show_only_not_seen_live'),
-                onCheck: () => { band["haveSeenLive"] = true; onEdit(band); },
-                onUncheck: () => { band["haveSeenLive"] = false; onEdit(band); },
+                onCheck: () => { item["haveSeenLive"] = true; onEdit(item); },
+                onUncheck: () => { item["haveSeenLive"] = false; onEdit(item); },
             }}
         />
     )

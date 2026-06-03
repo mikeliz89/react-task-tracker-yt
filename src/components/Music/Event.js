@@ -9,7 +9,7 @@ import ListRow from '../Site/ListRow';
 
 import AddEvent from './AddEvent';
 
-export default function Event({ event, onDelete, onEdit }) {
+export default function Event({ item, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
@@ -21,28 +21,28 @@ export default function Event({ event, onDelete, onEdit }) {
         setEditable(false);
     }
 
-    const eventTitle = `${event.name} ${event.eventYear > 0 ? `(${event.eventYear})` : ''}`.trim();
+    const eventTitle = `${item.name} ${item.eventYear > 0 ? `(${item.eventYear})` : ''}`.trim();
 
     return (
         <ListRow
-            item={event}
+            item={item}
             dbKey={DB.MUSIC_EVENTS}
             headerProps={{
                 title: eventTitle,
-                titleTo: `${NAVIGATION.MUSIC_EVENT}/${event.id}`
+                titleTo: `${NAVIGATION.MUSIC_EVENT}/${item.id}`
             }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={event.id}
-            section={<p>{event.description}</p>}
+            deleteId={item.id}
+            section={<p>{item.description}</p>}
             modalProps={{
                 modalTitle: t('modal_header_edit_event') || 'Edit Event',
                 modalBody: (
                     <AddEvent
-                        eventID={event.id}
+                        eventID={item.id}
                         onClose={() => setEditable(false)}
                         onSave={updateEvent}
                         showLabels={true}

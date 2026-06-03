@@ -1,9 +1,11 @@
+
 import ManageGeneric from '../Common/ManageGeneric';
 import { TRANSLATION, DB, ICONS } from "../../utils/Constants";
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import AddGear from './AddGear';
-import Gears from './Gears';
+import Gear from './Gear';
+import ListMapper from '../Common/ListMapper';
 
 export default function ManageGear() {
 
@@ -12,10 +14,12 @@ export default function ManageGear() {
             dbKey={DB.BACKPACKING_GEAR}
             translationKey={TRANSLATION.BACKPACKING}
             AddComponent={AddGear}
-            ListComponent={Gears}
+            ListComponent={ListMapper}
+            ListComponentProps={{
+                ItemComponent: Gear
+            }}
             iconName={ICONS.WRENCH}
             AddComponentProps={{}}
-            ListComponentProps={{}}
             searchSortFilterOptions={{
                 showSearchByText: true,
                 defaultSort: SortMode.Name_ASC,

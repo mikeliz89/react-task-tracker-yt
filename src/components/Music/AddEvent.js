@@ -44,9 +44,16 @@ export default function AddEvent({ eventID, onSave, onClose, showLabels }) {
             return;
         }
 
-        onSave(eventID, {
-            created, createdBy, description, name, eventYear, stars
-        });
+        const payload = {
+            created,
+            createdBy,
+            description,
+            name,
+            eventYear,
+            stars
+        };
+
+        onSave(eventID, payload);
 
         if (eventID == null) {
             clearForm();

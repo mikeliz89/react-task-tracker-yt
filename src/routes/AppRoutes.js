@@ -19,7 +19,6 @@ import ExerciseDetails from '../components/Exercises/ExerciseDetails';
 import FoodItemDetails from '../components/Recipe/FoodItemDetails';
 import ForgotPassword from '../components/Auth/ForgotPassword';
 import GameDetails from '../components/Games/GameDetails';
-import Games from '../components/Games/Games';
 import GearDetails from '../components/BackPacking/GearDetails';
 import LinksList from '../components/Links/LinksList';
 import Login from '../components/Auth/Login';
@@ -33,7 +32,7 @@ import ManageExercises from '../components/Exercises/ManageExercises';
 import ManageFoodItems from '../components/Recipe/ManageFoodItems';
 import ManageGames from '../components/Games/ManageGames';
 import ManageGear from '../components/BackPacking/ManageGear';
-import ManageGearMaintenance from '../components/BackPacking/ManageGearMaintenance';
+import ManageGearMaintenanceInstruction from '../components/BackPacking/ManageGearMaintenanceInstruction';
 import ManageMovements from '../components/Exercises/ManageMovements';
 import ManageMovies from '../components/Movies/ManageMovies';
 import ManageMusicBands from '../components/Music/ManageMusicBands';
@@ -110,7 +109,7 @@ const AppRoutes = () => (
     <Route path={NAVIGATION.MANAGE_BACKPACKING} element={<PrivateRoute><ManageBackPacking /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_BACKPACKINGLISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.BackPacking} /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_GEAR} element={<PrivateRoute><ManageGear /></PrivateRoute>} />
-    <Route path={NAVIGATION.MANAGE_GEAR_MAINTENANCE} element={<PrivateRoute><ManageGearMaintenance /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_GEAR_MAINTENANCE} element={<PrivateRoute><ManageGearMaintenanceInstruction /></PrivateRoute>} />
     <Route path={NAVIGATION.GEAR + '/:id'} element={<PrivateRoute><GearDetails /></PrivateRoute>} />
     {/* Backpacking */}
     {/* Car */}
@@ -128,7 +127,6 @@ const AppRoutes = () => (
     <Route path={NAVIGATION.MUSIC_BAND + '/:id'} element={<PrivateRoute><BandDetails /></PrivateRoute>} />
     {/* Music */}
     {/* Games */}
-    <Route path={NAVIGATION.GAMES} element={<PrivateRoute><Games /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_GAMES} element={<PrivateRoute><ManageGames /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_BOARD_GAMES} element={<PrivateRoute><ManageBoardGames /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_GAMELISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Games} /></PrivateRoute>} />

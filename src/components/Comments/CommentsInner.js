@@ -3,21 +3,21 @@ import i18n from "i18next";
 import { getJsonAsDateTimeString } from "../../utils/DateTimeUtils";
 import DeleteButton from '../Buttons/DeleteButton';
 
-const getCommentAuthorLabel = (author) => {
-    if (!author) {
-        return 'Unknown';
-    }
-
-    const emailName = author.includes('@') ? author.split('@')[0] : author;
-
-    return emailName
-        .split(/[._-]/)
-        .filter(Boolean)
-        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-        .join(' ');
-}
-
 export default function CommentsInner({ comments, onDelete }) {
+
+    const getCommentAuthorLabel = (author) => {
+        if (!author) {
+            return 'Unknown';
+        }
+
+        const emailName = author.includes('@') ? author.split('@')[0] : author;
+
+        return emailName
+            .split(/[._-]/)
+            .filter(Boolean)
+            .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+            .join(' ');
+    }
 
     return (
         <div className="comments-list">

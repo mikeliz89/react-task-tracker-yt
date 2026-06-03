@@ -1,9 +1,3 @@
-
-
-
-//translation
-
-
 import { onValue, child, ref } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +16,7 @@ export default function AddPartsGym() {
 
   //params
   const params = useParams();
-const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
+  const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
 
   //states
   const [showAddGymPart, setShowAddGymPart] = useState(false);

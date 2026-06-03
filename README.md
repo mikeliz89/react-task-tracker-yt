@@ -1,136 +1,82 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-This code project is based on youtube tutorial, url https://www.youtube.com/watch?v=w7ejDZ8SWv8&t=1730
-
-## Installing programming environment
-Download and install node js
-
-After that run command to install npm (node package manager)
-npm install -g npm
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### How to run json-server
-Install with 
 npm install json-server (or globally npm install -g json-server)
 
-Run json-server with
-json-server --watch db.json -p 5000
+# React Life Saver App
 
-### `npm start`
+Tämä projekti pohjautuu YouTube-tutoriaaliin: https://www.youtube.com/watch?v=w7ejDZ8SWv8&t=1730
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Ympäristön asennus
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Asenna [Node.js](https://nodejs.org/)
+2. Päivitä npm tarvittaessa:  
+   npm install -g npm
 
-6.10.2025 Miika Kontio: use this to start development server (node22 not supporting webpack4 anymore etc)
-set NODE_OPTIONS=--openssl-legacy-provider && npm start
+## Käynnistys ja kehitys
 
-### `npm test`
+### Kehityspalvelin
+	npm start
+Avaa selain osoitteeseen [http://localhost:3000](http://localhost:3000)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Node.js 22+ ja Webpack 4
+Jos käytät Node.js versiota 22 tai uudempaa, lisää ympäristömuuttuja:
+	set NODE_OPTIONS=--openssl-legacy-provider && npm start
+	set NODE_OPTIONS=--openssl-legacy-provider && npm run build
 
-### `npm run build`
+## JSON-server (mock backend)
+Asenna:
+	npm install json-server
+Käynnistä:
+	json-server --watch db.json -p 5000
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Rakennus tuotantoon
+	npm run build
+Tuotantorakennetta voi testata paikallisesti:
+	npm install -g serve
+	serve -s build -p 8000
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Testit
+	npm test
+Esimerkki (aja testit kerran ilman watch-tilaa):
+	set CI=true && npm run test -- --watchAll=false
+Esimerkki (aja vain DateTimeUtils-testi):
+	set CI=true && npm run test -- --watchAll=false DateTimeUtils.test.js
 
-6.10.2025 Miika Kontio: use this to make it work
-set NODE_OPTIONS=--openssl-legacy-provider && npm run build
+## Eject (ei suositella)
+	npm run eject
+**Huom:** Eject on peruuttamaton toimenpide.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-Then you can use production build as local server by installing
-'npm install -g serve'
-and running
-'serve -s build -p 8000'
+## Hyödyllisiä linkkejä ja ohjeita
 
-### `npm run eject`
+- [Create React App dokumentaatio](https://facebook.github.io/create-react-app/docs/getting-started)
+- [React dokumentaatio](https://reactjs.org/)
+- [ES7 React/Redux/GraphQL/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Firebase
+Asenna:
+	npm install --save firebase
+	npm install -g firebase-tools
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Luo .env.local-tiedosto ja lisää:
+	REACT_APP_FIREBASE_API_KEY="[ApiKeyHere]"
+	REACT_APP_FIREBASE_PROJECT_ID="[ProjectIdHere]"
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Kirjaudu Firebaseen:
+	firebase login
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Deploy:
+	firebase deploy
 
-## Learn More
+Projektin vaihto:
+	firebase use [projectID]
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Hyödyllisiä Firebase-linkkejä
+- [Firebase authentication video](https://www.youtube.com/watch?v=PKwu15ldZ7k)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### i18next (kielituki)
+- [i18next getting started](https://react.i18next.com/getting-started)
+- [i18next-browser-languageDetector](https://github.com/i18next/i18next-browser-languageDetector)
+- [i18next-http-backend](https://github.com/i18next/i18next-http-backend)
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-### Hyödyllisiä Visual Studio Code Extensioneita 
-- ES7 React/Redux/GraphQL/React-Native snippets
-
-### Firebase realtime database
-First time install firebase
-npm install --save firebase
-npm install -g firebase-tools
-
-Create .env.local file and add these two variables (without [ ] characters)
-
-REACT_APP_FIREBASE_API_KEY="[ApiKeyHere]"
-REACT_APP_FIREBASE_PROJECT_ID="[ProjectIdHere]"
-
-### Firebase login
-firebase login (once at the start of the project)npm
-
-### Firebase continuous integration deployment
-firebase deploy
-
-list firebase projects
-firebase projects:list
-
-change target project 
-firebase use [projectID]
-
-### Firebase authentication
-https://www.youtube.com/watch?v=PKwu15ldZ7k 
-
-### React i18next for languagization
-https://www.youtube.com/watch?v=w04LXKlusCQ
-
-https://react.i18next.com/getting-started
-
-https://github.com/i18next/i18next-browser-languageDetector
-
-https://github.com/i18next/i18next-http-backend
-
-### React Fontawesome v5 icons
-https://fontawesome.com/v5/docs/web/use-with/react
+### FontAwesome React v5
+- [FontAwesome React v5 docs](https://fontawesome.com/v5/docs/web/use-with/react)

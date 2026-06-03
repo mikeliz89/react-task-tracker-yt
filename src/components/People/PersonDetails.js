@@ -51,6 +51,9 @@ export default function PersonDetails() {
 
     return (
         <DetailsPage
+            item={person}
+            id={params.id}
+            dbKey={DB.PEOPLE}
             loading={loading}
             showEditButton={true}
             isEditOpen={showEdit}

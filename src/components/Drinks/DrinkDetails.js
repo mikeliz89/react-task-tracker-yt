@@ -154,7 +154,7 @@ export default function DrinkDetails() {
     }
 
     const fetchIncredientsFromFirebase = async (drinkID) => {
-        console.log("drink ID ", drinkID);
+        //console.log("drink ID ", drinkID);
         const incredients = [];
         const recipeType = RecipeTypes.Drink;
         const dbref = await child(ref(db, getIncredientsUrl(recipeType)), drinkID);

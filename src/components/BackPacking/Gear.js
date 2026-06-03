@@ -7,9 +7,11 @@ import ListRow from '../Site/ListRow';
 
 import { getIconNameByCategory } from './Categories';
 import { useState } from 'react';
+import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { updateToFirebaseById } from '../../datatier/datatier';
 import AddGear from './AddGear';
 
-export default function Gear({ gear, onDelete, onEdit }) {
+export default function Gear({ item, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
@@ -21,23 +23,21 @@ export default function Gear({ gear, onDelete, onEdit }) {
         clearMessages
     } = useAlert();
     const [editable, setEditable] = useState(false);
-
-    const updateGear = (object) => {
-        if (typeof onEdit === 'function') {
-            onEdit(object);
-        }
+    const updateGear = (updateGearID, object) => {
+        object["modified"] = getCurrentDateAsJson();
+        updateToFirebaseById(DB.BACKPACKING_GEAR, updateGearID, object);
         setEditable(false);
     }
 
     return (
         <>
             <ListRow
-                item={gear}
+                item={item}
                 dbKey={DB.BACKPACKING_GEAR}
                 headerProps={{
-                    title: gear.name,
-                    titleTo: `${NAVIGATION.GEAR}/${gear.id}`,
-                    titleIcon: getIconNameByCategory(gear.category),
+                    title: item.name,
+                    titleTo: `${NAVIGATION.GEAR}/${item.id}`,
+                    titleIcon: getIconNameByCategory(item.category),
                     titleIconColor: COLORS.GRAY
                 }}
                 showEditButton={true}
@@ -45,7 +45,7 @@ export default function Gear({ gear, onDelete, onEdit }) {
                 setEditable={setEditable}
                 showDeleteButton={true}
                 onDelete={onDelete}
-                deleteId={gear.id}
+                deleteId={item.id}
                 alert={{
                     message,
                     showMessage,
@@ -58,7 +58,7 @@ export default function Gear({ gear, onDelete, onEdit }) {
                     modalTitle: t('modal_header_edit_gear'),
                     modalBody: (
                         <AddGear
-                            gearID={gear.id}
+                            gearID={item.id}
                             onSave={updateGear}
                             onClose={() => setEditable(false)}
                             showLabels={true}
@@ -67,19 +67,19 @@ export default function Gear({ gear, onDelete, onEdit }) {
                 }}
                 section={
                     <>
-                        {gear.category !== "" ? (
-                            <p> {'#' + t('gear_category_' + getGearCategoryNameByID(gear.category))}</p>
+                        {item.category !== "" ? (
+                            <p> {'#' + t('gear_category_' + getGearCategoryNameByID(item.category))}</p>
                         ) : ('')}
-                        <p>{t('gear_weight')}: {gear.weightInGrams} g</p>
+                        <p>{t('gear_weight')}: {item.weightInGrams} g</p>
                     </>
                 }
                 showCheckButton={true}
                 checkButtonProps={{
-                    checked: !!gear.haveAtHome,
+                    checked: !!item.haveAtHome,
                     checkedText: t('gear_have_at_home'),
                     uncheckedText: t('gear_not_have_at_home'),
-                    onCheck: () => { gear["haveAtHome"] = true; onEdit(gear); },
-                    onUncheck: () => { gear["haveAtHome"] = false; onEdit(gear); },
+                    onCheck: () => { item["haveAtHome"] = true; onEdit(item); },
+                    onUncheck: () => { item["haveAtHome"] = false; onEdit(item); },
                 }}
             />
         </>

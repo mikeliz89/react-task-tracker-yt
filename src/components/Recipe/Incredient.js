@@ -7,23 +7,23 @@ import { useTranslation } from 'react-i18next';
 import AddIncredient from './AddIncredient';
 import ListRow from '../Site/ListRow';
 
-export default function Incredient({ dbUrl, translation, translationKeyPrefix, incredient, recipeID, onDelete }) {
+export default function Incredient({ dbUrl, translation, translationKeyPrefix, item, recipeID, onDelete }) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
     const [editable, setEditable] = useState(false);
 
     const updateIncredient = (recipeID, newIncredient) => {
-        updateToFirebaseByIdAndSubId(dbUrl, recipeID, incredient.id, newIncredient);
+        updateToFirebaseByIdAndSubId(dbUrl, recipeID, item.id, newIncredient);
         setEditable(false);
     };
 
     return (
         <>
             <ListRow
-                item={incredient}
+                item={item}
                 dbKey={DB.RECIPE_INCREDIENTS}
                 headerProps={{
-                    title: incredient.name
+                    title: item.name
                 }}
                 showEditButton={true}
                 editable={editable}
@@ -32,7 +32,7 @@ export default function Incredient({ dbUrl, translation, translationKeyPrefix, i
                 showDeleteButton={true}
                 onDelete={onDelete}
                 deleteId={recipeID}
-                deleteSubId={incredient.id}
+                deleteSubId={item.id}
                 modalProps={{
                     modalTitle: t('edit_incredient'),
                     modalBody: (
@@ -40,7 +40,7 @@ export default function Incredient({ dbUrl, translation, translationKeyPrefix, i
                             translation={translation}
                             translationKeyPrefix={translationKeyPrefix}
                             dbUrl={dbUrl}
-                            incredientID={incredient.id}
+                            incredientID={item.id}
                             recipeID={recipeID}
                             onSave={updateIncredient}
                             onClose={() => setEditable(false)}
@@ -49,7 +49,7 @@ export default function Incredient({ dbUrl, translation, translationKeyPrefix, i
                 }}
                 section={
                     <div style={{ marginLeft: 16 }}>
-                        {incredient.amount} {incredient.unit}
+                        {item.amount} {item.unit}
                     </div>
                 }
             />

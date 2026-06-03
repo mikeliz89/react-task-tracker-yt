@@ -10,7 +10,7 @@ import ListRow from '../Site/ListRow';
 
 import AddGame from './AddGame';
 
-export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation, showConsole }) {
+export default function Game({ item, onDelete, onEdit, dbUrl, detailsNavigation, showConsole }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
@@ -24,38 +24,38 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
         setEditable(false);
     }
 
-    const gameTitle = `${game.name} ${game.publishYear > 0 ? `(${game.publishYear})` : ''}`.trim();
+    const gameTitle = `${item.name} ${item.publishYear > 0 ? `(${item.publishYear})` : ''}`.trim();
 
     return (
         <ListRow
-            item={game}
+            item={item}
             dbKey={dbUrl}
             headerProps={{
                 title: gameTitle,
-                titleTo: `${detailsNavigation}/${game.id}`
+                titleTo: `${detailsNavigation}/${item.id}`
             }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={game.id}
+            deleteId={item.id}
             section={
                 <>
                     <p>
-                        {game.format > 0 ?
+                        {item.format > 0 ?
                             (<span> {
-                                t('game_format_' + getGameConsoleNameByID(game.format))
+                                t('game_format_' + getGameConsoleNameByID(item.format))
                             }</span>) : ('')}
                     </p>
                     <p>
-                        {game.description}
+                        {item.description}
                     </p>
                     {showConsole &&
                         <p>
-                            {game.console > 0 ?
+                            {item.console > 0 ?
                                 (<span> {
-                                    t('game_console_' + getGameConsoleNameByID(game.console))
+                                    t('game_console_' + getGameConsoleNameByID(item.console))
                                 }</span>) : ('')}
                         </p>
                     }
@@ -65,7 +65,7 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
                 modalTitle: t('modal_header_edit_game'),
                 modalBody: (
                     <AddGame
-                        gameID={game.id}
+                        gameID={item.id}
                         onClose={() => setEditable(false)}
                         onSave={updateGame}
                         dbUrl={dbUrl}
@@ -76,11 +76,11 @@ export default function Game({ game, onDelete, onEdit, dbUrl, detailsNavigation,
             }}
             showCheckButton={true}
             checkButtonProps={{
-                checked: !!game.haveAtHome,
+                checked: !!item.haveAtHome,
                 checkedText: t('have'),
                 uncheckedText: t('have_not'),
-                onCheck: () => { game["haveAtHome"] = true; onEdit(game); },
-                onUncheck: () => { game["haveAtHome"] = false; onEdit(game); },
+                onCheck: () => { item["haveAtHome"] = true; onEdit(item); },
+                onUncheck: () => { item["haveAtHome"] = false; onEdit(item); },
             }}
         />
     )

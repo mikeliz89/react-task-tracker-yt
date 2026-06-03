@@ -7,18 +7,18 @@ export default function Incredients({ dbUrl, translation, translationKeyPrefix, 
 
   //translation
   const { t } = useTranslation(translation, { keyPrefix: translationKeyPrefix });
-return (
+  return (
     <>
       <h5>{t('incredients_header')}</h5>
 
       {items
-        ? items.map((incredient, index) =>
+        ? items.map((item, index) =>
           <Incredient
             dbUrl={dbUrl}
             translation={translation}
             translationKeyPrefix={translationKeyPrefix}
-            key={incredient.id}
-            incredient={incredient}
+            key={item.id}
+            item={item}
             recipeID={recipeID}
             onDelete={onDelete} />
         ) : ''

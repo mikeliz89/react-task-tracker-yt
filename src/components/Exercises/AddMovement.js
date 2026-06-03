@@ -57,24 +57,22 @@ export default function AddMovement({ movementID, onClose, onSave, showLabels = 
             return;
         }
 
-        onSave(movementID, {
-            name, category, stars, description
-        });
+        const payload = {
+            name,
+            category,
+            stars,
+            description,
+            created,
+            createdBy,
+            modified
+        };
+
+        onSave(movementID, payload);
     }
 
     return (
         <>
             <Form onSubmit={onSubmit}>
-                <Form.Group className="mb-3" controlId="addMovementForm-Category">
-                    {showLabels && <Form.Label>{t('movementcategory')}</Form.Label>}
-                    <Form.Select
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}>
-                        {categories.map(({ id, name }) => (
-                            <option value={id} key={id}>{t(`movementcategory_${name}`)}</option>
-                        ))}
-                    </Form.Select>
-                </Form.Group>
                 <Form.Group className="mb-3" controlId="addMovementForm-Name">
                     {showLabels && <Form.Label>{t('name')}</Form.Label>}
                     <Form.Control type='text'
@@ -90,6 +88,16 @@ export default function AddMovement({ movementID, onClose, onSave, showLabels = 
                         placeholder={t('description')}
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addMovementForm-Category">
+                    {showLabels && <Form.Label>{t('movementcategory')}</Form.Label>}
+                    <Form.Select
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}>
+                        {categories.map(({ id, name }) => (
+                            <option value={id} key={id}>{t(`movementcategory_${name}`)}</option>
+                        ))}
+                    </Form.Select>
                 </Form.Group>
                 <Row>
                     <ButtonGroup>

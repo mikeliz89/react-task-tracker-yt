@@ -3,7 +3,8 @@ import { TRANSLATION, ICONS, DB, NAVIGATION } from '../../utils/Constants';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import AddRecipe from './AddRecipe';
-import Recipes from './Recipes';
+import ListMapper from '../Common/ListMapper';
+import Recipe from './Recipe';
 import { RecipeTypes } from '../../utils/Enums';
 import NavButton from '../Buttons/NavButton';
 import { useTranslation } from 'react-i18next';
@@ -18,10 +19,11 @@ export default function ManageRecipes() {
       dbKey={DB.RECIPES}
       translationKey={TRANSLATION.RECIPE}
       AddComponent={AddRecipe}
-      ListComponent={Recipes}
+      ListComponent={ListMapper}
       iconName={ICONS.UTENSILS}
       title={t('manage_recipes_title')}
       ListComponentProps={{
+        ItemComponent: Recipe,
         recipeType: RecipeTypes.Food,
         translation: TRANSLATION.TRANSLATION,
         translationKeyPrefix: TRANSLATION.RECIPE

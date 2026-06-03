@@ -8,47 +8,47 @@ import ListRow from '../Site/ListRow';
 import { useState } from 'react';
 import AddMovement from './AddMovement';
 
-export default function Movement({ movement, onDelete }) {
+export default function Movement({ item, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.EXERCISES });
     const [editable, setEditable] = useState(false);
 
-    const updateMovement = (object) => {
-        object["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(DB.EXERCISE_MOVEMENTS, movement.id, object);
+    const updateMovement = (id, payload) => {
+        payload["modified"] = getCurrentDateAsJson();
+        updateToFirebaseById(DB.EXERCISE_MOVEMENTS, id, payload);
         setEditable(false);
     };
 
     return (
         <ListRow
-            item={movement}
+            item={item}
             dbKey={DB.MOVEMENT}
             headerProps={{
                 title: <Link
                     style={{ textDecoration: 'none' }}
-                    to={`${NAVIGATION.MOVEMENT}/${movement.id}`}>{movement.name}</Link>
+                    to={`${NAVIGATION.MOVEMENT}/${item.id}`}>{item.name}</Link>
             }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={movement.id}
+            deleteId={item.id}
             section={
                 <>
                     <p>
-                        {movement.category > 0 ?
-                            (<span> {'#' + t('movementcategory_' + getMovementCategoryNameByID(movement.category))}</span>) : ('')}
+                        {item.category > 0 ?
+                            (<span> {'#' + t('movementcategory_' + getMovementCategoryNameByID(item.category))}</span>) : ('')}
                     </p>
-                    <p>{movement.description}</p>
+                    <p>{item.description}</p>
                 </>
             }
             modalProps={{
                 modalTitle: t('modal_header_edit_movement'),
                 modalBody: (
                     <AddMovement
-                        movementID={movement.id}
+                        movementID={item.id}
                         onSave={updateMovement}
                         onClose={() => setEditable(false)}
                     />

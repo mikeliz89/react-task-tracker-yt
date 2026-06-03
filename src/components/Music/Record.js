@@ -1,5 +1,3 @@
-//states
-
 import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -12,7 +10,7 @@ import ListRow from '../Site/ListRow';
 
 import AddRecord from './AddRecord';
 
-export default function Record({ record, onDelete, onEdit }) {
+export default function Record({  item, onDelete, onEdit }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
@@ -24,34 +22,32 @@ export default function Record({ record, onDelete, onEdit }) {
         setEditable(false);
     }
 
-
-
-    const recordTitle = `${record.band} ${record.band !== '' ? '-' : ''} ${record.name} ${record.publishYear > 0 ? `(${record.publishYear})` : ''}`.trim();
+    const recordTitle = `${item.band} ${item.band !== '' ? '-' : ''} ${item.name} ${item.publishYear > 0 ? `(${item.publishYear})` : ''}`.trim();
 
     return (
         <ListRow
-            item={record}
+            item={item}
             dbKey={DB.MUSIC_RECORDS}
             headerProps={{
                 title: recordTitle,
-                titleTo: `${NAVIGATION.MUSIC_RECORD}/${record.id}`
+                titleTo: `${NAVIGATION.MUSIC_RECORD}/${item.id}`
             }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={record.id}
+            deleteId={item.id}
             section={
                 <>
                     <p>
-                        {record.format > 0 ?
+                        {item.format > 0 ?
                             (<span> {
-                                t('music_format_' + getMusicFormatNameByID(record.format))
+                                t('music_format_' + getMusicFormatNameByID(item.format))
                             }</span>) : ('')}
                     </p>
                     <p>
-                        {record.description}
+                        {item.description}
                     </p>
                 </>
             }
@@ -59,7 +55,7 @@ export default function Record({ record, onDelete, onEdit }) {
                 modalTitle: t('modal_header_edit_record') || 'Edit Record',
                 modalBody: (
                     <AddRecord
-                        recordID={record.id}
+                        recordID={item.id}
                         onClose={() => setEditable(false)}
                         onSave={updateRecord}
                         showLabels={true}
@@ -68,11 +64,11 @@ export default function Record({ record, onDelete, onEdit }) {
             }}
             showCheckButton={true}
             checkButtonProps={{
-                checked: !!record.haveAtHome,
+                checked: !!item.haveAtHome,
                 checkedText: t('have'),
                 uncheckedText: t('have_not'),
-                onCheck: () => { record["haveAtHome"] = true; onEdit(record); },
-                onUncheck: () => { record["haveAtHome"] = false; onEdit(record); }
+                onCheck: () => { item["haveAtHome"] = true; onEdit(item); },
+                onUncheck: () => { item["haveAtHome"] = false; onEdit(item); }
             }}
         />
     )

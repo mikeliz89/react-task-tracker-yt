@@ -17,7 +17,7 @@ export default function AddPartsMoving({ title, iconName }) {
 
   //states
   const [distance, setDistance] = useState(0);
-const [time, setTime] = useState(0);
+  const [time, setTime] = useState(0);
   const [partID, setPartID] = useState();
   const [loading, setLoading] = useState(true);
 

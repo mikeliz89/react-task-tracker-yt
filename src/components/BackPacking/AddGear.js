@@ -60,7 +60,18 @@ export default function AddGear({ gearID, onSave, onClose, showLabels }) {
             return;
         }
 
-        onSave({ id: gearID, created, createdBy, description, name, category, weightInGrams, stars, haveAtHome });
+        const payload = {
+            created,
+            createdBy,
+            description,
+            name,
+            category,
+            weightInGrams,
+            stars,
+            haveAtHome
+        };
+
+        onSave(gearID, payload);
 
         if (gearID == null) {
             clearForm();

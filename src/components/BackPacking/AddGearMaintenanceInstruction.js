@@ -38,7 +38,14 @@ export default function AddGearMaintenanceInstruction({ gearMaintenanceInstructi
             return;
         }
 
-        onSave({ created, createdBy, name, text });
+        const payload = {
+            created,
+            createdBy,
+            name,
+            text
+        };
+
+        onSave(gearMaintenanceInstructionID, payload);
 
         if (gearMaintenanceInstructionID == null) {
             clearForm();

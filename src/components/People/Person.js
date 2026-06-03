@@ -1,4 +1,3 @@
-//alert
 import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -13,7 +12,7 @@ import ListRow from '../Site/ListRow';
 
 import AddPerson from './AddPerson';
 
-export default function Person({ person, onDelete }) {
+export default function Person({ item, onDelete }) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.PEOPLE });
 
@@ -35,25 +34,25 @@ export default function Person({ person, onDelete }) {
 
     // Laske ikä jos syntymäpäivä on olemassa
     let age = null;
-    if (person.birthday) {
-        const birth = dayjs(person.birthday);
+    if (item.birthday) {
+        const birth = dayjs(item.birthday);
         const now = dayjs();
         age = now.diff(birth, 'year');
     }
     return (
         <ListRow
-            item={person}
+            item={item}
             dbKey={DB.PEOPLE}
             headerProps={{
-                title: person.name,
-                titleTo: `${NAVIGATION.PERSON}/${person.id}`,
+                title: item.name,
+                titleTo: `${NAVIGATION.PERSON}/${item.id}`,
             }}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={person.id}
+            deleteId={item.id}
             alert={{
                 message,
                 showMessage,
@@ -63,15 +62,15 @@ export default function Person({ person, onDelete }) {
             }}
             section={
                 <>
-                    <p>{t('birthday') + ": "}{getJsonAsDateString(person.birthday, i18n.language)}{age !== null ? ` (${age} ${t('years')})` : ''}</p>
-                    <p>{person.description}</p>
+                    <p>{t('birthday') + ": "}{getJsonAsDateString(item.birthday, i18n.language)}{age !== null ? ` (${age} ${t('years')})` : ''}</p>
+                    <p>{item.description}</p>
                 </>
             }
             modalProps={{
                 modalTitle: t('modal_header_edit_person'),
                 modalBody: (
                     <AddPerson
-                        personID={person.id}
+                        personID={item.id}
                         onSave={updatePerson}
                         onClose={() => setEditable(false)}
                     />
