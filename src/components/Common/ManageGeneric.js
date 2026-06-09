@@ -70,9 +70,15 @@ export default function ManageGeneric({
     const addItem = async (itemID, item) => {
         try {
             clearMessages();
-            item["created"] = getCurrentDateAsJson();
-            item["createdBy"] = currentUser.email;
-            pushToFirebase(dbKey, item);
+            const itemToSave = item ?? itemID;
+
+            if (!itemToSave || typeof itemToSave !== 'object') {
+                throw new Error('Invalid item payload for addItem');
+            }
+
+            itemToSave["created"] = getCurrentDateAsJson();
+            itemToSave["createdBy"] = currentUser.email;
+            pushToFirebase(dbKey, itemToSave);
             showSuccess(tCommon('save_success'));
         } catch (ex) {
             showFailure(tCommon('save_exception'));
@@ -82,8 +88,6 @@ export default function ManageGeneric({
 
     const editItem = (item) => {
         const id = item.id;
-        //console.log("Editing item with id: " + id, item);
-        //console.log("Updating item in dbKey: " + dbKey);
         updateToFirebaseById(dbKey, id, item);
     }
 

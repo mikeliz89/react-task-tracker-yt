@@ -1,10 +1,6 @@
 
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebase } from '../../datatier/datatier';
 import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
-import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { RecipeTypes } from '../../utils/Enums';
 import NavButton from '../Buttons/NavButton';
 import ListMapper from '../Common/ListMapper';
@@ -16,19 +12,8 @@ import AddDrink from './AddDrink';
 
 
 export default function ManageDrinks() {
-    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
-    const navigate = useNavigate();
-    const { currentUser } = useAuth();
 
-    const addDrink = async (drink) => {
-        drink["created"] = getCurrentDateAsJson();
-        drink["createdBy"] = currentUser.email;
-        if (drink["isCore"] === undefined) {
-            drink["isCore"] = false;
-        }
-        const key = await pushToFirebase(DB.DRINKS, drink);
-        navigate(`${NAVIGATION.DRINK}/${key}`);
-    };
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
 
     return (
         <ManageGeneric
@@ -45,8 +30,7 @@ export default function ManageDrinks() {
                 recipeType: RecipeTypes.Drink
             }}
             AddComponentProps={{
-                autoFocusTitle: true,
-                onSave: addDrink
+                autoFocusTitle: true
             }}
             searchSortFilterOptions={{
                 showSearchByText: true,

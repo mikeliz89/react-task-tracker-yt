@@ -526,6 +526,7 @@
     "created": "Created",
     "created_by": "Created By",
     "description": "Description",
+    "failed_to_save_person": "Failed to save person",
     "modal_header_add_person": "Add person",
     "modified": "Modified",
     "name": "Name",

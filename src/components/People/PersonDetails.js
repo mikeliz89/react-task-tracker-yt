@@ -36,9 +36,8 @@ export default function PersonDetails() {
     //modal
     const { status: showEdit, toggleStatus: toggleShowEdit } = useToggle();
 
-    const updatePerson = async (person) => {
+    const updatePerson = async (personID, person) => {
         try {
-            const personID = params.id;
             person["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.PEOPLE, personID, person);
         } catch (error) {

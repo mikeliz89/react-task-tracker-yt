@@ -36,9 +36,8 @@ export default function GearDetails() {
     //fetch data
     const { data: gear, loading } = useFetch(DB.BACKPACKING_GEAR, "", params.id);
 
-    const updateGear = async (gear) => {
+    const updateGear = async (gearID, gear) => {
         try {
-            const gearID = params.id;
             gear["modified"] = getCurrentDateAsJson();
             updateToFirebaseById(DB.BACKPACKING_GEAR, gearID, gear);
         } catch (error) {

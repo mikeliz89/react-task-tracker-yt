@@ -9,7 +9,7 @@ import useFetchById from '../Hooks/useFetchById';
 
 import { RecipeCategories } from './Categories';
 
-export default function AddRecipe({ recipeID, onSave, onClose, showLabels = true }) {
+export default function AddRecipe({ recipeID, onSave, onClose, showLabels, autoFocusTitle }) {
 
    // translations
    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
@@ -54,6 +54,10 @@ export default function AddRecipe({ recipeID, onSave, onClose, showLabels = true
       setRecipe(prev => ({ ...prev, [key]: value }));
    };
 
+   const clearForm = () => {
+      setRecipe(defaultRecipe);
+   };
+
    const onSubmit = (e) => {
       e.preventDefault();
 
@@ -62,10 +66,19 @@ export default function AddRecipe({ recipeID, onSave, onClose, showLabels = true
          return;
       }
 
-      onSave(recipe);
+      onSave({
+         category: recipe.category,
+         created: recipe.created,
+         createdBy: recipe.createdBy,
+         description: recipe.description,
+         incredients: recipe.incredients,
+         isCore: recipe.isCore,
+         stars: recipe.stars,
+         title: recipe.title
+      });
 
       if (recipeID == null) {
-         setRecipe(defaultRecipe);
+         clearForm();
       }
    };
 
@@ -77,6 +90,7 @@ export default function AddRecipe({ recipeID, onSave, onClose, showLabels = true
             <Form.Control
                type="text"
                autoComplete="off"
+               autoFocus={autoFocusTitle}
                placeholder={recipeID == null ? t('recipe_name') : t('edit_recipe_name')}
                value={recipe.title}
                onChange={(e) => handleChange('title', e.target.value)}
