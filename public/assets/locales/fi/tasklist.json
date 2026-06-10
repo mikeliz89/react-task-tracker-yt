@@ -90,6 +90,7 @@
         "task_ready": "Tehtävä valmis",
         "task_text": "Teksti",
         "toolbar_select_all": "Valitse kaikki",
+        "toolbar_select_all_done": "Valitse kaikki tehdyt",
         "toolbar_unselect_all": "Poista kaikki valinnat",
         "toolbar_clear_selection": "Tyhjennä valinnat",
         "toolbar_select_destination_list": "- Valitse kohdelista -",

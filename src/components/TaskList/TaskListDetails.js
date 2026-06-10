@@ -145,6 +145,11 @@ export default function TaskListDetails() {
     }
   };
 
+  // Valitse kaikki valmiit tehtävät
+  const selectAllDone = () => {
+    setSelectedIds(new Set(tasks.filter((t) => t.reminder === true).map((t) => t.id)));
+  };
+
   //tyhjennä valinnat
   const clearSelection = () => setSelectedIds(new Set());
 
@@ -447,6 +452,13 @@ export default function TaskListDetails() {
             color={COLORS.BUTTON_GRAY}
             iconName={allSelected ? ICONS.MINUS : ICONS.CHECK_SQUARE}
             text={allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
+          />
+          <Button
+            onClick={selectAllDone}
+            disabled={tasks.length === 0}
+            color={COLORS.BUTTON_GRAY}
+            iconName={ICONS.SQUARE_CHECK}
+            text={t('toolbar_select_all_done')}
           />
           <Button
             onClick={handleDeleteSelected}

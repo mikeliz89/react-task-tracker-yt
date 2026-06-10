@@ -98,7 +98,7 @@ const AppRoutes = () => (
     {/* TaskLists */}
     <Route path={NAVIGATION.MANAGE_TASKLISTS} element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
     <Route path={NAVIGATION.TASKLIST_ARCHIVE} element={<PrivateRoute><ManageTaskListsArchive /></PrivateRoute>} />
-    <Route path={NAVIGATION.TASKLIST_TASK + '/:tasklistid'} element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
+    <Route path={NAVIGATION.TASKLIST_TASK + '/:id/:tasklistid'} element={<PrivateRoute><TaskDetails /></PrivateRoute>} />
     <Route path={NAVIGATION.TASKLIST + '/:id'} element={<PrivateRoute><TaskListDetails /></PrivateRoute>} />
     <Route path={NAVIGATION.TASKLIST_ARCHIVE + '/:id'} element={<PrivateRoute><ArchivedTaskListDetails /></PrivateRoute>} />
     {/* TaskLists */}
