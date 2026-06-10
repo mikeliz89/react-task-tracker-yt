@@ -38,6 +38,7 @@ import AddTaskList from '../TaskList/AddTaskList';
 
 import ChangeType from './ChangeType';
 import { SortMode } from '../SearchSortFilter/SortModes';
+import { ListTypes } from '../../utils/Enums';
 
 export default function TaskListDetails() {
 
@@ -150,22 +151,64 @@ export default function TaskListDetails() {
     setSelectedIds(new Set(tasks.filter((t) => t.reminder === true).map((t) => t.id)));
   };
 
+  // Poista valinnasta kaikki valmiit tehtävät
+  const unselectAllDone = () => {
+    const doneIds = new Set(tasks.filter((t) => t.reminder === true).map((t) => t.id));
+    setSelectedIds((prev) => new Set([...prev].filter((id) => !doneIds.has(id))));
+  };
+
   //tyhjennä valinnat
   const clearSelection = () => setSelectedIds(new Set());
 
-  // Järjestys: 1) listType (nouseva), 2) title aakkosissa
+  // Järjestys: 1) listatyyppinimi (käännetty), 2) title aakkosissa
   const sortByTypeThenTitle = (a, b) => {
-    // varmista että listType on numero; jos puuttuu → menee viimeiseksi
-    const ta = Number.isFinite(+a.listType) ? +a.listType : Number.POSITIVE_INFINITY;
-    const tb = Number.isFinite(+b.listType) ? +b.listType : Number.POSITIVE_INFINITY;
+    const aTypeKey = Number.isFinite(+a.listType)
+      ? getPageTitleContent(+a.listType)
+      : 'manage_tasklists_title';
+    const bTypeKey = Number.isFinite(+b.listType)
+      ? getPageTitleContent(+b.listType)
+      : 'manage_tasklists_title';
 
-    if (ta !== tb) return ta - tb;
+    const aTypeTitle = t(aTypeKey);
+    const bTypeTitle = t(bTypeKey);
+    const typeCompare = aTypeTitle.localeCompare(bTypeTitle, i18n.language || 'fi', { sensitivity: 'base' });
+
+    if (typeCompare !== 0) return typeCompare;
 
     const titleA = (a.title ?? "").toString();
     const titleB = (b.title ?? "").toString();
 
     // aakkosjärjestys nykyisen i18n-kielen mukaan, kirjainkoko neutraali
     return titleA.localeCompare(titleB, i18n.language || 'fi', { sensitivity: "base" });
+  };
+
+  const getListTypeIconText = (listType) => {
+    switch (Number(listType)) {
+      case ListTypes.Car:
+        return '🚗';
+      case ListTypes.Food:
+        return '🍽️';
+      case ListTypes.Drink:
+        return '🍸';
+      case ListTypes.Programming:
+        return '💻';
+      case ListTypes.Music:
+        return '🎵';
+      case ListTypes.Games:
+        return '🎮';
+      case ListTypes.BoardGames:
+        return '♟️';
+      case ListTypes.Exercises:
+        return '🏋️';
+      case ListTypes.BackPacking:
+        return '🏕️';
+      case ListTypes.Shopping:
+        return '🛒';
+      case ListTypes.Movies:
+        return '🎬';
+      default:
+        return '📋';
+    }
   };
 
   // ...
@@ -461,11 +504,11 @@ export default function TaskListDetails() {
             text={t('toolbar_select_all_done')}
           />
           <Button
-            onClick={handleDeleteSelected}
-            disabled={!canDeleteSelected}
-            color={COLORS.DELETEBUTTON}
-            iconName={ICONS.DELETE}
-            text={`${t('toolbar_delete_selected')} (${selectedIds.size})`}
+            onClick={unselectAllDone}
+            disabled={tasks.length === 0}
+            color={COLORS.BUTTON_GRAY}
+            iconName={ICONS.MINUS}
+            text="unselect all done"
           />
         </div>
 
@@ -480,7 +523,7 @@ export default function TaskListDetails() {
               <option value="">{t('toolbar_select_destination_list')}</option>
               {destinationOptions.map((tl) => (
                 <option key={tl.id} value={tl.id}>
-                  {`${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} — ${tl.title || tl.id}`}
+                  {`${getListTypeIconText(tl.listType)} ${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} — ${tl.title || tl.id}`}
                 </option>
               ))}
             </select>
@@ -491,6 +534,15 @@ export default function TaskListDetails() {
               text={loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected_to_another_list')} (${selectedIds.size})`}
             />
           </div>
+        </div>
+        <div>
+          <Button
+            onClick={handleDeleteSelected}
+            disabled={!canDeleteSelected}
+            color={COLORS.DELETEBUTTON}
+            iconName={ICONS.DELETE}
+            text={`${t('toolbar_delete_selected')} (${selectedIds.size})`}
+          />
         </div>
       </div>
     </details>
