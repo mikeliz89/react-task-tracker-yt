@@ -38,6 +38,7 @@ import AddTaskList from '../TaskList/AddTaskList';
 
 import ChangeType from './ChangeType';
 import { SortMode } from '../SearchSortFilter/SortModes';
+import { ListTypes } from '../../utils/Enums';
 
 export default function TaskListDetails() {
 
@@ -145,16 +146,34 @@ export default function TaskListDetails() {
     }
   };
 
+  // Valitse kaikki valmiit tehtävät
+  const selectAllDone = () => {
+    setSelectedIds(new Set(tasks.filter((t) => t.reminder === true).map((t) => t.id)));
+  };
+
+  // Poista valinnasta kaikki valmiit tehtävät
+  const unselectAllDone = () => {
+    const doneIds = new Set(tasks.filter((t) => t.reminder === true).map((t) => t.id));
+    setSelectedIds((prev) => new Set([...prev].filter((id) => !doneIds.has(id))));
+  };
+
   //tyhjennä valinnat
   const clearSelection = () => setSelectedIds(new Set());
 
-  // Järjestys: 1) listType (nouseva), 2) title aakkosissa
+  // Järjestys: 1) listatyyppinimi (käännetty), 2) title aakkosissa
   const sortByTypeThenTitle = (a, b) => {
-    // varmista että listType on numero; jos puuttuu → menee viimeiseksi
-    const ta = Number.isFinite(+a.listType) ? +a.listType : Number.POSITIVE_INFINITY;
-    const tb = Number.isFinite(+b.listType) ? +b.listType : Number.POSITIVE_INFINITY;
+    const aTypeKey = Number.isFinite(+a.listType)
+      ? getPageTitleContent(+a.listType)
+      : 'manage_tasklists_title';
+    const bTypeKey = Number.isFinite(+b.listType)
+      ? getPageTitleContent(+b.listType)
+      : 'manage_tasklists_title';
 
-    if (ta !== tb) return ta - tb;
+    const aTypeTitle = t(aTypeKey);
+    const bTypeTitle = t(bTypeKey);
+    const typeCompare = aTypeTitle.localeCompare(bTypeTitle, i18n.language || 'fi', { sensitivity: 'base' });
+
+    if (typeCompare !== 0) return typeCompare;
 
     const titleA = (a.title ?? "").toString();
     const titleB = (b.title ?? "").toString();
@@ -163,11 +182,41 @@ export default function TaskListDetails() {
     return titleA.localeCompare(titleB, i18n.language || 'fi', { sensitivity: "base" });
   };
 
+  const getListTypeIconText = (listType) => {
+    switch (Number(listType)) {
+      case ListTypes.Car:
+        return '🚗';
+      case ListTypes.Food:
+        return '🍽️';
+      case ListTypes.Drink:
+        return '🍸';
+      case ListTypes.Programming:
+        return '💻';
+      case ListTypes.Music:
+        return '🎵';
+      case ListTypes.Games:
+        return '🎮';
+      case ListTypes.BoardGames:
+        return '♟️';
+      case ListTypes.Exercises:
+        return '🏋️';
+      case ListTypes.BackPacking:
+        return '🏕️';
+      case ListTypes.Shopping:
+        return '🛒';
+      case ListTypes.Movies:
+        return '🎬';
+      default:
+        return '📋';
+    }
+  };
+
   // ...
   const destinationOptions = tasklists
     .filter((t) => t.id !== sourceListId)
     .slice() // kopio, ettei mutatoida alkuperäistä
     .sort(sortByTypeThenTitle);
+  const hasSelection = selectedIds.size > 0;
   const canMove = selectedIds.size > 0 && destListId && !loadingMove;
   const canDeleteSelected = selectedIds.size > 0 && !loadingMove;
 
@@ -386,29 +435,32 @@ export default function TaskListDetails() {
       </summary>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 8 }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-          <CopyToClipboardButton
-            items={tasks}
-            getText={getTasksClipboardText}
-          />
-          <Button
-            iconName={ICONS.PLUS}
-            color={showBulkAddTasks ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-            text={showBulkAddTasks ? tCommon('buttons.button_close') : t('button_add_tasks_bulk')}
-            onClick={toggleBulkAddTasks}
-          />
-          <Button onClick={() => {
-            if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
-              markAllTasksDone(params.id)
-            }
-          }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} />
-          <Button onClick={() => {
-            if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
-              markAllTasksUndone(params.id)
-            }
-          }} text={t('mark_all_tasks_undone')} iconName={ICONS.HOURGLASS_1} />
-          <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
-            iconName={ICONS.EDIT} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <span style={{ fontWeight: 600 }}>{t('tabheader_list_actions')}</span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            <CopyToClipboardButton
+              items={tasks}
+              getText={getTasksClipboardText}
+            />
+            <Button
+              iconName={ICONS.PLUS}
+              color={showBulkAddTasks ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
+              text={showBulkAddTasks ? tCommon('buttons.button_close') : t('button_add_tasks_bulk')}
+              onClick={toggleBulkAddTasks}
+            />
+            <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
+              iconName={ICONS.EDIT} />
+            <Button onClick={() => {
+              if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
+                markAllTasksDone(params.id)
+              }
+            }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} />
+            <Button onClick={() => {
+              if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
+                markAllTasksUndone(params.id)
+              }
+            }} text={t('mark_all_tasks_undone')} iconName={ICONS.HOURGLASS_1} />
+          </div>
         </div>
 
         {
@@ -439,22 +491,31 @@ export default function TaskListDetails() {
           </div>
         }
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           <span style={{ fontWeight: 600 }}>{`${selectedIds.size}/${tasks.length} ${t('tasks')}`}</span>
-          <Button
-            onClick={toggleAll}
-            disabled={tasks.length === 0}
-            color={COLORS.BUTTON_GRAY}
-            iconName={allSelected ? ICONS.MINUS : ICONS.CHECK_SQUARE}
-            text={allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
-          />
-          <Button
-            onClick={handleDeleteSelected}
-            disabled={!canDeleteSelected}
-            color={COLORS.DELETEBUTTON}
-            iconName={ICONS.DELETE}
-            text={`${t('toolbar_delete_selected')} (${selectedIds.size})`}
-          />
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+            <Button
+              onClick={toggleAll}
+              disabled={tasks.length === 0}
+              color={COLORS.BUTTON_GRAY}
+              iconName={allSelected ? ICONS.MINUS : ICONS.CHECK_SQUARE}
+              text={allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
+            />
+            <Button
+              onClick={selectAllDone}
+              disabled={tasks.length === 0}
+              color={COLORS.BUTTON_GRAY}
+              iconName={ICONS.SQUARE_CHECK}
+              text={t('toolbar_select_all_done')}
+            />
+            <Button
+              onClick={unselectAllDone}
+              disabled={tasks.length === 0}
+              color={COLORS.BUTTON_GRAY}
+              iconName={ICONS.MINUS}
+              text={`${t('toolbar_unselect_all_done')}`}
+            />
+          </div>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -468,7 +529,7 @@ export default function TaskListDetails() {
               <option value="">{t('toolbar_select_destination_list')}</option>
               {destinationOptions.map((tl) => (
                 <option key={tl.id} value={tl.id}>
-                  {`${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} — ${tl.title || tl.id}`}
+                  {`${getListTypeIconText(tl.listType)} ${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} - ${tl.title || tl.id}`}
                 </option>
               ))}
             </select>
@@ -477,6 +538,19 @@ export default function TaskListDetails() {
               disabled={!canMove}
               color={COLORS.BUTTON_GRAY}
               text={loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected_to_another_list')} (${selectedIds.size})`}
+            />
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <span style={{ fontWeight: 600 }}>{tCommon('confirm.delete')}</span>
+          <div>
+            <Button
+              onClick={handleDeleteSelected}
+              disabled={!canDeleteSelected}
+              color={COLORS.DELETEBUTTON}
+              iconName={ICONS.DELETE}
+              text={`${t('toolbar_delete_selected')} (${selectedIds.size})`}
             />
           </div>
         </div>

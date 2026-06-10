@@ -14,10 +14,12 @@
             "button_delete_all": "Poista kaikki",
             "button_edit": "Muokkaa",
             "button_lists": "Listat",
-            "button_save": "Tallenna"
+            "button_save": "Tallenna",
+            "copied_to_clipboard": "Kopioitu leikepöydälle"
         },
         "confirm": {
-            "areyousure": "Oletko varma?"
+            "areyousure": "Oletko varma?",
+            "delete": "Poista"
         }
     }
 }

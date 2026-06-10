@@ -45,6 +45,11 @@
         padding: 0.65rem 0.75rem;
         border-radius: 9px;
     }
+
+    /* Prevent accidental navigation to task details on touch devices. */
+    .taskRowLink {
+        pointer-events: none;
+    }
 }
 
 .tasksList {
@@ -113,6 +118,18 @@
 .taskRowActions {
     flex: 0 0 auto;
     margin-left: 0.5rem;
+}
+
+.taskRowOpenDetailsBtn {
+    min-width: 2.1rem;
+    padding: 0.22rem 0.45rem;
+}
+
+@media (max-width: 768px) {
+    .taskRowOpenDetailsBtn {
+        min-width: 2.3rem;
+        padding: 0.3rem 0.5rem;
+    }
 }
 
 .taskDone .taskRowTitle,

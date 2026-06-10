@@ -543,6 +543,7 @@
         "created": "Luotu",
         "created_by": "Luoja",
         "description": "Kuvaus",
+        "failed_to_save_person": "Henkilön tallennus epäonnistui",
         "modal_header_add_person": "Lisää ihminen",
         "modal_header_edit_person": "Muokkaa ihmistä",
         "modified": "Muokattu",

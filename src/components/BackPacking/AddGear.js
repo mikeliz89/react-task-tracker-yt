@@ -7,7 +7,6 @@ import { TRANSLATION, DB } from "../../utils/Constants";
 import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
 
-
 import { GearCategories } from './Categories';
 
 export default function AddGear({ gearID, onSave, onClose, showLabels }) {
