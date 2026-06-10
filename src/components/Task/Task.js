@@ -3,9 +3,10 @@ import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import { updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import { DB, TRANSLATION } from '../../utils/Constants';
+import { DB, ICONS, TRANSLATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useToggle } from '../Hooks/useToggle';
+import NavButton from '../Buttons/NavButton';
 import ListRow from '../Site/ListRow';
 
 import AddTask from './AddTask';
@@ -28,6 +29,8 @@ export default function Task({
         updateToFirebaseByIdAndSubId(DB.TASKS, updateTaskListID, task.id, object);
         toggleSetEditable();
     }
+
+    const taskDetailsPath = `/task/${task.id}/${taskListID}`;
 
     const handleCheckboxChange = (e) => {
         e.stopPropagation();          // estä dblclick-propagaatio
@@ -62,13 +65,23 @@ export default function Task({
                     />
                 ) : null,
                 title: task.text,
-                titleTo: !editable && !archived ? `/task/${task.id}/${taskListID}` : null,
+                titleTo: !editable && !archived ? taskDetailsPath : null,
                 titleWrapperClassName: !editable ? 'taskRowTitle' : '',
                 titleClassName: !editable && !archived ? 'taskRowLink' : '',
                 suffix: !editable && task.reminder ? <span className="taskDoneBadge">{t('ready')}</span> : null,
                 className: !editable ? 'taskRowTop' : '',
                 leftClassName: !editable ? 'taskRowLeft' : '',
             }}
+            actionsExtra={!editable && !archived ? (
+                <NavButton
+                    to={taskDetailsPath}
+                    className="btn btn-sm btn-outline-secondary taskRowOpenDetailsBtn"
+                    icon={ICONS.EXTERNAL_LINK_ALT}
+                    iconColor="currentColor"
+                    aria-label={t('task_text')}
+                    title={t('task_text')}
+                />
+            ) : null}
             section={!!task.day && <p className="taskRowDay">{task.day}</p>}
             modalProps={{
                 modalTitle: t('edit_task'),

@@ -216,6 +216,7 @@ export default function TaskListDetails() {
     .filter((t) => t.id !== sourceListId)
     .slice() // kopio, ettei mutatoida alkuperäistä
     .sort(sortByTypeThenTitle);
+  const hasSelection = selectedIds.size > 0;
   const canMove = selectedIds.size > 0 && destListId && !loadingMove;
   const canDeleteSelected = selectedIds.size > 0 && !loadingMove;
 
@@ -434,29 +435,32 @@ export default function TaskListDetails() {
       </summary>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 8 }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-          <CopyToClipboardButton
-            items={tasks}
-            getText={getTasksClipboardText}
-          />
-          <Button
-            iconName={ICONS.PLUS}
-            color={showBulkAddTasks ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-            text={showBulkAddTasks ? tCommon('buttons.button_close') : t('button_add_tasks_bulk')}
-            onClick={toggleBulkAddTasks}
-          />
-          <Button onClick={() => {
-            if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
-              markAllTasksDone(params.id)
-            }
-          }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} />
-          <Button onClick={() => {
-            if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
-              markAllTasksUndone(params.id)
-            }
-          }} text={t('mark_all_tasks_undone')} iconName={ICONS.HOURGLASS_1} />
-          <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
-            iconName={ICONS.EDIT} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <span style={{ fontWeight: 600 }}>{t('tabheader_list_actions')}</span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            <CopyToClipboardButton
+              items={tasks}
+              getText={getTasksClipboardText}
+            />
+            <Button
+              iconName={ICONS.PLUS}
+              color={showBulkAddTasks ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
+              text={showBulkAddTasks ? tCommon('buttons.button_close') : t('button_add_tasks_bulk')}
+              onClick={toggleBulkAddTasks}
+            />
+            <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
+              iconName={ICONS.EDIT} />
+            <Button onClick={() => {
+              if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
+                markAllTasksDone(params.id)
+              }
+            }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} />
+            <Button onClick={() => {
+              if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
+                markAllTasksUndone(params.id)
+              }
+            }} text={t('mark_all_tasks_undone')} iconName={ICONS.HOURGLASS_1} />
+          </div>
         </div>
 
         {
@@ -487,29 +491,31 @@ export default function TaskListDetails() {
           </div>
         }
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           <span style={{ fontWeight: 600 }}>{`${selectedIds.size}/${tasks.length} ${t('tasks')}`}</span>
-          <Button
-            onClick={toggleAll}
-            disabled={tasks.length === 0}
-            color={COLORS.BUTTON_GRAY}
-            iconName={allSelected ? ICONS.MINUS : ICONS.CHECK_SQUARE}
-            text={allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
-          />
-          <Button
-            onClick={selectAllDone}
-            disabled={tasks.length === 0}
-            color={COLORS.BUTTON_GRAY}
-            iconName={ICONS.SQUARE_CHECK}
-            text={t('toolbar_select_all_done')}
-          />
-          <Button
-            onClick={unselectAllDone}
-            disabled={tasks.length === 0}
-            color={COLORS.BUTTON_GRAY}
-            iconName={ICONS.MINUS}
-            text="unselect all done"
-          />
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+            <Button
+              onClick={toggleAll}
+              disabled={tasks.length === 0}
+              color={COLORS.BUTTON_GRAY}
+              iconName={allSelected ? ICONS.MINUS : ICONS.CHECK_SQUARE}
+              text={allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
+            />
+            <Button
+              onClick={selectAllDone}
+              disabled={tasks.length === 0}
+              color={COLORS.BUTTON_GRAY}
+              iconName={ICONS.SQUARE_CHECK}
+              text={t('toolbar_select_all_done')}
+            />
+            <Button
+              onClick={unselectAllDone}
+              disabled={tasks.length === 0}
+              color={COLORS.BUTTON_GRAY}
+              iconName={ICONS.MINUS}
+              text={`${t('toolbar_unselect_all_done')}`}
+            />
+          </div>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -523,7 +529,7 @@ export default function TaskListDetails() {
               <option value="">{t('toolbar_select_destination_list')}</option>
               {destinationOptions.map((tl) => (
                 <option key={tl.id} value={tl.id}>
-                  {`${getListTypeIconText(tl.listType)} ${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} — ${tl.title || tl.id}`}
+                  {`${getListTypeIconText(tl.listType)} ${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} - ${tl.title || tl.id}`}
                 </option>
               ))}
             </select>
@@ -535,14 +541,18 @@ export default function TaskListDetails() {
             />
           </div>
         </div>
-        <div>
-          <Button
-            onClick={handleDeleteSelected}
-            disabled={!canDeleteSelected}
-            color={COLORS.DELETEBUTTON}
-            iconName={ICONS.DELETE}
-            text={`${t('toolbar_delete_selected')} (${selectedIds.size})`}
-          />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <span style={{ fontWeight: 600 }}>{tCommon('confirm.delete')}</span>
+          <div>
+            <Button
+              onClick={handleDeleteSelected}
+              disabled={!canDeleteSelected}
+              color={COLORS.DELETEBUTTON}
+              iconName={ICONS.DELETE}
+              text={`${t('toolbar_delete_selected')} (${selectedIds.size})`}
+            />
+          </div>
         </div>
       </div>
     </details>

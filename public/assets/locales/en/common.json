@@ -16,7 +16,8 @@
             "button_save": "Save"
         },
         "confirm": {
-            "areyousure": "Are you sure?"
+            "areyousure": "Are you sure?",
+            "delete": "Delete"
         }
     }
 }
