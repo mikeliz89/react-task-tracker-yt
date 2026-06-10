@@ -13,7 +13,8 @@
             "button_delete_all": "Delete All",
             "button_edit": "Edit",
             "button_lists": "Lists",
-            "button_save": "Save"
+            "button_save": "Save",
+            "copied_to_clipboard": "Copied to clipboard"
         },
         "confirm": {
             "areyousure": "Are you sure?",
