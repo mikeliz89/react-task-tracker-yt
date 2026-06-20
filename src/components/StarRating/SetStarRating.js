@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Row, Col, Form, ButtonGroup } from 'react-bootstrap';
+import { Row, Col, Form, ButtonGroup, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import { TRANSLATION, ICONS } from '../../utils/Constants';
@@ -45,42 +45,44 @@ export default function SetStarRating({ starCount, onSaveStars, onShow }) {
                 className={showStarRating ? 'btn btn-danger' : 'btn btn-primary'}
                 text={showStarRating ? tCommon('buttons.button_close') : t('rate')}
                 onClick={() => showRating(!showStarRating)} />
-            {
-                showStarRating ? (
-                    <>
-                        <Row>
-                            <Col>
-                                <StarRating starCount={Number(stars)} />
-                                <Form onSubmit={onSubmit}>
-                                    <Form.Group className="mb-3" controlId="setStarRatingForm-Rating">
-                                        <Form.Label>{t('rating')}</Form.Label>
-                                        <Form.Range min="0" max="5" step="0.1"
-                                            value={Number(stars)}
-                                            onChange={(e) => setStars(Number(e.target.value))} />
-                                        <Form.Control
-                                            type="number"
-                                            min="0"
-                                            max="5"
-                                            step="0.1"
-                                            value={Number(stars)}
-                                            onChange={(e) => setStars(Number(e.target.value))}
-                                            style={{ width: 80, display: 'inline-block', marginLeft: 12 }}
-                                        />
-                                    </Form.Group>
-                                    <Row>
-                                        <ButtonGroup>
-                                            <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
-                                                onClick={() => showRating(false)} />
-                                            <Button
-                                                disabled={loading} type='submit'
-                                                text={t('save_rating')} className='btn btn-block saveBtn' />
-                                        </ButtonGroup>
-                                    </Row>
-                                </Form>
-                            </Col>
-                        </Row>
-                    </>) : ''
-            }
+            <Modal show={showStarRating} onHide={() => showRating(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('rate')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Row>
+                        <Col>
+                            <StarRating starCount={Number(stars)} />
+                            <Form onSubmit={onSubmit}>
+                                <Form.Group className="mb-3" controlId="setStarRatingForm-Rating">
+                                    <Form.Label>{t('rating')}</Form.Label>
+                                    <Form.Range min="0" max="5" step="0.1"
+                                        value={Number(stars)}
+                                        onChange={(e) => setStars(Number(e.target.value))} />
+                                    <Form.Control
+                                        type="number"
+                                        min="0"
+                                        max="5"
+                                        step="0.1"
+                                        value={Number(stars)}
+                                        onChange={(e) => setStars(Number(e.target.value))}
+                                        style={{ width: 80, display: 'inline-block', marginLeft: 12 }}
+                                    />
+                                </Form.Group>
+                                <Row>
+                                    <ButtonGroup>
+                                        <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block'
+                                            onClick={() => showRating(false)} />
+                                        <Button
+                                            disabled={loading} type='submit'
+                                            text={t('save_rating')} className='btn btn-block saveBtn' />
+                                    </ButtonGroup>
+                                </Row>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Modal.Body>
+            </Modal>
         </>
     )
 }
