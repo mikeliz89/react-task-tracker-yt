@@ -504,3 +504,69 @@ form {
 .searchSortFilter {
     margin-top: 10px;
 }
+
+.searchSortFilter-form {
+    background-color: var(--color-white);
+    border: 1px solid #e1e5eb;
+    border-radius: 12px;
+    padding: 0.75rem;
+}
+
+.searchSortFilter-toolbar {
+    margin-bottom: 0.4rem;
+}
+
+.searchSortFilter-field {
+    width: 100%;
+}
+
+.searchSortFilter-label {
+    margin-bottom: 0.25rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.searchSortFilter-control {
+    min-height: 42px;
+    border-radius: 10px;
+    border-color: #cfd6e0;
+    background-color: #ffffff;
+}
+
+.searchSortFilter-control:focus {
+    border-color: #4a90d9;
+    box-shadow: 0 0 0 0.15rem rgba(74, 144, 217, 0.2);
+}
+
+.searchSortFilter-sorting {
+    margin-top: 0.35rem;
+    margin-bottom: 0;
+    padding-top: 0.5rem;
+    border-top: 1px solid #edf1f5;
+}
+
+.searchSortFilter-sortButtons {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.searchSortFilter-sortButtons .btn {
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    .searchSortFilter-form {
+        padding: 0.6rem;
+    }
+
+    .searchSortFilter-control {
+        min-height: 40px;
+    }
+
+    .searchSortFilter-sorting {
+        margin-top: 0.2rem;
+    }
+}

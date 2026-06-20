@@ -9,33 +9,10 @@ import { useToggle } from '../Hooks/useToggle';
 import FilterCheckBox from './FilterCheckBox';
 import FilterDropDown from './FilterDropDown';
 import { FilterMode } from './FilterModes';
+import { HomeFilterMode, RatedFilterMode, ReadyFilterMode, SeenLiveFilterMode } from './FilterStatusModes';
 import SearchTextInput from './SearchTextInput';
 import SortByButton from './SortByButton';
 import { SortMode } from './SortModes';
-
-const ReadyFilterMode = {
-    All: 'all',
-    Ready: 'ready',
-    NotReady: 'not_ready'
-}
-
-const RatedFilterMode = {
-    All: 'all',
-    Rated: 'rated',
-    NotRated: 'not_rated'
-}
-
-const HomeFilterMode = {
-    All: 'all',
-    Have: 'have',
-    NotHave: 'not_have'
-}
-
-const SeenLiveFilterMode = {
-    All: 'all',
-    Seen: 'seen',
-    NotSeen: 'not_seen'
-}
 
 const filterCheckText = (newList, key, comparableString) => {
     const needle = String(comparableString).toLowerCase();
@@ -136,6 +113,141 @@ export default function SearchSortFilter({ onSet,
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.SEARCHSORTFILTER });
+
+    const searchInputControls = [
+        {
+            enabled: showSearchByText,
+            setSearchString,
+            placeholderText: 'placeholder_name',
+            inputId: 'searchSortFilter-name'
+        },
+        {
+            enabled: showSearchByFinnishName,
+            setSearchString: setSearchStringFinnishName,
+            placeholderText: 'placeholder_finnishname',
+            inputId: 'searchSortFilter-finnishName'
+        },
+        {
+            enabled: showSearchByDescription,
+            setSearchString: setSearchStringDescription,
+            placeholderText: 'placeholder_description',
+            inputId: 'searchSortFilter-description'
+        },
+        {
+            enabled: showSearchByDay,
+            setSearchString: setSearchStringDay,
+            placeholderText: 'placeholder_day',
+            inputId: 'searchSortFilter-day'
+        },
+        {
+            enabled: showSearchByIncredients,
+            setSearchString: setSearchStringIncredients,
+            placeholderText: 'placeholder_incredients',
+            inputId: 'searchSortFilter-incredients'
+        }
+    ];
+
+    const filterDropDownControls = [
+        {
+            enabled: showFilterSeenLive,
+            id: 'seenLiveStatusFilter',
+            labelText: 'show_only_seen_live',
+            value: seenLiveFilterMode,
+            onSet: setSeenLiveFilterMode,
+            options: [
+                { value: SeenLiveFilterMode.All, labelText: 'seen_live_filter_all' },
+                { value: SeenLiveFilterMode.Seen, labelText: 'seen_live_filter_seen' },
+                { value: SeenLiveFilterMode.NotSeen, labelText: 'seen_live_filter_not_seen' },
+            ]
+        },
+        {
+            enabled: showFilterHaveAtHome,
+            id: 'haveAtHomeStatusFilter',
+            labelText: 'home_filter_have',
+            value: homeFilterMode,
+            onSet: setHomeFilterMode,
+            options: [
+                { value: HomeFilterMode.All, labelText: 'home_filter_all' },
+                { value: HomeFilterMode.Have, labelText: 'home_filter_have' },
+                { value: HomeFilterMode.NotHave, labelText: 'home_filter_not_have' },
+            ]
+        },
+        {
+            enabled: showFilterHaveRated,
+            id: 'ratedStatusFilter',
+            labelText: 'rated',
+            value: ratedFilterMode,
+            onSet: setRatedFilterMode,
+            options: [
+                { value: RatedFilterMode.All, labelText: 'rated_filter_all' },
+                { value: RatedFilterMode.Rated, labelText: 'rated_filter_rated' },
+                { value: RatedFilterMode.NotRated, labelText: 'rated_filter_not_rated' },
+            ]
+        },
+        {
+            enabled: showFilterReady,
+            id: 'readyStatusFilter',
+            labelText: 'ready',
+            value: readyFilterMode,
+            onSet: setReadyFilterMode,
+            options: [
+                { value: ReadyFilterMode.All, labelText: 'ready_filter_all' },
+                { value: ReadyFilterMode.Ready, labelText: 'ready_filter_ready' },
+                { value: ReadyFilterMode.NotReady, labelText: 'ready_filter_not_ready' },
+            ]
+        }
+    ];
+
+    const sortButtonControls = [
+        {
+            enabled: showSortByCreatedDate,
+            sortModeASC: SortMode.Created_ASC,
+            sortModeDESC: SortMode.Created_DESC,
+            title: 'created_date'
+        },
+        {
+            enabled: showSortByName,
+            sortModeASC: SortMode.Name_ASC,
+            sortModeDESC: SortMode.Name_DESC,
+            title: 'name'
+        },
+        {
+            enabled: showSortByTrackName,
+            sortModeASC: SortMode.TrackName_ASC,
+            sortModeDESC: SortMode.TrackName_DESC,
+            title: 'track_name'
+        },
+        {
+            enabled: showSortByTitle,
+            sortModeASC: SortMode.Title_ASC,
+            sortModeDESC: SortMode.Title_DESC,
+            title: 'title'
+        },
+        {
+            enabled: showSortByText,
+            sortModeASC: SortMode.Text_ASC,
+            sortModeDESC: SortMode.Text_DESC,
+            title: 'text'
+        },
+        {
+            enabled: showSortByStarRating,
+            sortModeASC: SortMode.StarRating_ASC,
+            sortModeDESC: SortMode.StarRating_DESC,
+            title: 'star_rating'
+        },
+        {
+            enabled: showSortByBirthday,
+            sortModeASC: SortMode.Birthday_ASC,
+            sortModeDESC: SortMode.Birthday_DESC,
+            title: 'birthday'
+        },
+        {
+            enabled: showSortByPublishYear,
+            sortModeASC: SortMode.PublishYear_ASC,
+            sortModeDESC: SortMode.PublishYear_DESC,
+            title: 'publishYear'
+        }
+    ];
 
     const searching = useCallback((newList) => {
         if (searchString !== "") {
@@ -319,183 +431,54 @@ export default function SearchSortFilter({ onSet,
                     {t('search_tools')}
                 </summary>
                 <div className="searchSortFilter">
-                    <Form className='form-no-paddings'>
-                        <Form.Group as={Row}>
-                            <Form.Label column xs={3} sm={2}>{t('sorting')}</Form.Label>
-                            <Col xs={9} sm={10}>
-                                <ButtonGroup>
-                                    {
-                                        showSortByCreatedDate &&
+                    <Form className='form-no-paddings searchSortFilter-form'>
+                        <Row className='g-2 align-items-end searchSortFilter-toolbar'>
+                            {searchInputControls.filter(x => x.enabled).map((control) => (
+                                <Col xs={12} md={6} lg={4} xl={3} key={control.inputId}>
+                                    <SearchTextInput
+                                        setSearchString={control.setSearchString}
+                                        placeholderText={control.placeholderText}
+                                        inputId={control.inputId}
+                                        compact
+                                    />
+                                </Col>
+                            ))}
+                            {filterDropDownControls.filter(x => x.enabled).map((control) => (
+                                <Col xs={12} md={6} lg={4} xl={3} key={control.id}>
+                                    <FilterDropDown
+                                        id={control.id}
+                                        labelText={control.labelText}
+                                        value={control.value}
+                                        onSet={control.onSet}
+                                        compact
+                                        options={control.options}
+                                    />
+                                </Col>
+                            ))}
+                        </Row>
+                        <Form.Group as={Row} className='searchSortFilter-sorting'>
+                            <Form.Label column xs={12} md={2} className='mb-1 mb-md-0'>{t('sorting')}</Form.Label>
+                            <Col xs={12} md={10}>
+                                <ButtonGroup className='searchSortFilter-sortButtons'>
+                                    {sortButtonControls.filter(x => x.enabled).map((control) => (
                                         <SortByButton
+                                            key={control.sortModeASC}
                                             sortBy={sortBy}
-                                            sortModeASC={SortMode.Created_ASC}
-                                            sortModeDESC={SortMode.Created_DESC}
+                                            sortModeASC={control.sortModeASC}
+                                            sortModeDESC={control.sortModeDESC}
                                             onSortBy={setSortBy}
-                                            title='created_date' />
-                                    }
-                                    {
-                                        showSortByName &&
-                                        <SortByButton
-                                            sortBy={sortBy}
-                                            sortModeASC={SortMode.Name_ASC}
-                                            sortModeDESC={SortMode.Name_DESC}
-                                            onSortBy={setSortBy}
-                                            title='name' />
-                                    }
-                                    {
-                                        showSortByTrackName &&
-                                        <SortByButton
-                                            sortBy={sortBy}
-                                            sortModeASC={SortMode.TrackName_ASC}
-                                            sortModeDESC={SortMode.TrackName_DESC}
-                                            onSortBy={setSortBy}
-                                            title='track_name' />
-                                    }
-                                    {
-                                        showSortByTitle &&
-                                        <SortByButton
-                                            sortBy={sortBy}
-                                            sortModeASC={SortMode.Title_ASC}
-                                            sortModeDESC={SortMode.Title_DESC}
-                                            onSortBy={setSortBy}
-                                            title='title' />
-                                    }
-                                    {
-                                        showSortByText &&
-                                        <SortByButton
-                                            sortBy={sortBy}
-                                            sortModeASC={SortMode.Text_ASC}
-                                            sortModeDESC={SortMode.Text_DESC}
-                                            onSortBy={setSortBy}
-                                            title='text' />
-                                    }
-                                    {
-                                        showSortByStarRating &&
-                                        <SortByButton
-                                            sortBy={sortBy}
-                                            sortModeASC={SortMode.StarRating_ASC}
-                                            sortModeDESC={SortMode.StarRating_DESC}
-                                            onSortBy={setSortBy}
-                                            title='star_rating' />
-                                    }
-                                    {
-                                        showSortByBirthday &&
-                                        <SortByButton
-                                            sortBy={sortBy}
-                                            sortModeASC={SortMode.Birthday_ASC}
-                                            sortModeDESC={SortMode.Birthday_DESC}
-                                            onSortBy={setSortBy}
-                                            title='birthday' />
-                                    }
-                                    {
-                                        showSortByPublishYear &&
-                                        <SortByButton
-                                            sortBy={sortBy}
-                                            sortModeASC={SortMode.PublishYear_ASC}
-                                            sortModeDESC={SortMode.PublishYear_DESC}
-                                            onSortBy={setSortBy}
-                                            title='publishYear' />
-                                    }
+                                            title={control.title}
+                                        />
+                                    ))}
                                 </ButtonGroup>
                             </Col>
                         </Form.Group>
-                        {
-                            showSearchByText &&
-                            <SearchTextInput
-                                setSearchString={setSearchString}
-                                placeholderText='placeholder_name'
-                            />
-                        }
-                        {
-                            showSearchByFinnishName &&
-                            <SearchTextInput
-                                setSearchString={setSearchStringFinnishName}
-                                placeholderText='placeholder_finnishname'
-                            />
-                        }
-                        {
-                            showSearchByDescription &&
-                            <SearchTextInput
-                                setSearchString={setSearchStringDescription}
-                                placeholderText='placeholder_description'
-                            />
-                        }
-                        {
-                            showSearchByDay &&
-                            <SearchTextInput
-                                setSearchString={setSearchStringDay}
-                                placeholderText='placeholder_day'
-                            />
-                        }
-                        {
-                            showSearchByIncredients &&
-                            <SearchTextInput
-                                setSearchString={setSearchStringIncredients}
-                                placeholderText='placeholder_incredients'
-                            />
-                        }
-                        {
-                            showFilterSeenLive &&
-                            <FilterDropDown
-                                id='seenLiveStatusFilter'
-                                labelText='show_only_seen_live'
-                                value={seenLiveFilterMode}
-                                onSet={setSeenLiveFilterMode}
-                                options={[
-                                    { value: SeenLiveFilterMode.All, labelText: 'seen_live_filter_all' },
-                                    { value: SeenLiveFilterMode.Seen, labelText: 'seen_live_filter_seen' },
-                                    { value: SeenLiveFilterMode.NotSeen, labelText: 'seen_live_filter_not_seen' },
-                                ]}
-                            />
-                        }
-                        {
-                            showFilterHaveAtHome &&
-                            <FilterDropDown
-                                id='haveAtHomeStatusFilter'
-                                labelText='home_filter_have'
-                                value={homeFilterMode}
-                                onSet={setHomeFilterMode}
-                                options={[
-                                    { value: HomeFilterMode.All, labelText: 'home_filter_all' },
-                                    { value: HomeFilterMode.Have, labelText: 'home_filter_have' },
-                                    { value: HomeFilterMode.NotHave, labelText: 'home_filter_not_have' },
-                                ]}
-                            />
-                        }
-                        {
-                            showFilterHaveRated &&
-                            <FilterDropDown
-                                id='ratedStatusFilter'
-                                labelText='rated'
-                                value={ratedFilterMode}
-                                onSet={setRatedFilterMode}
-                                options={[
-                                    { value: RatedFilterMode.All, labelText: 'rated_filter_all' },
-                                    { value: RatedFilterMode.Rated, labelText: 'rated_filter_rated' },
-                                    { value: RatedFilterMode.NotRated, labelText: 'rated_filter_not_rated' },
-                                ]}
-                            />
-                        }
                         {
                             showFilterCore &&
                             <FilterCheckBox
                                 onSet={setShowOnlyCore}
                                 labelText='show_only_core'
                                 id='iscore'
-                            />
-                        }
-                        {
-                            showFilterReady &&
-                            <FilterDropDown
-                                id='readyStatusFilter'
-                                labelText='ready'
-                                value={readyFilterMode}
-                                onSet={setReadyFilterMode}
-                                options={[
-                                    { value: ReadyFilterMode.All, labelText: 'ready_filter_all' },
-                                    { value: ReadyFilterMode.Ready, labelText: 'ready_filter_ready' },
-                                    { value: ReadyFilterMode.NotReady, labelText: 'ready_filter_not_ready' },
-                                ]}
                             />
                         }
                     </Form>
