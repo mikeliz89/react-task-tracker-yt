@@ -13,7 +13,7 @@ import DashboardItem from './DashboardItem';
 export default function Dashboard() {
 
     const [fromPage, setFromPage] = useState('');
-const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
 
     //translation
@@ -39,6 +39,7 @@ const [loading, setLoading] = useState(true);
     };
 
     const searchText = searchQuery.trim().toLowerCase();
+    const hasSearch = searchText.length > 0;
     const isVisible = (text) => !searchText || text.toLowerCase().includes(searchText);
 
     const frequentlyUsedItems = [
@@ -234,56 +235,28 @@ const [loading, setLoading] = useState(true);
             </DashboardItem>
         ));
 
+    const searchGroups = [
+        { key: 'frequently', title: t('title_frequently_used'), items: frequentlyUsedItems },
+        { key: 'allcategories', title: t('title_all_categories'), items: allCategoryItems },
+        { key: 'lists', title: t('title_lists'), items: listItems },
+        { key: 'movies', title: t('title_movies'), items: moviesItems },
+        { key: 'games', title: t('title_games'), items: gamesItems },
+        { key: 'music', title: t('title_music'), items: musicItems },
+    ];
+
+    const filteredSearchGroups = searchGroups
+        .map(group => ({
+            ...group,
+            items: group.items.filter(item => isVisible(item.text))
+        }))
+        .filter(group => group.items.length > 0);
+
     return loading ? (
         <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
 
             <div className="dashboard-header">
-                <Tabs
-                    activeKey={fromPage}
-                    onSelect={(key) => {
-                        setFromPage(key);
-                        setSessionStorage(key);
-                    }}
-                    id="dashboard-Tab"
-                    className="mb-3"
-                >
-                    <Tab eventKey={SESSIONSTORAGE.DASHBOARD_ACTIONS} title={t('title_actions')}>
-                        <section>
-                            <h3>{t('title_frequently_used')}</h3>
-                            <Row>
-                                {renderButtons(frequentlyUsedItems)}
-                            </Row>
-                        </section>
-                        <section>
-                            <h3>{t('title_all_categories')}</h3>
-                            <Row>
-                                {renderButtons(allCategoryItems)}
-                            </Row>
-                        </section>
-                    </Tab>
-                    <Tab eventKey={SESSIONSTORAGE.DASHBOARD_LISTS} title={t('title_lists')}>
-                        <Row>
-                            {renderButtons(listItems)}
-                        </Row>
-                    </Tab>
-                    <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MOVIES} title={t('title_movies')}>
-                        <Row>
-                            {renderButtons(moviesItems)}
-                        </Row>
-                    </Tab>
-                    <Tab eventKey={SESSIONSTORAGE.DASHBOARD_GAMES} title={t('title_games')}>
-                        <Row>
-                            {renderButtons(gamesItems)}
-                        </Row>
-                    </Tab>
-                    <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MUSIC} title={t('title_music')}>
-                        <Row>
-                            {renderButtons(musicItems)}
-                        </Row>
-                    </Tab>
-                </Tabs>
                 <div className="dashboard-search-input">
                     <Icon name={ICONS.SEARCH} color="#8f9bb3" fontSize="1rem" className="dashboard-search-icon" />
                     <Form.Control
@@ -293,6 +266,73 @@ const [loading, setLoading] = useState(true);
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
+
+                {hasSearch ? (
+                    filteredSearchGroups.map((group) => (
+                        <section key={group.key}>
+                            <h3>{group.title}</h3>
+                            <Row>
+                                {group.items.map(item => (
+                                    <DashboardItem key={item.text} link={item.link}>
+                                        <BigButton
+                                            imageName={item.imageName}
+                                            textcolor={item.textcolor}
+                                            color={item.color}
+                                            text={item.text}
+                                            iconName={item.iconName}
+                                            onClick={() => setSessionStorage(fromPage)}
+                                        />
+                                    </DashboardItem>
+                                ))}
+                            </Row>
+                        </section>
+                    ))
+                ) : (
+                    <Tabs
+                        activeKey={fromPage}
+                        onSelect={(key) => {
+                            setFromPage(key);
+                            setSessionStorage(key);
+                        }}
+                        id="dashboard-Tab"
+                        className="mb-3"
+                    >
+                        <Tab eventKey={SESSIONSTORAGE.DASHBOARD_ACTIONS} title={t('title_actions')}>
+                            <section>
+                                <h3>{t('title_frequently_used')}</h3>
+                                <Row>
+                                    {renderButtons(frequentlyUsedItems)}
+                                </Row>
+                            </section>
+                            <section>
+                                <h3>{t('title_all_categories')}</h3>
+                                <Row>
+                                    {renderButtons(allCategoryItems)}
+                                </Row>
+                            </section>
+                        </Tab>
+                        <Tab eventKey={SESSIONSTORAGE.DASHBOARD_LISTS} title={t('title_lists')}>
+                            <Row>
+                                {renderButtons(listItems)}
+                            </Row>
+                        </Tab>
+                        <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MOVIES} title={t('title_movies')}>
+                            <Row>
+                                {renderButtons(moviesItems)}
+                            </Row>
+                        </Tab>
+                        <Tab eventKey={SESSIONSTORAGE.DASHBOARD_GAMES} title={t('title_games')}>
+                            <Row>
+                                {renderButtons(gamesItems)}
+                            </Row>
+                        </Tab>
+                        <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MUSIC} title={t('title_music')}>
+                            <Row>
+                                {renderButtons(musicItems)}
+                            </Row>
+                        </Tab>
+                    </Tabs>
+                )}
             </div>
         </PageContentWrapper>
     );
