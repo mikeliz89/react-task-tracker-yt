@@ -9,7 +9,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import ListRow from '../Site/ListRow';
 import AddFoodItem from './AddFoodItem';
 
-export default function FoodItem({ fooditem, onDelete, onEdit }) {
+export default function FoodItem({ item, onDelete, onEdit }) {
 
     //states
     const [editable, setEditable] = useState(false);
@@ -23,11 +23,11 @@ export default function FoodItem({ fooditem, onDelete, onEdit }) {
 
     return (
         <ListRow
-            item={fooditem}
+            item={item}
             dbKey={DB.FOODITEMS}
             headerProps={{
-                title: fooditem.name,
-                titleTo: `${NAVIGATION.FOODITEM_DETAILS}/${fooditem.id}`,
+                title: item.name,
+                titleTo: `${NAVIGATION.FOODITEM_DETAILS}/${item.id}`,
                 icon: ICONS.CARROT,
                 iconColor: COLORS.GRAY
             }}
@@ -36,12 +36,12 @@ export default function FoodItem({ fooditem, onDelete, onEdit }) {
             setEditable={setEditable}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={fooditem.id}
+            deleteId={item.id}
             section={
                 <>
-                    <p>{t('fooditem_calories')}: {fooditem.calories}</p>
+                    <p>{t('fooditem_calories')}: {item.calories}</p>
                     <p>{t('fooditem_category')}: {
-                        t('fooditem_category_' + getFoodItemCategoryNameByID(fooditem.category))
+                        t('fooditem_category_' + getFoodItemCategoryNameByID(item.category))
                     }</p>
                 </>
             }
@@ -51,17 +51,17 @@ export default function FoodItem({ fooditem, onDelete, onEdit }) {
                     <AddFoodItem
                         onClose={() => setEditable(false)}
                         onSave={updateFooditem}
-                        foodItemID={fooditem.id}
+                        foodItemID={item.id}
                     />
                 )
             }}
             showCheckButton={true}
             checkButtonProps={{
-                checked: fooditem.haveAtHome,
+                checked: item.haveAtHome,
                 checkedText: t('fooditem_have_at_home'),
                 uncheckedText: t('fooditem_not_have_at_home'),
-                onCheck: () => { fooditem["haveAtHome"] = true; onEdit(fooditem); },
-                onUncheck: () => { fooditem["haveAtHome"] = false; onEdit(fooditem); }
+                onCheck: () => { item["haveAtHome"] = true; onEdit(item); },
+                onUncheck: () => { item["haveAtHome"] = false; onEdit(item); }
             }}
         />
     );
