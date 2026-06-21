@@ -3,13 +3,48 @@ param(
     [string]$JsonPath
 )
 
+function ConvertFrom-JsonCaseSensitive {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Text
+    )
+
+    $convertFromJsonCommand = Get-Command ConvertFrom-Json
+    if ($convertFromJsonCommand.Parameters.ContainsKey('AsHashtable')) {
+        return $Text | ConvertFrom-Json -AsHashtable
+    }
+
+    Add-Type -AssemblyName System.Web.Extensions
+    $serializer = New-Object System.Web.Script.Serialization.JavaScriptSerializer
+    $serializer.MaxJsonLength = [int]::MaxValue
+    return $serializer.DeserializeObject($Text)
+}
+
+function Copy-JsonNode {
+    param(
+        [Parameter(Mandatory = $false)]
+        [object]$Node
+    )
+
+    if ($null -eq $Node) {
+        return $null
+    }
+
+    $nodeText = $Node | ConvertTo-Json -Depth 100
+    return ConvertFrom-JsonCaseSensitive -Text $nodeText
+}
+
 if (-not (Test-Path -LiteralPath $JsonPath)) {
     throw "File not found: $JsonPath"
 }
 
 # Read JSON explicitly as UTF-8 to preserve non-ASCII characters like å/ä/ö.
 $jsonText = [System.IO.File]::ReadAllText($JsonPath, [System.Text.Encoding]::UTF8)
-$json = $jsonText | ConvertFrom-Json
+$json = ConvertFrom-JsonCaseSensitive -Text $jsonText
+
+if (-not ($json -is [System.Collections.IDictionary])) {
+    throw "Input JSON root must be an object."
+}
 
 function Get-InvalidFirebaseKeys {
     param(
@@ -24,16 +59,16 @@ function Get-InvalidFirebaseKeys {
         return $invalid
     }
 
-    if ($Node -is [System.Management.Automation.PSCustomObject]) {
-        foreach ($prop in $Node.PSObject.Properties) {
-            $key = [string]$prop.Name
+    if ($Node -is [System.Collections.IDictionary]) {
+        foreach ($keyObject in $Node.Keys) {
+            $key = [string]$keyObject
             $currentPath = if ([string]::IsNullOrEmpty($Path)) { $key } else { "$Path/$key" }
 
             if ([string]::IsNullOrWhiteSpace($key) -or $key -match '[\$#\[\]\./]') {
                 $invalid += $currentPath
             }
 
-            $invalid += Get-InvalidFirebaseKeys -Node $prop.Value -Path $currentPath
+            $invalid += Get-InvalidFirebaseKeys -Node $Node[$keyObject] -Path $currentPath
         }
     }
     elseif ($Node -is [System.Collections.IEnumerable] -and -not ($Node -is [string])) {
@@ -54,126 +89,124 @@ if ($invalidBefore.Count -gt 0) {
     throw "Input JSON contains invalid Firebase keys. Examples: $preview"
 }
 
-if (-not $json.PSObject.Properties.Name.Contains('cars')) {
-    $json | Add-Member -NotePropertyName 'cars' -NotePropertyValue ([pscustomobject]@{})
+if (-not $json.ContainsKey('cars')) {
+    $json['cars'] = [ordered]@{}
 }
 
-$carInfoRoot = $json.'car-info'
-$fuelRoot = $json.'car-fueling'
-$maintenanceRoot = $json.'car-maintenance'
+$carInfoRoot = $json['car-info']
+$fuelRoot = $json['car-fueling']
+$maintenanceRoot = $json['car-maintenance']
 
 # Deep copies are used for migration writes to avoid self-referencing objects.
-$carInfoFlatCopy = if ($null -ne $carInfoRoot) { $carInfoRoot | ConvertTo-Json -Depth 100 | ConvertFrom-Json } else { $null }
-$fuelFlatCopy = if ($null -ne $fuelRoot) { $fuelRoot | ConvertTo-Json -Depth 100 | ConvertFrom-Json } else { $null }
-$maintenanceFlatCopy = if ($null -ne $maintenanceRoot) { $maintenanceRoot | ConvertTo-Json -Depth 100 | ConvertFrom-Json } else { $null }
+$carInfoFlatCopy = Copy-JsonNode -Node $carInfoRoot
+$fuelFlatCopy = Copy-JsonNode -Node $fuelRoot
+$maintenanceFlatCopy = Copy-JsonNode -Node $maintenanceRoot
 
 $targetCarId = $null
 $singleCarInfo = $null
 
 # Use existing car id from cars node as primary migration target.
-if ($null -ne $json.cars -and $json.cars.PSObject.Properties.Count -gt 0) {
-    $targetCarId = ($json.cars.PSObject.Properties | Select-Object -First 1).Name
+if ($null -ne $json['cars'] -and $json['cars'] -is [System.Collections.IDictionary] -and $json['cars'].Count -gt 0) {
+    $targetCarId = [string]($json['cars'].Keys | Select-Object -First 1)
 }
 
 # Fallback: if cars is empty, try deriving one car from root car-info.
-if ([string]::IsNullOrWhiteSpace($targetCarId) -and $null -ne $carInfoRoot -and $carInfoRoot.PSObject.Properties.Count -gt 0) {
-    $first = $carInfoRoot.PSObject.Properties | Select-Object -First 1
-    $targetCarId = $first.Name
-    $singleCarInfo = $first.Value
+if ([string]::IsNullOrWhiteSpace($targetCarId) -and $null -ne $carInfoRoot -and $carInfoRoot -is [System.Collections.IDictionary] -and $carInfoRoot.Count -gt 0) {
+    $targetCarId = [string]($carInfoRoot.Keys | Select-Object -First 1)
+    $singleCarInfo = $carInfoRoot[$targetCarId]
 }
 
 if ([string]::IsNullOrWhiteSpace($targetCarId)) {
     $targetCarId = 'migrated-car-1'
 }
 
-if (-not $json.cars.PSObject.Properties.Name.Contains($targetCarId)) {
+if (-not $json['cars'].ContainsKey($targetCarId)) {
     $newCar = [ordered]@{}
 
     if ($null -ne $singleCarInfo) {
         $titleParts = @()
-        if ($singleCarInfo.registerNumber) { $titleParts += [string]$singleCarInfo.registerNumber }
-        if ($singleCarInfo.modelYear) { $titleParts += [string]$singleCarInfo.modelYear }
+        if ($singleCarInfo['registerNumber']) { $titleParts += [string]$singleCarInfo['registerNumber'] }
+        if ($singleCarInfo['modelYear']) { $titleParts += [string]$singleCarInfo['modelYear'] }
         if ($titleParts.Count -gt 0) { $newCar.title = ($titleParts -join ' ') }
 
-        if ($singleCarInfo.modelYear) { $newCar.modelYear = [string]$singleCarInfo.modelYear }
-        if ($singleCarInfo.registerNumber) { $newCar.registerNumber = [string]$singleCarInfo.registerNumber }
-        if ($singleCarInfo.created) { $newCar.created = $singleCarInfo.created }
-        if ($singleCarInfo.createdBy) { $newCar.createdBy = $singleCarInfo.createdBy }
+        if ($singleCarInfo['modelYear']) { $newCar.modelYear = [string]$singleCarInfo['modelYear'] }
+        if ($singleCarInfo['registerNumber']) { $newCar.registerNumber = [string]$singleCarInfo['registerNumber'] }
+        if ($singleCarInfo['created']) { $newCar.created = $singleCarInfo['created'] }
+        if ($singleCarInfo['createdBy']) { $newCar.createdBy = $singleCarInfo['createdBy'] }
     }
 
-    $json.cars | Add-Member -NotePropertyName $targetCarId -NotePropertyValue ([pscustomobject]$newCar)
+    $json['cars'][$targetCarId] = $newCar
 }
-
-$targetCar = $json.cars.$targetCarId
 
 # Build target structure at root level:
 # car-info/{carId}/...
 # car-fueling/{carId}/{fuelingId}
 # car-maintenance/{carId}/{maintenanceId}
 
-if (-not $json.PSObject.Properties.Name.Contains('car-info') -or $null -eq $json.'car-info') {
-    $json | Add-Member -NotePropertyName 'car-info' -NotePropertyValue ([pscustomobject]@{}) -Force
+if (-not $json.ContainsKey('car-info') -or $null -eq $json['car-info']) {
+    $json['car-info'] = [ordered]@{}
 }
 
-if (-not $json.PSObject.Properties.Name.Contains('car-fueling') -or $null -eq $json.'car-fueling') {
-    $json | Add-Member -NotePropertyName 'car-fueling' -NotePropertyValue ([pscustomobject]@{}) -Force
+if (-not $json.ContainsKey('car-fueling') -or $null -eq $json['car-fueling']) {
+    $json['car-fueling'] = [ordered]@{}
 }
 
-if (-not $json.PSObject.Properties.Name.Contains('car-maintenance') -or $null -eq $json.'car-maintenance') {
-    $json | Add-Member -NotePropertyName 'car-maintenance' -NotePropertyValue ([pscustomobject]@{}) -Force
+if (-not $json.ContainsKey('car-maintenance') -or $null -eq $json['car-maintenance']) {
+    $json['car-maintenance'] = [ordered]@{}
 }
 
 # Keep references in case properties were recreated.
-$carInfoNode = $json.'car-info'
-$fuelNode = $json.'car-fueling'
-$maintenanceNode = $json.'car-maintenance'
+$carInfoNode = $json['car-info']
+$fuelNode = $json['car-fueling']
+$maintenanceNode = $json['car-maintenance']
 
 # Move car-info under car-id if it is still in flat form.
-if ($null -ne $carInfoFlatCopy -and $carInfoFlatCopy.PSObject.Properties.Count -gt 0) {
-    $alreadyNestedInfo = $carInfoNode.PSObject.Properties.Name -contains $targetCarId
+if ($null -ne $carInfoFlatCopy -and $carInfoFlatCopy.Count -gt 0) {
+    $alreadyNestedInfo = $carInfoNode.ContainsKey($targetCarId)
     if (-not $alreadyNestedInfo) {
-        if ($carInfoFlatCopy.PSObject.Properties.Count -eq 1) {
-            $infoValue = ($carInfoFlatCopy.PSObject.Properties | Select-Object -First 1).Value
-            $carInfoNode | Add-Member -NotePropertyName $targetCarId -NotePropertyValue $infoValue -Force
+        if ($carInfoFlatCopy.Count -eq 1) {
+            $firstKey = [string]($carInfoFlatCopy.Keys | Select-Object -First 1)
+            $infoValue = $carInfoFlatCopy[$firstKey]
+            $carInfoNode[$targetCarId] = $infoValue
         }
         else {
-            $carInfoNode | Add-Member -NotePropertyName $targetCarId -NotePropertyValue $carInfoFlatCopy -Force
+            $carInfoNode[$targetCarId] = $carInfoFlatCopy
         }
     }
 }
 
 # Move car-fueling under car-id if it is still in flat form.
-if ($null -ne $fuelFlatCopy -and $fuelFlatCopy.PSObject.Properties.Count -gt 0) {
-    $alreadyNestedFueling = $fuelNode.PSObject.Properties.Name -contains $targetCarId
+if ($null -ne $fuelFlatCopy -and $fuelFlatCopy.Count -gt 0) {
+    $alreadyNestedFueling = $fuelNode.ContainsKey($targetCarId)
     if (-not $alreadyNestedFueling) {
-        $fuelNode | Add-Member -NotePropertyName $targetCarId -NotePropertyValue $fuelFlatCopy -Force
+        $fuelNode[$targetCarId] = $fuelFlatCopy
     }
 }
 
 # Move car-maintenance under car-id if it is still in flat form.
-if ($null -ne $maintenanceFlatCopy -and $maintenanceFlatCopy.PSObject.Properties.Count -gt 0) {
-    $alreadyNestedMaintenance = $maintenanceNode.PSObject.Properties.Name -contains $targetCarId
+if ($null -ne $maintenanceFlatCopy -and $maintenanceFlatCopy.Count -gt 0) {
+    $alreadyNestedMaintenance = $maintenanceNode.ContainsKey($targetCarId)
     if (-not $alreadyNestedMaintenance) {
-        $maintenanceNode | Add-Member -NotePropertyName $targetCarId -NotePropertyValue $maintenanceFlatCopy -Force
+        $maintenanceNode[$targetCarId] = $maintenanceFlatCopy
     }
 }
 
 # Remove top-level flat entries from the nested root nodes if any key is not car-id.
-foreach ($key in @($carInfoNode.PSObject.Properties.Name)) {
+foreach ($key in @($carInfoNode.Keys)) {
     if ($key -ne $targetCarId -and $key -like '-*') {
-        $null = $carInfoNode.PSObject.Properties.Remove($key)
+        $null = $carInfoNode.Remove($key)
     }
 }
 
-foreach ($key in @($fuelNode.PSObject.Properties.Name)) {
+foreach ($key in @($fuelNode.Keys)) {
     if ($key -ne $targetCarId -and $key -like '-*') {
-        $null = $fuelNode.PSObject.Properties.Remove($key)
+        $null = $fuelNode.Remove($key)
     }
 }
 
-foreach ($key in @($maintenanceNode.PSObject.Properties.Name)) {
+foreach ($key in @($maintenanceNode.Keys)) {
     if ($key -ne $targetCarId -and $key -like '-*') {
-        $null = $maintenanceNode.PSObject.Properties.Remove($key)
+        $null = $maintenanceNode.Remove($key)
     }
 }
 
