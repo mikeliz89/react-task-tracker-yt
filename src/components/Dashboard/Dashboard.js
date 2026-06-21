@@ -1,14 +1,13 @@
-import { Tab } from 'bootstrap';
 import { useState, useEffect } from 'react';
-import { Row, Tabs, Form } from 'react-bootstrap';
+import { Row, Tabs, Tab } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import { TRANSLATION, ICONS, COLORS, NAVIGATION, SESSIONSTORAGE } from '../../utils/Constants';
 import BigButton from '../Buttons/BigButton';
-import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 
 import DashboardItem from './DashboardItem';
+import SearchTextInput from './SearchTextInput';
 
 export default function Dashboard() {
 
@@ -20,20 +19,6 @@ export default function Dashboard() {
     const { t } = useTranslation(TRANSLATION.DASHBOARD, { keyPrefix: TRANSLATION.DASHBOARD_BUTTONS });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
-    useEffect(() => {
-        // Access fromPage from session storage
-        var fromPageSession = sessionStorage.getItem(SESSIONSTORAGE.FROM_PAGE);
-        if (fromPageSession == null) {
-            //initialize as actions
-            fromPageSession = SESSIONSTORAGE.DASHBOARD_ACTIONS;
-        }
-        // Update session storage
-        setSessionStorage(fromPageSession);
-        setFromPage(fromPageSession);
-
-        setLoading(false);
-    }, []);
-
     const setSessionStorage = (value) => {
         sessionStorage.setItem(SESSIONSTORAGE.FROM_PAGE, value);
     };
@@ -42,8 +27,8 @@ export default function Dashboard() {
     const hasSearch = searchText.length > 0;
     const isVisible = (text) => !searchText || text.toLowerCase().includes(searchText);
 
-    const frequentlyUsedItems = [
-        {
+    const dashboardItems = {
+        car: {
             link: NAVIGATION.CAR,
             imageName: 'car.jpg',
             text: t('car'),
@@ -51,18 +36,7 @@ export default function Dashboard() {
             color: '#0cb058',
             textcolor: COLORS.BLACK
         },
-        {
-            link: NAVIGATION.BMICALCULATOR,
-            imageName: 'calculator.PNG',
-            text: t('bmi_calculator'),
-            iconName: ICONS.WEIGHT,
-            color: COLORS.WHITE,
-            textcolor: COLORS.BLACK
-        }
-    ];
-
-    const allCategoryItems = [
-        {
+        people: {
             link: NAVIGATION.MANAGE_PEOPLE,
             imageName: 'people.jpg',
             text: t('personlist'),
@@ -70,50 +44,7 @@ export default function Dashboard() {
             color: COLORS.WHITE,
             textcolor: COLORS.BLACK
         },
-        {
-            link: NAVIGATION.MANAGE_EXERCISES,
-            imageName: 'exercises.PNG',
-            text: t('exercises'),
-            iconName: ICONS.RUNNING,
-            color: '#ef7c1a',
-            textcolor: COLORS.BLACK
-        },
-        {
-            link: NAVIGATION.LINKSLIST,
-            imageName: 'links.jpg',
-            text: t('links_list'),
-            iconName: ICONS.EXTERNAL_LINK_ALT,
-            color: COLORS.WHITE,
-            textcolor: COLORS.BLACK
-        },
-        {
-            link: NAVIGATION.MANAGE_RECIPES,
-            imageName: 'recipes.png',
-            text: t('recipes'),
-            iconName: ICONS.UTENSILS,
-            color: '#b37401',
-            textcolor: COLORS.BLACK
-        },
-        {
-            link: NAVIGATION.MANAGE_DRINKS,
-            imageName: 'cocktail.jpg',
-            text: t('drinks'),
-            iconName: ICONS.GLASS_MARTINI,
-            color: '#f9a9d5',
-            textcolor: COLORS.BLACK
-        },
-        {
-            link: NAVIGATION.MANAGE_BACKPACKING,
-            imageName: 'backpacking.jpg',
-            text: t('backpacking'),
-            iconName: ICONS.CAMPGROUND,
-            color: '#0cb058',
-            textcolor: COLORS.BLACK
-        }
-    ];
-
-    const listItems = [
-        {
+        programming: {
             link: NAVIGATION.MANAGE_PROGRAMMING,
             imageName: 'programming.jpg',
             text: t('programming'),
@@ -121,7 +52,7 @@ export default function Dashboard() {
             color: '#0cb058',
             textcolor: COLORS.BLACK
         },
-        {
+        shoppinglists: {
             link: NAVIGATION.MANAGE_SHOPPINGLISTS,
             imageName: 'shoppinglists.png',
             text: t('shoppinglists'),
@@ -129,7 +60,7 @@ export default function Dashboard() {
             color: '#fcba03',
             textcolor: COLORS.BLACK
         },
-        {
+        tasklists: {
             link: NAVIGATION.MANAGE_TASKLISTS,
             imageName: 'tasklists.PNG',
             text: t('tasklists'),
@@ -137,29 +68,79 @@ export default function Dashboard() {
             color: '#fcba03',
             textcolor: COLORS.BLACK
         },
-        {
+        otherLists: {
             link: NAVIGATION.MANAGE_LISTS,
             imageName: 'otherlists.PNG',
             text: t('other_lists'),
             iconName: ICONS.CHECK_SQUARE,
             color: '#fcba03',
             textcolor: COLORS.BLACK
-        }
-    ];
-
-    const moviesItems = [
-        {
+        },
+        links: {
+            link: NAVIGATION.LINKSLIST,
+            imageName: 'links.jpg',
+            text: t('links_list'),
+            iconName: ICONS.EXTERNAL_LINK_ALT,
+            color: COLORS.WHITE,
+            textcolor: COLORS.BLACK
+        },
+        exercises: {
+            link: NAVIGATION.MANAGE_EXERCISES,
+            imageName: 'exercises.PNG',
+            text: t('exercises'),
+            iconName: ICONS.RUNNING,
+            color: '#ef7c1a',
+            textcolor: COLORS.BLACK
+        },
+        bmi: {
+            link: NAVIGATION.BMICALCULATOR,
+            imageName: 'calculator.PNG',
+            text: t('bmi_calculator'),
+            iconName: ICONS.WEIGHT,
+            color: COLORS.WHITE,
+            textcolor: COLORS.BLACK
+        },
+        recipes: {
+            link: NAVIGATION.MANAGE_RECIPES,
+            imageName: 'recipes.png',
+            text: t('recipes'),
+            iconName: ICONS.UTENSILS,
+            color: '#b37401',
+            textcolor: COLORS.BLACK
+        },
+        drinks: {
+            link: NAVIGATION.MANAGE_DRINKS,
+            imageName: 'cocktail.jpg',
+            text: t('drinks'),
+            iconName: ICONS.GLASS_MARTINI,
+            color: '#f9a9d5',
+            textcolor: COLORS.BLACK
+        },
+        backpacking: {
+            link: NAVIGATION.MANAGE_BACKPACKING,
+            imageName: 'backpacking.jpg',
+            text: t('backpacking'),
+            iconName: ICONS.CAMPGROUND,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        },
+        discGolf: {
+            link: NAVIGATION.MANAGE_DISC_GOLF,
+            imageName: 'discgolf.jpg',
+            text: t('discgolf'),
+            iconName: ICONS.GAMEPAD,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK
+        },
+        movies: {
             link: NAVIGATION.MANAGE_MOVIES,
             imageName: 'movies.jpg',
             text: t('movies'),
             iconName: ICONS.MOVIE,
             color: '#0cb058',
             textcolor: COLORS.BLACK
-        }
-    ];
-
-    const gamesItems = [
-        {
+        },
+        games: {
             link: NAVIGATION.MANAGE_GAMES,
             imageName: 'games.jpg',
             text: t('games'),
@@ -167,26 +148,15 @@ export default function Dashboard() {
             color: '#0cb058',
             textcolor: COLORS.BLACK
         },
-        {
+        boardGames: {
             link: NAVIGATION.MANAGE_BOARD_GAMES,
-            imageName: 'boardgames.jpg',
+            imageName: 'boardgames.png',
             text: t('board_games'),
             iconName: ICONS.GAMEPAD,
             color: '#0cb058',
             textcolor: COLORS.BLACK
         },
-        {
-            link: NAVIGATION.MANAGE_DISC_GOLF,
-            imageName: 'discgolf.jpg',
-            text: t('discgolf'),
-            iconName: ICONS.GAMEPAD,
-            color: '#0cb058',
-            textcolor: COLORS.BLACK
-        }
-    ];
-
-    const musicItems = [
-        {
+        musicBands: {
             link: NAVIGATION.MANAGE_MUSIC_BANDS,
             imageName: 'bands.jpg',
             text: t('music_bands'),
@@ -194,15 +164,15 @@ export default function Dashboard() {
             color: '#0cb058',
             textcolor: COLORS.BLACK
         },
-        {
+        musicRecords: {
             link: NAVIGATION.MANAGE_MUSIC_RECORDS,
-            imageName: 'music.jpg',
+            imageName: 'records.png',
             text: t('music_records'),
             iconName: ICONS.MUSIC,
             color: '#0cb058',
             textcolor: COLORS.BLACK
         },
-        {
+        musicEvents: {
             link: NAVIGATION.MANAGE_MUSIC_EVENTS,
             imageName: 'events.jpg',
             text: t('music_events'),
@@ -210,7 +180,7 @@ export default function Dashboard() {
             color: '#0cb058',
             textcolor: COLORS.BLACK
         },
-        {
+        karaoke: {
             link: NAVIGATION.MANAGE_MUSIC_KARAOKE_SONGS,
             imageName: 'events.jpg',
             text: t('music_karaoke_songs'),
@@ -218,7 +188,75 @@ export default function Dashboard() {
             color: '#0cb058',
             textcolor: COLORS.BLACK
         }
+    };
+
+    const dashboardCategories = [
+        {
+            key: 'daily-management',
+            title: t('title_daily_management'),
+            items: [
+                dashboardItems.car,
+                dashboardItems.programming,
+                dashboardItems.shoppinglists,
+                dashboardItems.tasklists,
+                dashboardItems.otherLists,
+                dashboardItems.links
+            ]
+        },
+        {
+            key: 'wellbeing',
+            title: t('title_wellbeing'),
+            items: [dashboardItems.exercises, dashboardItems.bmi]
+        },
+        {
+            key: 'food-and-drink',
+            title: t('title_food_and_drink'),
+            items: [dashboardItems.recipes, dashboardItems.drinks]
+        },
+        {
+            key: 'hobbies-and-leisure',
+            title: t('title_hobbies_and_leisure'),
+            items: [
+                dashboardItems.backpacking,
+                dashboardItems.discGolf,
+                dashboardItems.musicEvents
+            ]
+        },
+        {
+            key: 'entertainment',
+            title: t('title_entertainment'),
+            items: [
+                dashboardItems.movies,
+                dashboardItems.games,
+                dashboardItems.boardGames,
+                dashboardItems.musicBands,
+                dashboardItems.musicRecords,
+                dashboardItems.karaoke
+            ]
+        },
+        {
+            key: 'reminders-and-events',
+            title: t('title_reminders_and_events'),
+            items: [dashboardItems.people]
+        }
     ];
+
+    useEffect(() => {
+        const validCategoryKeys = dashboardCategories.map(x => x.key);
+        const defaultCategory = dashboardCategories[0].key;
+
+        // Access fromPage from session storage
+        let fromPageSession = sessionStorage.getItem(SESSIONSTORAGE.FROM_PAGE);
+        if (!fromPageSession || !validCategoryKeys.includes(fromPageSession)) {
+            fromPageSession = defaultCategory;
+        }
+
+        // Update session storage
+        setSessionStorage(fromPageSession);
+        setFromPage(fromPageSession);
+
+        setLoading(false);
+    }, [dashboardCategories]);
 
     const renderButtons = (items) => items
         .filter(item => isVisible(item.text))
@@ -235,14 +273,7 @@ export default function Dashboard() {
             </DashboardItem>
         ));
 
-    const searchGroups = [
-        { key: 'frequently', title: t('title_frequently_used'), items: frequentlyUsedItems },
-        { key: 'allcategories', title: t('title_all_categories'), items: allCategoryItems },
-        { key: 'lists', title: t('title_lists'), items: listItems },
-        { key: 'movies', title: t('title_movies'), items: moviesItems },
-        { key: 'games', title: t('title_games'), items: gamesItems },
-        { key: 'music', title: t('title_music'), items: musicItems },
-    ];
+    const searchGroups = dashboardCategories;
 
     const filteredSearchGroups = searchGroups
         .map(group => ({
@@ -257,15 +288,11 @@ export default function Dashboard() {
         <PageContentWrapper>
 
             <div className="dashboard-header">
-                <div className="dashboard-search-input">
-                    <Icon name={ICONS.SEARCH} color="#8f9bb3" fontSize="1rem" className="dashboard-search-icon" />
-                    <Form.Control
-                        className="dashboard-search-control"
-                        placeholder={t('search')}
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                </div>
+                <SearchTextInput
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder={t('search')}
+                />
 
                 {hasSearch ? (
                     filteredSearchGroups.map((group) => (
@@ -297,40 +324,13 @@ export default function Dashboard() {
                         id="dashboard-Tab"
                         className="mb-3"
                     >
-                        <Tab eventKey={SESSIONSTORAGE.DASHBOARD_ACTIONS} title={t('title_actions')}>
-                            <section>
-                                <h3>{t('title_frequently_used')}</h3>
+                        {dashboardCategories.map((category) => (
+                            <Tab key={category.key} eventKey={category.key} title={category.title}>
                                 <Row>
-                                    {renderButtons(frequentlyUsedItems)}
+                                    {renderButtons(category.items)}
                                 </Row>
-                            </section>
-                            <section>
-                                <h3>{t('title_all_categories')}</h3>
-                                <Row>
-                                    {renderButtons(allCategoryItems)}
-                                </Row>
-                            </section>
-                        </Tab>
-                        <Tab eventKey={SESSIONSTORAGE.DASHBOARD_LISTS} title={t('title_lists')}>
-                            <Row>
-                                {renderButtons(listItems)}
-                            </Row>
-                        </Tab>
-                        <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MOVIES} title={t('title_movies')}>
-                            <Row>
-                                {renderButtons(moviesItems)}
-                            </Row>
-                        </Tab>
-                        <Tab eventKey={SESSIONSTORAGE.DASHBOARD_GAMES} title={t('title_games')}>
-                            <Row>
-                                {renderButtons(gamesItems)}
-                            </Row>
-                        </Tab>
-                        <Tab eventKey={SESSIONSTORAGE.DASHBOARD_MUSIC} title={t('title_music')}>
-                            <Row>
-                                {renderButtons(musicItems)}
-                            </Row>
-                        </Tab>
+                            </Tab>
+                        ))}
                     </Tabs>
                 )}
             </div>

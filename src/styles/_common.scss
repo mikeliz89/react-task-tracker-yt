@@ -534,6 +534,22 @@ form {
     background-color: #ffffff;
 }
 
+.searchSortFilter-controlWrap {
+    position: relative;
+}
+
+.searchSortFilter-searchIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.searchSortFilter-control-with-icon {
+    padding-left: 2rem;
+}
+
 .searchSortFilter-control:focus {
     border-color: #4a90d9;
     box-shadow: 0 0 0 0.15rem rgba(74, 144, 217, 0.2);

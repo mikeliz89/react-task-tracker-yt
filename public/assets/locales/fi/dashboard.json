@@ -31,7 +31,13 @@
             "title_games": "Pelit",
             "title_media": "Media",
             "title_movies": "Leffat",
-            "title_music": "Musiikki"
+            "title_music": "Musiikki",
+            "title_daily_management": "Arjen hallinta",
+            "title_wellbeing": "Hyvinvointi",
+            "title_food_and_drink": "Ruoka ja juoma",
+            "title_hobbies_and_leisure": "Harrastukset ja vapaa-aika",
+            "title_entertainment": "Viihde",
+            "title_reminders_and_events": "Muistutukset ja tapahtumat"
         }
     }
 }

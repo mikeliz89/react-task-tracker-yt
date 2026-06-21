@@ -16,6 +16,7 @@
             "music_bands": "Bands",
             "music_records": "Records",
             "music_events": "Events",
+            "music_karaoke_songs": "Karaoke-songs",
             "personlist": "People",
             "programming": "Programming",
             "recipes": "Recipes",
@@ -30,7 +31,13 @@
             "title_media": "Media",
             "title_games": "Games",
             "title_movies": "Movies",
-            "title_music": "Music"
+            "title_music": "Music",
+            "title_daily_management": "Daily Management",
+            "title_wellbeing": "Wellbeing",
+            "title_food_and_drink": "Food and Drink",
+            "title_hobbies_and_leisure": "Hobbies and Leisure",
+            "title_entertainment": "Entertainment",
+            "title_reminders_and_events": "Reminders and Events"
         }
     }
 }
