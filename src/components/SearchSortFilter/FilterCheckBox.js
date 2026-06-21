@@ -8,7 +8,7 @@ export default function FilterCheckBox({ onSet, labelText, id }) {
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.SEARCHSORTFILTER });
 
-return (
+    return (
         <Form.Group as={Row} controlId={'searchSortFilter-CheckBox' + id}>
             <Form.Label column xs={3} sm={2}>{t('show')}</Form.Label>
             <Col xs={9} sm={10}>

@@ -21,6 +21,14 @@
     min-width: 0;
 }
 
+.listRow-starRatingInline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: 0.35rem;
+    vertical-align: middle;
+}
+
 .listContainer {
     background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
     margin: 0 0 0.55rem 0;

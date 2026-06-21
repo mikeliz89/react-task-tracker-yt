@@ -2,7 +2,7 @@ import { ref, onValue, child } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import { removeFromFirebaseByIdAndSubId, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import { db } from '../../firebase-config';
 import { TRANSLATION, ICONS } from '../../utils/Constants';
 import Icon from '../Icon';
@@ -10,7 +10,7 @@ import Icon from '../Icon';
 import AddComment from './AddComment';
 import CommentsInner from './CommentsInner';
 
-export default function Comments({ url, objID, onCounterChange, onSave }) {
+export default function Comments({ url, objID, onCounterChange, onSave, onEdit }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.COMMENTS });
@@ -61,6 +61,13 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
         removeFromFirebaseByIdAndSubId(url, objID, commentID);
     }
 
+    const editComment = (comment) => {
+        updateToFirebaseByIdAndSubId(url, objID, comment.id, comment);
+        if (typeof onEdit === 'function') {
+            onEdit(comment);
+        }
+    }
+
     return loading ? (
         <h3>{tCommon("loading")}</h3>
     ) : (
@@ -70,7 +77,7 @@ export default function Comments({ url, objID, onCounterChange, onSave }) {
 
             {
                 comments != null && comments.length > 0 ? (
-                    <CommentsInner onDelete={deleteComment} comments={comments} />
+                    <CommentsInner onDelete={deleteComment} onEdit={editComment} comments={comments} />
                 ) : (
                     <div className="comments-empty-state">
                         <Icon name={ICONS.COMMENTS} color="rgba(255,255,255,0.55)" fontSize="2.25rem" className="comments-empty-icon" />

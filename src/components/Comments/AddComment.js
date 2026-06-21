@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Row, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
@@ -6,16 +6,20 @@ import { TRANSLATION, ICONS } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import Button from '../Buttons/Button';
 
-export default function AddComment({ onSave }) {
+export default function AddComment({ onSave, commentID, initialText, onClose, showToggleButton }) {
 
     //states
-    const [text, setText] = useState();
-    const [showAddComment, setShowAddComment] = useState(false);
+    const [text, setText] = useState(initialText);
+    const [showAddComment, setShowAddComment] = useState(!showToggleButton);
     const [loading, setLoading] = useState(false);
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.COMMENTS });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+
+    useEffect(() => {
+        setText(initialText);
+    }, [initialText, commentID]);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -27,11 +31,18 @@ export default function AddComment({ onSave }) {
 
         setLoading(true);
 
-        const created = getCurrentDateAsJson;
-        onSave({ created, text });
+        const payload = commentID != null
+            ? { id: commentID, text }
+            : { created: getCurrentDateAsJson(), text };
+        onSave(payload);
 
         clearForm();
-        setShowAddComment(false);
+        if (showToggleButton) {
+            setShowAddComment(false);
+        }
+        if (typeof onClose === 'function') {
+            onClose();
+        }
         setLoading(false);
     }
 
@@ -41,15 +52,17 @@ export default function AddComment({ onSave }) {
 
     return (
         <div className="add-comment-wrapper">
-            <Button type="button"
-                iconName={ICONS.PLUS}
-                disabled={loading}
-                disableStyle={true}
-                className={showAddComment ? 'btn btn-primary comments-add-button comments-add-button-open' : 'btn btn-primary comments-add-button'}
-                text={
-                    showAddComment ? tCommon('buttons.button_close') : t('add_comment')
-                }
-                onClick={() => setShowAddComment(!showAddComment)} />
+            {showToggleButton && (
+                <Button type="button"
+                    iconName={ICONS.PLUS}
+                    disabled={loading}
+                    disableStyle={true}
+                    className={showAddComment ? 'btn btn-primary comments-add-button comments-add-button-open' : 'btn btn-primary comments-add-button'}
+                    text={
+                        showAddComment ? tCommon('buttons.button_close') : t('add_comment')
+                    }
+                    onClick={() => setShowAddComment(!showAddComment)} />
+            )}
             {
                 showAddComment &&
                 <div className="add-comment-form-row">
@@ -66,7 +79,14 @@ export default function AddComment({ onSave }) {
                             <Row className="comments-form-actions">
                                 <ButtonGroup>
                                     <Button type='button' text={tCommon('buttons.button_close')} className='btn btn-block comments-secondary-button'
-                                        onClick={() => setShowAddComment(false)} />
+                                        onClick={() => {
+                                            if (showToggleButton) {
+                                                setShowAddComment(false);
+                                            }
+                                            if (typeof onClose === 'function') {
+                                                onClose();
+                                            }
+                                        }} />
                                     <Button type="submit" text={tCommon('buttons.button_save')} className="btn btn-block saveBtn comments-save-button" />
                                 </ButtonGroup>
                             </Row>
@@ -76,6 +96,13 @@ export default function AddComment({ onSave }) {
             }
         </div>
     )
+}
+
+AddComment.defaultProps = {
+    commentID: null,
+    initialText: '',
+    onClose: null,
+    showToggleButton: true,
 }
 
 

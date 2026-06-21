@@ -103,6 +103,14 @@ export default function ListRow({
         || title != null
         || suffix != null;
     const hasHeader = hasLeftContent || hasActions;
+    const starRatingNode = showStarRating ? (
+        <span className='listRow-starRatingInline'>
+            <StarRatingWrapper
+                stars={Number(item?.stars) || 0}
+                onSaveStars={saveStars}
+            />
+        </span>
+    ) : null;
 
     const titleNode = title != null
         ? (titleTo
@@ -140,6 +148,7 @@ export default function ListRow({
                         {titleNode != null
                             ? <span className={titleWrapperClassName}>{titleNode}</span>
                             : null}
+                        {starRatingNode}
                         {suffix}
                     </div>
                     {hasActions && (
@@ -186,12 +195,7 @@ export default function ListRow({
                     </Modal.Body>
                 </Modal>
             )}
-            {showStarRating && (
-                <StarRatingWrapper
-                    stars={Number(item?.stars) || 0}
-                    onSaveStars={saveStars}
-                />
-            )}
+            {!hasHeader && starRatingNode}
         </div>
     );
 }
