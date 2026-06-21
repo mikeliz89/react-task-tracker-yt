@@ -102,9 +102,19 @@
     color: rgba(154, 18, 18, 0.9) !important;
 }
 
+#light .comment-edit-button,
+#colorful .comment-edit-button {
+    color: rgba(57, 89, 153, 0.95) !important;
+}
+
 #light .comment-delete-button:hover,
 #colorful .comment-delete-button:hover {
     color: rgba(201, 24, 24, 1) !important;
+}
+
+#light .comment-edit-button:hover,
+#colorful .comment-edit-button:hover {
+    color: rgba(80, 124, 214, 1) !important;
 }
 
 #light .myprofile-main-card,
@@ -360,6 +370,10 @@
     color: rgba(226, 232, 255, 0.58) !important;
 }
 
+#dark .comment-edit-button {
+    color: rgba(226, 232, 255, 0.58) !important;
+}
+
 #dark .myprofile-main-card,
 #dark .myprofile-sub-card {
     background: linear-gradient(160deg, rgba(23, 34, 61, 0.9), rgba(14, 23, 43, 0.92));
@@ -438,4 +452,3 @@
 }
 
 /* Theme end */
-

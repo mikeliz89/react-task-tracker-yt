@@ -254,6 +254,12 @@
     font-size: 0.9rem;
 }
 
+.comment-item-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
 .comment-item-author-row {
     display: flex;
     align-items: center;
@@ -273,6 +279,10 @@
 .comment-item-text {
     color: rgba(255, 255, 255, 0.92);
     line-height: 1.6;
+}
+
+.comment-item-edit-row {
+    margin-top: 0.75rem;
 }
 
 /* DetailsPage: Card/Meta Elements Start */
