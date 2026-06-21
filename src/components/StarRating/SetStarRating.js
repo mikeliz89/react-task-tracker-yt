@@ -43,7 +43,6 @@ export default function SetStarRating({ starCount, onSaveStars, onShow }) {
                 iconName={ICONS.STAR}
                 disableStyle={true}
                 className={showStarRating ? 'btn btn-danger' : 'btn btn-primary'}
-                text={showStarRating ? tCommon('buttons.button_close') : t('rate')}
                 onClick={() => showRating(!showStarRating)} />
             <Modal show={showStarRating} onHide={() => showRating(false)}>
                 <Modal.Header closeButton>

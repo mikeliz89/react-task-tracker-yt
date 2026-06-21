@@ -16,7 +16,7 @@ export default function StarRatingWrapper({ stars, onSaveStars }) {
                 onSaveStars={onSaveStars}
                 onShow={() => { setShowRating(!showRating) }}
             />
-            {showRating && <StarRating starCount={stars} />}
+            {<StarRating starCount={stars} />}
         </>
     )
 }
