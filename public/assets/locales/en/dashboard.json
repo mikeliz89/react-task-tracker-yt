@@ -37,7 +37,19 @@
             "title_food_and_drink": "Food and Drink",
             "title_hobbies_and_leisure": "Hobbies and Leisure",
             "title_entertainment": "Entertainment",
-            "title_reminders_and_events": "Reminders and Events"
+            "title_reminders_and_events": "Reminders and Events",
+            "section_lists_and_tasks": "Lists and Tasks",
+            "section_mobility": "Mobility",
+            "section_links": "Links",
+            "section_exercise": "Exercise",
+            "section_body_metrics": "Body Metrics",
+            "section_food": "Food",
+            "section_drinks": "Drinks",
+            "section_outdoor_hobbies": "Outdoor Hobbies",
+            "section_movies_and_games": "Movies and Games",
+            "section_music_events": "Events",
+            "section_music_and_karaoke": "Music and Karaoke",
+            "section_people_and_birthdays": "People and Birthdays"
         }
     }
 }

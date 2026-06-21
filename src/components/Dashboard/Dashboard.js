@@ -194,50 +194,99 @@ export default function Dashboard() {
         {
             key: 'daily-management',
             title: t('title_daily_management'),
-            items: [
-                dashboardItems.car,
-                dashboardItems.programming,
-                dashboardItems.shoppinglists,
-                dashboardItems.tasklists,
-                dashboardItems.otherLists,
-                dashboardItems.links
+            sections: [
+                {
+                    title: t('section_lists_and_tasks'),
+                    items: [
+                        dashboardItems.shoppinglists,
+                        dashboardItems.tasklists,
+                        dashboardItems.otherLists,
+                        dashboardItems.programming
+                    ]
+                },
+                {
+                    title: t('section_mobility'),
+                    items: [dashboardItems.car]
+                },
+                {
+                    title: t('section_links'),
+                    items: [dashboardItems.links]
+                }
             ]
         },
         {
             key: 'wellbeing',
             title: t('title_wellbeing'),
-            items: [dashboardItems.exercises, dashboardItems.bmi]
+            sections: [
+                {
+                    title: t('section_exercise'),
+                    items: [dashboardItems.exercises]
+                },
+                {
+                    title: t('section_body_metrics'),
+                    items: [dashboardItems.bmi]
+                }
+            ]
         },
         {
             key: 'food-and-drink',
             title: t('title_food_and_drink'),
-            items: [dashboardItems.recipes, dashboardItems.drinks]
+            sections: [
+                {
+                    title: t('section_food'),
+                    items: [dashboardItems.recipes]
+                },
+                {
+                    title: t('section_drinks'),
+                    items: [dashboardItems.drinks]
+                }
+            ]
         },
         {
             key: 'hobbies-and-leisure',
             title: t('title_hobbies_and_leisure'),
-            items: [
-                dashboardItems.backpacking,
-                dashboardItems.discGolf,
-                dashboardItems.musicEvents
+            sections: [
+                {
+                    title: t('section_outdoor_hobbies'),
+                    items: [dashboardItems.backpacking, dashboardItems.discGolf]
+                },
+                {
+                    title: t('section_music_events'),
+                    items: [dashboardItems.musicEvents]
+                }
             ]
         },
         {
             key: 'entertainment',
             title: t('title_entertainment'),
-            items: [
-                dashboardItems.movies,
-                dashboardItems.games,
-                dashboardItems.boardGames,
-                dashboardItems.musicBands,
-                dashboardItems.musicRecords,
-                dashboardItems.karaoke
+            sections: [
+                {
+                    title: t('section_movies_and_games'),
+                    items: [
+                        dashboardItems.movies,
+                        dashboardItems.games,
+                        dashboardItems.boardGames
+                    ]
+                },
+                {
+                    title: t('section_music_and_karaoke'),
+                    items: [
+                        dashboardItems.musicBands,
+                        dashboardItems.musicRecords,
+                        dashboardItems.karaoke
+                    ]
+                }
             ]
         },
         {
             key: 'reminders-and-events',
             title: t('title_reminders_and_events'),
-            items: [dashboardItems.people]
+            sections: [
+                {
+                    title: t('section_people_and_birthdays'),
+                    items: [dashboardItems.people]
+                }
+            ]
         }
     ];
 
@@ -273,7 +322,10 @@ export default function Dashboard() {
             </DashboardItem>
         ));
 
-    const searchGroups = dashboardCategories;
+    const searchGroups = dashboardCategories.map((category) => ({
+        ...category,
+        items: category.sections.flatMap((section) => section.items)
+    }));
 
     const filteredSearchGroups = searchGroups
         .map(group => ({
@@ -326,9 +378,14 @@ export default function Dashboard() {
                     >
                         {dashboardCategories.map((category) => (
                             <Tab key={category.key} eventKey={category.key} title={category.title}>
-                                <Row>
-                                    {renderButtons(category.items)}
-                                </Row>
+                                {category.sections.map((section) => (
+                                    <section key={`${category.key}-${section.title}`}>
+                                        <h3>{section.title}</h3>
+                                        <Row>
+                                            {renderButtons(section.items)}
+                                        </Row>
+                                    </section>
+                                ))}
                             </Tab>
                         ))}
                     </Tabs>

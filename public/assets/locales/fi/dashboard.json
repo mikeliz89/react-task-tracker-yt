@@ -35,9 +35,21 @@
             "title_daily_management": "Arjen hallinta",
             "title_wellbeing": "Hyvinvointi",
             "title_food_and_drink": "Ruoka ja juoma",
-            "title_hobbies_and_leisure": "Harrastukset ja vapaa-aika",
+            "title_hobbies_and_leisure": "Harrastukset",
             "title_entertainment": "Viihde",
-            "title_reminders_and_events": "Muistutukset ja tapahtumat"
+            "title_reminders_and_events": "Muistutukset ja tapahtumat",
+            "section_lists_and_tasks": "Listat ja tehtävät",
+            "section_mobility": "Liikkuminen",
+            "section_links": "Linkit",
+            "section_exercise": "Liikunta",
+            "section_body_metrics": "Kehon mittarit",
+            "section_food": "Ruoka",
+            "section_drinks": "Juomat",
+            "section_outdoor_hobbies": "Ulkoiluharrastukset",
+            "section_music_events": "Musiikkitapahtumat",
+            "section_movies_and_games": "Leffat ja pelit",
+            "section_music_and_karaoke": "Musiikki ja karaoke",
+            "section_people_and_birthdays": "Ihmiset ja syntymäpäivät"
         }
     }
 }
