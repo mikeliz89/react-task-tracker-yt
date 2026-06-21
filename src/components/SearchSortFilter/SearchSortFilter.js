@@ -55,6 +55,7 @@ export default function SearchSortFilter({ onSet,
     showSortByBirthday,
     showSortByPublishYear,
     showSortByTrackName,
+    showSortButtons,
     //searching
     showSearchByText,
     showSearchByFinnishName,
@@ -228,6 +229,19 @@ export default function SearchSortFilter({ onSet,
         }
     ];
 
+    const sortSelectOptions = sortButtonControls
+        .filter(x => x.enabled)
+        .flatMap((control) => ([
+            {
+                value: control.sortModeASC,
+                label: `${t(control.title)} ↑`
+            },
+            {
+                value: control.sortModeDESC,
+                label: `${t(control.title)} ↓`
+            }
+        ]));
+
     const searching = useCallback((newList) => {
         let filteredList = newList;
 
@@ -353,18 +367,31 @@ export default function SearchSortFilter({ onSet,
                         <Form.Group as={Row} className='searchSortFilter-sorting'>
                             <Form.Label column xs={12} md={2} className='mb-1 mb-md-0'>{t('sorting')}</Form.Label>
                             <Col xs={12} md={10}>
-                                <ButtonGroup className='searchSortFilter-sortButtons'>
-                                    {sortButtonControls.filter(x => x.enabled).map((control) => (
-                                        <SortByButton
-                                            key={control.sortModeASC}
-                                            sortBy={sortBy}
-                                            sortModeASC={control.sortModeASC}
-                                            sortModeDESC={control.sortModeDESC}
-                                            onSortBy={setSortBy}
-                                            title={control.title}
-                                        />
-                                    ))}
-                                </ButtonGroup>
+                                {showSortButtons ? (
+                                    <ButtonGroup className='searchSortFilter-sortButtons'>
+                                        {sortButtonControls.filter(x => x.enabled).map((control) => (
+                                            <SortByButton
+                                                key={control.sortModeASC}
+                                                sortBy={sortBy}
+                                                sortModeASC={control.sortModeASC}
+                                                sortModeDESC={control.sortModeDESC}
+                                                onSortBy={setSortBy}
+                                                title={control.title}
+                                            />
+                                        ))}
+                                    </ButtonGroup>
+                                ) : (
+                                    <Form.Select
+                                        id='searchSortFilter-sorting'
+                                        className='searchSortFilter-control'
+                                        value={sortBy}
+                                        onChange={(e) => setSortBy(e.target.value)}
+                                    >
+                                        {sortSelectOptions.map((option) => (
+                                            <option key={option.value} value={option.value}>{option.label}</option>
+                                        ))}
+                                    </Form.Select>
+                                )}
                             </Col>
                         </Form.Group>
                         {
@@ -394,6 +421,7 @@ SearchSortFilter.defaultProps = {
     showSortByStarRating: false,
     showSortByBirthday: false,
     showSortByPublishYear: false,
+    showSortButtons: false,
     //searching
     showSearchByText: false,
     showSearchByFinnishName: false,
@@ -419,6 +447,7 @@ SearchSortFilter.propTypes = {
     showSortByCreatedDate: PropTypes.bool,
     showSortByText: PropTypes.bool,
     showSortByStarRating: PropTypes.bool,
+    showSortButtons: PropTypes.bool,
     //searching
     showSearchByText: PropTypes.bool,
     showSearchByFinnishName: PropTypes.bool,
