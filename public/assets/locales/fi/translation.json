@@ -136,7 +136,19 @@
         "register_number": "Rekisterinumero",
         "save_exception": "Tallennus epäonnistui",
         "save_successful": "Tallennus onnistui",
-        "text": "Lisätieto"
+        "text": "Lisätieto",
+        "choose_vehicle_title": "Valitse ajoneuvo",
+        "no_vehicles_to_choose": "Ei ajoneuvoja valittavaksi",
+        "vehicle_not_found": "Valittua ajoneuvoa ei löytynyt",
+        "add_car": "Lisää auto",
+        "add_car_title": "Lisää auto",
+        "brand": "Auton merkki",
+        "make": "Merkki",
+        "model_name": "Malli",
+        "please_add_brand": "Ole hyvä ja lisää auton merkki",
+        "please_add_make": "Ole hyvä ja lisää merkki",
+        "please_add_model_name": "Ole hyvä ja lisää malli",
+        "please_add_model_year": "Ole hyvä ja lisää vuosimalli"
     },
     "comments": {
         "add_comment": "Lisää kommentti",

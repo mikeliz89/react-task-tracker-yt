@@ -5,15 +5,10 @@ import PageTitle from '../Site/PageTitle';
 
 import CarMaintenance from "./CarMaintenance";
 
-export default function CarMaintenances({ carMaintenances, onDelete }) {
+export default function CarMaintenances({ carId, carMaintenances, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
-
-    // const mockData = () => {
-    //     let data = [{ created: "2022-09-19T17:25:19.586Z", name: "Jarrunesteiden vaihto", price: 10, }]
-    //     return data;
-    // }
 
     const getMaintenancesPriceSum = (carMaintenances) => {
         let sum = 0;
@@ -30,7 +25,7 @@ export default function CarMaintenances({ carMaintenances, onDelete }) {
             <PageTitle title={t('car_maintenances')} iconName={ICONS.WRENCH} />
             <p>{t('maintenances_price_sum')}: {getMaintenancesPriceSum(carMaintenances)}</p>
             {carMaintenances.map((maintenance) => (
-                <CarMaintenance key={maintenance.id} carMaintenance={maintenance} onDelete={onDelete} />
+                <CarMaintenance key={maintenance.id} carId={carId} carMaintenance={maintenance} onDelete={onDelete} />
             ))}
         </>
     )

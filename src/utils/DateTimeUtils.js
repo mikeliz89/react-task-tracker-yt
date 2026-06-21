@@ -8,6 +8,30 @@ export function getCurrentDateAsJson() {
 return newDate.toJSON();
 }
 
+/** Calculate age in years from birthday. Returns null for invalid or missing dates. */
+export function getAgeFromBirthday(birthday, now = new Date()) {
+    if (!birthday) {
+        return null;
+    }
+
+    const birthDate = new Date(birthday);
+    const nowDate = new Date(now);
+
+    if (Number.isNaN(birthDate.getTime()) || Number.isNaN(nowDate.getTime())) {
+        return null;
+    }
+
+    let age = nowDate.getUTCFullYear() - birthDate.getUTCFullYear();
+    const monthDiff = nowDate.getUTCMonth() - birthDate.getUTCMonth();
+    const dayDiff = nowDate.getUTCDate() - birthDate.getUTCDate();
+
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age -= 1;
+    }
+
+    return age >= 0 ? age : null;
+}
+
 /** Get current date */
 export function getCurrentDate() {
     const date = new Date();

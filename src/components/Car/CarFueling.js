@@ -9,7 +9,7 @@ import { useToggle } from '../Hooks/useToggle';
 import ListRow from '../Site/ListRow';
 import AddFueling from "./AddFueling";
 
-export default function CarFueling({ fuelingRow, onDelete }) {
+export default function CarFueling({ carId, fuelingRow, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
@@ -18,14 +18,14 @@ export default function CarFueling({ fuelingRow, onDelete }) {
 
     const updateFueling = (fueling) => {
         fueling["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(DB.CAR_FUELING, fuelingRow.id, fueling);
+        updateToFirebaseById(`${DB.CAR_FUELING}/${carId}`, fuelingRow.id, fueling);
         toggleShowEditFueling();
     };
 
     return (
         <ListRow
             item={fuelingRow}
-            dbKey={DB.CAR_FUELING}
+            dbKey={`${DB.CAR_FUELING}/${carId}`}
             headerProps={{
                 title: (
                     <>
@@ -55,6 +55,7 @@ export default function CarFueling({ fuelingRow, onDelete }) {
                 modalTitle: t('modal_header_edit_fueling'),
                 modalBody: (
                     < AddFueling
+                        carId={carId}
                         ID={fuelingRow.id}
                         onClose={() => toggleShowEditFueling()
                         }

@@ -10,7 +10,7 @@ import PageTitle from '../Site/PageTitle';
 import CarFueling from "./CarFueling";
 import GasPriceChart from './GasPriceChart';
 
-export default function CarFuelings({ items, chartFuelings, onDelete }) {
+export default function CarFuelings({ carId, items, chartFuelings, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
@@ -32,7 +32,7 @@ export default function CarFuelings({ items, chartFuelings, onDelete }) {
             <p>{t('car_fuelings_price_sum')}: {getFuelingsPriceSum(items)}</p>
 
             {items.map((fuelingRow) => (
-                <CarFueling key={fuelingRow.id} fuelingRow={fuelingRow} onDelete={onDelete} />
+                <CarFueling key={fuelingRow.id} carId={carId} fuelingRow={fuelingRow} onDelete={onDelete} />
             ))}
 
             <hr />

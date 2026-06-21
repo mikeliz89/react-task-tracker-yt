@@ -8,7 +8,7 @@ import { TRANSLATION, DB } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 import FormTitle from '../Site/FormTitle';
 
-export default function AddFueling({ ID, onClose, onSave, showLabels = true }) {
+export default function AddFueling({ carId, ID, onClose, onSave, showLabels = true }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
@@ -29,16 +29,16 @@ export default function AddFueling({ ID, onClose, onSave, showLabels = true }) {
 
     //loadData
     useEffect(() => {
-        if (ID != null) {
+        if (ID != null && carId) {
             const getFueling = async () => {
                 await fetchFuelingFromFirebase(ID);
             }
             getFueling();
         }
-    }, [ID]);
+    }, [ID, carId]);
 
     const fetchFuelingFromFirebase = async (ID) => {
-        const dbref = ref(db, `${DB.CAR_FUELING}/${ID}`);
+        const dbref = ref(db, `${DB.CAR_FUELING}/${carId}/${ID}`);
         onValue(dbref, (snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();

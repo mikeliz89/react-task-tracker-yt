@@ -33,6 +33,7 @@ export const DB = {
     BACKPACKING_GEAR_IMAGES: '/backpacking-gear-images',
     BACKPACKING_GEAR_LINKS: '/backpacking-gear-links',
     // car
+    CARS: '/cars',
     CAR_FUELING: '/car-fueling',
     CAR_MAINTENANCE: '/car-maintenance',
     CAR_INFO: '/car-info',
@@ -207,6 +208,7 @@ export const NAVIGATION = {
     MANAGE_BACKPACKING: '/managebackpacking',
     MANAGE_BACKPACKINGLISTS: '/managebackpackinglists',
     // car
+    MANAGE_CARS: '/managecars',
     MANAGE_CARLISTS: '/managecarlists',
     // drinks
     MANAGE_DRINKS: '/managedrinks',
