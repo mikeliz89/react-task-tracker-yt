@@ -7,7 +7,8 @@ import ArchivedTaskListDetails from '../components/TaskListsArchive/ArchivedTask
 import BandDetails from '../components/Music/BandDetails';
 import BmiCalculator from '../components/BmiCalculator/BmiCalculator';
 import BoardGameDetails from '../components/Games/BoardGameDetails';
-import Car from '../components/Car/Car';
+import CarDetails from '../components/Car/CarDetails';
+import ManageCars from '../components/Car/ManageCars';
 import CreateExercise from '../components/Exercises/CreateExercise';
 import CreateTrack from '../components/DiscGolf/CreateTrack';
 import Dashboard from '../components/Dashboard/Dashboard';
@@ -114,7 +115,8 @@ const AppRoutes = () => (
     {/* Backpacking */}
     {/* Car */}
     <Route path={NAVIGATION.MANAGE_CARLISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Car} /></PrivateRoute>} />
-    <Route path={NAVIGATION.CAR} element={<PrivateRoute><Car /></PrivateRoute>} />
+    <Route path={NAVIGATION.CAR + '/:id'} element={<PrivateRoute><CarDetails /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_CARS} element={<PrivateRoute><ManageCars /></PrivateRoute>} />
     {/* Car */}
     {/* Music */}
     <Route path={NAVIGATION.MANAGE_MUSIC_RECORDS} element={<PrivateRoute><ManageMusicRecords /></PrivateRoute>} />

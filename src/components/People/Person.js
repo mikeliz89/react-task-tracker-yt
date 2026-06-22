@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import i18n from 'i18next';
 import { TRANSLATION, NAVIGATION, DB } from "../../utils/Constants";
-import { getCurrentDateAsJson, getJsonAsDateString } from '../../utils/DateTimeUtils';
-import dayjs from 'dayjs';
+import { getAgeFromBirthday, getCurrentDateAsJson, getJsonAsDateString } from '../../utils/DateTimeUtils';
 import { useAlert } from '../Hooks/useAlert';
 import ListRow from '../Site/ListRow';
 
@@ -32,13 +31,7 @@ export default function Person({ item, onDelete }) {
         setEditable(false);
     };
 
-    // Laske ikä jos syntymäpäivä on olemassa
-    let age = null;
-    if (item.birthday) {
-        const birth = dayjs(item.birthday);
-        const now = dayjs();
-        age = now.diff(birth, 'year');
-    }
+    const age = getAgeFromBirthday(item.birthday);
     return (
         <ListRow
             item={item}

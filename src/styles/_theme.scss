@@ -271,6 +271,32 @@
     color: rgba(248, 251, 255, 0.98);
 }
 
+#dark .searchSortFilter-form {
+    background: linear-gradient(160deg, rgba(24, 32, 47, 0.92), rgba(15, 22, 35, 0.94));
+    border: 1px solid rgba(146, 174, 230, 0.26);
+}
+
+#dark .searchSortFilter-label,
+#dark .searchSortFilter-sorting .form-label {
+    color: rgba(219, 229, 247, 0.9);
+}
+
+#dark .searchSortFilter-control {
+    background: rgba(29, 40, 60, 0.94);
+    border-color: rgba(152, 180, 236, 0.25);
+    color: rgba(240, 246, 255, 0.95);
+}
+
+#dark .searchSortFilter-control:focus {
+    background: rgba(34, 48, 74, 0.98);
+    border-color: rgba(96, 153, 255, 0.75);
+    box-shadow: 0 0 0 0.15rem rgba(76, 140, 255, 0.22);
+}
+
+#dark .searchSortFilter-sorting {
+    border-top-color: rgba(152, 180, 236, 0.2);
+}
+
 #dark ::placeholder {
     color: var(--dark-placeholder);
 }

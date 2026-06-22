@@ -29,7 +29,7 @@ export default function Dashboard() {
 
     const dashboardItems = {
         car: {
-            link: NAVIGATION.CAR,
+            link: NAVIGATION.MANAGE_CARS,
             imageName: 'car.jpg',
             text: t('car'),
             iconName: ICONS.CAR,

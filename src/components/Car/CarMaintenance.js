@@ -11,7 +11,7 @@ import ListRow from '../Site/ListRow';
 
 import AddMaintenance from "./AddMaintenance";
 
-export default function CarMaintenance({ carMaintenance, onDelete }) {
+export default function CarMaintenance({ carId, carMaintenance, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
@@ -20,18 +20,18 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
 
     const updateMaintenance = (maintenance) => {
         maintenance["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(DB.CAR_MAINTENANCE, carMaintenance.id, maintenance);
-        setFalse(); //Sulje edit tila
+        updateToFirebaseById(`${DB.CAR_MAINTENANCE}/${carId}`, carMaintenance.id, maintenance);
+        setFalse();
     };
 
     return (
         <ListRow
             item={carMaintenance}
-            dbKey={DB.CAR_MAINTENANCE}
+            dbKey={`${DB.CAR_MAINTENANCE}/${carId}`}
             headerProps={{
                 title: (
                     <>
-                        <b>{getJsonAsDateTimeString(carMaintenance.created, i18n.language)}</b> & nbsp;
+                        <b>{getJsonAsDateTimeString(carMaintenance.created, i18n.language)}</b> &nbsp;
                         {carMaintenance.createdBy}
                     </>
                 )
@@ -54,6 +54,7 @@ export default function CarMaintenance({ carMaintenance, onDelete }) {
                 modalTitle: t('modal_header_edit_maintenance'),
                 modalBody: (
                     <AddMaintenance
+                        carId={carId}
                         ID={carMaintenance.id}
                         onClose={() => toggleEditable()}
                         onSave={updateMaintenance}

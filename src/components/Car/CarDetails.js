@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ButtonGroup, Modal, Row, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { pushToFirebase, removeFromFirebaseById } from '../../datatier/datatier';
@@ -26,7 +27,7 @@ import CarFuelings from './CarFuelings';
 import CarMaintenances from './CarMaintenances';
 import Icon from '../Icon';
 
-export default function Car() {
+export default function CarDetails() {
 
     //translation
     const { t } = useTranslation([TRANSLATION.TRANSLATION], { keyPrefix: TRANSLATION.CAR });
@@ -52,17 +53,60 @@ export default function Car() {
     }
 
     //fetch data
-    const { data: carFuelings, setData: setCarFuelings, originalData: originalCarFuelings, counter: fuelingsCounter, loading } = useFetch(DB.CAR_FUELING);
-    const { data: carMaintenances, originalData: originalCarMaintenances, counter: maintenancesCounter } = useFetch(DB.CAR_MAINTENANCE);
+    const { id } = useParams();
+    const selectedCarId = id ? decodeURIComponent(id) : '';
+    const carFuelingsPath = `${DB.CAR_FUELING}/${selectedCarId}`;
+    const carMaintenancesPath = `${DB.CAR_MAINTENANCE}/${selectedCarId}`;
+
+    const { data: originalCarFuelings, loading } = useFetch(carFuelingsPath);
+    const { data: originalCarMaintenances } = useFetch(carMaintenancesPath);
+    const { data: cars, loading: loadingCars } = useFetch(DB.CARS);
 
     //user
     const { currentUser } = useAuth();
 
+    const filteredOriginalCarFuelings = useMemo(() => (
+        Array.isArray(originalCarFuelings) ? originalCarFuelings : []
+    ), [originalCarFuelings]);
+
+    const [carFuelings, setCarFuelings] = useState(filteredOriginalCarFuelings);
+
+    useEffect(() => {
+        if (filteredOriginalCarFuelings.length === 0) {
+            setCarFuelings([]);
+        }
+    }, [filteredOriginalCarFuelings.length]);
+
+    const filteredCarMaintenances = useMemo(() => (
+        Array.isArray(originalCarMaintenances) ? originalCarMaintenances : []
+    ), [originalCarMaintenances]);
+
+    const selectedCar = useMemo(() => (
+        Array.isArray(cars)
+            ? cars.find((x) => x.id === selectedCarId)
+            : null
+    ), [cars, selectedCarId]);
+
+    const selectedCarLabel = useMemo(() => {
+        if (!selectedCar || Array.isArray(selectedCar)) {
+            return '';
+        }
+
+        const brand = selectedCar.brand || '';
+        const modelName = selectedCar.modelName || '';
+        return `${brand} ${modelName}`.trim();
+    }, [selectedCar]);
+
     const addFueling = (fueling) => {
+        if (!selectedCarId) {
+            showFailure(t('save_exception'));
+            return;
+        }
+
         try {
             fueling["created"] = getCurrentDateAsJson();
             fueling["createdBy"] = currentUser.email;
-            pushToFirebase(DB.CAR_FUELING, fueling);
+            pushToFirebase(carFuelingsPath, fueling);
             showSuccess(t('save_successful'));
         } catch (ex) {
             showFailure(t('save_exception'));
@@ -71,14 +115,19 @@ export default function Car() {
     }
 
     const deleteFueling = async (id) => {
-        removeFromFirebaseById(DB.CAR_FUELING, id);
+        removeFromFirebaseById(carFuelingsPath, id);
     }
 
     const addMaintenance = (maintenance) => {
+        if (!selectedCarId) {
+            showFailure(t('save_exception'));
+            return;
+        }
+
         try {
             maintenance["created"] = getCurrentDateAsJson();
             maintenance["createdBy"] = currentUser.email;
-            pushToFirebase(DB.CAR_MAINTENANCE, maintenance);
+            pushToFirebase(carMaintenancesPath, maintenance);
             showSuccess(t('save_successful'));
         } catch (ex) {
             showFailure(t('save_exception'));
@@ -87,15 +136,15 @@ export default function Car() {
     }
 
     const deleteMaintenance = async (id) => {
-        removeFromFirebaseById(DB.CAR_MAINTENANCE, id);
+        removeFromFirebaseById(carMaintenancesPath, id);
     }
 
-    return loading ? (
+    return loading || loadingCars ? (
         <h3>{tCommon("loading")}</h3>
     ) : (
         <PageContentWrapper>
 
-            <PageTitle title={t('car_title')} iconName={ICONS.CAR} />
+            <PageTitle title={selectedCarLabel || t('car_title')} iconName={ICONS.CAR} />
 
             <Row>
                 <ButtonGroup>
@@ -108,6 +157,12 @@ export default function Car() {
                 </ButtonGroup>
             </Row>
 
+            {!selectedCar || Array.isArray(selectedCar) ? (
+                <CenterWrapper>
+                    {t('vehicle_not_found')}
+                </CenterWrapper>
+            ) : (
+                <>
             <Alert
                 message={message}
                 showMessage={showMessage}
@@ -123,7 +178,7 @@ export default function Car() {
                 style={{ marginTop: '10px' }}>
 
                 <Tab eventKey="carInfo" title={<><Icon name={ICONS.INFO} style={{ marginRight: 6 }} />{t('add_info_title')}</>}>
-                    <AddInfo />
+                    <AddInfo carId={selectedCarId} />
                 </Tab>
                 <Tab eventKey="fuelings" title={<><Icon name={ICONS.GAS_PUMP} style={{ marginRight: 6 }} />{t('fuelings')}</>}>
 
@@ -141,6 +196,7 @@ export default function Car() {
                             </Modal.Header>
                             <Modal.Body>
                                 <AddFueling
+                                    carId={selectedCarId}
                                     onSave={addFueling}
                                     onClose={() => setShowAddFueling(false)} />
                             </Modal.Body>
@@ -150,23 +206,24 @@ export default function Car() {
                     {/* Fuelings Start */}
                     <>
                         {
-                            originalCarFuelings != null && originalCarFuelings.length > 0 ? (
+                            filteredOriginalCarFuelings != null && filteredOriginalCarFuelings.length > 0 ? (
                                 <SearchSortFilter
                                     onSet={setCarFuelings}
                                     //search
-                                    originalList={originalCarFuelings}
+                                    originalList={filteredOriginalCarFuelings}
                                     //sort
                                     defaultSort={SortMode.Created_DESC}
                                     showSortByCreatedDate={true}
                                 />
                             ) : (<></>)
                         }
-                        <Counter counter={fuelingsCounter} text={tCommon('amount')} list={carFuelings} originalList={originalCarFuelings} />
+                        <Counter counter={filteredOriginalCarFuelings.length} text={tCommon('amount')} list={carFuelings} originalList={filteredOriginalCarFuelings} />
                         {
                             carFuelings != null && carFuelings.length > 0 ? (
                                 <CarFuelings
+                                    carId={selectedCarId}
                                     items={carFuelings}
-                                    chartFuelings={originalCarFuelings}
+                                    chartFuelings={filteredOriginalCarFuelings}
                                     onDelete={deleteFueling} />
                             ) : (
                                 <>
@@ -183,7 +240,7 @@ export default function Car() {
                     <Button
                         color={showAddMaintenance ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
                         onClick={() => setShowAddMaintenance(!showAddMaintenance)}
-                        text={showAddFueling ? tCommon('buttons.button_close') : t('add_maintenance')}
+                        text={showAddMaintenance ? tCommon('buttons.button_close') : t('add_maintenance')}
                         iconName={ICONS.PLUS}
                         secondIconName={ICONS.WRENCH} />
                     {
@@ -194,6 +251,7 @@ export default function Car() {
                             </Modal.Header>
                             <Modal.Body>
                                 <AddMaintenance
+                                    carId={selectedCarId}
                                     onSave={addMaintenance}
                                     onClose={() => setShowAddMaintenance(false)} />
                             </Modal.Body>
@@ -203,11 +261,12 @@ export default function Car() {
                     {/* Maintenances Start */}
 
                     <>
-                        <Counter counter={maintenancesCounter} text={tCommon('amount')} list={carMaintenances} originalList={originalCarMaintenances} />
+                        <Counter counter={filteredCarMaintenances.length} text={tCommon('amount')} list={filteredCarMaintenances} originalList={filteredCarMaintenances} />
                         {
-                            carMaintenances != null && carMaintenances.length > 0 ? (
+                            filteredCarMaintenances != null && filteredCarMaintenances.length > 0 ? (
                                 <CarMaintenances
-                                    carMaintenances={carMaintenances} onDelete={deleteMaintenance} />
+                                    carId={selectedCarId}
+                                    carMaintenances={filteredCarMaintenances} onDelete={deleteMaintenance} />
                             ) : (
                                 <>
                                     <CenterWrapper>
@@ -220,6 +279,8 @@ export default function Car() {
                     {/* Maintenances End */}
                 </Tab>
             </Tabs>
+                </>
+            )}
 
         </PageContentWrapper >
     )

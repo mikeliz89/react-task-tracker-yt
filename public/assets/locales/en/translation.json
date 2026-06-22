@@ -129,7 +129,19 @@
     "text": "Info",
     "add_maintenance_title": "Maintenance",
     "modal_header_edit_fueling": "Edit Fueling",
-    "no_car_maintenances": "No Maintenances"
+    "no_car_maintenances": "No Maintenances",
+    "choose_vehicle_title": "Choose vehicle",
+    "no_vehicles_to_choose": "No vehicles to choose",
+    "vehicle_not_found": "Selected vehicle was not found",
+    "add_car": "Add car",
+    "add_car_title": "Add car",
+    "brand": "Car brand",
+    "make": "Make",
+    "model_name": "Model name",
+    "please_add_brand": "Please add car brand",
+    "please_add_make": "Please add make",
+    "please_add_model_name": "Please add model name",
+    "please_add_model_year": "Please add model year"
   },
   "comments": {
     "add_comment": "Add comment",

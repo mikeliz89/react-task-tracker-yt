@@ -8,7 +8,7 @@ import { TRANSLATION, DB } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 import FormTitle from '../Site/FormTitle';
 
-export default function AddMaintenance({ ID, onClose, onSave, showLabels = true }) {
+export default function AddMaintenance({ carId, ID, onClose, onSave, showLabels = true }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
@@ -26,16 +26,16 @@ export default function AddMaintenance({ ID, onClose, onSave, showLabels = true 
 
     //loadData
     useEffect(() => {
-        if (ID != null) {
+        if (ID != null && carId) {
             const getMaintenance = async () => {
                 await fetchMaintenanceFromFirebase(ID);
             }
             getMaintenance();
         }
-    }, [ID]);
+    }, [ID, carId]);
 
     const fetchMaintenanceFromFirebase = async (ID) => {
-        const dbref = ref(db, `${DB.CAR_MAINTENANCE}/${ID}`);
+        const dbref = ref(db, `${DB.CAR_MAINTENANCE}/${carId}/${ID}`);
         onValue(dbref, (snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();
