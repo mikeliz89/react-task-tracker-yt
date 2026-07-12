@@ -158,6 +158,7 @@ export default function ManageGeneric({
                 counter={counter}
                 onDelete={deleteItem}
                 onEdit={editItem}
+                title={title}
                 {...ListComponentProps}
             />
         </ManagePage>
