@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { RecipeTypes } from '../../utils/Enums';
 import NavButton from '../Buttons/NavButton';
-import ListMapper from '../Common/ListMapper';
 import Recipe from '../Recipe/Recipe';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
@@ -20,7 +19,6 @@ export default function ManageDrinks() {
             dbKey={DB.DRINKS}
             translationKey={TRANSLATION.DRINKS}
             AddComponent={AddDrink}
-            ListComponent={ListMapper}
             iconName={ICONS.COCKTAIL}
             title={t('manage_drinks_title')}
             ListComponentProps={{

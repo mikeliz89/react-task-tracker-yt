@@ -3,7 +3,6 @@ import { TRANSLATION, DB, ICONS } from '../../utils/Constants';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import ManageGeneric from '../Common/ManageGeneric';
 import AddFoodItem from './AddFoodItem';
-import ListMapper from '../Common/ListMapper';
 import FoodItem from './FoodItem';
 
 export default function ManageFoodItems() {
@@ -13,7 +12,6 @@ export default function ManageFoodItems() {
             dbKey={DB.FOODITEMS}
             translationKey={TRANSLATION.RECIPE}
             AddComponent={AddFoodItem}
-            ListComponent={ListMapper}
             ListComponentProps={{ ItemComponent: FoodItem }}
             iconName={ICONS.CARROT}
             title={t('manage_fooditems_title')}

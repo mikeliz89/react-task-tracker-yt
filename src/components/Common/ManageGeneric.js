@@ -7,6 +7,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import { useToggle } from '../Hooks/useToggle';
+import ListMapper from './ListMapper';
 import ManagePage from '../Site/ManagePage';
 import NavButton from '../Buttons/NavButton';
 import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
@@ -26,7 +27,7 @@ export default function ManageGeneric({
     //Components
     AddComponent = null,
     AddComponentProps = {},
-    ListComponent,
+    ListComponent = ListMapper,
     ListComponentProps = {},
     //search sort filter
     searchSortFilterOptions,
@@ -167,7 +168,7 @@ ManageGeneric.propTypes = {
     dbKey: PropTypes.string.isRequired,
     translationKey: PropTypes.string.isRequired,
     AddComponent: PropTypes.elementType,
-    ListComponent: PropTypes.elementType.isRequired,
+    ListComponent: PropTypes.elementType,
     searchSortFilterOptions: PropTypes.object,
     iconName: PropTypes.string,
     topActions: PropTypes.node,

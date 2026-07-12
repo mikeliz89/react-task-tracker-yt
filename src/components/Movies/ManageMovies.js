@@ -3,7 +3,6 @@ import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import AddMovie from './AddMovie';
-import ListMapper from '../Common/ListMapper';
 import Movie from './Movie';
 
 export default function ManageMovies() {
@@ -13,7 +12,6 @@ export default function ManageMovies() {
             dbKey={DB.MOVIES}
             translationKey={TRANSLATION.MOVIES}
             AddComponent={AddMovie}
-            ListComponent={ListMapper}
             ListComponentProps={{ ItemComponent: Movie }}
             iconName={ICONS.MOVIE}
             listNav={{ to: NAVIGATION.MANAGE_MOVIELISTS }}

@@ -3,7 +3,6 @@ import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import NavButton from '../Buttons/NavButton';
 import ManageGeneric from '../Common/ManageGeneric';
 import AddBand from './AddBand';
-import ListMapper from '../Common/ListMapper';
 import Band from './Band';
 
 export default function ManageMusicBands() {
@@ -14,7 +13,6 @@ export default function ManageMusicBands() {
             dbKey={DB.MUSIC_BANDS}
             translationKey={TRANSLATION.MUSIC}
             AddComponent={AddBand}
-            ListComponent={ListMapper}
             ListComponentProps={{ ItemComponent: Band }}
             iconName={ICONS.MUSIC}
             title={t('music_bands_title')}
