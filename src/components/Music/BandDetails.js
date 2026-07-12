@@ -35,6 +35,7 @@ export default function BandDetails() {
 
     //fetch data
     const { data: band, loading } = useFetch(DB.MUSIC_BANDS, "", params.id);
+    const hasSeenLive = band?.seenLive === true || band?.haveSeenLive === true;
 
     const updateBand = async (updateBandID, band) => {
         try {
@@ -64,8 +65,8 @@ export default function BandDetails() {
                 { id: 3, content: <>{t('modified')}: {getJsonAsDateTimeString(band?.modified, i18n.language)}</> }
             ]}
             titleSuffix={
-                <span className={`details-pill ${band?.haveSeenLive === true ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
-                    {band?.haveSeenLive === true ? t('show_only_seen_live') : t('show_only_not_seen_live')}
+                <span className={`details-pill ${hasSeenLive ? 'details-pill-ready' : 'details-pill-not-ready'}`}>
+                    {hasSeenLive ? t('show_only_seen_live') : t('show_only_not_seen_live')}
                 </span>
             }
             editModalTitle={t('modal_header_edit_band')}
