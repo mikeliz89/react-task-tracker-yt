@@ -43,13 +43,10 @@ export default function WeightHistory() {
             emptyText={''}
         >
             <>
-                <p></p>
-
                 {/* Kaavio */}
                 <WeightChart data={historyRows} chartData={originalHistoryRows} />
 
                 {/* Historiarivit */}
-                <hr />
                 <Counter counter={counter} text={tCommon('amount')} list={historyRows} originalList={originalHistoryRows} />
                 <>
                     {

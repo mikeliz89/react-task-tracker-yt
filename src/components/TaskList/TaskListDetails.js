@@ -1,5 +1,4 @@
 //params
-import { child, get, off, onValue, push, ref, update } from 'firebase/database';
 import i18n from 'i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { ButtonGroup, Col, Form, Modal, Row, Tab, Tabs } from 'react-bootstrap';
@@ -8,14 +7,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext';
 import {
+  createFirebaseChildKey,
+  getFromFirebaseAsArray,
   getFromFirebaseById,
   getFromFirebaseByIdAndSubId,
+  getFromFirebaseChildAsArray,
   pushToFirebase,
   pushToFirebaseChild,
   removeFromFirebaseByIdAndSubId,
+  subscribeToFirebaseChildAsArray,
   updateToFirebase
 } from '../../datatier/datatier';
-import { db } from '../../firebase-config';
 import { COLORS, DB, ICONS, TRANSLATION } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getManagePageByListType, getPageTitleContent } from '../../utils/ListUtils';
@@ -80,19 +82,15 @@ export default function TaskListDetails() {
 
   // --- Lataa nykyisen listan taskit ---
   useEffect(() => {
-    const dbref = child(ref(db, DB.TASKS), sourceListId);
-    const unsub = onValue(dbref, (snapshot) => {
-      const snap = snapshot.val();
-      const fromDB = [];
+    const unsub = subscribeToFirebaseChildAsArray(DB.TASKS, sourceListId, (fromDB) => {
       let taskCounterTemp = 0;
       let taskReadyCounterTemp = 0;
-      if (snap) {
-        for (const id in snap) {
+      if (fromDB) {
+        for (let i = 0; i < fromDB.length; i++) {
           taskCounterTemp++;
-          if (snap[id]["reminder"] === true) {
+          if (fromDB[i]["reminder"] === true) {
             taskReadyCounterTemp++;
           }
-          fromDB.push({ id, ...snap[id] });
         }
       }
       // säilytä valinnat, jotka vielä löytyvät
@@ -100,21 +98,19 @@ export default function TaskListDetails() {
       setOriginalTasks(fromDB);
       setTaskCounter(taskCounterTemp);
       setTaskReadyCounter(taskReadyCounterTemp);
-      setSelectedIds((prev) => new Set([...prev].filter((id) => snap?.[id])));
+      const existingIds = new Set((fromDB || []).map((task) => task.id));
+      setSelectedIds((prev) => new Set([...prev].filter((id) => existingIds.has(id))));
     });
 
     return () => {
-      off(dbref); // siivoa kuuntelija
+      unsub();
     };
   }, [sourceListId]);
 
   // --- Lataa kaikki tasklistat (kohdevalikkoa varten) ---
   useEffect(() => {
-    const tlRef = ref(db, DB.TASKLISTS);
     // kertalataus riittää
-    get(tlRef).then((snapshot) => {
-      const v = snapshot.val() || {};
-      const arr = Object.entries(v).map(([id, data]) => ({ id, ...data }));
+    getFromFirebaseAsArray(DB.TASKLISTS).then((arr) => {
       setTasklists(arr);
     });
   }, []);
@@ -155,6 +151,17 @@ export default function TaskListDetails() {
   const unselectAllDone = () => {
     const doneIds = new Set(tasks.filter((t) => t.reminder === true).map((t) => t.id));
     setSelectedIds((prev) => new Set([...prev].filter((id) => !doneIds.has(id))));
+  };
+
+  // Valitse kaikki keskeneraiset tehtävät
+  const selectAllUndone = () => {
+    setSelectedIds(new Set(tasks.filter((t) => t.reminder !== true).map((t) => t.id)));
+  };
+
+  // Poista valinnasta kaikki keskeneraiset tehtävät
+  const unselectAllUndone = () => {
+    const undoneIds = new Set(tasks.filter((t) => t.reminder !== true).map((t) => t.id));
+    setSelectedIds((prev) => new Set([...prev].filter((id) => !undoneIds.has(id))));
   };
 
   //tyhjennä valinnat
@@ -227,7 +234,6 @@ export default function TaskListDetails() {
     setLoadingMove(true);
     try {
       // Rakennetaan atominen päivitys
-      const rootRef = ref(db); // käytetään juurta, jotta voidaan päivittää monia polkuja kerralla
       const updates = {};
 
       // Kopioidaan jokainen valittu task kohteeseen uudella avaimella ja poistetaan lähteestä
@@ -236,7 +242,7 @@ export default function TaskListDetails() {
         if (!taskData) return;
 
         // luodaan uusi avain kohteeseen
-        const newKey = push(child(ref(db), `${DB.TASKS}/${destListId}`)).key;
+        const newKey = createFirebaseChildKey(DB.TASKS, destListId);
 
         // poista id kenttä taskDatasta
         const { id: _omit, ...payload } = taskData; // ⬅️ tässä id pudotetaan pois
@@ -248,7 +254,7 @@ export default function TaskListDetails() {
         updates[`${DB.TASKS}/${sourceListId}/${taskId}`] = null; // poista lähteestä
       });
 
-      await update(rootRef, updates);
+      await updateToFirebase(updates);
 
       // Optimistinen UI: tyhjennä valinnat ja kohde
       clearSelection();
@@ -268,14 +274,13 @@ export default function TaskListDetails() {
 
     setLoadingMove(true);
     try {
-      const rootRef = ref(db);
       const updates = {};
 
       selectedIds.forEach((taskId) => {
         updates[`${DB.TASKS}/${sourceListId}/${taskId}`] = null;
       });
 
-      await update(rootRef, updates);
+      await updateToFirebase(updates);
       clearSelection();
     } catch (ex) {
       setError("Poisto epäonnistui. Yritä uudelleen.");
@@ -323,33 +328,25 @@ export default function TaskListDetails() {
   }
 
   const markAllTasksDone = async (taskListID) => {
-    const dbref = child(ref(db, DB.TASKS), taskListID);
-    get(dbref).then((snapshot) => {
-      if (snapshot.exists()) {
-        //update each snapshot data separately (child)
-        snapshot.forEach((data) => {
-          const updates = {};
-          updates[`${DB.TASKS}/${taskListID}/${data.key}/reminder`] = true;
-          updateToFirebase(updates);
-        });
-      } else {
-        console.log("No data available");
+    getFromFirebaseChildAsArray(DB.TASKS, taskListID).then((tasksFromDb) => {
+      const updates = {};
+      tasksFromDb.forEach((task) => {
+        updates[`${DB.TASKS}/${taskListID}/${task.id}/reminder`] = true;
+      });
+      if (Object.keys(updates).length > 0) {
+        updateToFirebase(updates);
       }
     });
   }
 
   const markAllTasksUndone = async (taskListID) => {
-    const dbref = child(ref(db, DB.TASKS), taskListID);
-    get(dbref).then((snapshot) => {
-      if (snapshot.exists()) {
-        //update each snapshot data separately (child)
-        snapshot.forEach((data) => {
-          const updates = {};
-          updates[`${DB.TASKS}/${taskListID}/${data.key}/reminder`] = false;
-          updateToFirebase(updates);
-        });
-      } else {
-        console.log("No data available");
+    getFromFirebaseChildAsArray(DB.TASKS, taskListID).then((tasksFromDb) => {
+      const updates = {};
+      tasksFromDb.forEach((task) => {
+        updates[`${DB.TASKS}/${taskListID}/${task.id}/reminder`] = false;
+      });
+      if (Object.keys(updates).length > 0) {
+        updateToFirebase(updates);
       }
     });
   }
@@ -514,6 +511,20 @@ export default function TaskListDetails() {
               color={COLORS.BUTTON_GRAY}
               iconName={ICONS.MINUS}
               text={`${t('toolbar_unselect_all_done')}`}
+            />
+            <Button
+              onClick={selectAllUndone}
+              disabled={tasks.length === 0}
+              color={COLORS.BUTTON_GRAY}
+              iconName={ICONS.HOURGLASS_1}
+              text={t('toolbar_select_all_undone')}
+            />
+            <Button
+              onClick={unselectAllUndone}
+              disabled={tasks.length === 0}
+              color={COLORS.BUTTON_GRAY}
+              iconName={ICONS.MINUS}
+              text={t('toolbar_unselect_all_undone')}
             />
           </div>
         </div>

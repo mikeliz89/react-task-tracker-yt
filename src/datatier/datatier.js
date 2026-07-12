@@ -99,6 +99,21 @@ export const getFromFirebaseChildAsArray = async (path, id) => {
     return mapSnapshotToArray(snapshot);
 }
 
+export const getFromFirebaseAsArray = async (path) => {
+    const dbref = ref(db, path);
+    const snapshot = await get(dbref);
+
+    if (!snapshot.exists()) {
+        return [];
+    }
+
+    return mapSnapshotToArray(snapshot);
+}
+
+export const createFirebaseChildKey = (path, id) => {
+    return push(child(ref(db, path), id)).key;
+}
+
 const mapSnapshotToArray = (snapshot) => {
     const snap = snapshot.val();
     const fromDB = [];
@@ -114,6 +129,20 @@ const mapSnapshotToArray = (snapshot) => {
 
 export const subscribeToFirebaseChildAsArray = (path, id, onData) => {
     const dbref = child(ref(db, path), id);
+    return onValue(dbref, (snapshot) => {
+        onData(mapSnapshotToArray(snapshot));
+    });
+}
+
+export const subscribeToFirebaseAsArray = (path, onData) => {
+    const dbref = ref(db, path);
+    return onValue(dbref, (snapshot) => {
+        onData(mapSnapshotToArray(snapshot));
+    });
+}
+
+export const subscribeToFirebaseByIdAsArray = (path, id, onData) => {
+    const dbref = ref(db, `${path}/${id}`);
     return onValue(dbref, (snapshot) => {
         onData(mapSnapshotToArray(snapshot));
     });

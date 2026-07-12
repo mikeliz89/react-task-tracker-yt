@@ -5,9 +5,8 @@ import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { onValue, ref } from 'firebase/database';
 
-import { db } from '../../firebase-config';
+import { subscribeToFirebaseAsArray } from '../../datatier/datatier';
 import { useAuth } from '../../contexts/AuthContext';
 import { NAVIGATION, ICONS, DB, TRANSLATION } from '../../utils/Constants';
 import Button from '../Buttons/Button';
@@ -76,12 +75,11 @@ export default function Header() {
             return;
         }
 
-        const peopleUnsubscribe = onValue(ref(db, DB.PEOPLE), (snapshot) => {
-            const people = snapshot.val();
+        const peopleUnsubscribe = subscribeToFirebaseAsArray(DB.PEOPLE, (people) => {
             const upcoming = [];
 
-            if (people && typeof people === 'object') {
-                Object.entries(people).forEach(([id, person]) => {
+            if (people && Array.isArray(people)) {
+                people.forEach((person) => {
                     if (!person || typeof person !== 'object') {
                         return;
                     }
@@ -89,7 +87,7 @@ export default function Header() {
                     const daysUntilBirthday = getDaysUntilNextBirthday(person.birthday);
                     if (daysUntilBirthday != null && daysUntilBirthday <= BIRTHDAY_LOOKAHEAD_DAYS) {
                         upcoming.push({
-                            id,
+                            id: person.id,
                             name: person.name || '-',
                             birthday: person.birthday,
                             daysUntilBirthday,
