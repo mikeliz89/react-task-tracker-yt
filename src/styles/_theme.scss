@@ -563,4 +563,36 @@
     border-color: rgba(19, 25, 37, 0.95);
 }
 
+#dark .header-notification-panel {
+    border-color: rgba(130, 162, 221, 0.42);
+    background: linear-gradient(180deg, rgba(34, 45, 67, 0.98), rgba(24, 33, 49, 0.98));
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.42);
+}
+
+#dark .header-notification-title {
+    color: rgba(211, 225, 250, 0.92);
+}
+
+#dark .header-notification-item {
+    border-color: rgba(124, 154, 212, 0.34);
+    background: linear-gradient(180deg, rgba(47, 61, 88, 0.9), rgba(33, 44, 64, 0.92));
+}
+
+#dark .header-notification-item:hover {
+    border-color: rgba(157, 189, 244, 0.74);
+    background: linear-gradient(180deg, rgba(56, 74, 107, 0.95), rgba(38, 52, 79, 0.95));
+}
+
+#dark .header-notification-item-name {
+    color: rgba(226, 236, 255, 0.98);
+}
+
+#dark .header-notification-item-meta {
+    color: rgba(192, 208, 237, 0.88);
+}
+
+#dark .header-notification-empty {
+    color: rgba(185, 202, 231, 0.86);
+}
+
 /* Theme end */

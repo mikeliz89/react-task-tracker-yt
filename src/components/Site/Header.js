@@ -1,6 +1,6 @@
 
 //user
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -49,6 +49,9 @@ export default function Header() {
     const navigate = useNavigate();
     const { currentUser } = useAuth();
     const [notificationCount, setNotificationCount] = useState(0);
+    const [upcomingBirthdays, setUpcomingBirthdays] = useState([]);
+    const [showNotifications, setShowNotifications] = useState(false);
+    const notificationWrapperRef = useRef(null);
 
     //location
     const location = useLocation();
@@ -59,36 +62,70 @@ export default function Header() {
         }
     }
 
+    const openPersonDetails = (personId) => {
+        setShowNotifications(false);
+        navigate(`${NAVIGATION.PERSON}/${personId}`);
+    };
+
     useEffect(() => {
         if (!currentUser) {
             setNotificationCount(0);
+            setUpcomingBirthdays([]);
             return;
         }
 
         const peopleUnsubscribe = onValue(ref(db, DB.PEOPLE), (snapshot) => {
             const people = snapshot.val();
-            let count = 0;
+            const upcoming = [];
 
             if (people && typeof people === 'object') {
-                Object.values(people).forEach((person) => {
+                Object.entries(people).forEach(([id, person]) => {
                     if (!person || typeof person !== 'object') {
                         return;
                     }
 
                     const daysUntilBirthday = getDaysUntilNextBirthday(person.birthday);
                     if (daysUntilBirthday != null && daysUntilBirthday <= BIRTHDAY_LOOKAHEAD_DAYS) {
-                        count += 1;
+                        upcoming.push({
+                            id,
+                            name: person.name || '-',
+                            birthday: person.birthday,
+                            daysUntilBirthday,
+                        });
                     }
                 });
             }
 
-            setNotificationCount(count);
+            upcoming.sort((a, b) => a.daysUntilBirthday - b.daysUntilBirthday);
+            setUpcomingBirthdays(upcoming);
+            setNotificationCount(upcoming.length);
         });
 
         return () => {
             peopleUnsubscribe();
         };
     }, [currentUser]);
+
+    useEffect(() => {
+        const handleDocumentClick = (event) => {
+            if (!notificationWrapperRef.current) {
+                return;
+            }
+
+            if (!notificationWrapperRef.current.contains(event.target)) {
+                setShowNotifications(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleDocumentClick);
+        return () => {
+            document.removeEventListener('mousedown', handleDocumentClick);
+        };
+    }, []);
+
+    useEffect(() => {
+        setShowNotifications(false);
+    }, [location.pathname]);
 
     return (
         <div className="headerContainer">
@@ -105,19 +142,49 @@ export default function Header() {
                                 {currentUser.email}
                             </span>
                         }
-                        {currentUser &&
-                            <button
-                                type='button'
-                                className='header-notification-button'
-                                title='Notifications'
-                                aria-label={`Notifications ${notificationCount}`}
-                            >
-                                <Icon name={ICONS.GLOBE} />
-                                <span className='header-notification-badge'>
-                                    {notificationCount > 99 ? '99+' : notificationCount}
-                                </span>
-                            </button>
-                        }
+                        {currentUser && (
+                            <div className='header-notification-wrap' ref={notificationWrapperRef}>
+                                <button
+                                    type='button'
+                                    className='header-notification-button'
+                                    title='Ilmoitukset'
+                                    aria-label={`Notifications ${notificationCount}`}
+                                    aria-expanded={showNotifications}
+                                    onClick={() => setShowNotifications((prev) => !prev)}
+                                >
+                                    <Icon name={ICONS.GLOBE} />
+                                    <span className='header-notification-badge'>
+                                        {notificationCount > 99 ? '99+' : notificationCount}
+                                    </span>
+                                </button>
+
+                                {showNotifications && (
+                                    <div className='header-notification-panel'>
+                                        <h6 className='header-notification-title'>Ilmoitukset</h6>
+
+                                        {upcomingBirthdays.length > 0 ? (
+                                            <div className='header-notification-list'>
+                                                {upcomingBirthdays.map((item) => (
+                                                    <button
+                                                        key={item.id}
+                                                        type='button'
+                                                        className='header-notification-item'
+                                                        onClick={() => openPersonDetails(item.id)}
+                                                    >
+                                                        <span className='header-notification-item-name'>{item.name}</span>
+                                                        <span className='header-notification-item-meta'>
+                                                            {item.daysUntilBirthday === 0 ? 'Synttärit tänään' : `Synttärit ${item.daysUntilBirthday} pv päästä`}
+                                                        </span>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <p className='header-notification-empty'>Ei uusia ilmoituksia</p>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        )}
                         {currentUser &&
                             <Button
                                 iconName={ICONS.GEAR}
