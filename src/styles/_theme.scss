@@ -477,4 +477,74 @@
     color: rgba(222, 231, 248, 0.85);
 }
 
+#dark .manageListTableHeader {
+    background: linear-gradient(180deg, rgba(53, 67, 94, 0.9), rgba(38, 48, 70, 0.92));
+    border-bottom-color: rgba(164, 190, 238, 0.38);
+    color: rgba(224, 235, 255, 0.95);
+}
+
+#dark .manageListView-compact {
+    border-color: rgba(138, 165, 214, 0.4);
+    background: rgba(26, 34, 48, 0.92);
+}
+
+#dark .manageListView-compact > .text-center {
+    background: rgba(37, 47, 67, 0.88);
+    color: rgba(214, 227, 250, 0.9);
+    border-bottom-color: rgba(141, 167, 216, 0.3);
+}
+
+#dark .manageListView-compact .listContainer {
+    background: linear-gradient(92deg, rgba(37, 45, 62, 0.94), rgba(23, 29, 42, 0.96));
+    border-color: rgba(141, 167, 216, 0.3);
+}
+
+#dark .manageListView-compact .listContainer:nth-child(even) {
+    background: linear-gradient(92deg, rgba(35, 43, 60, 0.95), rgba(21, 27, 39, 0.97));
+}
+
+#dark .manageListView-compact .listContainer:hover {
+    background: linear-gradient(92deg, rgba(45, 57, 79, 0.95), rgba(29, 38, 56, 0.97));
+    border-color: rgba(171, 193, 242, 0.42);
+}
+
+#dark .manageListView-compact .listContainer .listRow-title a,
+#dark .manageListView-compact .listContainer .listRow-title .btn,
+#dark .manageListView-compact .listContainer .listRow-title span {
+    color: rgba(219, 230, 251, 0.96);
+}
+
+#dark .manageListView-compact .listContainer .listRow-section p {
+    color: rgba(193, 207, 235, 0.9);
+}
+
+#dark .manageListView-compact .listContainer .listRow-actions .editBtn {
+    color: rgba(190, 204, 232, 0.9) !important;
+}
+
+#dark .manageListView-compact .listContainer .listRow-actions .deleteBtn {
+    color: rgba(255, 120, 130, 0.95) !important;
+}
+
+#dark .manageListView-compact .listContainer .listRow-actions .editBtn:hover {
+    color: rgba(221, 233, 255, 1) !important;
+}
+
+#dark .manageListView-compact .listContainer .listRow-actions .deleteBtn:hover {
+    color: rgba(255, 145, 153, 1) !important;
+}
+
+#dark .manageListViewSwitch .btn-outline-primary {
+    color: rgba(199, 218, 252, 0.95);
+    border-color: rgba(130, 162, 221, 0.55);
+    background: rgba(37, 50, 75, 0.66);
+}
+
+#dark .manageListViewSwitch .btn-outline-primary:hover,
+#dark .manageListViewSwitch .btn-outline-primary:focus {
+    color: rgba(236, 244, 255, 0.98);
+    border-color: rgba(157, 189, 244, 0.78);
+    background: rgba(49, 69, 102, 0.86);
+}
+
 /* Theme end */
