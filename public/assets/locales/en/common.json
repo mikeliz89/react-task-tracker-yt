@@ -26,6 +26,13 @@
             "item": "Item",
             "details": "Details",
             "actions": "Actions"
+        },
+        "notifications": {
+            "title": "Notifications",
+            "aria_label": "Notifications {{count}}",
+            "birthday_today": "Birthday today",
+            "birthday_in_days": "Birthday in {{days}} days",
+            "empty": "No new notifications"
         }
     }
 }

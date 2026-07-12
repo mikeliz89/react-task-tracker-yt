@@ -27,6 +27,13 @@
             "item": "Rivi",
             "details": "Tiedot",
             "actions": "Toiminnot"
+        },
+        "notifications": {
+            "title": "Ilmoitukset",
+            "aria_label": "Ilmoituksia {{count}}",
+            "birthday_today": "Synttärit tänään",
+            "birthday_in_days": "Synttärit {{days}} pv päästä",
+            "empty": "Ei uusia ilmoituksia"
         }
     }
 }

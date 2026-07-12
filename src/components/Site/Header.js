@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { onValue, ref } from 'firebase/database';
 
 import { db } from '../../firebase-config';
 import { useAuth } from '../../contexts/AuthContext';
-import { NAVIGATION, ICONS, DB } from '../../utils/Constants';
+import { NAVIGATION, ICONS, DB, TRANSLATION } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 import Icon from '../Icon';
 
@@ -48,6 +49,7 @@ export default function Header() {
     //navigation
     const navigate = useNavigate();
     const { currentUser } = useAuth();
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
     const [notificationCount, setNotificationCount] = useState(0);
     const [upcomingBirthdays, setUpcomingBirthdays] = useState([]);
     const [showNotifications, setShowNotifications] = useState(false);
@@ -147,8 +149,8 @@ export default function Header() {
                                 <button
                                     type='button'
                                     className='header-notification-button'
-                                    title='Ilmoitukset'
-                                    aria-label={`Notifications ${notificationCount}`}
+                                    title={tCommon('notifications.title')}
+                                    aria-label={tCommon('notifications.aria_label', { count: notificationCount })}
                                     aria-expanded={showNotifications}
                                     onClick={() => setShowNotifications((prev) => !prev)}
                                 >
@@ -160,7 +162,7 @@ export default function Header() {
 
                                 {showNotifications && (
                                     <div className='header-notification-panel'>
-                                        <h6 className='header-notification-title'>Ilmoitukset</h6>
+                                        <h6 className='header-notification-title'>{tCommon('notifications.title')}</h6>
 
                                         {upcomingBirthdays.length > 0 ? (
                                             <div className='header-notification-list'>
@@ -173,13 +175,15 @@ export default function Header() {
                                                     >
                                                         <span className='header-notification-item-name'>{item.name}</span>
                                                         <span className='header-notification-item-meta'>
-                                                            {item.daysUntilBirthday === 0 ? 'Synttärit tänään' : `Synttärit ${item.daysUntilBirthday} pv päästä`}
+                                                            {item.daysUntilBirthday === 0
+                                                                ? tCommon('notifications.birthday_today')
+                                                                : tCommon('notifications.birthday_in_days', { days: item.daysUntilBirthday })}
                                                         </span>
                                                     </button>
                                                 ))}
                                             </div>
                                         ) : (
-                                            <p className='header-notification-empty'>Ei uusia ilmoituksia</p>
+                                            <p className='header-notification-empty'>{tCommon('notifications.empty')}</p>
                                         )}
                                     </div>
                                 )}
