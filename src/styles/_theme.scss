@@ -547,4 +547,20 @@
     background: rgba(49, 69, 102, 0.86);
 }
 
+#dark .header-notification-button {
+    border-color: rgba(130, 162, 221, 0.42);
+    background: linear-gradient(180deg, rgba(45, 59, 84, 0.95), rgba(32, 43, 64, 0.95));
+    color: rgba(218, 230, 252, 0.96);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+#dark .header-notification-button:hover {
+    border-color: rgba(157, 189, 244, 0.78);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
+}
+
+#dark .header-notification-badge {
+    border-color: rgba(19, 25, 37, 0.95);
+}
+
 /* Theme end */

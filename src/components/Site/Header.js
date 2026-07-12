@@ -10,6 +10,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { NAVIGATION, ICONS } from '../../utils/Constants';
 import Button from '../Buttons/Button';
+import Icon from '../Icon';
 
 import LeftWrapper from './LeftWrapper';
 import Logo from './Logo';
@@ -19,7 +20,8 @@ export default function Header() {
 
     //navigation
     const navigate = useNavigate();
-const { currentUser } = useAuth();
+    const { currentUser } = useAuth();
+    const notificationCount = Number(sessionStorage.getItem('notificationCount') || 0);
 
     //location
     const location = useLocation();
@@ -44,6 +46,19 @@ const { currentUser } = useAuth();
                             <span style={{ whiteSpace: 'nowrap' }}>
                                 {currentUser.email}
                             </span>
+                        }
+                        {currentUser &&
+                            <button
+                                type='button'
+                                className='header-notification-button'
+                                title='Notifications'
+                                aria-label={`Notifications ${notificationCount}`}
+                            >
+                                <Icon name={ICONS.GLOBE} />
+                                <span className='header-notification-badge'>
+                                    {notificationCount > 99 ? '99+' : notificationCount}
+                                </span>
+                            </button>
                         }
                         {currentUser &&
                             <Button

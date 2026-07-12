@@ -111,6 +111,47 @@ header {
     margin-bottom: 0px;
 }
 
+.header-notification-button {
+    position: relative;
+    width: 2.15rem;
+    height: 2.15rem;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    background: linear-gradient(180deg, #ffffff, #f1f5fb);
+    color: #2a3f67;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    transition: transform 0.14s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.header-notification-button:hover {
+    transform: translateY(-1px);
+    border-color: rgba(35, 103, 210, 0.45);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.18);
+}
+
+.header-notification-badge {
+    position: absolute;
+    top: -0.3rem;
+    right: -0.28rem;
+    min-width: 1.02rem;
+    height: 1.02rem;
+    padding: 0 0.22rem;
+    border-radius: 999px;
+    background: #f02849;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .btn:focus {
     outline: none;
 }
