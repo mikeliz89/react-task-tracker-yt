@@ -43,7 +43,10 @@ export default function ManageGeneric({
     // modal title override
     modalTitle,
     // center actions
-    centerActions
+    centerActions,
+    // view mode
+    enableListViewToggle = true,
+    listViewStorageKey,
 }) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: translationKey });
@@ -131,9 +134,13 @@ export default function ManageGeneric({
                 originalList: originalData,
                 onSet: setFilteredData
             } : undefined}
+            listViewToggle={enableListViewToggle ? {
+                enabled: true,
+                storageKey: listViewStorageKey ?? `manage-list-view-${translationKey}`
+            } : undefined}
             hasItems={listToShow != null && listToShow.length > 0}
             emptyText={tCommon('nothing_to_show')}
-            modal={AddComponent && showAdd ? {
+            modal={AddComponent ? {
                 show: showAdd,
                 onHide: toggleAdd,
                 title: modalTitle ?? t('add'),
@@ -175,4 +182,6 @@ ManageGeneric.propTypes = {
     modalTitle: PropTypes.string,
     centerActions: PropTypes.node,
     copyButton: PropTypes.object,
+    enableListViewToggle: PropTypes.bool,
+    listViewStorageKey: PropTypes.string,
 };

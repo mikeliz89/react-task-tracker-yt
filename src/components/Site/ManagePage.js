@@ -1,5 +1,6 @@
 
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 
@@ -34,6 +35,7 @@ export default function ManagePage({
     modal,
     //filtering, sorting, searching
     searchSortFilter,
+    listViewToggle,
     //other
     hasItems,
     emptyText,
@@ -49,6 +51,47 @@ export default function ManagePage({
     const showSearchSortFilter =
         originalSearchSortFilterList != null &&
         originalSearchSortFilterList.length > 0;
+    const isListViewToggleEnabled = listViewToggle?.enabled ?? false;
+    const listViewStorageKey = listViewToggle?.storageKey;
+    const defaultListView = listViewToggle?.defaultView === 'table' ? 'table' : 'card';
+    const [listView, setListView] = useState(() => {
+        if (!listViewStorageKey) {
+            return defaultListView;
+        }
+
+        try {
+            const savedListView = window.localStorage.getItem(listViewStorageKey);
+            return savedListView === 'table' ? 'table' : defaultListView;
+        } catch {
+            return defaultListView;
+        }
+    });
+
+    useEffect(() => {
+        if (!listViewStorageKey) {
+            setListView(defaultListView);
+            return;
+        }
+
+        try {
+            const savedListView = window.localStorage.getItem(listViewStorageKey);
+            setListView(savedListView === 'table' ? 'table' : defaultListView);
+        } catch {
+            setListView(defaultListView);
+        }
+    }, [listViewStorageKey, defaultListView]);
+
+    useEffect(() => {
+        if (!listViewStorageKey) {
+            return;
+        }
+
+        try {
+            window.localStorage.setItem(listViewStorageKey, listView);
+        } catch {
+            // Intentionally ignored: localStorage can be unavailable in some environments.
+        }
+    }, [listViewStorageKey, listView]);
 
     if (loading) {
         return <h3>{loadingText}</h3>;
@@ -95,6 +138,25 @@ export default function ManagePage({
                 />
             ) : (<></>)}
 
+            {isListViewToggleEnabled && hasItems ? (
+                <div className='manageListViewSwitch'>
+                    <button
+                        type='button'
+                        className={`btn btn-sm ${listView === 'card' ? 'btn-primary' : 'btn-outline-primary'}`}
+                        onClick={() => setListView('card')}
+                    >
+                        {tCommon('buttons.button_view_cards')}
+                    </button>
+                    <button
+                        type='button'
+                        className={`btn btn-sm ${listView === 'table' ? 'btn-primary' : 'btn-outline-primary'}`}
+                        onClick={() => setListView('table')}
+                    >
+                        {tCommon('buttons.button_view_table')}
+                    </button>
+                </div>
+            ) : null}
+
             {centerActions || addButton ? (
                 <CenterWrapper>
                     {centerActions}
@@ -119,7 +181,16 @@ export default function ManagePage({
             ) : (<></>)}
 
             {hasItems ? (
-                children
+                <div className={`manageListView ${listView === 'table' ? 'manageListView-compact' : 'manageListView-card'}`}>
+                    {isListViewToggleEnabled && listView === 'table' ? (
+                        <div className='manageListTableHeader'>
+                            <span>{tCommon('table.item')}</span>
+                            <span>{tCommon('table.details')}</span>
+                            <span>{tCommon('table.actions')}</span>
+                        </div>
+                    ) : null}
+                    {children}
+                </div>
             ) : (
                 <CenterWrapper>
                     {emptyText}
@@ -162,6 +233,11 @@ ManagePage.propTypes = {
         body: PropTypes.node,
     }),
     searchSortFilter: PropTypes.object,
+    listViewToggle: PropTypes.shape({
+        enabled: PropTypes.bool,
+        defaultView: PropTypes.oneOf(['card', 'table']),
+        storageKey: PropTypes.string,
+    }),
     hasItems: PropTypes.bool,
     emptyText: PropTypes.node,
     children: PropTypes.node,

@@ -48,7 +48,202 @@
     margin: 0.45rem 0 0.15rem;
 }
 
+.manageListViewSwitch {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    margin: 0.15rem 0 0.55rem;
+}
+
+.manageListView-compact {
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.manageListTableHeader {
+    display: grid;
+    grid-template-columns: minmax(240px, 2.3fr) minmax(300px, 2.7fr) auto;
+    gap: 0.7rem;
+    padding: 0.56rem 0.8rem;
+    background: #eef3f8;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #2e3c4f;
+}
+
+.manageListTableHeader span:last-child {
+    justify-self: end;
+}
+
+.manageListView-compact > .text-center {
+    margin: 0;
+    padding: 0.45rem 0.8rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: #f9fbfd;
+    font-weight: 600;
+    color: #4a5868;
+}
+
+.manageListView-compact .listContainer {
+    background: #ffffff;
+    margin: 0;
+    padding: 0.36rem 0.7rem;
+    display: grid;
+    grid-template-columns: minmax(240px, 2.3fr) minmax(300px, 2.7fr) auto;
+    column-gap: 0.7rem;
+    align-items: start;
+    border-radius: 0;
+    border-width: 0 0 1px;
+    border-color: rgba(0, 0, 0, 0.14);
+    box-shadow: none;
+}
+
+.manageListView-compact .listContainer:nth-child(even) {
+    background: #fcfdff;
+}
+
+.manageListView-compact .listContainer:first-child,
+.manageListView-compact .manageListTableHeader + .listContainer {
+    border-top: 1px solid rgba(0, 0, 0, 0.14);
+}
+
+.manageListView-compact .listContainer:last-child {
+    border-bottom: 0;
+}
+
+.manageListView-compact .listContainer:hover {
+    border-color: rgba(0, 0, 0, 0.14);
+    box-shadow: none;
+    background: #f8fafc;
+}
+
+.manageListView-compact .listContainer h5 {
+    font-size: 0.92rem;
+    line-height: 1.18;
+    display: contents;
+}
+
+.manageListView-compact .listContainer .listRow-main {
+    grid-column: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.manageListView-compact .listContainer .listRow-actions {
+    grid-column: 3;
+    justify-self: end;
+    align-self: start;
+}
+
+.manageListView-compact .listContainer .listRow-title {
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.manageListView-compact .listContainer .listRow-title a,
+.manageListView-compact .listContainer .listRow-title .btn,
+.manageListView-compact .listContainer .listRow-title span {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.manageListView-compact .listContainer .listRow-section,
+.manageListView-compact .listContainer .listRow-check,
+.manageListView-compact .listContainer > :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.alert) {
+    grid-column: 2;
+}
+
+.manageListView-compact .listContainer > .alert {
+    grid-column: 1 / -1;
+}
+
+.manageListView-compact .listContainer .listRow-section p {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.16;
+    color: #354154;
+}
+
+.manageListView-compact .listContainer .listRow-section p+p {
+    margin-top: 0.03rem;
+}
+
+.manageListView-compact .listRow-starRatingInline {
+    margin-left: 0.2rem;
+    transform: scale(0.9);
+    transform-origin: left center;
+}
+
+.manageListView-compact .listContainer .listRow-check p {
+    margin: 0.1rem 0 0;
+}
+
+.manageListView-compact .listContainer .listRow-check .checkButton-toggle {
+    margin: 0 !important;
+    padding: 0;
+    width: 1.35rem;
+    min-width: 1.35rem;
+    height: 1.35rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.32rem;
+}
+
+.manageListView-compact .listContainer .listRow-check .checkButton-label {
+    display: none;
+}
+
+.manageListView-compact .listContainer .listRow-check .checkButton-icon {
+    margin-right: 0;
+    font-size: 0.9rem !important;
+}
+
+.manageListView-compact .listContainer .listRow-actions .editBtn,
+.manageListView-compact .listContainer .listRow-actions .deleteBtn {
+    opacity: 0.85;
+    font-size: 1rem !important;
+}
+
+.manageListView-compact .listContainer .listRow-actions .editBtn:hover,
+.manageListView-compact .listContainer .listRow-actions .deleteBtn:hover {
+    opacity: 1;
+}
+
 @media (max-width: 768px) {
+    .manageListViewSwitch {
+        justify-content: stretch;
+    }
+
+    .manageListViewSwitch .btn {
+        flex: 1 1 0;
+    }
+
+    .manageListTableHeader {
+        display: none;
+    }
+
+    .manageListView-compact > .text-center {
+        padding: 0.36rem 0.52rem;
+        font-size: 0.84rem;
+    }
+
+    .manageListView-compact .listContainer {
+        display: block;
+        padding: 0.38rem 0.5rem;
+    }
+
     .listContainer {
         padding: 0.65rem 0.75rem;
         border-radius: 9px;
