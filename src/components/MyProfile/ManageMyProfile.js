@@ -1,13 +1,12 @@
 //import RightWrapper from '../Site/RightWrapper';
 
-import { ref, onValue } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { updateToFirebaseById } from '../../datatier/datatier';
-import { db, uploadProfilePic } from '../../firebase-config';
+import { subscribeToFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import { uploadProfilePic } from '../../firebase-config';
 import { ICONS } from '../../utils/Constants';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
@@ -61,8 +60,7 @@ export default function ManageMyProfile() {
             return;
         }
 
-        const dbref = ref(db, `${DB.PROFILES}/${currentUser.uid}`);
-        const unsubscribe = onValue(dbref, (snapshot) => {
+        const unsubscribe = subscribeToFirebaseById(DB.PROFILES, currentUser.uid, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
                 setName(data["name"]);

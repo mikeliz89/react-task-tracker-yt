@@ -1,4 +1,3 @@
-import { ref, child, onValue } from 'firebase/database';
 import i18n from "i18next";
 import { useState } from 'react';
 import { ButtonGroup, Form, Tab, Tabs } from 'react-bootstrap';
@@ -6,9 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebase, pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseById, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
+import { getFromFirebaseChildAsArray, pushToFirebase, pushToFirebaseById, pushToFirebaseChild, removeFromFirebaseById, removeFromFirebaseByIdAndSubId, updateToFirebaseById }
     from '../../datatier/datatier';
-import { db } from '../../firebase-config';
 import { COLORS, NAVIGATION, DB, TRANSLATION, ICONS } from '../../utils/Constants';
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { ListTypes, RecipeTypes } from '../../utils/Enums';
@@ -168,17 +166,9 @@ export default function RecipeDetails() {
     }
 
     const fetchIncredientsFromFirebase = async (recipeID) => {
-        console.log("recipeID ID ", recipeID);
-        const incredients = [];
         const recipeType = RecipeTypes.Food;
-        const dbref = await child(ref(db, getIncredientsUrl(recipeType)), recipeID);
-        onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            for (let id in snap) {
-                incredients.push({ id, ...snap[id] });
-            }
-        });
-        return incredients;
+        const path = getIncredientsUrl(recipeType);
+        return await getFromFirebaseChildAsArray(path, recipeID);
     }
 
     const addTaskList = async (taskList, incredients) => {

@@ -1,9 +1,8 @@
-import { onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { ButtonGroup, Form, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
-import { db } from "../../firebase-config";
+import { subscribeToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 import FormTitle from '../Site/FormTitle';
@@ -26,17 +25,20 @@ export default function AddMaintenance({ carId, ID, onClose, onSave, showLabels 
 
     //loadData
     useEffect(() => {
-        if (ID != null && carId) {
-            const getMaintenance = async () => {
-                await fetchMaintenanceFromFirebase(ID);
-            }
-            getMaintenance();
+        if (ID == null || !carId) {
+            return;
         }
+
+        const unsubscribe = fetchMaintenanceFromFirebase(ID);
+        return () => {
+            if (typeof unsubscribe === 'function') {
+                unsubscribe();
+            }
+        };
     }, [ID, carId]);
 
-    const fetchMaintenanceFromFirebase = async (ID) => {
-        const dbref = ref(db, `${DB.CAR_MAINTENANCE}/${carId}/${ID}`);
-        onValue(dbref, (snapshot) => {
+    const fetchMaintenanceFromFirebase = (ID) => {
+        return subscribeToFirebaseById(`${DB.CAR_MAINTENANCE}/${carId}`, ID, (snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();
                 setCreated(val["created"]);
