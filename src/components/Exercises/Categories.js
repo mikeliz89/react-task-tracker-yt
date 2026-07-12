@@ -169,6 +169,8 @@ export function getIconNameByCategory(category) {
             return 'running';
         case Categories.Walking:
             return 'walking';
+        case Categories.Skiing:
+            return 'skiing';
         default: return '';
     }
 }
