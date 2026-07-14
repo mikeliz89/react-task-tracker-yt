@@ -7,6 +7,7 @@ import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useAlert } from '../Hooks/useAlert';
 import useFetch from '../Hooks/useFetch';
 import { useToggle } from '../Hooks/useToggle';
+import ListMapper from './ListMapper';
 import ManagePage from '../Site/ManagePage';
 import NavButton from '../Buttons/NavButton';
 import { TRANSLATION, ICONS, COLORS } from '../../utils/Constants';
@@ -26,7 +27,7 @@ export default function ManageGeneric({
     //Components
     AddComponent = null,
     AddComponentProps = {},
-    ListComponent,
+    ListComponent = ListMapper,
     ListComponentProps = {},
     //search sort filter
     searchSortFilterOptions,
@@ -43,7 +44,10 @@ export default function ManageGeneric({
     // modal title override
     modalTitle,
     // center actions
-    centerActions
+    centerActions,
+    // view mode
+    enableListViewToggle = true,
+    listViewStorageKey,
 }) {
 
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: translationKey });
@@ -131,9 +135,13 @@ export default function ManageGeneric({
                 originalList: originalData,
                 onSet: setFilteredData
             } : undefined}
+            listViewToggle={enableListViewToggle ? {
+                enabled: true,
+                storageKey: listViewStorageKey ?? `manage-list-view-${translationKey}`
+            } : undefined}
             hasItems={listToShow != null && listToShow.length > 0}
             emptyText={tCommon('nothing_to_show')}
-            modal={AddComponent && showAdd ? {
+            modal={AddComponent ? {
                 show: showAdd,
                 onHide: toggleAdd,
                 title: modalTitle ?? t('add'),
@@ -150,6 +158,7 @@ export default function ManageGeneric({
                 counter={counter}
                 onDelete={deleteItem}
                 onEdit={editItem}
+                title={title}
                 {...ListComponentProps}
             />
         </ManagePage>
@@ -160,7 +169,7 @@ ManageGeneric.propTypes = {
     dbKey: PropTypes.string.isRequired,
     translationKey: PropTypes.string.isRequired,
     AddComponent: PropTypes.elementType,
-    ListComponent: PropTypes.elementType.isRequired,
+    ListComponent: PropTypes.elementType,
     searchSortFilterOptions: PropTypes.object,
     iconName: PropTypes.string,
     topActions: PropTypes.node,
@@ -175,4 +184,6 @@ ManageGeneric.propTypes = {
     modalTitle: PropTypes.string,
     centerActions: PropTypes.node,
     copyButton: PropTypes.object,
+    enableListViewToggle: PropTypes.bool,
+    listViewStorageKey: PropTypes.string,
 };

@@ -1,25 +1,58 @@
 
-
 //user
-
-
+import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+import { subscribeToFirebaseAsArray } from '../../datatier/datatier';
 import { useAuth } from '../../contexts/AuthContext';
-import { NAVIGATION, ICONS } from '../../utils/Constants';
+import { NAVIGATION, ICONS, DB, TRANSLATION } from '../../utils/Constants';
 import Button from '../Buttons/Button';
+import Icon from '../Icon';
 
 import LeftWrapper from './LeftWrapper';
 import Logo from './Logo';
 import RightWrapper from './RightWrapper';
 
+const BIRTHDAY_LOOKAHEAD_DAYS = 7;
+
+function getDaysUntilNextBirthday(birthdayValue, now = new Date()) {
+    if (!birthdayValue) {
+        return null;
+    }
+
+    const birthdayDate = new Date(birthdayValue);
+    if (Number.isNaN(birthdayDate.getTime())) {
+        return null;
+    }
+
+    const currentDate = new Date(now);
+    currentDate.setHours(0, 0, 0, 0);
+
+    const nextBirthday = new Date(currentDate);
+    nextBirthday.setMonth(birthdayDate.getMonth(), birthdayDate.getDate());
+    nextBirthday.setHours(0, 0, 0, 0);
+
+    if (nextBirthday < currentDate) {
+        nextBirthday.setFullYear(currentDate.getFullYear() + 1);
+    }
+
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+    return Math.round((nextBirthday - currentDate) / millisecondsPerDay);
+}
+
 export default function Header() {
 
     //navigation
     const navigate = useNavigate();
-const { currentUser } = useAuth();
+    const { currentUser } = useAuth();
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+    const [notificationCount, setNotificationCount] = useState(0);
+    const [upcomingBirthdays, setUpcomingBirthdays] = useState([]);
+    const [showNotifications, setShowNotifications] = useState(false);
+    const notificationWrapperRef = useRef(null);
 
     //location
     const location = useLocation();
@@ -29,6 +62,70 @@ const { currentUser } = useAuth();
             navigate(NAVIGATION.MANAGE_MY_PROFILE);
         }
     }
+
+    const openPersonDetails = (personId) => {
+        setShowNotifications(false);
+        navigate(`${NAVIGATION.PERSON}/${personId}`);
+    };
+
+    useEffect(() => {
+        if (!currentUser) {
+            setNotificationCount(0);
+            setUpcomingBirthdays([]);
+            return;
+        }
+
+        const peopleUnsubscribe = subscribeToFirebaseAsArray(DB.PEOPLE, (people) => {
+            const upcoming = [];
+
+            if (people && Array.isArray(people)) {
+                people.forEach((person) => {
+                    if (!person || typeof person !== 'object') {
+                        return;
+                    }
+
+                    const daysUntilBirthday = getDaysUntilNextBirthday(person.birthday);
+                    if (daysUntilBirthday != null && daysUntilBirthday <= BIRTHDAY_LOOKAHEAD_DAYS) {
+                        upcoming.push({
+                            id: person.id,
+                            name: person.name || '-',
+                            birthday: person.birthday,
+                            daysUntilBirthday,
+                        });
+                    }
+                });
+            }
+
+            upcoming.sort((a, b) => a.daysUntilBirthday - b.daysUntilBirthday);
+            setUpcomingBirthdays(upcoming);
+            setNotificationCount(upcoming.length);
+        });
+
+        return () => {
+            peopleUnsubscribe();
+        };
+    }, [currentUser]);
+
+    useEffect(() => {
+        const handleDocumentClick = (event) => {
+            if (!notificationWrapperRef.current) {
+                return;
+            }
+
+            if (!notificationWrapperRef.current.contains(event.target)) {
+                setShowNotifications(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleDocumentClick);
+        return () => {
+            document.removeEventListener('mousedown', handleDocumentClick);
+        };
+    }, []);
+
+    useEffect(() => {
+        setShowNotifications(false);
+    }, [location.pathname]);
 
     return (
         <div className="headerContainer">
@@ -45,6 +142,51 @@ const { currentUser } = useAuth();
                                 {currentUser.email}
                             </span>
                         }
+                        {currentUser && (
+                            <div className='header-notification-wrap' ref={notificationWrapperRef}>
+                                <button
+                                    type='button'
+                                    className='header-notification-button'
+                                    title={tCommon('notifications.title')}
+                                    aria-label={tCommon('notifications.aria_label', { count: notificationCount })}
+                                    aria-expanded={showNotifications}
+                                    onClick={() => setShowNotifications((prev) => !prev)}
+                                >
+                                    <Icon name={ICONS.GLOBE} />
+                                    <span className='header-notification-badge'>
+                                        {notificationCount > 99 ? '99+' : notificationCount}
+                                    </span>
+                                </button>
+
+                                {showNotifications && (
+                                    <div className='header-notification-panel'>
+                                        <h6 className='header-notification-title'>{tCommon('notifications.title')}</h6>
+
+                                        {upcomingBirthdays.length > 0 ? (
+                                            <div className='header-notification-list'>
+                                                {upcomingBirthdays.map((item) => (
+                                                    <button
+                                                        key={item.id}
+                                                        type='button'
+                                                        className='header-notification-item'
+                                                        onClick={() => openPersonDetails(item.id)}
+                                                    >
+                                                        <span className='header-notification-item-name'>{item.name}</span>
+                                                        <span className='header-notification-item-meta'>
+                                                            {item.daysUntilBirthday === 0
+                                                                ? tCommon('notifications.birthday_today')
+                                                                : tCommon('notifications.birthday_in_days', { days: item.daysUntilBirthday })}
+                                                        </span>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <p className='header-notification-empty'>{tCommon('notifications.empty')}</p>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        )}
                         {currentUser &&
                             <Button
                                 iconName={ICONS.GEAR}

@@ -9,6 +9,8 @@
             "go_back_button_alt": "Go back",
             "button_close": "Close",
             "button_open": "Add",
+            "button_view_cards": "Cards",
+            "button_view_table": "Table",
             "button_delete": "Delete",
             "button_delete_all": "Delete All",
             "button_edit": "Edit",
@@ -19,6 +21,18 @@
         "confirm": {
             "areyousure": "Are you sure?",
             "delete": "Delete"
+        },
+        "table": {
+            "item": "Item",
+            "details": "Details",
+            "actions": "Actions"
+        },
+        "notifications": {
+            "title": "Notifications",
+            "aria_label": "Notifications {{count}}",
+            "birthday_today": "Birthday today",
+            "birthday_in_days": "Birthday in {{days}} days",
+            "empty": "No new notifications"
         }
     }
 }

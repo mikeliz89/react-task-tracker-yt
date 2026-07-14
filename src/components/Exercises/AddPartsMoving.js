@@ -1,4 +1,3 @@
-import { ref, child, onValue } from 'firebase/database';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
@@ -6,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseChild, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import { db } from '../../firebase-config';
+import { pushToFirebaseChild, subscribeToFirebaseChildAsArray, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import Button from '../Buttons/Button';
@@ -33,17 +31,7 @@ export default function AddPartsMoving({ title, iconName }) {
 
   //load data
   useEffect(() => {
-    const dbref = child(ref(db, DB.EXERCISE_PARTS), params.id);
-    const unsubscribe = onValue(dbref, (snapshot) => {
-      const val = snapshot.val();
-      const fromDB = [];
-      if (val === null) {
-        setLoading(false);
-        return;
-      }
-      for (let id in val) {
-        fromDB.push({ id, ...val[id] });
-      }
+    const unsubscribe = subscribeToFirebaseChildAsArray(DB.EXERCISE_PARTS, params.id, (fromDB) => {
       if (fromDB && fromDB.length > 0) {
         setPartID(fromDB[0]["id"]);
         setDistance(fromDB[0]["distance"]);

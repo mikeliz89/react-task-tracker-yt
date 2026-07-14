@@ -22,6 +22,7 @@ export default function Band({ item, onDelete, onEdit }) {
     }
 
     const bandTitle = `${item.name} ${item.formingYear > 0 ? `(${item.formingYear})` : ''}`.trim();
+    const hasSeenLive = item.seenLive === true || item.haveSeenLive === true;
 
     return (
         <ListRow
@@ -51,11 +52,19 @@ export default function Band({ item, onDelete, onEdit }) {
             }}
             showCheckButton={true}
             checkButtonProps={{
-                checked: !!item.haveSeenLive,
+                checked: hasSeenLive,
                 checkedText: t('show_only_seen_live'),
                 uncheckedText: t('show_only_not_seen_live'),
-                onCheck: () => { item["haveSeenLive"] = true; onEdit(item); },
-                onUncheck: () => { item["haveSeenLive"] = false; onEdit(item); },
+                onCheck: () => {
+                    item["seenLive"] = true;
+                    item["haveSeenLive"] = true;
+                    onEdit(item);
+                },
+                onUncheck: () => {
+                    item["seenLive"] = false;
+                    item["haveSeenLive"] = false;
+                    onEdit(item);
+                },
             }}
         />
     )

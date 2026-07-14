@@ -1,4 +1,3 @@
-import { ref, onValue, child } from 'firebase/database';
 import i18n from "i18next";
 import { useState, useEffect } from 'react';
 import { Row, ButtonGroup } from 'react-bootstrap';
@@ -7,8 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 import Tasks from '../../components/Task/Tasks';
-import { getFromFirebaseById, pushToFirebase, updateToFirebase, updateToFirebaseById } from '../../datatier/datatier';
-import { db } from '../../firebase-config';
+import { getFromFirebaseById, pushToFirebase, subscribeToFirebaseChildAsArray, updateToFirebase, updateToFirebaseById } from '../../datatier/datatier';
 import { ICONS, TRANSLATION, DB, COLORS } from '../../utils/Constants';
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getPageTitleContent, getManagePageByListType } from '../../utils/ListUtils';
@@ -43,19 +41,15 @@ export default function ArchivedTaskListDetails() {
 
   //load data
   useEffect(() => {
-    const dbref = child(ref(db, DB.TASKLIST_ARCHIVE_TASKS), params.id);
-    const unsubscribe = onValue(dbref, (snapshot) => {
-      const snap = snapshot.val();
-      const fromDB = [];
+    const unsubscribe = subscribeToFirebaseChildAsArray(DB.TASKLIST_ARCHIVE_TASKS, params.id, (fromDB) => {
       let taskCounterTemp = 0;
       let taskReadyCounterTemp = 0;
-      if (snap != null) {
-        for (let id in snap) {
+      if (fromDB != null) {
+        for (let i = 0; i < fromDB.length; i++) {
           taskCounterTemp++;
-          if (snap[id]["reminder"] === true) {
+          if (fromDB[i]["reminder"] === true) {
             taskReadyCounterTemp++;
           }
-          fromDB.push({ id, ...snap[id] });
         }
       }
       setTasks(fromDB);

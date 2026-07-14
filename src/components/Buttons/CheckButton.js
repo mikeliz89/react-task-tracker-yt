@@ -30,12 +30,16 @@ export default function CheckButton({
         <p>
             <span
                 onClick={handleClick}
-                className={className || (isChecked ? checkedClassName : uncheckedClassName)}
+                className={`checkButton-toggle ${className || (isChecked ? checkedClassName : uncheckedClassName)}`.trim()}
                 style={{ margin: '5px' }}
             >
-                {isChecked ? checkedText : uncheckedText}&nbsp;
+                <span className='checkButton-label'>
+                    {isChecked ? checkedText : uncheckedText}
+                </span>
+                &nbsp;
                 <Icon
                     name={iconName}
+                    className='checkButton-icon'
                     color={iconColor}
                     style={{ cursor: 'pointer', fontSize: '1.2em', ...iconStyle }}
                 />

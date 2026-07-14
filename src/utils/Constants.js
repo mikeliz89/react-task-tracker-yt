@@ -173,6 +173,7 @@ export const ICONS = {
     PLUS: 'plus',
     PLUS_SQUARE: 'plus-square',
     RUNNING: 'running',
+    SKIING: 'skiing',
     SIGN_OUT_ALT: 'sign-out-alt',
     SQUARE_CHECK: 'square-check',
     SUN: 'sun',

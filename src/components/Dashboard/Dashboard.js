@@ -249,10 +249,6 @@ export default function Dashboard() {
                 {
                     title: t('section_outdoor_hobbies'),
                     items: [dashboardItems.backpacking, dashboardItems.discGolf]
-                },
-                {
-                    title: t('section_music_events'),
-                    items: [dashboardItems.musicEvents]
                 }
             ]
         },
@@ -273,6 +269,7 @@ export default function Dashboard() {
                     items: [
                         dashboardItems.musicBands,
                         dashboardItems.musicRecords,
+                        dashboardItems.musicEvents,
                         dashboardItems.karaoke
                     ]
                 }

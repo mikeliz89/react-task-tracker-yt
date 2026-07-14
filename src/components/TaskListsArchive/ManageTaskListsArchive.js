@@ -46,6 +46,10 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
         //filter
         filterMode: FilterMode.Title,
       }}
+      listViewToggle={{
+        enabled: true,
+        storageKey: `manage-tasklists-archive-view-${location.state?.listType ?? 'default'}`,
+      }}
       hasItems={taskLists != null && taskLists.length > 0}
       emptyText={t('no_task_lists_to_show')}
     >

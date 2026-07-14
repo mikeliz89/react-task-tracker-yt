@@ -5,7 +5,6 @@ import NavButton from '../Buttons/NavButton';
 import ManageGeneric from '../Common/ManageGeneric';
 import AddRecord from './AddRecord';
 import Record from './Record';
-import ListMapper from '../Common/ListMapper';
 
 export default function ManageMusicRecords() {
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MUSIC });
@@ -14,7 +13,6 @@ export default function ManageMusicRecords() {
             dbKey={DB.MUSIC_RECORDS}
             translationKey={TRANSLATION.MUSIC}
             AddComponent={AddRecord}
-            ListComponent={ListMapper}
             ListComponentProps={{
                 ItemComponent: Record,
                 dbUrl: DB.MUSIC_RECORDS,

@@ -5,7 +5,6 @@ import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import AddGame from './AddGame';
 import Game from './Game';
-import ListMapper from '../Common/ListMapper';
 
 export default function ManageBoardGames() {
 
@@ -17,7 +16,6 @@ export default function ManageBoardGames() {
             dbKey={DB.BOARD_GAMES}
             translationKey={TRANSLATION.GAMES}
             AddComponent={AddGame}
-            ListComponent={ListMapper}
             ListComponentProps={{
                 ItemComponent: Game,
                 dbUrl: DB.BOARD_GAMES,

@@ -1,12 +1,10 @@
-import { ref, onValue } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import { Form, Table, ButtonGroup, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseById } from '../../datatier/datatier';
-import { db } from '../../firebase-config';
+import { pushToFirebaseById, subscribeToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import Alert from '../Alert';
@@ -49,8 +47,7 @@ export default function BmiCalculator() {
             return;
         }
 
-        const dbref = ref(db, `${DB.PROFILES}/${currentUser.uid}`);
-        const unsubscribe = onValue(dbref, (snapshot) => {
+        const unsubscribe = subscribeToFirebaseById(DB.PROFILES, currentUser.uid, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
                 setHeight(data["height"]);

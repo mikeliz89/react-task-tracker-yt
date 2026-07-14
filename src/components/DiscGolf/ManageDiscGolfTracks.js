@@ -1,7 +1,6 @@
 import { TRANSLATION, DB, NAVIGATION, ICONS } from '../../utils/Constants';
 import NavButton from '../Buttons/NavButton';
 import ManageGeneric from '../Common/ManageGeneric';
-import ListMapper from '../Common/ListMapper';
 import Track from './Track';
 import { useTranslation } from 'react-i18next';
 
@@ -12,7 +11,6 @@ export default function TracksList() {
       <ManageGeneric
          dbKey={DB.DISC_GOLF_TRACKS}
          translationKey={TRANSLATION.DISC_GOLF}
-         ListComponent={ListMapper}
          ListComponentProps={{ ItemComponent: Track }}
          iconName={ICONS.GAMEPAD}
          title={t('tracks')}

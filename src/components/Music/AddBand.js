@@ -34,7 +34,7 @@ export default function AddBand({ bandID, onSave, onClose, showLabels }) {
             setDescription(bandData.description || '');
             setName(bandData.name || '');
             setFormingYear(bandData.formingYear || 0);
-            setSeenLive(bandData.seenLive || false);
+            setSeenLive(bandData.seenLive === true || bandData.haveSeenLive === true);
             setCountry(bandData.country || '');
             setStars(bandData.stars || 0);
         }

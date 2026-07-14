@@ -3,7 +3,6 @@ import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import NavButton from '../Buttons/NavButton';
 import ManageGeneric from '../Common/ManageGeneric';
 import AddEvent from './AddEvent';
-import ListMapper from '../Common/ListMapper';
 import Event from './Event';
 
 export default function ManageMusicEvents() {
@@ -14,7 +13,6 @@ export default function ManageMusicEvents() {
             dbKey={DB.MUSIC_EVENTS}
             translationKey={TRANSLATION.MUSIC}
             AddComponent={AddEvent}
-            ListComponent={ListMapper}
             ListComponentProps={{ ItemComponent: Event }}
             iconName={ICONS.MUSIC}
             title={t('music_events_title')}

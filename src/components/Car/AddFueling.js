@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { db } from "../../firebase-config";
 import { TRANSLATION, DB } from '../../utils/Constants';
+import { getCurrentDate } from '../../utils/DateTimeUtils';
 import Button from '../Buttons/Button';
 import FormTitle from '../Site/FormTitle';
 
@@ -24,8 +25,10 @@ export default function AddFueling({ carId, ID, onClose, onSave, showLabels = tr
     const [fuelLiterAmount, setFuelLiterAmount] = useState(0);
     const [price, setPrice] = useState(0);
     const [fuelerName, setFuelerName] = useState('');
+    const [fuelingDate, setFuelingDate] = useState(getCurrentDate());
     const [created, setCreated] = useState('');
     const [createdBy, setCreatedBy] = useState('');
+    const createdDateForInput = created ? String(created).slice(0, 10) : getCurrentDate();
 
     //loadData
     useEffect(() => {
@@ -50,6 +53,7 @@ export default function AddFueling({ carId, ID, onClose, onSave, showLabels = tr
                 setMeterKilometers(val["meterKilometers"]);
                 setPrice(val["price"]);
                 setPurchaseLocation(val["purchaseLocation"]);
+                setFuelingDate(val["fuelingDate"] || getCurrentDate());
             }
         });
     }
@@ -59,6 +63,7 @@ export default function AddFueling({ carId, ID, onClose, onSave, showLabels = tr
 
         const fueling = {
             created, createdBy,
+            fuelingDate,
             purchaseLocation, meterKilometers, fuelPricePerLiter,
             fuelLiterAmount, price, fuelerName
         };
@@ -77,6 +82,7 @@ export default function AddFueling({ carId, ID, onClose, onSave, showLabels = tr
         setFuelLiterAmount(0);
         setFuelPricePerLiter(0);
         setPrice(0);
+        setFuelingDate(getCurrentDate());
     }
 
     return (
@@ -84,6 +90,22 @@ export default function AddFueling({ carId, ID, onClose, onSave, showLabels = tr
             <FormTitle title={t('add_fueling_title')} />
 
             <Form onSubmit={onSubmit}>
+                <Form.Group className="mb-3" controlId="addFuelingForm-CreatedDate">
+                    {showLabels && <Form.Label>{t('created_date')}</Form.Label>}
+                    <Form.Control
+                        autoComplete="off"
+                        type='date'
+                        value={createdDateForInput}
+                        disabled
+                    />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addFuelingForm-FuelingDate">
+                    {showLabels && <Form.Label>{t('fueling_date')}</Form.Label>}
+                    <Form.Control
+                        autoComplete="off"
+                        type='date' placeholder={t('fueling_date')}
+                        value={fuelingDate} onChange={(e) => setFuelingDate(e.target.value)} />
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="addFuelingForm-LiterAmount">
                     {showLabels && <Form.Label>{t('liter_amount')}</Form.Label>}
                     <Form.Control type='number' placeholder={t('liter_amount')}

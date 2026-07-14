@@ -1,10 +1,8 @@
-import { onValue, child, ref } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { pushToFirebaseChild } from '../../datatier/datatier';
-import { db } from '../../firebase-config';
+import { pushToFirebaseChild, subscribeToFirebaseChildAsArray } from '../../datatier/datatier';
 import { TRANSLATION, DB, ICONS, COLORS } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 import PageTitle from '../Site/PageTitle';
@@ -24,17 +22,7 @@ export default function AddPartsGym() {
 
   //load data
   useEffect(() => {
-    const dbref = child(ref(db, DB.EXERCISE_PARTS), params.id);
-    const unsubscribe = onValue(dbref, (snapshot) => {
-      const snap = snapshot.val();
-      const fromDB = [];
-      if (snap != null) {
-        for (let id in snap) {
-          fromDB.push({ id, ...snap[id] });
-        }
-      }
-      setParts(fromDB);
-    });
+    const unsubscribe = subscribeToFirebaseChildAsArray(DB.EXERCISE_PARTS, params.id, setParts);
 
     return () => {
       unsubscribe();

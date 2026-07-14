@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { TRANSLATION, DB, ICONS } from '../../utils/Constants';
 import ManageGeneric from '../Common/ManageGeneric';
 import AddMovement from './AddMovement';
-import ListMapper from '../Common/ListMapper';
 import Movement from './Movement';
 
 export default function ManageMovements() {
@@ -12,7 +11,6 @@ export default function ManageMovements() {
             dbKey={DB.EXERCISE_MOVEMENTS}
             translationKey={TRANSLATION.EXERCISES}
             AddComponent={AddMovement}
-            ListComponent={ListMapper}
             ListComponentProps={{ ItemComponent: Movement }}
             iconName={ICONS.EXERCISE}
             title={t('manage_movements_title')}

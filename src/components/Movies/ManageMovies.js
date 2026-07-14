@@ -1,19 +1,21 @@
 import ManageGeneric from '../Common/ManageGeneric';
+import { useTranslation } from 'react-i18next';
 import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import AddMovie from './AddMovie';
-import ListMapper from '../Common/ListMapper';
 import Movie from './Movie';
 
 export default function ManageMovies() {
 
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.MOVIES });
+
     return (
         <ManageGeneric
+            title={t('movies_title')}
             dbKey={DB.MOVIES}
             translationKey={TRANSLATION.MOVIES}
             AddComponent={AddMovie}
-            ListComponent={ListMapper}
             ListComponentProps={{ ItemComponent: Movie }}
             iconName={ICONS.MOVIE}
             listNav={{ to: NAVIGATION.MANAGE_MOVIELISTS }}

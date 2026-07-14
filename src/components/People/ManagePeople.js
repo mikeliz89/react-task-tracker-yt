@@ -5,7 +5,6 @@ import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import AddPerson from './AddPerson';
 import Person from './Person';
-import ListMapper from '../Common/ListMapper';
 import { useTranslation } from 'react-i18next';
 
 export default function ManagePeople() {
@@ -16,7 +15,6 @@ export default function ManagePeople() {
       dbKey={DB.PEOPLE}
       translationKey={TRANSLATION.PEOPLE}
       AddComponent={AddPerson}
-      ListComponent={ListMapper}
       ListComponentProps={{
         ItemComponent: Person,
       }}

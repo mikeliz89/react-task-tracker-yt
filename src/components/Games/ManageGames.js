@@ -1,19 +1,21 @@
 import ManageGeneric from '../Common/ManageGeneric';
+import { useTranslation } from 'react-i18next';
 import { TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import AddGame from './AddGame';
-import ListMapper from '../Common/ListMapper';
 import Game from './Game';
 
 export default function ManageGames() {
 
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.GAMES });
+
     return (
         <ManageGeneric
+            title={t('games_title')}
             dbKey={DB.GAMES}
             translationKey={TRANSLATION.GAMES}
             AddComponent={AddGame}
-            ListComponent={ListMapper}
             ListComponentProps={{
                 ItemComponent: Game,
                 dbUrl: DB.GAMES,

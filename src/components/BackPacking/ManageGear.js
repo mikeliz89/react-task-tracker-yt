@@ -1,20 +1,22 @@
 
 import ManageGeneric from '../Common/ManageGeneric';
+import { useTranslation } from 'react-i18next';
 import { TRANSLATION, DB, ICONS } from "../../utils/Constants";
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import AddGear from './AddGear';
 import Gear from './Gear';
-import ListMapper from '../Common/ListMapper';
 
 export default function ManageGear() {
 
+    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BACKPACKING });
+
     return (
         <ManageGeneric
+            title={t('my_gear_title')}
             dbKey={DB.BACKPACKING_GEAR}
             translationKey={TRANSLATION.BACKPACKING}
             AddComponent={AddGear}
-            ListComponent={ListMapper}
             ListComponentProps={{
                 ItemComponent: Gear
             }}

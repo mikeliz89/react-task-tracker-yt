@@ -1,9 +1,14 @@
-import { ref, onValue, child } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { removeFromFirebaseById, removeFromFirebaseByIdAndSubId, updateToFirebaseById, updateToFirebaseByIdAndSubId } from '../../datatier/datatier';
-import { db } from '../../firebase-config';
+import {
+    removeFromFirebaseById,
+    removeFromFirebaseByIdAndSubId,
+    subscribeToFirebaseAsArray,
+    subscribeToFirebaseByIdAsArray,
+    updateToFirebaseById,
+    updateToFirebaseByIdAndSubId
+} from '../../datatier/datatier';
 import { TRANSLATION } from '../../utils/Constants';
 
 import AddLink from './AddLink';
@@ -26,19 +31,17 @@ export default function Links({ url, objID, onCounterChange, onSaveLink }) {
             return;
         }
 
-        const dbref = objID ? child(ref(db, url), objID) : ref(db, url);
-        const unsubscribe = onValue(dbref, (snapshot) => {
-            const snap = snapshot.val();
-            const fromDB = [];
-            let counterTemp = 0;
-            for (let id in snap) {
-                counterTemp++;
-                fromDB.push({ id, ...snap[id] });
-            }
-            setLinks(fromDB);
-            onCounterChange(counterTemp);
-            setLoading(false);
-        });
+        const unsubscribe = objID
+            ? subscribeToFirebaseByIdAsArray(url, objID, (fromDB) => {
+                setLinks(fromDB);
+                onCounterChange(fromDB.length);
+                setLoading(false);
+            })
+            : subscribeToFirebaseAsArray(url, (fromDB) => {
+                setLinks(fromDB);
+                onCounterChange(fromDB.length);
+                setLoading(false);
+            });
 
         return () => {
             unsubscribe();

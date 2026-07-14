@@ -142,18 +142,18 @@ export default function ListRow({
 
             {hasHeader && (
                 <HeaderTag className={headerClassName}>
-                    <div className={leftClassName}>
+                    <div className={['listRow-main', leftClassName].filter(Boolean).join(' ')}>
                         {prefix}
                         {left}
                         {titleNode != null
-                            ? <span className={titleWrapperClassName}>{titleNode}</span>
+                            ? <span className={['listRow-title', titleWrapperClassName].filter(Boolean).join(' ')}>{titleNode}</span>
                             : null}
                         {starRatingNode}
                         {suffix}
                     </div>
                     {hasActions && (
                         <div
-                            className={actionsClassName}
+                            className={['listRow-actions', actionsClassName].filter(Boolean).join(' ')}
                             onClick={stopRightClickPropagation ? (e) => e.stopPropagation() : undefined}
                         >
                             <RightWrapper>
@@ -176,13 +176,15 @@ export default function ListRow({
                     )}
                 </HeaderTag>
             )}
-            {section}
+            {section ? <div className='listRow-section'>{section}</div> : null}
             {showCheckButton && (
-                <CheckButton
-                    {...checkButtonProps}
-                    onCheck={checkButtonProps.onCheck || markHaveAtHome}
-                    onUncheck={checkButtonProps.onUncheck || markNotHaveAtHome}
-                />
+                <div className='listRow-check'>
+                    <CheckButton
+                        {...checkButtonProps}
+                        onCheck={checkButtonProps.onCheck || markHaveAtHome}
+                        onUncheck={checkButtonProps.onUncheck || markNotHaveAtHome}
+                    />
+                </div>
             )}
             {children}
             {editable && (

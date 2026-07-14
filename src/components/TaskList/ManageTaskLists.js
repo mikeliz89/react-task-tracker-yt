@@ -142,6 +142,10 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
         //filter
         filterMode: FilterMode.Title,
       }}
+      listViewToggle={{
+        enabled: true,
+        storageKey: `manage-tasklists-view-${listType}`,
+      }}
       centerActions={
         <>
           <CopyToClipboardButton
