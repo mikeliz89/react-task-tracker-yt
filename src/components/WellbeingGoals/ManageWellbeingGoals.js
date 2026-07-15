@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ButtonGroup, Col, Form, Row, Table } from 'react-bootstrap';
+import { ButtonGroup, Col, Form, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import Alert from '../Alert';
@@ -22,7 +22,9 @@ import { COLORS, DB, ICONS, TRANSLATION } from '../../utils/Constants';
 const FREQUENCY = {
     DAILY: 'daily',
     TWICE_DAILY: 'twice_daily',
-    EVERY_OTHER_DAY: 'every_other_day'
+    EVERY_OTHER_DAY: 'every_other_day',
+    WEEKLY: 'weekly',
+    MONTHLY: 'monthly'
 };
 
 const VIEW_MODE = {
@@ -86,6 +88,19 @@ const parseDateKey = (value) => {
     return new Date(year, month - 1, day);
 };
 
+const getLastNDays = (count) => {
+    const days = [];
+    const today = new Date();
+
+    for (let i = count - 1; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        days.push(d);
+    }
+
+    return days;
+};
+
 const getLast7Days = () => {
     const days = [];
     const today = new Date();
@@ -117,12 +132,29 @@ const isGoalDueOnDate = (goal, date) => {
         return true;
     }
 
+    if (goal.frequency === FREQUENCY.WEEKLY) {
+        const anchorDate = parseDateKey(goal.startDate) ?? parseDateKey(getDateKey(new Date()));
+        const anchorWeekday = anchorDate ? anchorDate.getDay() : 0;
+        return date.getDay() === anchorWeekday;
+    }
+
+    if (goal.frequency === FREQUENCY.MONTHLY) {
+        const anchorDate = parseDateKey(goal.startDate) ?? parseDateKey(getDateKey(new Date()));
+        const anchorDay = anchorDate ? anchorDate.getDate() : 1;
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const lastDayOfMonth = new Date(year, month + 1, 0).getDate();
+        const dueDay = Math.min(anchorDay, lastDayOfMonth);
+
+        return date.getDate() === dueDay;
+    }
+
     if (goal.frequency === FREQUENCY.EVERY_OTHER_DAY) {
         const anchorDate = parseDateKey(goal.startDate) ?? parseDateKey(getDateKey(new Date()));
         const dateAtMidnight = new Date(date.getFullYear(), date.getMonth(), date.getDate());
         const anchorAtMidnight = new Date(anchorDate.getFullYear(), anchorDate.getMonth(), anchorDate.getDate());
         const diffDays = Math.floor((dateAtMidnight.getTime() - anchorAtMidnight.getTime()) / (1000 * 60 * 60 * 24));
-        return diffDays >= 0 && diffDays % 2 === 0;
+        return diffDays % 2 === 0;
     }
 
     return true;
@@ -165,6 +197,59 @@ export default function ManageWellbeingGoals() {
     }, [viewMode, monthCursor]);
 
     const orderedGoals = useMemo(() => getOrderedGoals(goals), [goals]);
+    const successWindowDays = viewMode === VIEW_MODE.WEEK ? 7 : 30;
+
+    const getGoalStats = (goal, windowDays) => {
+        const requiredChecks = getRequiredChecksForFrequency(goal.frequency);
+        const periodDays = getLastNDays(windowDays);
+        const dueDays = periodDays.filter((day) => isGoalDueOnDate(goal, day));
+        const totalRequiredChecks = dueDays.length * requiredChecks;
+        const completedChecks = dueDays.reduce((sum, day) => {
+            const checksForDay = Number(goal?.checks?.[getDateKey(day)] || 0);
+            return sum + Math.min(checksForDay, requiredChecks);
+        }, 0);
+        const successRate = totalRequiredChecks > 0
+            ? Math.round((completedChecks / totalRequiredChecks) * 100)
+            : 0;
+
+        let streak = 0;
+        const today = new Date();
+
+        // Count consecutive completed due days backwards from today.
+        for (let offset = 0; offset < 365; offset++) {
+            const day = new Date(today);
+            day.setDate(today.getDate() - offset);
+
+            if (!isGoalDueOnDate(goal, day)) {
+                continue;
+            }
+
+            const isCompleted = Number(goal?.checks?.[getDateKey(day)] || 0) >= requiredChecks;
+            if (isCompleted) {
+                streak++;
+            } else {
+                break;
+            }
+        }
+
+        let statusKey = 'status_low';
+        let statusClass = 'bg-danger';
+
+        if (successRate >= 80) {
+            statusKey = 'status_good';
+            statusClass = 'bg-success';
+        } else if (successRate >= 50) {
+            statusKey = 'status_ok';
+            statusClass = 'bg-warning text-dark';
+        }
+
+        return {
+            streak,
+            successRate,
+            statusKey,
+            statusClass
+        };
+    };
 
     useEffect(() => {
         if (!currentUser?.uid) {
@@ -381,6 +466,14 @@ export default function ManageWellbeingGoals() {
     };
 
     const getFrequencyLabel = (frequencyValue) => {
+        if (frequencyValue === FREQUENCY.WEEKLY) {
+            return t('frequency_weekly');
+        }
+
+        if (frequencyValue === FREQUENCY.MONTHLY) {
+            return t('frequency_monthly');
+        }
+
         if (frequencyValue === FREQUENCY.TWICE_DAILY) {
             return t('frequency_twice_daily');
         }
@@ -446,12 +539,13 @@ export default function ManageWellbeingGoals() {
                 onClose={clearMessages}
             />
 
-            <Form onSubmit={onSaveGoal} className='mb-3'>
+            <Form onSubmit={onSaveGoal} className='mb-3 wellbeing-goals-form'>
                 <Row>
                     <Col md={5} className='mb-2'>
                         <Form.Group controlId='wellbeing-goal-name'>
-                            <Form.Label>{t('goal_name')}</Form.Label>
+                            <Form.Label className='mb-1'>{t('goal_name')}</Form.Label>
                             <Form.Control
+                                className='wellbeing-goals-field'
                                 type='text'
                                 autoComplete='off'
                                 placeholder={t('goal_name_placeholder')}
@@ -462,11 +556,37 @@ export default function ManageWellbeingGoals() {
                     </Col>
                     <Col md={4} className='mb-2'>
                         <Form.Group controlId='wellbeing-goal-frequency'>
-                            <Form.Label>{t('frequency')}</Form.Label>
-                            <Form.Select value={frequency} onChange={(e) => setFrequency(e.target.value)}>
+                            <Form.Label className='d-flex align-items-center gap-2 mb-1'>
+                                {t('frequency')}
+                                <OverlayTrigger
+                                    placement='right'
+                                    overlay={
+                                        <Tooltip id='wellbeing-goal-frequency-help'>
+                                            <div className='text-start'>
+                                                <strong>{t('frequency_help_title')}</strong>
+                                                <div>{t('frequency_help_weekly')}</div>
+                                                <div>{t('frequency_help_monthly')}</div>
+                                            </div>
+                                        </Tooltip>
+                                    }
+                                >
+                                    <span
+                                        className='badge rounded-pill bg-info text-dark'
+                                        role='button'
+                                        aria-label={t('frequency_help_title')}
+                                        title={t('frequency_help_title')}
+                                        style={{ cursor: 'help' }}
+                                    >
+                                        i
+                                    </span>
+                                </OverlayTrigger>
+                            </Form.Label>
+                            <Form.Select className='wellbeing-goals-field' value={frequency} onChange={(e) => setFrequency(e.target.value)}>
                                 <option value={FREQUENCY.DAILY}>{t('frequency_daily')}</option>
                                 <option value={FREQUENCY.TWICE_DAILY}>{t('frequency_twice_daily')}</option>
                                 <option value={FREQUENCY.EVERY_OTHER_DAY}>{t('frequency_every_other_day')}</option>
+                                <option value={FREQUENCY.WEEKLY}>{t('frequency_weekly')}</option>
+                                <option value={FREQUENCY.MONTHLY}>{t('frequency_monthly')}</option>
                             </Form.Select>
                         </Form.Group>
                     </Col>
@@ -525,6 +645,24 @@ export default function ManageWellbeingGoals() {
                 </Col>
             </Row>
 
+            <Row className='mb-3'>
+                <Col>
+                    <div className='d-flex flex-column gap-1'>
+                        <small className='text-muted'>
+                            <strong>{t('successrate_legend_title')}</strong> {successWindowDays === 7 ? t('success_rate_7d') : t('success_rate_30d')}
+                        </small>
+                        <div className='d-flex gap-2 flex-wrap align-items-center'>
+                            <span className='badge bg-danger'>{t('status_low')}</span>
+                            <small>{t('successrate_legend_low')}</small>
+                            <span className='badge bg-warning text-dark'>{t('status_ok')}</span>
+                            <small>{t('successrate_legend_ok')}</small>
+                            <span className='badge bg-success'>{t('status_good')}</span>
+                            <small>{t('successrate_legend_good')}</small>
+                        </div>
+                    </div>
+                </Col>
+            </Row>
+
             {loading ? (
                 <h3>{tCommon('loading')}</h3>
             ) : goals.length === 0 ? (
@@ -536,6 +674,7 @@ export default function ManageWellbeingGoals() {
                             <tr>
                                 <th>{t('goal')}</th>
                                 <th>{t('frequency')}</th>
+                                <th>{t('stats')}</th>
                                 {days.map((day) => (
                                     <th key={getDateKey(day)}>{formatDayLabel(day)}</th>
                                 ))}
@@ -582,6 +721,22 @@ export default function ManageWellbeingGoals() {
                                         )}
                                     </td>
                                     <td>{getFrequencyLabel(goal.frequency)}</td>
+                                    <td>
+                                        {(() => {
+                                            const stats = getGoalStats(goal, successWindowDays);
+                                            const successLabel = successWindowDays === 7
+                                                ? t('success_rate_7d')
+                                                : t('success_rate_30d');
+
+                                            return (
+                                                <div className='d-flex flex-column gap-1'>
+                                                    <small><strong>{t('streak')}:</strong> {stats.streak}</small>
+                                                    <small><strong>{successLabel}:</strong> {stats.successRate}%</small>
+                                                    <span className={`badge ${stats.statusClass}`}>{t(stats.statusKey)}</span>
+                                                </div>
+                                            );
+                                        })()}
+                                    </td>
                                     {days.map((day) => {
                                         const dateKey = getDateKey(day);
                                         const isDue = isGoalDueOnDate(goal, day);
@@ -641,7 +796,11 @@ export default function ManageWellbeingGoals() {
                                                 className='btn btn-danger btn-sm'
                                                 iconName={ICONS.DELETE}
                                                 title={tCommon('buttons.button_delete')}
-                                                onClick={() => onDeleteGoal(goal.id)}
+                                                onClick={() => {
+                                                    if (window.confirm(tCommon('confirm.areyousure'))) {
+                                                        onDeleteGoal(goal.id);
+                                                    }
+                                                }}
                                             />
                                         </div>
                                     </td>

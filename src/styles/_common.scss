@@ -692,6 +692,11 @@ form {
     border-radius: 10px;
 }
 
+.wellbeing-goals-form .wellbeing-goals-field {
+    margin: 0 !important;
+    min-height: 38px;
+}
+
 @media (max-width: 768px) {
     .searchSortFilter-form {
         padding: 0.6rem;
