@@ -374,6 +374,33 @@
         "title_walking": "Kävely",
         "title_skiing": "Hiihto"
     },
+    "wellbeinggoals": {
+        "title": "Hyvinvointitavoitteet",
+        "goal": "Tavoite",
+        "goal_name": "Tavoitteen nimi",
+        "goal_name_placeholder": "Esim. vatsalihakset",
+        "add_goal": "Lisää tavoite",
+        "view_week": "7 päivää",
+        "view_month": "Kuukausi",
+        "previous_month": "Edellinen kuukausi",
+        "next_month": "Seuraava kuukausi",
+        "current_month": "Tämä kuukausi",
+        "move_up": "Siirrä ylös",
+        "move_down": "Siirrä alas",
+        "quick_today": "Tänään",
+        "today_not_due": "Tätä tavoitetta ei tarvitse tehdä tänään",
+        "today_marked_success": "Päivän merkintä lisätty",
+        "today_cleared_success": "Päivän merkintä poistettu",
+        "frequency": "Toistuvuus",
+        "frequency_daily": "Kerran päivässä",
+        "frequency_twice_daily": "Kaksi kertaa päivässä",
+        "frequency_every_other_day": "Joka toinen päivä",
+        "validation_goal_name_required": "Anna tavoitteelle nimi",
+        "validation_user_missing": "Käyttäjätietoa ei löytynyt",
+        "delete_success": "Tavoite poistettu",
+        "delete_failed": "Tavoitteen poisto epäonnistui",
+        "no_goals": "Ei tavoitteita vielä"
+    },
     "footer": {
         "about": "Tietoja",
         "copyright": "Tekijänoikeus"

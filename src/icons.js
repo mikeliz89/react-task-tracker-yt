@@ -1,6 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
+  faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faArrowRight, faCampground, faHandsWash, faHamburger, faPizzaSlice,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt, faSearch,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
   faFish, faUserAlt, faHistory, faPlus, faMinus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,
@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
-  faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faCampground, faHandsWash, faHamburger, faPizzaSlice,
+  faCheckSquare, faUtensils, faGlassMartini, faWeight, faArrowLeft, faArrowRight, faCampground, faHandsWash, faHamburger, faPizzaSlice,
   faListAlt, faTimes, faArrowUp, faArrowDown, faArchive, faComments, faCocktail, faSignOutAlt, faStar, faBurn, faTShirt, faSearch,
   faExternalLinkAlt, faCar, faGasPump, faRunning, faWalking, faBiking, faShip, faChild, faDumbbell, faHammer, faChargingStation,
   faFish, faUserAlt, faHistory, faPlus, faMinus, faLemon, faCarrot, faHourglass, faHourglass1, faEdit, faPlusSquare, faWineBottle,

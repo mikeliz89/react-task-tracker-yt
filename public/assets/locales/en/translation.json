@@ -361,6 +361,33 @@
     "no_movements_to_show": "No movements",
     "please_add_exercise_name": "Please provide a name for the exercise"
   },
+  "wellbeinggoals": {
+    "title": "Wellbeing Goals",
+    "goal": "Goal",
+    "goal_name": "Goal name",
+    "goal_name_placeholder": "E.g. abs",
+    "add_goal": "Add goal",
+    "view_week": "7 days",
+    "view_month": "Month",
+    "previous_month": "Previous month",
+    "next_month": "Next month",
+    "current_month": "Current month",
+    "move_up": "Move up",
+    "move_down": "Move down",
+    "quick_today": "Today",
+    "today_not_due": "This goal is not due today",
+    "today_marked_success": "Today's completion marked",
+    "today_cleared_success": "Today's completion cleared",
+    "frequency": "Frequency",
+    "frequency_daily": "Once per day",
+    "frequency_twice_daily": "Twice per day",
+    "frequency_every_other_day": "Every other day",
+    "validation_goal_name_required": "Please provide a goal name",
+    "validation_user_missing": "User information is missing",
+    "delete_success": "Goal deleted",
+    "delete_failed": "Failed to delete goal",
+    "no_goals": "No goals yet"
+  },
   "footer": {
     "about": "About",
     "copyright": "Copyright"

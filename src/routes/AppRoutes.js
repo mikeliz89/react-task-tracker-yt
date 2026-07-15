@@ -59,6 +59,7 @@ import TaskDetails from '../components/Task/TaskDetails';
 import TaskListDetails from '../components/TaskList/TaskListDetails';
 import TrackDetails from '../components/DiscGolf/TrackDetails';
 import WeightHistory from '../components/BmiCalculator/WeightHistory';
+import ManageWellbeingGoals from '../components/WellbeingGoals/ManageWellbeingGoals';
 
 const AppRoutes = () => (
   <Routes>
@@ -96,6 +97,9 @@ const AppRoutes = () => (
     <Route path={NAVIGATION.BMICALCULATOR} element={<PrivateRoute><BmiCalculator /></PrivateRoute>} />
     <Route path={NAVIGATION.WEIGHTHISTORY} element={<PrivateRoute><WeightHistory /></PrivateRoute>} />
     {/* BMI */}
+    {/* Wellbeing goals */}
+    <Route path={NAVIGATION.MANAGE_WELLBEING_GOALS} element={<PrivateRoute><ManageWellbeingGoals /></PrivateRoute>} />
+    {/* Wellbeing goals */}
     {/* TaskLists */}
     <Route path={NAVIGATION.MANAGE_TASKLISTS} element={<PrivateRoute><ManageTaskLists /></PrivateRoute>} />
     <Route path={NAVIGATION.TASKLIST_ARCHIVE} element={<PrivateRoute><ManageTaskListsArchive /></PrivateRoute>} />
