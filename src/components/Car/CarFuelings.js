@@ -15,6 +15,7 @@ export default function CarFuelings({ carId, items, chartFuelings, onDelete }) {
 
     //translation
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.CAR });
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     const getFuelingsPriceSum = (items) => {
         let sum = 0;
@@ -25,6 +26,38 @@ export default function CarFuelings({ carId, items, chartFuelings, onDelete }) {
         });
         return sum;
     }
+
+    const getFuelingsPriceSumByFueler = (fuelings) => {
+        const groupedByFueler = {};
+
+        fuelings.forEach((fueling) => {
+            const fuelerName = (fueling?.fuelerName || '').trim() || '-';
+            const price = parseFloat(fueling?.price);
+
+            if (!groupedByFueler[fuelerName]) {
+                groupedByFueler[fuelerName] = {
+                    totalPrice: 0,
+                    count: 0,
+                };
+            }
+
+            groupedByFueler[fuelerName].count += 1;
+
+            if (Number.isFinite(price)) {
+                groupedByFueler[fuelerName].totalPrice += price;
+            }
+        });
+
+        return Object.entries(groupedByFueler)
+            .map(([fuelerName, value]) => ({
+                fuelerName,
+                totalPrice: value.totalPrice,
+                count: value.count,
+            }))
+            .sort((a, b) => b.totalPrice - a.totalPrice);
+    }
+
+    const fuelingTotalsByFueler = getFuelingsPriceSumByFueler(items);
 
     return (
         <>
@@ -40,6 +73,30 @@ export default function CarFuelings({ carId, items, chartFuelings, onDelete }) {
                 </Tab>
                 <Tab eventKey="fuel-price-development" title={t('fuel_price_chart')}>
                     <GasPriceChart data={chartFuelings ?? items} />
+                </Tab>
+                <Tab eventKey="fuelings-by-fueler" title={`${t('fueler_name')} €`}>
+                    {fuelingTotalsByFueler.length > 0 ? (
+                        <table className='table table-sm table-striped'>
+                            <thead>
+                                <tr>
+                                    <th>{t('fueler_name')}</th>
+                                    <th>{tCommon('amount')}</th>
+                                    <th>{t('price')}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {fuelingTotalsByFueler.map((row) => (
+                                    <tr key={row.fuelerName}>
+                                        <td>{row.fuelerName}</td>
+                                        <td>{row.count}</td>
+                                        <td>{row.totalPrice.toFixed(2)} €</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <p>{t('no_car_fuelings')}</p>
+                    )}
                 </Tab>
             </Tabs>
         </>
