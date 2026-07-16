@@ -29,6 +29,7 @@ export default function Incredient({ dbUrl, translation, translationKeyPrefix, i
                 editable={editable}
                 setEditable={setEditable}
                 showStarRating={false}
+                showSetStarRating={false}
                 showDeleteButton={true}
                 onDelete={onDelete}
                 deleteId={recipeID}

@@ -39,6 +39,7 @@ export default function ListRow({
     actionsClassName = '',
     actionsExtra,
     className = '',
+    showSetStarRating = true,
     showStarRating = true,
     showCheckButton = false,
     checkButtonProps = {},
@@ -103,11 +104,14 @@ export default function ListRow({
         || title != null
         || suffix != null;
     const hasHeader = hasLeftContent || hasActions;
-    const starRatingNode = showStarRating ? (
+    const shouldShowAnyStarRating = showSetStarRating || showStarRating;
+    const starRatingNode = shouldShowAnyStarRating ? (
         <span className='listRow-starRatingInline'>
             <StarRatingWrapper
                 stars={Number(item?.stars) || 0}
                 onSaveStars={saveStars}
+                showSetStarRating={showSetStarRating}
+                showStarRating={showStarRating}
             />
         </span>
     ) : null;
@@ -232,6 +236,7 @@ ListRow.propTypes = {
     actionsClassName: PropTypes.string,
     actionsExtra: PropTypes.node,
     className: PropTypes.string,
+    showSetStarRating: PropTypes.bool,
     showStarRating: PropTypes.bool,
     showCheckButton: PropTypes.bool,
     checkButtonProps: PropTypes.object,

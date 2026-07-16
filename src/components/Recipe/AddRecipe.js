@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
+import StarRating from '../StarRating/StarRating';
 
 import { RecipeCategories } from './Categories';
 
@@ -14,6 +15,7 @@ export default function AddRecipe({ recipeID, onSave, onClose, showLabels, autoF
    // translations
    const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.RECIPE });
    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+   const { t: tStars } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.STAR_RATING });
 
    // default state
    const defaultRecipe = {
@@ -73,7 +75,7 @@ export default function AddRecipe({ recipeID, onSave, onClose, showLabels, autoF
          description: recipe.description,
          incredients: recipe.incredients,
          isCore: recipe.isCore,
-         stars: recipe.stars,
+         stars: Number(recipe.stars) || 0,
          title: recipe.title
       });
 
@@ -131,6 +133,21 @@ export default function AddRecipe({ recipeID, onSave, onClose, showLabels, autoF
                label={t('set_isCore')}
                checked={recipe.isCore}
                onChange={(e) => handleChange('isCore', e.currentTarget.checked)}
+            />
+         </Form.Group>
+
+         {/* Stars */}
+         <Form.Group className="mb-3" controlId="addRecipeForm-Stars">
+            {showLabels && <Form.Label>{tStars('stars')}</Form.Label>}
+            <div>
+               <StarRating starCount={Number(recipe.stars) || 0} />
+            </div>
+            <Form.Range
+               min={0}
+               max={5}
+               step={0.5}
+               value={Number(recipe.stars) || 0}
+               onChange={(e) => handleChange('stars', Number(e.target.value))}
             />
          </Form.Group>
 

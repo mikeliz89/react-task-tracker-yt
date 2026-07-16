@@ -40,6 +40,7 @@ export default function CarMaintenance({ carId, carMaintenance, onDelete }) {
             editable={editable}
             setEditable={toggleEditable}
             showDeleteButton={true}
+            showSetStarRating={false}
             showStarRating={false}
             onDelete={onDelete}
             deleteId={carMaintenance.id}

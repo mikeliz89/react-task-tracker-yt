@@ -1,31 +1,41 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import SetStarRating from './SetStarRating';
 import StarRating from './StarRating';
 
-export default function StarRatingWrapper({ stars, onSaveStars }) {
+export default function StarRatingWrapper({ stars, onSaveStars, showSetStarRating, showStarRating }) {
 
     //rating
-    const [showRating, setShowRating] = useState(true);
+    const [showRating, setShowRating] = useState(showStarRating);
+
+    useEffect(() => {
+        setShowRating(showStarRating);
+    }, [showStarRating]);
 
     return (
         <>
-            <SetStarRating
-                starCount={stars}
-                onSaveStars={onSaveStars}
-                onShow={() => { setShowRating(!showRating) }}
-            />
-            {<StarRating starCount={stars} />}
+            {showSetStarRating ? (
+                <SetStarRating
+                    starCount={stars}
+                    onSaveStars={onSaveStars}
+                    onShow={() => { setShowRating(!showRating) }}
+                />
+            ) : null}
+            {showRating ? <StarRating starCount={stars} /> : null}
         </>
     )
 }
 
-StarRating.defaultProps = {
-    starCount: 0
+StarRatingWrapper.defaultProps = {
+    stars: 0,
+    showSetStarRating: true,
+    showStarRating: true
 }
 
-StarRating.propTypes = {
-    starCount: PropTypes.number,
-    onSaveStars: PropTypes.func
+StarRatingWrapper.propTypes = {
+    stars: PropTypes.number,
+    onSaveStars: PropTypes.func,
+    showSetStarRating: PropTypes.bool,
+    showStarRating: PropTypes.bool
 }

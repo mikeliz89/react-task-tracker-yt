@@ -24,6 +24,7 @@ export default function WorkPhase({ dbUrl, translation, translationKeyPrefix, wo
                 item={workPhase}
                 dbKey={dbUrl}
                 showStarRating={false}
+                showSetStarRating={false}
                 headerProps={{
                     title: workPhase.name
                 }}
