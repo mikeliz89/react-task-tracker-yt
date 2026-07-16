@@ -14,7 +14,7 @@ export default function StarRatingWrapper({ stars, onSaveStars, showSetStarRatin
     }, [showStarRating]);
 
     return (
-        <>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
             {showSetStarRating ? (
                 <SetStarRating
                     starCount={stars}
@@ -23,7 +23,7 @@ export default function StarRatingWrapper({ stars, onSaveStars, showSetStarRatin
                 />
             ) : null}
             {showRating ? <StarRating starCount={stars} /> : null}
-        </>
+        </div>
     )
 }
 
