@@ -100,6 +100,14 @@ export default function Dashboard() {
             color: COLORS.WHITE,
             textcolor: COLORS.BLACK
         },
+        wellbeingGoals: {
+            link: NAVIGATION.MANAGE_WELLBEING_GOALS,
+            imageName: 'tasklists.PNG',
+            text: t('wellbeing_goals'),
+            iconName: ICONS.CHECK_SQUARE,
+            color: '#ef7c1a',
+            textcolor: COLORS.BLACK
+        },
         recipes: {
             link: NAVIGATION.MANAGE_RECIPES,
             imageName: 'recipes.png',
@@ -225,6 +233,10 @@ export default function Dashboard() {
                 {
                     title: t('section_body_metrics'),
                     items: [dashboardItems.bmi]
+                },
+                {
+                    title: t('section_wellbeing_goals'),
+                    items: [dashboardItems.wellbeingGoals]
                 }
             ]
         },

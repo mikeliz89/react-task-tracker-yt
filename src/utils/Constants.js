@@ -27,6 +27,7 @@ export const VARIANTS = {
 }
 
 export const DB = {
+    WELLBEING_GOALS: '/wellbeing-goals',
     BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS: '/backpacking-gear-maintenance-instructions',
     BACKPACKING_GEAR: '/backpacking-gear',
     BACKPACKING_GEAR_COMMENTS: '/backpacking-gear-comments',
@@ -135,6 +136,7 @@ export const ICONS = {
     ARCHIVE: 'archive',
     ARROW_DOWN: 'arrow-down',
     ARROW_LEFT: 'arrow-left',
+    ARROW_RIGHT: 'arrow-right',
     ARROW_UP: 'arrow-up',
     BLENDER: 'blender',
     BELL: 'bell',
@@ -192,6 +194,7 @@ export const NAVIGATION = {
     DEMO: '/Demo',
     ABOUT: '/about',
     BMICALCULATOR: '/bmicalculator',
+    MANAGE_WELLBEING_GOALS: '/managewellbeinggoals',
     CAR: '/car',
     DRINK: '/drink',
     DRINKINGPRODUCT: '/drinkingproduct',
