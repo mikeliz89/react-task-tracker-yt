@@ -2,6 +2,7 @@
 //     let data = [{ created: "2022-09-19T17:25:19.586Z", fuelPricePerLiter: "2.10" }]
 //     return data;
 // }
+import { Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from "react-i18next";
 
 import { TRANSLATION, ICONS } from '../../utils/Constants';
@@ -29,15 +30,18 @@ export default function CarFuelings({ carId, items, chartFuelings, onDelete }) {
         <>
             <PageTitle title={t('fuelings')} iconName={ICONS.GAS_PUMP} />
 
-            <p>{t('car_fuelings_price_sum')}: {getFuelingsPriceSum(items)}</p>
+            <Tabs defaultActiveKey="fuelings-list" id="car-fuelings-tabs" className="mb-3">
+                <Tab eventKey="fuelings-list" title={t('fuelings')}>
+                    <p>{t('car_fuelings_price_sum')}: {getFuelingsPriceSum(items)}</p>
 
-            {items.map((fuelingRow) => (
-                <CarFueling key={fuelingRow.id} carId={carId} fuelingRow={fuelingRow} onDelete={onDelete} />
-            ))}
-
-            <hr />
-            <p>{t('fuel_price_chart')}</p>
-            <GasPriceChart data={chartFuelings ?? items} />
+                    {items.map((fuelingRow) => (
+                        <CarFueling key={fuelingRow.id} carId={carId} fuelingRow={fuelingRow} onDelete={onDelete} />
+                    ))}
+                </Tab>
+                <Tab eventKey="fuel-price-development" title={t('fuel_price_chart')}>
+                    <GasPriceChart data={chartFuelings ?? items} />
+                </Tab>
+            </Tabs>
         </>
     )
 }

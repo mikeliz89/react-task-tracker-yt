@@ -48,7 +48,7 @@ export default function CarMaintenance({ carId, carMaintenance, onDelete }) {
                 <div>
                     {t('maintenance_name')}: {carMaintenance.name} <br />
                     {t('maintenance_description')}: {carMaintenance.description} <br />
-                    {t('maintenance_price')}: {carMaintenance.price} <br />
+                    {t('maintenance_price')}: {carMaintenance.price} €<br />
                 </div>
             }
             modalProps={{
