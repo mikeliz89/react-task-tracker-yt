@@ -6,6 +6,19 @@ import { TRANSLATION, DB } from "../../utils/Constants";
 import Button from '../Buttons/Button';
 import useFetchById from '../Hooks/useFetchById';
 
+const RELATIONSHIP_KEYS = ['family', 'partner', 'relative', 'friend', 'coworker', 'neighbor', 'other'];
+
+const getRelationshipLabelFromKey = (key, t) => {
+    if (key === 'family') return t('relationship_family');
+    if (key === 'partner') return t('relationship_partner');
+    if (key === 'relative') return t('relationship_relative');
+    if (key === 'friend') return t('relationship_friend');
+    if (key === 'coworker') return t('relationship_coworker');
+    if (key === 'neighbor') return t('relationship_neighbor');
+    if (key === 'other') return t('relationship_other');
+    return key;
+};
+
 export default function AddPerson({ personID, onSave, onClose, showLabels = true }) {
 
     //translation
@@ -17,6 +30,8 @@ export default function AddPerson({ personID, onSave, onClose, showLabels = true
     const [createdBy, setCreatedBy] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [relationship, setRelationship] = useState('');
+    const [relationshipPicker, setRelationshipPicker] = useState('');
     const [birthday, setBirthday] = useState(new Date());
     const [address, setAddress] = useState('');
     const [stars, setStars] = useState(0);
@@ -30,11 +45,16 @@ export default function AddPerson({ personID, onSave, onClose, showLabels = true
             setCreated(personData.created || '');
             setCreatedBy(personData.createdBy || '');
             setDescription(personData.description || '');
+            const relationshipFromData = personData.relationship || '';
+            const relationshipText = RELATIONSHIP_KEYS.includes(relationshipFromData)
+                ? getRelationshipLabelFromKey(relationshipFromData, t)
+                : relationshipFromData;
+            setRelationship(relationshipText);
             setName(personData.name || '');
             setBirthday(personData.birthday || '');
             setStars(personData.stars || 0);
         }
-    }, [personData]);
+    }, [personData, t]);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -51,6 +71,7 @@ export default function AddPerson({ personID, onSave, onClose, showLabels = true
             created,
             createdBy,
             description,
+            relationship,
             name,
             birthday,
             stars
@@ -66,6 +87,7 @@ export default function AddPerson({ personID, onSave, onClose, showLabels = true
     const clearForm = () => {
         setAddress('');
         setDescription('');
+        setRelationship('');
         setName('');
     }
 
@@ -87,6 +109,36 @@ export default function AddPerson({ personID, onSave, onClose, showLabels = true
                         placeholder={t('description')}
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="addPersonForm-Relationship">
+                    {showLabels && <Form.Label>{t('relationship')}</Form.Label>}
+                    <Form.Control
+                        type='text'
+                        autoComplete="off"
+                        placeholder={t('relationship')}
+                        value={relationship}
+                        onChange={(e) => setRelationship(e.target.value)}
+                    />
+                    <Form.Select
+                        className="mt-2"
+                        value={relationshipPicker}
+                        onChange={(e) => {
+                            const selected = e.target.value;
+                            setRelationshipPicker(selected);
+                            if (selected) {
+                                setRelationship(getRelationshipLabelFromKey(selected, t));
+                                setRelationshipPicker('');
+                            }
+                        }}>
+                        <option value="">{t('relationship_quick_pick')}</option>
+                        <option value="family">{t('relationship_family')}</option>
+                        <option value="partner">{t('relationship_partner')}</option>
+                        <option value="relative">{t('relationship_relative')}</option>
+                        <option value="friend">{t('relationship_friend')}</option>
+                        <option value="coworker">{t('relationship_coworker')}</option>
+                        <option value="neighbor">{t('relationship_neighbor')}</option>
+                        <option value="other">{t('relationship_other')}</option>
+                    </Form.Select>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="addPersonForm-Address">
                     {showLabels && <Form.Label>{t('address')}</Form.Label>}

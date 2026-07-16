@@ -59,10 +59,16 @@ export default function PersonDetails() {
             onToggleEdit={toggleShowEdit}
             title={person?.name}
             preSummaryContent={
-                <div className="detailspage-field">
-                    <span className="detailspage-meta-label">{t('birthday')}:</span>{' '}
-                    <span className="detailspage-meta-value">{person?.birthday ? getJsonAsDateString(person.birthday, i18n.language) : '-'}</span>
-                </div>
+                <>
+                    <div className="detailspage-field">
+                        <span className="detailspage-meta-label">{t('birthday')}:</span>{' '}
+                        <span className="detailspage-meta-value">{person?.birthday ? getJsonAsDateString(person.birthday, i18n.language) : '-'}</span>
+                    </div>
+                    <div className="detailspage-field">
+                        <span className="detailspage-meta-label">{t('relationship')}:</span>{' '}
+                        <span className="detailspage-meta-value">{person?.relationship || '-'}</span>
+                    </div>
+                </>
             }
             summary={`${t('description')}: ${person?.description || '-'}`}
             metaItems={[
