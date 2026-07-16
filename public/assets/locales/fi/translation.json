@@ -752,6 +752,7 @@
     "searchsortfilter": {
         "birthday": "Syntymäpäivä",
         "created_date": "Luontipvm",
+        "fueling_date":"Tankkaus pvm",
         "hide_search": "Piilota haku",
         "show_search": "Näytä haku",
         "name": "Nimi",

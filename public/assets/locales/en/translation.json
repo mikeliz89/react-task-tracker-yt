@@ -731,6 +731,7 @@
   "searchsortfilter": {
     "birthday": "Birthday",
     "created_date": "Created at",
+    "fueling_date":"Fueling date",
     "hide_search": "Hide Search",
     "name": "Name",
     "placeholder_name": "Name",

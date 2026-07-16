@@ -534,6 +534,11 @@
     color: rgba(255, 145, 153, 1) !important;
 }
 
+#dark .manageListView-card .listContainer h5 {
+    border-bottom-color: rgba(133, 166, 226, 0.34);
+    background: linear-gradient(180deg, rgba(51, 68, 97, 0.58), rgba(38, 49, 71, 0.42));
+}
+
 #dark .manageListViewSwitch .btn-outline-primary {
     color: rgba(199, 218, 252, 0.95);
     border-color: rgba(130, 162, 221, 0.55);

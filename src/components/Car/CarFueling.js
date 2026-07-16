@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { updateToFirebaseById } from "../../datatier/datatier";
 import { TRANSLATION, DB } from '../../utils/Constants';
-import { getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { getJsonAsDateString, getJsonAsDateTimeString, getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { useToggle } from '../Hooks/useToggle';
 
 import ListRow from '../Site/ListRow';
@@ -44,6 +44,7 @@ export default function CarFueling({ carId, fuelingRow, onDelete }) {
             showStarRating={false}
             section={
                 <div>
+                    {t('fueling_date')}: {getJsonAsDateString(fuelingRow.fuelingDate, i18n.language)}<br />
                     {t('liter_amount')}: {fuelingRow.fuelLiterAmount} L<br />
                     {t('price')}: {fuelingRow.price} € <br />
                     {t('meter_kilometers')}: {fuelingRow.meterKilometers > 0 ? fuelingRow.meterKilometers + ' km' : ''}<br />

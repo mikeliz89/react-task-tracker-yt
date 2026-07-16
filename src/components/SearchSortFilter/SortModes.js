@@ -7,6 +7,8 @@ export const SortMode = {
     TrackName_DESC: "TrackName_DESC",
     Created_ASC: "Created_ASC",
     Created_DESC: "Created_DESC",
+    FuelingDate_ASC: "FuelingDate_ASC",
+    FuelingDate_DESC: "FuelingDate_DESC",
     Title_ASC: "Title_ASC",
     Title_DESC: "Title_DESC",
     Text_ASC: "Text_ASC",
