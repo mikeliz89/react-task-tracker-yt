@@ -5,7 +5,7 @@ import Icon from '../Icon';
 
 export default function CheckButton({
     checked,
-    checkedText,
+    checkedText = '',
     uncheckedText,
     onCheck,
     onUncheck,
@@ -17,6 +17,7 @@ export default function CheckButton({
     iconStyle,
 }) {
     const isChecked = !!checked;
+    const labelText = isChecked ? checkedText : uncheckedText;
 
     const handleClick = () => {
         if (isChecked) {
@@ -31,17 +32,14 @@ export default function CheckButton({
             <span
                 onClick={handleClick}
                 className={`checkButton-toggle ${className || (isChecked ? checkedClassName : uncheckedClassName)}`.trim()}
-                style={{ margin: '5px' }}
+                style={{ margin: '0' }}
             >
-                <span className='checkButton-label'>
-                    {isChecked ? checkedText : uncheckedText}
-                </span>
-                &nbsp;
+                {labelText ? <span className='checkButton-label'>{labelText}</span> : null}
                 <Icon
                     name={iconName}
                     className='checkButton-icon'
                     color={iconColor}
-                    style={{ cursor: 'pointer', fontSize: '1.2em', ...iconStyle }}
+                    style={{ cursor: 'pointer', fontSize: '1rem', ...iconStyle }}
                 />
             </span>
         </p>
