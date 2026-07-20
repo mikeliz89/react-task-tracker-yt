@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
 
-import { COLORS, ICONS, VARIANTS, TRANSLATION } from '../../utils/Constants';
+import { COLORS, ICONS, VARIANTS, TRANSLATION, LIST_VIEW } from '../../utils/Constants';
 import Alert from '../Alert';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -53,7 +53,7 @@ export default function ManagePage({
         originalSearchSortFilterList.length > 0;
     const isListViewToggleEnabled = listViewToggle?.enabled ?? false;
     const listViewStorageKey = listViewToggle?.storageKey;
-    const defaultListView = listViewToggle?.defaultView === 'table' ? 'table' : 'card';
+    const defaultListView = listViewToggle?.defaultView === LIST_VIEW.TABLE ? LIST_VIEW.TABLE : LIST_VIEW.CARD;
     const [listView, setListView] = useState(() => {
         if (!listViewStorageKey) {
             return defaultListView;
@@ -61,7 +61,7 @@ export default function ManagePage({
 
         try {
             const savedListView = window.localStorage.getItem(listViewStorageKey);
-            return savedListView === 'table' ? 'table' : defaultListView;
+            return savedListView === LIST_VIEW.TABLE ? LIST_VIEW.TABLE : defaultListView;
         } catch {
             return defaultListView;
         }
@@ -75,7 +75,7 @@ export default function ManagePage({
 
         try {
             const savedListView = window.localStorage.getItem(listViewStorageKey);
-            setListView(savedListView === 'table' ? 'table' : defaultListView);
+            setListView(savedListView === LIST_VIEW.TABLE ? LIST_VIEW.TABLE : defaultListView);
         } catch {
             setListView(defaultListView);
         }
@@ -142,15 +142,15 @@ export default function ManagePage({
                 <div className='manageListViewSwitch'>
                     <button
                         type='button'
-                        className={`btn btn-sm ${listView === 'card' ? 'btn-primary' : 'btn-outline-primary'}`}
-                        onClick={() => setListView('card')}
+                        className={`btn btn-sm ${listView === LIST_VIEW.CARD ? 'btn-primary' : 'btn-outline-primary'}`}
+                        onClick={() => setListView(LIST_VIEW.CARD)}
                     >
                         {tCommon('buttons.button_view_cards')}
                     </button>
                     <button
                         type='button'
-                        className={`btn btn-sm ${listView === 'table' ? 'btn-primary' : 'btn-outline-primary'}`}
-                        onClick={() => setListView('table')}
+                        className={`btn btn-sm ${listView === LIST_VIEW.TABLE ? 'btn-primary' : 'btn-outline-primary'}`}
+                        onClick={() => setListView(LIST_VIEW.TABLE)}
                     >
                         {tCommon('buttons.button_view_table')}
                     </button>
@@ -181,8 +181,8 @@ export default function ManagePage({
             ) : (<></>)}
 
             {hasItems ? (
-                <div className={`manageListView ${listView === 'table' ? 'manageListView-compact' : 'manageListView-card'}`}>
-                    {isListViewToggleEnabled && listView === 'table' ? (
+                <div className={`manageListView ${listView === LIST_VIEW.TABLE ? 'manageListView-compact' : 'manageListView-card'}`}>
+                    {isListViewToggleEnabled && listView === LIST_VIEW.TABLE ? (
                         <div className='manageListTableHeader'>
                             <span>{tCommon('table.item')}</span>
                             <span>{tCommon('table.details')}</span>
@@ -235,7 +235,7 @@ ManagePage.propTypes = {
     searchSortFilter: PropTypes.object,
     listViewToggle: PropTypes.shape({
         enabled: PropTypes.bool,
-        defaultView: PropTypes.oneOf(['card', 'table']),
+        defaultView: PropTypes.oneOf([LIST_VIEW.CARD, LIST_VIEW.TABLE]),
         storageKey: PropTypes.string,
     }),
     hasItems: PropTypes.bool,

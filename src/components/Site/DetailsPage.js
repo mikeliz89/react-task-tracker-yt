@@ -46,6 +46,7 @@ export default function DetailsPage({
     //other
     children,
     metaItems,
+    showSetStarRating = true,
     showStarRating = true,
     //item, id, dbkey
     id,
@@ -129,12 +130,14 @@ export default function DetailsPage({
                                 {typeof title === 'string' ? <PageTitle title={title} /> : title}
                                 {titleSuffix && <div className="detailspage-title-suffix">{titleSuffix}</div>}
                             </div>
-                            {showStarRating && (
+                            {(showSetStarRating || showStarRating) && (
                                 <div className="detailspage-rating-row">
                                     {/* {typeof item?.stars === 'number' && !isNaN(item.stars) ? item.stars : 0} */}
                                     <StarRatingWrapper
                                         stars={item?.stars != null && !isNaN(Number(item.stars)) ? Number(item.stars) : 0}
                                         onSaveStars={saveStars}
+                                        showSetStarRating={showSetStarRating}
+                                        showStarRating={showStarRating}
                                     />
                                 </div>
                             )}
@@ -273,6 +276,7 @@ DetailsPage.propTypes = {
         id: PropTypes.any,
         content: PropTypes.node
     })),
+    showSetStarRating: PropTypes.bool,
     showStarRating: PropTypes.bool,
     id: PropTypes.any,
     item: PropTypes.object,

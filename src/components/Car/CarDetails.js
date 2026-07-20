@@ -212,8 +212,9 @@ export default function CarDetails() {
                                     //search
                                     originalList={filteredOriginalCarFuelings}
                                     //sort
-                                    defaultSort={SortMode.Created_DESC}
+                                    defaultSort={SortMode.FuelingDate_DESC}
                                     showSortByCreatedDate={true}
+                                    showSortByFuelingDate={true}
                                 />
                             ) : (<></>)
                         }

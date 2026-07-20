@@ -56,6 +56,7 @@ export default function Person({ item, onDelete }) {
             section={
                 <>
                     <p>{t('birthday') + ": "}{getJsonAsDateString(item.birthday, i18n.language)}{age !== null ? ` (${age} ${t('years')})` : ''}</p>
+                    <p>{t('relationship') + ": "}{item.relationship || '-'}</p>
                     <p>{item.description}</p>
                 </>
             }

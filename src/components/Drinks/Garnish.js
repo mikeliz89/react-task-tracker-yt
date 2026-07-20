@@ -44,6 +44,7 @@ export default function Garnish({ garnish, drinkID, onDelete }) {
                         />
                     )
                 }}
+                showSetStarRating={false}
                 showStarRating={false}
             />
         </>

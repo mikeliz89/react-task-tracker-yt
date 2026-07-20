@@ -140,6 +140,8 @@ export default function Recipe({ recipeType, translation, translationKeyPrefix, 
                     </span>
                 </OverlayTrigger>
             }
+            showStarRating={true}
+            showSetStarRating={false}
             showEditButton={true}
             editable={editable}
             setEditable={setEditable}

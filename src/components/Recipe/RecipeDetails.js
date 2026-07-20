@@ -204,6 +204,8 @@ export default function RecipeDetails() {
             item={recipe}
             id={params.id}
             loading={loading}
+            showStarRating={true}
+            showSetStarRating={false}
             showEditButton={true}
             isEditOpen={showEditRecipe}
             onToggleEdit={() => setShowEditRecipe(!showEditRecipe)}

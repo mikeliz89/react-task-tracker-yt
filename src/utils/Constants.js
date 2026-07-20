@@ -26,6 +26,11 @@ export const VARIANTS = {
     DANGER: 'danger',
 }
 
+export const LIST_VIEW = {
+    CARD: 'card',
+    TABLE: 'table',
+}
+
 export const DB = {
     WELLBEING_GOALS: '/wellbeing-goals',
     BACKPACKING_GEAR_MAINTENANCE_INSTRUCTIONS: '/backpacking-gear-maintenance-instructions',

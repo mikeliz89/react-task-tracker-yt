@@ -49,6 +49,7 @@ export default function Task({
             editable={editable}
             setEditable={setEditable}
             showDeleteButton={!editable && !archived}
+            showSetStarRating={false}
             showStarRating={false}
             onDelete={onDelete}
             deleteId={taskListID}

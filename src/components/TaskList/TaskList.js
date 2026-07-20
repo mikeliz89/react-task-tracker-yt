@@ -38,6 +38,7 @@ export default function TaskList({ taskList, archived, onDelete }) {
                     </Link>
                 )
             }}
+            showSetStarRating={false}
             showStarRating={false}
             showEditButton={!archived}
             editable={editable}
