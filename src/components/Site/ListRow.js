@@ -152,9 +152,9 @@ export default function ListRow({
                         {titleNode != null
                             ? <span className={['listRow-title', titleWrapperClassName].filter(Boolean).join(' ')}>{titleNode}</span>
                             : null}
-                        {starRatingNode}
                         {suffix}
                     </div>
+                    {starRatingNode}
                     {hasActions && (
                         <div
                             className={['listRow-actions', actionsClassName].filter(Boolean).join(' ')}

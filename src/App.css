@@ -42,3 +42,73 @@
   border-right: 2px solid rgb(65, 65, 65);
   margin-right: 1px;
 }
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.app-shell-header,
+.app-shell-main,
+.app-shell-footer {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.app-shell-header,
+.app-shell-footer {
+  padding: 0.45rem 0;
+}
+
+.app-shell-header {
+  padding: 0.3rem 0;
+}
+
+.app-shell-main {
+  padding: 0.7rem 0;
+}
+
+.app-shell-header {
+  border-bottom: 1px solid rgba(30, 42, 66, 0.2);
+}
+
+.app-shell-footer {
+  border-top: 1px solid rgba(30, 42, 66, 0.2);
+  margin-top: 0.8rem;
+}
+
+.app-shell-footer footer {
+  margin-top: 0;
+}
+
+#dark .app-shell-header,
+#dark .app-shell-main,
+#dark .app-shell-footer {
+  background: transparent;
+}
+
+#dark .app-shell-header {
+  border-bottom-color: rgba(154, 179, 230, 0.34);
+}
+
+#dark .app-shell-footer {
+  border-top-color: rgba(154, 179, 230, 0.34);
+}
+
+@media (max-width: 768px) {
+  .app-shell-header,
+  .app-shell-footer {
+    padding: 0.35rem 0;
+  }
+
+  .app-shell-header {
+    padding: 0.25rem 0;
+  }
+
+  .app-shell-main {
+    padding: 0.5rem 0;
+  }
+}
+

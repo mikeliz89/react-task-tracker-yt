@@ -24,6 +24,7 @@
         },
         "table": {
             "item": "Item",
+            "stars": "Stars",
             "details": "Details",
             "actions": "Actions"
         },

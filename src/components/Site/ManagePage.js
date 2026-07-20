@@ -185,6 +185,7 @@ export default function ManagePage({
                     {isListViewToggleEnabled && listView === LIST_VIEW.TABLE ? (
                         <div className='manageListTableHeader'>
                             <span>{tCommon('table.item')}</span>
+                            <span>{tCommon('table.stars')}</span>
                             <span>{tCommon('table.details')}</span>
                             <span>{tCommon('table.actions')}</span>
                         </div>

@@ -1,0 +1,456 @@
+/* ListRow and generic manage-list styles */
+
+.listContainer.reminder,
+.listContainer.coreRecipe {
+    border-left: 5px solid green;
+}
+
+.listContainer h5 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin: 0;
+    min-width: 0;
+}
+
+.listContainer h5>span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
+}
+
+.listRow-main {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.listRow-title {
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+.listRow-title a,
+.listRow-title .btn,
+.listRow-title span {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.listRow-actions {
+    min-width: 0;
+    flex: 0 0 auto;
+}
+
+.listRow-actions>div {
+    min-width: 0;
+}
+
+.listRow-starRatingInline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: 0.35rem;
+    vertical-align: middle;
+}
+
+.listContainer {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    margin: 0 0 0.55rem 0;
+    padding: 0.72rem 0.95rem;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.listContainer:hover {
+    border-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.listContainer p {
+    margin: 0.45rem 0 0.15rem;
+}
+
+.manageListViewSwitch {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    margin: 0.15rem 0 0.55rem;
+}
+
+.manageListView-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    align-items: start;
+}
+
+.manageListView-card>.text-center {
+    grid-column: 1 / -1;
+    margin: 0.05rem 0 0.2rem;
+    padding: 0.35rem 0.55rem;
+    color: #415169;
+    font-weight: 600;
+}
+
+.manageListView-card .listContainer {
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    border: 1px solid rgba(44, 72, 111, 0.16);
+    background:
+        radial-gradient(circle at 105% -10%, rgba(80, 132, 212, 0.14) 0%, transparent 38%),
+        linear-gradient(170deg, #ffffff 0%, #f4f8fe 100%);
+    box-shadow:
+        0 5px 16px rgba(18, 45, 89, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    transition: transform 0.16s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.manageListView-card .listContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2d74d5 0%, #23a2a5 100%);
+    opacity: 0.9;
+}
+
+.manageListView-card .listContainer:hover {
+    transform: translateY(-3px);
+    border-color: rgba(45, 116, 213, 0.34);
+    box-shadow:
+        0 12px 24px rgba(18, 45, 89, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.manageListView-card .listContainer h5 {
+    gap: 0.5rem;
+    margin: -0.72rem -0.95rem 0.58rem;
+    padding: 0.62rem 0.95rem 0.54rem;
+    border-bottom: 1px solid rgba(45, 116, 213, 0.22);
+    background: linear-gradient(180deg, rgba(227, 238, 255, 0.72), rgba(242, 248, 255, 0.48));
+}
+
+.manageListView-card .listContainer .listRow-main {
+    min-width: 0;
+}
+
+.manageListView-card .listContainer .listRow-title {
+    font-weight: 650;
+    font-size: 0.95rem;
+}
+
+.manageListView-card .listContainer .listRow-title a,
+.manageListView-card .listContainer .listRow-title .btn,
+.manageListView-card .listContainer .listRow-title span {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.manageListView-card .listContainer .listRow-actions {
+    margin-left: 0.35rem;
+}
+
+.manageListView-card .listContainer .listRow-section p {
+    margin: 0.2rem 0 0;
+    font-size: 0.92rem;
+    line-height: 1.35;
+    color: #2f425b;
+}
+
+.manageListView-card .listContainer .listRow-check p {
+    margin: 0.35rem 0 0;
+}
+
+.manageListView-compact {
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.manageListTableHeader {
+    display: grid;
+    grid-template-columns: minmax(160px, 2.1fr) minmax(88px, 0.9fr) minmax(160px, 2.3fr) minmax(88px, 1fr);
+    gap: 0.7rem;
+    padding: 0.56rem 0.8rem;
+    background: #eef3f8;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #2e3c4f;
+}
+
+.manageListTableHeader span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.manageListTableHeader span:nth-child(4) {
+    justify-self: end;
+    text-align: right;
+}
+
+.manageListView-compact>.text-center {
+    margin: 0;
+    padding: 0.45rem 0.8rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: #f9fbfd;
+    font-weight: 600;
+    color: #4a5868;
+}
+
+.manageListView-compact .listContainer {
+    background: #ffffff;
+    margin: 0;
+    padding: 0.26rem 0.62rem;
+    display: grid;
+    grid-template-columns: minmax(160px, 2.1fr) minmax(88px, 0.9fr) minmax(160px, 2.3fr) minmax(88px, 1fr);
+    column-gap: 0.55rem;
+    align-items: center;
+    border-radius: 0;
+    border-width: 0 0 1px;
+    border-color: rgba(0, 0, 0, 0.14);
+    box-shadow: none;
+}
+
+.manageListView-compact .listContainer:nth-child(even) {
+    background: #fcfdff;
+}
+
+.manageListView-compact .listContainer:first-child,
+.manageListView-compact .manageListTableHeader+.listContainer {
+    border-top: 1px solid rgba(0, 0, 0, 0.14);
+}
+
+.manageListView-compact .listContainer:last-child {
+    border-bottom: 0;
+}
+
+.manageListView-compact .listContainer:hover {
+    border-color: rgba(0, 0, 0, 0.14);
+    box-shadow: none;
+    background: #f8fafc;
+}
+
+.manageListView-compact .listContainer h5 {
+    font-size: 0.9rem;
+    line-height: 1.12;
+    display: contents;
+}
+
+.manageListView-compact .listContainer .listRow-main {
+    grid-column: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.16rem;
+}
+
+.manageListView-compact .listContainer .listRow-actions {
+    grid-column: 4;
+    justify-self: end;
+    align-self: center;
+    min-width: 0;
+}
+
+.manageListView-compact .listContainer .listRow-title {
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.manageListView-compact .listContainer .listRow-title a,
+.manageListView-compact .listContainer .listRow-title .btn,
+.manageListView-compact .listContainer .listRow-title span {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.manageListView-compact .listContainer .listRow-section,
+.manageListView-compact .listContainer .listRow-check,
+.manageListView-compact .listContainer> :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.alert) {
+    grid-column: 3;
+}
+
+.manageListView-compact .listContainer .listRow-section {
+    min-width: 0;
+    display: block;
+    overflow: hidden;
+}
+
+.manageListView-compact .listContainer>.alert {
+    grid-column: 1 / -1;
+}
+
+.manageListView-compact .listContainer .listRow-section p {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.1;
+    color: #354154;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.manageListView-compact .listContainer .listRow-section p:nth-child(n + 2) {
+    display: none;
+}
+
+.manageListView-compact .listRow-starRatingInline {
+    grid-column: 2;
+    margin-left: 0;
+    transform: scale(0.9);
+    transform-origin: left center;
+}
+
+.manageListView-compact .listContainer .listRow-check p {
+    margin: 0;
+}
+
+.manageListView-compact .listContainer .listRow-check .checkButton-toggle {
+    margin: 0 !important;
+    padding: 0;
+    width: 1.2rem;
+    min-width: 1.2rem;
+    height: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.28rem;
+}
+
+.manageListView-compact .listContainer .listRow-check .checkButton-label {
+    display: none;
+}
+
+.manageListView-compact .listContainer .listRow-check .checkButton-icon {
+    margin-right: 0;
+    font-size: 0.74rem !important;
+}
+
+.manageListView-compact .listContainer .listRow-actions .editBtn,
+.manageListView-compact .listContainer .listRow-actions .deleteBtn {
+    opacity: 0.85;
+    font-size: 0.95rem !important;
+}
+
+.manageListView-compact .listContainer .listRow-actions .editBtn:hover,
+.manageListView-compact .listContainer .listRow-actions .deleteBtn:hover {
+    opacity: 1;
+}
+
+@media (max-width: 1100px) {
+    .manageListTableHeader {
+        gap: 0.5rem;
+        font-size: 0.74rem;
+    }
+
+    .manageListTableHeader span:nth-child(4) {
+        white-space: normal;
+        line-height: 1.05;
+    }
+
+    .manageListView-compact .listContainer {
+        column-gap: 0.45rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .listContainer h5 {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 0.45rem;
+    }
+
+    .listRow-main {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .listRow-title {
+        flex: 1 1 auto;
+    }
+
+    .listRow-actions {
+        flex: 1 1 100%;
+        width: 100%;
+        margin-top: 0.2rem;
+    }
+
+    .listRow-actions>div {
+        width: 100%;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .listRow-starRatingInline {
+        margin-left: 0;
+    }
+
+    .manageListViewSwitch {
+        justify-content: stretch;
+    }
+
+    .manageListViewSwitch .btn {
+        flex: 1 1 0;
+    }
+
+    .manageListTableHeader {
+        display: none;
+    }
+
+    .manageListView-card {
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
+    }
+
+    .manageListView-card .listContainer {
+        border-radius: 12px;
+    }
+
+    .manageListView-compact>.text-center {
+        padding: 0.36rem 0.52rem;
+        font-size: 0.84rem;
+    }
+
+    .manageListView-compact .listContainer {
+        display: block;
+        padding: 0.38rem 0.5rem;
+    }
+
+    .listContainer {
+        padding: 0.65rem 0.75rem;
+        border-radius: 9px;
+    }
+
+    .setStarRatingToggleBtn {
+        min-width: 1.9rem;
+        padding: 0.18rem 0.38rem;
+        font-size: 0.82rem;
+        line-height: 1;
+    }
+}

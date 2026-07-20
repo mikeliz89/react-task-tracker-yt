@@ -30,9 +30,19 @@ function App() {
     <Container id={theme}>
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AuthProvider>
-          <Header />
-          <AppRoutes />
-          <Footer />
+          <div className='app-shell'>
+            <section className='app-shell-header'>
+              <Header />
+            </section>
+
+            <main className='app-shell-main'>
+              <AppRoutes />
+            </main>
+
+            <section className='app-shell-footer'>
+              <Footer />
+            </section>
+          </div>
         </AuthProvider>
       </Router>
     </Container>

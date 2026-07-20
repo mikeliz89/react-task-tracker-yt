@@ -25,6 +25,7 @@
         },
         "table": {
             "item": "Rivi",
+            "stars": "Tähdet",
             "details": "Tiedot",
             "actions": "Toiminnot"
         },
