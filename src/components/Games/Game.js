@@ -41,25 +41,28 @@ export default function Game({ item, onDelete, onEdit, dbUrl, detailsNavigation,
             onDelete={onDelete}
             deleteId={item.id}
             section={
-                <>
-                    <p>
-                        {item.format > 0 ?
-                            (<span> {
-                                t('game_format_' + getGameConsoleNameByID(item.format))
-                            }</span>) : ('')}
-                    </p>
-                    <p>
-                        {item.description}
-                    </p>
+                <div>
+                    <div>
+                        <p>{item.description}</p>
+                    </div>
+                    {item.format > 0 && (
+                        <div>
+                            <p>
+                                <span>{t('game_format_' + getGameConsoleNameByID(item.format))}</span>
+                            </p>
+                        </div>
+                    )}
                     {showConsole &&
-                        <p>
-                            {item.console > 0 ?
-                                (<span> {
-                                    t('game_console_' + getGameConsoleNameByID(item.console))
-                                }</span>) : ('')}
-                        </p>
+                        <div>
+                            <p>
+                                {item.console > 0 ?
+                                    (<span> {
+                                        t('game_console_' + getGameConsoleNameByID(item.console))
+                                    }</span>) : ('')}
+                            </p>
+                        </div>
                     }
-                </>
+                </div>
             }
             modalProps={{
                 modalTitle: t('modal_header_edit_game'),

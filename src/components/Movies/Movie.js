@@ -39,15 +39,21 @@ export default function Movie({ item, onDelete, onEdit }) {
             onDelete={onDelete}
             deleteId={item.id}
             section={
-                !editable ? (
-                    <div>
-                        {item.nameFi !== "" && <p>{item.nameFi}</p>}
-                        {item.format > 0 && (
+                <div>
+                    {item.nameFi !== "" && (
+                        <div>
+                            <p>{item.nameFi}</p>
+                        </div>
+                    )}
+                    {item.format > 0 && (
+                        <div>
                             <p><span>{t('movie_format_' + getMovieFormatNameByID(item.format))}</span></p>
-                        )}
+                        </div>
+                    )}
+                    <div>
                         <p>{item.description}</p>
                     </div>
-                ) : null
+                </div>
             }
             modalProps={{
                 modalTitle: t('edit_movie'),
