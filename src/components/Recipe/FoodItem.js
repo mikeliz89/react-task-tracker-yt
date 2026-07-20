@@ -58,8 +58,8 @@ export default function FoodItem({ item, onDelete, onEdit }) {
             showCheckButton={true}
             checkButtonProps={{
                 checked: item.haveAtHome,
-                checkedText: t('fooditem_have_at_home'),
-                uncheckedText: t('fooditem_not_have_at_home'),
+                //checkedText: t('fooditem_have_at_home'),
+                //uncheckedText: t('fooditem_not_have_at_home'),
                 onCheck: () => { item["haveAtHome"] = true; onEdit(item); },
                 onUncheck: () => { item["haveAtHome"] = false; onEdit(item); }
             }}

@@ -65,8 +65,8 @@ export default function Record({  item, onDelete, onEdit }) {
             showCheckButton={true}
             checkButtonProps={{
                 checked: !!item.haveAtHome,
-                checkedText: t('have'),
-                uncheckedText: t('have_not'),
+                //checkedText: t('have'),
+                //uncheckedText: t('have_not'),
                 onCheck: () => { item["haveAtHome"] = true; onEdit(item); },
                 onUncheck: () => { item["haveAtHome"] = false; onEdit(item); }
             }}

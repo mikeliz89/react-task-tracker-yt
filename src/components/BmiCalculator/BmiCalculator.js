@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { pushToFirebaseById, subscribeToFirebaseById } from '../../datatier/datatier';
+import { useProfileSettings } from '../../contexts/ProfileSettingsContext';
+import { pushToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import Alert from '../Alert';
@@ -24,6 +25,7 @@ export default function BmiCalculator() {
 
     //user
     const { currentUser } = useAuth();
+    const { height: profileHeight } = useProfileSettings() || {};
 
     //states
     const [bmi, setBMI] = useState(0);
@@ -41,23 +43,13 @@ export default function BmiCalculator() {
         showFailure
     } = useAlert();
 
-    //load data
+    // Prefill height from shared profile settings.
     useEffect(() => {
-        if (!currentUser?.uid) {
+        if (profileHeight === null || profileHeight === undefined) {
             return;
         }
-
-        const unsubscribe = subscribeToFirebaseById(DB.PROFILES, currentUser.uid, (snapshot) => {
-            const data = snapshot.val();
-            if (data != null) {
-                setHeight(data["height"]);
-            }
-        });
-
-        return () => {
-            unsubscribe();
-        };
-    }, [currentUser?.uid]);
+        setHeight(profileHeight);
+    }, [profileHeight]);
 
     async function onSubmit(e) {
         e.preventDefault();

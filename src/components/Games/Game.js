@@ -77,8 +77,8 @@ export default function Game({ item, onDelete, onEdit, dbUrl, detailsNavigation,
             showCheckButton={true}
             checkButtonProps={{
                 checked: !!item.haveAtHome,
-                checkedText: t('have'),
-                uncheckedText: t('have_not'),
+                //checkedText: t('have'),
+                //uncheckedText: t('have_not'),
                 onCheck: () => { item["haveAtHome"] = true; onEdit(item); },
                 onUncheck: () => { item["haveAtHome"] = false; onEdit(item); },
             }}

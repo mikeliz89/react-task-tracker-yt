@@ -53,8 +53,8 @@ export default function Band({ item, onDelete, onEdit }) {
             showCheckButton={true}
             checkButtonProps={{
                 checked: hasSeenLive,
-                checkedText: t('show_only_seen_live'),
-                uncheckedText: t('show_only_not_seen_live'),
+                //checkedText: t('show_only_seen_live'),
+                //uncheckedText: t('show_only_not_seen_live'),
                 onCheck: () => {
                     item["seenLive"] = true;
                     item["haveSeenLive"] = true;

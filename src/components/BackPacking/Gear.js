@@ -76,8 +76,8 @@ export default function Gear({ item, onDelete, onEdit }) {
                 showCheckButton={true}
                 checkButtonProps={{
                     checked: !!item.haveAtHome,
-                    checkedText: t('gear_have_at_home'),
-                    uncheckedText: t('gear_not_have_at_home'),
+                    //checkedText: t('gear_have_at_home'),
+                    //uncheckedText: t('gear_not_have_at_home'),
                     onCheck: () => { item["haveAtHome"] = true; onEdit(item); },
                     onUncheck: () => { item["haveAtHome"] = false; onEdit(item); },
                 }}

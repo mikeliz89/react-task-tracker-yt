@@ -100,6 +100,7 @@ export default function ListRow({
     const HeaderTag = as;
     const hasActions = actionsExtra != null || showEditButton || showDeleteButton;
     const hasLeftContent = prefix != null
+        || showCheckButton
         || left != null
         || title != null
         || suffix != null;
@@ -147,6 +148,15 @@ export default function ListRow({
             {hasHeader && (
                 <HeaderTag className={headerClassName}>
                     <div className={['listRow-main', leftClassName].filter(Boolean).join(' ')}>
+                        {showCheckButton && (
+                            <div className='listRow-check'>
+                                <CheckButton
+                                    {...checkButtonProps}
+                                    onCheck={checkButtonProps.onCheck || markHaveAtHome}
+                                    onUncheck={checkButtonProps.onUncheck || markNotHaveAtHome}
+                                />
+                            </div>
+                        )}
                         {prefix}
                         {left}
                         {titleNode != null
@@ -181,15 +191,6 @@ export default function ListRow({
                 </HeaderTag>
             )}
             {section ? <div className='listRow-section'>{section}</div> : null}
-            {showCheckButton && (
-                <div className='listRow-check'>
-                    <CheckButton
-                        {...checkButtonProps}
-                        onCheck={checkButtonProps.onCheck || markHaveAtHome}
-                        onUncheck={checkButtonProps.onUncheck || markNotHaveAtHome}
-                    />
-                </div>
-            )}
             {children}
             {editable && (
                 <Modal show={editable} onHide={() => setEditable(false)}>
