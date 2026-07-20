@@ -279,6 +279,16 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .header-notification-panel {
+        position: fixed;
+        top: 0.6rem;
+        left: 0.5rem;
+        right: 0.5rem;
+        width: auto;
+        max-width: none;
+        max-height: 72vh;
+    }
+
     .scroll-to-top-floating {
         right: 10px;
         bottom: 10px;
