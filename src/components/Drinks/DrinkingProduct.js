@@ -61,8 +61,8 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
             showCheckButton={true}
             checkButtonProps={{
                 checked: !!drinkingProduct.haveAtHome,
-                checkedText: t('drinkingproduct_have_at_home'),
-                uncheckedText: t('drinkingproduct_not_have_at_home'),
+                //checkedText: t('drinkingproduct_have_at_home'),
+                //uncheckedText: t('drinkingproduct_not_have_at_home'),
                 onCheck: () => { drinkingProduct["haveAtHome"] = true; onEdit(drinkingProduct); },
                 onUncheck: () => { drinkingProduct["haveAtHome"] = false; onEdit(drinkingProduct); },
             }}

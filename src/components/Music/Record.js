@@ -39,17 +39,18 @@ export default function Record({  item, onDelete, onEdit }) {
             onDelete={onDelete}
             deleteId={item.id}
             section={
-                <>
-                    <p>
-                        {item.format > 0 ?
-                            (<span> {
-                                t('music_format_' + getMusicFormatNameByID(item.format))
-                            }</span>) : ('')}
-                    </p>
-                    <p>
-                        {item.description}
-                    </p>
-                </>
+                <div>
+                    <div>
+                        <p>{item.description}</p>
+                    </div>
+                    {item.format > 0 && (
+                        <div>
+                            <p>
+                                <span>{t('music_format_' + getMusicFormatNameByID(item.format))}</span>
+                            </p>
+                        </div>
+                    )}
+                </div>
             }
             modalProps={{
                 modalTitle: t('modal_header_edit_record') || 'Edit Record',
@@ -65,8 +66,8 @@ export default function Record({  item, onDelete, onEdit }) {
             showCheckButton={true}
             checkButtonProps={{
                 checked: !!item.haveAtHome,
-                checkedText: t('have'),
-                uncheckedText: t('have_not'),
+                //checkedText: t('have'),
+                //uncheckedText: t('have_not'),
                 onCheck: () => { item["haveAtHome"] = true; onEdit(item); },
                 onUncheck: () => { item["haveAtHome"] = false; onEdit(item); }
             }}

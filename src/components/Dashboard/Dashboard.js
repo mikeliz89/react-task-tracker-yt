@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { TRANSLATION, ICONS, COLORS, NAVIGATION, SESSIONSTORAGE } from '../../utils/Constants';
 import BigButton from '../Buttons/BigButton';
+import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 
 import DashboardItem from './DashboardItem';
@@ -202,6 +203,7 @@ export default function Dashboard() {
         {
             key: 'daily-management',
             title: t('title_daily_management'),
+            iconName: ICONS.LIST_ALT,
             sections: [
                 {
                     title: t('section_lists_and_tasks'),
@@ -225,6 +227,7 @@ export default function Dashboard() {
         {
             key: 'wellbeing',
             title: t('title_wellbeing'),
+            iconName: ICONS.RUNNING,
             sections: [
                 {
                     title: t('section_exercise'),
@@ -243,6 +246,7 @@ export default function Dashboard() {
         {
             key: 'food-and-drink',
             title: t('title_food_and_drink'),
+            iconName: ICONS.UTENSILS,
             sections: [
                 {
                     title: t('section_food'),
@@ -257,6 +261,7 @@ export default function Dashboard() {
         {
             key: 'hobbies-and-leisure',
             title: t('title_hobbies_and_leisure'),
+            iconName: ICONS.CAMPGROUND,
             sections: [
                 {
                     title: t('section_outdoor_hobbies'),
@@ -267,6 +272,7 @@ export default function Dashboard() {
         {
             key: 'entertainment',
             title: t('title_entertainment'),
+            iconName: ICONS.GAMEPAD,
             sections: [
                 {
                     title: t('section_movies_and_games'),
@@ -290,6 +296,7 @@ export default function Dashboard() {
         {
             key: 'reminders-and-events',
             title: t('title_reminders_and_events'),
+            iconName: ICONS.BELL,
             sections: [
                 {
                     title: t('section_people_and_birthdays'),
@@ -386,7 +393,11 @@ export default function Dashboard() {
                         className="mb-3"
                     >
                         {dashboardCategories.map((category) => (
-                            <Tab key={category.key} eventKey={category.key} title={category.title}>
+                            <Tab
+                                key={category.key}
+                                eventKey={category.key}
+                                title={<><Icon name={category.iconName} /> {category.title}</>}
+                            >
                                 {category.sections.map((section) => (
                                     <section key={`${category.key}-${section.title}`}>
                                         <h3>{section.title}</h3>

@@ -17,6 +17,7 @@ import './App.css';
 import Footer from './components/Site/Footer';
 import Header from './components/Site/Header';
 import { AuthProvider } from './contexts/AuthContext';
+import { ProfileSettingsProvider } from './contexts/ProfileSettingsContext';
 import { useTheme } from './contexts/ThemeContext';
 import { colorRootElement } from './utils/colorRootElement';
 
@@ -30,9 +31,21 @@ function App() {
     <Container id={theme}>
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AuthProvider>
-          <Header />
-          <AppRoutes />
-          <Footer />
+          <ProfileSettingsProvider>
+            <div className='app-shell'>
+              <section className='app-shell-header'>
+                <Header />
+              </section>
+
+              <main className='app-shell-main'>
+                <AppRoutes />
+              </main>
+
+              <section className='app-shell-footer'>
+                <Footer />
+              </section>
+            </div>
+          </ProfileSettingsProvider>
         </AuthProvider>
       </Router>
     </Container>

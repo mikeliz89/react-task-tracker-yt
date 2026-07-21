@@ -91,7 +91,7 @@ p {
 }
 
 .container {
-    margin: 10px auto;
+    margin: 0 auto 10px;
     overflow: auto;
     min-height: 300px;
     padding-left: 30px;
@@ -245,7 +245,7 @@ h4.page-title.page-title-subtitle {
 }
 
 footer {
-    margin-top: 30px;
+    margin-top: 48px;
     text-align: center;
 }
 
@@ -279,6 +279,16 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .header-notification-panel {
+        position: fixed;
+        top: 0.6rem;
+        left: 0.5rem;
+        right: 0.5rem;
+        width: auto;
+        max-width: none;
+        max-height: 72vh;
+    }
+
     .scroll-to-top-floating {
         right: 10px;
         bottom: 10px;
@@ -464,6 +474,7 @@ form {
 /* Custom End */
 
 @include meta.load-css('./tasks');
+@include meta.load-css('./listrow');
 @include meta.load-css('./detailspage');
 @include meta.load-css('./dashboard');
 @include meta.load-css('./myprofile');
@@ -486,7 +497,7 @@ form {
     }
 
     .container {
-        margin: 2px auto;
+        margin: 0 auto;
         padding-left: 8px;
         padding-right: 8px;
         padding-top: 4px;

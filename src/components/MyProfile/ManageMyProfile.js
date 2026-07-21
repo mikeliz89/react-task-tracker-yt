@@ -38,6 +38,7 @@ export default function ManageMyProfile() {
     //states
     const [name, setName] = useState('');
     const [height, setHeight] = useState(0);
+    const [disableScrollToTopAnimation, setDisableScrollToTopAnimation] = useState(false);
     const [photoUrl, setPhotoUrl] = useState(defaultPhotoUrl);
     const [photo, setPhoto] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -65,6 +66,7 @@ export default function ManageMyProfile() {
             if (data != null) {
                 setName(data["name"]);
                 setHeight(data["height"]);
+                setDisableScrollToTopAnimation(data["disableScrollToTopAnimation"] === true || data["disableScrollToTopAnimation"] === 'true');
             }
         });
 
@@ -94,7 +96,7 @@ export default function ManageMyProfile() {
     }
 
     const saveProfileToFirebase = async () => {
-        let data = { name, height };
+        let data = { name, height, disableScrollToTopAnimation };
         data["modified"] = getCurrentDateAsJson();
         updateToFirebaseById(DB.PROFILES, currentUser.uid, data);
     }
@@ -236,6 +238,17 @@ export default function ManageMyProfile() {
                                     {t('theme')}
                                 </span>
                                 <ThemeToggler />
+                            </div>
+
+                            <div className='myprofile-setting-row'>
+                                <span>{t('fast_animation')}</span>
+                                <span className='myprofile-setting-value d-flex align-items-center gap-2'>
+                                    <Form.Check
+                                        type='switch'
+                                        checked={disableScrollToTopAnimation}
+                                        onChange={(e) => setDisableScrollToTopAnimation(e.target.checked)}
+                                    />
+                                </span>
                             </div>
 
                             <Button
