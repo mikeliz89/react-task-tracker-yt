@@ -111,6 +111,7 @@ export const DB = {
     MUSIC_EVENT_LINKS: '/music-event-links',
     // music-karaoke songs
     MUSIC_KARAOKE_SONGS: '/music-karaoke-songs',
+    MUSIC_KARAOKE_SONG_LYRICS: '/music-karaoke-song-lyrics',
     // people / person
     PEOPLE: '/people',
     PERSON_COMMENTS: '/person-comments',
