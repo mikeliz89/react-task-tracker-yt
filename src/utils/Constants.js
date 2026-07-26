@@ -271,6 +271,7 @@ export const NAVIGATION = {
     MUSIC_RECORD: '/record',
     MUSIC_EVENT: '/event',
     MUSIC_BAND: '/band',
+    MUSIC_KARAOKE_SONG: '/karaokesong',
     // person
     PERSON: '/person',
     // recipe

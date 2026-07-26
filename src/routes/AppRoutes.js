@@ -43,6 +43,7 @@ import ManageMusicRecords from '../components/Music/ManageMusicRecords';
 import ManageMyProfile from '../components/MyProfile/ManageMyProfile';
 import ManagePeople from '../components/People/ManagePeople';
 import ManageRecipes from '../components/Recipe/ManageRecipes';
+import KaraokeSongDetails from '../components/Music/KaraokeSongDetails';
 import ManageTaskLists from '../components/TaskList/ManageTaskLists';
 import ManageTaskListsArchive from '../components/TaskListsArchive/ManageTaskListsArchive';
 import MovementDetails from '../components/Exercises/MovementDetails';
@@ -131,6 +132,7 @@ const AppRoutes = () => (
     <Route path={NAVIGATION.MUSIC_RECORD + '/:id'} element={<PrivateRoute><RecordDetails /></PrivateRoute>} />
     <Route path={NAVIGATION.MUSIC_EVENT + '/:id'} element={<PrivateRoute><EventDetails /></PrivateRoute>} />
     <Route path={NAVIGATION.MUSIC_BAND + '/:id'} element={<PrivateRoute><BandDetails /></PrivateRoute>} />
+    <Route path={NAVIGATION.MUSIC_KARAOKE_SONG + '/:id'} element={<PrivateRoute><KaraokeSongDetails /></PrivateRoute>} />
     {/* Music */}
     {/* Games */}
     <Route path={NAVIGATION.MANAGE_GAMES} element={<PrivateRoute><ManageGames /></PrivateRoute>} />
