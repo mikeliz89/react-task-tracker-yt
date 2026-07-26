@@ -1,7 +1,9 @@
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { auth } from '../firebase-config';
+import { TRANSLATION } from '../utils/Constants';
 
 const AuthContext = createContext();
 
@@ -10,6 +12,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+    const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //user
     const [currentUser, setCurrentUser] = useState();
@@ -52,7 +55,12 @@ export function AuthProvider({ children }) {
     }
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {loading ? (
+                <div className='app-initial-loading' role='status' aria-live='polite'>
+                    <span className='app-initial-loading-spinner' aria-hidden='true' />
+                    <span>{tCommon('loading')}</span>
+                </div>
+            ) : children}
         </AuthContext.Provider>
     )
 }

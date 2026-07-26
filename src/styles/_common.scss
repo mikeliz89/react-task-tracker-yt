@@ -708,6 +708,69 @@ form {
     min-height: 38px;
 }
 
+.karaoke-player-panel {
+    border: 1px solid rgba(32, 45, 71, 0.18);
+    border-radius: 12px;
+    padding: 0.7rem 0.8rem;
+    margin-bottom: 0.75rem;
+    background: rgba(244, 248, 255, 0.72);
+}
+
+.karaoke-player-time {
+    font-size: 0.86rem;
+    color: rgba(45, 60, 88, 0.8);
+    margin-bottom: 0.45rem;
+}
+
+.karaoke-player-row {
+    border-radius: 10px;
+    padding: 0.52rem 0.62rem;
+    line-height: 1.35;
+}
+
+.karaoke-player-row + .karaoke-player-row {
+    margin-top: 0.4rem;
+}
+
+.karaoke-player-row-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.karaoke-player-row-text {
+    font-size: 0.95rem;
+}
+
+.karaoke-player-row-time {
+    opacity: 0.82;
+    margin-right: 0.2rem;
+}
+
+.karaoke-player-lyric-progress {
+    white-space: pre-wrap;
+}
+
+.karaoke-char-sung {
+    color: #ffd56a;
+    text-shadow: 0 0 8px rgba(255, 213, 106, 0.35);
+}
+
+.karaoke-char-pending {
+    color: rgba(240, 246, 255, 0.92);
+}
+
+.karaoke-player-row-current {
+    background: rgba(31, 47, 81, 0.88);
+    color: rgba(248, 250, 255, 0.98);
+}
+
+.karaoke-player-row-next {
+    background: rgba(74, 95, 138, 0.2);
+    color: rgba(34, 48, 75, 0.88);
+}
+
 @media (max-width: 768px) {
     .searchSortFilter-form {
         padding: 0.6rem;

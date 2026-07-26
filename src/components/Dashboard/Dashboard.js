@@ -191,7 +191,7 @@ export default function Dashboard() {
         },
         karaoke: {
             link: NAVIGATION.MANAGE_MUSIC_KARAOKE_SONGS,
-            imageName: 'events.jpg',
+            imageName: 'karaokesongs.png',
             text: t('music_karaoke_songs'),
             iconName: ICONS.MUSIC,
             color: '#0cb058',

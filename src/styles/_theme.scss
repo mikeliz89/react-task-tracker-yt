@@ -318,6 +318,29 @@
     color: var(--dark-link-url);
 }
 
+#dark .app-initial-loading {
+    color: rgba(224, 234, 250, 0.9);
+}
+
+#dark .app-initial-loading-spinner {
+    border-color: rgba(160, 188, 238, 0.28);
+    border-top-color: rgba(199, 218, 255, 0.98);
+}
+
+#dark .app-shell-header,
+#dark .app-shell-main,
+#dark .app-shell-footer {
+    background: transparent;
+}
+
+#dark .app-shell-header {
+    border-bottom-color: rgba(154, 179, 230, 0.34);
+}
+
+#dark .app-shell-footer {
+    border-top-color: rgba(154, 179, 230, 0.34);
+}
+
 #dark .nav-tabs {
     border-bottom-color: var(--dark-nav-border-bottom);
 }
@@ -394,6 +417,34 @@
 
 #dark .comment-delete-button {
     color: rgba(226, 232, 255, 0.58) !important;
+}
+
+#dark .karaoke-player-panel {
+    border-color: rgba(152, 180, 236, 0.28);
+    background: rgba(20, 27, 40, 0.72);
+}
+
+#dark .karaoke-player-time {
+    color: rgba(203, 219, 246, 0.8);
+}
+
+#dark .karaoke-player-row-current {
+    background: rgba(196, 215, 255, 0.2);
+    color: rgba(247, 251, 255, 0.98);
+}
+
+#dark .karaoke-player-row-next {
+    background: rgba(111, 141, 201, 0.2);
+    color: rgba(206, 221, 248, 0.9);
+}
+
+#dark .karaoke-char-sung {
+    color: #ffe08a;
+    text-shadow: 0 0 10px rgba(255, 224, 138, 0.38);
+}
+
+#dark .karaoke-char-pending {
+    color: rgba(233, 241, 255, 0.9);
 }
 
 #dark .comment-edit-button {
