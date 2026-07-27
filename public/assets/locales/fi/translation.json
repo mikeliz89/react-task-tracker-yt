@@ -450,6 +450,7 @@
         "game_console_nintendo64": "Nintendo 64",
         "game_console_switch": "Nintendo Switch",
         "games_title": "Pelit",
+        "videogames_title": "Videopelit",
         "have": "Omistan",
         "have_not": "En omista",
         "is_digital": "Digitaalinen",
@@ -611,6 +612,30 @@
         "username": "Käyttäjänimi",
         "upload": "Lähetä"
     },
+    "housing": {
+        "title": "Asunto",
+        "name": "Nimi",
+        "address": "Osoite",
+        "area_m2": "Pinta-ala (m2)",
+        "housing_type": "Asuntotyyppi",
+        "housing_type_none": "- Ei valintaa -",
+        "housing_type_apartment_block": "Kerrostalo",
+        "housing_type_row_house": "Rivitalo",
+        "housing_type_detached_house": "Omakotitalo",
+        "housing_type_semi_detached_house": "Paritalo",
+        "housing_type_loft_house": "Luhtitalo",
+        "housing_type_small_house": "Pientalo",
+        "housing_type_separate_house": "Erillistalo",
+        "housing_type_chain_house": "Ketjutalo",
+        "housing_type_townhouse": "Townhouse",
+        "housing_type_vacation_home": "Vapaa-ajan asunto",
+        "housing_type_farm_house": "Maatila-asunto",
+        "housing_type_other": "Muu",
+        "construction_year": "Valmistusvuosi",
+        "required_fields": "Täytä kaikki kentät",
+        "invalid_area": "Anna kelvollinen pinta-ala",
+        "invalid_construction_year": "Anna kelvollinen valmistusvuosi"
+    },
     "people": {
         "add": "Lisää ihminen",
         "address": "Kotiosoite",
@@ -639,6 +664,18 @@
         "save_success": "Henkilön tallennus onnistui",
         "title": "Ihmiset",
         "years": "vuotta"
+    },
+    "reminders": {
+        "title": "Muistutukset",
+        "add": "Lisää muistutus",
+        "edit_reminder": "Muokkaa muistutusta",
+        "name": "Nimi",
+        "date": "Päivämäärä",
+        "status": "Tila",
+        "due_today": "Erääntyy tänään",
+        "due_in_days": "Erääntyy {{days}} pv päästä",
+        "overdue_by_days": "Myöhässä {{days}} pv",
+        "please_fill_required_fields": "Täytä nimi ja päivämäärä"
     },
     "recipe": {
         "add": "Lisää resepti",

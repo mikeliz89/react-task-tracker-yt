@@ -33,6 +33,9 @@
             "aria_label": "Notifications {{count}}",
             "birthday_today": "Birthday today",
             "birthday_in_days": "Birthday in {{days}} days",
+            "reminder_today": "Reminder today",
+            "reminder_in_days": "Reminder in {{days}} days",
+            "reminder_overdue_days": "Reminder overdue by {{days}} days",
             "empty": "No new notifications"
         }
     }

@@ -11,13 +11,17 @@ import CarDetails from '../components/Car/CarDetails';
 import ManageCars from '../components/Car/ManageCars';
 import CreateExercise from '../components/Exercises/CreateExercise';
 import CreateTrack from '../components/DiscGolf/CreateTrack';
+import CraftsHome from '../components/Crafts/CraftsHome';
 import Dashboard from '../components/Dashboard/Dashboard';
 import Demo from '../components/Demo/Demo';
+import DartsHome from '../components/Darts/DartsHome';
+import HomeCareHome from '../components/HomeCare/HomeCareHome';
 import DrinkDetails from '../components/Drinks/DrinkDetails';
 import DrinkingProductDetails from '../components/Drinks/DrinkingProductDetails';
 import EventDetails from '../components/Music/EventDetails';
 import ExerciseDetails from '../components/Exercises/ExerciseDetails';
 import FoodItemDetails from '../components/Recipe/FoodItemDetails';
+import FinanceHome from '../components/Finance/FinanceHome';
 import ForgotPassword from '../components/Auth/ForgotPassword';
 import GameDetails from '../components/Games/GameDetails';
 import GearDetails from '../components/BackPacking/GearDetails';
@@ -49,9 +53,13 @@ import ManageTaskListsArchive from '../components/TaskListsArchive/ManageTaskLis
 import MovementDetails from '../components/Exercises/MovementDetails';
 import MovieDetails from '../components/Movies/MovieDetails';
 import PersonDetails from '../components/People/PersonDetails';
+import PlantCareHome from '../components/PlantCare/PlantCareHome';
 import PlayRound from '../components/DiscGolf/PlayRound';
 import PrivateRoute from './PrivateRoute';
+import PetsHome from '../components/Pets/PetsHome';
 import React from 'react';
+import ReadingHome from '../components/Reading/ReadingHome';
+import ManageReminders from '../components/Reminders/ManageReminders';
 import RecipeDetails from '../components/Recipe/RecipeDetails';
 import RecordDetails from '../components/Music/RecordDetails';
 import Signup from '../components/Auth/Signup';
@@ -59,8 +67,10 @@ import StartNewRound from '../components/DiscGolf/StartNewRound';
 import TaskDetails from '../components/Task/TaskDetails';
 import TaskListDetails from '../components/TaskList/TaskListDetails';
 import TrackDetails from '../components/DiscGolf/TrackDetails';
+import TravelHome from '../components/Travel/TravelHome';
 import WeightHistory from '../components/BmiCalculator/WeightHistory';
 import ManageWellbeingGoals from '../components/WellbeingGoals/ManageWellbeingGoals';
+import HousingHome from '../components/Housing/HousingHome';
 
 const AppRoutes = () => (
   <Routes>
@@ -144,6 +154,8 @@ const AppRoutes = () => (
     {/* Games */}
     {/* Disc Golf */}
     <Route path={NAVIGATION.MANAGE_DISC_GOLF} element={<PrivateRoute><ManageDiscGolf /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_DARTS} element={<PrivateRoute><DartsHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_CRAFTS} element={<PrivateRoute><CraftsHome /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_DISC_GOLF_TRACKS} element={<PrivateRoute><ManageDiscGolfTracks /></PrivateRoute>} />
     <Route path={NAVIGATION.DISC_GOLF_CREATE_TRACK} element={<PrivateRoute><CreateTrack /></PrivateRoute>} />
     <Route path={NAVIGATION.DISC_GOLF_START_NEW_ROUND} element={<PrivateRoute><StartNewRound /></PrivateRoute>} />
@@ -164,11 +176,21 @@ const AppRoutes = () => (
     {/* Other lists */}
     <Route path={NAVIGATION.MANAGE_LISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Other} /></PrivateRoute>} />
     {/* Other lists */}
+    {/* Finance / Housing */}
+    <Route path={NAVIGATION.MANAGE_FINANCE} element={<PrivateRoute><FinanceHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_HOUSING} element={<PrivateRoute><HousingHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_READING} element={<PrivateRoute><ReadingHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_PETS} element={<PrivateRoute><PetsHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_TRAVEL} element={<PrivateRoute><TravelHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_PLANT_CARE} element={<PrivateRoute><PlantCareHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_HOME_CARE} element={<PrivateRoute><HomeCareHome /></PrivateRoute>} />
+    {/* Finance / Housing */}
     {/* Links */}
     <Route path={NAVIGATION.LINKSLIST} element={<PrivateRoute><LinksList /></PrivateRoute>} />
     {/* Links */}
     {/* People / person */}
     <Route path={NAVIGATION.MANAGE_PEOPLE} element={<PrivateRoute><ManagePeople /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_REMINDERS} element={<PrivateRoute><ManageReminders /></PrivateRoute>} />
     <Route path={NAVIGATION.PERSON + '/:id'} element={<PrivateRoute><PersonDetails /></PrivateRoute>} />
     {/* People  / person */}
     {
