@@ -212,6 +212,8 @@ export const NAVIGATION = {
     BOARD_GAME: '/boardgame',
     GAMES: '/games',
     GEAR: '/gear',
+    MANAGE_FINANCE: '/managefinance',
+    MANAGE_HOUSING: '/managehousing',
     LINKSLIST: '/linkslist',
     LOGIN: '/login',
     // backpacking

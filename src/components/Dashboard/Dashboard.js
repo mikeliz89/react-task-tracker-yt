@@ -86,7 +86,7 @@ export default function Dashboard() {
             textcolor: COLORS.BLACK
         },
         finance: {
-            link: NAVIGATION.MANAGE_LISTS,
+            link: NAVIGATION.MANAGE_FINANCE,
             imageName: 'finance.PNG',
             text: t('finance'),
             iconName: ICONS.LIST_ALT,
@@ -94,7 +94,7 @@ export default function Dashboard() {
             textcolor: COLORS.BLACK
         },
         housing: {
-            link: NAVIGATION.MANAGE_LISTS,
+            link: NAVIGATION.MANAGE_HOUSING,
             imageName: 'housing.PNG',
             text: t('housing'),
             iconName: ICONS.LIST_ALT,

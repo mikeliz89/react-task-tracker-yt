@@ -18,6 +18,7 @@ import DrinkingProductDetails from '../components/Drinks/DrinkingProductDetails'
 import EventDetails from '../components/Music/EventDetails';
 import ExerciseDetails from '../components/Exercises/ExerciseDetails';
 import FoodItemDetails from '../components/Recipe/FoodItemDetails';
+import FinanceHome from '../components/Finance/FinanceHome';
 import ForgotPassword from '../components/Auth/ForgotPassword';
 import GameDetails from '../components/Games/GameDetails';
 import GearDetails from '../components/BackPacking/GearDetails';
@@ -61,6 +62,7 @@ import TaskListDetails from '../components/TaskList/TaskListDetails';
 import TrackDetails from '../components/DiscGolf/TrackDetails';
 import WeightHistory from '../components/BmiCalculator/WeightHistory';
 import ManageWellbeingGoals from '../components/WellbeingGoals/ManageWellbeingGoals';
+import HousingHome from '../components/Housing/HousingHome';
 
 const AppRoutes = () => (
   <Routes>
@@ -164,6 +166,10 @@ const AppRoutes = () => (
     {/* Other lists */}
     <Route path={NAVIGATION.MANAGE_LISTS} element={<PrivateRoute><ManageTaskLists listType={ListTypes.Other} /></PrivateRoute>} />
     {/* Other lists */}
+    {/* Finance / Housing */}
+    <Route path={NAVIGATION.MANAGE_FINANCE} element={<PrivateRoute><FinanceHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_HOUSING} element={<PrivateRoute><HousingHome /></PrivateRoute>} />
+    {/* Finance / Housing */}
     {/* Links */}
     <Route path={NAVIGATION.LINKSLIST} element={<PrivateRoute><LinksList /></PrivateRoute>} />
     {/* Links */}
