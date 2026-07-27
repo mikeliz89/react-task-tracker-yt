@@ -61,6 +61,8 @@ export const DB = {
     DRINKINGPRODUCT_COMMENTS: '/drinkingproduct-comments',
     DRINKINGPRODUCT_LINKS: '/drinkingproduct-links',
     DRINKINGPRODUCT_IMAGES: '/drinkingproduct-images',
+    // housing
+    HOUSING: '/housing',
     // excercise
     EXERCISES: '/exercises',
     EXERCISE_COMMENTS: '/exercise-comments',
@@ -326,6 +328,7 @@ export const TRANSLATION = {
     FOOTER: 'footer',
     GAMES: 'games',
     HEADER: 'header',
+    HOUSING: 'housing',
     LANGUAGE: 'language',
     LINKS: 'links',
     LISTS: 'lists',
