@@ -79,7 +79,7 @@ export default function Dashboard() {
         },
         links: {
             link: NAVIGATION.LINKSLIST,
-            imageName: 'links.jpg',
+            imageName: 'links.png',
             text: t('links_list'),
             iconName: ICONS.EXTERNAL_LINK_ALT,
             color: COLORS.WHITE,
