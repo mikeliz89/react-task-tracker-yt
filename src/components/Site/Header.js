@@ -17,6 +17,7 @@ import Logo from './Logo';
 import RightWrapper from './RightWrapper';
 
 const BIRTHDAY_LOOKAHEAD_DAYS = 7;
+const REMINDER_LOOKAHEAD_DAYS = 7;
 
 function getDaysUntilNextBirthday(birthdayValue, now = new Date()) {
     if (!birthdayValue) {
@@ -43,6 +44,24 @@ function getDaysUntilNextBirthday(birthdayValue, now = new Date()) {
     return Math.round((nextBirthday - currentDate) / millisecondsPerDay);
 }
 
+function getDaysUntilReminder(reminderDateValue, now = new Date()) {
+    if (!reminderDateValue) {
+        return null;
+    }
+
+    const reminderDate = new Date(reminderDateValue);
+    if (Number.isNaN(reminderDate.getTime())) {
+        return null;
+    }
+
+    const currentDate = new Date(now);
+    currentDate.setHours(0, 0, 0, 0);
+    reminderDate.setHours(0, 0, 0, 0);
+
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+    return Math.round((reminderDate - currentDate) / millisecondsPerDay);
+}
+
 export default function Header() {
 
     //navigation
@@ -51,6 +70,7 @@ export default function Header() {
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
     const [notificationCount, setNotificationCount] = useState(0);
     const [upcomingBirthdays, setUpcomingBirthdays] = useState([]);
+    const [upcomingReminders, setUpcomingReminders] = useState([]);
     const [showNotifications, setShowNotifications] = useState(false);
     const notificationWrapperRef = useRef(null);
 
@@ -68,10 +88,16 @@ export default function Header() {
         navigate(`${NAVIGATION.PERSON}/${personId}`);
     };
 
+    const openRemindersPage = () => {
+        setShowNotifications(false);
+        navigate(NAVIGATION.MANAGE_REMINDERS);
+    };
+
     useEffect(() => {
         if (!currentUser) {
             setNotificationCount(0);
             setUpcomingBirthdays([]);
+            setUpcomingReminders([]);
             return;
         }
 
@@ -98,13 +124,54 @@ export default function Header() {
 
             upcoming.sort((a, b) => a.daysUntilBirthday - b.daysUntilBirthday);
             setUpcomingBirthdays(upcoming);
-            setNotificationCount(upcoming.length);
+        });
+
+        const remindersUnsubscribe = subscribeToFirebaseAsArray(DB.REMINDERS, (reminders) => {
+            const upcoming = [];
+
+            if (reminders && Array.isArray(reminders)) {
+                reminders.forEach((reminder) => {
+                    if (!reminder || typeof reminder !== 'object') {
+                        return;
+                    }
+
+                    if (!currentUser?.uid) {
+                        return;
+                    }
+
+                    if (reminder.userId !== currentUser.uid) {
+                        return;
+                    }
+
+                    const daysUntilReminder = getDaysUntilReminder(reminder.date);
+                    if (daysUntilReminder == null) {
+                        return;
+                    }
+
+                    if (daysUntilReminder <= REMINDER_LOOKAHEAD_DAYS && daysUntilReminder >= -REMINDER_LOOKAHEAD_DAYS) {
+                        upcoming.push({
+                            id: reminder.id,
+                            name: reminder.name || '-',
+                            date: reminder.date,
+                            daysUntilReminder,
+                        });
+                    }
+                });
+            }
+
+            upcoming.sort((a, b) => a.daysUntilReminder - b.daysUntilReminder);
+            setUpcomingReminders(upcoming);
         });
 
         return () => {
             peopleUnsubscribe();
+            remindersUnsubscribe();
         };
     }, [currentUser]);
+
+    useEffect(() => {
+        setNotificationCount(upcomingBirthdays.length + upcomingReminders.length);
+    }, [upcomingBirthdays, upcomingReminders]);
 
     useEffect(() => {
         const handleDocumentClick = (event) => {
@@ -180,9 +247,33 @@ export default function Header() {
                                                     </button>
                                                 ))}
                                             </div>
-                                        ) : (
+                                        ) : null}
+
+                                        {upcomingReminders.length > 0 ? (
+                                            <div className='header-notification-list'>
+                                                {upcomingReminders.map((item) => (
+                                                    <button
+                                                        key={item.id}
+                                                        type='button'
+                                                        className='header-notification-item'
+                                                        onClick={openRemindersPage}
+                                                    >
+                                                        <span className='header-notification-item-name'>{item.name}</span>
+                                                        <span className='header-notification-item-meta'>
+                                                            {item.daysUntilReminder === 0
+                                                                ? tCommon('notifications.reminder_today')
+                                                                : item.daysUntilReminder > 0
+                                                                    ? tCommon('notifications.reminder_in_days', { days: item.daysUntilReminder })
+                                                                    : tCommon('notifications.reminder_overdue_days', { days: Math.abs(item.daysUntilReminder) })}
+                                                        </span>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        ) : null}
+
+                                        {upcomingBirthdays.length === 0 && upcomingReminders.length === 0 ? (
                                             <p className='header-notification-empty'>{tCommon('notifications.empty')}</p>
-                                        )}
+                                        ) : null}
                                     </div>
                                 )}
                             </div>

@@ -665,6 +665,18 @@
         "title": "Ihmiset",
         "years": "vuotta"
     },
+    "reminders": {
+        "title": "Muistutukset",
+        "add": "Lisää muistutus",
+        "edit_reminder": "Muokkaa muistutusta",
+        "name": "Nimi",
+        "date": "Päivämäärä",
+        "status": "Tila",
+        "due_today": "Erääntyy tänään",
+        "due_in_days": "Erääntyy {{days}} pv päästä",
+        "overdue_by_days": "Myöhässä {{days}} pv",
+        "please_fill_required_fields": "Täytä nimi ja päivämäärä"
+    },
     "recipe": {
         "add": "Lisää resepti",
         "add_description": "Lisää kuvaus",

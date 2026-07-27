@@ -646,6 +646,18 @@
     "modal_header_edit_person": "Edit Person",
     "years": "years"
   },
+  "reminders": {
+    "title": "Reminders",
+    "add": "Add reminder",
+    "edit_reminder": "Edit reminder",
+    "name": "Name",
+    "date": "Date",
+    "status": "Status",
+    "due_today": "Due today",
+    "due_in_days": "Due in {{days}} days",
+    "overdue_by_days": "Overdue by {{days}} days",
+    "please_fill_required_fields": "Please fill in name and date"
+  },
   "recipe": {
     "add_description": "Add Description",
     "add_workphase_formtitle": "Add workphase",

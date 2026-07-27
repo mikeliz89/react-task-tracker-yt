@@ -59,6 +59,7 @@ import PrivateRoute from './PrivateRoute';
 import PetsHome from '../components/Pets/PetsHome';
 import React from 'react';
 import ReadingHome from '../components/Reading/ReadingHome';
+import ManageReminders from '../components/Reminders/ManageReminders';
 import RecipeDetails from '../components/Recipe/RecipeDetails';
 import RecordDetails from '../components/Music/RecordDetails';
 import Signup from '../components/Auth/Signup';
@@ -189,6 +190,7 @@ const AppRoutes = () => (
     {/* Links */}
     {/* People / person */}
     <Route path={NAVIGATION.MANAGE_PEOPLE} element={<PrivateRoute><ManagePeople /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_REMINDERS} element={<PrivateRoute><ManageReminders /></PrivateRoute>} />
     <Route path={NAVIGATION.PERSON + '/:id'} element={<PrivateRoute><PersonDetails /></PrivateRoute>} />
     {/* People  / person */}
     {

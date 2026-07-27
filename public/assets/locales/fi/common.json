@@ -34,6 +34,9 @@
             "aria_label": "Ilmoituksia {{count}}",
             "birthday_today": "Synttärit tänään",
             "birthday_in_days": "Synttärit {{days}} pv päästä",
+            "reminder_today": "Muistutus tänään",
+            "reminder_in_days": "Muistutus {{days}} pv päästä",
+            "reminder_overdue_days": "Muistutus myöhässä {{days}} pv",
             "empty": "Ei uusia ilmoituksia"
         }
     }

@@ -120,6 +120,7 @@ export const DB = {
     PERSON_IMAGES: '/person-images',
     PERSON_LINKS: '/person-links',
     PROFILES: '/profiles',
+    REMINDERS: '/reminders',
     // recipe
     RECIPES: '/recipes',
     RECIPE_INCREDIENTS: '/recipe-incredients',
@@ -279,6 +280,7 @@ export const NAVIGATION = {
     MANAGE_SHOPPINGLISTS: '/manageshoppinglists',
     MANAGE_TASKLISTS: '/managetasklists',
     MANAGE_PEOPLE: '/managepeople',
+    MANAGE_REMINDERS: '/managereminders',
     MOVEMENT: '/movement',
     // movie
     MOVIE: '/movie',
@@ -346,6 +348,7 @@ export const TRANSLATION = {
     MUSIC: 'music',
     MYPROFILE: 'myprofile',
     PEOPLE: 'people',
+    REMINDERS: 'reminders',
     RECIPE: 'recipe',
     SCROLL_TO_TOP: 'scrolltotop',
     SEARCHSORTFILTER: 'searchsortfilter',

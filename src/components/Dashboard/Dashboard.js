@@ -48,6 +48,14 @@ export default function Dashboard() {
             color: COLORS.WHITE,
             textcolor: COLORS.BLACK
         },
+        reminders: {
+            link: NAVIGATION.MANAGE_REMINDERS,
+            imageName: 'otherlists.PNG',
+            text: t('reminders'),
+            iconName: ICONS.BELL,
+            color: '#fcba03',
+            textcolor: COLORS.BLACK
+        },
         programming: {
             link: NAVIGATION.MANAGE_PROGRAMMING,
             imageName: 'programming.jpg',
@@ -401,7 +409,7 @@ export default function Dashboard() {
             sections: [
                 {
                     title: t('section_people_and_birthdays'),
-                    items: [dashboardItems.people]
+                    items: [dashboardItems.people, dashboardItems.reminders]
                 }
             ]
         }
