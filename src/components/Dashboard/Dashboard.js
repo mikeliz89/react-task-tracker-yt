@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Row, Tabs, Tab } from 'react-bootstrap';
+import { Row, Tabs, Tab, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import { TRANSLATION, ICONS, COLORS, NAVIGATION, SESSIONSTORAGE } from '../../utils/Constants';
@@ -15,6 +15,7 @@ export default function Dashboard() {
     const [fromPage, setFromPage] = useState('');
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [showComingSoon, setShowComingSoon] = useState(false);
 
     //translation
     const { t } = useTranslation(TRANSLATION.DASHBOARD, { keyPrefix: TRANSLATION.DASHBOARD_BUTTONS });
@@ -27,6 +28,8 @@ export default function Dashboard() {
     const searchText = searchQuery.trim().toLowerCase();
     const hasSearch = searchText.length > 0;
     const isVisible = (text) => !searchText || text.toLowerCase().includes(searchText);
+    const isComingSoonVisible = (item) => !item.comingsoon || showComingSoon;
+    const isItemVisible = (item) => isComingSoonVisible(item) && isVisible(item.text);
 
     const dashboardItems = {
         car: {
@@ -98,7 +101,7 @@ export default function Dashboard() {
             link: NAVIGATION.MANAGE_HOUSING,
             imageName: 'housing.PNG',
             text: t('housing'),
-            iconName: ICONS.LIST_ALT,
+            iconName: ICONS.HOME,
             color: COLORS.WHITE,
             textcolor: COLORS.BLACK
         },
@@ -176,6 +179,51 @@ export default function Dashboard() {
             textcolor: COLORS.BLACK,
             comingsoon: true
         },
+        reading: {
+            link: NAVIGATION.MANAGE_READING,
+            imageName: 'reading.png',
+            text: t('reading'),
+            iconName: ICONS.BOOK,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK,
+            comingsoon: true
+        },
+        pets: {
+            link: NAVIGATION.MANAGE_PETS,
+            imageName: 'pets.png',
+            text: t('pets'),
+            iconName: ICONS.DOG,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK,
+            comingsoon: true
+        },
+        travel: {
+            link: NAVIGATION.MANAGE_TRAVEL,
+            imageName: 'travelling.png',
+            text: t('travel'),
+            iconName: ICONS.GLOBE,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK,
+            comingsoon: true
+        },
+        plantCare: {
+            link: NAVIGATION.MANAGE_PLANT_CARE,
+            imageName: 'plantcare.PNG',
+            text: t('plant_care'),
+            iconName: ICONS.CARROT,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK,
+            comingsoon: true
+        },
+        homeCare: {
+            link: NAVIGATION.MANAGE_HOME_CARE,
+            imageName: 'housecare.PNG',
+            text: t('home_care'),
+            iconName: ICONS.GEAR,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK,
+            comingsoon: true
+        },
         movies: {
             link: NAVIGATION.MANAGE_MOVIES,
             imageName: 'movies.jpg',
@@ -187,7 +235,7 @@ export default function Dashboard() {
         games: {
             link: NAVIGATION.MANAGE_GAMES,
             imageName: 'games.jpg',
-            text: t('games'),
+            text: t('videogames'),
             iconName: ICONS.GAMEPAD,
             color: '#0cb058',
             textcolor: COLORS.BLACK
@@ -251,11 +299,25 @@ export default function Dashboard() {
                 },
                 {
                     title: t('section_mobility'),
-                    items: [dashboardItems.car, dashboardItems.finance, dashboardItems.housing]
+                    items: [
+                        dashboardItems.car,
+                        dashboardItems.finance,
+                        dashboardItems.housing,
+                        dashboardItems.homeCare
+                    ]
                 },
                 {
                     title: t('section_links'),
                     items: [dashboardItems.links]
+                },
+                {
+                    title: t('section_lifestyle'),
+                    items: [
+                        dashboardItems.reading,
+                        dashboardItems.pets,
+                        dashboardItems.travel,
+                        dashboardItems.plantCare
+                    ]
                 }
             ]
         },
@@ -363,7 +425,7 @@ export default function Dashboard() {
     }, [dashboardCategories]);
 
     const renderButtons = (items) => items
-        .filter(item => isVisible(item.text))
+        .filter(item => isItemVisible(item))
         .map(item => (
             <DashboardItem key={item.text} link={item.link}>
                 <BigButton
@@ -386,7 +448,7 @@ export default function Dashboard() {
     const filteredSearchGroups = searchGroups
         .map(group => ({
             ...group,
-            items: group.items.filter(item => isVisible(item.text))
+            items: group.items.filter(item => isItemVisible(item))
         }))
         .filter(group => group.items.length > 0);
 
@@ -396,11 +458,23 @@ export default function Dashboard() {
         <PageContentWrapper>
 
             <div className="dashboard-header">
-                <SearchTextInput
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={t('search')}
-                />
+                <div className="d-flex align-items-center gap-3 flex-wrap">
+                    <div className="flex-grow-1">
+                        <SearchTextInput
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder={t('search')}
+                        />
+                    </div>
+
+                    <Form.Check
+                        id='showComingSoon'
+                        type='checkbox'
+                        label={t('show_coming_soon')}
+                        checked={showComingSoon}
+                        onChange={(e) => setShowComingSoon(e.target.checked)}
+                    />
+                </div>
 
                 {hasSearch ? (
                     filteredSearchGroups.map((group) => (
@@ -439,14 +513,22 @@ export default function Dashboard() {
                                 eventKey={category.key}
                                 title={<><Icon name={category.iconName} /> {category.title}</>}
                             >
-                                {category.sections.map((section) => (
-                                    <section key={`${category.key}-${section.title}`}>
-                                        <h3>{section.title}</h3>
-                                        <Row>
-                                            {renderButtons(section.items)}
-                                        </Row>
-                                    </section>
-                                ))}
+                                {category.sections.map((section) => {
+                                    const visibleItems = section.items.filter(item => isItemVisible(item));
+
+                                    if (visibleItems.length === 0) {
+                                        return null;
+                                    }
+
+                                    return (
+                                        <section key={`${category.key}-${section.title}`}>
+                                            <h3>{section.title}</h3>
+                                            <Row>
+                                                {renderButtons(visibleItems)}
+                                            </Row>
+                                        </section>
+                                    );
+                                })}
                             </Tab>
                         ))}
                     </Tabs>

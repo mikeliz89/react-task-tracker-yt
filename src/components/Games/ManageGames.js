@@ -12,7 +12,7 @@ export default function ManageGames() {
 
     return (
         <ManageGeneric
-            title={t('games_title')}
+            title={t('videogames_title')}
             dbKey={DB.GAMES}
             translationKey={TRANSLATION.GAMES}
             AddComponent={AddGame}

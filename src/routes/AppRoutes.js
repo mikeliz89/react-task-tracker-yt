@@ -15,6 +15,7 @@ import CraftsHome from '../components/Crafts/CraftsHome';
 import Dashboard from '../components/Dashboard/Dashboard';
 import Demo from '../components/Demo/Demo';
 import DartsHome from '../components/Darts/DartsHome';
+import HomeCareHome from '../components/HomeCare/HomeCareHome';
 import DrinkDetails from '../components/Drinks/DrinkDetails';
 import DrinkingProductDetails from '../components/Drinks/DrinkingProductDetails';
 import EventDetails from '../components/Music/EventDetails';
@@ -52,9 +53,12 @@ import ManageTaskListsArchive from '../components/TaskListsArchive/ManageTaskLis
 import MovementDetails from '../components/Exercises/MovementDetails';
 import MovieDetails from '../components/Movies/MovieDetails';
 import PersonDetails from '../components/People/PersonDetails';
+import PlantCareHome from '../components/PlantCare/PlantCareHome';
 import PlayRound from '../components/DiscGolf/PlayRound';
 import PrivateRoute from './PrivateRoute';
+import PetsHome from '../components/Pets/PetsHome';
 import React from 'react';
+import ReadingHome from '../components/Reading/ReadingHome';
 import RecipeDetails from '../components/Recipe/RecipeDetails';
 import RecordDetails from '../components/Music/RecordDetails';
 import Signup from '../components/Auth/Signup';
@@ -62,6 +66,7 @@ import StartNewRound from '../components/DiscGolf/StartNewRound';
 import TaskDetails from '../components/Task/TaskDetails';
 import TaskListDetails from '../components/TaskList/TaskListDetails';
 import TrackDetails from '../components/DiscGolf/TrackDetails';
+import TravelHome from '../components/Travel/TravelHome';
 import WeightHistory from '../components/BmiCalculator/WeightHistory';
 import ManageWellbeingGoals from '../components/WellbeingGoals/ManageWellbeingGoals';
 import HousingHome from '../components/Housing/HousingHome';
@@ -173,6 +178,11 @@ const AppRoutes = () => (
     {/* Finance / Housing */}
     <Route path={NAVIGATION.MANAGE_FINANCE} element={<PrivateRoute><FinanceHome /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_HOUSING} element={<PrivateRoute><HousingHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_READING} element={<PrivateRoute><ReadingHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_PETS} element={<PrivateRoute><PetsHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_TRAVEL} element={<PrivateRoute><TravelHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_PLANT_CARE} element={<PrivateRoute><PlantCareHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_HOME_CARE} element={<PrivateRoute><HomeCareHome /></PrivateRoute>} />
     {/* Finance / Housing */}
     {/* Links */}
     <Route path={NAVIGATION.LINKSLIST} element={<PrivateRoute><LinksList /></PrivateRoute>} />

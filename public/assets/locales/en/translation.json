@@ -417,6 +417,7 @@
     "created_by": "Created By",
     "description": "Description",
     "games_title": "Games",
+    "videogames_title": "Video Games",
     "game_console_none": "-None-",
     "game_console_ps1": "Playstation",
     "game_console_ps2": "Playstation 2",
