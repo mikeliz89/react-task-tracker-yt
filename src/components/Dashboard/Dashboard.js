@@ -119,7 +119,7 @@ export default function Dashboard() {
         },
         wellbeingGoals: {
             link: NAVIGATION.MANAGE_WELLBEING_GOALS,
-            imageName: 'tasklists.PNG',
+            imageName: 'wellbeing-goals.PNG',
             text: t('wellbeing_goals'),
             iconName: ICONS.CHECK_SQUARE,
             color: '#ef7c1a',
