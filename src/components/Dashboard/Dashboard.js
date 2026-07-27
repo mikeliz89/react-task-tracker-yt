@@ -85,6 +85,22 @@ export default function Dashboard() {
             color: COLORS.WHITE,
             textcolor: COLORS.BLACK
         },
+        finance: {
+            link: NAVIGATION.MANAGE_LISTS,
+            imageName: 'finance.PNG',
+            text: t('finance'),
+            iconName: ICONS.LIST_ALT,
+            color: '#fcba03',
+            textcolor: COLORS.BLACK
+        },
+        housing: {
+            link: NAVIGATION.MANAGE_LISTS,
+            imageName: 'housing.PNG',
+            text: t('housing'),
+            iconName: ICONS.LIST_ALT,
+            color: COLORS.WHITE,
+            textcolor: COLORS.BLACK
+        },
         exercises: {
             link: NAVIGATION.MANAGE_EXERCISES,
             imageName: 'exercises.PNG',
@@ -216,7 +232,7 @@ export default function Dashboard() {
                 },
                 {
                     title: t('section_mobility'),
-                    items: [dashboardItems.car]
+                    items: [dashboardItems.car, dashboardItems.finance, dashboardItems.housing]
                 },
                 {
                     title: t('section_links'),
