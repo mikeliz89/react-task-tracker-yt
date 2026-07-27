@@ -237,6 +237,8 @@ export const NAVIGATION = {
     MANAGE_BOARD_GAMES: '/manageboardgames',
     MANAGE_GAMELISTS: '/managegamelists',
     MANAGE_BOARD_GAMELISTS: '/manageboardgamelists',
+    MANAGE_CRAFTS: '/managecrafts',
+    MANAGE_DARTS: '/managedarts',
     // disc golf
     MANAGE_DISC_GOLF: '/managediscgolf',
     MANAGE_DISC_GOLF_TRACKS: '/managediscgolftracks',

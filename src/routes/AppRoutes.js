@@ -11,8 +11,10 @@ import CarDetails from '../components/Car/CarDetails';
 import ManageCars from '../components/Car/ManageCars';
 import CreateExercise from '../components/Exercises/CreateExercise';
 import CreateTrack from '../components/DiscGolf/CreateTrack';
+import CraftsHome from '../components/Crafts/CraftsHome';
 import Dashboard from '../components/Dashboard/Dashboard';
 import Demo from '../components/Demo/Demo';
+import DartsHome from '../components/Darts/DartsHome';
 import DrinkDetails from '../components/Drinks/DrinkDetails';
 import DrinkingProductDetails from '../components/Drinks/DrinkingProductDetails';
 import EventDetails from '../components/Music/EventDetails';
@@ -146,6 +148,8 @@ const AppRoutes = () => (
     {/* Games */}
     {/* Disc Golf */}
     <Route path={NAVIGATION.MANAGE_DISC_GOLF} element={<PrivateRoute><ManageDiscGolf /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_DARTS} element={<PrivateRoute><DartsHome /></PrivateRoute>} />
+    <Route path={NAVIGATION.MANAGE_CRAFTS} element={<PrivateRoute><CraftsHome /></PrivateRoute>} />
     <Route path={NAVIGATION.MANAGE_DISC_GOLF_TRACKS} element={<PrivateRoute><ManageDiscGolfTracks /></PrivateRoute>} />
     <Route path={NAVIGATION.DISC_GOLF_CREATE_TRACK} element={<PrivateRoute><CreateTrack /></PrivateRoute>} />
     <Route path={NAVIGATION.DISC_GOLF_START_NEW_ROUND} element={<PrivateRoute><StartNewRound /></PrivateRoute>} />

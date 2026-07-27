@@ -91,7 +91,8 @@ export default function Dashboard() {
             text: t('finance'),
             iconName: ICONS.LIST_ALT,
             color: '#fcba03',
-            textcolor: COLORS.BLACK
+            textcolor: COLORS.BLACK,
+            comingsoon: true
         },
         housing: {
             link: NAVIGATION.MANAGE_HOUSING,
@@ -156,6 +157,24 @@ export default function Dashboard() {
             iconName: ICONS.GAMEPAD,
             color: '#0cb058',
             textcolor: COLORS.BLACK
+        },
+        darts: {
+            link: NAVIGATION.MANAGE_DARTS,
+            imageName: 'darts.png',
+            text: t('darts'),
+            iconName: ICONS.GAMEPAD,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK,
+            comingsoon: true
+        },
+        crafts: {
+            link: NAVIGATION.MANAGE_CRAFTS,
+            imageName: 'crafts.png',
+            text: t('crafts'),
+            iconName: ICONS.GEAR,
+            color: '#0cb058',
+            textcolor: COLORS.BLACK,
+            comingsoon: true
         },
         movies: {
             link: NAVIGATION.MANAGE_MOVIES,
@@ -282,6 +301,10 @@ export default function Dashboard() {
                 {
                     title: t('section_outdoor_hobbies'),
                     items: [dashboardItems.backpacking, dashboardItems.discGolf]
+                },
+                {
+                    title: t('section_indoor_hobbies'),
+                    items: [dashboardItems.darts, dashboardItems.crafts]
                 }
             ]
         },
@@ -349,6 +372,7 @@ export default function Dashboard() {
                     color={item.color}
                     text={item.text}
                     iconName={item.iconName}
+                    comingsoon={item.comingsoon}
                     onClick={() => setSessionStorage(fromPage)}
                 />
             </DashboardItem>
@@ -391,6 +415,7 @@ export default function Dashboard() {
                                             color={item.color}
                                             text={item.text}
                                             iconName={item.iconName}
+                                            comingsoon={item.comingsoon}
                                             onClick={() => setSessionStorage(fromPage)}
                                         />
                                     </DashboardItem>
