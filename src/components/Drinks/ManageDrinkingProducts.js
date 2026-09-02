@@ -4,7 +4,7 @@ import { TRANSLATION, DB, ICONS } from '../../utils/Constants';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import ManageGeneric from '../Common/ManageGeneric';
 import AddDrinkingProduct from './AddDrinkingProduct';
-import DrinkingProducts from './DrinkingProducts';
+import DrinkingProduct from './DrinkingProduct';
 
 export default function ManageDrinkingProducts() {
     const { t } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.DRINKS });
@@ -13,7 +13,7 @@ export default function ManageDrinkingProducts() {
             dbKey={DB.DRINKINGPRODUCTS}
             translationKey={TRANSLATION.DRINKS}
             AddComponent={AddDrinkingProduct}
-            ListComponent={DrinkingProducts}
+            ListComponentProps={{ ItemComponent: DrinkingProduct }}
             iconName={ICONS.WINE}
             title={t('manage_drinkingproducts_title')}
             searchSortFilterOptions={{
