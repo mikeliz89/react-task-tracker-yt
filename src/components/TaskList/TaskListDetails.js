@@ -290,6 +290,52 @@ export default function TaskListDetails() {
     }
   };
 
+  const handleMarkSelectedDone = async () => {
+    setError("");
+    if (!hasSelection || loadingMove) return;
+
+    setLoadingMove(true);
+    try {
+      const updates = {};
+
+      selectedIds.forEach((taskId) => {
+        updates[`${DB.TASKS}/${sourceListId}/${taskId}/reminder`] = true;
+      });
+
+      if (Object.keys(updates).length > 0) {
+        await updateToFirebase(updates);
+      }
+    } catch (ex) {
+      setError("Merkkaus epäonnistui. Yritä uudelleen.");
+      console.warn(ex);
+    } finally {
+      setLoadingMove(false);
+    }
+  };
+
+  const handleMarkSelectedUndone = async () => {
+    setError("");
+    if (!hasSelection || loadingMove) return;
+
+    setLoadingMove(true);
+    try {
+      const updates = {};
+
+      selectedIds.forEach((taskId) => {
+        updates[`${DB.TASKS}/${sourceListId}/${taskId}/reminder`] = false;
+      });
+
+      if (Object.keys(updates).length > 0) {
+        await updateToFirebase(updates);
+      }
+    } catch (ex) {
+      setError("Merkkaus epäonnistui. Yritä uudelleen.");
+      console.warn(ex);
+    } finally {
+      setLoadingMove(false);
+    }
+  };
+
   const updateTask = async (taskListID, task) => {
     task["created"] = getCurrentDateAsJson();
     task["createdBy"] = currentUser.email;
@@ -298,7 +344,7 @@ export default function TaskListDetails() {
 
   const addBulkTasks = async () => {
     const names = bulkTasksText
-      .split(/[\n,]+/)
+      .split(/[\r\n,]+/)
       .map((name) => name.trim())
       .filter((name) => name.length > 0);
 
@@ -473,7 +519,8 @@ export default function TaskListDetails() {
               <Form.Label>{t('button_add_tasks_bulk')}</Form.Label>
               <Form.Control
                 autoComplete="off"
-                type="text"
+                as="textarea"
+                rows={6}
                 placeholder={t('bulk_tasks_placeholder')}
                 value={bulkTasksText}
                 onChange={(e) => setBulkTasksText(e.target.value)}
@@ -555,7 +602,21 @@ export default function TaskListDetails() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           <span style={{ fontWeight: 600 }}>{tCommon('confirm.delete')}</span>
-          <div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            <Button
+              onClick={handleMarkSelectedDone}
+              disabled={!hasSelection || loadingMove}
+              color={COLORS.BUTTON_GRAY}
+              iconName={ICONS.SQUARE_CHECK}
+              text={`${t('toolbar_mark_selected_done')} (${selectedIds.size})`}
+            />
+            <Button
+              onClick={handleMarkSelectedUndone}
+              disabled={!hasSelection || loadingMove}
+              color={COLORS.BUTTON_GRAY}
+              iconName={ICONS.HOURGLASS_1}
+              text={`${t('toolbar_mark_selected_undone')} (${selectedIds.size})`}
+            />
             <Button
               onClick={handleDeleteSelected}
               disabled={!canDeleteSelected}
