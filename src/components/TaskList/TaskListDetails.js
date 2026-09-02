@@ -1,7 +1,7 @@
 //params
 import i18n from 'i18next';
 import { useEffect, useMemo, useState } from 'react';
-import { ButtonGroup, Col, Form, Modal, Row, Tab, Tabs } from 'react-bootstrap';
+import { ButtonGroup, Col, Dropdown, DropdownButton, Form, Modal, Row, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -450,6 +450,67 @@ export default function TaskListDetails() {
     pushToFirebaseChild(DB.TASKLIST_LINKS, taskListID, link);
   }
 
+  const handleSelectionTools = (action) => {
+    switch (action) {
+      case 'all':
+        toggleAll();
+        break;
+      case 'clear':
+        clearSelection();
+        break;
+      case 'select_done':
+        selectAllDone();
+        break;
+      case 'unselect_done':
+        unselectAllDone();
+        break;
+      case 'select_undone':
+        selectAllUndone();
+        break;
+      case 'unselect_undone':
+        unselectAllUndone();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleListQuickActions = (action) => {
+    switch (action) {
+      case 'change_type':
+        toggleShowChangeListType();
+        break;
+      case 'mark_all_done':
+        if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
+          markAllTasksDone(params.id);
+        }
+        break;
+      case 'mark_all_undone':
+        if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
+          markAllTasksUndone(params.id);
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleSelectedTaskActions = (action) => {
+    switch (action) {
+      case 'selected_done':
+        handleMarkSelectedDone();
+        break;
+      case 'selected_undone':
+        handleMarkSelectedUndone();
+        break;
+      case 'selected_delete':
+        handleDeleteSelected();
+        break;
+      default:
+        break;
+    }
+  };
+
 
   // Custom formatter for tasks to clipboard
   const getTasksClipboardText = (items) => {
@@ -491,18 +552,21 @@ export default function TaskListDetails() {
               text={showBulkAddTasks ? tCommon('buttons.button_close') : t('button_add_tasks_bulk')}
               onClick={toggleBulkAddTasks}
             />
-            <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
-              iconName={ICONS.EDIT} />
-            <Button onClick={() => {
-              if (window.confirm(t('mark_all_tasks_done_confirm_message'))) {
-                markAllTasksDone(params.id)
-              }
-            }} text={t('mark_all_tasks_done')} iconName={ICONS.SQUARE_CHECK} />
-            <Button onClick={() => {
-              if (window.confirm(t('mark_all_tasks_undone_confirm_message'))) {
-                markAllTasksUndone(params.id)
-              }
-            }} text={t('mark_all_tasks_undone')} iconName={ICONS.HOURGLASS_1} />
+            <DropdownButton
+              id="list-quick-actions"
+              variant="outline-secondary"
+              title={t('toolbar_list_more_actions')}
+            >
+              <Dropdown.Item onClick={() => handleListQuickActions('change_type')}>
+                {t('change_list_type')}
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleListQuickActions('mark_all_done')}>
+                {t('mark_all_tasks_done')}
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleListQuickActions('mark_all_undone')}>
+                {t('mark_all_tasks_undone')}
+              </Dropdown.Item>
+            </DropdownButton>
           </div>
         </div>
 
@@ -538,41 +602,31 @@ export default function TaskListDetails() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           <span style={{ fontWeight: 600 }}>{`${selectedIds.size}/${tasks.length} ${t('tasks')}`}</span>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
-            <Button
-              onClick={toggleAll}
+            <DropdownButton
+              id="selection-tools"
+              variant="outline-secondary"
+              title={t('toolbar_selection_tools')}
               disabled={tasks.length === 0}
-              color={COLORS.BUTTON_GRAY}
-              iconName={allSelected ? ICONS.MINUS : ICONS.CHECK_SQUARE}
-              text={allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
-            />
-            <Button
-              onClick={selectAllDone}
-              disabled={tasks.length === 0}
-              color={COLORS.BUTTON_GRAY}
-              iconName={ICONS.SQUARE_CHECK}
-              text={t('toolbar_select_all_done')}
-            />
-            <Button
-              onClick={unselectAllDone}
-              disabled={tasks.length === 0}
-              color={COLORS.BUTTON_GRAY}
-              iconName={ICONS.MINUS}
-              text={`${t('toolbar_unselect_all_done')}`}
-            />
-            <Button
-              onClick={selectAllUndone}
-              disabled={tasks.length === 0}
-              color={COLORS.BUTTON_GRAY}
-              iconName={ICONS.HOURGLASS_1}
-              text={t('toolbar_select_all_undone')}
-            />
-            <Button
-              onClick={unselectAllUndone}
-              disabled={tasks.length === 0}
-              color={COLORS.BUTTON_GRAY}
-              iconName={ICONS.MINUS}
-              text={t('toolbar_unselect_all_undone')}
-            />
+            >
+              <Dropdown.Item onClick={() => handleSelectionTools('all')}>
+                {allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleSelectionTools('clear')}>
+                {t('toolbar_unselect_all')}
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleSelectionTools('select_done')}>
+                {t('toolbar_select_all_done')}
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleSelectionTools('unselect_done')}>
+                {t('toolbar_unselect_all_done')}
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleSelectionTools('select_undone')}>
+                {t('toolbar_select_all_undone')}
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleSelectionTools('unselect_undone')}>
+                {t('toolbar_unselect_all_undone')}
+              </Dropdown.Item>
+            </DropdownButton>
           </div>
         </div>
 
@@ -603,27 +657,22 @@ export default function TaskListDetails() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           <span style={{ fontWeight: 600 }}>{tCommon('confirm.delete')}</span>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-            <Button
-              onClick={handleMarkSelectedDone}
+            <DropdownButton
+              id="selected-task-actions"
+              variant="outline-secondary"
+              title={t('toolbar_selected_actions')}
               disabled={!hasSelection || loadingMove}
-              color={COLORS.BUTTON_GRAY}
-              iconName={ICONS.SQUARE_CHECK}
-              text={`${t('toolbar_mark_selected_done')} (${selectedIds.size})`}
-            />
-            <Button
-              onClick={handleMarkSelectedUndone}
-              disabled={!hasSelection || loadingMove}
-              color={COLORS.BUTTON_GRAY}
-              iconName={ICONS.HOURGLASS_1}
-              text={`${t('toolbar_mark_selected_undone')} (${selectedIds.size})`}
-            />
-            <Button
-              onClick={handleDeleteSelected}
-              disabled={!canDeleteSelected}
-              color={COLORS.DELETEBUTTON}
-              iconName={ICONS.DELETE}
-              text={`${t('toolbar_delete_selected')} (${selectedIds.size})`}
-            />
+            >
+              <Dropdown.Item onClick={() => handleSelectedTaskActions('selected_done')}>
+                {`${t('toolbar_mark_selected_done')} (${selectedIds.size})`}
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleSelectedTaskActions('selected_undone')}>
+                {`${t('toolbar_mark_selected_undone')} (${selectedIds.size})`}
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleSelectedTaskActions('selected_delete')}>
+                {`${t('toolbar_delete_selected')} (${selectedIds.size})`}
+              </Dropdown.Item>
+            </DropdownButton>
           </div>
         </div>
       </div>
