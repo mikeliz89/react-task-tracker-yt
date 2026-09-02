@@ -68,6 +68,7 @@ export default function TaskListDetails() {
   const { status: showBulkAddTasks, toggleStatus: toggleBulkAddTasks } = useToggle();
   const { status: showEditTaskList, toggleStatus: toggleShowTaskList } = useToggle();
   const { status: showChangeListType, toggleStatus: toggleShowChangeListType } = useToggle();
+  const { status: showMoveToAnotherList, toggleStatus: toggleShowMoveToAnotherList } = useToggle();
   const [bulkTasksText, setBulkTasksText] = useState('');
 
   //counters
@@ -126,8 +127,6 @@ export default function TaskListDetails() {
     return tasks.filter((task) => selectedIds.has(task.id));
   }, [tasks, selectedIds]);
 
-  const allSelected = tasks.length > 0 && selectedIds.size === tasks.length;
-
   // Valinnan togglaus yksittäiselle taskille
   const toggleSelect = (taskId) => {
     setSelectedIds((prev) => {
@@ -138,12 +137,8 @@ export default function TaskListDetails() {
   };
 
   // Valitse kaikki
-  const toggleAll = () => {
-    if (allSelected) {
-      setSelectedIds(new Set());
-    } else {
-      setSelectedIds(new Set(tasks.map((t) => t.id)));
-    }
+  const selectAll = () => {
+    setSelectedIds(new Set(tasks.map((t) => t.id)));
   };
 
   // Valitse kaikki valmiit tehtävät
@@ -457,7 +452,7 @@ export default function TaskListDetails() {
   const handleSelectionTools = (action) => {
     switch (action) {
       case 'all':
-        toggleAll();
+        selectAll();
         break;
       case 'clear':
         clearSelection();
@@ -526,18 +521,6 @@ export default function TaskListDetails() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           <span style={{ fontWeight: 600 }}>{t('toolbar_list_tools')}</span>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-            <Button
-              iconName={ICONS.PLUS}
-              color={showAddTask ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-              text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
-              onClick={toggleAddTask}
-            />
-            <Button
-              iconName={ICONS.PLUS}
-              color={showBulkAddTasks ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
-              text={showBulkAddTasks ? tCommon('buttons.button_close') : t('button_add_tasks_bulk')}
-              onClick={toggleBulkAddTasks}
-            />
             <CopyToClipboardButton
               items={tasks}
               getText={getTasksClipboardText}
@@ -560,28 +543,6 @@ export default function TaskListDetails() {
             onClose={() => toggleShowChangeListType()} />
         }
 
-        {showBulkAddTasks &&
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <Form.Group controlId="bulkTasksInput">
-              <Form.Label>{t('button_add_tasks_bulk')}</Form.Label>
-              <Form.Control
-                autoComplete="off"
-                as="textarea"
-                rows={6}
-                placeholder={t('bulk_tasks_placeholder')}
-                value={bulkTasksText}
-                onChange={(e) => setBulkTasksText(e.target.value)}
-              />
-            </Form.Group>
-            <Button
-              iconName={ICONS.PLUS}
-              onClick={addBulkTasks}
-              text={t('button_save_multiple_tasks')}
-              disabled={bulkTasksText.trim().length === 0}
-            />
-          </div>
-        }
-
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           <span style={{ fontWeight: 600 }}>{`${t('toolbar_selection_tools')} (${selectedIds.size}/${tasks.length} ${t('tasks')})`}</span>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
@@ -592,7 +553,7 @@ export default function TaskListDetails() {
               disabled={tasks.length === 0}
             >
               <Dropdown.Item onClick={() => handleSelectionTools('all')}>
-                {allSelected ? t('toolbar_unselect_all') : t('toolbar_select_all')}
+                {t('toolbar_select_all')}
               </Dropdown.Item>
               <Dropdown.Item onClick={() => handleSelectionTools('clear')}>
                 {t('toolbar_unselect_all')}
@@ -610,25 +571,38 @@ export default function TaskListDetails() {
                 {t('toolbar_unselect_all_undone')}
               </Dropdown.Item>
             </DropdownButton>
-            <select
-              value={destListId}
-              onChange={(e) => setDestListId(e.target.value)}
-              style={{ minWidth: 260 }}
-            >
-              <option value="">{t('toolbar_select_destination_list')}</option>
-              {destinationOptions.map((tl) => (
-                <option key={tl.id} value={tl.id}>
-                  {`${getListTypeIconText(tl.listType)} ${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} - ${tl.title || tl.id}`}
-                </option>
-              ))}
-            </select>
             <Button
-              onClick={handleMove}
-              disabled={!canMove}
+              onClick={toggleShowMoveToAnotherList}
+              disabled={!hasSelection || loadingMove}
               color={COLORS.BUTTON_GRAY}
-              text={loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected_to_another_list')} (${selectedIds.size})`}
+              iconName={ICONS.LIST_ALT}
+              text={t('toolbar_move_to_another_list')}
             />
           </div>
+
+          {
+            showMoveToAnotherList &&
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+              <select
+                value={destListId}
+                onChange={(e) => setDestListId(e.target.value)}
+                style={{ minWidth: 260 }}
+              >
+                <option value="">{t('toolbar_select_destination_list')}</option>
+                {destinationOptions.map((tl) => (
+                  <option key={tl.id} value={tl.id}>
+                    {`${getListTypeIconText(tl.listType)} ${Number.isFinite(+tl.listType) ? t(getPageTitleContent(tl.listType)) : t('manage_tasklists_title')} - ${tl.title || tl.id}`}
+                  </option>
+                ))}
+              </select>
+              <Button
+                onClick={handleMove}
+                disabled={!canMove}
+                color={COLORS.BUTTON_GRAY}
+                text={loadingMove ? t('toolbar_moving') : `${t('toolbar_move_selected_to_another_list')} (${selectedIds.size})`}
+              />
+            </div>
+          }
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -768,6 +742,43 @@ export default function TaskListDetails() {
 
           {toolsMenu}
 
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 10 }}>
+            <Button
+              iconName={ICONS.PLUS}
+              color={showAddTask ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
+              text={showAddTask ? tCommon('buttons.button_close') : t('button_add_task')}
+              onClick={toggleAddTask}
+            />
+            <Button
+              iconName={ICONS.PLUS}
+              color={showBulkAddTasks ? COLORS.ADDBUTTON_OPEN : COLORS.ADDBUTTON_CLOSED}
+              text={showBulkAddTasks ? tCommon('buttons.button_close') : t('button_add_tasks_bulk')}
+              onClick={toggleBulkAddTasks}
+            />
+          </div>
+
+          {showBulkAddTasks &&
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 12 }}>
+              <Form.Group controlId="bulkTasksInput">
+                <Form.Label>{t('button_add_tasks_bulk')}</Form.Label>
+                <Form.Control
+                  autoComplete="off"
+                  as="textarea"
+                  rows={6}
+                  placeholder={t('bulk_tasks_placeholder')}
+                  value={bulkTasksText}
+                  onChange={(e) => setBulkTasksText(e.target.value)}
+                />
+              </Form.Group>
+              <Button
+                iconName={ICONS.PLUS}
+                onClick={addBulkTasks}
+                text={t('button_save_multiple_tasks')}
+                disabled={bulkTasksText.trim().length === 0}
+              />
+            </div>
+          }
+
           {tasks != null && tasks.length > 0 ? (
             <Tasks
               taskListID={params.id}
@@ -777,6 +788,7 @@ export default function TaskListDetails() {
               selectedIds={selectedIds}
               onSelectToggle={toggleSelect}
               counter={taskCounter}
+              counterText={t('task_counter_text')}
               originalList={originalTasks}
             />
           ) : (
