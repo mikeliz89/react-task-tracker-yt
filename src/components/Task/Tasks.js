@@ -7,6 +7,7 @@ export default function Tasks({
   archived,
   originalList,
   counter,
+  counterText,
   onDelete,
   onToggle,
   selectedIds,
@@ -16,7 +17,7 @@ export default function Tasks({
     <div className="tasksList">
       {
         originalList != null && counter != null ? (
-          <Counter list={items} originalList={originalList} counter={counter} />
+          <Counter list={items} originalList={originalList} counter={counter} text={counterText} />
         ) : (<></>)
       }
       {items.map((task) => (

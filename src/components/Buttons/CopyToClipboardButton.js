@@ -53,7 +53,7 @@ export default function CopyToClipboardButton({ items, getText, text }) {
 
   return (
     <>
-      <Button onClick={handleCopy} text={tCommon('buttons.button_copy_to_clipboard')} iconName={ICONS.COPY} />
+      <Button onClick={handleCopy} text={text || tCommon('buttons.button_copy_to_clipboard')} iconName={ICONS.COPY} />
       <ToastContainer position="bottom-end" className="p-3" style={{ zIndex: 1080 }}>
         <Toast onClose={() => setShowToast(false)} show={showToast} autohide delay={2200} bg="success">
           <Toast.Body className="text-white">{tCommon('buttons.copied_to_clipboard')}</Toast.Body>
@@ -65,5 +65,6 @@ export default function CopyToClipboardButton({ items, getText, text }) {
 
 CopyToClipboardButton.propTypes = {
   items: PropTypes.array,
-  getText: PropTypes.func
+  getText: PropTypes.func,
+  text: PropTypes.string
 };

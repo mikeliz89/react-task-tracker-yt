@@ -7,7 +7,7 @@ import ListRow from '../Site/ListRow';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import AddDrinkingProduct from './AddDrinkingProduct';
 
-export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
+export default function DrinkingProduct({ item, onDelete, onEdit }) {
 
     //states
     const [editable, setEditable] = useState(false);
@@ -21,15 +21,15 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
         setEditable(false);
     }
 
-    const drinkingProductTitle = `${drinkingProduct.name}${drinkingProduct.abv > 0 ? ` (${drinkingProduct.abv}%)` : ''}`;
+    const drinkingProductTitle = `${item.name}${item.abv > 0 ? ` (${item.abv}%)` : ''}`;
 
     return (
         <ListRow
-            item={drinkingProduct}
+            item={item}
             dbKey={DB.DRINKING_PRODUCTS}
             headerProps={{
                 title: drinkingProductTitle,
-                titleTo: `${NAVIGATION.DRINKINGPRODUCT}/${drinkingProduct.id}`,
+                titleTo: `${NAVIGATION.DRINKINGPRODUCT}/${item.id}`,
                 titleIcon: ICONS.COCKTAIL,
                 titleIconColor: COLORS.GRAY,
             }}
@@ -38,13 +38,13 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
             setEditable={setEditable}
             showDeleteButton={true}
             onDelete={onDelete}
-            deleteId={drinkingProduct.id}
+            deleteId={item.id}
             section={
                 <>
-                    <p>{t('drinkingproduct_manufacturer')}: {drinkingProduct.manufacturer}</p>
-                    <p>{t('drinkingproduct_description')}: {drinkingProduct.description}</p>
+                    <p>{t('drinkingproduct_manufacturer')}: {item.manufacturer}</p>
+                    <p>{t('drinkingproduct_description')}: {item.description}</p>
                     <p>{t('drinkingproduct_category')}: {
-                        t('drinkingproduct_category_' + getDrinkingProductCategoryNameByID(drinkingProduct.category))
+                        t('drinkingproduct_category_' + getDrinkingProductCategoryNameByID(item.category))
                     }</p>
                 </>
             }
@@ -54,17 +54,17 @@ export default function DrinkingProduct({ drinkingProduct, onDelete, onEdit }) {
                     <AddDrinkingProduct
                         onClose={() => setEditable(false)}
                         onSave={updateDrinkingProduct}
-                        drinkingProductID={drinkingProduct.id}
+                        drinkingProductID={item.id}
                     />
                 )
             }}
             showCheckButton={true}
             checkButtonProps={{
-                checked: !!drinkingProduct.haveAtHome,
+                checked: !!item.haveAtHome,
                 //checkedText: t('drinkingproduct_have_at_home'),
                 //uncheckedText: t('drinkingproduct_not_have_at_home'),
-                onCheck: () => { drinkingProduct["haveAtHome"] = true; onEdit(drinkingProduct); },
-                onUncheck: () => { drinkingProduct["haveAtHome"] = false; onEdit(drinkingProduct); },
+                onCheck: () => { item["haveAtHome"] = true; onEdit(item); },
+                onUncheck: () => { item["haveAtHome"] = false; onEdit(item); },
             }}
         />
     )
