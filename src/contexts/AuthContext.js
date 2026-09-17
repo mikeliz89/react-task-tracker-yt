@@ -7,11 +7,11 @@ import { TRANSLATION } from '../utils/Constants';
 
 const AuthContext = createContext();
 
-export function useAuth() {
-    return useContext(AuthContext)
-}
+export const useAuth = () => {
+    return useContext(AuthContext);
+};
 
-export function AuthProvider({ children }) {
+export const AuthProvider = ({ children }) => {
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     //user
@@ -45,7 +45,7 @@ export function AuthProvider({ children }) {
         return unsubscribe;
     }, [])
 
-    //expose / export functions to others to see
+    //expose functions to others to see
     const value = {
         currentUser,
         login,

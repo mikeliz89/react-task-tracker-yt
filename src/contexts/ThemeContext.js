@@ -4,11 +4,11 @@ import { THEMES, SESSIONSTORAGE } from '../utils/Constants';
 
 const ThemeContext = createContext(THEMES.LIGHT);
 
-export function useTheme() {
+export const useTheme = () => {
     return useContext(ThemeContext);
-}
+};
 
-export function ThemeProvider({ children }) {
+export const ThemeProvider = ({ children }) => {
 
     //states
     const [theme, setTheme] = useState(THEMES.LIGHT);

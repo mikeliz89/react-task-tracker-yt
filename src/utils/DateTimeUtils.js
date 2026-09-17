@@ -2,14 +2,14 @@
 
 import { Languages } from "./Languages";
 
-export function getCurrentDateAsJson() {
+export const getCurrentDateAsJson = () => {
     let newDate = new Date();
 
-return newDate.toJSON();
-}
+    return newDate.toJSON();
+};
 
 /** Calculate age in years from birthday. Returns null for invalid or missing dates. */
-export function getAgeFromBirthday(birthday, now = new Date()) {
+export const getAgeFromBirthday = (birthday, now = new Date()) => {
     if (!birthday) {
         return null;
     }
@@ -33,30 +33,30 @@ export function getAgeFromBirthday(birthday, now = new Date()) {
 }
 
 /** Get current date */
-export function getCurrentDate() {
+export const getCurrentDate = () => {
     const date = new Date();
     //set default date to current date
     return date.toLocaleDateString('en-CA');
-}
+};
 
 /** Get current time */
-export function getCurrentTime() {
+export const getCurrentTime = () => {
     const date = new Date();
     return date.toTimeString().split(' ')[0];
-}
+};
 
 /** Get only time part from Json datetime */
-export function getJsonAsTimeString(json, language) {
+export const getJsonAsTimeString = (json, language) => {
     return getTimeString(json, language);
-}
+};
 
 /** Get only date part from Json datetime */
-export function getJsonAsDateString(json, language) {
+export const getJsonAsDateString = (json, language) => {
     return getDateString(json, language);
-}
+};
 
 /** Format date as dd.mm.YYYY for chart labels */
-export function formatDate(value) {
+export const formatDate = (value) => {
     if (!value) {
         return "";
     }
@@ -74,7 +74,7 @@ export function formatDate(value) {
 }
 
 /** Sort chart data by given date field in asc/desc order */
-export function sortChartDataByDate(data, dateKey, isAsc = true) {
+export const sortChartDataByDate = (data, dateKey, isAsc = true) => {
     if (!Array.isArray(data)) {
         return [];
     }
@@ -85,14 +85,14 @@ export function sortChartDataByDate(data, dateKey, isAsc = true) {
     }
 
     return sorted;
-}
+};
 
 /** Get both date and time parts from Json datetime */
-export function getJsonAsDateTimeString(json, language) {
+export const getJsonAsDateTimeString = (json, language) => {
     return getDateTimeString(json, language);
-}
+};
 
-export function getDateAndTimeAsDateTimeString(date, time, language) {
+export const getDateAndTimeAsDateTimeString = (date, time, language) => {
 
     let hasNoTime = false;
     if (time === "") {
@@ -110,7 +110,7 @@ export function getDateAndTimeAsDateTimeString(date, time, language) {
     return datePart + ' ' + timePart;
 }
 
-function getTimeString(json, language = Languages.EN) {
+export const getTimeString = (json, language = Languages.EN) => {
     if (isEmptyOrUndefined(json)) {
         return "";
     }
@@ -128,9 +128,9 @@ function getTimeString(json, language = Languages.EN) {
         default:
             return "";
     }
-}
+};
 
-function getDateString(json, language = Languages.EN) {
+export const getDateString = (json, language = Languages.EN) => {
     if (isEmptyOrUndefined(json)) {
         return "";
     }
@@ -147,22 +147,22 @@ function getDateString(json, language = Languages.EN) {
         default:
             return "";
     }
-}
+};
 
-function getDateTimeString(json, language = Languages.EN) {
+export const getDateTimeString = (json, language = Languages.EN) => {
     if (isEmptyOrUndefined(json)) {
         return "";
     }
     const dateStr = getDateString(json, language);
     const timeString = getTimeString(json, language);
     return `${dateStr} ${timeString}`;
-}
+};
 
-function isEmptyOrUndefined(json) {
+export const isEmptyOrUndefined = (json) => {
     if (json === "" || json === undefined) {
         return true;
     }
     return false;
-}
+};
 
 

@@ -1,8 +1,8 @@
-export function getDoneTasks(tasks = []) {
+export const getDoneTasks = (tasks = []) => {
   return (Array.isArray(tasks) ? tasks : []).filter((task) => task?.reminder === true);
-}
+};
 
-export function buildArchivedTaskMapForDoneTasks(tasks = []) {
+export const buildArchivedTaskMapForDoneTasks = (tasks = []) => {
   const doneTasks = getDoneTasks(tasks);
   const updates = {};
 
@@ -12,4 +12,4 @@ export function buildArchivedTaskMapForDoneTasks(tasks = []) {
   });
 
   return updates;
-}
+};

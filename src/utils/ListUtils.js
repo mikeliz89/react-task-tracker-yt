@@ -10,47 +10,47 @@ import { ListTypes } from '../utils/Enums';
 
 import { NAVIGATION } from './Constants';
 
-export function getGearCategoryNameByID(id) {
+export const getGearCategoryNameByID = (id) => {
     return getNameByID(GearCategories, id);
-}
+};
 
-export function getDrinkCategoryNameByID(id) {
+export const getDrinkCategoryNameByID = (id) => {
     return getNameByID(DrinkCategories, id);
-}
+};
 
-export function getDrinkingProductCategoryNameByID(id) {
+export const getDrinkingProductCategoryNameByID = (id) => {
     return getNameByID(DrinkingProductCategories, id);
-}
+};
 
-export function getRecipeCategoryNameByID(id) {
+export const getRecipeCategoryNameByID = (id) => {
     return getNameByID(RecipeCategories, id);
-}
+};
 
-export function getFoodItemCategoryNameByID(id) {
+export const getFoodItemCategoryNameByID = (id) => {
     return getNameByID(FoodItemCategories, id);
-}
+};
 
-export function getExerciseCategoryNameByID(id) {
+export const getExerciseCategoryNameByID = (id) => {
     return getNameByID(ExerciseCategories, id);
-}
+};
 
-export function getMovementCategoryNameByID(id) {
+export const getMovementCategoryNameByID = (id) => {
     return getNameByID(MovementCategories, id);
-}
+};
 
-export function getMovieFormatNameByID(id) {
+export const getMovieFormatNameByID = (id) => {
     return getNameByID(MovieFormats, id);
-}
+};
 
-export function getGameConsoleNameByID(id) {
+export const getGameConsoleNameByID = (id) => {
     return getNameByID(GameConsoles, id);
-}
+};
 
-export function getMusicFormatNameByID(id) {
+export const getMusicFormatNameByID = (id) => {
     return getNameByID(MusicFormats, id);
-}
+};
 
-function getNameByID(arr, id) {
+export const getNameByID = (arr, id) => {
     let obj = arr.find((o) =>
         o.id === Number(id)
     );
@@ -58,7 +58,7 @@ function getNameByID(arr, id) {
         return obj.name;
     }
     return 'none';
-}
+};
 
 export const getPageTitleContent = (listType) => {
     switch (listType) {
@@ -89,9 +89,40 @@ export const getPageTitleContent = (listType) => {
         //TODO: Koodaa lisää caseja sitä mukaa kuin muistakin listatyypeistä on olemassa listasivu
         default: return 'manage_tasklists_title';
     }
-}
+};
 
-export function getManagePageByListType(taskList) {
+export const getCounterTextContentKey = (listType) => {
+    switch (listType) {
+        case ListTypes.Shopping:
+            return 'countertext_shoppinglists';
+        case ListTypes.Drink:
+            return 'countertext_drinklists';
+        case ListTypes.Programming:
+            return 'countertext_programminglists';
+        case ListTypes.Food:
+            return 'countertext_recipelists';
+        case ListTypes.Music:
+            return 'countertext_musiclists';
+        case ListTypes.Games:
+            return 'countertext_gamelists';
+        case ListTypes.BoardGames:
+            return 'countertext_boardgamelists';
+        case ListTypes.Movies:
+            return 'countertext_movielists';
+        case ListTypes.Other:
+            return 'countertext_otherlists';
+        case ListTypes.Car:
+            return 'countertext_carlists';
+        case ListTypes.Exercises:
+            return 'countertext_exercises';
+        case ListTypes.BackPacking:
+            return 'countertext_backpacking';
+        default:
+            return 'countertext_tasklists';
+    }
+};
+
+export const getManagePageByListType = (taskList) => {
     const listType = taskList["listType"] || ListTypes.None;
     switch (listType) {
         case ListTypes.Programming:
@@ -122,6 +153,4 @@ export function getManagePageByListType(taskList) {
         default:
             return NAVIGATION.MANAGE_TASKLISTS;
     }
-}
-
-
+};
