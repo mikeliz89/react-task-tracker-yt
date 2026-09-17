@@ -3,6 +3,8 @@
     "add_description": "Add Description",
     "add_task_list": "Add Task List",
     "archive": "Archive",
+    "archive_done_tasks": "Archive only done tasks",
+    "archive_done_tasks_confirm_message": "Archive only completed tasks? They will be removed from the list.",
     "archive_list_confirm_message": "Archive List?",
     "button_add_task": "Add Task",
     "button_add_tasks_bulk": "Add tasks",

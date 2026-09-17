@@ -1,6 +1,6 @@
 import i18n from "i18next";
 import { useState, useEffect } from 'react';
-import { Row, ButtonGroup } from 'react-bootstrap';
+import { Row, ButtonGroup, Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
@@ -10,12 +10,13 @@ import { getFromFirebaseById, pushToFirebase, subscribeToFirebaseChildAsArray, u
 import { ICONS, TRANSLATION, DB, COLORS } from '../../utils/Constants';
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getPageTitleContent, getManagePageByListType } from '../../utils/ListUtils';
-import AccordionElement from '../Site/AccordionElement';
 import Button from '../Buttons/Button';
 import GoBackButton from '../Buttons/GoBackButton';
+import Icon from '../Icon';
 import useFetch from '../Hooks/useFetch';
 import CenterWrapper from '../Site/CenterWrapper';
 import PageContentWrapper from '../Site/PageContentWrapper';
+import PageTitle from '../Site/PageTitle';
 
 export default function ArchivedTaskListDetails() {
 
@@ -88,16 +89,6 @@ export default function ArchivedTaskListDetails() {
     navigate(getManagePageByListType(taskList), { replace: true });
   }
 
-  const getAccordionData = () => {
-    return [
-      { id: 1, name: t('created'), value: getJsonAsDateTimeString(taskList.created, i18n.language) },
-      { id: 2, name: t('created_by'), value: taskList.createdBy },
-      { id: 3, name: t('modified'), value: getJsonAsDateTimeString(taskList.modified, i18n.language) },
-      { id: 4, name: t('tasks_ready_counter'), value: taskReadyCounter + '/' + taskCounter },
-      { id: 5, name: t('category'), value: t(getPageTitleContent(taskList.listType)) }
-    ];
-  }
-
   return loading ? (
     <h3>{tCommon("loading")}</h3>
   ) : (
@@ -118,7 +109,26 @@ export default function ArchivedTaskListDetails() {
 
       {/* TODO: Arkistoidun listan palautustoiminto -nappi */}
 
-      <AccordionElement array={getAccordionData()} title={taskList.title} iconName={ICONS.LIST_ALT} forceOpen={true} />
+      <Row>
+        <Col>
+          <PageTitle title={taskList.title} iconName={ICONS.LIST_ALT} />
+          <p className="detailspage-summary">{`${t('description')}: ${taskList?.description || '-'}`}</p>
+          <div className="detailspage-meta-row">
+            <span className="detailspage-meta-history-icon">
+              <Icon name={ICONS.HISTORY} color="#8f9bb3" fontSize="0.95rem" />
+            </span>
+            <><span className="detailspage-meta-label">{t('created')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(taskList?.created, i18n.language)}</span></>
+            <><span className="detailspage-meta-label">{t('modified')}:</span> <span className="detailspage-meta-value">{getJsonAsDateTimeString(taskList?.modified, i18n.language)}</span></>
+            <><span className="detailspage-meta-label">{t('created_by')}:</span> <span className="detailspage-meta-value">{taskList?.createdBy || '-'}</span></>
+          </div>
+          <div className="detailspage-meta-row">
+            <><span className="detailspage-meta-label">{t('tasks_ready_counter')}:</span> <span className="detailspage-meta-value">{taskReadyCounter}/{taskCounter}</span></>
+            <><span className="detailspage-meta-label">{t('category')}:</span> <span className="detailspage-meta-value">{t(getPageTitleContent(taskList?.listType))}</span></>
+          </div>
+        </Col>
+      </Row>
+
+      <hr />
 
       {tasks != null && tasks.length > 0 ? (
         <Tasks

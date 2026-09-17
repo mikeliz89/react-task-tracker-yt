@@ -21,6 +21,7 @@ import {
 import { COLORS, DB, ICONS, TRANSLATION } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { getManagePageByListType, getPageTitleContent } from '../../utils/ListUtils';
+import { buildArchivedTaskMapForDoneTasks, getDoneTasks } from '../../utils/TaskArchiveUtils';
 import Button from '../Buttons/Button';
 import CopyToClipboardButton from '../Buttons/CopyToClipboardButton';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -435,6 +436,44 @@ export default function TaskListDetails() {
     navigate(getManagePageByListType(taskList), { replace: true });
   }
 
+  const archiveDoneTasks = async () => {
+    const doneTasks = getDoneTasks(tasks);
+    if (doneTasks.length === 0) {
+      return;
+    }
+
+    if (!window.confirm(t('archive_done_tasks_confirm_message'))) {
+      return;
+    }
+
+    try {
+      setError("");
+
+      const archivedTaskList = {
+        ...taskList,
+        archived: getCurrentDateAsJson(),
+        archivedBy: currentUser.email,
+      };
+
+      const archiveTaskListID = await pushToFirebase(DB.TASKLIST_ARCHIVE, archivedTaskList);
+      const updates = {};
+      const doneTaskIds = new Set(doneTasks.map((task) => task.id));
+
+      updates[`${DB.TASKLIST_ARCHIVE_TASKS}/${archiveTaskListID}`] = buildArchivedTaskMapForDoneTasks(doneTasks);
+
+      tasks.forEach((task) => {
+        if (doneTaskIds.has(task.id)) {
+          updates[`${DB.TASKS}/${params.id}/${task.id}`] = null;
+        }
+      });
+
+      await updateToFirebase(updates);
+    } catch (ex) {
+      console.warn(ex);
+      setError("Arkistointi epäonnistui. Yritä uudelleen.");
+    }
+  }
+
   const addCommentToTaskList = async (comment) => {
     const taskListID = params.id;
     comment["created"] = getCurrentDateAsJson()
@@ -530,6 +569,12 @@ export default function TaskListDetails() {
               items={selectedTasks}
               getText={getTasksClipboardText}
               text={t('toolbar_copy_selected')}
+            />
+            <Button
+              onClick={archiveDoneTasks}
+              disabled={!tasks || tasks.every((task) => task?.reminder !== true)}
+              text={t('archive_done_tasks')}
+              iconName={ICONS.ARCHIVE}
             />
             <Button onClick={() => toggleShowChangeListType()} text={t('change_list_type')}
               iconName={ICONS.EDIT} />
