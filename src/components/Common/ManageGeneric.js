@@ -39,6 +39,8 @@ export default function ManageGeneric({
     listNav,
     //title
     title,
+    //list type
+    listType,
     //copy button
     copyButton,
     // modal title override
@@ -112,6 +114,7 @@ export default function ManageGeneric({
     return (
         <ManagePage
             title={title ?? t('manage_title')}
+            listType={listType}
             iconName={iconName}
             topActions={resolvedTopActions}
             alert={{
@@ -159,6 +162,7 @@ export default function ManageGeneric({
                 onDelete={deleteItem}
                 onEdit={editItem}
                 title={title}
+                listType={listType}
                 {...ListComponentProps}
             />
         </ManagePage>
@@ -181,6 +185,7 @@ ManageGeneric.propTypes = {
     ListComponentProps: PropTypes.object,
     AddComponentProps: PropTypes.object,
     title: PropTypes.node,
+    listType: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     modalTitle: PropTypes.string,
     centerActions: PropTypes.node,
     copyButton: PropTypes.object,

@@ -36,11 +36,13 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
 
   //modal
   const { status: showAddTaskList, toggleStatus: toggleAddTaskList } = useToggle();
+  const isGenericListType = listType == null || listType === ListTypes.None;
+  const isShoppingListType = listType === ListTypes.Shopping;
 
   const addTaskList = async (taskList) => {
     taskList["created"] = getCurrentDateAsJson();
     taskList["createdBy"] = currentUser.email;
-    if (listType === undefined || listType === 0) {
+    if (isGenericListType) {
       delete taskList["listType"];
     } else {
       taskList["listType"] = listType;
@@ -70,7 +72,7 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
   }
 
   const getDefaultTitle = (listType) => {
-    if (listType === ListTypes.Shopping) {
+    if (isShoppingListType) {
       let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
       return t('shoppinglist') + ' ' + currentDateTime;
     }
@@ -86,6 +88,7 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
       loading={loading}
       loadingText={tCommon("loading")}
       title={getPageTitle(listType)}
+      listType={listType}
       iconName={ICONS.LIST_ALT}
       topActions={(
         <>
