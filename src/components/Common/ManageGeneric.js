@@ -185,7 +185,7 @@ ManageGeneric.propTypes = {
     ListComponentProps: PropTypes.object,
     AddComponentProps: PropTypes.object,
     title: PropTypes.node,
-    listType: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    listType: PropTypes.number,
     modalTitle: PropTypes.string,
     centerActions: PropTypes.node,
     copyButton: PropTypes.object,

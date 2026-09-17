@@ -237,7 +237,7 @@ ListRow.propTypes = {
     }),
     children: PropTypes.node,
     section: PropTypes.node,
-    listType: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    listType: PropTypes.number,
     actionsClassName: PropTypes.string,
     actionsExtra: PropTypes.node,
     className: PropTypes.string,
