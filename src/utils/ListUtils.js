@@ -91,6 +91,57 @@ export const getPageTitleContent = (listType) => {
     }
 };
 
+export const getListTypeIconText = (listType) => {
+    switch (Number(listType)) {
+        case ListTypes.Car:
+            return '🚗';
+        case ListTypes.Food:
+            return '🍽️';
+        case ListTypes.Drink:
+            return '🍸';
+        case ListTypes.Programming:
+            return '💻';
+        case ListTypes.Music:
+            return '🎵';
+        case ListTypes.Games:
+            return '🎮';
+        case ListTypes.BoardGames:
+            return '♟️';
+        case ListTypes.Exercises:
+            return '🏋️';
+        case ListTypes.BackPacking:
+            return '🏕️';
+        case ListTypes.Shopping:
+            return '🛒';
+        case ListTypes.Movies:
+            return '🎬';
+        default:
+            return '📋';
+    }
+};
+
+export const getTaskListComparator = (translate, language = 'fi') => (a, b) => {
+    const aTypeKey = Number.isFinite(+a.listType)
+        ? getPageTitleContent(+a.listType)
+        : 'manage_tasklists_title';
+    const bTypeKey = Number.isFinite(+b.listType)
+        ? getPageTitleContent(+b.listType)
+        : 'manage_tasklists_title';
+
+    const aTypeTitle = translate(aTypeKey);
+    const bTypeTitle = translate(bTypeKey);
+    const typeCompare = aTypeTitle.localeCompare(bTypeTitle, language, { sensitivity: 'base' });
+
+    if (typeCompare !== 0) {
+        return typeCompare;
+    }
+
+    const titleA = (a.title ?? '').toString();
+    const titleB = (b.title ?? '').toString();
+
+    return titleA.localeCompare(titleB, language, { sensitivity: 'base' });
+};
+
 export const getCounterTextContentKey = (listType) => {
     switch (listType) {
         case ListTypes.Shopping:

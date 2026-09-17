@@ -20,8 +20,9 @@ import {
 } from '../../datatier/datatier';
 import { COLORS, DB, ICONS, TRANSLATION } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
-import { getManagePageByListType, getPageTitleContent } from '../../utils/ListUtils';
+import { getListTypeIconText, getManagePageByListType, getPageTitleContent, getTaskListComparator } from '../../utils/ListUtils';
 import { buildArchivedTaskMapForDoneTasks, getDoneTasks } from '../../utils/TaskArchiveUtils';
+import { getTasksClipboardText } from '../../utils/TaskUtils';
 import Button from '../Buttons/Button';
 import CopyToClipboardButton from '../Buttons/CopyToClipboardButton';
 import GoBackButton from '../Buttons/GoBackButton';
@@ -41,7 +42,6 @@ import AddTaskList from '../TaskList/AddTaskList';
 
 import ChangeType from './ChangeType';
 import { SortMode } from '../SearchSortFilter/SortModes';
-import { ListTypes } from '../../utils/Enums';
 
 export default function TaskListDetails() {
 
@@ -167,62 +167,11 @@ export default function TaskListDetails() {
   //tyhjennä valinnat
   const clearSelection = () => setSelectedIds(new Set());
 
-  // Järjestys: 1) listatyyppinimi (käännetty), 2) title aakkosissa
-  const sortByTypeThenTitle = (a, b) => {
-    const aTypeKey = Number.isFinite(+a.listType)
-      ? getPageTitleContent(+a.listType)
-      : 'manage_tasklists_title';
-    const bTypeKey = Number.isFinite(+b.listType)
-      ? getPageTitleContent(+b.listType)
-      : 'manage_tasklists_title';
-
-    const aTypeTitle = t(aTypeKey);
-    const bTypeTitle = t(bTypeKey);
-    const typeCompare = aTypeTitle.localeCompare(bTypeTitle, i18n.language || 'fi', { sensitivity: 'base' });
-
-    if (typeCompare !== 0) return typeCompare;
-
-    const titleA = (a.title ?? "").toString();
-    const titleB = (b.title ?? "").toString();
-
-    // aakkosjärjestys nykyisen i18n-kielen mukaan, kirjainkoko neutraali
-    return titleA.localeCompare(titleB, i18n.language || 'fi', { sensitivity: "base" });
-  };
-
-  const getListTypeIconText = (listType) => {
-    switch (Number(listType)) {
-      case ListTypes.Car:
-        return '🚗';
-      case ListTypes.Food:
-        return '🍽️';
-      case ListTypes.Drink:
-        return '🍸';
-      case ListTypes.Programming:
-        return '💻';
-      case ListTypes.Music:
-        return '🎵';
-      case ListTypes.Games:
-        return '🎮';
-      case ListTypes.BoardGames:
-        return '♟️';
-      case ListTypes.Exercises:
-        return '🏋️';
-      case ListTypes.BackPacking:
-        return '🏕️';
-      case ListTypes.Shopping:
-        return '🛒';
-      case ListTypes.Movies:
-        return '🎬';
-      default:
-        return '📋';
-    }
-  };
-
   // ...
   const destinationOptions = tasklists
     .filter((t) => t.id !== sourceListId)
     .slice() // kopio, ettei mutatoida alkuperäistä
-    .sort(sortByTypeThenTitle);
+    .sort(getTaskListComparator(t, i18n.language || 'fi'));
   const hasSelection = selectedIds.size > 0;
   const canMove = selectedIds.size > 0 && destListId && !loadingMove;
   const canDeleteSelected = selectedIds.size > 0 && !loadingMove;
@@ -529,26 +478,6 @@ export default function TaskListDetails() {
     }
   };
 
-
-  // Custom formatter for tasks to clipboard
-  const getTasksClipboardText = (items) => {
-    let text = '';
-    if (Array.isArray(items)) {
-      items.forEach(function (arrayItem) {
-        text += "*" + (arrayItem.text?.trim() || '') + "*";
-        if (arrayItem.day) {
-          text += ": " + arrayItem.day;
-        }
-        if (arrayItem.reminder) {
-          text += ` [x]`;
-        } else {
-          text += ` [ ]`;
-        }
-        text += "\n";
-      });
-    }
-    return text;
-  };
 
   const toolsMenu = (
     <details style={{ marginBottom: 12 }}>
