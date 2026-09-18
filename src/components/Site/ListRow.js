@@ -8,6 +8,7 @@ import StarRatingWrapper from '../StarRating/StarRatingWrapper';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import { COLORS } from '../../utils/Constants';
+import { ListTypes } from '../../utils/Enums';
 import { Modal } from 'react-bootstrap';
 
 import RightWrapper from './RightWrapper';
@@ -36,6 +37,7 @@ export default function ListRow({
     //other
     children,
     section,
+    listType,
     actionsClassName = '',
     actionsExtra,
     className = '',
@@ -105,8 +107,9 @@ export default function ListRow({
         || title != null
         || suffix != null;
     const hasHeader = hasLeftContent || hasActions;
-    const shouldShowAnyStarRating = showSetStarRating || showStarRating;
-    const starRatingNode = shouldShowAnyStarRating ? (
+    const isStarRatingRelevant = listType == null || listType !== ListTypes.None;
+    const shouldShowStarRating = isStarRatingRelevant && (showSetStarRating || showStarRating);
+    const starRatingNode = shouldShowStarRating ? (
         <span className='listRow-starRatingInline'>
             <StarRatingWrapper
                 stars={Number(item?.stars) || 0}
@@ -234,6 +237,7 @@ ListRow.propTypes = {
     }),
     children: PropTypes.node,
     section: PropTypes.node,
+    listType: PropTypes.number,
     actionsClassName: PropTypes.string,
     actionsExtra: PropTypes.node,
     className: PropTypes.string,

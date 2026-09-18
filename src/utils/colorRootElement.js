@@ -1,6 +1,6 @@
 import { COLORS, THEMES } from '../utils/Constants';
 
-export function colorRootElement(theme) {
+export const colorRootElement = (theme) => {
   const rootElement = document.getElementById("root");
   const htmlElement = document.documentElement;
 

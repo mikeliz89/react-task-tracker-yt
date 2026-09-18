@@ -115,6 +115,17 @@
     margin: 0.15rem 0 0.55rem;
 }
 
+.manageListViewSwitch-button {
+    border-width: 2px;
+    font-weight: 600;
+    transition: box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.manageListViewSwitch-button.is-selected {
+    box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.24), 0 3px 8px rgba(13, 48, 96, 0.2);
+    transform: translateY(-1px);
+}
+
 .manageListView-card {
     display: grid;
     grid-template-columns: 1fr;
@@ -329,6 +340,15 @@
     min-width: 0;
 }
 
+.manageListView-compact-no-stars .manageListTableHeader,
+.manageListView-compact-no-stars .listContainer {
+    grid-template-columns: minmax(160px, 2.1fr) minmax(160px, 2.3fr) minmax(88px, 1fr);
+}
+
+.manageListView-compact-no-stars .listContainer .listRow-actions {
+    grid-column: 3;
+}
+
 .manageListView-compact .listContainer .listRow-title {
     min-width: 0;
     display: inline-flex;
@@ -351,6 +371,12 @@
 .manageListView-compact .listContainer .listRow-check,
 .manageListView-compact .listContainer> :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.alert) {
     grid-column: 3;
+}
+
+.manageListView-compact-no-stars .listContainer .listRow-section,
+.manageListView-compact-no-stars .listContainer .listRow-check,
+.manageListView-compact-no-stars .listContainer> :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.alert) {
+    grid-column: 2;
 }
 
 .manageListView-compact .listContainer .listRow-section {

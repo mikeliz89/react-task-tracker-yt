@@ -25,11 +25,11 @@ function parseBoolean(value) {
     return null;
 }
 
-export function useProfileSettings() {
+export const useProfileSettings = () => {
     return useContext(ProfileSettingsContext);
-}
+};
 
-export function ProfileSettingsProvider({ children }) {
+export const ProfileSettingsProvider = ({ children }) => {
     const { currentUser } = useAuth();
     const [disableScrollToTopAnimation, setDisableScrollToTopAnimation] = useState(null);
     const [height, setHeight] = useState(null);

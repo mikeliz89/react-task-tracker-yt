@@ -131,7 +131,7 @@ export const MovementCategories = [
     }
 ]
 
-export function getTitleByCategory(category) {
+export const getTitleByCategory = (category) => {
     switch (Number(category)) {
         case Categories.Aerobics:
             return 'title_aerobics';
@@ -151,9 +151,9 @@ export function getTitleByCategory(category) {
             return 'title_skiing';
         default: return '';
     }
-}
+};
 
-export function getIconNameByCategory(category) {
+export const getIconNameByCategory = (category) => {
     switch (Number(category)) {
         case Categories.Aerobics:
             return 'child';
@@ -173,4 +173,4 @@ export function getIconNameByCategory(category) {
             return 'skiing';
         default: return '';
     }
-}
+};

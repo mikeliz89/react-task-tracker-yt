@@ -194,7 +194,7 @@ export const FoodItemCategories = [
     }
 ]
 
-export function getIconNameByCategory(category) {
+export const getIconNameByCategory = (category) => {
     switch (Number(category)) {
         case Categories.Burger:
             return ICONS.HAMBURGER;

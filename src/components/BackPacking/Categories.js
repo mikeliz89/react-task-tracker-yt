@@ -80,7 +80,7 @@ export const GearCategories = [
     }
 ]
 
-export function getIconNameByCategory(category) {
+export const getIconNameByCategory = (category) => {
     switch (Number(category)) {
         case Categories.Sleeping:
             return 'campground';
@@ -102,4 +102,4 @@ export function getIconNameByCategory(category) {
             return 'water';
         default: return '';
     }
-}
+};

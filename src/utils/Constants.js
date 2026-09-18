@@ -27,7 +27,9 @@ export const VARIANTS = {
 }
 
 export const LIST_VIEW = {
+    /** kortti */
     CARD: 'card',
+    /** taulukko */
     TABLE: 'table',
 }
 

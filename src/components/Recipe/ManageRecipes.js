@@ -1,5 +1,6 @@
 import ManageGeneric from '../Common/ManageGeneric';
 import { TRANSLATION, ICONS, DB, NAVIGATION } from '../../utils/Constants';
+import { ListTypes } from '../../utils/Enums';
 import { FilterMode } from '../SearchSortFilter/FilterModes';
 import { SortMode } from '../SearchSortFilter/SortModes';
 import AddRecipe from './AddRecipe';
@@ -18,6 +19,7 @@ export default function ManageRecipes() {
       dbKey={DB.RECIPES}
       translationKey={TRANSLATION.RECIPE}
       AddComponent={AddRecipe}
+      listType={ListTypes.Food}
       iconName={ICONS.UTENSILS}
       title={t('manage_recipes_title')}
       ListComponentProps={{

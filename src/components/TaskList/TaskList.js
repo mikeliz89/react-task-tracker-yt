@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { updateToFirebaseById } from '../../datatier/datatier';
 import { DB, ICONS, COLORS, NAVIGATION, TRANSLATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
+import { ListTypes } from '../../utils/Enums';
 import Icon from '../Icon';
 import ListRow from '../Site/ListRow';
 import AddTaskList from './AddTaskList';
@@ -25,6 +26,7 @@ export default function TaskList({ taskList, archived, onDelete }) {
         <ListRow
             item={taskList}
             dbKey={DB.TASKLISTS}
+            listType={taskList?.listType ?? ListTypes.None}
             headerProps={{
                 prefix: <Icon name={ICONS.LIST_ALT} color={COLORS.GRAY} />,
                 title: (

@@ -10,7 +10,7 @@ import { pushToFirebase, removeFromFirebaseById, removeFromFirebaseChild } from 
 import { COLORS, TRANSLATION, DB, ICONS, NAVIGATION } from '../../utils/Constants';
 import { getCurrentDateAsJson, getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import { ListTypes } from '../../utils/Enums';
-import { getPageTitleContent } from '../../utils/ListUtils';
+import { getCounterTextContentKey, getPageTitleContent } from '../../utils/ListUtils';
 import Button from '../Buttons/Button';
 import CopyToClipboardButton from '../Buttons/CopyToClipboardButton';
 import useFetch from '../Hooks/useFetch';
@@ -36,11 +36,13 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
 
   //modal
   const { status: showAddTaskList, toggleStatus: toggleAddTaskList } = useToggle();
+  const isGenericListType = listType == null || listType === ListTypes.None;
+  const isShoppingListType = listType === ListTypes.Shopping;
 
   const addTaskList = async (taskList) => {
     taskList["created"] = getCurrentDateAsJson();
     taskList["createdBy"] = currentUser.email;
-    if (listType === undefined || listType === 0) {
+    if (isGenericListType) {
       delete taskList["listType"];
     } else {
       taskList["listType"] = listType;
@@ -56,7 +58,7 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
     removeFromFirebaseChild(DB.TASKLISTS, id);
   }
 
-  function gotoTaskListArchive() {
+  const gotoTaskListArchive = () => {
     navigate(NAVIGATION.TASKLIST_ARCHIVE, {
       state: {
         listType: listType
@@ -69,10 +71,8 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
     return t(contentKey);
   }
 
-
-
   const getDefaultTitle = (listType) => {
-    if (listType === ListTypes.Shopping) {
+    if (isShoppingListType) {
       let currentDateTime = getJsonAsDateTimeString(getCurrentDateAsJson(), i18n.language);
       return t('shoppinglist') + ' ' + currentDateTime;
     }
@@ -80,40 +80,7 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
   }
 
   const getCounterText = (listType) => {
-
-    const counterTextContentKey = () => {
-      switch (listType) {
-        case ListTypes.Shopping:
-          return 'countertext_shoppinglists';
-        case ListTypes.Drink:
-          return 'countertext_drinklists';
-        case ListTypes.Programming:
-          return 'countertext_programminglists';
-        case ListTypes.Food:
-          return 'countertext_recipelists';
-        case ListTypes.Music:
-          return 'countertext_musiclists';
-        case ListTypes.Games:
-          return 'countertext_gamelists';
-        case ListTypes.BoardGames:
-          return 'countertext_boardgamelists';
-        case ListTypes.Movies:
-          return 'countertext_movielists';
-        case ListTypes.Other:
-          return 'countertext_otherlists';
-        case ListTypes.Car:
-          return 'countertext_carlists';
-        case ListTypes.Exercises:
-          return 'countertext_exercises';
-        case ListTypes.BackPacking:
-          return 'countertext_backpacking';
-        default:
-          return 'countertext_tasklists';
-      }
-    }
-
-    var contentKey = counterTextContentKey();
-    return t(contentKey);
+    return t(getCounterTextContentKey(listType));
   }
 
   return (
@@ -121,6 +88,7 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
       loading={loading}
       loadingText={tCommon("loading")}
       title={getPageTitle(listType)}
+      listType={listType}
       iconName={ICONS.LIST_ALT}
       topActions={(
         <>
@@ -186,7 +154,6 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
   )
 }
 
-
 ManageTaskLists.defaultProps = {
   listType: ListTypes.None
 }
@@ -194,5 +161,3 @@ ManageTaskLists.defaultProps = {
 ManageTaskLists.propTypes = {
   listType: PropTypes.any
 }
-
-

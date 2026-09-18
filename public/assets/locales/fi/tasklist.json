@@ -3,6 +3,8 @@
         "add_description": "Lisää kuvaus",
         "add_task_list": "Listan nimi",
         "archive": "Arkistoi",
+        "archive_done_tasks": "Arkistoi vain tehdyt tehtävät",
+        "archive_done_tasks_confirm_message": "Arkistoidaanko vain valmiit tehtävät? Ne poistetaan listalta.",
         "archive_list_confirm_message": "Arkistoi lista?",
         "button_add_task": "Lisää tehtävä",
         "button_add_tasks_bulk": "Lisää tehtäviä",

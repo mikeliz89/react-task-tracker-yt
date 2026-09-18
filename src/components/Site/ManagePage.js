@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, ButtonGroup, Modal } from 'react-bootstrap';
-
+import { ListTypes } from '../../utils/Enums';
 import { COLORS, ICONS, VARIANTS, TRANSLATION, LIST_VIEW } from '../../utils/Constants';
 import Alert from '../Alert';
 import Button from '../Buttons/Button';
@@ -20,6 +20,7 @@ export default function ManagePage({
     loading,
     loadingText,
     title,
+    listType,
     //icon
     iconName,
     iconColor,
@@ -66,6 +67,9 @@ export default function ManagePage({
             return defaultListView;
         }
     });
+    const isCardView = listView === LIST_VIEW.CARD;
+    const isTableView = listView === LIST_VIEW.TABLE;
+    const hasStarsColumn = listType == null || listType !== ListTypes.None;
 
     useEffect(() => {
         if (!listViewStorageKey) {
@@ -142,14 +146,16 @@ export default function ManagePage({
                 <div className='manageListViewSwitch'>
                     <button
                         type='button'
-                        className={`btn btn-sm ${listView === LIST_VIEW.CARD ? 'btn-primary' : 'btn-outline-primary'}`}
+                        className={`btn btn-sm manageListViewSwitch-button ${isCardView ? 'btn-primary is-selected' : 'btn-outline-primary'}`}
+                        aria-pressed={isCardView}
                         onClick={() => setListView(LIST_VIEW.CARD)}
                     >
                         {tCommon('buttons.button_view_cards')}
                     </button>
                     <button
                         type='button'
-                        className={`btn btn-sm ${listView === LIST_VIEW.TABLE ? 'btn-primary' : 'btn-outline-primary'}`}
+                        className={`btn btn-sm manageListViewSwitch-button ${isTableView ? 'btn-primary is-selected' : 'btn-outline-primary'}`}
+                        aria-pressed={isTableView}
                         onClick={() => setListView(LIST_VIEW.TABLE)}
                     >
                         {tCommon('buttons.button_view_table')}
@@ -181,11 +187,19 @@ export default function ManagePage({
             ) : (<></>)}
 
             {hasItems ? (
-                <div className={`manageListView ${listView === LIST_VIEW.TABLE ? 'manageListView-compact' : 'manageListView-card'}`}>
-                    {isListViewToggleEnabled && listView === LIST_VIEW.TABLE ? (
+                <div
+                    className={[
+                        'manageListView',
+                        isTableView ? 'manageListView-compact' : 'manageListView-card',
+                        isTableView && !hasStarsColumn ? 'manageListView-compact-no-stars' : '',
+                    ].filter(Boolean).join(' ')}
+                >
+                    {isListViewToggleEnabled && isTableView ? (
                         <div className='manageListTableHeader'>
                             <span>{tCommon('table.item')}</span>
-                            <span>{tCommon('table.stars')}</span>
+                            {hasStarsColumn ? (
+                                <span>{tCommon('table.stars')}</span>
+                            ) : null}
                             <span>{tCommon('table.details')}</span>
                             <span>{tCommon('table.actions')}</span>
                         </div>
@@ -205,6 +219,7 @@ ManagePage.propTypes = {
     loading: PropTypes.bool,
     loadingText: PropTypes.string,
     title: PropTypes.node,
+    listType: PropTypes.number,
     iconName: PropTypes.string,
     iconColor: PropTypes.string,
     addButton: PropTypes.shape({
