@@ -1,12 +1,10 @@
-import { onValue, ref } from "firebase/database";
 import i18n from "i18next";
 import { useState, useEffect } from "react";
 import { Form, ButtonGroup, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 import { useAuth } from '../../contexts/AuthContext';
-import { updateToFirebase, updateToFirebaseById } from "../../datatier/datatier";
-import { db } from "../../firebase-config";
+import { subscribeToFirebaseById, updateToFirebase, updateToFirebaseById } from "../../datatier/datatier";
 import { TRANSLATION, DB, ICONS, VARIANTS } from '../../utils/Constants';
 import { getJsonAsDateTimeString, getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 import Alert from "../Alert";
@@ -49,24 +47,10 @@ export default function AddInfo({ carId }) {
 
     //load data
     useEffect(() => {
-        if (!carId) {
+        if (!carId || !currentUser?.uid) {
             return;
         }
-
-        let isMounted = true;
-        const getCarInfo = async () => {
-            if (isMounted) {
-                await fetchCarFromFirebase();
-                await fetchCarInfoFromFirebase();
-            }
-        }
-        getCarInfo()
-        return () => { isMounted = false };
-    }, [carId]);
-
-    const fetchCarFromFirebase = async () => {
-        const dbref = ref(db, `${DB.CARS}/${carId}`);
-        onValue(dbref, (snapshot) => {
+        const unsubscribeCar = subscribeToFirebaseById(DB.CARS, carId, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
                 if (data["brand"] !== undefined) {
@@ -76,12 +60,9 @@ export default function AddInfo({ carId }) {
                     setModelName(data["modelName"]);
                 }
             }
-        })
-    }
+        });
 
-    const fetchCarInfoFromFirebase = async () => {
-        const dbref = ref(db, `${DB.CAR_INFO}/${carId}`);
-        onValue(dbref, (snapshot) => {
+        const unsubscribeInfo = subscribeToFirebaseById(DB.CAR_INFO, carId, (snapshot) => {
             const data = snapshot.val();
             if (data != null) {
                 if (data["registerNumber"] !== undefined) {
@@ -103,8 +84,13 @@ export default function AddInfo({ carId }) {
                     setModified(data["modified"]);
                 }
             }
-        })
-    }
+        });
+
+        return () => {
+            unsubscribeCar();
+            unsubscribeInfo();
+        };
+    }, [carId, currentUser?.uid]);
 
     async function onSubmit(e) {
         e.preventDefault()

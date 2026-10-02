@@ -24,3 +24,9 @@ yarn-debug.log*
 yarn-error.log*
 
 .firebase
+
+# private migration inputs and outputs
+/email-to-uid.json
+/owner-overrides.json
+/users.json
+/unresolved.json

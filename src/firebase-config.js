@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === 'production') {
 
 //Storage functions
 export async function uploadProfilePic(file, currentUser, setLoading) {
-  const fileRef = ref(storage, "avatars/" + currentUser.uid + '.png');
+  const fileRef = ref(storage, `users/${currentUser.uid}/avatar.png`);
 
   setLoading(true);
   await uploadBytes(fileRef, file);

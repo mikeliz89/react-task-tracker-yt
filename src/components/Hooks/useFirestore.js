@@ -2,15 +2,25 @@ import { onValue, ref } from "firebase/database";
 import { useState, useEffect } from "react";
 
 import { db } from '../../firebase-config';
+import { useAuth } from '../../contexts/AuthContext';
+import { userDatabasePath } from '../../datatier/userDatabasePaths';
 
 const useFireStore = (collection, url, objectID) => {
+    const { currentUser } = useAuth();
+    const uid = currentUser?.uid;
 
     const [docs, setDocs] = useState([]);
 
     const [counter, setCounter] = useState(0);
 
     useEffect(() => {
-        const dbref = ref(db, `${url}/${objectID}`);
+        if (!uid) {
+            setDocs([]);
+            setCounter(0);
+            return;
+        }
+
+        const dbref = ref(db, userDatabasePath(`${url}/${objectID}`, uid));
         const unsubscribe = onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -28,7 +38,7 @@ const useFireStore = (collection, url, objectID) => {
         return () => {
             unsubscribe();
         };
-    }, [collection, url, objectID]);
+    }, [collection, url, objectID, uid]);
 
     return { docs };
 }
