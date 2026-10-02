@@ -11,13 +11,26 @@ test('moves owned records and their child collections into the same user namespa
     expect(users.uidA.tasklists.listA.title).toBe('A');
     expect(users.uidA.tasks.listA.taskA.text).toBe('A task');
     expect(users.uidB.profiles.uidB.name).toBe('B');
-    expect(unresolved).toEqual([{ section: 'links', id: 'linkWithoutOwner', reason: 'missing owner' }]);
+    expect(users['2R6C4xudIrgZGtSQvwBYW4sbfZH2'].links.linkWithoutOwner.url).toBe('https://example.test');
+    expect(unresolved).toEqual([]);
 });
 
-test('never guesses an owner for a child whose parent is missing', () => {
+test('assigns a child without a known parent to the fallback owner', () => {
     const { users, unresolved } = migrateDatabase({ tasks: { unknownList: { task: {} } } }, {});
-    expect(users).toEqual({});
-    expect(unresolved).toEqual([{ section: 'tasks', id: 'unknownList', reason: 'parent owner unknown' }]);
+    expect(users['2R6C4xudIrgZGtSQvwBYW4sbfZH2'].tasks.unknownList).toEqual({ task: {} });
+    expect(unresolved).toEqual([]);
+});
+
+test('assigns unmapped creators to the fallback owner but keeps mapped creators separate', () => {
+    const { users, unresolved } = migrateDatabase({
+        movies: {
+            known: { createdBy: 'other@example.test' },
+            unknown: { createdBy: 'unmapped@example.test' },
+        },
+    }, { 'other@example.test': 'otherUid' });
+    expect(users.otherUid.movies.known.createdBy).toBe('other@example.test');
+    expect(users['2R6C4xudIrgZGtSQvwBYW4sbfZH2'].movies.unknown.createdBy).toBe('unmapped@example.test');
+    expect(unresolved).toEqual([]);
 });
 
 test('explicit owner decisions recover ownerless records and dependent children', () => {

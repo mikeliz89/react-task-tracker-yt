@@ -15,15 +15,15 @@ The app now reads Realtime Database records from `/users/<Firebase Auth UID>/...
    node scripts/migrate-user-data.js backup.json email-to-uid.json users.json unresolved.json
    ```
 
-   The command exits with code 2 when any record still needs review. Its output has the shape `{ "users": { "<uid>": { ... } } }`.
+   The output has the shape `{ "users": { "<uid>": { ... } } }`. Records whose owner cannot be determined are assigned to the configured fallback account (`miikako89@gmail.com`, UID `2R6C4xudIrgZGtSQvwBYW4sbfZH2`). The command reports how many records used the fallback. It exits with code 2 only for malformed records that could not be migrated.
 
-4. Review each unresolved record against the original backup. For records with no reliable creator, write a private owner override file with section and record ID keys:
+4. Review the fallback count and `unresolved.json` against the original backup. To assign a particular record to a different owner, write a private owner override file with section and record ID keys:
 
    ```json
    { "tasklists": { "old-list-id": "firebase-auth-uid" } }
    ```
 
-   Rerun the command with the override file as the fifth argument. Assigning a parent record also assigns its related child collection. Do not import until the unresolved report is empty or every remaining omission is intentional.
+   Rerun the command with the override file as the fifth argument. Assigning a parent record also assigns its related child collection. Do not import until the unresolved report is empty or every remaining omission is intentional. In particular, an unmapped `createdBy` email also uses the fallback account.
 
 5. Apply `users.json` as an update at the database root using an administrator account:
 

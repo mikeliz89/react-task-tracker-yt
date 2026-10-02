@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+const FALLBACK_OWNER_UID = '2R6C4xudIrgZGtSQvwBYW4sbfZH2';
+
 const USER_KEYED_SECTIONS = new Set(['profiles', 'weighthistory', 'wellbeing-goals', 'housing']);
 const CHILD_SECTIONS = {
     'backpacking-gear-comments': 'backpacking-gear',
@@ -73,6 +75,7 @@ const CHILD_SECTIONS = {
 function migrateDatabase(source, emailToUid, ownerOverrides = {}) {
     const users = {};
     const unresolved = [];
+    let fallbackCount = 0;
     const ownerByRecord = {};
     const normalizedEmails = Object.fromEntries(
         Object.entries(emailToUid).map(([email, uid]) => [email.trim().toLowerCase(), uid])
@@ -99,13 +102,11 @@ function migrateDatabase(source, emailToUid, ownerOverrides = {}) {
                 unresolved.push({ section, id, reason: 'invalid record' });
                 continue;
             }
-            const uid = ownerOverrides[section]?.[id] || (USER_KEYED_SECTIONS.has(section)
+            const inferredUid = ownerOverrides[section]?.[id] || (USER_KEYED_SECTIONS.has(section)
                 ? id
                 : value.ownerUid || value.userId || normalizedEmails[String(value.createdBy || '').trim().toLowerCase()]);
-            if (!uid) {
-                unresolved.push({ section, id, reason: value.createdBy ? 'creator not mapped' : 'missing owner' });
-                continue;
-            }
+            const uid = inferredUid || FALLBACK_OWNER_UID;
+            if (!inferredUid) fallbackCount++;
             put(section, id, value, uid);
         }
     }
@@ -119,9 +120,10 @@ function migrateDatabase(source, emailToUid, ownerOverrides = {}) {
             if (!ownerByRecord[parentSection] && pending.some(([name]) =>
                 name === parentSection || (parentSection === 'task-items' && name === 'tasks'))) continue;
             for (const [id, value] of Object.entries(records || {})) {
-                const uid = ownerByRecord[parentSection]?.[id];
-                if (uid) put(section, id, value, uid);
-                else unresolved.push({ section, id, reason: 'parent owner unknown' });
+                const inferredUid = ownerByRecord[parentSection]?.[id];
+                const uid = inferredUid || FALLBACK_OWNER_UID;
+                if (!inferredUid) fallbackCount++;
+                put(section, id, value, uid);
             }
             pending.splice(index, 1);
             progressed = true;
@@ -130,10 +132,11 @@ function migrateDatabase(source, emailToUid, ownerOverrides = {}) {
     }
     for (const [section, records] of pending) {
         for (const id of Object.keys(records || {})) {
-            unresolved.push({ section, id, reason: 'parent owner unknown' });
+            put(section, id, records[id], FALLBACK_OWNER_UID);
+            fallbackCount++;
         }
     }
-    return { users, unresolved };
+    return { users, unresolved, fallbackCount };
 }
 
 function createImportPayload(result) {
@@ -152,7 +155,7 @@ if (require.main === module) {
         const result = migrateDatabase(input, uidMap, overrides);
         fs.writeFileSync(outputPath, JSON.stringify(createImportPayload(result), null, 2));
         fs.writeFileSync(reportPath, JSON.stringify(result.unresolved, null, 2));
-        console.log(`Prepared ${Object.keys(result.users).length} user namespaces; ${result.unresolved.length} records need owner review.`);
+        console.log(`Prepared ${Object.keys(result.users).length} user namespaces; ${result.fallbackCount} records assigned to the fallback owner; ${result.unresolved.length} invalid records need review.`);
         if (result.unresolved.length) process.exitCode = 2;
     }
 }
