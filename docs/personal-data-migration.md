@@ -4,9 +4,9 @@ Sovellus lukee Realtime Database -tiedot polusta `/users/<Firebase Auth UID>/...
 
 ## 1. Ota varmuuskopio ja tarkista UID-kartta
 
-Vie Firebase Realtime Databasesta tuore JSON-varmuuskopio ja säilytä alkuperäinen palautusta varten. Projektissa on myös vanha esimerkkivienti `lifesaver-production-new-default-rtdb-export (4).json`; korvaa se alla olevassa komennossa tuoreen viennin polulla, kun teet oikean migraation.
+Vie Firebase Realtime Databasesta tuore JSON-varmuuskopio tiedostoon `D:\projects\react-task-tracker-yt\safe\backup.json` ja säilytä alkuperäinen palautusta varten. `safe`-kansio on `.gitignore`ssa, joten sen tiedostoja ei lisätä versionhallintaan.
 
-Migraatio lukee projektin juuressa olevan `email-to-uid.json`-tiedoston. Siinä `createdBy`-sähköposti vastaa Firebase Authenticationin UID:tä. Tiedosto on `.gitignore`ssa.
+Migraatio lukee `safe\email-to-uid.json`-tiedoston. Siinä `createdBy`-sähköposti vastaa Firebase Authenticationin UID:tä. `safe`-kansio on `.gitignore`ssa.
 
 ## 2. Luo `users.json` paikallisesti
 
@@ -15,13 +15,13 @@ Aja PowerShellissä projektin juuresta:
 ```powershell
 cd D:\projects\react-task-tracker-yt
 node .\scripts\migrate-user-data.js `
-  ".\lifesaver-production-new-default-rtdb-export (4).json" `
-  ".\email-to-uid.json" `
-  ".\users.json" `
-  ".\unresolved.json"
+  ".\safe\backup.json" `
+  ".\safe\email-to-uid.json" `
+  ".\safe\users.json" `
+  ".\safe\unresolved.json"
 ```
 
-Tämä komento lukee varmuuskopion ja luo paikalliset `users.json`- ja `unresolved.json`-tiedostot. Se **ei muuta Firebase-tietokantaa**. `users.json` sisältää ylimpänä avaimena `users`:
+Tämä komento lukee varmuuskopion ja luo `safe`-kansioon `users.json`- ja `unresolved.json`-tiedostot. Se **ei muuta Firebase-tietokantaa**. `users.json` sisältää ylimpänä avaimena `users`:
 
 ```json
 { "users": { "<uid>": { "tasklists": {} } } }
@@ -32,26 +32,26 @@ Jos omistajaa ei voi päätellä, skripti käyttää varaomistajaa `miikako89@gm
 ## 3. Tarkista tulos
 
 ```powershell
-Get-Content .\unresolved.json
-Get-Content .\users.json -TotalCount 10
+Get-Content .\safe\unresolved.json
+Get-Content .\safe\users.json -TotalCount 10
 ```
 
 `unresolved.json` on tavallisesti `[]`. Jos siinä on virheellisiä tietueita, skripti palauttaa exit-koodin 2. Tarkista myös varaomistajalle annettujen tietueiden määrä ennen tuontia.
 
-Jos yksittäinen tietue kuuluu toiselle käyttäjälle, luo yksityinen `owner-overrides.json` esimerkiksi näin:
+Jos yksittäinen tietue kuuluu toiselle käyttäjälle, luo `safe\owner-overrides.json` esimerkiksi näin:
 
 ```json
 { "tasklists": { "old-list-id": "firebase-auth-uid" } }
 ```
 
-Aja vaiheen 2 komento uudelleen ja lisää `".\owner-overrides.json"` viimeiseksi eli viidenneksi argumentiksi. Päätietueen omistaja määrää myös siihen liittyvien alitietueiden omistajan.
+Aja vaiheen 2 komento uudelleen ja lisää `".\safe\owner-overrides.json"` viimeiseksi eli viidenneksi argumentiksi. Päätietueen omistaja määrää myös siihen liittyvien alitietueiden omistajan.
 
 ## 4. Tuo tiedot Firebaseen
 
 Kun varmuuskopio ja tulos on tarkistettu, tuo `users.json` tietokannan juureen:
 
 ```powershell
-firebase database:update / .\users.json --project lifesaver-production-new
+firebase database:update / .\safe\users.json --project lifesaver-production-new
 ```
 
 Komento korvaa olemassa olevan `/users`-solmun, mutta säilyttää muut juuritason solmut. Älä käytä `firebase database:set /` -komentoa tähän tiedostoon, sillä se korvaisi koko tietokannan juuren. Varmista tuonnin jälkeen kahdella eri testitunnuksella, että kumpikin näkee vain omat tietonsa.

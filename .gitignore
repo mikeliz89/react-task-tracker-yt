@@ -30,3 +30,4 @@ yarn-error.log*
 /owner-overrides.json
 /users.json
 /unresolved.json
+/safe/
