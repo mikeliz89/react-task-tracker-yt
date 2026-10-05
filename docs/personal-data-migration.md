@@ -1,38 +1,63 @@
-# Personal data migration
+# Käyttäjäkohtaisen datan migraatio
 
-The app now reads Realtime Database records from `/users/<Firebase Auth UID>/...`. The matching database rules deny access to the old shared root collections. Prepare and import user data before deploying the app and rules together.
+Sovellus lukee Realtime Database -tiedot polusta `/users/<Firebase Auth UID>/...`. Vanhoihin juuritason kokoelmiin ei pääse uusilla tietokantasäännöillä. Tee migraatio ja kuvien siirto ennen kuin otat uuden sovelluksen ja säännöt käyttöön.
 
-1. Export a fresh Realtime Database backup. Keep it outside the repository and retain the original as a rollback copy.
-2. Create a private JSON file mapping each `createdBy` email in that export to its Firebase Authentication UID:
+## 1. Ota varmuuskopio ja tarkista UID-kartta
 
-   ```json
-   { "person@example.com": "firebase-auth-uid" }
-   ```
+Vie Firebase Realtime Databasesta tuore JSON-varmuuskopio ja säilytä alkuperäinen palautusta varten. Projektissa on myös vanha esimerkkivienti `lifesaver-production-new-default-rtdb-export (4).json`; korvaa se alla olevassa komennossa tuoreen viennin polulla, kun teet oikean migraation.
 
-3. Prepare a root-level update containing the `users` key and an unresolved-record report:
+Migraatio lukee projektin juuressa olevan `email-to-uid.json`-tiedoston. Siinä `createdBy`-sähköposti vastaa Firebase Authenticationin UID:tä. Tiedosto on `.gitignore`ssa.
 
-   ```sh
-   node scripts/migrate-user-data.js backup.json email-to-uid.json users.json unresolved.json
-   ```
+## 2. Luo `users.json` paikallisesti
 
-   The output has the shape `{ "users": { "<uid>": { ... } } }`. Records whose owner cannot be determined are assigned to the configured fallback account (`miikako89@gmail.com`, UID `2R6C4xudIrgZGtSQvwBYW4sbfZH2`). The command reports how many records used the fallback. It exits with code 2 only for malformed records that could not be migrated.
+Aja PowerShellissä projektin juuresta:
 
-4. Review the fallback count and `unresolved.json` against the original backup. To assign a particular record to a different owner, write a private owner override file with section and record ID keys:
+```powershell
+cd D:\projects\react-task-tracker-yt
+node .\scripts\migrate-user-data.js `
+  ".\lifesaver-production-new-default-rtdb-export (4).json" `
+  ".\email-to-uid.json" `
+  ".\users.json" `
+  ".\unresolved.json"
+```
 
-   ```json
-   { "tasklists": { "old-list-id": "firebase-auth-uid" } }
-   ```
+Tämä komento lukee varmuuskopion ja luo paikalliset `users.json`- ja `unresolved.json`-tiedostot. Se **ei muuta Firebase-tietokantaa**. `users.json` sisältää ylimpänä avaimena `users`:
 
-   Rerun the command with the override file as the fifth argument. Assigning a parent record also assigns its related child collection. Do not import until the unresolved report is empty or every remaining omission is intentional. In particular, an unmapped `createdBy` email also uses the fallback account.
+```json
+{ "users": { "<uid>": { "tasklists": {} } } }
+```
 
-5. Apply `users.json` as an update at the database root using an administrator account:
+Jos omistajaa ei voi päätellä, skripti käyttää varaomistajaa `miikako89@gmail.com` (UID `2R6C4xudIrgZGtSQvwBYW4sbfZH2`). Tämä koskee myös `createdBy`-sähköposteja, joille ei ole UID:tä kartassa. Skripti tulostaa varaomistajalle annettujen tietueiden määrän.
 
-   ```sh
-   firebase database:update / users.json --project lifesaver-production-new
-   ```
+## 3. Tarkista tulos
 
-   This replaces the root `users` child while retaining unrelated root children. Do not use `database:set /` for this file; that would replace the entire database root. Verify two different test accounts can see only their own records. Deploy the new app, Realtime Database rules, and Storage rules as one release. Old root records can be retained in the private backup and removed after verification.
+```powershell
+Get-Content .\unresolved.json
+Get-Content .\users.json -TotalCount 10
+```
 
-Existing Firebase Storage image objects also need to be copied from their old root paths into `/users/<uid>/...` and the image URLs in migrated records updated. The new rules deny SDK access to root objects. Existing Firebase download URLs may remain usable by anyone holding the URL until their download tokens are revoked or the old objects are deleted. Profile avatars use `/users/<uid>/avatar.png` for new uploads.
+`unresolved.json` on tavallisesti `[]`. Jos siinä on virheellisiä tietueita, skripti palauttaa exit-koodin 2. Tarkista myös varaomistajalle annettujen tietueiden määrä ennen tuontia.
 
-Keep the backup, UID map, override file, generated user data, and unresolved report out of source control because they contain personal data.
+Jos yksittäinen tietue kuuluu toiselle käyttäjälle, luo yksityinen `owner-overrides.json` esimerkiksi näin:
+
+```json
+{ "tasklists": { "old-list-id": "firebase-auth-uid" } }
+```
+
+Aja vaiheen 2 komento uudelleen ja lisää `".\owner-overrides.json"` viimeiseksi eli viidenneksi argumentiksi. Päätietueen omistaja määrää myös siihen liittyvien alitietueiden omistajan.
+
+## 4. Tuo tiedot Firebaseen
+
+Kun varmuuskopio ja tulos on tarkistettu, tuo `users.json` tietokannan juureen:
+
+```powershell
+firebase database:update / .\users.json --project lifesaver-production-new
+```
+
+Komento korvaa olemassa olevan `/users`-solmun, mutta säilyttää muut juuritason solmut. Älä käytä `firebase database:set /` -komentoa tähän tiedostoon, sillä se korvaisi koko tietokannan juuren. Varmista tuonnin jälkeen kahdella eri testitunnuksella, että kumpikin näkee vain omat tietonsa.
+
+## Kuvat ja käyttöönotto
+
+Vanhat Firebase Storage -kuvat on siirrettävä vanhoista juuripoluista polkuihin `/users/<uid>/...`, ja migroitujen tietueiden kuvaosoitteet on päivitettävä. Uudet Storage-säännöt estävät SDK:n pääsyn vanhoihin juuripolkuihin. Vanha latausosoite voi silti toimia sen tietävälle henkilölle, kunnes lataustunnus kumotaan tai vanha tiedosto poistetaan. Uudet profiilikuvat tallennetaan polkuun `/users/<uid>/avatar.png`.
+
+Julkaise sovellus, Realtime Database -säännöt ja Storage-säännöt yhdessä vasta migraation ja kuvatarkistuksen jälkeen. Säilytä varmuuskopio, UID-kartta, mahdollinen override-tiedosto ja tuotetut JSON-tiedostot poissa versionhallinnasta, koska ne sisältävät henkilötietoja.
