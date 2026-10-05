@@ -19,7 +19,6 @@ import LinkComponent from '../Links/LinkComponent';
 export default function DetailsPage({
     //loading
     loading,
-    loadingText,
     //title
     title,
     titleSuffix,
@@ -58,7 +57,7 @@ export default function DetailsPage({
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
     if (loading) {
-        return <h3>{loadingText || tCommon('loading')}</h3>;
+        return <h3>{tCommon('loading')}</h3>;
     }
 
     // Luo oletus imageSection, commentSection ja linkSection, jos niitä ei anneta
@@ -229,7 +228,6 @@ export default function DetailsPage({
 
 DetailsPage.propTypes = {
     loading: PropTypes.bool,
-    loadingText: PropTypes.string,
     title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     titleSuffix: PropTypes.node,
     topContent: PropTypes.node,

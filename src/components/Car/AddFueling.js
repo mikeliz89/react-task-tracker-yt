@@ -1,9 +1,8 @@
-import { onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { ButtonGroup, Form, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
-import { db } from "../../firebase-config";
+import { subscribeToFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB } from '../../utils/Constants';
 import { getCurrentDate } from '../../utils/DateTimeUtils';
 import Button from '../Buttons/Button';
@@ -32,17 +31,8 @@ export default function AddFueling({ carId, ID, onClose, onSave, showLabels = tr
 
     //loadData
     useEffect(() => {
-        if (ID != null && carId) {
-            const getFueling = async () => {
-                await fetchFuelingFromFirebase(ID);
-            }
-            getFueling();
-        }
-    }, [ID, carId]);
-
-    const fetchFuelingFromFirebase = async (ID) => {
-        const dbref = ref(db, `${DB.CAR_FUELING}/${carId}/${ID}`);
-        onValue(dbref, (snapshot) => {
+        if (ID == null || !carId) return;
+        const unsubscribe = subscribeToFirebaseById(`${DB.CAR_FUELING}/${carId}`, ID, (snapshot) => {
             if (snapshot.exists()) {
                 var val = snapshot.val();
                 setCreated(val["created"]);
@@ -56,7 +46,8 @@ export default function AddFueling({ carId, ID, onClose, onSave, showLabels = tr
                 setFuelingDate(val["fuelingDate"] || getCurrentDate());
             }
         });
-    }
+        return unsubscribe;
+    }, [ID, carId]);
 
     async function onSubmit(e) {
         e.preventDefault();

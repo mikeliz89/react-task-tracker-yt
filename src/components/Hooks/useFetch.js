@@ -2,9 +2,13 @@ import { ref, onValue } from 'firebase/database';
 import { useEffect, useState } from "react";
 
 import { db } from '../../firebase-config';
+import { useAuth } from '../../contexts/AuthContext';
+import { userDatabasePath } from '../../datatier/userDatabasePaths';
 import { LIST_TYPES } from '../../utils/Constants';
 
 const useFetch = (url, listType, objectID, subObjectID) => {
+    const { currentUser } = useAuth();
+    const uid = currentUser?.uid;
 
     //states
     const [loading, setLoading] = useState(true);
@@ -13,6 +17,15 @@ const useFetch = (url, listType, objectID, subObjectID) => {
     const [originalData, setOriginalData] = useState({});
 
     useEffect(() => {
+        if (!uid) {
+            setData(null);
+            setOriginalData(null);
+            setCounter(0);
+            setLoading(false);
+            return;
+        }
+
+        setLoading(true);
         var fullUrl = url;
         var onlyObjectIdGiven = objectID != null && subObjectID == null;
         var objectIdAndSubIdGive = objectID != null && subObjectID != null;
@@ -22,7 +35,7 @@ const useFetch = (url, listType, objectID, subObjectID) => {
             fullUrl = `${url}/${objectID}/${subObjectID}`;
         }
 
-        const dbref = ref(db, fullUrl);
+        const dbref = ref(db, userDatabasePath(fullUrl, uid));
         const unsubscribe = onValue(dbref, (snapshot) => {
             const snap = snapshot.val();
             const fromDB = [];
@@ -68,7 +81,7 @@ const useFetch = (url, listType, objectID, subObjectID) => {
         return () => {
             unsubscribe();
         };
-    }, [url, listType, objectID, subObjectID])
+    }, [url, listType, objectID, subObjectID, uid])
 
     return { data, setData, originalData, counter, loading };
 }

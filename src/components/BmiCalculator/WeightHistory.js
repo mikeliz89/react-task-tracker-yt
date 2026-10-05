@@ -35,7 +35,6 @@ export default function WeightHistory() {
     return (
         <ManagePage
             loading={loading}
-            loadingText={tCommon("loading")}
             title={t('weighthistory')}
             iconName={ICONS.WEIGHT}
             iconColor={COLORS.GRAY}

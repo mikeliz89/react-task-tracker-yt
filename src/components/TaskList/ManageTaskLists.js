@@ -28,7 +28,6 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
 
   //translation
   const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
-  const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
 
   //fetch data
   const { data: taskLists, setData: setTaskLists,
@@ -86,7 +85,6 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
   return (
     <ManagePage
       loading={loading}
-      loadingText={tCommon("loading")}
       title={getPageTitle(listType)}
       listType={listType}
       iconName={ICONS.LIST_ALT}

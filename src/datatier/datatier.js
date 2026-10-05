@@ -1,50 +1,54 @@
 import { update, ref, push, child, remove, get, onValue } from 'firebase/database';
 
 import { db } from '../firebase-config';
+import { auth } from '../firebase-config';
+import { userDatabasePath, userDatabaseUpdates } from './userDatabasePaths';
+
+const userRef = (path) => ref(db, userDatabasePath(path, auth.currentUser?.uid));
 
 export const removeFromFirebaseById = async (path, id) => {
-    const dbref = ref(db, `${path}/${id}`);
+    const dbref = userRef(`${path}/${id}`);
     remove(dbref)
 }
 
 export const removeFromFirebaseByIdAndSubId = async (path, mainID, subID) => {
-    const dbref = ref(db, `${path}/${mainID}/${subID}`);
+    const dbref = userRef(`${path}/${mainID}/${subID}`);
     remove(dbref);
 }
 
 export const removeFromFirebaseChild = async (path, id) => {
-    const dbref = child(ref(db, path), id);
+    const dbref = child(userRef(path), id);
     remove(dbref);
 }
 
 export const pushToFirebase = async (path, object) => {
-    const dbref = ref(db, path);
+    const dbref = userRef(path);
     fixObject(object);
     return push(dbref, object).key;
 }
 
 export const pushToFirebaseById = async (path, id, object) => {
-    const dbref = ref(db, `${path}/${id}`);
+    const dbref = userRef(`${path}/${id}`);
     fixObject(object);
     return push(dbref, object).key;
 }
 
 export const pushToFirebaseChild = async (path, id, object) => {
-    const dbref = child(ref(db, path), id);
+    const dbref = child(userRef(path), id);
     fixObject(object);
     return push(dbref, object).key;
 }
 
 export const updateToFirebase = async (object) => {
     fixObject(object);
-    update(ref(db), object);
+    return update(ref(db), userDatabaseUpdates(object, auth.currentUser?.uid));
 }
 
 export const updateToFirebaseById = async (path, id, object) => {
     const updates = {};
     fixObject(object);
     updates[`${path}/${id}`] = object;
-    update(ref(db), updates);
+    return update(ref(db), userDatabaseUpdates(updates, auth.currentUser?.uid));
 }
 
 const fixObject = (obj) => {
@@ -59,11 +63,11 @@ export const updateToFirebaseByIdAndSubId = async (path, mainID, subID, object) 
     const updates = {};
     fixObject(object);
     updates[`${path}/${mainID}/${subID}`] = object;
-    update(ref(db), updates);
+    return update(ref(db), userDatabaseUpdates(updates, auth.currentUser?.uid));
 }
 
 export const getFromFirebaseById = async (path, id) => {
-    const dbref = ref(db, `${path}/${id}`);
+    const dbref = userRef(`${path}/${id}`);
     return new Promise(function (resolve, reject) {
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
@@ -76,7 +80,7 @@ export const getFromFirebaseById = async (path, id) => {
 }
 
 export const getFromFirebaseByIdAndSubId = async (path, mainID, subID) => {
-    const dbref = ref(db, `${path}/${mainID}/${subID}`);
+    const dbref = userRef(`${path}/${mainID}/${subID}`);
     return new Promise(function (resolve, reject) {
         get(dbref).then((snapshot) => {
             if (snapshot.exists()) {
@@ -89,7 +93,7 @@ export const getFromFirebaseByIdAndSubId = async (path, mainID, subID) => {
 }
 
 export const getFromFirebaseChildAsArray = async (path, id) => {
-    const dbref = child(ref(db, path), id);
+    const dbref = child(userRef(path), id);
     const snapshot = await get(dbref);
 
     if (!snapshot.exists()) {
@@ -100,7 +104,7 @@ export const getFromFirebaseChildAsArray = async (path, id) => {
 }
 
 export const getFromFirebaseAsArray = async (path) => {
-    const dbref = ref(db, path);
+    const dbref = userRef(path);
     const snapshot = await get(dbref);
 
     if (!snapshot.exists()) {
@@ -111,7 +115,7 @@ export const getFromFirebaseAsArray = async (path) => {
 }
 
 export const createFirebaseChildKey = (path, id) => {
-    return push(child(ref(db, path), id)).key;
+    return push(child(userRef(path), id)).key;
 }
 
 const mapSnapshotToArray = (snapshot) => {
@@ -128,28 +132,28 @@ const mapSnapshotToArray = (snapshot) => {
 }
 
 export const subscribeToFirebaseChildAsArray = (path, id, onData) => {
-    const dbref = child(ref(db, path), id);
+    const dbref = child(userRef(path), id);
     return onValue(dbref, (snapshot) => {
         onData(mapSnapshotToArray(snapshot));
     });
 }
 
 export const subscribeToFirebaseAsArray = (path, onData) => {
-    const dbref = ref(db, path);
+    const dbref = userRef(path);
     return onValue(dbref, (snapshot) => {
         onData(mapSnapshotToArray(snapshot));
     });
 }
 
 export const subscribeToFirebaseByIdAsArray = (path, id, onData) => {
-    const dbref = ref(db, `${path}/${id}`);
+    const dbref = userRef(`${path}/${id}`);
     return onValue(dbref, (snapshot) => {
         onData(mapSnapshotToArray(snapshot));
     });
 }
 
 export const subscribeToFirebaseById = (path, id, onData) => {
-    const dbref = ref(db, `${path}/${id}`);
+    const dbref = userRef(`${path}/${id}`);
     return onValue(dbref, onData);
 }
 

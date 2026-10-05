@@ -1,0 +1,81 @@
+# Käyttäjäkohtaisen datan migraatio
+
+Sovellus lukee Realtime Database -tiedot polusta `/users/<Firebase Auth UID>/...`. Vanhoihin juuritason kokoelmiin ei pääse uusilla tietokantasäännöillä. Tee migraatio ja kuvien siirto ennen kuin otat uuden sovelluksen ja säännöt käyttöön.
+
+## 1. Ota varmuuskopio ja tarkista UID-kartta
+
+Vie Firebase Realtime Databasesta tuore JSON-varmuuskopio tiedostoon `D:\projects\react-task-tracker-yt\safe\backup.json` ja säilytä alkuperäinen palautusta varten. `safe`-kansio on `.gitignore`ssa, joten sen tiedostoja ei lisätä versionhallintaan.
+
+Migraatio lukee `safe\email-to-uid.json`-tiedoston. Siinä `createdBy`-sähköposti vastaa Firebase Authenticationin UID:tä. `safe`-kansio on `.gitignore`ssa.
+
+## 2. Luo `users.json` paikallisesti
+
+Aja PowerShellissä projektin juuresta:
+
+```powershell
+cd D:\projects\react-task-tracker-yt
+.\Migrate-TaskTracker.bat
+```
+
+Erätiedosto käyttää `safe\backup.json`- ja `safe\email-to-uid.json`-tiedostoja sekä luo `safe\users.json`- ja `safe\unresolved.json`-tiedostot. Jos `safe\owner-overrides.json` on olemassa, se otetaan mukaan automaattisesti. Sama komento ilman erätiedostoa on:
+
+```powershell
+node .\scripts\migrate-user-data.js `
+  ".\safe\backup.json" `
+  ".\safe\email-to-uid.json" `
+  ".\safe\users.json" `
+  ".\safe\unresolved.json"
+```
+
+Tämä komento lukee varmuuskopion ja luo `safe`-kansioon `users.json`- ja `unresolved.json`-tiedostot. Se **ei muuta Firebase-tietokantaa**. `users.json` sisältää ylimpänä avaimena `users`:
+
+```json
+{ "users": { "<uid>": { "tasklists": {} } } }
+```
+
+Jos omistajaa ei voi päätellä, skripti käyttää varaomistajaa `miikako89@gmail.com` (UID `2R6C4xudIrgZGtSQvwBYW4sbfZH2`). Tämä koskee myös `createdBy`-sähköposteja, joille ei ole UID:tä kartassa. Skripti tulostaa varaomistajalle annettujen tietueiden määrän.
+
+## 3. Tarkista tulos
+
+```powershell
+Get-Content .\safe\unresolved.json
+Get-Content .\safe\users.json -TotalCount 10
+```
+
+`unresolved.json` on tavallisesti `[]`. Jos siinä on virheellisiä tietueita, skripti palauttaa exit-koodin 2. Tarkista myös varaomistajalle annettujen tietueiden määrä ennen tuontia.
+
+Jos yksittäinen tietue kuuluu toiselle käyttäjälle, luo `safe\owner-overrides.json` esimerkiksi näin:
+
+```json
+{ "tasklists": { "old-list-id": "firebase-auth-uid" } }
+```
+
+Aja `Migrate-TaskTracker.bat` uudelleen; se löytää override-tiedoston automaattisesti. Jos käytät suoraa `node`-komentoa, lisää `".\safe\owner-overrides.json"` viimeiseksi eli viidenneksi argumentiksi. Päätietueen omistaja määrää myös siihen liittyvien alitietueiden omistajan.
+
+## 4. Korvaa vanha juuritason data Firebasessa
+
+Ota vielä varmuuskopio tämänhetkisestä live-tietokannasta, sillä aiemmin ajettu `database:update` jätti vanhat kokoelmat `/users`-solmun rinnalle:
+
+```powershell
+firebase database:get / --output .\safe\live-before-replace.json --project lifesaver-production-new
+```
+
+Kun varmuuskopio ja `safe\users.json` on tarkistettu, korvaa tietokannan juuri:
+
+```powershell
+firebase database:set / .\safe\users.json --project lifesaver-production-new
+```
+
+`database:update /` vain yhdistää ylimmät avaimet ja jättää vanhat kokoelmat paikoilleen. `database:set /` korvaa koko juuren `safe\users.json`-tiedoston sisällöllä: vanhat juurikokoelmat poistuvat ja jäljelle jää `users`. Komento poistaa myös mahdollisen muun juuritason datan, joten varmista, että `users.json` sisältää kaiken säilytettävän datan. Tarkista lopuksi juuritason avaimet:
+
+```powershell
+firebase database:get / --shallow --project lifesaver-production-new
+```
+
+Tuloksen pitäisi sisältää vain `users`. Varmista lisäksi kahdella eri testitunnuksella, että kumpikin näkee vain omat tietonsa. [Firebase-dokumentaatio](https://firebase.google.com/docs/database/web/read-and-write) kuvaa `set`- ja `update`-toimintojen eron.
+
+## Kuvat ja käyttöönotto
+
+Vanhat Firebase Storage -kuvat on siirrettävä vanhoista juuripoluista polkuihin `/users/<uid>/...`, ja migroitujen tietueiden kuvaosoitteet on päivitettävä. Uudet Storage-säännöt estävät SDK:n pääsyn vanhoihin juuripolkuihin. Vanha latausosoite voi silti toimia sen tietävälle henkilölle, kunnes lataustunnus kumotaan tai vanha tiedosto poistetaan. Uudet profiilikuvat tallennetaan polkuun `/users/<uid>/avatar.png`.
+
+Julkaise sovellus, Realtime Database -säännöt ja Storage-säännöt yhdessä vasta migraation ja kuvatarkistuksen jälkeen. Säilytä varmuuskopio, UID-kartta, mahdollinen override-tiedosto ja tuotetut JSON-tiedostot poissa versionhallinnasta, koska ne sisältävät henkilötietoja.

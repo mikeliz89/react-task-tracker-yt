@@ -18,7 +18,6 @@ import CopyToClipboardButton from '../Buttons/CopyToClipboardButton';
 export default function ManagePage({
     //loading
     loading,
-    loadingText,
     title,
     listType,
     //icon
@@ -98,7 +97,7 @@ export default function ManagePage({
     }, [listViewStorageKey, listView]);
 
     if (loading) {
-        return <h3>{loadingText}</h3>;
+        return <h3>{tCommon('loading')}</h3>;
     }
 
     return (
@@ -217,7 +216,6 @@ export default function ManagePage({
 
 ManagePage.propTypes = {
     loading: PropTypes.bool,
-    loadingText: PropTypes.string,
     title: PropTypes.node,
     listType: PropTypes.number,
     iconName: PropTypes.string,

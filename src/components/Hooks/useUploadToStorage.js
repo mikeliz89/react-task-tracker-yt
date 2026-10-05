@@ -4,10 +4,14 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { useState, useEffect } from "react";
 
 import { pushToFirebaseById } from "../../datatier/datatier";
+import { userStoragePath } from '../../datatier/userDatabasePaths';
+import { useAuth } from '../../contexts/AuthContext';
 import { storage } from "../../firebase-config";
 import { getCurrentDateAsJson } from "../../utils/DateTimeUtils";
 
 const useUploadToStorage = (file, imagesUrl, objectID) => {
+    const { currentUser } = useAuth();
+    const uid = currentUser?.uid;
 
     const [progress, setProgress] = useState(0);
 
@@ -16,6 +20,7 @@ const [error, setError] = useState(0);
 
     //do everytime file changes
     useEffect(() => {
+        if (!file || !uid) return;
         const createUniqueFileName = (oldFileName) => {
             const filename = oldFileName;
             var extension = filename.split('.').pop();
@@ -28,7 +33,7 @@ const [error, setError] = useState(0);
 
         const newFileName = createUniqueFileName(file.name);
 
-        const storageRef = ref(storage, newFileName);
+        const storageRef = ref(storage, userStoragePath(newFileName, uid));
 
         //async
         const uploadTask = uploadBytesResumable(storageRef, file);
@@ -43,7 +48,7 @@ const [error, setError] = useState(0);
             setUrl(url);
             pushToFirebaseById(imagesUrl, objectID, { url: url, created: getCurrentDateAsJson() });
         })
-    }, [file, imagesUrl, objectID]);
+    }, [file, imagesUrl, objectID, uid]);
 
     function uuidv4() {
         return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
