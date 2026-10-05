@@ -14,6 +14,12 @@ Aja PowerShellissä projektin juuresta:
 
 ```powershell
 cd D:\projects\react-task-tracker-yt
+.\Migrate-TaskTracker.bat
+```
+
+Erätiedosto käyttää `safe\backup.json`- ja `safe\email-to-uid.json`-tiedostoja sekä luo `safe\users.json`- ja `safe\unresolved.json`-tiedostot. Jos `safe\owner-overrides.json` on olemassa, se otetaan mukaan automaattisesti. Sama komento ilman erätiedostoa on:
+
+```powershell
 node .\scripts\migrate-user-data.js `
   ".\safe\backup.json" `
   ".\safe\email-to-uid.json" `
@@ -44,17 +50,29 @@ Jos yksittäinen tietue kuuluu toiselle käyttäjälle, luo `safe\owner-override
 { "tasklists": { "old-list-id": "firebase-auth-uid" } }
 ```
 
-Aja vaiheen 2 komento uudelleen ja lisää `".\safe\owner-overrides.json"` viimeiseksi eli viidenneksi argumentiksi. Päätietueen omistaja määrää myös siihen liittyvien alitietueiden omistajan.
+Aja `Migrate-TaskTracker.bat` uudelleen; se löytää override-tiedoston automaattisesti. Jos käytät suoraa `node`-komentoa, lisää `".\safe\owner-overrides.json"` viimeiseksi eli viidenneksi argumentiksi. Päätietueen omistaja määrää myös siihen liittyvien alitietueiden omistajan.
 
-## 4. Tuo tiedot Firebaseen
+## 4. Korvaa vanha juuritason data Firebasessa
 
-Kun varmuuskopio ja tulos on tarkistettu, tuo `users.json` tietokannan juureen:
+Ota vielä varmuuskopio tämänhetkisestä live-tietokannasta, sillä aiemmin ajettu `database:update` jätti vanhat kokoelmat `/users`-solmun rinnalle:
 
 ```powershell
-firebase database:update / .\safe\users.json --project lifesaver-production-new
+firebase database:get / --output .\safe\live-before-replace.json --project lifesaver-production-new
 ```
 
-Komento korvaa olemassa olevan `/users`-solmun, mutta säilyttää muut juuritason solmut. Älä käytä `firebase database:set /` -komentoa tähän tiedostoon, sillä se korvaisi koko tietokannan juuren. Varmista tuonnin jälkeen kahdella eri testitunnuksella, että kumpikin näkee vain omat tietonsa.
+Kun varmuuskopio ja `safe\users.json` on tarkistettu, korvaa tietokannan juuri:
+
+```powershell
+firebase database:set / .\safe\users.json --project lifesaver-production-new
+```
+
+`database:update /` vain yhdistää ylimmät avaimet ja jättää vanhat kokoelmat paikoilleen. `database:set /` korvaa koko juuren `safe\users.json`-tiedoston sisällöllä: vanhat juurikokoelmat poistuvat ja jäljelle jää `users`. Komento poistaa myös mahdollisen muun juuritason datan, joten varmista, että `users.json` sisältää kaiken säilytettävän datan. Tarkista lopuksi juuritason avaimet:
+
+```powershell
+firebase database:get / --shallow --project lifesaver-production-new
+```
+
+Tuloksen pitäisi sisältää vain `users`. Varmista lisäksi kahdella eri testitunnuksella, että kumpikin näkee vain omat tietonsa. [Firebase-dokumentaatio](https://firebase.google.com/docs/database/web/read-and-write) kuvaa `set`- ja `update`-toimintojen eron.
 
 ## Kuvat ja käyttöönotto
 
