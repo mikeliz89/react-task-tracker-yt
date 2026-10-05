@@ -13,8 +13,6 @@ export default function ManageTaskListsArchive() {
   //translation
   const { t } = useTranslation(TRANSLATION.TASKLIST, { keyPrefix: TRANSLATION.TASKLIST });
 
-const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
-
   const location = useLocation();
 
   //fetch data
@@ -32,7 +30,6 @@ const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATI
   return (
     <ManagePage
       loading={loading}
-      loadingText={tCommon("loading")}
       title={t('manage_tasklists_archive_title')}
       searchSortFilter={{
         onSet: setTaskLists,

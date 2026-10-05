@@ -86,7 +86,6 @@ export default function ManageTaskLists({ listType = ListTypes.None }) {
   return (
     <ManagePage
       loading={loading}
-      loadingText={tCommon("loading")}
       title={getPageTitle(listType)}
       listType={listType}
       iconName={ICONS.LIST_ALT}
