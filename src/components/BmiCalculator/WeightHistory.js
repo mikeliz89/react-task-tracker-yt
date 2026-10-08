@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { removeFromFirebaseByIdAndSubId } from '../../datatier/datatier';
+import { removeFromFirebaseById } from '../../datatier/datatier';
 import { TRANSLATION, DB, ICONS, COLORS, LIST_TYPES } from '../../utils/Constants';
 import { getJsonAsDateTimeString } from '../../utils/DateTimeUtils';
 import DeleteButton from '../Buttons/DeleteButton';
@@ -26,10 +26,10 @@ export default function WeightHistory() {
     //fetch data
     const { data: historyRows, setData: setHistoryRows,
         originalData: originalHistoryRows,
-        counter, loading } = useFetch(DB.WEIGHT_HISTORY, LIST_TYPES.COMMON, currentUser.uid);
+        counter, loading } = useFetch(DB.WEIGHT_HISTORY, LIST_TYPES.COMMON);
 
     const deleteHistoryRow = async (id) => {
-        removeFromFirebaseByIdAndSubId(DB.WEIGHT_HISTORY, currentUser.uid, id);
+        removeFromFirebaseById(DB.WEIGHT_HISTORY, id);
     }
 
     return (

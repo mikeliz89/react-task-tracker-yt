@@ -145,6 +145,11 @@ export const subscribeToFirebaseAsArray = (path, onData) => {
     });
 }
 
+export const subscribeToFirebase = (path, onData) => {
+    const dbref = userRef(path);
+    return onValue(dbref, onData);
+}
+
 export const subscribeToFirebaseByIdAsArray = (path, id, onData) => {
     const dbref = userRef(`${path}/${id}`);
     return onValue(dbref, (snapshot) => {
