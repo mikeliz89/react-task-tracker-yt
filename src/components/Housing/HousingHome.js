@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { subscribeToFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import { subscribeToFirebase, updateToFirebase } from '../../datatier/datatier';
 import { DB, TRANSLATION } from '../../utils/Constants';
 import Alert from '../Alert';
 import Button from '../Buttons/Button';
@@ -57,7 +57,7 @@ export default function HousingHome() {
             return;
         }
 
-        const unsubscribe = subscribeToFirebaseById(DB.HOUSING, currentUser.uid, (snapshot) => {
+        const unsubscribe = subscribeToFirebase(DB.HOUSING, (snapshot) => {
             const data = snapshot.val();
 
             if (!data) {
@@ -104,12 +104,14 @@ export default function HousingHome() {
         }
 
         try {
-            await updateToFirebaseById(DB.HOUSING, currentUser.uid, {
-                name: trimmedName,
-                address: trimmedAddress,
-                area: areaNumber,
-                housingType,
-                constructionYear: yearNumber
+            await updateToFirebase({
+                [DB.HOUSING]: {
+                    name: trimmedName,
+                    address: trimmedAddress,
+                    area: areaNumber,
+                    housingType,
+                    constructionYear: yearNumber
+                }
             });
             showSuccess(tCommon('save_success'));
         } catch {

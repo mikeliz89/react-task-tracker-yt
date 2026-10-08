@@ -10,10 +10,10 @@ import PageTitle from '../Site/PageTitle';
 
 import { useAuth } from '../../contexts/AuthContext';
 import {
-    pushToFirebaseById,
-    removeFromFirebaseByIdAndSubId,
-    subscribeToFirebaseByIdAsArray,
-    updateToFirebaseByIdAndSubId
+    pushToFirebase,
+    removeFromFirebaseById,
+    subscribeToFirebaseAsArray,
+    updateToFirebaseById
 } from '../../datatier/datatier';
 import { useAlert } from '../Hooks/useAlert';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
@@ -258,7 +258,7 @@ export default function ManageWellbeingGoals() {
             return;
         }
 
-        const unsubscribe = subscribeToFirebaseByIdAsArray(DB.WELLBEING_GOALS, currentUser.uid, (items) => {
+        const unsubscribe = subscribeToFirebaseAsArray(DB.WELLBEING_GOALS, (items) => {
             const sortedItems = [...items].sort((a, b) => {
                 const aCreated = a.created ?? '';
                 const bCreated = b.created ?? '';
@@ -288,7 +288,7 @@ export default function ManageWellbeingGoals() {
         }
 
         try {
-            await pushToFirebaseById(DB.WELLBEING_GOALS, currentUser.uid, {
+            await pushToFirebase(DB.WELLBEING_GOALS, {
                 name: trimmedName,
                 frequency,
                 startDate: getDateKey(new Date()),
@@ -312,7 +312,7 @@ export default function ManageWellbeingGoals() {
         }
 
         try {
-            await removeFromFirebaseByIdAndSubId(DB.WELLBEING_GOALS, currentUser.uid, goalId);
+            await removeFromFirebaseById(DB.WELLBEING_GOALS, goalId);
             showSuccess(t('delete_success'));
         } catch (ex) {
             showFailure(t('delete_failed'));
@@ -355,8 +355,8 @@ export default function ManageWellbeingGoals() {
 
         try {
             await Promise.all([
-                updateToFirebaseByIdAndSubId(DB.WELLBEING_GOALS, currentUser.uid, currentGoal.id, currentGoalPayload),
-                updateToFirebaseByIdAndSubId(DB.WELLBEING_GOALS, currentUser.uid, targetGoal.id, targetGoalPayload)
+                updateToFirebaseById(DB.WELLBEING_GOALS, currentGoal.id, currentGoalPayload),
+                updateToFirebaseById(DB.WELLBEING_GOALS, targetGoal.id, targetGoalPayload)
             ]);
         } catch (ex) {
             showFailure(tCommon('save_exception'));
@@ -395,7 +395,7 @@ export default function ManageWellbeingGoals() {
         delete updatedGoal.id;
 
         try {
-            await updateToFirebaseByIdAndSubId(DB.WELLBEING_GOALS, currentUser.uid, goal.id, updatedGoal);
+            await updateToFirebaseById(DB.WELLBEING_GOALS, goal.id, updatedGoal);
             cancelEditingGoalName();
             showSuccess(tCommon('save_success'));
         } catch (ex) {
@@ -423,7 +423,7 @@ export default function ManageWellbeingGoals() {
         delete updatedGoal.id;
 
         try {
-            await updateToFirebaseByIdAndSubId(DB.WELLBEING_GOALS, currentUser.uid, goal.id, updatedGoal);
+            await updateToFirebaseById(DB.WELLBEING_GOALS, goal.id, updatedGoal);
         } catch (ex) {
             showFailure(tCommon('save_exception'));
             console.warn(ex);
@@ -457,7 +457,7 @@ export default function ManageWellbeingGoals() {
         delete updatedGoal.id;
 
         try {
-            await updateToFirebaseByIdAndSubId(DB.WELLBEING_GOALS, currentUser.uid, goal.id, updatedGoal);
+            await updateToFirebaseById(DB.WELLBEING_GOALS, goal.id, updatedGoal);
             showSuccess(newCount > 0 ? t('today_marked_success') : t('today_cleared_success'));
         } catch (ex) {
             showFailure(tCommon('save_exception'));

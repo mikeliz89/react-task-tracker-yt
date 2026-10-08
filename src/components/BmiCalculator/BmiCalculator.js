@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { useProfileSettings } from '../../contexts/ProfileSettingsContext';
-import { pushToFirebaseById } from '../../datatier/datatier';
+import { pushToFirebase } from '../../datatier/datatier';
 import { TRANSLATION, DB, ICONS, COLORS, NAVIGATION, VARIANTS } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import Alert from '../Alert';
@@ -87,7 +87,7 @@ export default function BmiCalculator() {
 
     const saveWeightToFirebase = async (weight, bmi) => {
         let currentDateTime = getCurrentDateAsJson();
-        pushToFirebaseById(DB.WEIGHT_HISTORY, currentUser.uid, { weight, currentDateTime, bmi });
+        pushToFirebase(DB.WEIGHT_HISTORY, { weight, currentDateTime, bmi });
     }
 
     return (
