@@ -5,10 +5,10 @@ import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { subscribeToFirebaseById, updateToFirebaseById } from '../../datatier/datatier';
+import { useProfileSettings } from '../../contexts/ProfileSettingsContext';
 import { uploadProfilePic } from '../../firebase-config';
 import { ICONS } from '../../utils/Constants';
-import { TRANSLATION, DB } from '../../utils/Constants';
+import { TRANSLATION } from '../../utils/Constants';
 import { getCurrentDateAsJson } from '../../utils/DateTimeUtils';
 import Alert from '../Alert';
 import Logout from '../Auth/Logout';
@@ -34,10 +34,16 @@ export default function ManageMyProfile() {
 
     //user
     const { currentUser } = useAuth();
+    const {
+        name: profileName,
+        height: profileHeight,
+        disableScrollToTopAnimation: profileDisableScrollToTopAnimation,
+        saveProfile,
+    } = useProfileSettings() || {};
 
     //states
     const [name, setName] = useState('');
-    const [height, setHeight] = useState(0);
+    const [height, setHeight] = useState('');
     const [disableScrollToTopAnimation, setDisableScrollToTopAnimation] = useState(false);
     const [photoUrl, setPhotoUrl] = useState(defaultPhotoUrl);
     const [photo, setPhoto] = useState(null);
@@ -55,25 +61,12 @@ export default function ManageMyProfile() {
         showFailure
     } = useAlert();
 
-    //load data
+    //Keep editable fields in sync with the shared profile loaded by the provider.
     useEffect(() => {
-        if (!currentUser?.uid) {
-            return;
-        }
-
-        const unsubscribe = subscribeToFirebaseById(DB.PROFILES, currentUser.uid, (snapshot) => {
-            const data = snapshot.val();
-            if (data != null) {
-                setName(data["name"]);
-                setHeight(data["height"]);
-                setDisableScrollToTopAnimation(data["disableScrollToTopAnimation"] === true || data["disableScrollToTopAnimation"] === 'true');
-            }
-        });
-
-        return () => {
-            unsubscribe();
-        };
-    }, [currentUser?.uid]);
+        setName(profileName ?? '');
+        setHeight(profileHeight ?? '');
+        setDisableScrollToTopAnimation(profileDisableScrollToTopAnimation ?? false);
+    }, [profileName, profileHeight, profileDisableScrollToTopAnimation]);
 
     useEffect(() => {
         if (currentUser && currentUser.photoURL) {
@@ -81,8 +74,9 @@ export default function ManageMyProfile() {
         }
     }, [currentUser]);
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
+        clearMessages();
 
         //validation
         if (Number(height) > 220) {
@@ -90,15 +84,14 @@ export default function ManageMyProfile() {
             return;
         }
 
-        saveProfileToFirebase();
-
-        showSuccess(t('saving_done'));
-    }
-
-    const saveProfileToFirebase = async () => {
         let data = { name, height, disableScrollToTopAnimation };
         data["modified"] = getCurrentDateAsJson();
-        updateToFirebaseById(DB.PROFILES, currentUser.uid, data);
+        try {
+            await saveProfile(data);
+            showSuccess(t('saving_done'));
+        } catch (error) {
+            showFailure(t('saving_failed'));
+        }
     }
 
     const handleChange = (e) => {
@@ -196,7 +189,7 @@ export default function ManageMyProfile() {
                                     <Form.Control
                                         type='number'
                                         placeholder={t('height')}
-                                        value={height}
+                                        value={height ?? ''}
                                         onChange={(e) => setHeight(e.target.value)}
                                     />
                                 </Form.Group>

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-import { subscribeToFirebaseById } from '../datatier/datatier';
+import { subscribeToFirebaseById, updateToFirebaseById } from '../datatier/datatier';
 import { DB } from '../utils/Constants';
 import { useAuth } from './AuthContext';
 
@@ -31,20 +31,25 @@ export const useProfileSettings = () => {
 
 export const ProfileSettingsProvider = ({ children }) => {
     const { currentUser } = useAuth();
-    const [disableScrollToTopAnimation, setDisableScrollToTopAnimation] = useState(null);
-    const [height, setHeight] = useState(null);
+    const [profile, setProfile] = useState({ name: null, height: null, disableScrollToTopAnimation: null });
+    const [profileUserId, setProfileUserId] = useState(null);
 
     useEffect(() => {
+        setProfile({ name: null, height: null, disableScrollToTopAnimation: null });
+        setProfileUserId(null);
+
         if (!currentUser?.uid) {
-            setDisableScrollToTopAnimation(null);
-            setHeight(null);
             return;
         }
 
         const unsubscribe = subscribeToFirebaseById(DB.PROFILES, currentUser.uid, (snapshot) => {
             const data = snapshot.val();
-            setDisableScrollToTopAnimation(parseBoolean(data?.disableScrollToTopAnimation));
-            setHeight(data?.height ?? null);
+            setProfile({
+                name: data?.name ?? null,
+                height: data?.height ?? null,
+                disableScrollToTopAnimation: parseBoolean(data?.disableScrollToTopAnimation),
+            });
+            setProfileUserId(currentUser.uid);
         });
 
         return () => {
@@ -52,10 +57,25 @@ export const ProfileSettingsProvider = ({ children }) => {
         };
     }, [currentUser?.uid]);
 
+    const saveProfile = useCallback(async (nextProfile) => {
+        const uid = currentUser?.uid;
+        if (!uid) {
+            return;
+        }
+
+        await updateToFirebaseById(DB.PROFILES, uid, nextProfile);
+        setProfile({
+            name: nextProfile.name ?? null,
+            height: nextProfile.height ?? null,
+            disableScrollToTopAnimation: parseBoolean(nextProfile.disableScrollToTopAnimation),
+        });
+        setProfileUserId(uid);
+    }, [currentUser?.uid]);
+
     const value = useMemo(() => ({
-        disableScrollToTopAnimation,
-        height,
-    }), [disableScrollToTopAnimation, height]);
+        ...(profileUserId === currentUser?.uid ? profile : { name: null, height: null, disableScrollToTopAnimation: null }),
+        saveProfile,
+    }), [profile, profileUserId, currentUser?.uid, saveProfile]);
 
     return (
         <ProfileSettingsContext.Provider value={value}>
