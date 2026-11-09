@@ -2,7 +2,7 @@
 
 ## Intent
 
-Add a round plus button to the dashboard. Clicking it reveals a list of quick actions below it. The first action, **Syötä tämänhetkinen paino**, lets a signed-in user record weight directly from the dashboard, without navigating to the wellbeing tab or BMI calculator page.
+Add a round plus button beside the notifications button in the app header, visible on the dashboard. Clicking it reveals an overlay list below it. The first action, **Syötä tämänhetkinen paino**, lets a signed-in user record weight directly from the dashboard, without navigating to the wellbeing tab or BMI calculator page.
 
 ## Approaches
 
@@ -11,7 +11,7 @@ Add a round plus button to the dashboard. Clicking it reveals a list of quick ac
 
 ## Behavior
 
-- The plus button toggles the quick-actions list below itself.
+- The plus button appears beside notifications on the dashboard and toggles an overlay quick-actions list below itself, like the notifications panel.
 - The list currently contains **Syötä tämänhetkinen paino** and is structured so more quick actions can be added later.
 - Selecting **Syötä tämänhetkinen paino** opens a modal with height prefilled from the signed-in user's profile, editable, and weight blank.
 - Submitting validates height and weight, calculates BMI, saves weight and BMI to the same history path as `BmiCalculator`, and shows the result.
@@ -21,7 +21,7 @@ Add a round plus button to the dashboard. Clicking it reveals a list of quick ac
 
 ## Scope
 
-- Modify the dashboard and add focused quick-action/modal UI as needed.
+- Modify the dashboard, app header, and focused quick-action/modal UI as needed.
 - Do not change the existing BMI calculator behavior or add other shortcuts in this change.
 - Use existing dependencies and styles; keep the control accessible by keyboard and give the plus button an expanded state.
 
@@ -29,4 +29,4 @@ Add a round plus button to the dashboard. Clicking it reveals a list of quick ac
 
 - Use the current profile context for height; if no profile height exists, leave it blank.
 - Use the current BMI formula and weight-history data shape.
-- Render the circular plus control in the dashboard content flow, with the list directly beneath it.
+- Render the circular plus control beside notifications in the app header on the dashboard route; the overlay list must not move dashboard content.

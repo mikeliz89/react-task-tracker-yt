@@ -4,7 +4,7 @@
 
 **Goal:** Let a signed-in user enter their current weight directly from the dashboard and save weight plus calculated BMI without navigating to the BMI calculator.
 
-**Architecture:** Add an accessible circular plus control that reveals a quick-action list below it. Selecting the weight action opens a modal on the dashboard. The modal uses profile-context height, existing BMI translations, and the existing Firebase weight-history path and record shape.
+**Architecture:** Add an accessible circular plus control beside the notifications button in the app header on the dashboard route. It reveals an overlay quick-action list below it. Selecting the weight action opens a modal. The modal uses profile-context height, existing BMI translations, and the existing Firebase weight-history path and record shape.
 
 **Tech Stack:** React 17, React Bootstrap, React Context, Firebase Realtime Database, i18next, SCSS.
 
@@ -31,6 +31,7 @@
 **Files:**
 - Create: `src/components/Dashboard/QuickWeightEntryModal.js`
 - Modify: `src/components/Dashboard/Dashboard.js`
+- Modify: `src/components/Site/Header.js`
 - Modify: `public/assets/locales/fi/translation.json`
 - Modify: `public/assets/locales/en/translation.json`
 
@@ -44,7 +45,7 @@ Create the form modal and add translated text for the quick action and round plu
 
 - [x] **Step 2: Integrate the menu into the dashboard**
 
-Place the circular plus button above the dashboard tabs/content. Make it toggle a list directly below; the list currently contains **Syötä tämänhetkinen paino**. Selecting that action opens the modal without changing routes.
+Place the circular plus button next to notifications in the header, visible only on the dashboard route. Make it toggle an overlay list directly below; the list currently contains **Syötä tämänhetkinen paino**. Selecting that action opens the modal without changing routes.
 
 - [x] **Step 3: Verify the change**
 
