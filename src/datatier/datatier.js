@@ -1,4 +1,4 @@
-import { update, ref, push, child, remove, get, onValue } from 'firebase/database';
+import { update, ref, push, set, child, remove, get, onValue } from 'firebase/database';
 
 import { db } from '../firebase-config';
 import { auth } from '../firebase-config';
@@ -25,6 +25,14 @@ export const pushToFirebase = async (path, object) => {
     const dbref = userRef(path);
     fixObject(object);
     return push(dbref, object).key;
+}
+
+export const pushToFirebaseAndWait = async (path, object) => {
+    const dbref = userRef(path);
+    fixObject(object);
+    const itemRef = push(dbref);
+    await set(itemRef, object);
+    return itemRef.key;
 }
 
 export const pushToFirebaseById = async (path, id, object) => {

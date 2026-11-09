@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { Row, Tabs, Tab, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { TRANSLATION, ICONS, COLORS, NAVIGATION, SESSIONSTORAGE } from '../../utils/Constants';
+import { TRANSLATION, ICONS, COLORS, NAVIGATION, SESSIONSTORAGE, VARIANTS } from '../../utils/Constants';
+import Alert from '../Alert';
 import BigButton from '../Buttons/BigButton';
 import Icon from '../Icon';
 import PageContentWrapper from '../Site/PageContentWrapper';
 
 import DashboardItem from './DashboardItem';
+import QuickWeightEntryModal from './QuickWeightEntryModal';
 import SearchTextInput from './SearchTextInput';
 
 export default function Dashboard() {
@@ -16,10 +18,14 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [showComingSoon, setShowComingSoon] = useState(false);
+    const [quickActionsOpen, setQuickActionsOpen] = useState(false);
+    const [showWeightEntry, setShowWeightEntry] = useState(false);
+    const [quickActionMessage, setQuickActionMessage] = useState('');
 
     //translation
     const { t } = useTranslation(TRANSLATION.DASHBOARD, { keyPrefix: TRANSLATION.DASHBOARD_BUTTONS });
     const { t: tCommon } = useTranslation(TRANSLATION.COMMON, { keyPrefix: TRANSLATION.COMMON });
+    const { t: tBmi } = useTranslation(TRANSLATION.TRANSLATION, { keyPrefix: TRANSLATION.BMICALCULATOR });
 
     const setSessionStorage = (value) => {
         sessionStorage.setItem(SESSIONSTORAGE.FROM_PAGE, value);
@@ -466,6 +472,56 @@ export default function Dashboard() {
         <PageContentWrapper>
 
             <div className="dashboard-header">
+                <div className="dashboard-quick-actions">
+                    <button
+                        type="button"
+                        className={`dashboard-quick-actions-toggle${quickActionsOpen ? ' is-open' : ''}`}
+                        aria-label={t(quickActionsOpen ? 'close_quick_actions' : 'open_quick_actions')}
+                        aria-expanded={quickActionsOpen}
+                        aria-controls="dashboard-quick-actions-list"
+                        onClick={() => setQuickActionsOpen((isOpen) => !isOpen)}
+                    >
+                        <Icon name={ICONS.PLUS} />
+                    </button>
+
+                    <div
+                        id="dashboard-quick-actions-list"
+                        className="dashboard-quick-actions-list"
+                        role="group"
+                        aria-label={t('quick_actions')}
+                        hidden={!quickActionsOpen}
+                    >
+                        <h2>{t('quick_actions')}</h2>
+                        <button
+                            type="button"
+                            className="dashboard-quick-action"
+                            onClick={() => {
+                                setQuickActionMessage('');
+                                setQuickActionsOpen(false);
+                                setShowWeightEntry(true);
+                            }}
+                        >
+                            <Icon name={ICONS.WEIGHT} />
+                            <span>{t('quick_action_log_weight')}</span>
+                        </button>
+                    </div>
+                </div>
+
+                <Alert
+                    message={quickActionMessage}
+                    showMessage={Boolean(quickActionMessage)}
+                    onClose={() => setQuickActionMessage('')}
+                    variant={VARIANTS.SUCCESS}
+                />
+
+                {showWeightEntry && (
+                    <QuickWeightEntryModal
+                        show={showWeightEntry}
+                        onHide={() => setShowWeightEntry(false)}
+                        onSaved={(bmi) => setQuickActionMessage(`${tBmi('your_bmi_is')}: ${bmi}`)}
+                    />
+                )}
+
                 <div className="d-flex align-items-center gap-3 flex-wrap">
                     <div className="flex-grow-1">
                         <SearchTextInput

@@ -1,5 +1,95 @@
 /* Dashboard styles */
 
+.dashboard-quick-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+}
+
+.dashboard-quick-actions-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border: 0;
+    border-radius: 50%;
+    background: steelblue;
+    color: #fff;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-size: 1.25rem;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.dashboard-quick-actions-toggle:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.24);
+}
+
+.dashboard-quick-actions-toggle:focus-visible,
+.dashboard-quick-action:focus-visible {
+    outline: 3px solid #f0b429;
+    outline-offset: 3px;
+}
+
+.dashboard-quick-actions-toggle svg {
+    transition: transform 160ms ease;
+}
+
+.dashboard-quick-actions-toggle.is-open svg {
+    transform: rotate(45deg);
+}
+
+.dashboard-quick-actions-list {
+    width: min(100%, 22rem);
+    padding: 1rem;
+    border: 1px solid var(--light-border-soft, rgba(0, 0, 0, 0.14));
+    border-radius: 14px;
+    background: var(--light-surface, #fff);
+    color: var(--light-text-strong, #222);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-quick-actions-list h2 {
+    margin: 0 0 0.65rem;
+    font-size: 1rem;
+}
+
+.dashboard-quick-action {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--light-border-soft, rgba(0, 0, 0, 0.12));
+    border-radius: 10px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+}
+
+.dashboard-quick-action:hover {
+    background: rgba(70, 130, 180, 0.1);
+}
+
+#dark .dashboard-quick-actions-list {
+    border-color: var(--dark-nav-border-strong);
+    background: var(--dark-surface);
+    color: var(--dark-text-base);
+}
+
+#dark .dashboard-quick-action {
+    border-color: var(--dark-nav-border-soft);
+}
+
+#dark .dashboard-quick-action:hover {
+    background: var(--dark-nav-bg-hover);
+}
+
 .dashboard-header {
     display: flex;
     flex-direction: column;
