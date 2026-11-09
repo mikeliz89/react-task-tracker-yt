@@ -2,7 +2,7 @@
 
 ## Intent
 
-Add a round plus button beside the notifications button in the app header, visible on the dashboard. Clicking it reveals an overlay list below it. The first action, **Syötä tämänhetkinen paino**, lets a signed-in user record weight directly from the dashboard, without navigating to the wellbeing tab or BMI calculator page.
+Add a round plus button beside the notifications button in the app header on every page for signed-in users. Clicking it reveals an overlay list below it. The first action, **Syötä tämänhetkinen paino**, lets a signed-in user record weight without navigating to the wellbeing tab or BMI calculator page.
 
 ## Approaches
 
@@ -11,7 +11,7 @@ Add a round plus button beside the notifications button in the app header, visib
 
 ## Behavior
 
-- The plus button appears beside notifications on the dashboard and toggles an overlay quick-actions list below itself, like the notifications panel.
+- The plus button appears beside notifications on every signed-in page and toggles an overlay quick-actions list below itself, like the notifications panel.
 - The list currently contains **Syötä tämänhetkinen paino** and is structured so more quick actions can be added later.
 - Selecting **Syötä tämänhetkinen paino** opens a modal with height prefilled from the signed-in user's profile, editable, and weight blank.
 - Submitting validates height and weight, calculates BMI, saves weight and BMI to the same history path as `BmiCalculator`, and shows the result.
@@ -29,4 +29,4 @@ Add a round plus button beside the notifications button in the app header, visib
 
 - Use the current profile context for height; if no profile height exists, leave it blank.
 - Use the current BMI formula and weight-history data shape.
-- Render the circular plus control beside notifications in the app header on the dashboard route; the overlay list must not move dashboard content.
+- Render the circular plus control beside notifications in the app header on every signed-in page; the overlay list must not move page content.
