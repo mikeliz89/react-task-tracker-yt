@@ -50,7 +50,7 @@ export default function Dashboard() {
         },
         reminders: {
             link: NAVIGATION.MANAGE_REMINDERS,
-            imageName: 'otherlists.PNG',
+            imageName: 'otherlists.png',
             text: t('reminders'),
             iconName: ICONS.BELL,
             color: '#fcba03',
@@ -74,7 +74,7 @@ export default function Dashboard() {
         },
         tasklists: {
             link: NAVIGATION.MANAGE_TASKLISTS,
-            imageName: 'tasklists.PNG',
+            imageName: 'tasklists.png',
             text: t('tasklists'),
             iconName: ICONS.CHECK_SQUARE,
             color: '#fcba03',
@@ -82,7 +82,7 @@ export default function Dashboard() {
         },
         otherLists: {
             link: NAVIGATION.MANAGE_LISTS,
-            imageName: 'otherlists.PNG',
+            imageName: 'otherlists.png',
             text: t('other_lists'),
             iconName: ICONS.CHECK_SQUARE,
             color: '#fcba03',
@@ -98,7 +98,7 @@ export default function Dashboard() {
         },
         finance: {
             link: NAVIGATION.MANAGE_FINANCE,
-            imageName: 'finance.PNG',
+            imageName: 'finance.png',
             text: t('finance'),
             iconName: ICONS.LIST_ALT,
             color: '#fcba03',
@@ -107,7 +107,7 @@ export default function Dashboard() {
         },
         housing: {
             link: NAVIGATION.MANAGE_HOUSING,
-            imageName: 'housing.PNG',
+            imageName: 'housing.png',
             text: t('housing'),
             iconName: ICONS.HOME,
             color: COLORS.WHITE,
@@ -115,7 +115,7 @@ export default function Dashboard() {
         },
         exercises: {
             link: NAVIGATION.MANAGE_EXERCISES,
-            imageName: 'exercises.PNG',
+            imageName: 'exercises.png',
             text: t('exercises'),
             iconName: ICONS.RUNNING,
             color: '#ef7c1a',
@@ -123,7 +123,7 @@ export default function Dashboard() {
         },
         bmi: {
             link: NAVIGATION.BMICALCULATOR,
-            imageName: 'calculator.PNG',
+            imageName: 'calculator.png',
             text: t('bmi_calculator'),
             iconName: ICONS.WEIGHT,
             color: COLORS.WHITE,
@@ -131,7 +131,7 @@ export default function Dashboard() {
         },
         wellbeingGoals: {
             link: NAVIGATION.MANAGE_WELLBEING_GOALS,
-            imageName: 'wellbeing-goals.PNG',
+            imageName: 'wellbeing-goals.png',
             text: t('wellbeing_goals'),
             iconName: ICONS.CHECK_SQUARE,
             color: '#ef7c1a',
@@ -216,7 +216,7 @@ export default function Dashboard() {
         },
         plantCare: {
             link: NAVIGATION.MANAGE_PLANT_CARE,
-            imageName: 'plantcare.PNG',
+            imageName: 'plantcare.png',
             text: t('plant_care'),
             iconName: ICONS.CARROT,
             color: '#0cb058',
@@ -225,7 +225,7 @@ export default function Dashboard() {
         },
         homeCare: {
             link: NAVIGATION.MANAGE_HOME_CARE,
-            imageName: 'housecare.PNG',
+            imageName: 'housecare.png',
             text: t('home_care'),
             iconName: ICONS.GEAR,
             color: '#0cb058',
