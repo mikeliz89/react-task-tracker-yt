@@ -1,6 +1,7 @@
 # Sovelluksen esittely
 
-Tämä React-pohjainen sovellus on monipuolinen henkilökohtainen elämänhallinnan työkalu. Sovellus tarjoaa seuraavat päätoiminnot:
+Tämä React-pohjainen sovellus on monipuolinen henkilökohtainen elämänhallinnan työkalu. 
+Sovellus tarjoaa seuraavat päätoiminnot:
 
 - **Tehtävien ja listojen hallinta:**
   - Tehtävälistat, yksittäiset tehtävät, arkistoidut tehtävälistat
@@ -34,10 +35,23 @@ Tämä React-pohjainen sovellus on monipuolinen henkilökohtainen elämänhallin
 - **Kielituki ja teemat:**
   - Suomi/englanti, tumma/vaalea/monivärinen teema
 
-Sovellus hyödyntää Reactia, React Routeria, Bootstrapia, FontAwesome-ikoneita, i18next-lokalisaatiota ja Firebasea datan tallennukseen. Jokainen osa-alue on omana kokonaisuutenaan, ja käyttöliittymässä on paljon erilaisia hallintanäkymiä, yksityiskohtaisia tietosivuja ja listojen hallintaa.
+Sovellus hyödyntää 
+Reactia, 
+React Routeria, 
+Bootstrapia, 
+FontAwesome-ikoneita, 
+i18next-lokalisaatiota 
+ja Firebasea datan tallennukseen. 
+Jokainen osa-alue on omana kokonaisuutenaan, 
+ja käyttöliittymässä on paljon erilaisia hallintanäkymiä, 
+yksityiskohtaisia tietosivuja ja listojen hallintaa.
 
 **Yhteenveto:**
-Sovellus on monipuolinen henkilökohtainen hallintasovellus, joka kattaa tehtävät, ruoka- ja juomalistat, liikunnan, retkeilyn, autoilun, musiikin, pelit, elokuvat, ohjelmoinnin, linkit, henkilötiedot ja paljon muuta – kaikki käyttäjän omassa hallinnassa, kirjautumisen ja käyttäjäprofiilin kautta.
+Sovellus on monipuolinen henkilökohtainen hallintasovellus, 
+joka kattaa tehtävät, ruoka- ja juomalistat, liikunnan, retkeilyn, 
+autoilun, musiikin, pelit, elokuvat, ohjelmoinnin, linkit, 
+henkilötiedot ja paljon muuta – kaikki käyttäjän omassa hallinnassa,
+ kirjautumisen ja käyttäjäprofiilin kautta.
 
 ---
 
